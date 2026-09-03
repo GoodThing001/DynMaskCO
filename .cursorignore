@@ -1,0 +1,15 @@
+# Binary ML artifacts — not source code. Keep Cursor from watching/indexing these
+# (checkpoints and datasets are 3GB+ and cause file-watcher + AI-index lag).
+
+**/*.ckpt
+**/*.npz
+**/*.npy
+**/*.pkl
+**/*.so
+**/*.pt
+**/*.pth
+
+**/__pycache__/
+**/logs/
+**/figs/
+**/dist/

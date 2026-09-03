@@ -1,0 +1,29 @@
+__pycache__/
+logs/
+ckpts/
+dist/
+figs/
+datasets/
+
+*.so
+build/
+cython_merge.c
+
+*.pkl
+!vrplib_utils/vrplib_dataset.pkl
+
+# 模型权重 / 归档下载（不进入代码库）
+*.pt
+*.pth
+*.onnx
+*.pb
+workspace_assets/downloads/
+
+
+__jaxcache__
+
+.vscode/
+
+# DynMaskCO 上传 GitHub：排除实验结果（保留 README）；data/ckpts/logs 由子目录 .gitignore 排除
+/C-VRP_Cold-chainVehicleRoutingProblem/results/*
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/README.md
