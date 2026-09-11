@@ -1,0 +1,126 @@
+{
+  "schema_version": "cc-compare-or7-protocol-v1",
+  "frozen_at": "2026-09-11",
+  "method": "OR-Tools-RH-D",
+  "preceded_by": "OR6.2 development PASS（行为 Gate PASS / parity 行为一致 PASS / 证据控制链收口 PASS）",
+  "data": {
+    "split": "dev_proto",
+    "split_role": "dev_proto",
+    "seed": 7781,
+    "problem_size": 50,
+    "capacity": 50,
+    "cells": [
+      "r1_02",
+      "r1_05",
+      "r1_08",
+      "c1_02",
+      "c1_05",
+      "c1_08",
+      "rc1_02",
+      "rc1_05",
+      "rc1_08"
+    ],
+    "dev_manifest_sha256": "5eef6802f718f09dc4d416e58169f034f035e14aa743246f3c6d022831c4344f"
+  },
+  "profile": {
+    "name": "o0cc-pilot-devmean-equal-v2",
+    "path": "C-VRP_Cold-chainVehicleRoutingProblem/results/o0cc/scale_v2/objective_profile.json",
+    "profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6"
+  },
+  "budget_candidates": {
+    "solution_limit": [
+      10,
+      30,
+      100
+    ],
+    "time_limit_s": 30.0,
+    "time_limit_note": "仅安全上限，非求解预算；确定性由固定 solution_limit + 固定策略 + 单线程保证",
+    "solver_seed": 0,
+    "threads": 1,
+    "first_solution_strategy": "PATH_CHEAPEST_ARC",
+    "local_search_metaheuristic": "GUIDED_LOCAL_SEARCH",
+    "objective": "solver_objective=distance（内部）；evaluation_objective=coldchain_v2（统一 C0 重放）"
+  },
+  "scan_design": {
+    "or7a": {
+      "description": "9×2 预算协议/确定性 Gate",
+      "instances_per_cell": 2,
+      "repeats": 2,
+      "requirements": [
+        "18/18 complete",
+        "0 service fail",
+        "0 protocol error",
+        "0 fallback/timeout",
+        "每 cell 有真实 solver call",
+        "两次运行 protocol_id 相同、run_id 不同",
+        "18/18 decision parity"
+      ]
+    },
+    "or7b": {
+      "description": "9×32 证据扫描（仅 OR7-A 合格预算进入）",
+      "instances_per_cell": 32,
+      "instances": "0..31"
+    }
+  },
+  "identity": {
+    "compute_hash": "29c10e92e69b8d410f45599e7367dc1c306a178c293413dfa71a5f044248ed39",
+    "control_hash": "69e413172475411807ca20dcca147fead23d138d9a110fe1b614a28017526fa9",
+    "analysis_hash": "02b5ae1b9f5cd5942b148d0b1a41c843d95c7f90ac15c4fa13e0046a645ef75d",
+    "per_file_sha256": {
+      "adapter/ortools_adapter.py": "70cc13b21d83ea23726dc35299985cab5973581dad106bd4183b0af130f87dc8",
+      "adapter/problem_builder.py": "a77fdfda52c12ad40c786821873dce50203ebf16918ec189cd2733dd92768074",
+      "adapter/route_mapper.py": "e36be0cbb538043bbf4be07e85bbe488993572e94c5fb5a051e28733a2d985e1",
+      "analysis/aggregate_devproto.py": "0a3a525daab5f6ec09cad5d84fc3a302d3ed7bbd1b7fa93314219b8f0a3fc896",
+      "analysis/or7_selector.py": "71ef468503370381536cb8427cf5479a3beb7320696a05a732900e51dcda8739",
+      "analysis/parity_compare.py": "2779276cdebc51d8b1ae5f1bbeea2ecfa4ce506a9df4b9e624568d8b9af92f8d",
+      "common/_bootstrap.py": "67fee9b2164fe298a8df650c126a7f1f92faf0b38dcf3f1292285cc0323b205e",
+      "common/baseline_contract.py": "67933edad2c97a11e85b027e97622593e19af74f4cfe19f5b1a189061f2f20fe",
+      "common/method_adapter.py": "f58b7f7bb08daf39745485315e0bdfdf019ed3fe43005b60c71689f91a7bca64",
+      "common/ownership_audit.py": "d7e67e69a948d507dfe6477ae1ba5b5ba6ae380ec47df6324d7f084dee0445a6",
+      "common/record_validation.py": "872b2c1b2cb6b44d5a4df7049dcec83fdb4bd2cd6db2c35c653a30a1a42b0fee",
+      "common/strict_online_runner.py": "3bc6bc02345265dc152eaa1504a224be5dd0d576cc2916591152802ae1810a00",
+      "common/trace_export.py": "292845e5ad71c91d2b783cc004be9451fe76d0e9b6480a9d9315e9b656f47791",
+      "control/ortools_cell_summary.py": "fb6b7ba43a08c193b94312a3aefc0fa190cd64f37abb30045175686d373c348d",
+      "control/ortools_instance_validation.py": "b6ed75ca110ef3f839ac550eb288342d596bce4cc16488845eb60cef04a71252",
+      "control/protocol_identity.py": "b0bc0c4af9fba2b12b461c0cabbfda9ae30a9227fe1edb1da257372f29daeecd",
+      "control/run_devproto.py": "0e111cdd259801db4e3440d394bd7e7a0ea7872cc1f2572ad46dcd29b7580c48",
+      "project/coldchain/coldchain_contract.py": "abf97d9789f60450fdd58ea79205cd5b32534ab460b18af1431a86e4cfbca601",
+      "project/coldchain/coldchain_state.py": "61f0d09f50b3f05574ed6dc5943c1c1be1a4068a6c2412127532e1947d90ed82",
+      "project/evaluation/authoritative_evaluator.py": "505f7a718a14ee64d85974f08d6f2bd66dddbcbb321929b98133384949b0db05",
+      "project/evaluation/coldchain_evaluator.py": "3e02ea05df6f9176a826495422309a0f9709f242ebbd649f3c2318a2b3a21ff5",
+      "project/evaluation/hard_gate.py": "aae966a8225437787257d892829bb4535cf2d18914b1ed0989954b498fc72acd",
+      "project/simulation/action_contract.py": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b",
+      "project/simulation/counterfactual_teacher.py": "b87b604e693101ba5c00dcd36921d9a7e3a5e7c58501716cc5d831514a683d2f",
+      "project/simulation/recourse_snapshot.py": "0af3535acaf6a84956104c0f1c8788c04e02499a087b6faa3d264239a19f27f8",
+      "project/simulation/strict_online_env.py": "60f9063442236e934b5a27bdbad0b7677388f6a63e7cd000f18ac30c3a00b9de"
+    }
+  },
+  "gate_order": [
+    "hard",
+    "service",
+    "protocol",
+    "distance"
+  ],
+  "selection_metric": "九 cell 等权 pure distance（travel distance，无 penalty）",
+  "j_cc_policy": "J_CC（coldchain_cost）仅随结果报告作诊断列，不参与预算选择",
+  "bootstrap": {
+    "seed": 0,
+    "n_resamples": 10000,
+    "grouping": "按 DEV_MANIFEST 内部 instance seed 成组重采样"
+  },
+  "selection_rule": {
+    "step1": "先保留所有完整通过协议 Gate（hard/service/protocol，0 fallback/timeout，每 cell 真实 solver call）的预算",
+    "step2": "以九 cell 等权 pure distance 最低者为距离参考",
+    "step3": "若某更小预算平均相对距离差不超过 0.5% 且按内部 seed 成组 bootstrap 的 95% CI 上界不超过 1%，则判定与最佳预算工程等价",
+    "step4": "在工程等价预算中选择最小 solution_limit",
+    "step5": "若 10/30/100 均未表现出稳定区间，才按预注册规则追加 solution_limit=300；不得在看完结果后临时改变阈值",
+    "threshold": {
+      "mean_relative_distance": 0.005,
+      "bootstrap_ci_upper": 0.01
+    }
+  },
+  "upgrade_rule": {
+    "trigger": "10/30/100 均未表现出稳定区间（无预算工程等价于最佳）",
+    "action": "追加 solution_limit=300，与 10/30/100 同规则重新执行 OR7-A/OR7-B"
+  }
+}

@@ -17,7 +17,7 @@ cython_merge.c
 *.pth
 *.onnx
 *.pb
-workspace_assets/downloads/
+**/workspace_assets/downloads/
 
 
 __jaxcache__
@@ -27,3 +27,33 @@ __jaxcache__
 # DynMaskCO 上传 GitHub：排除实验结果（保留 README）；data/ckpts/logs 由子目录 .gitignore 排除
 /C-VRP_Cold-chainVehicleRoutingProblem/results/*
 !/C-VRP_Cold-chainVehicleRoutingProblem/results/README.md
+
+# ===== CC_Compare 对比方法：精确大文件忽略（B0.5, 2026-09-08）=====
+# 权重/数据集/论文产物不进入代码库；源码照常跟踪
+*.ckpt
+*.npz
+*.npy
+*.zip
+*.tar
+*.tar.gz
+
+/CC_Compare/RRNCO/checkpoints/
+/CC_Compare/CaDA/50/result/
+/CC_Compare/CaDA/100/result/
+/CC_Compare/CaDA/data/
+/CC_Compare/CaDA/*.zip
+/CC_Compare/RouteFinder/checkpoints/
+/CC_Compare/MVMoE/pretrained/
+/CC_Compare/Omni-VRP/pretrained/
+/CC_Compare/Omni-VRP/data/
+/CC_Compare/Sym-NCO/**/data/
+/CC_Compare/SGBS/**/0_test_data_set/
+/CC_Compare/CO-enriched-ML/evaluation/results/
+
+# OR-Tools-RH-D / PyVRP-RH-D 原始大结果与冻结资产不进入 git（证据包归档）
+/CC_Compare/OR-Tools/dcc_vrp/results/or7a_9x2_l*/
+/CC_Compare/OR-Tools/dcc_vrp/results/or7b_9x32_l*/
+/CC_Compare/OR-Tools/dcc_vrp/results/devproto_*/
+/CC_Compare/OR-Tools/dcc_vrp/assets/
+/CC_Compare/PyVRP/dcc_vrp/results/
+/CC_Compare/PyVRP/dcc_vrp/assets/

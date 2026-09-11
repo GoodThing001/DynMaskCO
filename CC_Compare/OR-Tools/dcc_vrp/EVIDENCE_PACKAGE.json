@@ -1,0 +1,24 @@
+{
+  "schema_version": "cc-compare-evidence-package-v1",
+  "method": "OR-Tools-RH-D",
+  "created_at": "2026-09-11 19:15:14",
+  "package": "results/or7_evidence_package.zip",
+  "sha256": "df346c321f5c1dd3d34fb40530910b2c4ac0a301cd4cfdf4c860ca9f329b1111",
+  "size_bytes": 99448013,
+  "contents": [
+    "or7a_9x2_l10_runA",
+    "or7a_9x2_l10_runB",
+    "or7a_9x2_l30_runA",
+    "or7a_9x2_l30_runB",
+    "or7a_9x2_l100_runA",
+    "or7a_9x2_l100_runB",
+    "or7b_9x32_l10",
+    "or7b_9x32_l30",
+    "or7b_9x32_l100",
+    "or7a_parity_l10.json",
+    "or7a_parity_l30.json",
+    "or7a_parity_l100.json",
+    "or7_budget_selection.json"
+  ],
+  "restore": "unzip results/or7_evidence_package.zip -d results/"
+}

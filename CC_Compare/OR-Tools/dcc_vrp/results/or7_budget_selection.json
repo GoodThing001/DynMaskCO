@@ -1,0 +1,51 @@
+{
+  "eligible": [
+    10,
+    30,
+    100
+  ],
+  "reference": 30,
+  "distances": {
+    "10": 18.048602494609238,
+    "30": 17.395636831060983,
+    "100": 17.401449096959468
+  },
+  "equivalence": {
+    "10": {
+      "mean_relative_diff": 0.042373691676515224,
+      "bootstrap_ci_upper": 0.048825051532780946,
+      "equivalent": false
+    },
+    "100": {
+      "mean_relative_diff": 0.0009809240272311698,
+      "bootstrap_ci_upper": 0.005930092476508919,
+      "equivalent": null
+    }
+  },
+  "selected_budget": 30,
+  "upgrade": false,
+  "upgrade_limit": null,
+  "verdict": "SELECTED_30",
+  "identity": {
+    "compute_hash": "29c10e92e69b8d410f45599e7367dc1c306a178c293413dfa71a5f044248ed39",
+    "control_hash": "69e413172475411807ca20dcca147fead23d138d9a110fe1b614a28017526fa9",
+    "analysis_hash": "02b5ae1b9f5cd5942b148d0b1a41c843d95c7f90ac15c4fa13e0046a645ef75d",
+    "protocol_id": "08c3d1fbfa077762ef701f05431c8d221adacc5b73ccfde6d4e5c2eaa7d2d6a1"
+  },
+  "generated_at": "2026-09-11 17:07:25",
+  "or7a_runs": {
+    "l10": "results/or7a_9x2_l10_run{A,B}",
+    "l30": "results/or7a_9x2_l30_run{A,B}",
+    "l100": "results/or7a_9x2_l100_run{A,B}"
+  },
+  "or7b_runs": {
+    "l10": "results/or7b_9x32_l10",
+    "l30": "results/or7b_9x32_l30",
+    "l100": "results/or7b_9x32_l100"
+  },
+  "selection_source": "OR7-B-9x32",
+  "verified_by": {
+    "verifier": "verify_or7_freeze.py",
+    "verifier_source_sha256": "3f789a161e426d50fd96cd530d1d1c475b351f13d933dc82bf253204af0fc39b"
+  }
+}

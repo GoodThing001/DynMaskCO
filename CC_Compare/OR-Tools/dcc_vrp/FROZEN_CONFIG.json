@@ -1,0 +1,64 @@
+{
+  "protocol_revision": 1,
+  "frozen_at": "2026-09-11 18:57:12",
+  "method": {
+    "method_name": "OR-Tools-RH-D",
+    "definition": "strict-online rolling-horizon、distance-optimized、非冷链感知，最终统一 C0 重放 D/Q/E/J_CC",
+    "method_revision": "1",
+    "adapter_revision": "1"
+  },
+  "config": {
+    "solution_limit": 30,
+    "time_limit_s": 30.0,
+    "solver_objective": "distance",
+    "evaluation_objective": "coldchain_v2",
+    "solver_seed": 0,
+    "threads": 1,
+    "first_solution_strategy": "PATH_CHEAPEST_ARC",
+    "local_search_metaheuristic": "GUIDED_LOCAL_SEARCH",
+    "capacity": 50,
+    "num_vehicles": 25,
+    "int_scale": 1000,
+    "fallback_allowed": false
+  },
+  "budget_selection": {
+    "verdict": "SELECTED_30",
+    "selection_source": "OR7-B-9x32",
+    "reference": 30,
+    "nine_cell_eq_distance": {
+      "10": 18.048602,
+      "30": 17.395637,
+      "100": 17.401449
+    }
+  },
+  "identity": {
+    "compute_hash": "29c10e92e69b8d410f45599e7367dc1c306a178c293413dfa71a5f044248ed39",
+    "control_hash": "69e413172475411807ca20dcca147fead23d138d9a110fe1b614a28017526fa9",
+    "analysis_hash": "02b5ae1b9f5cd5942b148d0b1a41c843d95c7f90ac15c4fa13e0046a645ef75d",
+    "source_manifest_sha256": "1a853137e0f00cf261e45905b81d8953ff23dff4a899f9a659fd0e13dddd73dd",
+    "objective_profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
+    "dev_manifest_sha256": "5eef6802f718f09dc4d416e58169f034f035e14aa743246f3c6d022831c4344f",
+    "native_extension_sha256": "e608ea418c4ff60d54886af7e3c59187222a74f6e4906eb827a9f603669af5f0",
+    "wrapper_sha256": "99701a949998731d1a5e7fd6a54bd2e85298d0980ee7463ef08e2e62916cf0c7",
+    "wheel_sha256": "bc1b6e4cc0a121ef888481a99194765e6df72d4d3da81f928543171a2bac8cbb"
+  },
+  "evidence": {
+    "or7a_parity": {
+      "l10": "87ff9e68dbef415a98917fec119c553be1482ef6f890b5fe828636a434782afe",
+      "l30": "a0a2f1b8d0c4c6ff3ac9e8059c9d8c42bee6963872b2a147a6e3944b31aef9b6",
+      "l100": "249ae1c6d36d7a40adbf1168613cbdf1c80c0f2eecc002bac1afc853f24086f9"
+    },
+    "or7b_canonical": {
+      "l10": "8bf7730d34bb9ce8dd0c29189f843521fbc5004b96040023013447dc2ade10b2",
+      "l30": "0a27766755b792c0408c66ecd3d05d801d4fedf7de22b0bb1a5e09f5beae2bc9",
+      "l100": "cbe8ba432920dab55d0c29878e4ff784306a5dd45f984a8b48b736cf9a9ead74"
+    },
+    "budget_selection_sha256": "c77a982631c69c6423c006f5b2c3e16538fce72d04917fb216fa788d27221dee",
+    "verifier_source_sha256": "0771c788db779d0a1c3f307e389792e73e05c9202ee80b4b034f2a7b15c58ace",
+    "determinism": "三档各 18/18 decision parity ALL_MATCH",
+    "evidence_package": "results/or7_evidence_package.zip",
+    "evidence_package_sha256": "df346c321f5c1dd3d34fb40530910b2c4ac0a301cd4cfdf4c860ca9f329b1111",
+    "evidence_package_size_bytes": 99448013
+  },
+  "revision_policy": "任何配置变化必须升级 protocol/adapter revision，不得覆盖当前冻结版本。"
+}
