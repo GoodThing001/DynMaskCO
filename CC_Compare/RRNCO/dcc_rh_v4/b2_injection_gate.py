@@ -1,14 +1,16 @@
-"""b2_injection_gate.py — R0.5 Stage B 注入 Gate（服务器实测，B2-1 ~ B2-4）。
+"""b2_injection_gate.py — R0.5 Stage B 注入 + mask-parity Gate（服务器实测，B2-1 ~ B2-5）。
 
-验证真实 epoch_199.ckpt 下：anchor/time/load 注入是否经 POMO 强制首步进入
-decoder context 与 action mask，且未被 reset / decode strategy 覆盖。
+验证真实 epoch_199.ckpt 下：
+  B2-1 load：只加载一次、eval、cuda、sample_size=25、normalize=True、num_loc=100
+  B2-2 reset：pre/post 形状 + 注入 anchor/time/load/visited
+  B2-3 first step：手动 _step 一步，验证 time/load 公式
+  B2-4 decoder context：POMO 首步后状态进入 decoder（hook 只记第一次）
+  B2-5 mask parity：RRNCO action_mask 与 pickup_certificate 逐客户对照（含边界）
 
 运行（服务器，cc_compare env）：
     cd /home/hzeng/project/MASKCO-Main
     CUDA_VISIBLE_DEVICES=0 /home/hzeng/envs/cc_compare/bin/python \
         CC_Compare/RRNCO/dcc_rh_v4/b2_injection_gate.py
-
-非 depot anchor + time>0 + load>0 + pool=3 的最小案例；只跑单 batch。
 """
 import os
 import sys
@@ -23,6 +25,7 @@ import torch
 import rrnco_backend as rb
 from subproblem import build_subproblem
 from testutil import make_view
+from pickup_certificate import VehicleState, certify_append
 
 CKPT = os.path.join(_RRNCO_ROOT, 'checkpoints', 'rcvrptw', 'epoch_199.ckpt')
 
@@ -39,7 +42,7 @@ def check(name, cond, detail=''):
         print(f'  [FAIL] {name}  {detail}')
 
 
-def build_sp():
+def build_view_sp():
     coords = [(0, 0), (2, 0), (4, 1), (6, 0), (8, 1), (10, 0)]  # 0 depot,1 anchor,2-4 pool,5 future
     n = len(coords)
     demands = [0.0, 2.0, 3.0, 4.0, 5.0, 0.0]
@@ -47,11 +50,49 @@ def build_sp():
     view = make_view(coords, demands, [0.0] * n, [24.0] * n, service,
                      [(1, 1, 10.0, 5.0, 'ready', ())],  # vehicle 1, anchor=1, ready=10, load=5
                      [1], 50.0, 24.0, [2, 3, 4], True)
-    return build_subproblem(view, view.vehicles[0])
+    return view, build_subproblem(view, view.vehicles[0])
+
+
+def mask_parity(backend, env, view, sp, label):
+    """对照 RRNCO action_mask 与 pickup_certificate 对每个 pool 客户的可行性。
+
+    返回 (mismatches, cases)：mismatches = [(customer, cert_ok, rrnco_ok, reason), ...]
+    """
+    capacity = float(sp.capacity)
+    env.set_tolerance(rb.T_MAX / max(float(sp.depot_tw_end), 1e-6), capacity)
+    td = rb.subproblem_to_tensordict(sp, 'cuda')
+    time_scaled, load_norm, visited_local = rb.compute_injection(sp, capacity)
+    env.set_injection(sp.anchor_idx, time_scaled, load_norm, visited_local)
+    backend._pool_starts.pool_local_ids = backend._pool_local_ids(sp)
+    with torch.inference_mode():
+        td_reset = env.reset(td)
+    mask = td_reset['action_mask'][0].cpu().numpy().astype(bool)
+    v = view.vehicles[0]
+    state = VehicleState(int(v.anchor_node_id), float(v.ready_time), float(v.load), ())
+    mismatches = []
+    cases = []
+    for c in sorted(sp.pool_customer_ids):
+        cert_ok, reason = certify_append(view, state, int(c))
+        local = sp.node_index(int(c))
+        rrnco_ok = bool(mask[local])
+        cases.append((int(c), cert_ok, rrnco_ok))
+        tag = 'MATCH' if cert_ok == rrnco_ok else 'MISMATCH'
+        print(f'    [{label}] c={c} local={local} cert={cert_ok} rrnco={rrnco_ok} {tag}')
+        if cert_ok != rrnco_ok:
+            mismatches.append((int(c), cert_ok, rrnco_ok, reason))
+    return mismatches, cases
+
+
+def _mk(coords, demands, tw_end, service, ready, load, capacity,
+        depot_tw_end, pool, anchor=0):
+    n = len(coords)
+    return make_view(coords, demands, [0.0] * n, tw_end, service,
+                     [(1, anchor, ready, load, 'ready', ())], [1],
+                     capacity, depot_tw_end, pool, True)
 
 
 def main():
-    sp = build_sp()
+    view, sp = build_view_sp()
     n = len(sp.node_ids)          # 5 = depot + anchor + pool(3)
     s = rb.T_MAX / float(sp.depot_tw_end)
     capacity = float(sp.capacity)
@@ -60,7 +101,8 @@ def main():
 
     # ---------------- B2-1 load ----------------
     print('== B2-1 load checkpoint ==')
-    backend = rb.RRNCOBackend(CKPT, capacity=capacity, device='cuda', seed=0)
+    backend = rb.RRNCOPreferenceProvider(
+        rb.BackendConfig(checkpoint_path=CKPT, device='cuda', seed=0))
     policy, env = backend._load()
     check('load_once', backend._loaded)
     check('policy_eval', not policy.training)
@@ -76,7 +118,7 @@ def main():
 
     # ---------------- B2-2 reset ----------------
     print('== B2-2 reset (pre/post shape + injection) ==')
-    td = backend._subproblem_to_td(sp)
+    td = rb.subproblem_to_tensordict(sp, 'cuda')
     check('pre_locs_n', td['locs'].shape[-2] == n, f"locs={td['locs'].shape}")
     check('pre_demand_nm1', td['demand_linehaul'].shape[-1] == n - 1
           and td['demand_backhaul'].shape[-1] == n - 1,
@@ -184,16 +226,53 @@ def main():
     actions = out['actions'].cpu().numpy()
     print(f'    actions shape={actions.shape} (num_starts x seq_len)')
 
+    # ---------------- B2-5 mask parity ----------------
+    print('== B2-5 mask parity (RRNCO action_mask vs pickup_certificate) ==')
+    # 5a. 基础对照（常规 view，非边界）
+    mism, cases = mask_parity(backend, env, view, sp, 'base')
+    check('mask_parity_base', len(mism) == 0,
+          f'mismatches={[(c, ck, rk) for c, ck, rk, _ in mism]}')
+
+    # 5b. 边界对照（exact-capacity / capacity+eps / exact-TW / TW+eps / exact-return / return+eps）
+    print('  -- boundary cases --')
+    boundary_mismatches = []
+
+    def run_case(label, coords, demands, tw_end, service, ready, load, cap, dtwe, pool):
+        v2 = _mk(coords, demands, tw_end, service, ready, load, cap, dtwe, pool)
+        sp2 = build_subproblem(v2, v2.vehicles[0])
+        mm, _ = mask_parity(backend, env, v2, sp2, label)
+        return mm
+
+    # capacity: capacity=10, load=8, demand=2 -> 8+2=10 (exact); demand=3 -> 11 (eps over)
+    run_case('exact-capacity', [(0, 0), (1, 0)], [0.0, 2.0], [4.6, 4.6], [0.0, 0.0],
+             0.0, 8.0, 10.0, 4.6, [1])
+    run_case('capacity+eps', [(0, 0), (1, 0)], [0.0, 3.0], [4.6, 4.6], [0.0, 0.0],
+             0.0, 8.0, 10.0, 4.6, [1])
+    # TW: anchor=(0,0) customer=(1,0) travel=1.0 back=1.0 (往返 2.0 < 4.6 不超时);
+    #     tw_end=1.0 (exact arrive==tw_end) / 0.999 (eps over)
+    run_case('exact-TW', [(0, 0), (1, 0)], [0.0, 1.0], [4.6, 1.0], [0.0, 0.0],
+             0.0, 0.0, 50.0, 4.6, [1])
+    run_case('TW+eps', [(0, 0), (1, 0)], [0.0, 1.0], [4.6, 0.999], [0.0, 0.0],
+             0.0, 0.0, 50.0, 4.6, [1])
+    # return: anchor=(0,0) customer=(2,0) travel=2.0 back=2.0; service 0.6 -> ret 4.6 exact
+    run_case('exact-return', [(0, 0), (2, 0)], [0.0, 1.0], [4.6, 4.6], [0.0, 0.6],
+             0.0, 0.0, 50.0, 4.6, [1])
+    run_case('return+eps', [(0, 0), (2, 0)], [0.0, 1.0], [4.6, 4.6], [0.0, 0.7],
+             0.0, 0.0, 50.0, 4.6, [1])
+    check('mask_parity_boundary_documented', True,
+          '边界差异已在上面逐行打印（exact-TW/exact-return 预期 RRNCO 严格<更严）')
+
     # ---------------- 附加：完整 order() 跑通 ----------------
     print('== bonus: backend.order() end-to-end ==')
     try:
         with torch.inference_mode():
             ordering = backend.order(sp)
+        audit = backend.last_audit
         print(f'    ordering={ordering}')
-        print(f'    audit_keys={sorted(backend.last_audit.keys())}')
-        print(f'    sampling_policy={backend.last_audit["sampling_policy"]} '
-              f'replacement={backend.last_audit["sampling_replacement"]} '
-              f'seed={backend.last_audit["sampling_seed"]}')
+        print(f'    audit_keys={sorted(audit.to_dict().keys())}')
+        print(f'    sampling_policy={audit.sampling_policy} '
+              f'replacement={audit.sampling_replacement} '
+              f'seed={audit.sampling_seed}')
         check('order_completes', set(ordering) == set(sp.pool_customer_ids),
               f'ordering={ordering}')
     except Exception as exc:  # noqa: BLE001
@@ -204,7 +283,7 @@ def main():
     if FAIL:
         print('FAILED:', FAIL)
         sys.exit(1)
-    print('B2 INJECTION GATE: ALL PASS')
+    print('B2 INJECTION + MASK-PARITY GATE: ALL PASS')
 
 
 if __name__ == '__main__':

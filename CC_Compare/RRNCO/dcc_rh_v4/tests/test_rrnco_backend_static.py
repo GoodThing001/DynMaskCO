@@ -26,7 +26,8 @@ def _backend(seed=0):
     f = tempfile.NamedTemporaryFile(suffix='.ckpt', delete=False)
     f.write(b'x')
     f.close()
-    return rb.RRNCOBackend(f.name, capacity=50.0, device='cpu', seed=seed)
+    return rb.RRNCOPreferenceProvider(
+        rb.BackendConfig(checkpoint_path=f.name, device='cpu', seed=seed))
 
 
 def _sp(pool, anchor=0, ready_time=0.0, load=0.0,
@@ -96,7 +97,7 @@ def test_pool_local_ids_exclude_depot_and_anchor():
 
 
 def test_pool_start_nodes_validation():
-    pool = rb._PoolStartNodes()
+    pool = rb.PoolStartNodes()
     try:
         pool(None, 3)
         raise AssertionError('pool_local_ids=None 应抛 RuntimeError')
@@ -113,12 +114,11 @@ def test_pool_start_nodes_validation():
 
 
 def test_env_config_frozen():
-    src_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                            'rrnco_backend.py')
-    src = open(src_path, encoding='utf-8').read()
-    assert "'num_loc': 100" in src, 'num_loc 必须冻结为 100'
-    assert 'normalize=True' in src, 'normalize 必须冻结为 True'
-    assert 'visible_prob_sampling_v1' in src, '抽样策略必须冻结为 visible_prob_sampling_v1'
+    cfg = rb.BackendConfig(checkpoint_path='x.ckpt')
+    assert cfg.num_loc == 100, 'num_loc 必须冻结为 100'
+    assert cfg.normalize is True, 'normalize 必须冻结为 True'
+    assert cfg.sampling_policy == 'visible_prob_sampling_v1', \
+        '抽样策略必须冻结为 visible_prob_sampling_v1'
     print('  env 配置冻结：num_loc=100 / normalize=True / visible_prob_sampling_v1')
 
 
@@ -134,7 +134,7 @@ def test_pool_start_nodes_select_dtype_device():
     fake_node = SimpleNamespace(dtype=torch.int64)
     fake_td = SimpleNamespace(device='cpu')
     fake_td.__getitem__ = lambda self, k: fake_node if k == 'current_node' else (_ for _ in ()).throw(KeyError(k))
-    pool = rb._PoolStartNodes()
+    pool = rb.PoolStartNodes()
     pool.pool_local_ids = [1, 2, 3]
     out = pool(fake_td, 3, None)
     assert out.dtype == torch.int64, out.dtype
@@ -187,7 +187,7 @@ def test_subproblem_to_td_demand_shape():
     b = _backend()
     for anchor, pool in ((0, [1, 2, 3]), (1, [2, 3])):
         sp = _sp(pool=pool, anchor=anchor)
-        td = b._subproblem_to_td(sp)
+        td = rb.subproblem_to_tensordict(sp, 'cpu')
         nn = len(sp.node_ids)
         assert td['locs'].shape[-2] == nn
         assert td['demand_linehaul'].shape[-1] == nn - 1
