@@ -1,0 +1,87 @@
+{
+  "schema_version": "cc-compare-r0-adaptability-v1",
+  "method": "RRNCO-RH",
+  "upstream": "ai4co/real-routing-nco (ICLR 2026)",
+  "assessed_at": "2026-09-11",
+  "assessment_mode": "source-level analysis (no model run, no formal data)",
+  "verdict": "PROVISIONAL_GO_RRNCO_ORDERING_RH_D",
+  "evidence_level": "offline-skeleton-executed; real-model-pending",
+  "stage_a1_fixes": [
+    "provider called exactly once per vehicle (orderings passed to coordinator)",
+    "SubProblem self-contained (no view channel; structural isolation)",
+    "no default EDD (adapter raises ValueError if provider None)",
+    "open-new-vehicle preference (continue started vehicles; fleet packing by outer layer)",
+    "certificate checks pool membership (not just node_ids)",
+    "exact capacity/TW/return boundary tests (= feasible, +eps rejected)",
+    "late-reveal 6/6 complete via real BridgeReplanner (0 fallback)"
+  ],
+  "stage_a_deliverables": [
+    "subproblem.py (self-contained visible-only sub-problem + canonical hash)",
+    "preference.py (first-occurrence order + MockPreferenceProvider + validate_ordering)",
+    "pickup_certificate.py (TW/capacity/return + pool membership + WAIT/CLOSE)",
+    "coordinator.py (deterministic fleet coordinator + open-new-vehicle + EDD fallback)",
+    "rrnco_guided_adapter.py (ExternalReplanner.propose, method_name=rrnco-ordering-rh-d)",
+    "r0_5_snapshots.py + 7 test files (all PASS, no torch/rl4co)"
+  ],
+  "next_gate": "R0.5 Stage B real-model verification; if all pass -> GO_R1_RRNCO_ORDERING_RH_D",
+  "verdict_options": {
+    "GO_RRNCO_RH_D": "能真实继承多车 anchor/load/frozen prefix",
+    "GO_RRNCO_GUIDED_RH_D": "模型只提供偏好，公共证书形成动作",
+    "NO_GO": "必须把车重置为空载 depot 或存在未来泄漏"
+  },
+  "core_finding": {
+    "decoder_type": "single active-route state, implicit homogeneous-fleet sequential decoder",
+    "multi_vehicle_modeling": "implicit via depot separators within a single tour",
+    "select_start_nodes": "POMO multi-start sampling (not multi-vehicle)",
+    "per_vehicle_state": "none (no per-vehicle anchor/load/frozen-tail)",
+    "implication": "cannot natively express heterogeneous multi-vehicle mid-trip state"
+  },
+  "source_supported": [
+    "single active-route state (env.py _step/_reset: current_node/current_time/used_capacity are single scalars)",
+    "multi-route via depot separators; POMO start nodes are not parallel vehicles",
+    "legacy DCCRMTVRPEnv uses _true_* for mask/reward => not strict rolling-horizon"
+  ],
+  "not_yet_proven": [
+    "3 snapshots GUIDED actually feasible",
+    "7 leakage checks actually PASS",
+    "anchor/time/load injection actually inherited (not reset/overridden)",
+    "<50-node sub-problem stable under num_loc=50 checkpoint",
+    "pickup capacity semantic mapping correct",
+    "contract 'forms and certifies actions'"
+  ],
+  "contract_boundary": "PlanProposal/bridge only validates node-set/dup/vehicle-keys/writeback (method_adapter.py:494); it does NOT do cross-vehicle assignment / conflict resolution / suffix construction — that must be the new adapter's explicit job",
+  "has_future_reveal_caveat": "DecisionView exposes has_future_reveal boolean (method_adapter.py:80); future-count invariance holds only when that boolean is unchanged; 0-vs-1+ future distinction needs explicit protocol",
+  "snapshots": {
+    "initial_partial_reveal": "GUIDED design-feasible (NOT_YET_EXECUTED)",
+    "mid_trip_anchor_load": "GUIDED design-feasible (inject single state); NATIVE infeasible",
+    "multi_vehicle_frozen_prefix": "GUIDED design-feasible (per-vehicle sub-problems + coordinator); NATIVE infeasible"
+  },
+  "leakage_checklist": {
+    "model_input": "SUPPORTED_BY_SOURCE_ANALYSIS",
+    "node_set": "SUPPORTED_BY_SOURCE_ANALYSIS",
+    "normalization": "SUPPORTED_BY_SOURCE_ANALYSIS",
+    "action_mask": "SUPPORTED_BY_SOURCE_ANALYSIS",
+    "multi_start_count": "SUPPORTED_BY_SOURCE_ANALYSIS",
+    "reward_route_selection": "SUPPORTED_BY_SOURCE_ANALYSIS",
+    "evaluator_alignment": "SUPPORTED_BY_SOURCE_ANALYSIS"
+  },
+  "r0_5_checklist": [
+    "per-vehicle visible-only sub-problem builder",
+    "anchor/time/load injection + verify model starts from injected state",
+    "define RRNCO preference precisely (first-step logits / full decode / ranking / marginal — pick one)",
+    "deterministic fleet coordinator (contention, tie-break, suffix, unassigned, fallback)",
+    "run 3 snapshots with real epoch_199.ckpt",
+    "future perturbation (coords/demand/TW/temp/reveal_time; add/remove future keeping has_future_reveal=true; record false<->true)",
+    "variable scale 1/2/5/10/25/50 visible + anchor-only/no-service (shape/NaN/loop/illegal)",
+    "independent pickup-capacity calculator",
+    "evaluator replay alignment",
+    "model-contribution control (real vs shuffled/uniform vs heuristic)"
+  ],
+  "r0_5_pass_criteria": {
+    "all_pass": "GO_R1_RRNCO_GUIDED_RH_D",
+    "ordering_only": "rename RRNCO-Ordering-RH-D",
+    "stop_if": ["state injection reset/ignored", "variable scale unreliable", "current action depends on unrevealed orders", "pickup capacity mapping broken", "coordinator decides nearly everything / model preference inert"]
+  },
+  "r1_parallel_readonly": "collect upstream commit/license/checkpoint hash/torch-rl4co versions (read-only); do NOT freeze three-layer identity until R0.5 finalized",
+  "next_step": "pause; do R0.5 executable verification before R1"
+}
