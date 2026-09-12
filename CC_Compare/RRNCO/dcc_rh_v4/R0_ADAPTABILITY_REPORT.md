@@ -1,7 +1,7 @@
 # RRNCO-RH R0 可适配性判定报告
 
 > 方法：RRNCO（`ai4co/real-routing-nco`，ICLR 2026）接入 strict-online DCC-VRP 的可适配性判定。
-> 判定方式：**源码级分析**（不运行模型、不跑正式数据）。本报告的结论为「设计上支持」，尚未经可执行验证。
+> 判定方式：源码分析 + **离线可执行骨架（Stage A.1）**；真实模型尚未运行。
 > 边界：不改 `rrnco/` 上游源码、不改 `common/`、不改 `MASKCO_code/`；只读。
 
 ## 结论（verdict，PROVISIONAL）
@@ -12,7 +12,19 @@ PROVISIONAL_GO_RRNCO_ORDERING_RH_D
 
 **证据等级：offline-skeleton-executed; real-model-pending。** 本结论批准进入一个小规模 R0.5 可执行验证，**暂不进入 R1 协议冻结**。Stage A 离线骨架 + Stage A.1 收尾修复（provider 单次调用 / SubProblem 无 view 通道 / 禁止默认 EDD / open-new-vehicle 优先 + 精确边界测试 + late-reveal 6/6 complete）已实现并通过；真实模型验证（epoch_199.ckpt 注入、未来扰动、可变规模、贡献对照）待 Stage B 上服务器执行。只有 R0.5 全部通过后，才升为 `GO_R1_RRNCO_ORDERING_RH_D`。
 
-RRNCO 的 `RMTVRPEnv` 是**单一 active-route 状态、隐式同构车队的顺序解码器**：当前位置/时间/载荷都是单组状态，回到 depot 后重置，多路线靠 depot 分隔顺序生成，POMO 起点不是并行多车辆。因此它不能原生承接 strict-online DCC 中多辆车各自不同的 anchor、当前载荷和冻结前缀。排除 `GO_RRNCO_RH_D`、保留 guided 路线是合理的。
+RRNCO 的 `RMTVRPEnv` 是**单一 active-route 状态、隐式同构车队的顺序解码器**：当前位置/时间/载荷都是单组状态，回到 depot 后重置，多路线靠 depot 分隔顺序生成，POMO 起点不是并行多车辆。因此它不能原生承接 strict-online DCC 中多辆车各自不同的 anchor、当前载荷和冻结前缀。排除 `GO_RRNCO_RH_D`、保留 ordering 路线（模型只输出客户排序，外层负责 fleet packing）是合理的。
+
+## 执行状态（Stage A.1 后）
+
+| 验证项 | 状态 |
+|---|---|
+| mock 三类快照（初始部分揭示 / 行程中间 / 多车冻结前缀） | **EXECUTED_PASS**（`r0_5_snapshots.py` 断言） |
+| 公共 Bridge late-reveal（t=0 4 单 + t=5 2 单 → 6/6 complete） | **EXECUTED_PASS**（`tests/test_late_reveal_integration.py`，0 fallback，hard vector 全 true） |
+| 离线模块单元测试（subproblem/preference/certificate/coordinator/adapter） | **EXECUTED_PASS**（27 项，两遍） |
+| 真 checkpoint 三类快照 | **NOT_YET_EXECUTED**（Stage B） |
+| 真模型状态继承 / 未来泄漏 / 可变规模 / 贡献对照 | **NOT_YET_EXECUTED**（Stage B） |
+
+最终候选名：**RRNCO_ORDERING_RH_D**。
 
 ## 源码已支持（可写入报告的）
 
@@ -21,30 +33,30 @@ RRNCO 的 `RMTVRPEnv` 是**单一 active-route 状态、隐式同构车队的顺
 - 因此无法原生承接异构多车 anchor/load/frozen-prefix。
 - 现有 legacy `DCCRMTVRPEnv` 屏蔽输入特征的同时仍用 `_true_*` 参与环境掩码与奖励，不是严格 rolling-horizon（`dcc_vrp/dcc_env.py`）。
 
-## 尚不能证明（需 R0.5 实测，当前只能算「设计上支持」）
+## 真模型尚未验证（NOT_YET_EXECUTED，Stage B）
 
-- 三类快照 GUIDED **实际**可行；
-- 七项泄漏检查 **实际** PASS；
-- anchor/time/load 注入后模型 **确实**从该状态开始，未被 reset 或 decode strategy 覆盖；
+- 真 checkpoint 三类快照 **实际**可行；
+- 真模型七项泄漏检查 **实际** PASS；
+- anchor/time/load 注入后真模型 **确实**从该状态开始，未被 reset 或 decode strategy 覆盖；
 - `<50` 节点子问题能被 `num_loc=50` checkpoint **稳定**处理；
-- pickup 容量语义映射正确；
-- 公共 contract 能「形成并认证动作」。
+- pickup 容量语义映射正确（linehaul→pickup 语义相反，需显式 `state_mapping_mode`）；
+- 公共 contract 能「形成并认证动作」（离线已通过 mock，真模型待验证）。
 
 **特别强调（contract 边界）**：公共 `PlanProposal`/bridge 只验证节点集合、重复、车辆键与写回一致性（`common/method_adapter.py:494`），它**不会**替 RRNCO 完成跨车辆分配、冲突消解和 suffix 构造。这部分必须由新适配器明确实现；否则最终测到的可能主要是外层启发式，而不是 RRNCO。
 
 **`has_future_reveal` 布尔泄漏边界**：`DecisionView` 暴露 `has_future_reveal`（`method_adapter.py:80`）。「未来数量任意改变不影响决策」只有在**该布尔值保持不变**时成立；「0 个未来订单」与「至少 1 个未来订单」之间是否允许产生差异，需协议明确规定。
 
-## 三类人工快照（设计分析，未实测）
+## 三类人工快照（mock EXECUTED_PASS / 真模型 NOT_YET_EXECUTED）
 
-| 快照 | 需求 | 设计判断 |
+| 快照 | 需求 | mock 结果 / 真模型状态 |
 |---|---|---|
-| 初始部分揭示 | 未来订单不进模型 | GUIDED 设计可行（可见子问题结构排除未来） |
-| 行程中间 | 继承 anchor/time/load | GUIDED 设计可行（注入单组状态）；NATIVE 不可行 |
-| 多车混合 + 冻结前缀 | 异构多车 | GUIDED 设计可行（逐车子问题 + 协调器）；NATIVE 不可行 |
+| 初始部分揭示 | 未来订单不进模型 | mock 通过（可见子问题结构排除未来）；真模型待 Stage B |
+| 行程中间 | 继承 anchor/time/load | mock 通过（注入单组状态）；真模型待 Stage B |
+| 多车混合 + 冻结前缀 | 异构多车 | mock 通过（逐车子问题 + 协调器）；真模型待 Stage B |
 
-## 七项泄漏检查（SUPPORTED_BY_SOURCE_ANALYSIS，未执行）
+## 七项泄漏检查（离线 mock 已执行 / 真模型待 Stage B）
 
-| 泄漏点 | legacy（不合规） | GUIDED（设计支持，待 R0.5 实测） |
+| 泄漏点 | legacy（不合规） | ORDERING（离线已执行） |
 |---|---|---|
 | 模型输入 | feature 屏蔽但节点在 `locs` | 未来节点不进 `locs`（结构缺席） |
 | 节点集合 | 全部 50 客户 | depot+anchor+可见 |

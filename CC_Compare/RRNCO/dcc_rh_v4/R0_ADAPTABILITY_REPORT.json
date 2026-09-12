@@ -26,7 +26,7 @@
   "next_gate": "R0.5 Stage B real-model verification; if all pass -> GO_R1_RRNCO_ORDERING_RH_D",
   "verdict_options": {
     "GO_RRNCO_RH_D": "能真实继承多车 anchor/load/frozen prefix",
-    "GO_RRNCO_GUIDED_RH_D": "模型只提供偏好，公共证书形成动作",
+    "GO_RRNCO_ORDERING_RH_D": "模型只输出客户排序，外层负责 fleet packing + 认证",
     "NO_GO": "必须把车重置为空载 depot 或存在未来泄漏"
   },
   "core_finding": {
@@ -42,19 +42,19 @@
     "legacy DCCRMTVRPEnv uses _true_* for mask/reward => not strict rolling-horizon"
   ],
   "not_yet_proven": [
-    "3 snapshots GUIDED actually feasible",
-    "7 leakage checks actually PASS",
-    "anchor/time/load injection actually inherited (not reset/overridden)",
+    "real-checkpoint 3 snapshots actually feasible",
+    "real-model 7 leakage checks actually PASS",
+    "anchor/time/load injection actually inherited by real model (not reset/overridden)",
     "<50-node sub-problem stable under num_loc=50 checkpoint",
-    "pickup capacity semantic mapping correct",
-    "contract 'forms and certifies actions'"
+    "pickup capacity semantic mapping correct (linehaul->pickup)",
+    "contract 'forms and certifies actions' with real model"
   ],
   "contract_boundary": "PlanProposal/bridge only validates node-set/dup/vehicle-keys/writeback (method_adapter.py:494); it does NOT do cross-vehicle assignment / conflict resolution / suffix construction — that must be the new adapter's explicit job",
   "has_future_reveal_caveat": "DecisionView exposes has_future_reveal boolean (method_adapter.py:80); future-count invariance holds only when that boolean is unchanged; 0-vs-1+ future distinction needs explicit protocol",
   "snapshots": {
-    "initial_partial_reveal": "GUIDED design-feasible (NOT_YET_EXECUTED)",
-    "mid_trip_anchor_load": "GUIDED design-feasible (inject single state); NATIVE infeasible",
-    "multi_vehicle_frozen_prefix": "GUIDED design-feasible (per-vehicle sub-problems + coordinator); NATIVE infeasible"
+    "initial_partial_reveal": "mock EXECUTED_PASS / real NOT_YET_EXECUTED",
+    "mid_trip_anchor_load": "mock EXECUTED_PASS (inject single state); NATIVE infeasible",
+    "multi_vehicle_frozen_prefix": "mock EXECUTED_PASS (per-vehicle sub-problems + coordinator); NATIVE infeasible"
   },
   "leakage_checklist": {
     "model_input": "SUPPORTED_BY_SOURCE_ANALYSIS",
@@ -78,7 +78,7 @@
     "model-contribution control (real vs shuffled/uniform vs heuristic)"
   ],
   "r0_5_pass_criteria": {
-    "all_pass": "GO_R1_RRNCO_GUIDED_RH_D",
+    "all_pass": "GO_R1_RRNCO_ORDERING_RH_D",
     "ordering_only": "rename RRNCO-Ordering-RH-D",
     "stop_if": ["state injection reset/ignored", "variable scale unreliable", "current action depends on unrevealed orders", "pickup capacity mapping broken", "coordinator decides nearly everything / model preference inert"]
   },

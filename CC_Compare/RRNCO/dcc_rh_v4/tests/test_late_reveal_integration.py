@@ -56,7 +56,8 @@ def test_late_reveal_complete():
                                         rec['outcome'])
     assert rec['outcome']['n_unserved'] == 0
     assert rec['stats']['fallback_triggered_events'] == 0
-    print('  late-reveal 6/6 complete（0 fallback）')
+    assert all(rec['hard_vector'].values()), rec['hard_vector']
+    print('  late-reveal 6/6 complete（0 fallback，hard vector 全 true）')
 
 
 def main():

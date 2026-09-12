@@ -30,8 +30,12 @@ NativeReplanner.plan      → NativeBridgeReplanner   → 同 runner（无 view/
 - 关键语义：**可变池 = visible unserved − 非 replan 车辆 committed_next − 非 replan 车辆完整 frozen tail**（B1.1 P0 修复）；无 replan 事件 pool/protected 为 None（分区校验跳过）；有 repair 层的原生 adapter 输出 `repair_ownership_violations`/`repair_terminal_unresolved` 独立字段
 
 **已冻结方法**：
-- `PyVRP/dcc_vrp/` — **PyVRP-RH-D**（protocol revision 1 + identity manifest revision 3）。冻结配置见 `FROZEN_CONFIG.json`（MaxIterations=300、seed=0、无 warm start/fallback、distance 目标 + C0 重放、动态 coverage prize、界限 penalty、WAIT/CLOSE 规则）。身份链单向绑定：`SOURCE_MANIFEST.json`（identity rev3，生成器 `tools/gen_source_manifest.py` 可重跑复验）← `FROZEN_CONFIG.json` ← `FREEZE_SEAL.json`（无循环哈希）。**任何配置变化必须升 revision**
+- `PyVRP/dcc_vrp/` — **PyVRP-RH-D**（protocol revision 1 + identity manifest revision 4）。冻结配置见 `FROZEN_CONFIG.json`（MaxIterations=300、seed=0、无 warm start/fallback、distance 目标 + C0 重放、动态 coverage prize、界限 penalty、WAIT/CLOSE 规则）。身份链单向绑定：`SOURCE_MANIFEST.json`（identity rev4，生成器 `tools/gen_source_manifest.py` 可重跑复验）← `FROZEN_CONFIG.json` ← `FREEZE_SEAL.json`（无循环哈希）。**任何配置变化必须升 revision**
+- `OR-Tools/dcc_vrp/` — **OR-Tools-RH-D**（protocol revision 1 + identity manifest revision 1；OR7 预算扫描选定 `solution_limit=30`，九 cell 等权 pure distance 17.3956）。三层身份（compute/control/analysis）+ `SOURCE_MANIFEST.json` ← `FROZEN_CONFIG.json` ← `FREEZE_SEAL.json`（seal revision 3 含证据包）。核验 `verify_freeze.py` + `verify_or7_freeze.py`。候选预算选择器 `or7_selector.py`（预注册 0.5%/1% 等价阈值 + bootstrap + 追加 300）
 - `internal/dcc_vrp/jf1hf_adapter.py` — JF1-H-F 经 NativeReplanner 接入（项目 `make_continuation()` 零改动包装）
+
+**进行中**：
+- `RRNCO/dcc_rh_v4/` — **RRNCO-Ordering-RH-D**（R0.5 Stage A 离线骨架完成，Stage B 真模型验证待 DEV-GATE 结束后上服务器）。判定 `PROVISIONAL_GO_RRNCO_ORDERING_RH_D`；R1 三层身份冻结未授权。见 `RRNCO/dcc_rh_v4/CLAUDE.md` 与 `R0_ADAPTABILITY_REPORT.md`
 
 **环境**：`cc_pyvrp` conda env（Python 3.12 + pyvrp==0.14.0，**不装进 MASKCO_env**）；python 路径 `D:/AA_Py/A_Anaconda/envs/cc_pyvrp/python.exe`。1.0.0a0 main 源码仅 reference_only。
 

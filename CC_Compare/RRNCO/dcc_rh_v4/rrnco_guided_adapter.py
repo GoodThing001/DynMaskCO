@@ -35,6 +35,7 @@ class RRNCOGuidedAdapter(ExternalReplanner):
             raise ValueError('RRNCO preference provider 必须显式注入（禁止默认 EDD '
                              '冒充 RRNCO）')
         self.preference_provider = preference_provider
+        self.last_adapter_runtime_s = 0.0
 
     @classmethod
     def compute_files(cls):
@@ -49,21 +50,27 @@ class RRNCOGuidedAdapter(ExternalReplanner):
         pool = set(int(c) for c in view.pool_customer_ids)
 
         # ---- 1. 每车一次 provider（自包含子问题 + canonical hash）----
+        # P1-1：model_runtime_s 只累计 provider 推理耗时；子问题构造 / canonical
+        # hash 不计入（否则与 OR-Tools/PyVRP 的 runtime 口径不公平）。
         sub_hashes = {}
         orderings = {}
         provider_error = None
-        t0 = time.perf_counter()
+        adapter_t0 = time.perf_counter()
+        model_time = 0.0
         for v in replan:
             vid = int(v.vehicle_id)
             sp = build_subproblem(view, v)
             sub_hashes[vid] = sp.canonical_hash()
+            t_model = time.perf_counter()
             try:
                 ordering = tuple(int(c) for c in self.preference_provider.order(sp))
             except Exception as exc:  # noqa: BLE001
                 provider_error = f'{type(exc).__name__}: {exc}'
+                model_time += time.perf_counter() - t_model
                 break
+            model_time += time.perf_counter() - t_model
             orderings[vid] = ordering
-        self.last_model_runtime_s = time.perf_counter() - t0
+        self.last_model_runtime_s = model_time
 
         # ---- 2. 协调（provider 异常 → 带原因 EDD fallback）----
         if provider_error is not None:
@@ -82,6 +89,7 @@ class RRNCOGuidedAdapter(ExternalReplanner):
                 break
 
         # ---- 4. PlanProposal ----
+        self.last_adapter_runtime_s = time.perf_counter() - adapter_t0
         model_input = tuple(sorted(pool))
         solve_meta = {
             'subproblem_hashes': {str(k): v for k, v in sub_hashes.items()},
@@ -91,6 +99,7 @@ class RRNCOGuidedAdapter(ExternalReplanner):
             'deferred': [int(c) for c in result.deferred],
             'assigned': [int(c) for c in result.assigned],
             'fallback_reason': result.fallback_reason,
+            'adapter_runtime_s': float(self.last_adapter_runtime_s),
         }
         return PlanProposal(
             suffixes=result.suffixes,
