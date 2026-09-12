@@ -1,0 +1,281 @@
+{
+  "name": "o0cc-pilot-devmean-equal-v2",
+  "distance_scale": 18.332282740839446,
+  "quality_scale": 2.8916668533318926,
+  "energy_scale": 1193.4933642766875,
+  "lambda_quality": 1.0,
+  "lambda_energy": 1.0,
+  "scale_source": "devmean",
+  "dev_statistics": {
+    "baseline": "JF1-H-F",
+    "baseline_version": "jf1h-f-v1",
+    "slack_vehicles": 1,
+    "split_role": "devcal",
+    "scale_rule": "cell_equal_weight_arithmetic_mean",
+    "num_cells": 9,
+    "distance_mean": 18.332282740839446,
+    "quality_mean": 2.8916668533318926,
+    "energy_mean": 1193.4933642766875,
+    "lambda_quality": 1.0,
+    "lambda_energy": 1.0,
+    "normalized_baseline_contribution": {
+      "distance": 1.0,
+      "quality": 1.0,
+      "energy": 1.0
+    },
+    "cells": [
+      {
+        "dataset": "dcc_50_r1_edod02_devcal.npz",
+        "dataset_path": "data/baseline/50_node/dev_cal/dcc_50_r1_edod02_devcal.npz",
+        "dataset_sha256": "c55a4cfad9ec7f9f8b1367b6b506280fb3841c3cfe67388e4a55899d5bc55d61",
+        "n_instances": 128,
+        "hard_pass": "128 / 128",
+        "distance": {
+          "mean": 20.31251687891381,
+          "std": 1.7168082918508862,
+          "median": 20.2414729478769,
+          "iqr": 2.4851990703027695
+        },
+        "quality": {
+          "mean": 2.677106398463332,
+          "std": 0.7329839434356518,
+          "median": 2.6194974657870596,
+          "iqr": 0.9787224047932979
+        },
+        "energy": {
+          "mean": 1112.4298209544236,
+          "std": 216.23534765335452,
+          "median": 1087.1407775200878,
+          "iqr": 281.1955658361758
+        }
+      },
+      {
+        "dataset": "dcc_50_r1_edod05_devcal.npz",
+        "dataset_path": "data/baseline/50_node/dev_cal/dcc_50_r1_edod05_devcal.npz",
+        "dataset_sha256": "571cbbe18ac157b337471628f65842fcf813332b8c3a54b13d4b558685b183b9",
+        "n_instances": 128,
+        "hard_pass": "128 / 128",
+        "distance": {
+          "mean": 24.118898340242595,
+          "std": 1.8547374959294025,
+          "median": 24.0959039805457,
+          "iqr": 2.8534338753670454
+        },
+        "quality": {
+          "mean": 3.03766174176304,
+          "std": 0.8272347170055869,
+          "median": 3.1060760162477843,
+          "iqr": 1.1728303087935386
+        },
+        "energy": {
+          "mean": 1393.016309058698,
+          "std": 193.4367009016823,
+          "median": 1387.5895718034394,
+          "iqr": 277.9561850866594
+        }
+      },
+      {
+        "dataset": "dcc_50_r1_edod08_devcal.npz",
+        "dataset_path": "data/baseline/50_node/dev_cal/dcc_50_r1_edod08_devcal.npz",
+        "dataset_sha256": "02d75135c6127b8974ff094afc2259cd9670276917ec6360e8d1cdfa3777bffc",
+        "n_instances": 128,
+        "hard_pass": "128 / 128",
+        "distance": {
+          "mean": 22.738240312632115,
+          "std": 2.0466713422100984,
+          "median": 22.588351218029857,
+          "iqr": 2.7618965457659215
+        },
+        "quality": {
+          "mean": 3.234772468328823,
+          "std": 0.7283953103730714,
+          "median": 3.1776493613742582,
+          "iqr": 1.0664324763797772
+        },
+        "energy": {
+          "mean": 1343.5728450029837,
+          "std": 165.78996354961245,
+          "median": 1354.3632877820273,
+          "iqr": 210.31143542369114
+        }
+      },
+      {
+        "dataset": "dcc_50_c1_edod02_devcal.npz",
+        "dataset_path": "data/baseline/50_node/dev_cal/dcc_50_c1_edod02_devcal.npz",
+        "dataset_sha256": "0c156f8fd155515826bf483e925b965f828c2eb14f708a6e5a0c552014af34b2",
+        "n_instances": 128,
+        "hard_pass": "128 / 128",
+        "distance": {
+          "mean": 12.295831318222554,
+          "std": 2.913864848658998,
+          "median": 11.82220933912322,
+          "iqr": 3.859032828884665
+        },
+        "quality": {
+          "mean": 2.4123031927869114,
+          "std": 0.6973697645992666,
+          "median": 2.264265628828734,
+          "iqr": 0.9074135338113147
+        },
+        "energy": {
+          "mean": 922.2205450169016,
+          "std": 178.79077563866497,
+          "median": 906.575188946026,
+          "iqr": 246.50133234352393
+        }
+      },
+      {
+        "dataset": "dcc_50_c1_edod05_devcal.npz",
+        "dataset_path": "data/baseline/50_node/dev_cal/dcc_50_c1_edod05_devcal.npz",
+        "dataset_sha256": "bb3db179934962f408832467310169bb16b7e442093102578d43f7894ba9a529",
+        "n_instances": 128,
+        "hard_pass": "128 / 128",
+        "distance": {
+          "mean": 14.8149746854142,
+          "std": 3.205192115351671,
+          "median": 14.684420982375741,
+          "iqr": 4.734403150505386
+        },
+        "quality": {
+          "mean": 2.970103434167573,
+          "std": 0.6929665616412729,
+          "median": 2.9430737426886338,
+          "iqr": 0.8647946986048041
+        },
+        "energy": {
+          "mean": 1216.0603660363581,
+          "std": 187.04907373682204,
+          "median": 1198.1697452893786,
+          "iqr": 247.121129381811
+        }
+      },
+      {
+        "dataset": "dcc_50_c1_edod08_devcal.npz",
+        "dataset_path": "data/baseline/50_node/dev_cal/dcc_50_c1_edod08_devcal.npz",
+        "dataset_sha256": "a0f73cd00ef7bbac6f458b661387346615b37b17051015f89461d1ca821ac2e6",
+        "n_instances": 128,
+        "hard_pass": "128 / 128",
+        "distance": {
+          "mean": 14.001044271630008,
+          "std": 3.186450843038812,
+          "median": 13.426267835311592,
+          "iqr": 4.277526731719263
+        },
+        "quality": {
+          "mean": 2.942115919907611,
+          "std": 0.585663459961403,
+          "median": 2.8909294441748647,
+          "iqr": 0.8658480084260218
+        },
+        "energy": {
+          "mean": 1116.6917671949973,
+          "std": 183.3706749576638,
+          "median": 1109.9478853192863,
+          "iqr": 252.35188824948295
+        }
+      },
+      {
+        "dataset": "dcc_50_rc1_edod02_devcal.npz",
+        "dataset_path": "data/baseline/50_node/dev_cal/dcc_50_rc1_edod02_devcal.npz",
+        "dataset_sha256": "b3ccfc1488b7a12d5d24c08de781c3e69af9c9af5082654bf2c3e6aa5fdf55aa",
+        "n_instances": 128,
+        "hard_pass": "128 / 128",
+        "distance": {
+          "mean": 17.278585408530944,
+          "std": 2.053865960003633,
+          "median": 17.2310749492608,
+          "iqr": 2.501873207744211
+        },
+        "quality": {
+          "mean": 2.589958508696835,
+          "std": 0.7577708411832366,
+          "median": 2.5427074513710464,
+          "iqr": 0.9794963385924662
+        },
+        "energy": {
+          "mean": 1034.7518677860335,
+          "std": 180.55002917282536,
+          "median": 1032.170054250098,
+          "iqr": 233.49843606739023
+        }
+      },
+      {
+        "dataset": "dcc_50_rc1_edod05_devcal.npz",
+        "dataset_path": "data/baseline/50_node/dev_cal/dcc_50_rc1_edod05_devcal.npz",
+        "dataset_sha256": "0249f89d75ebf4e5e5e946a5cab321ea9ea58ec6ef16cec0f33715b26d1cdd31",
+        "n_instances": 128,
+        "hard_pass": "128 / 128",
+        "distance": {
+          "mean": 20.133665813571497,
+          "std": 2.064039368249637,
+          "median": 20.298092514974996,
+          "iqr": 2.483891549985856
+        },
+        "quality": {
+          "mean": 3.0352560761052416,
+          "std": 0.7923627996060388,
+          "median": 2.9509577981228885,
+          "iqr": 1.1726919989240079
+        },
+        "energy": {
+          "mean": 1331.9060297061437,
+          "std": 187.87623563116222,
+          "median": 1341.3068926433239,
+          "iqr": 264.34429830565296
+        }
+      },
+      {
+        "dataset": "dcc_50_rc1_edod08_devcal.npz",
+        "dataset_path": "data/baseline/50_node/dev_cal/dcc_50_rc1_edod08_devcal.npz",
+        "dataset_sha256": "2c9ac844baafdaadd7b782c3e64c7a9af3d8e900ac3bc80a06c6ee274143be1f",
+        "n_instances": 128,
+        "hard_pass": "128 / 128",
+        "distance": {
+          "mean": 19.29678763839729,
+          "std": 2.0676239220800086,
+          "median": 19.2320169438608,
+          "iqr": 2.911781987553695
+        },
+        "quality": {
+          "mean": 3.1257239397676626,
+          "std": 0.6688363731334135,
+          "median": 3.0093204060675753,
+          "iqr": 0.8212530752774403
+        },
+        "energy": {
+          "mean": 1270.7907277336487,
+          "std": 166.4530962881563,
+          "median": 1271.0865181138656,
+          "iqr": 212.15530223367136
+        }
+      }
+    ]
+  },
+  "profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
+  "provenance": {
+    "baseline": "JF1-H-F",
+    "baseline_version": "jf1h-f-v1",
+    "slack_vehicles": 1,
+    "capacity": 50.0,
+    "num_vehicles": 25,
+    "contract_hash": "0f00af5d197cf35368b1b2e807bcaf53d9b58a1cd425a7f53ec66091f6acce28",
+    "devcal_manifest_path": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/data/baseline/50_node/dev_cal/DEV_CAL_MANIFEST.json",
+    "devcal_manifest_sha256": "18266cdc426849d1023c75669839b6cf59b342c49cf01ef14a9d6967332bd16c",
+    "code_sha256": {
+      "freeze_coldchain_scale": "754ca9e02f589275593e24cb42d0f21381de8fe829c30bfa6431ae1d0ee9f070",
+      "jf1h_repair": "bf75802fe499d283326f021f46f486d59c5e5726a8f482ba08ad0100ad9bd516",
+      "action_contract": "0745f00dbd3ac7ce502e9a248cafa877abb04b570aaecaf313cc2e204e8a62e9",
+      "strict_online_env": "712b76c013ba1a29a7f3a976f962e9abd38283f13874d9b78abc22491f866325",
+      "joint_fleet": "7dafcd6d82bc7cc602d5353b8fd3afdd790c1fec6b8aefd449988652be707935",
+      "coldchain_state": "61f0d09f50b3f05574ed6dc5943c1c1be1a4068a6c2412127532e1947d90ed82",
+      "coldchain_evaluator": "3e02ea05df6f9176a826495422309a0f9709f242ebbd649f3c2318a2b3a21ff5",
+      "coldchain_contract": "abf97d9789f60450fdd58ea79205cd5b32534ab460b18af1431a86e4cfbca601"
+    },
+    "devcal_generator": "generate_coldchain_data.py",
+    "devcal_generator_sha256": "43cf781bec078dd4ac993afac2e66d9d07f4090809729a6b36bf9ecaa265be2f"
+  },
+  "hard_gate": {
+    "total_instances": 1152,
+    "hard_pass": "1152 / 1152"
+  }
+}

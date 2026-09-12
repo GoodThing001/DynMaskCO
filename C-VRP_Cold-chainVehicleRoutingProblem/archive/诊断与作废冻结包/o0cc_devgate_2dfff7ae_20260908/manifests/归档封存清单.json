@@ -1,0 +1,42 @@
+{
+  "archive_format_version": 1,
+  "created_utc": "2026-09-08T03:57:38.330182Z",
+  "archive_content_sha256": "6e4db0c259c0c924843424290a06f2a831be85b7587c7f2b32894b01c790ac52",
+  "bundle_sha256": "799174a805d85542ae0846c7c8bf3ec5542d6d381aa39950f57a9f98d1624e35",
+  "compute_sha256": "2dfff7ae8948ce6eea2bb7b2b60fdae6924ca294652fffff66a7dee0dca7b888",
+  "control_sha256": "49019c4adf0cd71c80a81c81897fd7479c2c18e8bdf767904de90865073b848e",
+  "analysis_sha256": "cd266de12c267aa44ef1bae9a72d5a1b4dfda3a13b44e326ae02a9e5c339ca30",
+  "runner_sha256": "b74ea7cb5c5b2b7b5497aa16a752cf688a41219ab2edce3703643d7c3181b322",
+  "profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
+  "freeze_tool_sha256": "e4f0ec68b4cda4d028d007086b9c0a97742ea64f84c085dcf3b2716bd106e2bb",
+  "source": {
+    "scripts/evaluation/run_action_oracle.py": "b74ea7cb5c5b2b7b5497aa16a752cf688a41219ab2edce3703643d7c3181b322",
+    "scripts/project_paths.py": "3afd25befe673c05318489b83ae259971b0da8b894a8efe7b88e1c8ad84f6658",
+    "scripts/evaluation/hard_gate.py": "aae966a8225437787257d892829bb4535cf2d18914b1ed0989954b498fc72acd",
+    "scripts/evaluation/coldchain_evaluator.py": "3e02ea05df6f9176a826495422309a0f9709f242ebbd649f3c2318a2b3a21ff5",
+    "scripts/evaluation/service_first.py": "0e69cffd5f674b9e918cd4a0c76c2880be8f5f3f37fecb73719c3ae819c21908",
+    "scripts/evaluation/authoritative_evaluator.py": "505f7a718a14ee64d85974f08d6f2bd66dddbcbb321929b98133384949b0db05",
+    "scripts/simulation/sequential_oracle.py": "2ddb402e93201462c31220dea4af83f2e3fd26fdc7687f6777c1716c21e3be6d",
+    "scripts/simulation/counterfactual_teacher.py": "b87b604e693101ba5c00dcd36921d9a7e3a5e7c58501716cc5d831514a683d2f",
+    "scripts/simulation/jf1h_repair.py": "233f8439536a2af676fe389b012b74c4fa8cf458fde7aef226b084342ca089ee",
+    "scripts/simulation/recourse_snapshot.py": "0af3535acaf6a84956104c0f1c8788c04e02499a087b6faa3d264239a19f27f8",
+    "scripts/simulation/action_contract.py": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b",
+    "scripts/simulation/strict_online_env.py": "60f9063442236e934b5a27bdbad0b7677388f6a63e7cd000f18ac30c3a00b9de",
+    "scripts/simulation/joint_fleet.py": "7dafcd6d82bc7cc602d5353b8fd3afdd790c1fec6b8aefd449988652be707935",
+    "scripts/coldchain/coldchain_state.py": "61f0d09f50b3f05574ed6dc5943c1c1be1a4068a6c2412127532e1947d90ed82",
+    "scripts/coldchain/coldchain_contract.py": "abf97d9789f60450fdd58ea79205cd5b32534ab460b18af1431a86e4cfbca601",
+    "scripts/evaluation/run_dev_gate.py": "71bbdded6b55b2393979e3c1feda89c3a24d025009ca8535bc83c0e1d43b0a4d",
+    "scripts/evaluation/instance_validation.py": "13f3834495e6806bd1c9caeee40467b34eabc83113d5ab5945d4aee2f4c73f38",
+    "scripts/evaluation/cell_summary.py": "91566ea4b238cc97a67fb3b8634014beef8cf4faaa7097fa68b2d14a91dc487a",
+    "scripts/evaluation/aggregate_cross_cell.py": "5e643719472bcf7282e89717c3182b6e265fc09871f3afd4dfa02465ee466c49"
+  },
+  "inputs": {
+    "inputs/objective_profile.json": "63e56212174c9ce371b8a5b1fada6a549d7bc47527fdd1b0b13a7bbe90db57e8",
+    "inputs/DEV_MANIFEST.json": "74879e9fb3975120a4fb3da5a865a5998d90f7d97174432c00a32c571046fd69"
+  },
+  "evidence": {
+    "evidence/control_chain_report.md": "6d3de107fc8a5e0922caa7c73f63be812537a38f83c596c970a67373ae07a6ac",
+    "evidence/control_chain_tests.json": "2b42348056ac541d487dabc562986f2d588044cac874a900e7309cc6187a1783",
+    "evidence/test_control_chain.py": "92bb573b07bd5bac96307131d7e5cef626edc28748435b586a08531ff469f355"
+  }
+}
