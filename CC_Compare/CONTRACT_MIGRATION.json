@@ -1,0 +1,32 @@
+{
+  "added_api": [
+    "from_manifest",
+    "validate_contract_manifest",
+    "load_coldchain_contract",
+    "write_pilot_contract"
+  ],
+  "canonical_manifest_equal": true,
+  "change_class": "implementation/API-only",
+  "dependent_callers": [
+    "run_action_oracle.py",
+    "run_formal_gate.py",
+    "freeze_source_archive.py",
+    "freeze_coldchain_scale.py",
+    "run_o0cc_val.py",
+    "audit_baseline_service.py"
+  ],
+  "evaluation_semantics_changed": false,
+  "new_runtime_contract_hash": "0f00af5d197cf35368b1b2e807bcaf53d9b58a1cd425a7f53ec66091f6acce28",
+  "new_source_sha256": "7d472acac242100aaffbc81923336b0d77c5e609c9bffa6482f21d161ce4391e",
+  "objective_changed": false,
+  "old_runtime_contract_hash": "0f00af5d197cf35368b1b2e807bcaf53d9b58a1cd425a7f53ec66091f6acce28",
+  "old_source_sha256": "abf97d9789f60450fdd58ea79205cd5b32534ab460b18af1431a86e4cfbca601",
+  "ortools_freeze_seal_sha256": "5e5525818b96521671c2053b05116c0f6d5b36b28889851f3833255988626323",
+  "physical_parameters_changed": false,
+  "pyvrp_freeze_seal_sha256": "401d207cb35f06772251c817616528fb48ad050a373844c11a13bb8bd61b3a4c",
+  "recorded_at": "2026-09-12 18:19:14",
+  "runtime_contract_hash_changed": false,
+  "schema_version": "cc-compare-contract-migration-v1",
+  "source_identity_changed": true,
+  "target_file": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/coldchain/coldchain_contract.py"
+}
