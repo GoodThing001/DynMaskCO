@@ -37,9 +37,9 @@ RRNCO 的 `RMTVRPEnv` 是**单一 active-route 状态、隐式同构车队的顺
 
 - 真 checkpoint 三类快照 **实际**可行；
 - 真模型七项泄漏检查 **实际** PASS；
-- anchor/time/load 注入后真模型 **确实**从该状态开始，未被 reset 或 decode strategy 覆盖；
-- `<50` 节点子问题能被 `num_loc=50` checkpoint **稳定**处理；
-- pickup 容量语义映射正确（linehaul→pickup 语义相反，需显式 `state_mapping_mode`）；
+- anchor/time/load 注入后真模型 **确实**从该状态开始——注入不进静态 encoder（encoder 只读 locs/demand/TW/service/distance/duration），而是经 POMO 强制首步进入 decoder context 与 action mask，未被 reset 覆盖；
+- `<100` 节点子问题能被 `num_loc=100` checkpoint **稳定**处理（N = depot + 可选非 depot anchor + pool；N<25 走 `visible_prob_sampling_v1` replacement=True 抽样）；
+- pickup 容量语义映射正确（**用原生 `demand_backhaul` 映射**：`demand_linehaul=0`、`demand_backhaul=demand/capacity`、`used_capacity_backhaul=load/capacity`、`backhaul_class=1`、`vehicle_capacity=1`，不把 pickup 强塞进 linehaul）；
 - 公共 contract 能「形成并认证动作」（离线已通过 mock，真模型待验证）。
 
 **特别强调（contract 边界）**：公共 `PlanProposal`/bridge 只验证节点集合、重复、车辆键与写回一致性（`common/method_adapter.py:494`），它**不会**替 RRNCO 完成跨车辆分配、冲突消解和 suffix 构造。这部分必须由新适配器明确实现；否则最终测到的可能主要是外层启发式，而不是 RRNCO。
@@ -78,7 +78,7 @@ RRNCO 的 `RMTVRPEnv` 是**单一 active-route 状态、隐式同构车队的顺
 4. 实现确定性车队协调器：多车竞争裁决、tie-break、每车 suffix 生成、未分配订单处理、无安全动作 fallback。
 5. 用真实 `epoch_199.ckpt` 运行三类人工快照。
 6. 未来信息变形测试：改坐标/需求/TW/温区/揭示时间；增减未来订单但保持 `has_future_reveal=true`；单独记录 `false↔true` 是否属允许暴露信息。
-7. 覆盖可变规模：1/2/5/10/25/50 可见节点 + anchor-only/无可服务订单，检查 shape/NaN/死循环/非法动作。
+7. 覆盖可变规模：pool 客户 1/2/5/10/25/50（模型节点数 N = depot + 可选非 depot anchor + pool；N<25 时 `visible_prob_sampling_v1` replacement=True）+ anchor-only/无可服务订单，检查 shape/NaN/死循环/非法动作。
 8. 独立计算器验证 pickup 容量（服务后载荷增加、回 depot 卸载），不依赖 RRNCO 自身判断。
 9. 最终 suffix 经公共 evaluator 重放，执行轨迹/完成订单/距离/TW/容量完全一致。
 10. 模型贡献对照：真实 ckpt vs shuffled/uniform 偏好 vs 固定启发式——至少证明改变模型偏好会改变实际决策。

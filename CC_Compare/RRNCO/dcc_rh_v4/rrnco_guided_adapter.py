@@ -40,7 +40,7 @@ class RRNCOGuidedAdapter(ExternalReplanner):
     @classmethod
     def compute_files(cls):
         return ('subproblem.py', 'preference.py', 'pickup_certificate.py',
-                'coordinator.py', 'rrnco_guided_adapter.py')
+                'coordinator.py', 'rrnco_guided_adapter.py', 'rrnco_backend.py')
 
     def propose(self, view):
         replan_ids = set(int(x) for x in view.replan_ids)

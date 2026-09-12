@@ -44,9 +44,9 @@
   "not_yet_proven": [
     "real-checkpoint 3 snapshots actually feasible",
     "real-model 7 leakage checks actually PASS",
-    "anchor/time/load injection actually inherited by real model (not reset/overridden)",
-    "<50-node sub-problem stable under num_loc=50 checkpoint",
-    "pickup capacity semantic mapping correct (linehaul->pickup)",
+    "anchor/time/load injection inherited via POMO first step into decoder context + action mask (not static encoder; not reset/overridden)",
+    "sub-problem N<100 stable under num_loc=100 checkpoint (N=depot+optional anchor+pool; N<25 uses visible_prob_sampling_v1 replacement=True)",
+    "pickup capacity semantic mapping correct (native demand_backhaul: linehaul=0, backhaul=demand/capacity, used_capacity_backhaul=load/capacity, backhaul_class=1, vehicle_capacity=1)",
     "contract 'forms and certifies actions' with real model"
   ],
   "contract_boundary": "PlanProposal/bridge only validates node-set/dup/vehicle-keys/writeback (method_adapter.py:494); it does NOT do cross-vehicle assignment / conflict resolution / suffix construction — that must be the new adapter's explicit job",
@@ -72,7 +72,7 @@
     "deterministic fleet coordinator (contention, tie-break, suffix, unassigned, fallback)",
     "run 3 snapshots with real epoch_199.ckpt",
     "future perturbation (coords/demand/TW/temp/reveal_time; add/remove future keeping has_future_reveal=true; record false<->true)",
-    "variable scale 1/2/5/10/25/50 visible + anchor-only/no-service (shape/NaN/loop/illegal)",
+    "variable scale pool 1/2/5/10/25/50 (N=depot+anchor+pool; N<25 visible_prob_sampling_v1) + anchor-only/no-service (shape/NaN/loop/illegal)",
     "independent pickup-capacity calculator",
     "evaluator replay alignment",
     "model-contribution control (real vs shuffled/uniform vs heuristic)"
