@@ -31,9 +31,12 @@ CKPT = os.path.join(_RRNCO_ROOT, 'checkpoints', 'rcvrptw', 'epoch_199.ckpt')
 
 PASS = []
 FAIL = []
+RESULTS = []
+BOUNDARY = []
 
 
 def check(name, cond, detail=''):
+    RESULTS.append({'name': name, 'pass': bool(cond), 'detail': str(detail)})
     if cond:
         PASS.append(name)
         print(f'  [PASS] {name}')
@@ -77,6 +80,8 @@ def mask_parity(backend, env, view, sp, label):
         rrnco_ok = bool(mask[local])
         cases.append((int(c), cert_ok, rrnco_ok))
         tag = 'MATCH' if cert_ok == rrnco_ok else 'MISMATCH'
+        BOUNDARY.append({'label': label, 'customer': int(c), 'cert_ok': bool(cert_ok),
+                         'rrnco_ok': bool(rrnco_ok), 'match': cert_ok == rrnco_ok})
         print(f'    [{label}] c={c} local={local} cert={cert_ok} rrnco={rrnco_ok} {tag}')
         if cert_ok != rrnco_ok:
             mismatches.append((int(c), cert_ok, rrnco_ok, reason))
@@ -280,6 +285,26 @@ def main():
         FAIL.append('order_completes')
 
     print(f'\n== RESULT: PASS={len(PASS)} FAIL={len(FAIL)} ==')
+
+    # 结构化 JSON 落盘（不可依赖控制台 PASS=29）
+    import json as _json
+    out_path = os.path.join(_DCC, 'results', 'B2_RESULT.json')
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    result = {
+        'verdict': 'PASS' if not FAIL else 'FAIL',
+        'n_pass': len(PASS),
+        'n_fail': len(FAIL),
+        'checkpoint_sha256': backend.ckpt_sha256,
+        'checks': RESULTS,
+        'mask_parity_boundary': BOUNDARY,
+    }
+    tmp = out_path + '.tmp'
+    with open(tmp, 'w') as f:
+        _json.dump(result, f, indent=2, sort_keys=True)
+        f.write('\n')
+    os.replace(tmp, out_path)
+    print('B2_RESULT written:', out_path)
+
     if FAIL:
         print('FAILED:', FAIL)
         sys.exit(1)

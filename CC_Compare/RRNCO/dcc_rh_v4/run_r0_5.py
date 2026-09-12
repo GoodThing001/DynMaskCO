@@ -21,6 +21,7 @@ import json
 import os
 import sys
 import time
+import uuid
 
 _DCC = os.path.dirname(os.path.abspath(__file__))
 _RRNCO_ROOT = os.path.dirname(_DCC)
@@ -181,7 +182,8 @@ def b5(backend, _):
                 ordering = tuple(backend.order(sp))
             poolset = set(range(2, k + 2))
             good = (set(ordering) == poolset)
-            details[str(k)] = {'ordering_len': len(ordering), 'complete': good,
+            details[str(k)] = {'ordering_len': len(ordering),
+                               'ordering_complete': good,
                                'replacement': backend.last_audit.sampling_replacement}
             if not good:
                 ok = False
@@ -215,25 +217,31 @@ def b6(backend, _):
     ok = True
     details = {}
 
-    def make(future_coords, future_demands):
-        # 可见：depot(0) + anchor(1) + pool(2,3)；未来：追加节点
+    # temp_class / reveal_time 不进 SubProblem（结构隔离），扰动它们天然无影响；
+    # 这里扰动未来节点的 coords/demand/TW/service/数量，验证可见子问题 + 真实 tensor
+    # + raw_actions + selected_start + ordering 全部不变。
+    def make(future_coords, future_demands, future_tw_end, future_service):
         coords = [(0, 0), (1, 0), (2, 0), (3, 0)] + future_coords
         n = len(coords)
         demands = [0, 0, 2, 3] + future_demands
-        return make_view(coords, demands, [0] * n, [24] * n, [0.1] * n,
+        tw_end = [24] * 4 + future_tw_end
+        service = [0.1] * 4 + future_service
+        return make_view(coords, demands, [0] * n, tw_end, service,
                          [(1, 1, 1.0, 0.0, 'ready', ())], [1],
                          50.0, 24.0, [2, 3], True)
 
-    view_base = make([(40, 40), (41, 41)], [3, 4])
+    view_base = make([(40, 40), (41, 41)], [3, 4], [24, 24], [0.1, 0.1])
     sp_base = build_subproblem(view_base, view_base.vehicles[0])
     with torch.inference_mode():
         backend.order(sp_base)
     base_audit = backend.last_audit
 
     variants = [
-        ('coord_change', make([(30, 30), (41, 41)], [3, 4])),
-        ('demand_change', make([(40, 40), (41, 41)], [9, 8])),
-        ('count_change', make([(40, 40)], [3])),
+        ('coord_change', make([(30, 30), (41, 41)], [3, 4], [24, 24], [0.1, 0.1])),
+        ('demand_change', make([(40, 40), (41, 41)], [9, 8], [24, 24], [0.1, 0.1])),
+        ('tw_change', make([(40, 40), (41, 41)], [3, 4], [10, 5], [0.1, 0.1])),
+        ('service_change', make([(40, 40), (41, 41)], [3, 4], [24, 24], [2.0, 3.0])),
+        ('count_change', make([(40, 40)], [3], [24], [0.1])),
     ]
     for label, view2 in variants:
         sp2 = build_subproblem(view2, view2.vehicles[0])
@@ -243,9 +251,14 @@ def b6(backend, _):
         same = (a2.subproblem_hash == base_audit.subproblem_hash
                 and a2.tensor_hash == base_audit.tensor_hash
                 and a2.injected_state_hash == base_audit.injected_state_hash
+                and a2.raw_actions == base_audit.raw_actions
+                and a2.selected_start == base_audit.selected_start
                 and a2.ordering == base_audit.ordering)
-        details[label] = {'subproblem_hash_same': a2.subproblem_hash == base_audit.subproblem_hash,
-                          'ordering_same': a2.ordering == base_audit.ordering}
+        details[label] = {
+            'subproblem_hash_same': a2.subproblem_hash == base_audit.subproblem_hash,
+            'tensor_hash_same': a2.tensor_hash == base_audit.tensor_hash,
+            'raw_actions_same': a2.raw_actions == base_audit.raw_actions,
+            'ordering_same': a2.ordering == base_audit.ordering}
         if not same:
             ok = False
     return ok, details
@@ -268,27 +281,82 @@ def b7(backend, _):
         real_ord = tuple(int(c) for c in backend.order(sp))
 
     controls = {}
-    for mode in ('edd', 'nearest', 'shuffle'):
+    for mode in ('edd', 'nearest', 'shuffle', 'fixed'):
         controls[mode] = tuple(MockPreferenceProvider(mode, seed=7).order(sp))
+    controls['uniform'] = tuple(sorted(sp.pool_customer_ids))  # tied/uniform
 
-    # 至少一个控制组与真实排序不同
     differs = {m: controls[m] != real_ord for m in controls}
-    some_differs = any(differs.values())
+    all_differs = all(differs.values())
 
-    # 真实排序 vs EDD 在 coordinator 上是否改变决策
     def decide(orderings):
         return coordinate(view, {1: orderings})
 
     real_r = decide(real_ord)
-    edd_r = decide(controls['edd'])
-    decision_changed = (real_r.suffixes != edd_r.suffixes
-                        or real_r.deferred != edd_r.deferred)
+    decision_changed = {}
+    for m, o in controls.items():
+        r = decide(o)
+        decision_changed[m] = (real_r.suffixes != r.suffixes
+                               or real_r.deferred != r.deferred)
+    any_decision_changed = any(decision_changed.values())
 
     details = {'real_ordering': list(real_ord),
                'controls': {m: list(o) for m, o in controls.items()},
                'differs': differs,
-               'decision_changed_vs_edd': decision_changed}
-    return some_differs and decision_changed, details
+               'all_controls_differ': all_differs,
+               'decision_changed': decision_changed,
+               'n_controls_decision_changed': int(sum(decision_changed.values()))}
+    return all_differs and any_decision_changed, details
+
+
+# ---------------------------------------------------------------------------
+# B4 公共链（真实 checkpoint 经 adapter → bridge → 公共 evaluator）
+# ---------------------------------------------------------------------------
+
+@gate('B4_public_chain')
+def b4_public_chain(backend, _):
+    """真实 checkpoint → RRNCOPreferenceProvider → RRNCOGuidedAdapter →
+    BridgeReplanner → 公共 strict_online_runner 端到端（late reveal）。"""
+    _COMMON = os.path.normpath(os.path.join(_DCC, '..', '..', 'common'))
+    if _COMMON not in sys.path:
+        sys.path.insert(0, _COMMON)
+    import numpy as np
+    import _bootstrap  # noqa: F401
+    from strict_online_runner import run_instance, load_objective_profile
+    from rrnco_guided_adapter import RRNCOGuidedAdapter
+
+    coords = np.array([[[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0]]],
+                      dtype=np.float32)
+    demands = np.array([[0, 1, 1, 1, 1, 1, 1]], dtype=np.float32)
+    tw_start = np.zeros((1, 7), dtype=np.float32)
+    tw_end = np.full((1, 7), 100.0, dtype=np.float32)
+    service = np.zeros((1, 7), dtype=np.float32)
+    reveal = np.array([[0, 0, 0, 0, 0, 5.0, 5.0]], dtype=np.float32)
+    temp_class = np.zeros((1, 7), dtype=np.int32)
+    initial_quality = np.ones((1, 7), dtype=np.float32)
+    ds = {'coords': coords, 'demands': demands, 'tw_start': tw_start,
+          'tw_end': tw_end, 'service_time': service, 'reveal_time': reveal,
+          'temp_class': temp_class, 'initial_quality': initial_quality}
+
+    profile = load_objective_profile(os.path.join(
+        _bootstrap.PROJECT_EXTENSION_ROOT, 'results', 'o0cc', 'scale_v2',
+        'objective_profile.json'))
+
+    adapter = RRNCOGuidedAdapter(backend)
+    rec = run_instance(
+        ds, capacity=50, num_vehicles=3,
+        adapter_factory=lambda: adapter,
+        inst_idx=0, objective='coldchain', profile=profile,
+        seed=0, data_sha256='d' * 64,
+        adapter_module_path=os.path.join(_DCC, 'rrnco_guided_adapter.py'),
+        instance_seed=0, scene_instance_id='r05_public_chain')
+
+    complete = bool(rec['outcome']['complete'])
+    n_unserved = int(rec['outcome']['n_unserved'])
+    fallback = int(rec['stats']['fallback_triggered_events'])
+    hard_ok = all(rec['hard_vector'].values())
+    details = {'complete': complete, 'n_unserved': n_unserved,
+               'fallback_events': fallback, 'hard_vector_ok': hard_ok}
+    return complete and n_unserved == 0 and fallback == 0 and hard_ok, details
 
 
 # ---------------------------------------------------------------------------
@@ -309,19 +377,25 @@ def main():
     ap.add_argument('--device', default='cuda:0')
     ap.add_argument('--seed', type=int, default=0)
     ap.add_argument('--output', required=True)
-    ap.add_argument('--gates', default='B3_determinism,B4_snapshots,B5_variable_size,'
-                   'B6_future_perturbation,B7_model_contribution')
+    ap.add_argument('--gates', default='B3_determinism,B4_snapshots,B4_public_chain,'
+                   'B5_variable_size,B6_future_perturbation,B7_model_contribution')
     args = ap.parse_args()
 
-    # 前置：SERVER_ENVIRONMENT.json + checkpoint hash
+    # 前置：SERVER_ENVIRONMENT.json + checkpoint hash（硬 Gate，缺失/不匹配即失败）
     senv = _load_server_env()
+    if senv is None:
+        print('FATAL: SERVER_ENVIRONMENT.json 缺失，preflight 失败', file=sys.stderr)
+        sys.exit(1)
     backend = _make_backend(args.checkpoint, args.device, args.seed)
-    pre = {'server_env_loaded': senv is not None,
-           'checkpoint_sha256': backend.ckpt_sha256}
-    if senv is not None:
-        pre['server_env_ckpt_sha256'] = senv.get('checkpoint', {}).get('sha256')
-        pre['ckpt_hash_match'] = (senv.get('checkpoint', {}).get('sha256')
-                                  == backend.ckpt_sha256)
+    env_ckpt = senv.get('checkpoint', {}).get('sha256')
+    if env_ckpt != backend.ckpt_sha256:
+        print(f'FATAL: checkpoint SHA 不匹配 env={env_ckpt} '
+              f'backend={backend.ckpt_sha256}', file=sys.stderr)
+        sys.exit(1)
+    pre = {'server_env_loaded': True,
+           'checkpoint_sha256': backend.ckpt_sha256,
+           'server_env_ckpt_sha256': env_ckpt,
+           'ckpt_hash_match': True}
 
     gate_list = args.gates.split(',')
     results = {'preflight': pre, 'gates': {}, 'verdict': 'PENDING'}
@@ -351,7 +425,7 @@ def main():
             break
 
     results['verdict'] = 'PASS' if all_pass else 'FAIL'
-    results['run_id'] = time.strftime('%Y%m%d-%H%M%S')
+    results['run_id'] = uuid.uuid4().hex
 
     os.makedirs(os.path.dirname(os.path.abspath(args.output)), exist_ok=True)
     tmp = args.output + '.tmp'

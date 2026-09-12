@@ -155,6 +155,15 @@ def _visible_prob_sample_indices(distance, N, sample_size, seed):
     return sampled.reshape(B, N, sample_size)
 
 
+def _tensordict_hash(td):
+    """TensorDict 内容 canonical hash（逐顶层字段 numpy bytes，确定性）。"""
+    parts = []
+    for k in sorted(td.keys()):
+        parts.append(k)
+        parts.append(td[k].detach().cpu().numpy().tobytes().hex())
+    return hashlib.sha256('\x1f'.join(parts).encode('utf-8')).hexdigest()
+
+
 # ---------------------------------------------------------------------------
 # TensorDict 转换 + 多起点 + 注入环境
 # ---------------------------------------------------------------------------
@@ -200,9 +209,11 @@ def subproblem_to_tensordict(sp, device):
         'distance_matrix': dist.unsqueeze(0),
         'duration_matrix': dur.unsqueeze(0),
     }, batch_size=[1], device=device)
-    assert td["locs"].shape[-2] == n
-    assert td["demand_linehaul"].shape[-1] == n - 1
-    assert td["demand_backhaul"].shape[-1] == n - 1
+    if td["locs"].shape[-2] != n:
+        raise ValueError(f'locs 维度 {td["locs"].shape[-2]} != n')
+    if td["demand_linehaul"].shape[-1] != n - 1 or \
+            td["demand_backhaul"].shape[-1] != n - 1:
+        raise ValueError('demand 维度 != n-1')
     return td
 
 
@@ -448,6 +459,7 @@ class RRNCOPreferenceProvider(PreferenceProvider):
         n = len(sp.node_ids)
         capacity = float(sp.capacity)
         td = subproblem_to_tensordict(sp, self.config.device)
+        td_hash = _tensordict_hash(td)
         pool_local = self._pool_local_ids(sp)
         if not pool_local:
             return tuple()
@@ -466,11 +478,12 @@ class RRNCOPreferenceProvider(PreferenceProvider):
         t0 = time.perf_counter()
         with torch.inference_mode():
             td_reset = env.reset(td)
-            assert td_reset["locs"].shape[-2] == n
-            assert td_reset["demand_linehaul"].shape[-1] == n
-            assert td_reset["demand_backhaul"].shape[-1] == n
-            assert td_reset["visited"].shape[-1] == n
-            assert td_reset["action_mask"].shape[-1] == n
+            if (td_reset["locs"].shape[-2] != n
+                    or td_reset["demand_linehaul"].shape[-1] != n
+                    or td_reset["demand_backhaul"].shape[-1] != n
+                    or td_reset["visited"].shape[-1] != n
+                    or td_reset["action_mask"].shape[-1] != n):
+                raise ValueError('post-reset 维度不符')
             out = policy(td_reset, env, return_actions=True, phase='val',
                          calc_reward=True, num_starts=len(pool_local))
         inference_time_s = time.perf_counter() - t0
@@ -507,8 +520,7 @@ class RRNCOPreferenceProvider(PreferenceProvider):
         self.last_audit = BackendAudit(
             checkpoint_sha256=self.ckpt_sha256,
             subproblem_hash=sp.canonical_hash(),
-            tensor_hash=_json_hash({'subproblem': sp.canonical_hash(),
-                                    'device': self.config.device, 't_max': T_MAX}),
+            tensor_hash=td_hash,
             injected_state_hash=_json_hash({'anchor': int(sp.anchor_idx),
                                             'time_scaled': float(time_scaled),
                                             'load_norm': float(load_norm),
