@@ -1,5 +1,10 @@
 """
-Phase H: 滚动时域仿真器 — 动态冷链物流在线重规划。
+历史 Phase H 滚动时域仿真器（非 C0 权威协议）。
+
+本文件保留用于复现旧距离/TTI/edge-energy 消融。其时间步进、品质和
+能耗均为代理量，不具备 pickup-to-depot cargo manifest，输出不得写入
+当前论文结果。新实验统一使用 strict_online_env.py + coldchain_state.py +
+coldchain_evaluator.py。
 
 模拟场景:
   T=0: 已知部分订单 → MaskCO 初始求解 → 车辆出发
@@ -12,9 +17,13 @@ Phase H: 滚动时域仿真器 — 动态冷链物流在线重规划。
 """
 
 import sys, os, argparse, time, numpy as np
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'scripts', 'models'))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+_SCRIPTS_BOOTSTRAP = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if _SCRIPTS_BOOTSTRAP not in sys.path:
+    sys.path.insert(0, _SCRIPTS_BOOTSTRAP)
+from project_paths import MASKCO_ROOT, SCRIPTS_ROOT
+sys.path.insert(0, str(SCRIPTS_ROOT))
+sys.path.insert(0, str(SCRIPTS_ROOT / 'models'))
+sys.path.insert(0, str(MASKCO_ROOT))
 
 from dataclasses import dataclass, field
 from collections import defaultdict
@@ -51,7 +60,7 @@ class Order:
 
 
 class RollingHorizonSimulator:
-    """动态冷链滚动时域仿真器。"""
+    """历史动态仿真器；返回值带非权威 schema 标记。"""
 
     def __init__(self, dataset, capacity=50, speed=1.0, horizon=24.0):
         self.capacity = capacity
@@ -208,6 +217,8 @@ class RollingHorizonSimulator:
         vehicles = self._route_to_vehicles(initial_route, orders, inst_idx)
 
         log = {
+            'metric_schema': 'legacy-rolling-horizon-proxy-v1',
+            'coldchain_authoritative': False,
             'clock': [], 'feas_rate': [], 'pending_count': [],
             'total_distance': [], 'spoilage_cost': [], 'replan_count': 0,
             # P0-4 Phase 4c: 温度/品质指标
@@ -398,16 +409,19 @@ def main():
         print(f"  Completed:     {np.mean(completed_rates):.1%}")
         print(f"  Distance:      {np.mean(distances):.1f}")
         print(f"  Replans:       {np.mean(replans):.1f}")
-        print(f"  --- P0-4 冷链指标 ---")
-        print(f"  Spoilage:      {np.mean(sp):.4f} (Arrhenius decay)")
-        print(f"  TTI:           {np.mean(tti):.1f} (℃·h, Time-Temp Integrator)")
-        print(f"  Energy:        {np.mean(en):.1f} (refrigeration kWh-equivalent)")
-        print(f"  QualityLoss/km:{np.mean(ql_rate):.4f}")
+        print(f"  --- 历史代理指标（非 C0 / 不用于论文）---")
+        print(f"  Spoilage proxy:{np.mean(sp):.4f}")
+        print(f"  TTI proxy:     {np.mean(tti):.1f}")
+        print(f"  Energy proxy:  {np.mean(en):.1f}")
+        print(f"  Proxy/km:      {np.mean(ql_rate):.4f}")
 
-        # 保存日志（含冷链指标）
+        # 保存历史日志；文件字段只可用于旧实验复现。
         np.savez(os.path.join(args.output, f'sim_{strategy}_edod{str(args.edod).replace(".","")}.npz'),
                  completed_rates=completed_rates, distances=distances, replans=replans,
-                 spoilage=sp, tti=tti, energy=en, quality_loss_rate=ql_rate)
+                 legacy_spoilage_proxy=sp, legacy_tti_proxy=tti,
+                 legacy_energy_proxy=en, legacy_quality_loss_rate_proxy=ql_rate,
+                 metric_schema=np.asarray('legacy-rolling-horizon-proxy-v1'),
+                 coldchain_authoritative=np.asarray(False))
 
 
 if __name__ == '__main__':

@@ -35,16 +35,15 @@ def record(name, ok, detail=''):
 
 
 def _make_env_and_snapshot():
-    # 4 节点：depot(0,0), c1(1,0), c2(10,0), c3(5,0)。c3 在 t=2 reveal；3 辆车。
-    # t=2：车A ready@c1(anchor=1)、车B ready@c2(anchor=10)、车C idle。
-    # continuation 把 c3 分到车A（dist 4 最小）；移 c3 到车B（anchor=10）更优、到 NEW_ROUTE（车C）更贵
-    # → delta_cost 有正有负。
+    # t=0：depot(0,0), c1(1,0), c2(10,0), c3(5,0) 全部可见，3 辆 idle 车。
+    # JF1-H 把所有客户都分给 v0（min-travel tie-break）；把 c3 移到 v1/v2（NEW_ROUTE）会拆散
+    # 原路线 → delta_cost 非零（更贵）。scope 修复后 committed-tail 不可用，改用 idle 车间移动。
     coords = np.array([[0., 0.], [1., 0.], [10., 0.], [5., 0.]], np.float32)
     demands = np.array([0., 1., 1., 1.], np.float32)
     tw_start = np.zeros(4, np.float32)
     tw_end = np.full(4, 100., np.float32)
     service = np.zeros(4, np.float32)
-    reveal = np.array([0., 0., 0., 2.], np.float32)
+    reveal = np.array([0., 0., 0., 0.], np.float32)
     dataset = {'coords': coords[None], 'demands': demands[None], 'tw_start': tw_start[None],
                'tw_end': tw_end[None], 'service_time': service[None], 'reveal_time': reveal[None]}
     cont = JointAssignmentReplanner('heuristic')
@@ -56,8 +55,7 @@ def _make_env_and_snapshot():
 
     env.snapshot_hook = hook
     env.run(0)
-    snap = next(s for s in snaps if float(s['clock']) >= 2.0 - 1e-6
-                and any(int(n) != 0 for n in s['vehicle_node']))
+    snap = snaps[0]  # t=0 初始决策点
     return env, cont, snap
 
 

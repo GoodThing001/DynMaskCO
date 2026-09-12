@@ -4,7 +4,11 @@ DynamicColdChainModel — 7D 动态冷链模型。
 """
 
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+_SCRIPTS_BOOTSTRAP = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if _SCRIPTS_BOOTSTRAP not in sys.path:
+    sys.path.insert(0, _SCRIPTS_BOOTSTRAP)
+from project_paths import MASKCO_ROOT
+sys.path.insert(0, str(MASKCO_ROOT))
 
 import jax, jax.numpy as jnp
 from flax import nnx
@@ -117,19 +121,29 @@ class DynamicColdChainModel(ColdChainModel):
         features = self.encoder(features, attn_options=attn_options)
         return features
 
-    def compute_spoilage_matrix(self, raw_features, speed=1.0):
-        """腐败概率矩阵 (batch, nodes, nodes) — 供 C++/分析使用。"""
+    def compute_legacy_delivery_risk_matrix(self, raw_features, speed=1.0):
+        """历史 delivery-style 边风险代理；不得作为 C0 权威指标。
+
+        ``raw_features[..., 5]`` 存储的是 ``temp_class / 2``。该代理只可
+        用作旧 checkpoint 的表示输入；pickup-to-depot 品质真值必须由
+        ``coldchain_state`` 基于 cargo manifest 和执行轨迹递推。
+        """
         coords = raw_features[..., :2]
-        temp_class = raw_features[..., 5]
+        temp_class = jnp.clip(
+            (raw_features[..., 5] * 2.0 + 0.5).astype(jnp.int32), 0, 2)
 
         diff = coords[:, :, None, :] - coords[:, None, :, :]
         dist = jnp.sqrt((diff ** 2).sum(axis=-1) + 1e-10)
         travel_time = dist / speed
 
-        k = K_TEMP[jnp.clip(temp_class.astype(jnp.int32), 0, 2)]
+        k = K_TEMP[temp_class]
         k_expanded = k[:, :, None]
 
         spoilage = 1.0 - jnp.exp(-k_expanded * travel_time)
         spoilage = spoilage.at[:, 0, :].set(0)
         spoilage = spoilage.at[:, :, 0].set(0)
         return spoilage
+
+    def compute_spoilage_matrix(self, raw_features, speed=1.0):
+        """兼容旧调用；返回非权威的 delivery-style 表示代理。"""
+        return self.compute_legacy_delivery_risk_matrix(raw_features, speed=speed)

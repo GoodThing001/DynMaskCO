@@ -18,8 +18,20 @@ Author: P0-Protocol Repair (R1.5)
 Date: 2026-08-28
 """
 
+import os
+import sys
+
 import numpy as np
 from dataclasses import dataclass, field
+
+
+_SCRIPTS_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_COLDCHAIN_ROOT = os.path.join(_SCRIPTS_ROOT, 'coldchain')
+if _COLDCHAIN_ROOT not in sys.path:
+    sys.path.insert(0, _COLDCHAIN_ROOT)
+
+from coldchain_state import (create_vehicle_state, dispatch_vehicle,
+                             total_quality_loss, transition_segment)
 
 
 @dataclass
@@ -31,6 +43,14 @@ class ServiceRecord:
     arrival_time: float
     service_start: float
     service_finish: float
+    coldchain_before: object = None
+    coldchain_after: object = None
+    picked_order_id: int = None
+    segment_energy_kwh: float = 0.0
+    segment_quality_loss: float = 0.0
+    segment_distance_km: float = 0.0
+    segment_thermal_violation_count: int = 0
+    segment_thermal_violation_duration_h: float = 0.0
 
 
 @dataclass
@@ -40,6 +60,14 @@ class VehicleTrace:
     services: list = field(default_factory=list)
     return_depart: float = None
     return_arrival: float = None
+    final_coldchain_state: object = None
+    depot_unload_records: list = field(default_factory=list)
+    dispatch_preconditioning_energy_kwh: float = 0.0
+    return_segment_energy_kwh: float = 0.0
+    return_segment_quality_loss: float = 0.0
+    return_segment_distance_km: float = 0.0
+    return_segment_thermal_violation_count: int = 0
+    return_segment_thermal_violation_duration_h: float = 0.0
 
 
 @dataclass
@@ -58,6 +86,10 @@ class VehicleState:
     return_finish: float = None     # returning 时到达 depot 时刻
     needs_replan: bool = False      # P0-CTRL：是否需要在下一决策点重规划（默认 False）
     replan_reason: str = None       # P0-M1：重规划触发原因（initial / reveal / plan_exhaustion）
+    coldchain_state: object = None
+    coldchain_updated_time: float = None
+    committed_coldchain_before: object = None
+    coldchain_accounting_anchor: object = None
 
 
 class Replanner:
@@ -74,14 +106,28 @@ class Replanner:
     def plan(self, env, inst_idx, clock, vehicles, served_mask, visible_ids, replan_ids=None):
         raise NotImplementedError
 
+    def export_state(self):
+        """返回 replanner 的**决策状态**（影响后续 plan/ownership，随 snapshot 恢复）。
+
+        审计状态（累计计数/日志）不在此返回——每条 rollout 分支独立，不跨分支串扰。
+        默认无状态。
+        """
+        return None
+
+    def restore_state(self, state):
+        """恢复 replanner 决策状态（export_state 的逆操作）。默认无操作。"""
+        return None
+
 
 class StrictOnlineEnv:
-    def __init__(self, dataset, capacity, tw_speed=1.0, num_vehicles=25, replanner=None):
+    def __init__(self, dataset, capacity, tw_speed=1.0, num_vehicles=25, replanner=None,
+                 coldchain_contract=None):
         self.dataset = dataset
         self.capacity = capacity
         self.tw_speed = tw_speed
         self.num_vehicles = num_vehicles
         self.replanner = replanner
+        self.coldchain_contract = coldchain_contract
 
         self.coords = dataset['coords'].astype(np.float32)          # (N, nodes, 2)
         self.demands = dataset['demands'].astype(np.float32)        # (N, nodes)
@@ -91,6 +137,23 @@ class StrictOnlineEnv:
             'service_time', np.zeros_like(self.demands, dtype=np.float32))
         self.reveal_time = dataset.get(
             'reveal_time', np.zeros_like(self.demands, dtype=np.float32))
+
+        if self.coldchain_contract is not None:
+            self.coldchain_contract.validate()
+            expected_capacity = self.coldchain_contract.operational.shared_vehicle_capacity
+            if abs(float(capacity) - float(expected_capacity)) > 1e-6:
+                raise ValueError(
+                    'env capacity %.6f != cold-chain contract shared capacity %.6f'
+                    % (capacity, expected_capacity))
+            if 'temp_class' not in dataset:
+                raise ValueError('cold-chain execution requires dataset temp_class')
+            self.temp_class = dataset['temp_class'].astype(np.int32)
+            self.initial_quality = dataset.get(
+                'initial_quality', np.ones_like(self.demands, dtype=np.float32)
+            ).astype(np.float32)
+        else:
+            self.temp_class = None
+            self.initial_quality = None
 
         self.num_instances = self.coords.shape[0]
         self.num_nodes = self.coords.shape[1]
@@ -107,6 +170,10 @@ class StrictOnlineEnv:
         # 签名：hook(env, inst_idx, clock, event_id, reveal_idx, vehicles, traces, served_mask, all_customers)
         self.snapshot_hook = None
 
+        # O0：决策点干预钩子（sequential oracle 用）。在 _plan_and_commit 之前调用，
+        # 可写 env.force_suffix 以覆盖 replanner 输出。签名同 snapshot_hook。
+        self.oracle_hook = None
+
         # P1（dist_mat 支持）：dataset 有 dist_mat 就用它（asymmetric / real network）
         if 'dist_mat' in dataset:
             self.dist_mat = dataset['dist_mat'].astype(np.float32)
@@ -117,6 +184,42 @@ class StrictOnlineEnv:
     # ------------------------------------------------------------------
     def _travel(self, inst_idx, i, j):
         return self.dist_mat[inst_idx, i, j] / self.tw_speed
+
+    def _coldchain_active_mask(self):
+        if self.coldchain_contract is None:
+            return ()
+        return (True,) * len(self.coldchain_contract.thermal.supported_temp_classes)
+
+    def _dispatch_coldchain(self, v, depart):
+        if self.coldchain_contract is None or v.coldchain_state is not None:
+            return
+        initial = create_vehicle_state(self.coldchain_contract)
+        v.coldchain_state = dispatch_vehicle(initial, self.coldchain_contract)
+        v.coldchain_updated_time = float(depart)
+        v.coldchain_accounting_anchor = v.coldchain_state
+
+    def _advance_coldchain_to(self, v, clock):
+        """Advance all in-cargo time, including travel, waiting and service."""
+        if self.coldchain_contract is None or v.coldchain_state is None:
+            return
+        if v.coldchain_state.closed:
+            return
+        start = float(v.coldchain_updated_time)
+        end = float(clock)
+        if end < start - 1e-6:
+            raise ValueError('cold-chain clock moved backwards')
+        if end <= start + 1e-9:
+            return
+        v.coldchain_state, _ = transition_segment(
+            v.coldchain_state,
+            depart_time=start,
+            arrival_time=end,
+            service_finish=end,
+            served_customer=None,
+            active_zone_mask=self._coldchain_active_mask(),
+            contract=self.coldchain_contract,
+        )
+        v.coldchain_updated_time = end
 
     def get_reserved_customers(self, vehicles):
         """committed 车的 committed_next + 所有车的 mutable_suffix（tail）都不可再分配。
@@ -152,13 +255,21 @@ class StrictOnlineEnv:
                 v.status = 'idle' if v.served_route == [] else 'closed'
                 v.return_finish = depart
                 return
+            self._advance_coldchain_to(v, depart)
             v.return_finish = depart + self._travel(inst_idx, v.current_node, 0)
             v.status = 'returning'
             v.committed_next = 0
             v.committed_finish = v.return_finish
             v.ready_time = depart
+            v.committed_coldchain_before = v.coldchain_state
             return
         # customer
+        self._dispatch_coldchain(v, depart)
+        if (self.coldchain_contract is not None and traces is not None
+                and not traces[v.vehicle_id].services):
+            traces[v.vehicle_id].dispatch_preconditioning_energy_kwh = float(
+                v.coldchain_state.cumulative_energy_kwh)
+        self._advance_coldchain_to(v, depart)
         arrive = depart + self._travel(inst_idx, v.current_node, node)
         service_start = max(arrive, self.tw_start[inst_idx, node])
         finish = service_start + self.service_time[inst_idx, node]
@@ -167,6 +278,7 @@ class StrictOnlineEnv:
         v.committed_finish = finish
         v.status = 'committed'
         v.ready_time = depart  # 记录实际 depart（ServiceRecord 用）
+        v.committed_coldchain_before = v.coldchain_state
         if v.dispatch_time is None and v.served_route == [] and v.current_node == 0:
             v.dispatch_time = depart
             if traces is not None:
@@ -175,9 +287,52 @@ class StrictOnlineEnv:
     def _advance_fleet(self, inst_idx, clock, vehicles, traces, served_mask):
         """把 finish <= clock 的 committed / returning 车辆推进完成。"""
         for v in vehicles:
+            self._advance_coldchain_to(v, clock)
             if v.status == 'committed':
                 if v.committed_finish is not None and v.committed_finish <= clock + 1e-6:
                     node = v.committed_next
+                    cc_before = (v.coldchain_accounting_anchor
+                                 if self.coldchain_contract is not None else None)
+                    segment_energy = 0.0
+                    segment_quality = 0.0
+                    segment_distance = 0.0
+                    segment_violation_count = 0
+                    segment_violation_duration = 0.0
+                    cc_after = None
+                    if self.coldchain_contract is not None:
+                        pre_event = v.coldchain_state
+                        v.coldchain_state, event_metrics = transition_segment(
+                            pre_event,
+                            depart_time=float(clock),
+                            arrival_time=float(clock),
+                            service_finish=float(clock),
+                            served_customer=int(node),
+                            active_zone_mask=self._coldchain_active_mask(),
+                            contract=self.coldchain_contract,
+                            order_quantity=float(self.demands[inst_idx, node]),
+                            order_temp_class=int(self.temp_class[inst_idx, node]),
+                            initial_quality=float(self.initial_quality[inst_idx, node]),
+                            segment_distance_units=float(
+                                self.dist_mat[inst_idx, v.current_node, node]),
+                        )
+                        v.coldchain_updated_time = float(clock)
+                        cc_after = v.coldchain_state
+                        v.coldchain_accounting_anchor = cc_after
+                        segment_energy = (
+                            cc_after.cumulative_energy_kwh
+                            - cc_before.cumulative_energy_kwh)
+                        segment_quality = (
+                            total_quality_loss(cc_after, self.coldchain_contract)
+                            - total_quality_loss(cc_before, self.coldchain_contract))
+                        segment_distance = (
+                            cc_after.cumulative_distance_km
+                            - cc_before.cumulative_distance_km)
+                        segment_violation_count = (
+                            cc_after.thermal_violation_count
+                            - cc_before.thermal_violation_count)
+                        segment_violation_duration = (
+                            cc_after.thermal_violation_duration_h
+                            - cc_before.thermal_violation_duration_h)
                     traces[v.vehicle_id].services.append(ServiceRecord(
                         vehicle_id=v.vehicle_id,
                         prev_node=v.current_node,
@@ -186,15 +341,27 @@ class StrictOnlineEnv:
                         arrival_time=v.committed_arrive,
                         service_start=max(v.committed_arrive, self.tw_start[inst_idx, node]),
                         service_finish=v.committed_finish,
+                        coldchain_before=cc_before,
+                        coldchain_after=cc_after,
+                        picked_order_id=int(node) if self.coldchain_contract is not None else None,
+                        segment_energy_kwh=float(segment_energy),
+                        segment_quality_loss=float(segment_quality),
+                        segment_distance_km=float(segment_distance),
+                        segment_thermal_violation_count=int(segment_violation_count),
+                        segment_thermal_violation_duration_h=float(segment_violation_duration),
                     ))
                     served_mask[node] = True
                     v.served_route.append(node)
                     v.current_node = node
                     v.ready_time = v.committed_finish
-                    v.current_load += self.demands[inst_idx, node]
+                    if self.coldchain_contract is not None:
+                        v.current_load = v.coldchain_state.total_load
+                    else:
+                        v.current_load += self.demands[inst_idx, node]
                     v.committed_next = None
                     v.committed_arrive = None
                     v.committed_finish = None
+                    v.committed_coldchain_before = None
                     v.status = 'ready'
                     # P0-M1：PlanExhaustion —— 当前 committed leg 完成后无旧 plan 可继续，
                     # 则下一决策点必须重规划（不覆盖更强的 reveal 原因）。
@@ -204,6 +371,41 @@ class StrictOnlineEnv:
                         v.replan_reason = 'plan_exhaustion'
             elif v.status == 'returning':
                 if v.return_finish is not None and v.return_finish <= clock + 1e-6:
+                    if self.coldchain_contract is not None:
+                        cc_before = v.coldchain_accounting_anchor
+                        before_count = len(v.coldchain_state.delivered_to_depot)
+                        v.coldchain_state, _ = transition_segment(
+                            v.coldchain_state,
+                            depart_time=float(clock),
+                            arrival_time=float(clock),
+                            service_finish=float(clock),
+                            served_customer=None,
+                            active_zone_mask=self._coldchain_active_mask(),
+                            contract=self.coldchain_contract,
+                            return_to_depot=True,
+                            segment_distance_units=float(
+                                self.dist_mat[inst_idx, v.current_node, 0]),
+                        )
+                        v.coldchain_updated_time = float(clock)
+                        traces[v.vehicle_id].depot_unload_records.extend(
+                            v.coldchain_state.delivered_to_depot[before_count:])
+                        traces[v.vehicle_id].final_coldchain_state = v.coldchain_state
+                        v.coldchain_accounting_anchor = v.coldchain_state
+                        traces[v.vehicle_id].return_segment_energy_kwh = float(
+                            v.coldchain_state.cumulative_energy_kwh
+                            - cc_before.cumulative_energy_kwh)
+                        traces[v.vehicle_id].return_segment_quality_loss = float(
+                            total_quality_loss(v.coldchain_state, self.coldchain_contract)
+                            - total_quality_loss(cc_before, self.coldchain_contract))
+                        traces[v.vehicle_id].return_segment_distance_km = float(
+                            v.coldchain_state.cumulative_distance_km
+                            - cc_before.cumulative_distance_km)
+                        traces[v.vehicle_id].return_segment_thermal_violation_count = int(
+                            v.coldchain_state.thermal_violation_count
+                            - cc_before.thermal_violation_count)
+                        traces[v.vehicle_id].return_segment_thermal_violation_duration_h = float(
+                            v.coldchain_state.thermal_violation_duration_h
+                            - cc_before.thermal_violation_duration_h)
                     traces[v.vehicle_id].return_arrival = v.return_finish
                     traces[v.vehicle_id].return_depart = v.ready_time
                     v.status = 'closed'
@@ -211,6 +413,7 @@ class StrictOnlineEnv:
                     v.current_load = 0.0
                     v.ready_time = v.return_finish
                     v.return_finish = None
+                    v.committed_coldchain_before = None
 
     def run(self, inst_idx, force_suffix=None):
         """运行单个实例。返回 (traces, served_mask)。
@@ -247,6 +450,8 @@ class StrictOnlineEnv:
                 v.replan_reason = 'initial'
             self._maybe_snapshot(inst_idx, clock, reveal_idx, vehicles, traces, served_mask,
                                  all_customers)
+            self._run_oracle_hook(inst_idx, clock, reveal_idx, vehicles, traces, served_mask,
+                                  all_customers)
             self._plan_and_commit(inst_idx, clock, vehicles, traces, served_mask, all_customers)
             return self._run_loop(inst_idx, clock, reveal_idx, vehicles, traces, served_mask,
                                   all_customers, reveal_events, horizon)
@@ -303,6 +508,8 @@ class StrictOnlineEnv:
 
             self._maybe_snapshot(inst_idx, clock, reveal_idx, vehicles, traces, served_mask,
                                  all_customers)
+            self._run_oracle_hook(inst_idx, clock, reveal_idx, vehicles, traces, served_mask,
+                                  all_customers)
             self._plan_and_commit(inst_idx, clock, vehicles, traces, served_mask, all_customers)
 
         return traces, served_mask
@@ -313,6 +520,23 @@ class StrictOnlineEnv:
         if self.snapshot_hook is not None:
             self.snapshot_hook(self, inst_idx, float(clock), int(self.event_id), int(reveal_idx),
                                vehicles, traces, served_mask, all_customers)
+
+    def _run_oracle_hook(self, inst_idx, clock, reveal_idx, vehicles, traces, served_mask,
+                         all_customers):
+        """O0：决策点干预钩子。
+
+        动作时机冻结：只在「存在需要重规划的 idle/ready 车」时触发（与 JF1-H replanner
+        的 replan_ids 触发一致）；service-completion / return-completion 等无重规划需求的
+        物理事件不触发 oracle 决策，保证 O0 与未来 M1 的决策频率一致。
+        """
+        if self.oracle_hook is None:
+            return
+        replan_ids = {v.vehicle_id for v in vehicles
+                      if v.status in ('idle', 'ready') and v.needs_replan}
+        if not replan_ids:
+            return
+        self.oracle_hook(self, inst_idx, float(clock), int(self.event_id), int(reveal_idx),
+                         vehicles, traces, served_mask, all_customers)
 
     def run_resumed(self, snapshot):
         """P0-S：从 recourse snapshot 恢复并继续运行到终止。返回 (traces, served_mask)。
@@ -325,6 +549,8 @@ class StrictOnlineEnv:
         validate_snapshot_against_env(self, snapshot)
         inst_idx = int(snapshot['instance_id'])
         vehicles, traces, served_mask = restore_recourse_snapshot(snapshot)
+        if self.replanner is not None and getattr(self.replanner, 'restore_state', None) is not None:
+            self.replanner.restore_state(snapshot.get('replanner_state'))
         clock = float(snapshot['clock'])
         reveal_idx = int(snapshot['reveal_idx'])
         self.event_id = int(snapshot['event_id'])
@@ -339,15 +565,21 @@ class StrictOnlineEnv:
         try:
             self._maybe_snapshot(inst_idx, clock, reveal_idx, vehicles, traces, served_mask,
                                  all_customers)
+            self._run_oracle_hook(inst_idx, clock, reveal_idx, vehicles, traces, served_mask,
+                                  all_customers)
             self._plan_and_commit(inst_idx, clock, vehicles, traces, served_mask, all_customers)
             return self._run_loop(inst_idx, clock, reveal_idx, vehicles, traces, served_mask,
                                   all_customers, reveal_events, horizon)
         finally:
             self.force_suffix = {}
 
-    def _plan_and_commit(self, inst_idx, clock, vehicles, traces, served_mask, all_customers):
-        # P0-A：idle 车第一次派车 ready_time=clock；ready 车 WAIT 后也把 ready_time
-        #       抬到 clock（消除时间穿越：depart 不得早于当前事件时刻）
+    def prepare_decision_point(self, clock, vehicles):
+        """决策点准备（P0-A）：idle 车第一次派车 ready_time=clock；ready 车 WAIT 后也把
+        ready_time 抬到 clock（消除时间穿越：depart 不得早于当前事件时刻）。
+
+        抽成公开方法，供 _plan_and_commit 与 counterfactual teacher 的 incumbent 计算
+        共用，保证「no-op 候选 == 原 baseline」的锚点时间一致。
+        """
         for v in vehicles:
             if v.status == 'idle':
                 v.current_node = 0
@@ -355,6 +587,9 @@ class StrictOnlineEnv:
                 v.ready_time = float(clock)
             elif v.status == 'ready':
                 v.ready_time = max(v.ready_time, float(clock))
+
+    def _plan_and_commit(self, inst_idx, clock, vehicles, traces, served_mask, all_customers):
+        self.prepare_decision_point(clock, vehicles)
 
         visible_ids = [i for i in all_customers
                        if self.reveal_time[inst_idx, i] <= clock + 1e-6]
@@ -374,6 +609,9 @@ class StrictOnlineEnv:
                 key = (self.event_id, v.vehicle_id)
                 if key in self.force_suffix:
                     v.mutable_suffix = list(self.force_suffix[key])
+            # 同步 deferred：force 插入/重新分配的客户不再是 deferred（阶段 C 步骤 3）
+            if self.replanner is not None and hasattr(self.replanner, 'sync_deferred_from_vehicles'):
+                self.replanner.sync_deferred_from_vehicles(vehicles)
 
         # commit：对所有 idle/ready 车 pop mutable_suffix 第一个节点
         #（needs_replan 车用新 plan，非 needs_replan 车延续旧 plan）
@@ -390,11 +628,8 @@ class StrictOnlineEnv:
             if v.status == 'ready' and v.current_node != 0:
                 self._commit(inst_idx, clock, v, traces, 0)
                 if v.status == 'returning':
-                    traces[v.vehicle_id].return_depart = v.ready_time
-                    traces[v.vehicle_id].return_arrival = v.return_finish
-                    v.status = 'closed'
-                    v.current_node = 0
-                    v.current_load = 0.0
+                    finish = float(v.return_finish)
+                    self._advance_fleet(inst_idx, finish, [v], traces, served_mask)
 
 
 class GreedyReplanner(Replanner):

@@ -10,8 +10,12 @@ Phase H: 完整 MaskCO pipeline (EDD + TW 2opt + C++) 接入动态仿真。
 
 import sys, os, argparse, time, numpy as np
 _BASE = os.path.dirname(os.path.abspath(__file__))
-_CVRPTW = os.path.dirname(os.path.dirname(_BASE))
-_MASKCO = os.path.dirname(_CVRPTW)
+_SCRIPTS_BOOTSTRAP = os.path.dirname(_BASE)
+if _SCRIPTS_BOOTSTRAP not in sys.path:
+    sys.path.insert(0, _SCRIPTS_BOOTSTRAP)
+from project_paths import EXTENSION_ROOT, MASKCO_ROOT
+_CVRPTW = str(EXTENSION_ROOT)
+_MASKCO = str(MASKCO_ROOT)
 sys.path.insert(0, _MASKCO)
 sys.path.insert(0, _CVRPTW)
 sys.path.insert(0, os.path.join(_CVRPTW, 'scripts', 'models'))
@@ -327,25 +331,30 @@ def main():
         print(f"  Instances:  {len(logs)}")
         print(f"  Completed:  {np.mean(completed):.1%}")
         print(f"  Distance:   {np.mean(dists):.1f}")
-        print(f"  Spoilage:   {np.mean(spoils):.3f}")
+        print(f"  Legacy spoilage proxy (非C0): {np.mean(spoils):.3f}")
         print(f"  Replans:    {np.mean(replans):.1f}")
         print(f"  Time:       {elapsed:.0f}s")
 
-        results[strategy] = {'completed': completed, 'distance': dists,
-                             'spoilage': spoils, 'replans': replans}
+        results[strategy] = {
+            'completed': completed,
+            'distance': dists,
+            'legacy_spoilage_proxy': spoils,
+            'replans': replans,
+        }
 
     # 汇总
     print(f"\n{'='*75}")
-    print(f"{'Strategy':<16} {'Completed':>10} {'Distance':>10} {'Spoilage':>10} {'Replans':>8}")
+    print(f"{'Strategy':<16} {'Completed':>10} {'Distance':>10} {'LegacyProxy':>12} {'Replans':>8}")
     print(f"{'-'*75}")
     for s in ['static', 'full_reopt', 'maskco_full']:
         if s in results:
             r = results[s]
             print(f"{s:<16} {np.mean(r['completed']):>9.1%} {np.mean(r['distance']):>10.1f} "
-                  f"{np.mean(r['spoilage']):>10.3f} {np.mean(r['replans']):>8.1f}")
+                  f"{np.mean(r['legacy_spoilage_proxy']):>12.3f} {np.mean(r['replans']):>8.1f}")
 
     np.savez(os.path.join(args.output, f'dynamic_sim_full_edod{str(args.edod).replace(".","")}.npz'),
-             **results)
+             metric_schema=np.asarray('legacy-rolling-horizon-proxy-v1'),
+             coldchain_authoritative=np.asarray(False), **results)
 
 
 if __name__ == '__main__':

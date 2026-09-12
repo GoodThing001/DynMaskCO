@@ -29,7 +29,7 @@ for p in ('simulation', 'evaluation', 'baselines'):
 from strict_online_env import StrictOnlineEnv, VehicleState
 from action_contract import (ActionSlot, FleetAction, build_vehicle_plans, build_slots,
                              certify_route, apply_action, validate_ownership, plan_hash,
-                             enumerate_actions, find_customer_slot)
+                             enumerate_actions, enumerate_actions_from_plans, find_customer_slot)
 
 RESULTS = []
 
@@ -249,6 +249,29 @@ def test_bruteforce_no_false_negative():
            f"enum={len(enum_feas)} brute={len(brute)} diff_extra={enum_feas-brute} diff_miss={brute-enum_feas}")
 
 
+def test_new_route_scoped_matching():
+    """NEW_ROUTE 的 scoped physical matching：枚举/apply 都只在 allowed 空 idle 车里选。"""
+    env = _line_env(num_vehicles=6)
+    # v0 idle 空路线（不在 allowed），v5 idle 空路线（在 allowed）；allowed={5}
+    vehicles = [_veh(0, 'idle', node=0, ready_time=0.0, suffix=[]),
+                _veh(5, 'idle', node=0, ready_time=0.0, suffix=[])]
+    plans = build_vehicle_plans(env, 0, vehicles)
+    cands, _ = enumerate_actions_from_plans(env, 0, plans, customer=2, allowed_vehicle_ids={5})
+    nr = [c for c in cands if c.action.slot.kind == 'new_route' and c.feasible]
+    if len(nr) != 1:
+        record('new_route_scoped_matching', False, f'expected 1 feasible NEW_ROUTE, got {len(nr)}')
+        return False
+    c = nr[0]
+    applied = apply_action(plans, c.action, allowed_vehicle_ids={5})
+    ok_v5 = (2 in applied[5].suffix)
+    ok_v0 = (2 not in applied[0].suffix)
+    ok_hash = (c.plan_hash is not None and c.plan_hash == plan_hash(applied))
+    ok = ok_v5 and ok_v0 and ok_hash
+    record('new_route_scoped_matching', ok,
+           f"v5_written={ok_v5} v0_unchanged={ok_v0} hash_match={ok_hash}")
+    return ok
+
+
 def main():
     print("=== P0-A Action Contract v1 tests ===")
     test_enumeration_positions_new_route()
@@ -258,6 +281,7 @@ def main():
     test_ownership_exactly_once()
     test_committed_anchor()
     test_bruteforce_no_false_negative()
+    test_new_route_scoped_matching()
 
     out_dir = os.path.join(_CVRPTW, 'results', 'p0a')
     os.makedirs(out_dir, exist_ok=True)

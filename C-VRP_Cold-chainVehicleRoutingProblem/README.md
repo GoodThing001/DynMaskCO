@@ -4,9 +4,11 @@
 
 DynMaskCO extends the [MaskCO](https://github.com/ai4co/maskco) (ICLR 2026) masked-generation paradigm for neural combinatorial optimization from *static* routing to *causal, feasibility-preserving online optimization* for the **dynamic cold-chain vehicle routing problem (DCC-VRP)** — capacitated vehicle routing with time windows, temperature classes, and progressively revealed (online) orders.
 
-> This directory is an **isolated extension workspace**. All new code lives here; the original MaskCO sources under `../` are never modified.
+> This directory is an **isolated extension workspace**. All new code lives here; the original MaskCO sources under `../MASKCO_code/` are never modified.
 
-> **Current status (2026-09-03):** The paper line is fixed as a MaskCO-based method for dynamic cold-chain logistics. JF2/HFR are frozen negative results and P0-R/P0-S/P0-A/P0-U are complete. The current blocking task is **C0 cargo-manifest/cold-chain state/unit/trace-evaluator closure**, followed by O0-D/O0-CC. See [`项目当前状态.md`](项目当前状态.md).
+> **Current status (2026-09-03):** The paper line is fixed as a MaskCO-based method for dynamic cold-chain logistics. P0-M and the C0 implementation gate are complete: C0 contract/state/trace/snapshot/evaluator/teacher and legacy-isolation checks pass 20/20, with 7/7 pilot sensitivity checks. O0-D is next. The pilot parameters are not yet real-world calibrated and are not paper-level performance evidence. See [`项目当前状态.md`](项目当前状态.md).
+
+> **Execution warning:** upstream MaskCO has moved to `../MASKCO_code/`, while existing extension entry points still contain the old root-level import assumption. Do not run training/decoding as a valid experiment until P0-M is complete.
 
 > **Operational protocol:** the main benchmark is dynamic cold-chain **pickup-to-depot**, not depot-to-customer delivery. Vehicles leave the depot empty; an order enters the cargo manifest at `service_finish`; quality is tracked until `return_arrival`; each vehicle then unloads and closes. The main setting uses homogeneous multi-compartment, shared-capacity, single-trip vehicles with no reload.
 
@@ -20,7 +22,7 @@ We investigate how MaskCO's masked generation can be extended from static combin
 2. **Cold-chain-aware fleet–route masked recourse** — event-affected mutable decisions are masked and reconstructed as permutation-aware, full-fleet actions; accepted actions must pass route/fleet/cold-chain certificates while executed and committed decisions remain frozen.
 3. **Counterfactual terminal-utility alignment** — masked action reconstruction is supervised by common-continuation rollout outcomes over distance, trace-level quality loss, and refrigeration energy instead of static route-structure imitation.
 
-The first causal routing infrastructure exists. The authoritative trace-level cold-chain state and objective are the current C0 work item; the README does not claim that this planned component is already validated.
+The causal routing infrastructure and authoritative trace-level C0 state/objective are implemented and regression-tested. This validates the implementation contract, not the empirical effectiveness or real-world calibration of DynMaskCO-CC.
 
 ---
 
@@ -38,26 +40,31 @@ Under the corrected strict-online protocol on R1 EDoD=0.5:
 | HFR-M0 g_only | 24.97 | 100% | grouping signal, Gate FAIL |
 | HFR-M0 full | 29.95 | 99.2% | F3 / service Gate FAIL |
 
-The historical `Complete` column covers customer service and depot return under the distance protocol. It does not yet include the v4 cargo-manifest and `delivered_to_depot` checks, which are part of C0.
+The historical `Complete` column covers customer service and depot return under the distance protocol. It does not retroactively include the v4 cargo-manifest and `delivered_to_depot` checks now enforced by C0 traces.
 
 HFR-M0 learned real structural signal (G AUROC 0.727 and improved route reconstruction loss), but that signal did not improve downstream online cost. This motivates changing the **MaskCO reconstruction target** from static structure to utility-preferred executable actions; cost-aware preference remains an internal alignment mechanism.
 
-P0-R, P0-S, P0-A, and P0-U are complete. The next stage is C0, which must unify physical units, temperature-dependent quality, refrigeration energy, cold-chain snapshots, and the execution-trace evaluator. O0-D and O0-CC follow; M0 is only a frozen-representation probe, while M1 is the minimum complete DynMaskCO-CC method with event masking and iterative reconstruction.
+P0-R, P0-S, P0-A, P0-U, P0-M, and C0 are complete. O0-D and O0-CC follow; M0 is only a frozen-representation probe, while M1 is the minimum complete DynMaskCO-CC method with event masking and iterative reconstruction.
 
-See [`项目当前状态.md`](项目当前状态.md), the [`documentation index`](docs/README.md), the [`implementation blueprint`](docs/当前规划/代码实现蓝图.md), and the [`results index`](results/README.md).
+See [`项目当前状态.md`](项目当前状态.md), the [`documentation index`](docs/README.md), the [`implementation blueprint`](docs/当前规划/工程实现/代码实现蓝图.md), and the [`results index`](results/README.md).
 
 ---
 
 ## Installation
 
 ```bash
-# 1. Parent MaskCO environment (JAX 0.5.0, Flax 0.10.4, Triton 3.1.0, PyTorch-CPU, NumPy 1.26.4)
-cd .. && sh install.sh && cd lib && make && cd ..
+# 1. Upstream MaskCO environment (run from workspace root)
+cd MASKCO_code
+sh install.sh
+cd lib && make
+cd ../..
 
 # 2. CVRPTW / cold-chain C++ extension (EDD repair + TW-aware 2-opt + quality cost)
 pip install pybind11
 cd "C-VRP_Cold-chainVehicleRoutingProblem/scripts/lib" && make && cd ../..
 ```
+
+The setup paths above reflect the reorganized workspace. Extension Python entry points still require the P0-M migration described in the implementation blueprint before they are considered runnable.
 
 Python dependencies for this sub-directory are listed in [`requirements.txt`](requirements.txt).
 
@@ -138,7 +145,7 @@ A detailed file index is in [`scripts/README.md`](scripts/README.md). Historical
 
 ## Reproduction Notes
 
-- **Two objective names are kept separate** — `distance_cost` is always pure travel distance; C0 introduces a separate `coldchain_cost` built from frozen distance/quality/energy scales and weights. Hard infeasibility is never mixed into either scalar (see [`评估口径.md`](docs/当前规划/评估口径.md)).
+- **Two objective names are kept separate** — `distance_cost` is always pure travel distance; C0 introduces a separate `coldchain_cost` built from frozen distance/quality/energy scales and weights. Hard infeasibility is never mixed into either scalar (see [`评估口径.md`](docs/当前规划/实验与评估/评估口径.md)).
 - **Authoritative checkpoints** (5-seed frozen + typed/typed-edge) live on the training server and are regenerable via `run_method_freeze.sh`; see [`docs/服务器说明.md`](docs/服务器说明.md).
 - **Causality discipline**: use `coord_normalize_visible` (visible-node statistics), never the parent `coord_normalize` (which leaks future nodes).
 

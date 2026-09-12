@@ -4,9 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ---
 
-## ⚠️ 当前状态（2026-09-03）：论文主线锁定为 MaskCO → 动态冷链；当前 C0 冷链闭环
+## ⚠️ 当前状态（2026-09-12）：阶段 A/B/C 完成，正式 DEV-GATE v4 完成（verdict GO）
 
-> **唯一状态入口**：[`项目当前状态.md`](项目当前状态.md)。本文件保留工程规则和历史背景；若研究进度或权威路径冲突，以该状态入口为准。
+> **唯一状态入口**：[`项目当前状态.md`](项目当前状态.md)（最新）+ [`docs/当前规划/结果与进度/执行进度表.md`](docs/当前规划/结果与进度/执行进度表.md)（逐项进度）。本文件保留工程规则和历史背景；研究进度冲突时以这两个文件为准。
+
+> **阶段 A ✅**：JF1-H-F hard-feasible baseline（`scripts/simulation/jf1h_repair.py`，`make_continuation()` + `export_state/restore_state` + urgent-defer）。**阶段 B ✅**：scale v2 冻结 `o0cc-pilot-devmean-equal-v2`（v1 INVALIDATED）。**阶段 C ✅**：oracle protocol repair 三轮（continuation 隔离 / mutable scope 贯通 / 共享 hard gate / local 单客户 / PROTOCOL_ERROR），round-4 小样本协议验收 PROTOCOL_PASS。
+
+> **已完成（2026-09-12）**：正式 DEV-GATE v4 完成 9×128=1152 实例（run_id=`20260908-054550`，输出 `results/o0cc/dev_gate_v4_official/`），**verdict=GO**，九 cell 等权平均 Δ = −0.2771，成组 bootstrap 95% CI [−0.2848, −0.2696]；local 九 cell 等权 Δ = −0.0196（CI 不跨 0）。按冻结判据 **sequential GO → 不做 lookahead，进入正式 O0-CC VAL**。全程 0 error 实例、0 归档 pyc。O0-D 的 −2.668 是旧 scope（含 committed-tail）历史证据，不得与新结果共用。
+
+> **目录迁移状态**：P0-M 已通过，扩展入口统一由 `scripts/project_paths.py` 解析新目录；路径/导入/入口/syntax 7/7 与 P0-R/S/A/U 回归通过。所有后续修复仍只改本扩展目录，不修改 `../MASKCO_code/`。
 
 > **v4 运营契约**：主实验是 dynamic cold-chain pickup-to-depot，不是 depot-to-customer 配送。车辆空载出发，`service_finish` 取货入舱并开始品质计时，`return_arrival` 卸货并关闭；同构多温舱、共享总容量、单次行程、无 reload。C0 必须实现订单级 cargo manifest。
 
@@ -29,9 +35,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **JF2（exact-vehicle CE）No-Go**：M0-v2 Gate A FAIL（25.91 vs 24.50，110 恶化）→ 2×2 oracle 证明 partition×sequencing 交互（interaction **−1.7430**，P0-R 修复后复核，CI [−2.387, −1.104]，四路 100% complete）。
 - **HFR-M0 实现完成 + Gate A FAIL**：训练端结构信号可学，但没有任何 service-equivalent 变体超过 JF1-H。严格结论是旧 structural target 未建立 downstream utility，不是所有 route signal 本质无用。
 
-**v4 方向定论**：冻结 JF2/HFR 的旧结构监督，但不放弃 MaskCO。论文主线固定为 **DynMaskCO-CC：基于 MaskCO 的动态冷链效用对齐掩码重构**。Cost-aware preference 只作为内部监督机制；M0 frozen encoder + MLP 仅为表征探针，最终 M1 必须包含 event mask、masked action reconstruction 与 iterative refinement。当前先完成 C0（pickup manifest、单位、温度、品质、能耗、snapshot 与 trace evaluator），再做 O0-D/O0-CC。
+**v4 方向定论**：冻结 JF2/HFR 的旧结构监督，但不放弃 MaskCO。论文主线固定为 **DynMaskCO-CC：基于 MaskCO 的动态冷链效用对齐掩码重构**。Cost-aware preference 只作为内部监督机制；M0 frozen encoder + MLP 仅为表征探针，最终 M1 必须包含 event mask、masked action reconstruction 与 iterative refinement。P0-M 与 C0 已完成；C0 功能/口径 20/20、pilot sensitivity 7/7，下一步 O0-D。
 
-**权威状态**：`项目当前状态.md` + `docs/当前规划/科研方法创新主控文档.md` + `docs/当前规划/代码实现蓝图.md` + `docs/当前规划/执行进度表.md`。
+**权威状态**：`项目当前状态.md` + `docs/当前规划/研究设计/科研方法创新主控文档.md` + `docs/当前规划/工程实现/代码实现蓝图.md` + `docs/当前规划/结果与进度/执行进度表.md`。
 
 **本文档下方「Phase 0 Baseline 15.45 / 100% feasible」及 Phase A-D 路线图均为 P0 审计前旧数字，作废待重建。**
 
@@ -41,7 +47,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **DynMaskCO** extends the MaskCO (ICLR 2026) masked-generation paradigm for neural combinatorial optimization from *static* routing to *causal, feasibility-preserving online optimization* for the **dynamic cold-chain vehicle routing problem (DCC-VRP)**.
 
-This is an **isolated extension workspace** within the larger MaskCO repository. All DynMaskCO code lives in `C-VRP_Cold-chainVehicleRoutingProblem/`; the parent MaskCO sources are never modified.
+This is an **isolated extension workspace** within the larger MaskCO repository. All DynMaskCO code lives in `C-VRP_Cold-chainVehicleRoutingProblem/`; the upstream MaskCO sources live in `MASKCO_code/` and are never modified.
 
 Key characteristics:
 - **Causal (non-anticipatory)**: Model cannot see future orders (visibility-gated attention)
@@ -61,8 +67,9 @@ source /home/hzeng/envs/MASKCO_env/bin/activate
 # Or create new environment
 conda create -n maskco_env python=3.10
 conda activate maskco_env
-pip install -r requirements.txt
-cd lib && make  # Build C++ extensions
+pip install -r C-VRP_Cold-chainVehicleRoutingProblem/requirements.txt
+cd MASKCO_code/lib && make  # Build upstream C++ extensions
+cd ../../C-VRP_Cold-chainVehicleRoutingProblem/scripts/lib && make
 ```
 
 ### Training
@@ -138,7 +145,7 @@ CVRPTWModel (scripts/models/CVRPTWModel.py)
 ColdChainModel (scripts/models/ColdChainModel.py)
   ├── Adds: Temperature classes (3), quality loss physics
   ├── Node features: [x, y, demand, tw_start, tw_end, temp_class]
-  └── Quality physics: thermal_state.py (arrhenius decay)
+  └── C0 physics: coldchain/coldchain_state.py (唯一状态转移)
   ↓
 DynamicColdChainModel (scripts/models/DynamicColdChainModel.py)
   ├── Adds: Causal masking, progressive revelation
@@ -182,7 +189,7 @@ results/phase0_baseline_freeze/matrix_summary.csv
 - `cvrptw.py`: Main evaluation entry point
 - `resource_beam.py`: Resource-aware beam search (capacity + TW feasibility)
 - `maskco_dynamic.py`: Dynamic masking logic (causal, visible-only)
-- `thermal_state.py`: Cold-chain physics (Arrhenius decay, quality loss)
+- `thermal_state.py`: C0 compatibility shim；旧单段 physics 已退役
 
 **Training** (`scripts/training/`):
 - `train_dynamic_cc.py`: Main training loop (Phase 3c online seq)
@@ -385,14 +392,14 @@ All documentation in `docs/`:
 
 **Core references**:
 - `项目当前状态.md`: current status and the only navigation authority
-- `docs/当前规划/评估口径.md`: Metrics, statistical testing, reporting standards
-- `docs/当前规划/总索引.md`: Quick reference for current documents
+- `docs/当前规划/实验与评估/评估口径.md`: Metrics, statistical testing, reporting standards
+- `docs/当前规划/README.md`: Quick reference for current documents
 - `archive/docs/优化历程/v1/`: Historical Phase A-D roadmap and progress
 
 **Technical specs**:
-- `docs/当前规划/实验细节.md`: Complete formulas, architecture, hyperparameters
-- `docs/当前规划/理论形式化.md`: Theorems, proofs (causality, feasibility)
-- `docs/当前规划/基线对比.md`: Baseline comparisons (OR-Tools, RRNCO, etc.)
+- `docs/当前规划/实验与评估/实验细节.md`: Complete formulas, architecture, hyperparameters
+- `docs/当前规划/研究设计/理论形式化.md`: Theorems, proofs (causality, feasibility)
+- `docs/当前规划/实验与评估/基线对比.md`: Baseline comparisons (OR-Tools, RRNCO, etc.)
 
 **Data**:
 - `data/数据集组织规范.md`: Dataset structure and naming conventions
@@ -503,8 +510,8 @@ All documentation in `docs/`:
 ## Contact and Support
 
 For questions about:
-- **Method / architecture**: See `docs/当前规划/实验细节.md` (complete formulas)
-- **Evaluation protocol**: See `docs/当前规划/评估口径.md` (metrics definitions)
-- **Roadmap**: See `docs/当前规划/科研方法创新主控文档.md`
-- **Progress**: See `docs/当前规划/执行进度表.md`
+- **Method / architecture**: See `docs/当前规划/实验与评估/实验细节.md` (complete formulas)
+- **Evaluation protocol**: See `docs/当前规划/实验与评估/评估口径.md` (metrics definitions)
+- **Roadmap**: See `docs/当前规划/研究设计/科研方法创新主控文档.md`
+- **Progress**: See `docs/当前规划/结果与进度/执行进度表.md`
 - **Data**: See `data/数据集组织规范.md` (dataset structure)

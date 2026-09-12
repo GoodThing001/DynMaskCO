@@ -4,13 +4,15 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Project Overview
 
-MaskCO is the official ICLR 2026 implementation of a Neural Combinatorial Optimization (NCO) framework using masked generation. Three NP-hard problems: **TSP**, **CVRP**, **MIS**.
+MaskCO is the official ICLR 2026 implementation of a Neural Combinatorial Optimization (NCO) framework using masked generation. Three NP-hard problems: **TSP**, **CVRP**, **MIS**. The unmodified upstream implementation now lives in `MASKCO_code/`.
 
-The `C-VRP_Cold-chainVehicleRoutingProblem/` subdirectory extends MaskCO from standard CVRP to **CVRPTW** (Time Windows), **Cold-Chain** (temperature), and **Dynamic Cold Chain (DCC)** (reveal_time + EDoD). This is an isolated workspace — **never modify original MaskCO source files**.
+The `C-VRP_Cold-chainVehicleRoutingProblem/` subdirectory extends MaskCO from standard CVRP to **CVRPTW** (Time Windows), **Cold-Chain** (temperature), and **Dynamic Cold Chain (DCC)** (reveal_time + EDoD). This is an isolated workspace — **never modify files under `MASKCO_code/`**.
 
-## ⚠️ 当前状态（2026-09-03）：论文主线锁定为 MaskCO → 动态冷链；当前 C0 冷链闭环
+## ⚠️ 当前状态（2026-09-03）：P0-M、C0 已完成；下一步 O0-D
 
 > **唯一状态入口**：`C-VRP_Cold-chainVehicleRoutingProblem/项目当前状态.md`。本文件保留工程规则和历史背景；若研究进度或权威路径冲突，以 `项目当前状态.md` 及其链接的论文优先版进度表为准。
+
+> **目录迁移状态**：P0-M 已通过。扩展入口统一使用 `scripts/project_paths.py` 解析 `WORKSPACE_ROOT`、`MASKCO_ROOT` 和扩展根目录；路径/导入/入口/syntax 7/7 与 P0-R/S/A/U 回归通过。后续仍不得修改 `MASKCO_code/`。
 
 > **v4 运营契约**：主实验是 dynamic cold-chain pickup-to-depot，不是 depot-to-customer 配送。车辆空载出发，`service_finish` 取货入舱并开始品质计时，`return_arrival` 卸货并关闭；同构多温舱、共享总容量、单次行程、无 reload。后续 C0 实现必须包含订单级 cargo manifest。
 
@@ -45,11 +47,11 @@ The `C-VRP_Cold-chainVehicleRoutingProblem/` subdirectory extends MaskCO from st
 | group_logit | G | 纯 logσ(G) | 30.07 | +5.52 |
 
 **方向定论（F3 坐实）**：
-> HFR 训练信号可学但未转化为部署效用，说明旧 structural target 与可执行动作错位；这不证明所有 route signal 无用，也不否定 MaskCO。v4 主线固定为 **DynMaskCO-CC：基于 MaskCO 的动态冷链效用对齐掩码重构**。Cost-aware preference 是内部监督机制；当前先完成 C0 冷链状态/单位/trace evaluator，再做 O0-D/O0-CC，最终 M1 必须保留 event mask、masked reconstruction 与 iterative refinement。
+> HFR 训练信号可学但未转化为部署效用，说明旧 structural target 与可执行动作错位；这不证明所有 route signal 无用，也不否定 MaskCO。v4 主线固定为 **DynMaskCO-CC：基于 MaskCO 的动态冷链效用对齐掩码重构**。Cost-aware preference 是内部监督机制；C0 功能/口径 20/20、pilot sensitivity 7/7 已通过，下一步 O0-D；最终 M1 必须保留 event mask、masked reconstruction 与 iterative refinement。
 
 **权威入口**：
 - `C-VRP_Cold-chainVehicleRoutingProblem/项目当前状态.md` — 当前状态与导航
-- `C-VRP_Cold-chainVehicleRoutingProblem/docs/当前规划/执行进度表.md` — 当前阶段、Gate 与下一动作
+- `C-VRP_Cold-chainVehicleRoutingProblem/docs/当前规划/结果与进度/执行进度表.md` — 当前阶段、Gate 与下一动作
 - `C-VRP_Cold-chainVehicleRoutingProblem/docs/当前规划/` — 论文主控、执行契约与评价口径
 
 **关键脚本（HFR-M0）**：
@@ -86,19 +88,21 @@ The `C-VRP_Cold-chainVehicleRoutingProblem/` subdirectory extends MaskCO from st
 
 **核心演化消融**（2026-08-19，论文第一贡献证据）: Model-only（原始 MaskCO）feas 0% + viol 22.2 → +Resource Beam（viol 22.2→2.1，**-90%**）→ +EDD（feas 100%）→ +2opt（cost 微调）。证明「learned masked generation + resource-feasible search」hybrid 架构——模型提供路由偏好，resource-state decoding 保证硬约束。
 
-**历史品质机制观察（C0 前口径）**：toy、R1 与 R2 数字只作为调试线索；由于热学单位、品质累计语义和执行轨迹评估器尚未闭环，不能作为当前机制结论。冷链现为论文主线，必须由 C0 在统一口径下复核。
+**历史品质机制观察（C0 前口径）**：toy、R1 与 R2 数字只作为调试线索；当时热学单位、品质累计语义和执行轨迹评估器尚未闭环，不能作为当前机制结论。C0 现已闭环，但机制效果仍须由后续 O0-CC/M1 在新口径下重跑。
 
 ## 诚实报告
 
 严格 frozen-prefix non-anticipatory 对比显示 **OR-Tools Rolling Horizon 全面优于 DynMaskCO**（R1 −16.5%, C1 −37%, RC1 −21%; 100-node 仍 feasible）。「在线 SOTA」和「可扩展性」叙事已废弃。详见 `docs/调研/GPT/v5/执行方案_v5.md`。
 
-RRNCO（ICLR 2026 learned 基线）对比同样**交叉而非一边倒**：RRNCO clairvoyant（R1 11.88）远强于 DynMaskCO 底层（~17），naive 特征屏蔽下随 EDoD 崩坏 +60%（15.38→24.67），DynMaskCO 仅 +5%（17.12→17.95）。低动态 RRNCO 赢、高动态 DynMaskCO 赢，但这只支撑「causal 架构鲁棒性」，**不**支撑「DynMaskCO 路线更优」——给 RRNCO 正经非预知方案（rolling horizon）大概率全面优于 DynMaskCO。详见 `C-VRP_Cold-chainVehicleRoutingProblem/docs/当前规划/基线对比.md` §3.2。
+RRNCO（ICLR 2026 learned 基线）对比同样**交叉而非一边倒**：RRNCO clairvoyant（R1 11.88）远强于 DynMaskCO 底层（~17），naive 特征屏蔽下随 EDoD 崩坏 +60%（15.38→24.67），DynMaskCO 仅 +5%（17.12→17.95）。低动态 RRNCO 赢、高动态 DynMaskCO 赢，但这只支撑「causal 架构鲁棒性」，**不**支撑「DynMaskCO 路线更优」——给 RRNCO 正经非预知方案（rolling horizon）大概率全面优于 DynMaskCO。详见 `C-VRP_Cold-chainVehicleRoutingProblem/docs/当前规划/实验与评估/基线对比.md` §3.2。
 
 ## Setup
 
 ```bash
+cd MASKCO_code
 sh install.sh          # JAX 0.5.0, Flax 0.10.4, Triton 3.1.0, PyTorch CPU, NumPy 1.26.4
-cd lib && make         # Parent C++ extension (2-opt, insertion)
+cd lib && make         # Upstream C++ extension (2-opt, insertion)
+cd ../..
 
 # CVRPTW C++ extension (EDD repair + TW-aware 2-opt)
 pip install pybind11
@@ -151,7 +155,7 @@ Model chain: `TSPModel → CVRPModel → CVRPTWModel → ColdChainModel → Dyna
 | `decoding/cvrptw.py` | **Main decoder**. Auto-detects C++ ops, feature dims, model types. **P0-2**: masks future order features + passes `visible_mask`. **Phase 2 (D1-D6)**: constraint-aware decoder, event-aware mask-reconstruct, frozen prefix, adaptive mask, anytime solver. **Phase 3**: `--enable_resource_decoder --beam_width 16` (K-beam). CLI flags: `--enable_event_mask`, `--enable_frozen_prefix`, `--enable_constraint_decoder`, `--enable_adaptive_mask`, `--enable_anytime` |
 | `decoding/resource_beam.py` | **Phase 3a core** — K-beam resource-state decoder: `BeamState` tracks route/arrival/load/visited; `_can_go()` checks TW+capacity+round-trip+2-step lookahead. **品质感知 score**: `--enable_quality --lambda_q` → beam score -= λ_q × weighted completion time（∑K_i·t_i 边际贡献，2026-08-19 修正方向）。支持 `dist_mat` 手动传入（toy 验证用）。 |
 | `decoding/resource_mask.py` | Per-edge TW+capacity feasibility mask (v1→v3). Superseded by resource_beam for decoding. |
-| `decoding/thermal_state.py` | **Phase 3d** — endogenous thermal physics: Newton cooling + refrigeration + door shock + Arrhenius decay per-beam. **COP 温度函数 (v5)**: `compute_cop(ΔT)`（非常数，电制冷拖车论文）. |
+| `decoding/thermal_state.py` | **C0 compatibility shim** — 静态路线桥接到唯一 `coldchain_state`；旧歧义单段热 API 已拒绝执行 |
 | `decoding/learnable_mask.py` | **Phase 3b** — REINFORCE mask policy (Gumbel-Top-K, MaskPolicyTrainer). Honest ablation. |
 | `decoding/coldchain.py` | ColdChain/DynamicColdChain decoding wrapper |
 | `decoding/maskco_dynamic.py` | **Phase 2 core module** — D1-D6 unified implementation: `dynamic_mask_reconstruct()`, `compute_affected_segments()`, `compute_adaptive_keep_rate()`, `AnytimeScheduler`, `SequentialDynamicSampler`, `apply_constraint_mask()` |
@@ -181,15 +185,16 @@ service_time: (N, nodes)     float32
 temp_class:   (N, nodes)     int32     — ColdChain/DCC [0,1,2]
 reveal_time:  (N, nodes)     float32   — DCC only (0=known, >0=future)
 visible_mask: (N, nodes)     float32   — 1=visible at t=0, 0=future (P0-2)
-quality_loss: (N, nodes)     float32   — Arrhenius quality decay (P0-4)
-energy_mat:   (N, nodes, nodes) float32 — refrigeration energy cost (P0-4)
+quality_loss: (N, nodes)     float32   — 历史 delivery-reference 代理（仅兼容旧模型）
+energy_mat:   (N, nodes, nodes) float32 — 历史 edge-energy 代理（仅兼容旧模型）
+initial_quality: (N, nodes)  float32   — C0 pickup 时的初始品质
 routes:       (N, pad_len)   int32     — depot=0 separators
 opt_costs:    (N,)           float32
 ```
 
 ## CC_Compare（对比方法复现工作区）
 
-复现「同赛道 learned 方法」并改成 DCC-VRP 协议做公平对比（对应 `C-VRP_Cold-chainVehicleRoutingProblem/docs/当前规划/基线对比.md` §2.3）。**一个方法一个文件夹**，位于根目录 `CC_Compare/`，是独立于 `C-VRP_Cold-chainVehicleRoutingProblem/` 的第二个工作区。
+复现「同赛道 learned 方法」并改成 DCC-VRP 协议做公平对比（对应 `C-VRP_Cold-chainVehicleRoutingProblem/docs/当前规划/实验与评估/基线对比.md` §2.3）。**一个方法一个文件夹**，位于根目录 `CC_Compare/`，是独立于 `C-VRP_Cold-chainVehicleRoutingProblem/` 的第二个工作区。
 
 | 文件夹 | 方法 | 出处 | 状态 |
 |--------|------|------|------|
@@ -371,7 +376,7 @@ make clean && make
 
 ## Critical Rules
 
-1. **Never modify original MaskCO files** — all new code in `C-VRP_Cold-chainVehicleRoutingProblem/`
+1. **Never modify original MaskCO files under `MASKCO_code/`** — all new code and path adapters belong in `C-VRP_Cold-chainVehicleRoutingProblem/`
 2. **No `__init__.py` in CVRPTW subdirectories** — imports via `sys.path.insert` to avoid shadowing parent packages
 3. **`--gpu_id` must be parsed before `import jax`** — raw `sys.argv` scan sets `CUDA_VISIBLE_DEVICES`
 4. **`tw_max` auto-detected** — `tw_end.max()` in both training and decoding. Must be consistent.
@@ -381,7 +386,7 @@ make clean && make
 8. **Dataloader yields 5-tuple, UNMASKED features** — `ColdChainDataloader` yields `(features, routes, timestep, visible_mask, reveal_time)`. Features are **unmasked**（掩码移到训练器按 vis_k 逐步做，2026-08-27 起，见 §当前状态）。All consumers must unpack 5 values.
 9. **Python 3.10 f-string limitation** — f-strings cannot nest same quote type. Use `%` formatting or variables for complex format strings in shell-embedded Python.
 10. **Use `coord_normalize_visible`, not `coord_normalize`** — parent project's `coord_normalize` computes statistics over ALL nodes (axis=-2), leaking future coordinates. `cvrptw_utils.coord_normalize_visible()` uses only visible nodes. All training/decoding/simulation must use the visible-aware version.
-11. **cost semantics unified (跨方法指标一致性)** — all methods' reported `cost` = **pure travel distance, no penalty**. Infeasibility is reported via separate TW Feas / Cap Feas metrics, never mixed into cost. `_eval_distmat_cost` (final report) is pure distance; `_eval_single_route_cost` (2-opt internal only) has capacity soft-penalty. See `C-VRP_Cold-chainVehicleRoutingProblem/docs/当前规划/评估口径.md` §1.0 and `C-VRP_Cold-chainVehicleRoutingProblem/docs/当前规划/基线对比.md`.
+11. **cost semantics unified (跨方法指标一致性)** — all methods' reported `cost` = **pure travel distance, no penalty**. Infeasibility is reported via separate TW Feas / Cap Feas metrics, never mixed into cost. `_eval_distmat_cost` (final report) is pure distance; `_eval_single_route_cost` (2-opt internal only) has capacity soft-penalty. See `C-VRP_Cold-chainVehicleRoutingProblem/docs/当前规划/实验与评估/评估口径.md` §1.0 and `C-VRP_Cold-chainVehicleRoutingProblem/docs/当前规划/实验与评估/基线对比.md`.
 
 ## Key Findings
 
@@ -389,7 +394,7 @@ make clean && make
 - **Causal Normalization (P0-3a)**: `coord_normalize_visible` → model no longer sees future nodes' coordinate statistics. Cleaner prior → cost -8.8% vs leaky
 - **历史 Quality-Aware Beam 观察**：toy/R1/R2 数字来自 C0 前的多套品质口径，只作调试线索；需由唯一 cold-chain trace evaluator 复核后才能形成机制结论。
 - **Transferable Representation (支持证据)**: 纯 R1 训练 → zero-shot C1/RC1 零迁移损失（C1 差 0.2%, RC1 差 0.6%）。证明 masked representation 未只记忆单一分布，支持第一贡献（不是论文主题）。
-- **COP 温度函数 (v5)**: 从常数 2.5 改为 `compute_cop(ΔT)`（电制冷拖车论文：COP 随温差变化）。
+- **C0 唯一温度/品质/能耗状态**：COP、开门热、制冷功率和 Arrhenius 品质统一由版本化 contract 与 `coldchain_state.py` 执行；参数仍为 pilot。
 - **Self-Training**: feas +20pp (73→93%), largest single lever. Generate pseudo-labels with best model → fine-tune
 - **EDD repair**: viol 9→2 (-77%), highest-leverage single change
 - **TW-aware 2opt (C++)**: enables mask-reconstruct iteration, 30,000x speedup
@@ -401,7 +406,7 @@ make clean && make
 - **Mixed EDoD Training (方向A)**: R1+C1+RC1 × 0.2+0.5+0.8 joint training → Causal feas **74.7%** (+23.5pp vs single-EDoD 51.2%). EDoD=0.8: **28.8%→99.3%** (3×).
 - **8D Quality-Aware (P0-4)**: Adding `quality_loss` as encoder feature → **77.9%** (+3.2pp vs 7D). EDoD=0.5 hardest-case: **54.9%→66.7%** (+11.8pp). Quality signal helps prioritize perishable nodes at medium dynamism.
 - **Quality-Aware C++ 2-opt (P0-4)**: `cvrptw_quality_two_opt` with `total = dist + λ_q×quality_loss + λ_e×energy`. Verified λ_q sweep [0,2.0] — reference sol is locally optimal (dist unchanged), enables tradeoff selection during inference.
-- **Temperature Trajectory Tracking (P0-4)**: `rolling_horizon.py` logs TTI (Time-Temp Integrator), energy (kWh-equiv), quality loss rate per time-step. static TTI=428 vs full_reopt=52 (8×), Energy 19.2 vs 2.2 (9×) — event-driven replanning dramatically reduces cold-chain cost.
+- **历史 Temperature Trajectory Tracking (P0-4)**：`rolling_horizon.py` 的旧 TTI/energy 数字来自非 C0 代理口径，已显式标记 `legacy`，不得作为当前冷链效果证据。
 
 ### P0-2 Results: Causal Dynamic Routing (50K steps, 3 seeds) — OBSOLETE (replaced by P0-3a causal retraining)
 

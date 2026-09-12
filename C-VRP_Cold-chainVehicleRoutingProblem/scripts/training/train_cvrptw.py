@@ -25,8 +25,12 @@ if _GPU_ID is not None:
     print(f"[GPU] CUDA_VISIBLE_DEVICES={_GPU_ID}")
 
 _BASE = os.path.dirname(os.path.abspath(__file__))
-_CVRPTW = os.path.dirname(os.path.dirname(_BASE))
-_MASKCO = os.path.dirname(_CVRPTW)
+_SCRIPTS_BOOTSTRAP = os.path.dirname(_BASE)
+if _SCRIPTS_BOOTSTRAP not in sys.path:
+    sys.path.insert(0, _SCRIPTS_BOOTSTRAP)
+from project_paths import EXTENSION_ROOT, MASKCO_ROOT
+_CVRPTW = str(EXTENSION_ROOT)
+_MASKCO = str(MASKCO_ROOT)
 
 sys.path.insert(0, _MASKCO)
 sys.path.insert(0, os.path.join(_MASKCO, 'models'))

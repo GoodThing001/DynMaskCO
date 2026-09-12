@@ -12,9 +12,13 @@ CVRPTW 解码 / 推理脚本。
 
 import sys
 import os
-# 添加原始 MaskCO 到 path
-_MASKCO_ROOT = os.path.join(os.path.dirname(__file__), '..', '..', '..')
-_CVRPTW_SCRIPTS = os.path.join(os.path.dirname(__file__), '..')
+# P0-M：从唯一目录合同解析上游与扩展路径，不依赖当前工作目录。
+_SCRIPTS_BOOTSTRAP = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if _SCRIPTS_BOOTSTRAP not in sys.path:
+    sys.path.insert(0, _SCRIPTS_BOOTSTRAP)
+from project_paths import EXTENSION_ROOT, MASKCO_ROOT, SCRIPTS_ROOT
+_MASKCO_ROOT = str(MASKCO_ROOT)
+_CVRPTW_SCRIPTS = str(SCRIPTS_ROOT)
 sys.path.insert(0, _MASKCO_ROOT)
 sys.path.insert(0, os.path.join(_CVRPTW_SCRIPTS, 'models'))
 
@@ -39,7 +43,7 @@ from decoding.utils import (
 )
 
 # CVRPTW 扩展模块
-_CVRPTW_ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
+_CVRPTW_ROOT = str(EXTENSION_ROOT)
 sys.path.insert(0, _CVRPTW_ROOT)
 sys.path.insert(0, os.path.join(_CVRPTW_ROOT, 'scripts', 'models'))
 sys.path.insert(0, os.path.join(_CVRPTW_ROOT, 'scripts', 'evaluation'))
@@ -656,8 +660,8 @@ def cvrptw_searching_decode(
     in_cycle_2opt_start: int = 10,            # Week 3 v6: 从第几个 cycle 开始
     # Quality-aware routing
     enable_quality: bool = False,          # 品质感知 score（温度驱动路由，冷链多资源核心）
-    lambda_q: float = 0.1,                 # 品质损耗权重（score -= lambda_q × quality_loss）
-    quality_salable_threshold: float = 0.1,  # 不可售品质损耗阈值（Num 指标：quality_loss > 阈值 → 不可售）
+    lambda_q: float = 0.1,                 # 历史 proxy 权重（非 C0 目标）
+    quality_salable_threshold: float = 0.1,  # 历史 proxy 阈值（非 C0 可售判定）
     save_routes: str | None = None,        # 保存最终路线到 .npz（路线分析用，如 --save_routes routes.npz）
     time_budget_ms: int = 200,             # D6: 时间预算
     frozen_prefix_len: int = 0,              # D2: 冻结前缀长度
@@ -784,34 +788,14 @@ def cvrptw_searching_decode(
         )
         print(f'[CVRPTW] TW attention bias enabled (penalty={tw_attn_penalty})')
 
-    # --- 品质损失 & 能耗评估 (P0-4 冷链物理建模) ---
+    # --- 历史 P0-4 品质/能耗代理输入（仅复现旧 checkpoint） ---
+    # Historical model/beam feature proxies. These are not C0 trace metrics.
     quality_loss_ds = None
     energy_mat_ds = None
     if 'quality_loss' in dataset:
         quality_loss_ds = dataset['quality_loss'].astype(np.float32)
     if 'energy_mat' in dataset:
         energy_mat_ds = dataset['energy_mat'].astype(np.float32)
-
-    def _compute_route_quality(sols, ql_per_node, energy_mat):
-        """沿路线累计品质损失和能耗（修复：含返回 depot 的能耗）。"""
-        batch_ql = np.zeros(sols.shape[0])
-        batch_energy = np.zeros(sols.shape[0])
-        for b in range(sols.shape[0]):
-            ql, en, prev = 0.0, 0.0, 0
-            for pos in range(sols.shape[1]):
-                node = int(sols[b, pos])
-                if node == 0:
-                    en += energy_mat[b, prev, 0]  # 返回 depot 的能耗
-                    prev = 0
-                    continue
-                ql += ql_per_node[b, node]
-                en += energy_mat[b, prev, node]
-                prev = node
-            if prev != 0:
-                en += energy_mat[b, prev, 0]  # 末尾返回 depot
-            batch_ql[b] = ql
-            batch_energy[b] = en
-        return batch_ql, batch_energy
 
     # --- JIT 编译 ---
     _MODEL_IN = int(model.init_proj.kernel.shape[0])  # JIT外计算, 捕获为闭包
@@ -989,7 +973,8 @@ def cvrptw_searching_decode(
         storage: dict[int, np.ndarray] = {}
         tw_storage: dict[int, tuple[np.ndarray, np.ndarray]] = {}
         unsalable_storage: dict[int, np.ndarray] = {}  # beam 路线一致 num_unsalable（--enable_quality）
-        final_unsalable_storage: dict[int, np.ndarray] = {}  # 最终路线 num_unsalable（thermal_state）
+        # Historical delivery-style route proxy; never report as C0 truth.
+        final_unsalable_storage: dict[int, np.ndarray] = {}
         route_storage: dict[int, np.ndarray] = {}  # 最终路线（search+2opt 后），路线分析用
 
         def _single_run(r: int):
@@ -1328,8 +1313,8 @@ def cvrptw_searching_decode(
             tw_storage[r] = (tw_feas, tw_viol)
             unsalable_storage[r] = unsalable_counts
 
-            # 最终路线上的 num_unsalable —— 用数据同款公式（quality_loss = 1 - exp(-K_TEMP·cum_time)），
-            # 与预计算口径（generate_coldchain_data.py）完全一致，避免 thermal_state 温度模型的数值偏差。
+            # 历史 delivery-style num_unsalable 代理。仅用于旧消融复现；
+            # 它不是 pickup-to-depot 的 C0 cargo-manifest 执行轨迹指标。
             final_unsalable = np.zeros(batch_size, dtype=np.float32)
             if temp_class_batch is not None:
                 K_TEMP_ = np.array([0.01, 0.002, 0.0002], dtype=np.float32)
@@ -1368,13 +1353,13 @@ def cvrptw_searching_decode(
             tw_feas_all = tw_feas_all & tw_storage[i][0]
             tw_viol_all = np.minimum(tw_viol_all, tw_storage[i][1])
 
-        # [冷链] 合并各 run 的 beam num_unsalable（平均）
+        # [legacy proxy] 合并各 run 的 beam num_unsalable（平均）
         unsalable_all = unsalable_storage[0]
         for i in range(1, runs):
             unsalable_all = unsalable_all + unsalable_storage[i]
         unsalable_all = unsalable_all / runs
 
-        # [冷链] 合并各 run 的最终路线 num_unsalable（平均）
+        # [legacy proxy] 合并各 run 的最终路线 num_unsalable（平均）
         final_unsalable_all = final_unsalable_storage[0]
         for i in range(1, runs):
             final_unsalable_all = final_unsalable_all + final_unsalable_storage[i]
@@ -1510,17 +1495,18 @@ def cvrptw_searching_decode(
         print(f'Gap_ref (vs reference): {(mean_cost - mean_opt_cost) / mean_opt_cost * 100:.6f} %')
     if quality_loss_ds is not None:
         num_unsalable = (quality_loss_ds > quality_salable_threshold).sum(axis=-1).mean()
-        print(f'[冷链] mean quality_loss (per-inst sum): {quality_loss_ds.sum(axis=-1).mean():.4f}')
-        print(f'[冷链] Num unsalable (预计算 quality_loss > {quality_salable_threshold:.2f}): '
-              f'{num_unsalable:.2f}/inst  (参考路线口径)')
+        print(f'[历史代理/非C0] mean delivery-reference quality proxy: '
+              f'{quality_loss_ds.sum(axis=-1).mean():.4f}')
+        print(f'[历史代理/非C0] Num unsalable (proxy > {quality_salable_threshold:.2f}): '
+              f'{num_unsalable:.2f}/inst')
     if num_unsalable_finals:
         mean_final = sum(num_unsalable_finals) / len(num_unsalable_finals)
-        print(f'[冷链] Num unsalable (最终路线): {mean_final:.2f}/inst  '
-              f'(数据同款公式 1-exp(-k·cum_time)，阈值 {quality_salable_threshold:.2f})')
+        print(f'[历史代理/非C0] Num unsalable (decoded-route delivery proxy): '
+              f'{mean_final:.2f}/inst  (阈值 {quality_salable_threshold:.2f})')
     if enable_quality and num_unsalables:
         mean_num_unsalable = sum(num_unsalables) / len(num_unsalables)
-        print(f'[冷链] Num unsalable (beam 生成阶段): {mean_num_unsalable:.2f}/inst  '
-              f'(品质感知 beam score 的路线)')
+        print(f'[历史代理/非C0] Num unsalable (beam proxy): '
+              f'{mean_num_unsalable:.2f}/inst')
 
     # 保存最终路线（路线分析用）
     if save_routes and all_routes:
@@ -1535,14 +1521,14 @@ def cvrptw_searching_decode(
 
 
 def compute_coldchain_metrics(routes, quality_loss, energy_mat):
-    """计算冷链品质损失和能耗（独立函数，供外部调用）。
+    """计算旧版代理量；此函数明确不属于 C0 权威评估。
 
     Args:
         routes: (N, pad_len) int32 路线数组
         quality_loss: (N, nodes) float32 每节点品质衰减
         energy_mat: (N, nodes, nodes) float32 制冷能耗矩阵
     Returns:
-        dict: mean_quality_loss, mean_energy_cost
+        dict: 带 schema/authoritative 标记的历史代理均值
     """
     N = routes.shape[0]
     total_ql = np.zeros(N)
@@ -1558,8 +1544,10 @@ def compute_coldchain_metrics(routes, quality_loss, energy_mat):
         total_ql[b] = ql
         total_energy[b] = en
     return {
-        'mean_quality_loss': total_ql.mean(),
-        'mean_energy_cost': total_energy.mean(),
+        'schema_version': 'legacy-delivery-proxy-v1',
+        'authoritative_coldchain_physics': False,
+        'legacy_mean_quality_proxy': total_ql.mean(),
+        'legacy_mean_energy_proxy': total_energy.mean(),
     }
 
 
@@ -1630,9 +1618,9 @@ if __name__ == '__main__':
     parser.add_argument('--constraint_check_top_k', type=int, default=None,
                         help='Week 1 v6: Only check top-K candidates (None = all)')
     parser.add_argument('--enable_quality', action='store_true', default=False,
-                        help='品质感知 score（温度驱动路由，冷链多资源核心）：beam score -= lambda_q × quality_loss')
+                        help='历史品质代理 score（仅复现旧实验，非 C0 权威目标）')
     parser.add_argument('--quality_salable_threshold', type=float, default=0.1,
-                        help='不可售品质损耗阈值（Num 指标）：quality_loss > 阈值 → 不可售')
+                        help='历史品质代理阈值（仅复现旧实验，非 C0 可售判定）')
     parser.add_argument('--save_routes', type=str, default=None,
                         help='保存最终路线到 .npz（路线分析用，如 --save_routes /tmp/routes.npz）')
     parser.add_argument('--time_budget_ms', type=int, default=200,

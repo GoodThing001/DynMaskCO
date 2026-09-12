@@ -211,6 +211,9 @@ def evaluate_execution_trace(
     capacity,             # float
     speed=1.0,
     dist_mat=None,        # (nodes, nodes) 可选，asymmetric / real network
+    coldchain_contract=None,
+    dataset_instance=None,
+    objective_contract=None,
 ) -> dict:
     """
     权威评估 execution trace（P0-EVAL）。
@@ -272,7 +275,7 @@ def evaluate_execution_trace(
             depot_return_feasible = False
             tw_feasible = False
 
-    return {
+    result = {
         'complete': complete,
         'n_visited': n_visited,
         'n_duplicate': n_duplicate,
@@ -287,6 +290,26 @@ def evaluate_execution_trace(
         'energy': 0.0,
         'vehicle_count': used_vehicles,
     }
+    if coldchain_contract is not None:
+        if dataset_instance is None:
+            dataset_instance = {
+                'coords': coords,
+                'tw_start': tw_start,
+                'tw_end': tw_end,
+                'service_time': service_time,
+                'demands': demands,
+                'dist_mat': dist_mat,
+                'speed': speed,
+            }
+        from coldchain_evaluator import evaluate_coldchain_trace
+        return evaluate_coldchain_trace(
+            traces,
+            dataset_instance,
+            coldchain_contract,
+            objective_contract,
+            base_metrics=result,
+        )
+    return result
 
 
 # ============================================================================

@@ -4,8 +4,12 @@ Phase C: 动态冷链训练 — DynamicColdChainModel + Event-Driven Masking。
 
 import sys, os, argparse, time
 _BASE = os.path.dirname(os.path.abspath(__file__))
-_CVRPTW = os.path.dirname(os.path.dirname(_BASE))
-_MASKCO = os.path.dirname(_CVRPTW)
+_SCRIPTS_BOOTSTRAP = os.path.dirname(_BASE)
+if _SCRIPTS_BOOTSTRAP not in sys.path:
+    sys.path.insert(0, _SCRIPTS_BOOTSTRAP)
+from project_paths import EXTENSION_ROOT, MASKCO_ROOT
+_CVRPTW = str(EXTENSION_ROOT)
+_MASKCO = str(MASKCO_ROOT)
 
 _GPU_ID = None
 for _i, _arg in enumerate(sys.argv):

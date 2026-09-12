@@ -108,16 +108,8 @@ def build_vehicle_plans(env, inst_idx, vehicles) -> FleetPlan:
     return plans
 
 
-def build_slots(env, inst_idx, vehicles):
-    """返回 (anchored_slots, new_route_available, idle_ids)。
-
-    anchored_slots：list of (ActionSlot, vehicle_id, VehiclePlan)。
-      - ready@customer / committed（anchor_node != 0）→ 身份 = anchor_node；
-      - idle@depot 且已有非空 suffix → depot-route，身份 = -(vid+1)（负编码）；
-    new_route_available：是否存在「空」idle@depot 车（同质，匿名 NEW_ROUTE）。
-    idle_ids：空 idle 车 id（physical matching 用，min vid 优先）。
-    """
-    plans = build_vehicle_plans(env, inst_idx, vehicles)
+def build_slots_from_plans(plans):
+    """从 full-fleet plan（vid -> VehiclePlan）构建 slot 集合（不依赖 vehicles）。"""
     anchored = []
     idle_ids = []
     for vid, p in sorted(plans.items()):
@@ -128,6 +120,19 @@ def build_slots(env, inst_idx, vehicles):
         else:
             anchored.append((ActionSlot('anchored', p.anchor_node), vid, p))
     return anchored, bool(idle_ids), idle_ids
+
+
+def build_slots(env, inst_idx, vehicles):
+    """返回 (anchored_slots, new_route_available, idle_ids)。
+
+    anchored_slots：list of (ActionSlot, vehicle_id, VehiclePlan)。
+      - ready@customer / committed（anchor_node != 0）→ 身份 = anchor_node；
+      - idle@depot 且已有非空 suffix → depot-route，身份 = -(vid+1)（负编码）；
+    new_route_available：是否存在「空」idle@depot 车（同质，匿名 NEW_ROUTE）。
+    idle_ids：空 idle 车 id（physical matching 用，min vid 优先）。
+    """
+    plans = build_vehicle_plans(env, inst_idx, vehicles)
+    return build_slots_from_plans(plans)
 
 
 # ---------------------------------------------------------------------------
@@ -147,18 +152,46 @@ def certify_route(env, inst_idx, anchor_node, anchor_time, anchor_load, suffix):
     tw_slack = float('inf')
     cap_slack = env.capacity - load
     reason = None
+    cc_contract = getattr(env, 'coldchain_contract', None)
+    supported_classes = (set(cc_contract.thermal.supported_temp_classes)
+                         if cc_contract is not None else None)
+
+    def result(feasible, reject_reason, *, return_slack_value=None,
+               temperature_compatible=True, coldchain_reject_reason=None):
+        return {
+            'feasible': feasible,
+            'reason': reject_reason,
+            'dist': dist,
+            'tw_slack': tw_slack,
+            'cap_slack': cap_slack,
+            'return_slack': return_slack_value,
+            'temperature_compatible': temperature_compatible,
+            'total_capacity_slack': cap_slack,
+            'manifest_consistent': True,
+            'projected_energy_kwh': None,
+            'projected_quality_loss': None,
+            'projected_thermal_margin': None,
+            'coldchain_reject_reason': coldchain_reject_reason,
+        }
+
     for j in suffix:
+        if supported_classes is not None:
+            temp_class = int(env.temp_class[inst_idx, j])
+            if temp_class not in supported_classes:
+                return result(
+                    False, 'temperature', temperature_compatible=False,
+                    coldchain_reject_reason='unsupported_temperature_class')
         arrive = t + _travel(env, inst_idx, cur, j)
         if arrive > float(env.tw_end[inst_idx, j]) + 1e-6:
-            return {'feasible': False, 'reason': 'tw', 'dist': dist,
-                    'tw_slack': tw_slack, 'cap_slack': cap_slack, 'return_slack': None}
+            return result(False, 'tw')
         start = max(arrive, float(env.tw_start[inst_idx, j]))
         load += float(env.demands[inst_idx, j])
-        if load > env.capacity + 1e-6:
-            return {'feasible': False, 'reason': 'capacity', 'dist': dist,
-                    'tw_slack': tw_slack, 'cap_slack': cap_slack, 'return_slack': None}
-        tw_slack = min(tw_slack, float(env.tw_end[inst_idx, j]) - arrive)
         cap_slack = min(cap_slack, env.capacity - load)
+        if load > env.capacity + 1e-6:
+            return result(
+                False, 'capacity',
+                coldchain_reject_reason='shared_total_capacity_exceeded')
+        tw_slack = min(tw_slack, float(env.tw_end[inst_idx, j]) - arrive)
         dist += _dist(env, inst_idx, cur, j)
         t = start + float(env.service_time[inst_idx, j])
         cur = int(j)
@@ -166,10 +199,8 @@ def certify_route(env, inst_idx, anchor_node, anchor_time, anchor_load, suffix):
     dist += _dist(env, inst_idx, cur, 0)
     return_slack = float(env.tw_end[inst_idx, 0]) - return_time
     if return_slack < -1e-6:
-        return {'feasible': False, 'reason': 'return', 'dist': dist,
-                'tw_slack': tw_slack, 'cap_slack': cap_slack, 'return_slack': return_slack}
-    return {'feasible': True, 'reason': None, 'dist': dist,
-            'tw_slack': tw_slack, 'cap_slack': cap_slack, 'return_slack': return_slack}
+        return result(False, 'return', return_slack_value=return_slack)
+    return result(True, None, return_slack_value=return_slack)
 
 
 # ---------------------------------------------------------------------------
@@ -184,8 +215,11 @@ def find_customer_slot(plans, customer):
     return None, None
 
 
-def apply_action(plans, action, src_vid=None):
+def apply_action(plans, action, src_vid=None, allowed_vehicle_ids=None):
     """安装 action：从 src 车移除 customer（若已分配），插入目标 slot/position。
+
+    allowed_vehicle_ids（可选）：NEW_ROUTE 的 physical matching 只在这些车中选（与枚举时的
+    idle 过滤范围一致），避免「枚举按 allowed 车计算、应用却落到别的空 idle 车」的 scope 越界。
 
     返回新的 FleetPlan（deep copy 语义，原 plans 不变）。其他车 route 完全不变。
     """
@@ -193,6 +227,11 @@ def apply_action(plans, action, src_vid=None):
            for vid, p in plans.items()}
     if src_vid is None:
         src_vid, _ = find_customer_slot(new, action.customer)
+    # 0. NEW_ROUTE physical matching 必须在移除 src 客户**之前**、在原始 plans 上确定，
+    #    否则移除 src 后 src 车变「空 idle」会被误选为 NEW_ROUTE 目标（阶段 C 复核 bug）。
+    new_route_vid = None
+    if action.slot.kind == 'new_route':
+        new_route_vid = _match_new_route(plans, allowed_vehicle_ids)
     # 1. 从原车移除 customer
     if src_vid is not None:
         p = new[src_vid]
@@ -203,7 +242,7 @@ def apply_action(plans, action, src_vid=None):
                                    tuple(lst))
     # 2. 插入目标 slot
     if action.slot.kind == 'new_route':
-        vid = _match_new_route(new)
+        vid = new_route_vid
         p = new[vid]
         lst = list(p.suffix)
         lst.insert(action.position, action.customer)
@@ -219,9 +258,15 @@ def apply_action(plans, action, src_vid=None):
     return new
 
 
-def _match_new_route(plans):
-    """NEW_ROUTE 的 deterministic physical matching：取「空」idle@depot 车的 min vehicle_id。"""
+def _match_new_route(plans, allowed_vehicle_ids=None):
+    """NEW_ROUTE 的 deterministic physical matching：取「空」idle@depot 车的 min vehicle_id。
+
+    allowed_vehicle_ids（可选）：只在允许集合里选空 idle 车（与枚举过滤范围一致）。
+    """
     idle = [vid for vid, p in plans.items() if p.anchor_node == 0 and not p.suffix]
+    if allowed_vehicle_ids is not None:
+        allowed = set(int(v) for v in allowed_vehicle_ids)
+        idle = [vid for vid in idle if vid in allowed]
     if not idle:
         raise ValueError("NEW_ROUTE 无可用空 idle 车")
     return min(idle)
@@ -278,6 +323,33 @@ class Candidate:
     cap_slack: Optional[float]
     return_slack: Optional[float]
     plan_hash: Optional[str]
+    temperature_compatible: Optional[bool] = None
+    total_capacity_slack: Optional[float] = None
+    manifest_consistent: Optional[bool] = None
+    projected_energy_kwh: Optional[float] = None
+    projected_quality_loss: Optional[float] = None
+    projected_thermal_margin: Optional[float] = None
+    coldchain_reject_reason: Optional[str] = None
+
+
+def _candidate_from_certificate(action, certificate, incremental_distance, hash_value):
+    return Candidate(
+        action=action,
+        feasible=certificate['feasible'],
+        reason=certificate['reason'],
+        incremental_distance=incremental_distance,
+        tw_slack=certificate['tw_slack'] if certificate['feasible'] else None,
+        cap_slack=certificate['cap_slack'] if certificate['feasible'] else None,
+        return_slack=certificate['return_slack'] if certificate['feasible'] else None,
+        plan_hash=hash_value,
+        temperature_compatible=certificate.get('temperature_compatible'),
+        total_capacity_slack=certificate.get('total_capacity_slack'),
+        manifest_consistent=certificate.get('manifest_consistent'),
+        projected_energy_kwh=certificate.get('projected_energy_kwh'),
+        projected_quality_loss=certificate.get('projected_quality_loss'),
+        projected_thermal_margin=certificate.get('projected_thermal_margin'),
+        coldchain_reject_reason=certificate.get('coldchain_reject_reason'),
+    )
 
 
 def enumerate_actions(env, inst_idx, vehicles, customer):
@@ -287,7 +359,28 @@ def enumerate_actions(env, inst_idx, vehicles, customer):
     plans 为 full-fleet 当前 plan（调用方可传给 validate_ownership 做 full-fleet 校验）。
     """
     plans = build_vehicle_plans(env, inst_idx, vehicles)
-    anchored, new_route_available, _ = build_slots(env, inst_idx, vehicles)
+    return _enumerate_from_plans(env, inst_idx, plans, customer)
+
+
+def enumerate_actions_from_plans(env, inst_idx, plans, customer, allowed_vehicle_ids=None):
+    """基于给定 full-fleet plan（而非 vehicles）枚举 customer 的候选。
+
+    allowed_vehicle_ids（可选）：只允许把 customer 插入到这些 vehicle 的 anchored slot /
+    NEW_ROUTE。用于 repair 把写回范围限定为「本次可变计划」（replan_ids 的 idle/ready 车），
+    避免把客户插入 committed / 非重规划车却无法写回（阶段 A 阻塞点 1）。
+
+    返回 (candidates, plans)。
+    """
+    return _enumerate_from_plans(env, inst_idx, plans, customer, allowed_vehicle_ids)
+
+
+def _enumerate_from_plans(env, inst_idx, plans, customer, allowed_vehicle_ids=None):
+    anchored, new_route_available, idle_ids = build_slots_from_plans(plans)
+    if allowed_vehicle_ids is not None:
+        allowed = set(int(v) for v in allowed_vehicle_ids)
+        anchored = [t for t in anchored if t[1] in allowed]
+        idle_ids = [vid for vid in idle_ids if vid in allowed]
+        new_route_available = bool(idle_ids)
     src_vid, src_idx = find_customer_slot(plans, customer)
 
     cands = []
@@ -310,28 +403,28 @@ def enumerate_actions(env, inst_idx, vehicles, customer):
                               predecessor=pred, successor=succ, incumbent=is_inc)
             if cert['feasible']:
                 new_plan = apply_action(plans, act, src_vid=src_vid)
-                cands.append(Candidate(act, True, None, incr, cert['tw_slack'],
-                                       cert['cap_slack'], cert['return_slack'],
-                                       plan_hash(new_plan)))
+                cands.append(_candidate_from_certificate(
+                    act, cert, incr, plan_hash(new_plan)))
             else:
-                cands.append(Candidate(act, False, cert['reason'], incr, None, None, None, None))
+                cands.append(_candidate_from_certificate(act, cert, incr, None))
 
     # NEW_ROUTE（匿名）
     if new_route_available:
         slot = ActionSlot('new_route', -1)
         pred, succ = 0, 0
-        vid = _match_new_route(plans)  # deterministic：min idle vehicle_id
+        vid = idle_ids[0]  # deterministic：min idle vehicle_id（已按 allowed 过滤）
         trial = [customer]
         cert = certify_route(env, inst_idx, 0, plans[vid].anchor_time, 0.0, trial)
         incr = _dist(env, inst_idx, 0, customer) + _dist(env, inst_idx, customer, 0)
         act = FleetAction(customer=customer, slot=slot, position=0,
                           predecessor=pred, successor=succ, incumbent=False)
         if cert['feasible']:
-            new_plan = apply_action(plans, act, src_vid=src_vid)
-            cands.append(Candidate(act, True, None, incr, cert['tw_slack'],
-                                   cert['cap_slack'], cert['return_slack'], plan_hash(new_plan)))
+            new_plan = apply_action(plans, act, src_vid=src_vid,
+                                    allowed_vehicle_ids=allowed_vehicle_ids)
+            cands.append(_candidate_from_certificate(
+                act, cert, incr, plan_hash(new_plan)))
         else:
-            cands.append(Candidate(act, False, cert['reason'], incr, None, None, None, None))
+            cands.append(_candidate_from_certificate(act, cert, incr, None))
 
     cands.sort(key=lambda c: (not c.action.incumbent, c.action.slot.kind,
                               c.action.slot.anchor, c.action.position))

@@ -11,7 +11,11 @@ CVRPTW Model — 带时间窗的 Capacitated Vehicle Routing Problem.
 
 import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+_SCRIPTS_BOOTSTRAP = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if _SCRIPTS_BOOTSTRAP not in sys.path:
+    sys.path.insert(0, _SCRIPTS_BOOTSTRAP)
+from project_paths import MASKCO_ROOT
+sys.path.insert(0, str(MASKCO_ROOT))
 
 import jax
 import jax.numpy as jnp

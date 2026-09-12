@@ -16,8 +16,12 @@ P0-3b v2: Target-Label Leakage Test
 import sys, os, argparse, numpy as np
 
 _BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-_CVRPTW = os.path.dirname(_BASE)
-_MASKCO = os.path.dirname(_CVRPTW)
+_SCRIPTS_BOOTSTRAP = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if _SCRIPTS_BOOTSTRAP not in sys.path:
+    sys.path.insert(0, _SCRIPTS_BOOTSTRAP)
+from project_paths import EXTENSION_ROOT, MASKCO_ROOT
+_CVRPTW = str(EXTENSION_ROOT)
+_MASKCO = str(MASKCO_ROOT)
 sys.path.insert(0, _MASKCO)
 sys.path.insert(0, os.path.join(_MASKCO, 'models'))
 sys.path.insert(0, os.path.join(_CVRPTW, 'scripts', 'models'))

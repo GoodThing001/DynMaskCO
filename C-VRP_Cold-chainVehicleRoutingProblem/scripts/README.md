@@ -1,13 +1,34 @@
 # scripts/ — 代码索引
 
-> 最后更新：2026-08-29（R1.5 strict-online 协议）
+> 最后更新：2026-09-03（P0-M、C0 完成）
 >
-> ⚠️ **当前处于 R1.5 阶段**：旧协议（offline 单发 decode / Phase 0 / v6 / Phase A）的脚本已失效，
-> 详见下文「过时脚本」清单。权威入口是 strict-online 协议脚本。
+> ⚠️ **当前不再处于 R1.5 阶段**。论文主线、阶段和下一动作以 [`项目当前状态.md`](../项目当前状态.md) 与 [`代码实现蓝图.md`](../docs/当前规划/工程实现/代码实现蓝图.md) 为准。P0-M 与 C0 已完成；C0 参数仍为 pilot，因此冷链数值仍不能作为论文性能结论。当前执行位置请查看状态入口。
 
 ---
 
-## ★ 权威脚本（R1.5 strict-online 主路径）
+## 当前已完成的 P0 基础设施
+
+| 文件 | 状态与用途 |
+|---|---|
+| `simulation/strict_online_env.py` | strict-online event engine 底座 |
+| `simulation/recourse_snapshot.py` | P0-S `RecourseSnapshotV2` |
+| `simulation/action_contract.py` | P0-A full-fleet Action Contract v1 |
+| `simulation/counterfactual_teacher.py` | P0-U distance-only common-continuation teacher |
+| `project_paths.py` | P0-M 工作区/上游/扩展统一路径解析 |
+| `coldchain/coldchain_contract.py` | C0 版本化单位、热学、品质与目标合同 |
+| `coldchain/coldchain_state.py` | C0 唯一 pickup-to-depot 热状态与 cargo manifest 转移 |
+| `coldchain/coldchain_observation.py` | C0 strict-online 冷链特征屏蔽 |
+| `evaluation/coldchain_evaluator.py` | C0 消费 execution trace 的权威 D/Q/E 评价 |
+| `tests/test_recourse_snapshot.py` | P0-S 回归 |
+| `tests/test_action_contract.py` | P0-A 回归 |
+| `tests/test_counterfactual_teacher.py` | P0-U 回归 |
+| `tests/test_project_layout.py` | P0-M 7 类路径/入口/syntax 检查 |
+| `tests/test_coldchain_contract.py` | C0 18 项合同/状态/trace/snapshot/teacher/旧口径隔离检查 |
+| `tests/test_coldchain_sensitivity.py` | C0 7 项 pilot 参数方向敏感性检查 |
+
+P0-M 产物位于 `results/p0m/`；C0 产物位于 `results/c0/coldchain_contract_tests.json` 与 `coldchain_sensitivity_tests.json`。旧 `thermal_state.py` 仅作为统一静态回放桥接并拒绝旧单段 API；`cvrptw.py`、`rolling_horizon.py` 与数据中的旧代理字段均标为非权威 `legacy`。
+
+## R1.5 strict-online 历史基线入口
 
 ### 训练
 
@@ -64,10 +85,10 @@
 
 ---
 
-## ⚠️ 过时脚本（下一步归档到 `scripts/archive/`）
+## ⚠️ 过时脚本（保留原位的历史入口）
 
 > 以下脚本基于**旧协议**（offline 单发 decode / Phase 0 / v6 方法优化 / Phase A），
-> 在 R1.5 strict-online 协议下已失效或 superseded。**建议下一轮整理时移入 `scripts/archive/`**。
+> 在 R1.5 strict-online 协议下已失效或 superseded。当前不移动这些文件；若以后归档，必须先核对所有脚本与历史文档引用，避免与 P0-M/C0 代码改动混在同一批次。
 
 ### 顶层旧批量脚本
 
@@ -118,8 +139,8 @@ scripts/
 
 ---
 
-## 下一步整理方案
+## 后续结构处理规则
 
-1. **创建 `scripts/archive/`** 目录，把上表「过时脚本」整体移入（保留历史，不被活跃脚本索引）。
-2. 归档后，本 README 只保留「权威脚本」部分。
-3. `lib/`（C++ 扩展）在 strict-online 主路径已不用（Resource Beam 纯 Python），确认后可一并归档或标注「仅离线遗留」。
+1. P0-M 路径兼容与 C0 旧物理口径隔离已完成；后续不顺带整理无关历史脚本。
+2. 历史脚本如需归档，先生成引用清单，再单独迁移并修正文档链接。
+3. `lib/` 是否仍被复现入口使用必须以静态引用和 smoke 结果判定，不能仅凭旧说明归档。

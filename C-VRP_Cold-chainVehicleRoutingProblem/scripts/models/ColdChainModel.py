@@ -4,7 +4,11 @@ ColdChain Model — 冷链 CVRPTW（Exp-10）。
 """
 
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+_SCRIPTS_BOOTSTRAP = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if _SCRIPTS_BOOTSTRAP not in sys.path:
+    sys.path.insert(0, _SCRIPTS_BOOTSTRAP)
+from project_paths import MASKCO_ROOT
+sys.path.insert(0, str(MASKCO_ROOT))
 
 import jax, jax.numpy as jnp
 from flax import nnx
