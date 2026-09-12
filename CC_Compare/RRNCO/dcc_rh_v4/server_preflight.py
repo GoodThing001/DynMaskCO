@@ -2,7 +2,7 @@
 
 在服务器（DEV-GATE 已收口后）运行：
     cd /home/hzeng/project/MASKCO-Main
-    /home/hzeng/envs/rrnco/bin/python CC_Compare/RRNCO/dcc_rh_v4/server_preflight.py
+    /home/hzeng/envs/cc_compare/bin/python CC_Compare/RRNCO/dcc_rh_v4/server_preflight.py
 
 记录：项目/RRNCO 上游 commit、checkpoint SHA-256、LICENSE hash、依赖版本、
 CUDA/驱动/GPU、工作区状态。已有环境能加载 checkpoint 就不要升级依赖。
