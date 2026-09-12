@@ -5,6 +5,7 @@
     "load_coldchain_contract",
     "write_pilot_contract"
   ],
+  "behavior_changed": false,
   "canonical_manifest_equal": true,
   "change_class": "implementation/API-only",
   "dependent_callers": [
@@ -16,6 +17,22 @@
     "audit_baseline_service.py"
   ],
   "evaluation_semantics_changed": false,
+  "l3_evidence_manifest_sha256": "93ef41c09a1fca96e750f52e52c6d66315048270b9bc2904bde80bd6c911316c",
+  "l3_parities": {
+    "ortools_parity": {
+      "file": "CC_Compare/results/contract_migration_l3/ortools_parity.json",
+      "sha256": "f2882fb474e7aacf07626a28fb70c9b01f14b01602e5a155fb21a9e9602dc11f",
+      "verdict": "BEHAVIOR_UNCHANGED_9_OF_9"
+    },
+    "pyvrp_parity": {
+      "file": "CC_Compare/results/contract_migration_l3/pyvrp_parity.json",
+      "sha256": "a88d4e5d8a76fdff21edcb9ee1d6bb28598243d823c8b6980cb98e44b7043c06",
+      "verdict": "BEHAVIOR_UNCHANGED_9_OF_9"
+    }
+  },
+  "l3_recorded_at": "2026-09-12 22:09:02",
+  "l3_status": "PASS",
+  "migration_note": "identity-only migration (API-only source change); not a scientific protocol or budget change",
   "new_runtime_contract_hash": "0f00af5d197cf35368b1b2e807bcaf53d9b58a1cd425a7f53ec66091f6acce28",
   "new_source_sha256": "7d472acac242100aaffbc81923336b0d77c5e609c9bffa6482f21d161ce4391e",
   "objective_changed": false,
@@ -25,6 +42,7 @@
   "physical_parameters_changed": false,
   "pyvrp_freeze_seal_sha256": "401d207cb35f06772251c817616528fb48ad050a373844c11a13bb8bd61b3a4c",
   "recorded_at": "2026-09-12 18:19:14",
+  "reseal_authorized": true,
   "runtime_contract_hash_changed": false,
   "schema_version": "cc-compare-contract-migration-v1",
   "source_identity_changed": true,
