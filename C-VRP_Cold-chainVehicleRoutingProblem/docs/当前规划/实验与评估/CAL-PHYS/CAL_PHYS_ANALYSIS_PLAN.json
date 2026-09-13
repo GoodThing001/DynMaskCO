@@ -1,0 +1,236 @@
+{
+  "schema": "cal-phys-analysis-plan-v1",
+  "plan_version": "0.1.0-draft",
+  "status": "draft_blocked",
+  "created_date": "2026-09-13",
+  "primary_principle": "Select and validate physical models using CAL-PHYS outcomes only; downstream routing performance is neither an input nor a model-selection criterion.",
+  "analysis_population": {
+    "confirmatory": "all scheduled independent units not excluded by a preregistered protocol or safety rule",
+    "diagnostic": "excluded or deviating units retained with reason codes and analyzed separately without replacing confirmatory units after outcomes are known",
+    "unit_of_inference_thermal": "independent vehicle/compartment run",
+    "unit_of_inference_quality": "independent product lot",
+    "repeated_measurement_structure": "timestamps and sensors nested within run; samples and timestamps nested within product lot"
+  },
+  "data_processing": {
+    "raw_data_mutation_forbidden": true,
+    "derived_data_rebuild_required": true,
+    "unit_conversions": "declared in the source registry and implemented by a versioned deterministic transform",
+    "time_alignment": {
+      "principle": "use synchronized source clocks; freeze interpolation before holdout access",
+      "method": null,
+      "maximum_allowed_gap": null
+    },
+    "sensor_aggregation": {
+      "principle": "retain sensor-level data and report spatial dispersion",
+      "primary_compartment_summary": null,
+      "spatial_dispersion_diagnostic": null
+    },
+    "outlier_policy": "no residual- or effect-based deletion; sensor faults require independent instrument/protocol evidence and a deviation code",
+    "missing_policy": "no imputation of primary holdout responses unless an explicit method and maximum missingness threshold are frozen before collection",
+    "nonfinite_policy": "fail closed for confirmatory analysis"
+  },
+  "thermal_models": {
+    "primary_v2_light": {
+      "effective_capacity": "C_eff_z(load) = C_empty_z + C_cargo_z_per_load_unit * zone_load",
+      "passive_dynamics": "dT_z/dt = UA_z * (T_ambient - T_z) / C_eff_z(load)",
+      "door_heat": "Q_door_z = beta_door_z * door_open_duration_h * max(T_ambient - T_z, 0)",
+      "cooling_capacity": "Qcool_z(lift) = clip(q0_z - q_slope_z * lift, 0, q_rated_z)",
+      "cop": "COP_z(lift) = max(cop_min_z, cop0_z - cop_slope_z * lift)",
+      "electrical_power": "Pinput_z = Qcool_z / COP_z",
+      "preconditioning": "independently metered dispatch energy; excluded from in-route cooling and door-recovery double counting"
+    },
+    "required_interactions": [
+      "ambient_temperature_c x target_temperature_c",
+      "ambient_temperature_c x load_state",
+      "door_duration_s x ambient_to_compartment_temperature_lift",
+      "door_duration_s x load_state"
+    ],
+    "block_terms": [
+      "vehicle_or_compartment_id",
+      "calendar_day_or_session_id",
+      "sensor_package_id"
+    ],
+    "fit_method": {
+      "family": "bounded nonlinear or state-space estimation with run-level clustering",
+      "software": null,
+      "software_version": null,
+      "optimizer": null,
+      "tolerance": null,
+      "initialization_grid": null,
+      "parameter_bounds_file": null
+    },
+    "weighting": "measurement-uncertainty weighting may be used only from instrument accuracy/repeatability estimates fixed before holdout evaluation",
+    "identifiability_checks": [
+      "profile likelihood or equivalent interval for every free parameter",
+      "parameter correlation and near-singularity diagnostic",
+      "multi-start convergence to materially equivalent solutions",
+      "physical sign and bound checks",
+      "recovery of known parameters on synthetic traces"
+    ],
+    "nonidentifiable_action": "DATA_INSUFFICIENT or preregistered v1-effective fallback; do not report separately unidentified parameters"
+  },
+  "quality_models": {
+    "per_product_analysis_required": true,
+    "primary_candidate": {
+      "reaction_order": "first_order_remaining_quality",
+      "state_equation": "Q(t+dt) = Q(t) * exp(-k(T) * dt)",
+      "arrhenius_equation": "k(T) = k_ref * exp((Ea_over_R) * (1/T_ref - 1/T))"
+    },
+    "minimum_temperature_support": "at least three in-domain isothermal temperatures per product",
+    "repeated_measurement_model": "respect samples/timestamps nested within product lot; lot is the independent unit",
+    "reaction_order_decision": "the first-order model may be accepted only if preregistered isothermal and variable-temperature diagnostics pass; otherwise return MODEL_INADEQUATE and version the state equation",
+    "initial_quality_mapping": "freeze a monotone product-specific conversion from the raw quality indicator to quality_fraction; preserve measured lot-level Q0 and do not force every observed lot to equal 1",
+    "threshold_analysis": "continuous quality prediction is primary; unsalable classification is secondary and uses an externally justified frozen threshold",
+    "product_value_rule": "business value is excluded from calibrated economic claims unless supported by independent auditable cost data"
+  },
+  "validation": {
+    "internal_calibration_diagnostics": [
+      "run-clustered residual summaries",
+      "residual versus time, temperature lift, load, door duration, and fitted value",
+      "block-specific residual summaries",
+      "energy and heat accounting closure",
+      "physical monotonicity checks"
+    ],
+    "confirmatory_holdout": {
+      "access": "one-shot after code, parameter bounds, model structure, transforms, and thresholds are frozen",
+      "thermal_split_unit": "entire unseen independent run",
+      "quality_split_unit": "entire unseen product lot and its full temperature history",
+      "refitting_on_holdout": false,
+      "threshold_tuning_on_holdout": false
+    },
+    "primary_metrics": {
+      "temperature": [
+        "run-level MAE_c",
+        "run-level RMSE_c",
+        "run-level maximum_absolute_error_c",
+        "pull_down_time_error_h",
+        "door_recovery_time_error_h"
+      ],
+      "energy": [
+        "run-level cumulative_energy_absolute_error_kwh",
+        "run-level cumulative_energy_relative_error",
+        "input_power_error_kw"
+      ],
+      "quality": [
+        "lot-level quality_fraction_MAE",
+        "lot-level terminal_quality_error",
+        "unsalable_classification_error_secondary"
+      ]
+    },
+    "uncertainty": {
+      "confidence_level": 0.95,
+      "resampling_unit_thermal": "independent run",
+      "resampling_unit_quality": "independent product lot",
+      "timestamp_level_bootstrap_forbidden": true,
+      "method": "cluster bootstrap or model-based interval chosen and frozen before confirmatory fit",
+      "gate_logic": "intersection-union: every primary nominal endpoint and every invariant must pass; no multiplicity-adjusted composite or endpoint averaging may rescue a failure",
+      "interval_direction": "freeze the direction per metric before confirmatory access; error and limit metrics use an upper confidence bound against the maximum acceptable value",
+      "simultaneous_claim_rule": "If the paper claims simultaneous coverage of several intervals, freeze an appropriate simultaneous procedure; otherwise describe intervals as endpoint-specific and use them only within the all-endpoints-must-pass gate.",
+      "seed": null,
+      "replicates": null
+    }
+  },
+  "physical_invariants": [
+    "zero duration with no event produces no state or energy change",
+    "electrical energy and thermal load are nonnegative",
+    "higher positive ambient-to-compartment lift cannot reduce passive heat ingress when other inputs are fixed",
+    "higher load cannot reduce effective thermal capacity when cargo capacity coefficient is nonnegative",
+    "longer door opening cannot reduce modeled door heat under positive lift",
+    "cooling capacity is not interpreted as electrical input power",
+    "preconditioning, passive heat, door heat, cooling thermal load, and electrical input are not double counted",
+    "quality cannot improve under the declared irreversible decay model",
+    "unit conversions close in an end-to-end trace"
+  ],
+  "acceptance_thresholds": {
+    "status": "unset_blocking",
+    "basis_required": "instrument accuracy, repeatability pilot, product assay precision, and operational tolerance",
+    "pilot_firewall": "P1 may quantify measurement capability and variance, but thresholds cannot be chosen to make a fitted physical model pass; all numerical thresholds and their derivations are frozen before P2-P6 confirmatory outcome access.",
+    "temperature": null,
+    "energy": null,
+    "quality": null,
+    "identifiability": null,
+    "coverage": null,
+    "rule": "all primary nominal holdout thresholds and all physical invariants must pass; averaging a failed response family into a composite score is forbidden"
+  },
+  "model_decision_order": [
+    "protocol and data-integrity gate",
+    "measurement and unit gate",
+    "parameter identifiability gate",
+    "physical-invariant gate",
+    "nominal independent dynamic holdout gate",
+    "sensitivity-contract construction"
+  ],
+  "v1_effective_fallback": {
+    "allowed": true,
+    "trigger": "v2-light parameters are not identifiable with the frozen design, while a v1-effective model can be evaluated without accessing routing outcomes",
+    "requirements": [
+      "fallback declared before holdout access",
+      "effective parameters tied to a narrow stated operating domain",
+      "v1 passes the same applicable independent holdout thresholds",
+      "paper removes claims of separately identified load, door-duration, or energy-chain effects"
+    ],
+    "routing_performance_may_select_fallback": false
+  },
+  "sensitivity_contracts": {
+    "construction_time": "after nominal CAL-PHYS fit and before any calibrated DEV method comparison",
+    "low_stress": "a jointly plausible preregistered operating scenario within evidence-supported ranges",
+    "high_stress": "a jointly plausible preregistered operating scenario within evidence-supported ranges",
+    "forbidden_construction": "independently combine all marginal parameter extremes or choose values that maximize/minimize a routing method gap",
+    "gating_role": "non_gating"
+  },
+  "objective_profile_separation": {
+    "cal_phys_may_fit": [
+      "physical unit conversions",
+      "temperature state parameters",
+      "electrical energy parameters",
+      "product-specific quality kinetics and indicator conversion"
+    ],
+    "cal_phys_must_not_fit": [
+      "distance_scale",
+      "quality_scale",
+      "energy_scale",
+      "lambda_quality",
+      "lambda_energy",
+      "routing-performance-selected product_value"
+    ],
+    "profile_freeze_stage": "Step 15 new DEV-CAL after calibrated contract vNext is sealed"
+  },
+  "verdicts": {
+    "GO_CAL_PHYS": "all integrity, identifiability, invariant, and nominal holdout gates pass; freeze calibrated nominal and sensitivity contracts",
+    "DATA_INSUFFICIENT": "the frozen data do not identify required parameters or provide the planned independent-unit precision; collect new data under a versioned protocol before refitting",
+    "MODEL_INADEQUATE": "the declared equation shows systematic physical holdout failure; revise the model and preregister a new protocol version",
+    "PROTOCOL_ERROR": "firewall, split, identity, schedule, unit, exclusion, or holdout-access rules were violated; preserve evidence and invalidate the confirmatory verdict",
+    "MEASUREMENT_FAILURE": "instrument calibration, synchronization, chain of custody, or required-channel completeness prevents confirmatory use"
+  },
+  "reporting_requirements": [
+    "complete parameter table with units, intervals, bounds, and provenance",
+    "independent-unit counts by condition and block",
+    "all exclusions and deviations",
+    "calibration and untouched holdout metrics separately",
+    "residual and invariant diagnostics",
+    "v2-light versus v1-effective decision with no routing outcomes",
+    "nominal, low-stress, and high-stress contract hashes",
+    "machine, environment, code, data, protocol, and analysis hashes",
+    "explicit limits on vehicle, operating domain, product, and quality indicator"
+  ],
+  "blocking_fields": [
+    "/validation/uncertainty/seed",
+    "/validation/uncertainty/replicates",
+    "/acceptance_thresholds/temperature",
+    "/acceptance_thresholds/energy",
+    "/acceptance_thresholds/quality",
+    "/acceptance_thresholds/identifiability",
+    "/acceptance_thresholds/coverage",
+    "/thermal_models/fit_method/software",
+    "/thermal_models/fit_method/software_version",
+    "/thermal_models/fit_method/optimizer",
+    "/thermal_models/fit_method/tolerance",
+    "/thermal_models/fit_method/initialization_grid",
+    "/thermal_models/fit_method/parameter_bounds_file",
+    "/data_processing/time_alignment/method",
+    "/data_processing/time_alignment/maximum_allowed_gap",
+    "/data_processing/sensor_aggregation/primary_compartment_summary",
+    "/data_processing/sensor_aggregation/spatial_dispersion_diagnostic"
+  ],
+  "freeze_rule": "No confirmatory model fitting or holdout access is allowed while status is draft_blocked or pilot_registered, or while blocking_fields is nonempty; pilot_registered authorizes only the separately sealed P1 instrument pilot analysis."
+}

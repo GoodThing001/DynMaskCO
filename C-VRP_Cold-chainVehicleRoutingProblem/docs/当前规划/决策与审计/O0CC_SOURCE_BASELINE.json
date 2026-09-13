@@ -1,0 +1,99 @@
+{
+  "schema": "o0cc-source-baseline-v1",
+  "status": "sealed",
+  "record_version": "1.0.0",
+  "audit_date": "2026-09-13",
+  "sealed_at_utc": "2026-09-13T04:20:32Z",
+  "branch": "codex/o0cc-cal-phys",
+  "commits": {
+    "parent_commit": "6af56fb",
+    "directory_migration_commit": "145f3b4",
+    "gate_code_commit": "93f0e54",
+    "evidence_snapshot_commit": "c5ae9ef",
+    "byte_closure_commit": "3f2b7e3108a3d5c6486ba3b63bbbd0e197d167bc"
+  },
+  "authoritative_identity": {
+    "compute_sha256": "9185ad4b66b1e0bd0e6039f3f07fa8066d945a1a37975ef7db42163f7e494300",
+    "control_sha256": "5332b67e0dc57ccea5d47022f76d2d8ed4f4d7e03170d733ff8bba537d9d5a28",
+    "analysis_sha256": "c1e78f364f4fb823ebf459a4f1fc63a814dbb7a8c6f2d57c718d63960ecec7fe",
+    "identity_file_count": 22,
+    "line_ending_policy": "active_identity_files_lf"
+  },
+  "non_authoritative_transient_identity": {
+    "label": "windows_worktree_pre_lf_normalization",
+    "compute_sha256": "b0b562f2eeffa8ee37eb75f20c3e3fa6c2cf9f98bbcb754be9cafb9cc3a1b7ad",
+    "control_sha256": "5332b67e0dc57ccea5d47022f76d2d8ed4f4d7e03170d733ff8bba537d9d5a28",
+    "analysis_sha256": "c1e78f364f4fb823ebf459a4f1fc63a814dbb7a8c6f2d57c718d63960ecec7fe",
+    "reason_not_authoritative": "run_action_oracle.py and sequential_oracle.py had CRLF working-tree bytes while their Git blobs were LF"
+  },
+  "stale_commit_message_identity": {
+    "commit": "93f0e54",
+    "compute_prefix": "f83ad3c4",
+    "control_prefix": "eb9a7da7",
+    "analysis_prefix": "a56f4e55",
+    "disposition": "historical Task 4.2 message only; do not amend B solely to rewrite the message"
+  },
+  "archive_byte_audit": {
+    "evidence_commit_file_count": 147,
+    "working_tree_vs_git_blob_mismatch_count_before_closure": 39,
+    "official_v4_declared_bundle_file_count": 29,
+    "official_v4_declared_hash_mismatch_in_current_worktree": 0,
+    "untracked_pyc_count_observed": 19,
+    "untracked_pycache_directory_count_observed": 5,
+    "byte_closure_commit_file_count": 41,
+    "identity_files_raw_equal_git_blob_count": 22,
+    "identity_file_count_after_closure": 22,
+    "archive_pyc_count_after_closure": 0,
+    "archive_pycache_directory_count_after_closure": 0,
+    "official_v4_current_verify_pass": true,
+    "official_v4_fresh_worktree_verify_pass": true,
+    "official_v4_bundle_sha256": "1bbcc978b0f4a60f82389629dc709cbc47373be38bba89d28395b21f9bc5e466",
+    "required_policy": "sealed archive trees are byte containers and must be stored with Git text conversion disabled"
+  },
+  "test_evidence": {
+    "python_version": "3.12.7",
+    "suite_count": 8,
+    "test_count": 94,
+    "passed": 94,
+    "failed": 0,
+    "exit_code": 0,
+    "run_date": "2026-09-13",
+    "run_context": "Windows working tree after byte-closure commit 3f2b7e3108a3d5c6486ba3b63bbbd0e197d167bc; executed with Python -B"
+  },
+  "required_final_checks": {
+    "identity_files_raw_equal_git_blob": true,
+    "fresh_checkout_identity_match": true,
+    "official_v4_current_verify_pass": true,
+    "official_v4_fresh_checkout_verify_pass": true,
+    "archive_cache_absent": true,
+    "regression_94_of_94_pass_after_closure": true,
+    "maskco_code_changed_file_count": 0,
+    "cc_compare_files_in_byte_closure_commit": 0,
+    "off_machine_backup_verified": true
+  },
+  "off_machine_backup_evidence": {
+    "method": "full_branch_git_bundle_server_copy",
+    "artifact_name": "codex-o0cc-cal-phys-D-3f2b7e3.bundle",
+    "storage_locator": "o0cc-backup-server-01:/home/hzeng/backups/MASKCO-Main/o0cc/codex-o0cc-cal-phys-D-3f2b7e3.bundle",
+    "private_network_locator_sha256": "98f57068bd53dd2640aca60d85f8ca9b1d12ecad3fd8dc3e43764fd9d79f2b03",
+    "locator_disclosure_policy": "The exact private overlay-network address is retained in the operator's private transfer log and omitted from versioned publication-capable records. The stable host alias, path, artifact digest, size, ref, and restored commit remain auditable.",
+    "server_hostname": "user",
+    "server_git_version": "2.51.0",
+    "artifact_size_bytes": 191134245,
+    "artifact_sha256": "0187fd200b2111dfeddadd9c4e07dc05cb072c22cb7ab2d58198dad577a33c0c",
+    "upload_temporary_suffix_used": true,
+    "atomic_rename_after_checksum": true,
+    "checksum_sidecar_present": true,
+    "bundle_and_checksum_mode": "0444",
+    "git_bundle_verify_pass": true,
+    "observed_branch_ref": "refs/heads/codex/o0cc-cal-phys",
+    "observed_tip_commit": "3f2b7e3108a3d5c6486ba3b63bbbd0e197d167bc",
+    "restore_clone_pass": true,
+    "restored_head_commit": "3f2b7e3108a3d5c6486ba3b63bbbd0e197d167bc",
+    "branch_tip_verified": true,
+    "verified_at_utc": "2026-09-13T04:04:47Z",
+    "verification_attempt_note": "An initial direct git bundle verify outside a Git repository returned exit code 1 because Git 2.51.0 requires repository context. This was a precondition error, not a failed archive verification. The registered verification was rerun after git init and passed; list-heads and an independent no-checkout clone both resolved the expected commit."
+  },
+  "blocking_fields": [],
+  "sealed_rule": "This record seals source baseline commit D and its immutable off-machine bundle. Do not overwrite that bundle or rewrite commits A-D. Documentation commit E must record D rather than itself; after E, create a separately named full-branch bundle or push the branch to a controlled remote."
+}

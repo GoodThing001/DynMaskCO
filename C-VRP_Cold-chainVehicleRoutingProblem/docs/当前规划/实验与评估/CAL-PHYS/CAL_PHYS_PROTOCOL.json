@@ -1,0 +1,305 @@
+{
+  "schema": "cal-phys-protocol-v1",
+  "protocol_version": "0.1.0-draft",
+  "status": "draft_blocked",
+  "allowed_statuses": [
+    "draft_blocked",
+    "pilot_registered",
+    "frozen",
+    "superseded"
+  ],
+  "created_date": "2026-09-13",
+  "language": "zh-CN",
+  "purpose": "Independently calibrate and validate the physical cold-chain contract before any calibrated DEV or formal VAL method evaluation.",
+  "authority": {
+    "scope_document": "CAL_PHYS_SCOPE_DECISION.md",
+    "analysis_plan": "CAL_PHYS_ANALYSIS_PLAN.json",
+    "source_registry": "CAL_PHYS_SOURCE_REGISTRY.csv",
+    "raw_data_manifest": "CAL_PHYS_RAW_DATA_MANIFEST.json",
+    "run_schedule": "CAL_PHYS_RUN_SCHEDULE.csv",
+    "freeze_checklist": "CAL_PHYS_FREEZE_CHECKLIST.md",
+    "source_baseline_audit": "../../决策与审计/O0CC源码字节基线与行尾处置.md"
+  },
+  "source_baseline": {
+    "status": "sealed",
+    "byte_closure_commit": "3f2b7e3108a3d5c6486ba3b63bbbd0e197d167bc",
+    "baseline_record_file": "../../决策与审计/O0CC_SOURCE_BASELINE.json",
+    "baseline_record_sha256": "1b65814e1b3af00908ae2f35dcea4d3ca57cb520c11ad0c4e45046eb8cdb99ef"
+  },
+  "scope_registration": {
+    "vehicle_or_compartment_specification": null,
+    "refrigeration_unit_specification": null,
+    "capacity_and_load_unit": null,
+    "representative_products_by_temp_class": null,
+    "primary_quality_indicator_by_product": null,
+    "unsalable_threshold_basis_by_product": null,
+    "initial_quality_fraction_mapping_by_product": null,
+    "product_value_basis_by_product": null
+  },
+  "measurement_registration": {
+    "sensor_models_and_accuracy": null,
+    "electrical_meter_model_and_accuracy": null,
+    "door_state_measurement": null,
+    "quality_assay_precision": null
+  },
+  "firewall": {
+    "calibration_data_role": "cal_phys_only",
+    "forbidden_inputs": [
+      "DEV-GATE method effects",
+      "VAL method effects",
+      "TEST method effects",
+      "M0 or M1 downstream performance"
+    ],
+    "decision_rule": "Physical model, parameters, thresholds, and sensitivity contracts must be selected using source evidence and CAL-PHYS physical outcomes only.",
+    "violation_action": "PROTOCOL_ERROR; invalidate the affected fit and create a new protocol version before refitting."
+  },
+  "locked_operational_semantics": {
+    "mode": "pickup_to_depot",
+    "dispatch_load": "empty",
+    "pickup_event": "service_finish",
+    "quality_clock": "service_finish_to_return_arrival",
+    "unload_event": "return_arrival",
+    "fleet_model": "homogeneous_multi_compartment",
+    "capacity_model": "shared_total",
+    "single_trip": true,
+    "allow_reload": false
+  },
+  "target_contract": {
+    "schema_name": "coldchain-contract-v2-light",
+    "primary_contract_role": "nominal",
+    "sensitivity_contract_roles": [
+      "low_stress",
+      "high_stress"
+    ],
+    "sensitivity_is_non_gating": true,
+    "fallback_schema": "coldchain-contract-v1-effective",
+    "fallback_decision_basis": "predefined identifiability and physical holdout rules only"
+  },
+  "research_questions": [
+    {
+      "id": "RQ-T1",
+      "question": "Can a load-dependent lumped thermal model predict closed-door temperature trajectories on held-out independent runs?",
+      "primary_responses": [
+        "compartment_temperature_c",
+        "pull_down_time_h"
+      ]
+    },
+    {
+      "id": "RQ-T2",
+      "question": "Can a duration- and temperature-lift-dependent door model predict temperature excursion and recovery on held-out independent door-event runs?",
+      "primary_responses": [
+        "peak_temperature_excursion_c",
+        "recovery_time_h",
+        "recovery_energy_kwh"
+      ]
+    },
+    {
+      "id": "RQ-E1",
+      "question": "Can a thermally consistent cooling-capacity/COP model predict held-out electrical energy without treating cooling capacity as electrical input power?",
+      "primary_responses": [
+        "input_power_kw",
+        "cumulative_energy_kwh"
+      ]
+    },
+    {
+      "id": "RQ-Q1",
+      "question": "For each preregistered representative product and quality indicator, does the declared kinetic model predict held-out variable-temperature quality trajectories?",
+      "primary_responses": [
+        "quality_fraction",
+        "unsalable_status"
+      ]
+    }
+  ],
+  "experimental_units": {
+    "thermal_unit": "one independently initialized vehicle/compartment run with its own condition assignment",
+    "door_unit": "one independently initialized door-event run; multiple sensor timestamps within the run are repeated measurements",
+    "energy_unit": "one independently metered pull-down, steady-state, door-recovery, or route-like run",
+    "quality_unit": "one independently sourced and handled product lot assigned to a temperature program",
+    "technical_replicates": "multiple sensors, subsamples, or timestamps inside one independent unit improve measurement precision but do not increase independent n",
+    "prohibited_pseudoreplication": "timestamps, sensors, and subsamples must never be counted as independent treatment replicates"
+  },
+  "design": {
+    "structure": "blocked split-plot factorial with an independently held-out route-like validation phase",
+    "hard_to_change_factors": [
+      "vehicle_or_compartment",
+      "ambient_temperature_c",
+      "target_temperature_c",
+      "load_state"
+    ],
+    "easy_to_change_factors": [
+      "door_duration_s",
+      "door_frequency_per_h",
+      "cooling_mode"
+    ],
+    "factorial_principle": "Estimate prespecified main effects and required two-factor interactions; do not use one-factor-at-a-time data as the sole basis for the final dynamic contract.",
+    "center_points": "Include replicated center-condition runs when safe to test curvature before accepting a linear lift/load relation.",
+    "safe_factor_levels": null,
+    "blocks": [
+      "vehicle_or_compartment_id",
+      "calendar_day_or_session_id",
+      "operator_id",
+      "sensor_package_id",
+      "product_lot_id"
+    ],
+    "randomization": {
+      "method": "seeded random order within feasible whole-plot blocks",
+      "seed": null,
+      "schedule_file": "CAL_PHYS_RUN_SCHEDULE.csv",
+      "schedule_sha256": null,
+      "allocation_concealment": "The frozen schedule is generated before outcome collection and cannot be changed without a logged protocol deviation."
+    },
+    "controls": [
+      "closed-door cooling-off natural warming",
+      "closed-door cooling-on pull-down and steady state",
+      "zero-duration no-event identity",
+      "reference temperature instrument check",
+      "independent electrical meter check",
+      "quality assay reference/control specified per product"
+    ]
+  },
+  "phases": [
+    {
+      "phase_id": "P1-INSTRUMENT",
+      "purpose": "sensor calibration, clock synchronization, repeatability, and meter cross-check",
+      "may_estimate_final_parameters": false
+    },
+    {
+      "phase_id": "P2-PASSIVE",
+      "purpose": "closed-door cooling-off thermal response across ambient, set-point history, and load",
+      "may_estimate_final_parameters": true
+    },
+    {
+      "phase_id": "P3-COOLING",
+      "purpose": "pull-down and steady cooling capacity, input power, COP, and preconditioning energy",
+      "may_estimate_final_parameters": true
+    },
+    {
+      "phase_id": "P4-DOOR",
+      "purpose": "door heat, peak excursion, recovery time, and recovery energy across duration and load",
+      "may_estimate_final_parameters": true
+    },
+    {
+      "phase_id": "P5-QUALITY-ISOTHERMAL",
+      "purpose": "quality reaction order and Arrhenius parameters using at least three in-range temperatures per product",
+      "may_estimate_final_parameters": true
+    },
+    {
+      "phase_id": "P6-DYNAMIC-HOLDOUT",
+      "purpose": "one-shot validation on unseen whole thermal runs and unseen whole product lots under route-like variable-temperature programs",
+      "may_estimate_final_parameters": false
+    }
+  ],
+  "partition_policy": {
+    "split_level": "whole independent run for thermal/energy and whole product lot for quality",
+    "row_level_random_split_forbidden": true,
+    "roles": [
+      "calibration",
+      "internal_diagnostic",
+      "dynamic_holdout"
+    ],
+    "holdout_lock_time": "before fitting or plotting outcome-dependent summaries",
+    "holdout_access": "single confirmatory evaluation after model and thresholds are frozen",
+    "exact_allocation": null,
+    "split_registry_sha256": null
+  },
+  "sample_size_policy": {
+    "status": "pending_pilot_variance_and_precision_targets",
+    "independent_n_unit": "independent run or independent product lot",
+    "pilot_use": "estimate variance, within-unit correlation, sensor noise, and feasible ranges only",
+    "pilot_variance_rule": "The P1 analysis plan must freeze a conservative variance rule before pilot outcome access (for example, a prespecified upper confidence bound or worst supported stratum), rather than plugging an unstable point estimate into the final n calculation.",
+    "planning_criterion": "Choose the maximum independent-unit requirement across all primary response families, include block/cluster structure and a prespecified allowance for non-outcome-based run loss, and document simulation or analytical inputs. Routing-method effects may not enter this calculation.",
+    "final_rule": "Freeze minimum and target independent-unit counts per design cell after the documented precision/power calculation; technical replicate counts cannot substitute for independent units and realized counts below the frozen minimum return DATA_INSUFFICIENT.",
+    "minimum_independent_counts": null,
+    "planned_independent_counts": null,
+    "planned_non_outcome_run_loss_allowance": null,
+    "power_or_precision_record": null
+  },
+  "pilot_registration": {
+    "allowed_phase": "P1-INSTRUMENT only",
+    "allowed_data_role": "instrument_pilot",
+    "may_estimate_final_contract_parameters": false,
+    "may_access_dynamic_holdout": false,
+    "required_separate_seal": "CAL_PHYS_PILOT_FREEZE_SEAL.json",
+    "purpose": "estimate instrument repeatability, clock error, feasible measurement ranges, run-level variance, and within-run correlation for final design and precision planning",
+    "rule": "status may change from draft_blocked to pilot_registered only after source byte closure, object/instrument registration, a restricted P1 schedule, raw-data identity rules, and pilot analysis rules are sealed"
+  },
+  "measurement_policy": {
+    "raw_data_is_immutable": true,
+    "raw_hash_algorithm": "sha256",
+    "clock_synchronization_required": true,
+    "calibration_certificates_required": true,
+    "required_thermal_channels": [
+      "timestamp",
+      "ambient_temperature_c",
+      "compartment_temperature_c_by_sensor",
+      "setpoint_temperature_c",
+      "cooling_state",
+      "door_state",
+      "load_value",
+      "input_power_kw_or_energy_kwh"
+    ],
+    "required_quality_channels": [
+      "product_lot_id",
+      "sample_id",
+      "timestamp",
+      "temperature_history_reference",
+      "quality_indicator_raw",
+      "quality_indicator_unit",
+      "quality_fraction_conversion"
+    ]
+  },
+  "deviation_and_exclusion_policy": {
+    "predefined_exclusion_classes": [
+      "instrument calibration failure",
+      "clock synchronization failure",
+      "unrecorded door event",
+      "power interruption",
+      "unsafe condition requiring run termination",
+      "sample identity or chain-of-custody failure"
+    ],
+    "outcome_based_exclusion_forbidden": true,
+    "all_deviations_retained": true,
+    "deviation_log_required": true,
+    "missing_or_nonfinite_required_field": "fail_closed_for_confirmatory_use"
+  },
+  "stopping_policy": {
+    "interim_method_performance_checks": false,
+    "optional_safety_stop": "stop only for preregistered equipment, food-safety, or operator-safety limits",
+    "optional_data_quality_stop": "pause collection for verified instrument or protocol failure; preserve all acquired raw data and deviations",
+    "success_stop": "complete the frozen schedule; do not stop early because a physical fit or later routing method appears favorable"
+  },
+  "freeze": {
+    "frozen_at_utc": null,
+    "frozen_by": null,
+    "independent_reviewer": null
+  },
+  "blocking_fields": [
+    "/scope_registration/vehicle_or_compartment_specification",
+    "/scope_registration/refrigeration_unit_specification",
+    "/scope_registration/capacity_and_load_unit",
+    "/scope_registration/representative_products_by_temp_class",
+    "/scope_registration/primary_quality_indicator_by_product",
+    "/scope_registration/unsalable_threshold_basis_by_product",
+    "/scope_registration/initial_quality_fraction_mapping_by_product",
+    "/scope_registration/product_value_basis_by_product",
+    "/measurement_registration/sensor_models_and_accuracy",
+    "/measurement_registration/electrical_meter_model_and_accuracy",
+    "/measurement_registration/door_state_measurement",
+    "/measurement_registration/quality_assay_precision",
+    "/design/safe_factor_levels",
+    "/design/randomization/seed",
+    "/design/randomization/schedule_sha256",
+    "/partition_policy/exact_allocation",
+    "/partition_policy/split_registry_sha256",
+    "/sample_size_policy/minimum_independent_counts",
+    "/sample_size_policy/planned_independent_counts",
+    "/sample_size_policy/planned_non_outcome_run_loss_allowance",
+    "/sample_size_policy/power_or_precision_record",
+    "external:CAL_PHYS_ANALYSIS_PLAN.json#/acceptance_thresholds",
+    "external:CAL_PHYS_RAW_DATA_MANIFEST.json#/datasets",
+    "/freeze/frozen_at_utc",
+    "/freeze/frozen_by",
+    "/freeze/independent_reviewer"
+  ],
+  "freeze_rule": "pilot_registered permits P1-INSTRUMENT only and never permits final parameter fitting; status may change to frozen for P2-P6 only when blocking_fields is empty, JSON/CSV validation passes, the source byte baseline is sealed, and the freeze checklist is signed; after these files are final, a separate non-self-referential CAL_PHYS_PROTOCOL_FREEZE_SEAL.json records every file hash and the bundle hash."
+}

@@ -1,0 +1,103 @@
+{
+  "schema": "cal-phys-raw-data-manifest-v1",
+  "manifest_version": "0.1.0-draft",
+  "status": "draft_blocked",
+  "created_date": "2026-09-13",
+  "hash_algorithm": "sha256",
+  "raw_data_policy": {
+    "immutable_after_registration": true,
+    "overwrite_forbidden": true,
+    "original_timezone_required": true,
+    "clock_reference_required": true,
+    "chain_of_custody_required_for_quality_samples": true,
+    "derived_data_separate_from_raw": true,
+    "all_transformations_rebuildable": true
+  },
+  "dataset_roles": [
+    "instrument_pilot",
+    "thermal_calibration",
+    "energy_calibration",
+    "door_calibration",
+    "quality_isothermal_calibration",
+    "internal_diagnostic",
+    "dynamic_holdout"
+  ],
+  "required_dataset_fields": [
+    "dataset_id",
+    "role",
+    "path_or_archive_id",
+    "sha256",
+    "byte_size",
+    "format",
+    "created_utc",
+    "source_ids",
+    "independent_unit_ids",
+    "row_count",
+    "schema_file",
+    "instrument_ids",
+    "unit_system",
+    "contains_holdout",
+    "access_policy"
+  ],
+  "required_sensor_metadata": [
+    "instrument_id",
+    "manufacturer",
+    "model",
+    "serial_or_asset_id",
+    "measured_quantity",
+    "resolution",
+    "stated_accuracy",
+    "calibration_reference",
+    "calibration_date",
+    "sampling_interval",
+    "physical_location"
+  ],
+  "required_run_metadata": [
+    "run_id",
+    "independent_unit_id",
+    "phase",
+    "vehicle_or_compartment_id",
+    "calendar_day_or_session_id",
+    "operator_id",
+    "sensor_package_id",
+    "ambient_condition",
+    "setpoint_condition",
+    "load_condition",
+    "door_program",
+    "cooling_program",
+    "split_role",
+    "protocol_deviations"
+  ],
+  "required_quality_metadata": [
+    "product_id",
+    "product_lot_id",
+    "variety_or_grade",
+    "packaging",
+    "initial_state",
+    "quality_indicator",
+    "assay_method",
+    "assay_unit",
+    "quality_fraction_conversion_id",
+    "measured_initial_quality_value",
+    "temperature_program_id",
+    "sample_times",
+    "unsalable_threshold_reference"
+  ],
+  "datasets": [],
+  "transform_registry": [],
+  "split_registry": {
+    "status": "unset_blocking",
+    "split_level": "whole independent run or whole product lot",
+    "registry_file": null,
+    "registry_sha256": null,
+    "overlap_check": null
+  },
+  "blocking_fields": [
+    "/datasets",
+    "/transform_registry",
+    "/split_registry/registry_file",
+    "/split_registry/registry_sha256",
+    "/split_registry/overlap_check"
+  ],
+  "freeze_rule": "Every acquired raw file must be listed with a verified SHA-256 and immutable location; holdout identities must be frozen before outcome-dependent model fitting."
+}
