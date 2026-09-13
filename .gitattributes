@@ -1,0 +1,33 @@
+# Line-ending / text policy: active source is canonical LF; frozen evidence is byte-exact.
+
+# Active source — canonical LF so compute/control/analysis identity is byte-stable.
+*.py text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.csv text eol=lf
+*.sh text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.cfg text eol=lf
+*.ini text eol=lf
+
+# Frozen evidence packages — byte containers, never normalize (sealed bundle SHA depends on exact bytes).
+C-VRP_Cold-chainVehicleRoutingProblem/archive/正式冻结包/** -text
+C-VRP_Cold-chainVehicleRoutingProblem/archive/诊断与作废冻结包/** -text
+
+# Binary formats — explicit no-text (never line-ending/CRLF normalized, no diff).
+*.npz -text
+*.npy -text
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.gif -text
+*.pth -text
+*.pt -text
+*.ckpt -text
+*.pkl -text
+*.so -text
+*.pb -text
+*.onnx -text
