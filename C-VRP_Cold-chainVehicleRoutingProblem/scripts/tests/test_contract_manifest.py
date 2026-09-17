@@ -51,6 +51,20 @@ def test_roundtrip_hash_consistent():
     return ok
 
 
+def test_roundtrip_in_memory():
+    """直接内存往返（不经 JSON）：to_manifest() 输出必须被 from_manifest 直接接受。
+
+    JSON 往返会把 tuple 转成 list，掩盖 to_manifest() 的原始类型；只有内存往返能
+    暴露 parameter_provenance 的 tuple/list 序列化不一致（见 contract 修复）。
+    """
+    c = default_pilot_contract()
+    m = c.to_manifest()
+    c2 = ColdChainContract.from_manifest(m)
+    ok = c2.contract_hash == c.contract_hash
+    record('contract_roundtrip_in_memory', ok, f"hash={c.contract_hash[:12]}")
+    return ok
+
+
 def test_file_roundtrip():
     tmp = tempfile.mkdtemp(prefix='contract_mf_')
     try:
@@ -114,7 +128,8 @@ def test_explicit_pilot_equals_implicit():
 
 
 def main():
-    ok = [test_roundtrip_hash_consistent(), test_file_roundtrip(), test_validate_rejects(),
+    ok = [test_roundtrip_hash_consistent(), test_roundtrip_in_memory(),
+          test_file_roundtrip(), test_validate_rejects(),
           test_explicit_pilot_equals_implicit()]
     print(f"\n  ALL: {'PASS' if all(ok) else 'FAIL'}")
     return 0 if all(ok) else 1

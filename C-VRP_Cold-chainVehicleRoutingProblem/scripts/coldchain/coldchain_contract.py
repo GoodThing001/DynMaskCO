@@ -300,6 +300,9 @@ class ColdChainContract:
     def to_manifest(self) -> dict[str, Any]:
         self.validate()
         result = asdict(self)
+        # asdict keeps tuple fields as tuples; validate_contract_manifest expects
+        # JSON-style lists, so normalize provenance before the in-memory round-trip.
+        result["parameter_provenance"] = list(result["parameter_provenance"])
         result["contract_hash"] = self.contract_hash
         return result
 
