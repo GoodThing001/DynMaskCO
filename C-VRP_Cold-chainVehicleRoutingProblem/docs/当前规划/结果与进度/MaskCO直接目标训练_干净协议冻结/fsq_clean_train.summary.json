@@ -1,0 +1,46 @@
+{
+  "split": "train",
+  "n_instances": 16,
+  "n_states": 32,
+  "R": {
+    "n_states": 32,
+    "n_fail": 0,
+    "fail_rate": 0.0,
+    "mean_J": 1.0707921060396646,
+    "inst_std": 0.07546695281422208
+  },
+  "Mpre_det": {
+    "n_states": 32,
+    "n_fail": 0,
+    "fail_rate": 0.0,
+    "mean_J": 1.156220479000773,
+    "inst_std": 0.0987961666135952
+  },
+  "Mtrained_det": {
+    "n_states": 32,
+    "n_fail": 0,
+    "fail_rate": 0.0,
+    "mean_J": 1.1038593972940578,
+    "inst_std": 0.08115729852517924
+  },
+  "Mpre_samples": {
+    "mean_J": 1.1557936199069099,
+    "inst_std": 0.09936435436686905,
+    "fail_rate": 0.0,
+    "n_unique_plans": 55
+  },
+  "Mtrained_samples": {
+    "mean_J": 1.1081215804434064,
+    "inst_std": 0.07953429044873357,
+    "fail_rate": 0.0,
+    "n_unique_plans": 142
+  },
+  "mask_audit": {
+    "n_states_with_out_of_pool": 0,
+    "n_out_of_pool_customers": 0,
+    "reason_counts": {}
+  },
+  "Mpre_det_minus_R": 0.0854283729611085,
+  "Mtrained_det_minus_R": 0.03306729125439323,
+  "Mtrained_det_minus_Mpre": -0.05236108170671527
+}
