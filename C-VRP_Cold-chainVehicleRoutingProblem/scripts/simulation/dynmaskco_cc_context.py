@@ -156,8 +156,9 @@ def validate_mask_scope(vehicles, served_mask, visible_ids, plans, mask, mutable
                         protected=frozenset()):
     """强制断言 mask 合规（越界则 raise AssertionError）。
 
-    每个 mask 客户必须：⊆ decision_pool、来自 mutable_ids 车计划、非 committed_next、
-    非 protected 车 tail。plans 为当前 FleetPlan（P0）。
+    每个 mask 客户必须：⊆ decision_pool、非 committed_next、非 protected 车 tail。
+    decision_pool 已排除 committed 客户与 non-replan 车 tail，故「⊆ decision_pool」即保证
+    mask 客户可重新插入 mutable 车（含 deferred 客户：不在任何车 suffix 但可分配）。
     """
     decision_pool = set(decision_pool_from_vehicles(vehicles, served_mask, visible_ids))
     committed_next = {int(v.committed_next) for v in vehicles
@@ -169,16 +170,9 @@ def validate_mask_scope(vehicles, served_mask, visible_ids, plans, mask, mutable
             for x in p.suffix:
                 if int(x) > 0:
                     protected_tail.add(int(x))
-    mutable_plan_customers = set()
-    for vid, p in plans.items():
-        if vid in mutable_ids:
-            for x in p.suffix:
-                if int(x) > 0:
-                    mutable_plan_customers.add(int(x))
     for c in mask:
         c = int(c)
         assert c in decision_pool, f"mask {c} not in decision_pool"
-        assert c in mutable_plan_customers, f"mask {c} not from mutable_ids vehicle"
         assert c not in committed_next, f"mask {c} is committed_next"
         assert c not in protected_tail, f"mask {c} in protected tail"
 

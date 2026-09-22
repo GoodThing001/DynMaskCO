@@ -1,0 +1,75 @@
+{
+  "protocol_revision": 1,
+  "frozen_at": "2026-09-09",
+  "method": {
+    "method_name": "PyVRP-RH-D",
+    "definition": "strict-online rolling-horizon、distance-optimized、非冷链感知，最终统一回放 D/Q/E/J_CC",
+    "method_revision": "1",
+    "adapter_revision": "1"
+  },
+  "config": {
+    "pyvrp": "0.14.0",
+    "max_iterations": 300,
+    "solver_seed": 0,
+    "warm_start": false,
+    "fallback": false,
+    "objective": "distance（PyVRP 内部；最终 C0 D/Q/E/J_CC 重放）",
+    "evaluation": "unified C0 D/Q/E/J_CC replay",
+    "int_scale": 1000,
+    "optional_clients": "dynamic coverage prize（界限计算）",
+    "feasibility": "fixed dynamically bounded penalty（min==max）",
+    "decision_policy": "strict-online WAIT/CLOSE（当前 9x32 已验证实现）"
+  },
+  "budget_sensitivity_statement": "300 iterations 在 DEV-PROTO 上达到稳定可行区间；增加至 1000/3000 未形成一致距离优势，因此选择 300 作为可复现的固定计算预算。rolling-horizon 是连续决策组合，单个事件求解更充分不保证终局距离单调下降；300/1000/3000 的差异作为预算敏感度报告，不解释成冷链方法优劣。",
+  "evidence": {
+    "devproto_9x32_run": "results/devproto_9x32_iter300",
+    "canonical_complete_sha256": "e3b123e677ef921668c1d8964134b07ae6cfd91e9e1b0d68ec8b9144d63eec3b",
+    "aggregate_summary_sha256": "ca627fcf82f6551d4a466fbabaab3bdfa2e80ed609ca1f30773fa16e0456b31e",
+    "pre_run_manifest_sha256": "73d6730f95d7a346069f7dee8c60c98a05a90c1b943cde14d52556fb9b817ffe",
+    "n_instances": 288,
+    "n_complete": 288,
+    "ownership_violations": 0,
+    "terminal_unresolved": 0,
+    "protocol_errors": 0,
+    "penalty_warnings": 0,
+    "determinism_spotcheck": "9/9 cells decision_hash match",
+    "devproto_9x2_300": "results/devproto_9x2_iter300",
+    "devproto_9x2_1000": "results/devproto_9x2_iter1000",
+    "rev4_behavior_parity": "identity_rev4_behavior_parity.json",
+    "rev4_behavior_parity_sha256": "ec19b40d785e19d7d953e1c9f2ca009ea8551c51bd34617fe50a57b7d812be7d",
+    "sensitivity_note": "9x2 在 300/1000 两档 15/18 decision_hash 一致；3 例路线不同（非单调，±2%）"
+  },
+  "revision_policy": "任何配置项变化必须升级 protocol/adapter revision，不得覆盖当前冻结版本。",
+  "identity_manifest_revision": 4,
+  "identity": {
+    "expected_code_hash": "5c9b54a617b329a5898736324f5c1eabdfabaa3d98afe7cffb9d3a6a12d3783b",
+    "source_manifest_sha256": "8b5eb7266246a3b785d045a207f9577c47cbf804278ce463cb640fc522cffdef",
+    "objective_profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
+    "dev_manifest_sha256": "5eef6802f718f09dc4d416e58169f034f035e14aa743246f3c6d022831c4344f",
+    "pyvrp_wheel_sha256": "b3ce60d4714be39dbd382c40296fb754d649b1bfe5b462c9748ff50786d8c12f",
+    "native_extension_sha256": "2515f4fa18ab16c03fe793374f7afb44724bba35fdf7a9cbfb37a8bb77785844",
+    "note": "revision 4：common/baseline_contract.py 修复 artifact_hash 仍包含顶层 runtime_s（计时字段不应参与复现身份），公共计算链 code_hash 变化。此改动只影响 artifact_hash（复现身份）与 code_hash，不影响 decision_hash（行为确定性，本就排除 code_hash 与 runtime_s）。行为不变性由小样本 decision_hash parity 证明（与 rev3 产物一致）；9x32 行为证据无需重跑。"
+  },
+  "identity_history": {
+    "revision_3": {
+      "expected_code_hash": "3b9fd43bc5afd2c9361e918a1f5820ab5873d086d29b339a67e52786190960fe",
+      "source_manifest_sha256": "4b316969aaa6b5e7760cdb044a4fce58b474c587bd8d12c7da1bfd3b97ee3658",
+      "objective_profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
+      "dev_manifest_sha256": "5eef6802f718f09dc4d416e58169f034f035e14aa743246f3c6d022831c4344f",
+      "pyvrp_wheel_sha256": "b3ce60d4714be39dbd382c40296fb754d649b1bfe5b462c9748ff50786d8c12f",
+      "native_extension_sha256": "2515f4fa18ab16c03fe793374f7afb44724bba35fdf7a9cbfb37a8bb77785844",
+      "note": "rev3 消除循环哈希（SOURCE_MANIFEST 不包含 FROZEN_CONFIG/README；FREEZE_SEAL 单向绑定）。后 common/baseline_contract.py artifact_hash 修复（排除顶层 runtime_s）导致公共计算链 hash 变化，升 rev4。",
+      "status": "INVALIDATED_BY_COMMON_EVOLUTION"
+    },
+    "revision_2": {
+      "expected_code_hash": "084e79cf97a9663aba221fd38ea8f1ec8ba5451d6fc7bb68158063dfcc406302",
+      "source_manifest_sha256": "5db301bcd4ba8f14a696a1d6193b4fde8cdb00b5c8ed487f8acf40017a72aca8",
+      "objective_profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
+      "dev_manifest_sha256": "5eef6802f718f09dc4d416e58169f034f035e14aa743246f3c6d022831c4344f",
+      "pyvrp_wheel_sha256": "b3ce60d4714be39dbd382c40296fb754d649b1bfe5b462c9748ff50786d8c12f",
+      "native_extension_sha256": "2515f4fa18ab16c03fe793374f7afb44724bba35fdf7a9cbfb37a8bb77785844",
+      "note": "rev2 生成后 common/method_adapter.py 与 common/strict_online_runner.py 因 JF1-H-F native bridge 接入而修改（B1.2），公共计算链 hash 变化；且 rev2 曾把 FROZEN_CONFIG 纳入 SOURCE_MANIFEST，形成循环哈希。行为证据（rev1 9x32）不受影响。",
+      "status": "INVALIDATED_BY_COMMON_EVOLUTION"
+    }
+  }
+}

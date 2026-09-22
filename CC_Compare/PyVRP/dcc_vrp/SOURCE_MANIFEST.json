@@ -1,0 +1,178 @@
+{
+  "schema_version": "cc-compare-source-manifest-v1",
+  "identity_manifest_revision": 4,
+  "generated_at": "2026-09-10 20:34:39",
+  "method": "PyVRP-RH-D",
+  "expected_code_hash": "5c9b54a617b329a5898736324f5c1eabdfabaa3d98afe7cffb9d3a6a12d3783b",
+  "pyvrp_wheel_sha256": "b3ce60d4714be39dbd382c40296fb754d649b1bfe5b462c9748ff50786d8c12f",
+  "native_extension_sha256": "2515f4fa18ab16c03fe793374f7afb44724bba35fdf7a9cbfb37a8bb77785844",
+  "objective_profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
+  "dev_manifest_sha256": "5eef6802f718f09dc4d416e58169f034f035e14aa743246f3c6d022831c4344f",
+  "files": [
+    {
+      "logical_path": "adapter/identity.py",
+      "sha256": "28112ed84f5c29b07514d2ded932825e837f9ccf021beb612734a3b74f9b8256",
+      "classification": "control"
+    },
+    {
+      "logical_path": "adapter/problem_builder.py",
+      "sha256": "7deff75276f0f7512cabd910b1e264c8b418c66d6bb44f41dc2695fc6312b71c",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "adapter/pyvrp_adapter.py",
+      "sha256": "fc042c42be0198950b2b1c11286936def1146d830250149e358e8bda2e29cbeb",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "adapter/route_mapper.py",
+      "sha256": "187f422d37a42541731e97a6f653d25b0bd38561707091505d901d2590baf96f",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "adapter/run_dcc.py",
+      "sha256": "3adaf3309a6e80f3d10f4a0d788ed94538fecfd2a2c77528b531348322ac51ec",
+      "classification": "control"
+    },
+    {
+      "logical_path": "adapter/run_devproto_9x2.py",
+      "sha256": "a2357ed09bbffd08f45a43fae37763beee1260d0f56ba490256f2c44a8bf2d46",
+      "classification": "control"
+    },
+    {
+      "logical_path": "adapter/run_iter_sweep.py",
+      "sha256": "62af4399c8558a840399193de2925aa1fdb930b9c882322cdda29deefd010ff9",
+      "classification": "control"
+    },
+    {
+      "logical_path": "adapter/tests/test_adapter_integration.py",
+      "sha256": "f342e8ce5d3786a028241254d00013c8eb033277b2eade6690b377995013bd19",
+      "classification": "analysis"
+    },
+    {
+      "logical_path": "adapter/tests/test_empty_pool.py",
+      "sha256": "6c90f300fccc78dab31795b1c1c75de3edda50e7a85f999811ae2c88740bef96",
+      "classification": "analysis"
+    },
+    {
+      "logical_path": "adapter/tests/test_environment_identity.py",
+      "sha256": "212868f0144cad1fa05beac4043ab920a0f7cc8fe17f2566cf701c86ceb3eb8c",
+      "classification": "analysis"
+    },
+    {
+      "logical_path": "adapter/tests/test_event4_regression.py",
+      "sha256": "38309ced05e27d7d4cd561e4ab71ab3502bbd1fd403fb68162f7e408850033a1",
+      "classification": "analysis"
+    },
+    {
+      "logical_path": "adapter/tests/test_integer_boundary.py",
+      "sha256": "5c26476797ea33176d9230f0e519eff3d7803ce2fc680a771fab2fcec2779550",
+      "classification": "analysis"
+    },
+    {
+      "logical_path": "adapter/tests/test_penalty_protocol.py",
+      "sha256": "58ed7370ed958ef95ea72c0c14501593f40e144b6971a41d1e431b336d19c3d4",
+      "classification": "analysis"
+    },
+    {
+      "logical_path": "adapter/tests/test_problem_builder.py",
+      "sha256": "c016a4beae703490b76936b91c9e73e6b531247855e63bcb9e774f694ee51157",
+      "classification": "analysis"
+    },
+    {
+      "logical_path": "adapter/tests/testutil.py",
+      "sha256": "9ee7d08aa0f192b5f9ee7173b8151a3a2b6d1c3a20ca4ff5353b61b7ecaf980e",
+      "classification": "analysis"
+    },
+    {
+      "logical_path": "adapter/tools/gen_source_manifest.py",
+      "sha256": "f31fb0999bb170102043e871f8961e1e3292d19ae9cc37555426c24c43ac263c",
+      "classification": "control"
+    },
+    {
+      "logical_path": "adapter/verify_freeze.py",
+      "sha256": "eb800698cf5a9691024a9b31ec55ce561c4c3bda01c94b35943cca504860f66e",
+      "classification": "control"
+    },
+    {
+      "logical_path": "common/_bootstrap.py",
+      "sha256": "67fee9b2164fe298a8df650c126a7f1f92faf0b38dcf3f1292285cc0323b205e",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "common/baseline_contract.py",
+      "sha256": "67933edad2c97a11e85b027e97622593e19af74f4cfe19f5b1a189061f2f20fe",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "common/method_adapter.py",
+      "sha256": "f58b7f7bb08daf39745485315e0bdfdf019ed3fe43005b60c71689f91a7bca64",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "common/ownership_audit.py",
+      "sha256": "d7e67e69a948d507dfe6477ae1ba5b5ba6ae380ec47df6324d7f084dee0445a6",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "common/record_validation.py",
+      "sha256": "872b2c1b2cb6b44d5a4df7049dcec83fdb4bd2cd6db2c35c653a30a1a42b0fee",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "common/strict_online_runner.py",
+      "sha256": "3bc6bc02345265dc152eaa1504a224be5dd0d576cc2916591152802ae1810a00",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "common/trace_export.py",
+      "sha256": "292845e5ad71c91d2b783cc004be9451fe76d0e9b6480a9d9315e9b656f47791",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "project/coldchain/coldchain_contract.py",
+      "sha256": "abf97d9789f60450fdd58ea79205cd5b32534ab460b18af1431a86e4cfbca601",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "project/coldchain/coldchain_state.py",
+      "sha256": "61f0d09f50b3f05574ed6dc5943c1c1be1a4068a6c2412127532e1947d90ed82",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "project/evaluation/authoritative_evaluator.py",
+      "sha256": "505f7a718a14ee64d85974f08d6f2bd66dddbcbb321929b98133384949b0db05",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "project/evaluation/coldchain_evaluator.py",
+      "sha256": "3e02ea05df6f9176a826495422309a0f9709f242ebbd649f3c2318a2b3a21ff5",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "project/evaluation/hard_gate.py",
+      "sha256": "aae966a8225437787257d892829bb4535cf2d18914b1ed0989954b498fc72acd",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "project/simulation/action_contract.py",
+      "sha256": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "project/simulation/counterfactual_teacher.py",
+      "sha256": "b87b604e693101ba5c00dcd36921d9a7e3a5e7c58501716cc5d831514a683d2f",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "project/simulation/recourse_snapshot.py",
+      "sha256": "0af3535acaf6a84956104c0f1c8788c04e02499a087b6faa3d264239a19f27f8",
+      "classification": "compute"
+    },
+    {
+      "logical_path": "project/simulation/strict_online_env.py",
+      "sha256": "60f9063442236e934b5a27bdbad0b7677388f6a63e7cd000f18ac30c3a00b9de",
+      "classification": "compute"
+    }
+  ]
+}

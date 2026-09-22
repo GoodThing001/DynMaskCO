@@ -1,0 +1,1493 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-08 18:34:48",
+  "platform": "win32",
+  "note": "source_tree_sha256 在本地工作副本（Windows checkout）计算，文本文件按工作树字节原样哈希；所有文件必被 source/assets/data_assets/binary_artifacts 之一覆盖",
+  "global_exclusions": {
+    "binary_extensions": [
+      ".npy",
+      ".npz",
+      ".onnx",
+      ".pb",
+      ".pkl",
+      ".so",
+      ".tar",
+      ".tar.gz",
+      ".zip"
+    ],
+    "weight_extensions": [
+      ".ckpt",
+      ".pt",
+      ".pth"
+    ]
+  },
+  "methods": [
+    {
+      "method": "AttentionModel",
+      "upstream_repo": "wouterkool/attention-learn-to-route",
+      "upstream_commit": "c9abf41ac2f878a55b20dc7e829bc942bb999631",
+      "upstream_branch": "master",
+      "source_tree_sha256": "b02be42a2fb66f7619ae62f50c2819d83e8c1619b2daece8604551eb2575076d",
+      "source_n_files": 93,
+      "assets": [
+        {
+          "path": "AttentionModel/pretrained/cvrp_10/args.json",
+          "sha256": "c2c5425ed1a68b61a845b4dbe3a7e15559f2a8fc26b5972bb83df5937c4936ab",
+          "size_bytes": 829,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/cvrp_10/epoch-99.pt",
+          "sha256": "61e51673e36c427bd7e364b6b89d5c85eb3d022898b70eb462a1d990497fa410",
+          "size_bytes": 2784554,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/cvrp_100/args.json",
+          "sha256": "c494bca9848fc08435b65e41475e480ae9fd141f36c9c2f467adfce44aa24477",
+          "size_bytes": 830,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/cvrp_100/epoch-99.pt",
+          "sha256": "1282fd64cfb4bb2fb584deac758c7836b437452d0297ddb9668efa71b3f7e3f1",
+          "size_bytes": 2784554,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/cvrp_20/args.json",
+          "sha256": "8a58e09573de0d24615504b6ffb1e9a7b07d0525581be2bc3d9981bf417a747e",
+          "size_bytes": 829,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/cvrp_20/epoch-99.pt",
+          "sha256": "f37f7744fc45e198e0bc0f9234d856aee98f8d7faa518dea0fcd0544ca26ffff",
+          "size_bytes": 2784554,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/cvrp_50/args.json",
+          "sha256": "5fc986a26836293797e174a23c00be7beb94d2a8f8360781da15108c950685f8",
+          "size_bytes": 829,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/cvrp_50/epoch-99.pt",
+          "sha256": "3acc232fa8f985bc0662090d069f1f04b1574b4d2f4572a493acde502f723941",
+          "size_bytes": 2784554,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_const_100/args.json",
+          "sha256": "a080f3831f150492f7fe5b3b029865d1ca949bc5579e63521336cd98eb61295f",
+          "size_bytes": 934,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_const_100/epoch-99.pt",
+          "sha256": "d63bae9bff96cd9b018724322c096a5d8104e899a219211ad04735ca51f0a156",
+          "size_bytes": 2786902,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_const_20/args.json",
+          "sha256": "4863526cdd47ff427b1192ac6af0f1aa9d3dbebd949aec5737f52e2913dbdf7e",
+          "size_bytes": 867,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_const_20/epoch-99.pt",
+          "sha256": "f39879627ae1254f02ae22bad1aef8ffb07e7494879e7c05745e6b9763b80f87",
+          "size_bytes": 2786902,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_const_50/args.json",
+          "sha256": "5243095340b11a2854eef213c44c6a8fa89a605b1af920818777ea12b01758ea",
+          "size_bytes": 867,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_const_50/epoch-99.pt",
+          "sha256": "1d1be50a5a22ba0803d088bb74e95025dc26dda320511ac1479b8a588acce1b9",
+          "size_bytes": 2786902,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_dist_100/args.json",
+          "sha256": "73657fcf2eb75dc1bc390f7da66b1458668f6cf633c58955cf809cf847751d4e",
+          "size_bytes": 866,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_dist_100/epoch-99.pt",
+          "sha256": "69cfbecd91b2c9c6a0a53d30add874571af60c8486a0ef6e16d0363220c3aa27",
+          "size_bytes": 2786902,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_dist_20/args.json",
+          "sha256": "ee83b4f0468b883e809b1f20324fce775e6fa369369dc3dc0491ba75de59cc14",
+          "size_bytes": 865,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_dist_20/epoch-99.pt",
+          "sha256": "b649f9f938fa258bed89c89a53e9edbbc74edae7bc728f88b25aa682b77e8171",
+          "size_bytes": 2786902,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_dist_50/args.json",
+          "sha256": "b4f05ba6830be24713cac0cff7b95a8275267337ebe552cc2e787c166344b1ec",
+          "size_bytes": 865,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_dist_50/epoch-99.pt",
+          "sha256": "42264c9c786cf07cc67c0dc1d0ff777167a95e7cda6ba11ef30360283591835a",
+          "size_bytes": 2786902,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_unif_100/args.json",
+          "sha256": "a8ff6f33c374b8038fe8d7e8f4690628a7cb55fbfaf88abe91f0f48861bda20e",
+          "size_bytes": 930,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_unif_100/epoch-99.pt",
+          "sha256": "d3be7874f6027985d384fa52b7820096293a12862016b53d6a43b67c7bdabb57",
+          "size_bytes": 2786902,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_unif_20/args.json",
+          "sha256": "e27a1615455569b500c1212f64061c407c77fa347462a00c5420a4ac45931deb",
+          "size_bytes": 865,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_unif_20/epoch-99.pt",
+          "sha256": "d2692beb879aab46ab008402e810e7378b8e11e5845a7b3fd0b0f1bc9e81c482",
+          "size_bytes": 2786902,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_unif_50/args.json",
+          "sha256": "f498268769dfd514a051263032a5f82977fd70ce5f735159ea18d649bb6a8e32",
+          "size_bytes": 865,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/op_unif_50/epoch-99.pt",
+          "sha256": "2863faf356aea15d76b94861bfc738fbec3c9bb21cc6401d4ab8ed9187dba898",
+          "size_bytes": 2786902,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/pctsp_det_100/args.json",
+          "sha256": "77e9908490275e969c1a09630c97d36d795dad17c6af8277f309ebf862cbddbd",
+          "size_bytes": 871,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/pctsp_det_100/epoch-99.pt",
+          "sha256": "62e66f98901d60cbf53bfc562b598d84495d7f5099f083cfc2522aa2f9063653",
+          "size_bytes": 2787414,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/pctsp_det_20/args.json",
+          "sha256": "a892dc7da02424a9d1fdc6059a085ae3cdbd50849e64f09b8bcc78c325b9a574",
+          "size_bytes": 869,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/pctsp_det_20/epoch-99.pt",
+          "sha256": "0eecef884bbab90a61f25f72763c484a56ce20974487884505ed328931235206",
+          "size_bytes": 2787414,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/pctsp_det_50/args.json",
+          "sha256": "5caf123d6a5e8e7753f1647d8e2594bb35dd817f067e1928bad50609da999fab",
+          "size_bytes": 869,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/pctsp_det_50/epoch-99.pt",
+          "sha256": "3692169bfb3de9665e4953d6ad5cfe968a00701312b154e554f382e38f44358f",
+          "size_bytes": 2787414,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/pctsp_stoch_100/args.json",
+          "sha256": "1d4ef82a9fe108214521e9a804054029da0f769cb8e1925513e932d78b5fadeb",
+          "size_bytes": 875,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/pctsp_stoch_100/epoch-99.pt",
+          "sha256": "e8e3239f49cf3e3fded47293170cbb7d27e1a324aceec9b692c0b007bda265e3",
+          "size_bytes": 2787414,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/pctsp_stoch_20/args.json",
+          "sha256": "3dc4c4479f492ef36196a0407fadbc9e12a40968c96f0e0647811e961218be52",
+          "size_bytes": 873,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/pctsp_stoch_20/epoch-99.pt",
+          "sha256": "d93bfbeae1aca90b856b801db0839b817d65658a2959d45e3e8343878ae78372",
+          "size_bytes": 2787414,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/pctsp_stoch_50/args.json",
+          "sha256": "14d233203050f6fd3695506d220d5952d2e742d1fe2eee5001deaf25b9833417",
+          "size_bytes": 873,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/pctsp_stoch_50/epoch-99.pt",
+          "sha256": "f9bb59bf2f74947165ad41f7cd1bc5e3a1a1869012e49007e1ef73677e8879f1",
+          "size_bytes": 2787414,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/sdvrp_10/args.json",
+          "sha256": "dd9141599f09c1106fad1d5195a805aded41ccc75cb58c5358c6543ff86fdf41",
+          "size_bytes": 831,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/sdvrp_10/epoch-99.pt",
+          "sha256": "d914ac80d9d9ba48bd9b36291757c3ccd7ab05cd0aa8df7b91d2e5fdf8d6d06f",
+          "size_bytes": 2786233,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/sdvrp_100/args.json",
+          "sha256": "40bdf2cdff5370d58c2efba6b93cc1b1e6058630f9953ab44f82ca60ba15c5f4",
+          "size_bytes": 832,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/sdvrp_100/epoch-99.pt",
+          "sha256": "5b6ef7e5ed1188a32790cb71c2938c6ed58af52384d744543ae0f90789636361",
+          "size_bytes": 2786233,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/sdvrp_20/args.json",
+          "sha256": "36d62a852b750bc02ef23f3e8dacf13affca1a8389f60d6e08b9805363eb92e4",
+          "size_bytes": 831,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/sdvrp_20/epoch-99.pt",
+          "sha256": "1fe07ada1a5af7ff03af1f15e765c24ebb0d6dce4d79d35196f144c039cc1302",
+          "size_bytes": 2786233,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/sdvrp_50/args.json",
+          "sha256": "efa4a1080fa946515785b080fff5b3872c23b03b46bcb6686cd924005a701e26",
+          "size_bytes": 831,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/sdvrp_50/epoch-99.pt",
+          "sha256": "176245ae7bcbc050ae7ce6d03346807bb162d932e66d6861102bf03a4f4e9cbc",
+          "size_bytes": 2786233,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/tsp_100/args.json",
+          "sha256": "04e30e45d7bf68cfed9e2ed8a03a627184df0a701d77a6b3514fc63c25ea5911",
+          "size_bytes": 829,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/tsp_100/epoch-99.pt",
+          "sha256": "eefdf5496cc1a15e1b95b0a3025e1bcf703279d22aebc19b5b57c80ca8e3200a",
+          "size_bytes": 2848409,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/tsp_20/args.json",
+          "sha256": "92e71083759e35cf58a69ae930d8575f18be07ff31db030347786397e90444d9",
+          "size_bytes": 827,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/tsp_20/epoch-99.pt",
+          "sha256": "cf596c0152c61b1f84348b408b87073212fa48ef24ccd8db4d9f7c0fdc28fe18",
+          "size_bytes": 2848409,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/tsp_50/args.json",
+          "sha256": "1d326c201cbba8a87706292fe22333958f472ad1d14875fb2d01dac58c6ff2e0",
+          "size_bytes": 827,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "AttentionModel/pretrained/tsp_50/epoch-99.pt",
+          "sha256": "10e0e882f17a15ae44da04d9d8939ce599d3cf133c0593649a066608ff51ab43",
+          "size_bytes": 2848409,
+          "source": "上游仓库自带"
+        }
+      ],
+      "data_assets": [],
+      "binary_artifacts": null
+    },
+    {
+      "method": "CO-enriched-ML",
+      "upstream_repo": "tumBAIS/euro-meets-neurips-2022",
+      "upstream_commit": "e90e91008ff2c447f5c6a5b1102efac8060bcce1",
+      "upstream_branch": "main",
+      "source_tree_sha256": "4a3cb879997e66c4a438a2640bb11ff959c088e8380e8e1c17c11029ef854024",
+      "source_n_files": 3449,
+      "assets": [
+        {
+          "path": "CO-enriched-ML/training/models/NeuralNetwork_samples-50_instances-15_runtime-3600_featureset-dynamicstatic_iteration-29/fingerprint.pb",
+          "sha256": "272d5f04fcd50396f8a94bd90964071e0c3048a3876ffa853f40025e5873f9f6",
+          "size_bytes": 54,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "CO-enriched-ML/training/models/NeuralNetwork_samples-50_instances-15_runtime-3600_featureset-dynamicstatic_iteration-29/keras_metadata.pb",
+          "sha256": "33d1d246e8ed7cc9885c94cf9d5ad135bfbd519f295484e124ae5f247c20cfc7",
+          "size_bytes": 11312,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "CO-enriched-ML/training/models/NeuralNetwork_samples-50_instances-15_runtime-3600_featureset-dynamicstatic_iteration-29/saved_model.pb",
+          "sha256": "f092c1a471efdcc12521a52f22ffc6c0cd888bf490b3692734550cb03cb6b4e4",
+          "size_bytes": 90446,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "CO-enriched-ML/training/models/NeuralNetwork_samples-50_instances-15_runtime-3600_featureset-dynamicstatic_iteration-29/variables/variables.data-00000-of-00001",
+          "sha256": "dea5c68f98d7ec3c35d812ea00bf94607674adccf31e12a3fc385ffdafcd1132",
+          "size_bytes": 6861,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "CO-enriched-ML/training/models/NeuralNetwork_samples-50_instances-15_runtime-3600_featureset-dynamicstatic_iteration-29/variables/variables.index",
+          "sha256": "1697320c60b5965f2e50de14e170cb58699b947964731a7028e46ee266038504",
+          "size_bytes": 677,
+          "source": "上游仓库自带"
+        }
+      ],
+      "data_assets": [
+        {
+          "path": "CO-enriched-ML/evaluation/results/results_test_seeds_final",
+          "tree_sha256": "d91b6c8c44626ea029adddd140f5db0d78e95e2c54f1cf6f6b887e83c7721800",
+          "n_files": 43,
+          "total_bytes": 403568817,
+          "source": "上游仓库自带"
+        }
+      ],
+      "binary_artifacts": null
+    },
+    {
+      "method": "CaDA",
+      "upstream_repo": "?",
+      "upstream_commit": "?",
+      "upstream_branch": "?",
+      "source_tree_sha256": "2c4f2e9911dc39025b2ac920a679a8146517e9258fd36175f2bfc6b1d2ce9bcc",
+      "source_n_files": 31,
+      "assets": [
+        {
+          "path": "CaDA/100/result/2024-1121-1355/checkpoint-300.pt",
+          "sha256": "03eb7ef827587fdef7453f28c29bef21e313db81eaf4152a361009c2da7469a1",
+          "size_bytes": 41291872,
+          "source": "HF datasets/Goodyee/CaDA checkpoint.zip（经 hf-mirror，CRC 校验通过，解压后 zip 已删除；HF dataset sha 06bb906b8e7f3d71306a49d2929daaa1d35ed9a4）"
+        },
+        {
+          "path": "CaDA/50/result/2024-1111-1139/checkpoint-300.pt",
+          "sha256": "4d5e54985f14b438c38e5ce2cab43ce3cb094fb6f19cb4cfc5c0779f531f25f8",
+          "size_bytes": 41402392,
+          "source": "HF datasets/Goodyee/CaDA checkpoint.zip（经 hf-mirror，CRC 校验通过，解压后 zip 已删除；HF dataset sha 06bb906b8e7f3d71306a49d2929daaa1d35ed9a4）"
+        }
+      ],
+      "data_assets": [
+        {
+          "path": "CaDA/data/lib_data/A",
+          "tree_sha256": "c27b75168473dc92f44d1c0d3ef11c0e2860aeea020ef52b00b11272f5885bbd",
+          "n_files": 54,
+          "total_bytes": 33261,
+          "source": "HF datasets/Goodyee/CaDA checkpoint.zip（经 hf-mirror，CRC 校验通过，解压后 zip 已删除；HF dataset sha 06bb906b8e7f3d71306a49d2929daaa1d35ed9a4）"
+        },
+        {
+          "path": "CaDA/data/lib_data/B",
+          "tree_sha256": "36bfb6c92348c3bd4c5535b36f64c3489044e563b12ed128c020ca0f0bca5760",
+          "n_files": 46,
+          "total_bytes": 29090,
+          "source": "HF datasets/Goodyee/CaDA checkpoint.zip（经 hf-mirror，CRC 校验通过，解压后 zip 已删除；HF dataset sha 06bb906b8e7f3d71306a49d2929daaa1d35ed9a4）"
+        },
+        {
+          "path": "CaDA/data/lib_data/E",
+          "tree_sha256": "daf9c9f6ada85d3303a71cb39febedc2fabcb0b675e3de83085ed2bce0948aa9",
+          "n_files": 26,
+          "total_bytes": 19620,
+          "source": "HF datasets/Goodyee/CaDA checkpoint.zip（经 hf-mirror，CRC 校验通过，解压后 zip 已删除；HF dataset sha 06bb906b8e7f3d71306a49d2929daaa1d35ed9a4）"
+        },
+        {
+          "path": "CaDA/data/lib_data/F",
+          "tree_sha256": "af4b8b360d99b86cddf189906ab73fb8527f351e70873c8e0bfe19f74700c491",
+          "n_files": 6,
+          "total_bytes": 6496,
+          "source": "HF datasets/Goodyee/CaDA checkpoint.zip（经 hf-mirror，CRC 校验通过，解压后 zip 已删除；HF dataset sha 06bb906b8e7f3d71306a49d2929daaa1d35ed9a4）"
+        },
+        {
+          "path": "CaDA/data/lib_data/M",
+          "tree_sha256": "82bf0dfc3db79479bb069a6575d5561153124604a60c2ec2e40534718fc97341",
+          "n_files": 10,
+          "total_bytes": 16054,
+          "source": "HF datasets/Goodyee/CaDA checkpoint.zip（经 hf-mirror，CRC 校验通过，解压后 zip 已删除；HF dataset sha 06bb906b8e7f3d71306a49d2929daaa1d35ed9a4）"
+        },
+        {
+          "path": "CaDA/data/lib_data/P",
+          "tree_sha256": "098b6fdab449324680adef3171ee12835c44f2b522df2ebcc864b806dabc6630",
+          "n_files": 48,
+          "total_bytes": 27014,
+          "source": "HF datasets/Goodyee/CaDA checkpoint.zip（经 hf-mirror，CRC 校验通过，解压后 zip 已删除；HF dataset sha 06bb906b8e7f3d71306a49d2929daaa1d35ed9a4）"
+        },
+        {
+          "path": "CaDA/data/lib_data/X",
+          "tree_sha256": "493768a9c4bb9ba6a5aeecdb8400714127041b567e28d23c70a62ebfbcf31939",
+          "n_files": 199,
+          "total_bytes": 1044085,
+          "source": "HF datasets/Goodyee/CaDA checkpoint.zip（经 hf-mirror，CRC 校验通过，解压后 zip 已删除；HF dataset sha 06bb906b8e7f3d71306a49d2929daaa1d35ed9a4）"
+        },
+        {
+          "path": "CaDA/data/lib_data/cvrplib-Set-XML100",
+          "tree_sha256": "0bba9ebef6e844746a1f79285bd4cacb3dcb696207a9f922a0ec2d63f1b39231",
+          "n_files": 4,
+          "total_bytes": 406367,
+          "source": "HF datasets/Goodyee/CaDA checkpoint.zip（经 hf-mirror，CRC 校验通过，解压后 zip 已删除；HF dataset sha 06bb906b8e7f3d71306a49d2929daaa1d35ed9a4）"
+        },
+        {
+          "path": "CaDA/data/lib_data/cvrplib-Set-XML100/generated_instances",
+          "tree_sha256": "01322fd8240eaeaa954a525fa0842500a672c7c5121803697d36a6e3ae7acc04",
+          "n_files": 120,
+          "total_bytes": 6978056,
+          "source": "HF datasets/Goodyee/CaDA checkpoint.zip（经 hf-mirror，CRC 校验通过，解压后 zip 已删除；HF dataset sha 06bb906b8e7f3d71306a49d2929daaa1d35ed9a4）"
+        },
+        {
+          "path": "CaDA/data/lib_data/cvrplib-Set-XML100/generated_solutions",
+          "tree_sha256": "36b3c824148b435a0e3fbed2c1313222148f7554ad4b863c95873d803d11dff8",
+          "n_files": 120,
+          "total_bytes": 1634606,
+          "source": "HF datasets/Goodyee/CaDA checkpoint.zip（经 hf-mirror，CRC 校验通过，解压后 zip 已删除；HF dataset sha 06bb906b8e7f3d71306a49d2929daaa1d35ed9a4）"
+        },
+        {
+          "path": "CaDA/data/synthetic_data",
+          "tree_sha256": "5e07c77ccf3ca3d3b25da0cf46da024472ae71f1581a796285b72d78b716bff1",
+          "n_files": 32,
+          "total_bytes": 44740332,
+          "source": "HF datasets/Goodyee/CaDA checkpoint.zip（经 hf-mirror，CRC 校验通过，解压后 zip 已删除；HF dataset sha 06bb906b8e7f3d71306a49d2929daaa1d35ed9a4）"
+        }
+      ],
+      "binary_artifacts": null
+    },
+    {
+      "method": "DeepACO",
+      "upstream_repo": "henry-yeh/DeepACO",
+      "upstream_commit": "9a756a3fe6cf9627ecc166110a02fdbb61f2a0d7",
+      "upstream_branch": "main",
+      "source_tree_sha256": "60295cd72fb8a099330015a60e7109550daafa62a9aa17cca31ed35a5e92be35",
+      "source_n_files": 103,
+      "assets": [
+        {
+          "path": "DeepACO/pretrained/bpp/bpp120.pt",
+          "sha256": "d742399c3f7c4fe1437e9a36e1c10126ec82b199da79d06aea81a881757666c9",
+          "size_bytes": 360642,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/cvrp/cvrp100.pt",
+          "sha256": "0db58d72859311d9586c98384db4e857b4c1d67010af4daa3e3597e32a653cfc",
+          "size_bytes": 362058,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/cvrp/cvrp20.pt",
+          "sha256": "b42cf13055d5315f0322f63fca795429406d7308e05563c7d27120d4183afd54",
+          "size_bytes": 362058,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/cvrp/cvrp500.pt",
+          "sha256": "3c7501d3f2020992762d9b5f0789584abe49e4531974176a35f0f4458332d055",
+          "size_bytes": 362058,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/cvrp_nls/cvrp100.pt",
+          "sha256": "2f52380254070fd24b81f705bbd336d3a1516edbc30f52e432d09c6460aeb4f5",
+          "size_bytes": 357771,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/cvrp_nls/cvrp500.pt",
+          "sha256": "defe91e36ffa94c6cd2edb31f298e7fc2cb30303da1c58f81fd110dc4a9ec153",
+          "size_bytes": 357771,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/mkp/mkp300.pt",
+          "sha256": "c133cde3e71f099a8606ab014e19e62618f2bed322274859deaabb58d4fe0c45",
+          "size_bytes": 372645,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/mkp/mkp500.pt",
+          "sha256": "b109fcf5449f81ea79d56618d538bccab828907acbc93eb434fca9e95ca77cb8",
+          "size_bytes": 372647,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/mkp_transformer/mkp300.pt",
+          "sha256": "f64c4216c2185d0616ffe322fd7a3adcf7368f67c86adc8175115a7bd618070e",
+          "size_bytes": 100783,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/mkp_transformer/mkp500.pt",
+          "sha256": "3556fef9c6a918edecc7c0ede2e235f0b2c7f9dffb3bd4f5cc81a6f7885d0ce0",
+          "size_bytes": 100783,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/op/op100.pt",
+          "sha256": "caf85e2c5008631dc0fc813a540d1d9618e3f27323a938ebf7b385fdc66d95b6",
+          "size_bytes": 372263,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/op/op200.pt",
+          "sha256": "acc412e0af18b8926c456b6efa106d123feeafba141f0683349c6c08fca7a015",
+          "size_bytes": 372483,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/op/op300.pt",
+          "sha256": "0ef15133ecadef0431402464d38236edcaf4115d7930c41afe4bb0d674d3536a",
+          "size_bytes": 372505,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/pctsp/pctsp100.pt",
+          "sha256": "79f9783a0d49871f80d035fffaf05ebff3652fbcc962b6cb510c2ed29ba3b93d",
+          "size_bytes": 373141,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/pctsp/pctsp20.pt",
+          "sha256": "8a2542675dc17d519d23d76301ae35ac0eb078f940f51a3e30b9ca5d531ef2ac",
+          "size_bytes": 373159,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/pctsp/pctsp500.pt",
+          "sha256": "07ca0146a703fa9df6ac9dddb8ec84972852e7433b9f7ce1e5acc19488695028",
+          "size_bytes": 372635,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/rcpsp/rcpsp120-5.pt",
+          "sha256": "c272dd8dba589cc91d4f57ed275a871aa5ea002ff687a6e817dd3e22f2a2925f",
+          "size_bytes": 354891,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/rcpsp/rcpsp30-5.pt",
+          "sha256": "257ef247e97fbe8de1ec3179c9c2a876a82a776eaf2c9ed93b38b3357836a86c",
+          "size_bytes": 354891,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/rcpsp/rcpsp60-5.pt",
+          "sha256": "a7abdf95bb91b4c8c68e63c8b64a67899e1790c30f8aa770d90862fe54e0fc82",
+          "size_bytes": 354891,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/smtwtp/smtwtp100.pt",
+          "sha256": "b959e38db358f554cc7d57b8ee1f8d38042dc89d1c819a4bcc25104a8683d1d8",
+          "size_bytes": 372617,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/smtwtp/smtwtp50.pt",
+          "sha256": "d594c20da184ad337be17c3daf5155a81e7206af75a71fd15eed244ff3616714",
+          "size_bytes": 372502,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/smtwtp/smtwtp500.pt",
+          "sha256": "797454c8298c07d22f75923a1e6894e8d858dd0782e3e58c826f83d2f5a970d3",
+          "size_bytes": 372629,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/sop/sop100.pt",
+          "sha256": "00622542cc786833845f2baaa15f68c65750fe1809f1a230a83ace93fbb6f4ae",
+          "size_bytes": 372271,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/sop/sop20.pt",
+          "sha256": "a194b645293f7eaf0f16c35c4cea0a615268fd096482eb9189926c1fa71868ed",
+          "size_bytes": 372115,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/sop/sop50.pt",
+          "sha256": "2dff818bf67628bece12acf027c495da3b0355e402e9c6438601cca39519347b",
+          "size_bytes": 372259,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/tsp/tsp100.pt",
+          "sha256": "34120e2ab18068011fdd668af3d2edbb5b9d55eacb10285b2618efdea3b30c15",
+          "size_bytes": 372505,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/tsp/tsp20.pt",
+          "sha256": "fd574688474b1a5f1038c54965089d0b8fb024f2b938ccd6e33655f501688402",
+          "size_bytes": 372350,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/tsp/tsp500.pt",
+          "sha256": "ef77cd834b759569cda4d51cf69c498f236d0f7ac160978d958225def19243fc",
+          "size_bytes": 372593,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/tsp_nls/tsp100.pt",
+          "sha256": "64747fc268917a169680831c5e0ec199ee05132b8a59588f160afc2400906142",
+          "size_bytes": 357771,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/tsp_nls/tsp1000.pt",
+          "sha256": "17be651adbd6a3aa66916204cf4f72c84941f5687bde19bf144193dd07a45455",
+          "size_bytes": 357771,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/pretrained/tsp_nls/tsp500.pt",
+          "sha256": "3c7f2de8ada93a016b2a17a79d50c1d50ee8233ffa33fb803c4d56e249352e3a",
+          "size_bytes": 357771,
+          "source": "上游仓库自带"
+        }
+      ],
+      "data_assets": [
+        {
+          "path": "DeepACO/data",
+          "tree_sha256": "3fa11c7a96f63e9439c59d84086380a57cd2a59695ee3e0fd4e32304bae38032",
+          "n_files": 1,
+          "total_bytes": 59,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/data/rcpsp",
+          "tree_sha256": "43ec716ab8e8053309a2068345d714b35b2ae0f942158aee62478180090e1331",
+          "n_files": 3,
+          "total_bytes": 1003578,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "DeepACO/data/tsp",
+          "tree_sha256": "7a1e851530d2be0a75d12cd6c446375ac3868c0efd206f69fbfd66d712faac2c",
+          "n_files": 10,
+          "total_bytes": 3985129,
+          "source": "上游仓库自带"
+        }
+      ],
+      "binary_artifacts": {
+        "tree_sha256": "a9c0a4daa6cf77288c2e7a1ee52f80645db9a29140baceac22b07ea5028d1a8a",
+        "n_files": 1
+      }
+    },
+    {
+      "method": "Learn-Improvement-Heuristics",
+      "upstream_repo": "WXY1427/Learn-Improvement-Heuristics-for-Routing",
+      "upstream_commit": "ed96abeffd95f9910e4b3af1ef933dce3995c0da",
+      "upstream_branch": "main",
+      "source_tree_sha256": "aaaca6dc039876fa73686241113d3fc89492d7d4b1a72ffea7acd441270a0b67",
+      "source_n_files": 129,
+      "assets": [
+        {
+          "path": "Learn-Improvement-Heuristics/CVRP/CVRP100/outputs/cvrp_100/run/epoch-190.pt",
+          "sha256": "49306d204975d83cb34e808fb84956b997f8a993a4f771b51c1e0a671b3ac556",
+          "size_bytes": 19592183,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Learn-Improvement-Heuristics/CVRP/CVRP50/outputs/cvrp_50/run/epoch-199.pt",
+          "sha256": "77190271c536d5ded38a7e3cbd55f7b755cc42c20decf519b891a77713695e9f",
+          "size_bytes": 19592911,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Learn-Improvement-Heuristics/TSP/tsp100/outputs/tsp_100/run/epoch-198.pt",
+          "sha256": "0eb65175425ba1f912a0b0e5db2021ab5c62ee7d1ebcca8a801e9f12817aa591",
+          "size_bytes": 16650738,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Learn-Improvement-Heuristics/TSP/tsp100/outputs/tsp_100/run/epoch-199.pt",
+          "sha256": "c0c42339b3cc9bcf6ae4ef4310621653943423af822d042f1bdd0c024b9042d6",
+          "size_bytes": 16650286,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Learn-Improvement-Heuristics/TSP/tsp50/myval.pt",
+          "sha256": "41993fb38c7460d1efc41738a6c5c3f481b3f7ae4243eb21ebbea71855cf9cda",
+          "size_bytes": 2577025,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Learn-Improvement-Heuristics/TSP/tsp50/outputs/tsp_50/run/epoch-198.pt",
+          "sha256": "ffd4e3f6ab0b674339fe75d17d23f28a59e28cf0c1097e386cf1488fb3f8635e",
+          "size_bytes": 16649312,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Learn-Improvement-Heuristics/TSP/tsp50/outputs/tsp_50/run/epoch-199.pt",
+          "sha256": "5c483ed6f95a99b4b3bce5291292cd7528450964e007a78def005d9769468fb6",
+          "size_bytes": 16649312,
+          "source": "上游仓库自带"
+        }
+      ],
+      "data_assets": [],
+      "binary_artifacts": null
+    },
+    {
+      "method": "Learning-to-Delegate",
+      "upstream_repo": "mit-wu-lab/learning-to-delegate",
+      "upstream_commit": "4b54d65e8809d628897d7367ced321f6a5e886cc",
+      "upstream_branch": "main",
+      "source_tree_sha256": "82f254f10af309613b0e551c6228064f1e8399635db0a399b339be86dd568f7f",
+      "source_n_files": 355,
+      "assets": [],
+      "data_assets": [],
+      "binary_artifacts": null
+    },
+    {
+      "method": "MAPT",
+      "upstream_repo": "?",
+      "upstream_commit": "?",
+      "upstream_branch": "?",
+      "source_tree_sha256": "e037b68ca05f664968a33fff35b2d14660de8a390ce4765208624bbe88df2fc6",
+      "source_n_files": 1,
+      "assets": [],
+      "data_assets": [],
+      "binary_artifacts": null
+    },
+    {
+      "method": "MVMoE",
+      "upstream_repo": "RoyalSkye/Routing-MVMoE",
+      "upstream_commit": "af29e5af0595f94f3ecc3bc46d72df1089a62682",
+      "upstream_branch": "main",
+      "source_tree_sha256": "bb8509cd93c7234b91de17679e48fd43cb1061e9247dea72e2f6c921d5e5ff1e",
+      "source_n_files": 40,
+      "assets": [
+        {
+          "path": "MVMoE/pretrained/mvmoe_4e_light_n100/epoch-5000.pt",
+          "sha256": "32faea4dee39ee361048db41549c69e15eebe933a23e119f2d1031bbd0c7a10b",
+          "size_bytes": 44738293,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/pretrained/mvmoe_4e_light_n50/epoch-5000.pt",
+          "sha256": "75e213e3c4a213baa5ea7ea529d4df0c21baac9096137d7edfde06054b99172c",
+          "size_bytes": 44741412,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/pretrained/mvmoe_4e_n100/epoch-5000.pt",
+          "sha256": "554d6daea825e17d62c1b9db40d56869312923848504bdf4970663673c971bdc",
+          "size_bytes": 44536097,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/pretrained/mvmoe_4e_n50/epoch-5000.pt",
+          "sha256": "3417f302fbddf232fd19a2a886cd1c7f44290b6d8c7280fcb0ae3777eeed3192",
+          "size_bytes": 44533389,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/pretrained/mvmoe_8e_n50/epoch-2500.pt",
+          "sha256": "ce9efc01d1a2834a777418cbba36e70eea83421889766120fa1d97977b28820e",
+          "size_bytes": 83416159,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/pretrained/pomo_cvrp_n100/epoch-5000.pt",
+          "sha256": "1b0ef84182d73aee7f229f3cd96af491d7b6fd3c4674b947a572410202baf3f5",
+          "size_bytes": 15274185,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/pretrained/pomo_mtl_n100/epoch-5000.pt",
+          "sha256": "ce76ef67e00aa37a51f25986f440be2c42f06caa4c9864983cccb8bac07da01b",
+          "size_bytes": 15281993,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/pretrained/pomo_mtl_n50/epoch-5000.pt",
+          "sha256": "01ae6c78a44f66e51c501007b3efdc89ec72aa371a7edb52e296c97fd12ae1b0",
+          "size_bytes": 15281929,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/pretrained/pomo_vrptw_n100/epoch-5000.pt",
+          "sha256": "00c9972fac4cc1acdce5220a452f68c3d18f5c5295c347717b511fc60d02f93d",
+          "size_bytes": 15278857,
+          "source": "上游仓库自带"
+        }
+      ],
+      "data_assets": [
+        {
+          "path": "MVMoE/data/CVRP",
+          "tree_sha256": "ac58e5b40b4a0a5f43d4ede261e466d5d300cd356a3f22915b14cf5968ffbbea",
+          "n_files": 13,
+          "total_bytes": 12891059,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/CVRP-LIB",
+          "tree_sha256": "eca7c2d57177b527d988adf6b9ddd1d270ea401c3b8f8cb5f4c23ac1a5f7d171",
+          "n_files": 28,
+          "total_bytes": 100937,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/OVRP",
+          "tree_sha256": "50a03cd94022dbcf6defe2f5cd2b38235203b4fd2796766e19d1a08946523c49",
+          "n_files": 9,
+          "total_bytes": 12136719,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/OVRPB",
+          "tree_sha256": "3f29e88d98837c31afc174f7765408cda6fcef6232f0e0ddd3e9eff7e5e65259",
+          "n_files": 7,
+          "total_bytes": 11728080,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/OVRPBL",
+          "tree_sha256": "eb5ce478269c50057ff9e75539959e39e28d32894fd85fd53f77ad132576febb",
+          "n_files": 7,
+          "total_bytes": 11755453,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/OVRPBLTW",
+          "tree_sha256": "bc1a78f16bde8198bab53769cb4dd30080363972f5cb6c78c908ebcc56bd3a1a",
+          "n_files": 7,
+          "total_bytes": 21310185,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/OVRPBTW",
+          "tree_sha256": "aa852458a7e153fb7eed532865d10e673271a9891eeb43df89847b9ccb071a47",
+          "n_files": 7,
+          "total_bytes": 21283393,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/OVRPL",
+          "tree_sha256": "372cace56a7eef0a15824b6d603a263255e0a6cf6d7e014089b6be64d797ffa8",
+          "n_files": 7,
+          "total_bytes": 11779855,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/OVRPLTW",
+          "tree_sha256": "663cf6fce2f5dfbf647e6142acf8d8cdf6987649d26b5d96c0cca67a6c2094aa",
+          "n_files": 7,
+          "total_bytes": 21310569,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/OVRPTW",
+          "tree_sha256": "d963dd826f3fe20b16adb7eeda78facdca2b5c38579c6bf2a59939d5be7f179b",
+          "n_files": 7,
+          "total_bytes": 21283927,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/VRPB",
+          "tree_sha256": "3ba24979470d8f34311614d59d3bb2c959fe4d71d6c9cf81c23472893573cd79",
+          "n_files": 9,
+          "total_bytes": 12097111,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/VRPBL",
+          "tree_sha256": "5fd2827b78d1f74ae28c4db3f7e672398272dc198f1273a0e01deaed3c355794",
+          "n_files": 7,
+          "total_bytes": 11749769,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/VRPBLTW",
+          "tree_sha256": "6374d42b148e7a8b50263d873cf3995f20ab8e49efa38f3b952e71cd5d07541a",
+          "n_files": 7,
+          "total_bytes": 21302899,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/VRPBTW",
+          "tree_sha256": "0b9d33d64bbb02501c9d723817cee417f8839995a016a959fa747d01fc128dc1",
+          "n_files": 8,
+          "total_bytes": 21421604,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/VRPL",
+          "tree_sha256": "65e200440ab9069f3712490b05a40df8a76367f448b26d5c605db323274499b0",
+          "n_files": 9,
+          "total_bytes": 12161910,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/VRPLTW",
+          "tree_sha256": "b834ee0414dfd1804d8ffce23bcd592e3be7e9e49e023162f1b6c6938fb3a179",
+          "n_files": 7,
+          "total_bytes": 21302917,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/VRPTW",
+          "tree_sha256": "d7024822c0a7eae2cca85a62f6bf6f030ae0c2fbccce55bbd5ad6dcde571b33f",
+          "n_files": 13,
+          "total_bytes": 22473854,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "MVMoE/data/Vrp-Set-Solomon",
+          "tree_sha256": "96ee24785884ea4a0c8bce08f896309e0102d7fba2048ff904f9babb0810676a",
+          "n_files": 56,
+          "total_bytes": 421134,
+          "source": "上游仓库自带"
+        }
+      ],
+      "binary_artifacts": null
+    },
+    {
+      "method": "Omni-VRP",
+      "upstream_repo": "RoyalSkye/Omni-VRP",
+      "upstream_commit": "8950e159ed4fb6cd17da5b53aa12dcc9f3e98772",
+      "upstream_branch": "main",
+      "source_tree_sha256": "131f2298953c4f3d02bdab7ebcb3b8b4b0a6aca5ed93b20d9d6d5b2d97e63fe5",
+      "source_n_files": 65,
+      "assets": [
+        {
+          "path": "Omni-VRP/pretrained/POMO-CVRP/maml-checkpoint-250000-batch-no-track.pt",
+          "sha256": "d01ba42513ac6ffcdd5afc46f2f95c0e21c4d1e8858eed2e2d7a033f840c2605",
+          "size_bytes": 25988745,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/pretrained/POMO-CVRP/maml-checkpoint-50000-batch-no-track.pt",
+          "sha256": "10b2eef69613810a875761830555d58ad21aa0ac91176eab9d3017b46fa1e0fc",
+          "size_bytes": 17172361,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/pretrained/POMO-CVRP/maml-fomaml-checkpoint-250000-batch-no-track.pt",
+          "sha256": "8bd358d3dcfcc13d4c8358aaeb6b8ab762c4e52a0bf236a9fa82a854a1d1de8d",
+          "size_bytes": 25988745,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/pretrained/POMO-CVRP/pomo-checkpoint-2x250000-batch.pt",
+          "sha256": "a890500de02a4fdc6ac883c74fa77044d6d667732beec25845911c1f01e8223c",
+          "size_bytes": 26013377,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/pretrained/POMO-CVRP/reptile-checkpoint-50x10000-instance.pt",
+          "sha256": "6984035ac0207c2b40af24be26019ee92a1ed095dd70ef529d97d19a6142afd9",
+          "size_bytes": 5485024,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/pretrained/POMO-CVRP/uniform/checkpoint-10000-cvrp200-instance-norm.pt",
+          "sha256": "6b733ce5860654f184ba06ad60e100a383cde9b32df1cf340c266dd1d2579f7d",
+          "size_bytes": 15553993,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/pretrained/POMO-CVRP/uniform/checkpoint-30500-cvrp100-instance-norm.pt",
+          "sha256": "d7a08f6115623eba15cf789db85c0356107178927724815f456188aa075d5ce8",
+          "size_bytes": 16358236,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/pretrained/POMO-TSP/maml-checkpoint-250000-batch-no-track.pt",
+          "sha256": "0bcef23731cceae04be081892d5906ac4e0eca8e0f7ce19a58b4990118edf86b",
+          "size_bytes": 26176529,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/pretrained/POMO-TSP/maml-checkpoint-50000-batch-no-track.pt",
+          "sha256": "5b43e26dcd0f2da7badfc17ce80ac21fe14bb732caa2fde21619ec28129d5fff",
+          "size_bytes": 17360145,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/pretrained/POMO-TSP/maml-fomaml-checkpoint-250000-batch-no-track.pt",
+          "sha256": "dabacaf003c8f6c0dfa384810417300eb6157e933dc76c5ccea03a5c4b115bd9",
+          "size_bytes": 26176529,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/pretrained/POMO-TSP/pomo-checkpoint-2x250000-batch.pt",
+          "sha256": "786c1bb4e68d43360473224e8c05309243dc337ba8d18b887e20e6213638f3db",
+          "size_bytes": 26152393,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/pretrained/POMO-TSP/reptile-checkpoint-50x10000-instance.pt",
+          "sha256": "5e62706cedf5ed9e420db9172cad9d5c9fb9ae3b3b923ecaec75a9de0f350e15",
+          "size_bytes": 5556579,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/pretrained/POMO-TSP/uniform/checkpoint-3000-tsp100-instance-norm.pt",
+          "sha256": "f945afab19015a958b8f968e0c043d1319d47675d85b08d21ebfc316f346bca3",
+          "size_bytes": 15445953,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/pretrained/POMO-TSP/uniform/checkpoint-3000-tsp200-instance-norm.pt",
+          "sha256": "18e7dce1bb93ba92ef05092c9844fe9df902113b6bcf6b3c73b7253a2a3befe1",
+          "size_bytes": 15461777,
+          "source": "上游仓库自带"
+        }
+      ],
+      "data_assets": [
+        {
+          "path": "Omni-VRP/data/CVRP/Size_Distribution",
+          "tree_sha256": "80b48996eb924c958fe17ca947026ed06beece21f526c0a0a1eb5d381933dfb1",
+          "n_files": 18,
+          "total_bytes": 289407969,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/data/CVRP/Size_Distribution/hgs",
+          "tree_sha256": "d31b5798b2b424d82002493fe416abed0fbe03c33faa36b1263e794255edad50",
+          "n_files": 18,
+          "total_bytes": 15208106,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/data/CVRP/Size_Distribution/lkh3",
+          "tree_sha256": "2bfcfde1a081daf1f7074b2ef31d8322702105a47c823f9edb221843ddd2a8f3",
+          "n_files": 18,
+          "total_bytes": 15207726,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/data/CVRP/cvrplib-Set-X",
+          "tree_sha256": "6059fec91e1926ec605d683dce256c5e55a57e3471ef985939ac11bac3040b1f",
+          "n_files": 19,
+          "total_bytes": 213995,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/data/CVRP/cvrplib-Set-XML100",
+          "tree_sha256": "f9fe7e2369c492903262aba449fb335a162741f07931e956a2f35790406c9b11",
+          "n_files": 4,
+          "total_bytes": 416671,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/data/CVRP/cvrplib-Set-XML100/generated_instances",
+          "tree_sha256": "398572df1101ebc4ec737950f8a3d24567edeb2939e90e63e29e2b293834b6c9",
+          "n_files": 120,
+          "total_bytes": 7535736,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/data/CVRP/cvrplib-Set-XML100/generated_solutions",
+          "tree_sha256": "df597e31bdf3e356efa976b6ee890eb14bcd362de4db219af0f45b4d8add31d4",
+          "n_files": 120,
+          "total_bytes": 1665047,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/data/TSP/Size_Distribution",
+          "tree_sha256": "10b433e9ff146d089d6ef3a8ea8e271b95e9ba254b5d10befcb38b49b55a226e",
+          "n_files": 18,
+          "total_bytes": 264180513,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/data/TSP/Size_Distribution/concorde",
+          "tree_sha256": "e9c5c3180f817ad0bb991869acf404e13873db13145e576822633e12837b3282",
+          "n_files": 18,
+          "total_bytes": 14649762,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/data/TSP/Size_Distribution/lkh3",
+          "tree_sha256": "ce371c268f032ff641d6ed5398694905cc4779f8f7c371f1a052342b2a4c8636",
+          "n_files": 18,
+          "total_bytes": 14649762,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Omni-VRP/data/TSP/tsplib",
+          "tree_sha256": "901f96be5316750b3314be4316221a380194e18f6d62f58a1aa0b0bb5df169f1",
+          "n_files": 23,
+          "total_bytes": 205623,
+          "source": "上游仓库自带"
+        }
+      ],
+      "binary_artifacts": {
+        "tree_sha256": "e160af544d776400696e83914303435a6425723f1df1fbf30414f2deecfd286f",
+        "n_files": 23
+      }
+    },
+    {
+      "method": "PIP-constraint",
+      "upstream_repo": "?",
+      "upstream_commit": "?",
+      "upstream_branch": "?",
+      "source_tree_sha256": "e209220519b19d6f956177fb1b0dfde8f9ca9eaba9b3f8545f6af65febcbfd1e",
+      "source_n_files": 139,
+      "assets": [
+        {
+          "path": "PIP-constraint/AM+PIP/pretrained/tsptw100_easy/AM_star/epoch-99.pt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "PIP-constraint/AM+PIP/pretrained/tsptw100_easy/AM_star_PIP-D/epoch-99.pt",
+          "sha256": "09308bb3e5584c9cca8488aa99a1f36e90cc633c8d6794846251f19a79db6cd3",
+          "size_bytes": 2031616,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "PIP-constraint/AM+PIP/pretrained/tsptw100_hard/AM_star/epoch-99.pt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "PIP-constraint/AM+PIP/pretrained/tsptw100_hard/AM_star_PIP-D/epoch-99.pt",
+          "sha256": "e9401e969d7d2e59b759cb081cefd22360ae472c12396600fb096bd44387484f",
+          "size_bytes": 2162688,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "PIP-constraint/AM+PIP/pretrained/tsptw100_hard/AM_star_PIP/epoch-99.pt",
+          "sha256": "7a28c80cabe0bc63056944cc7c08ef62b8e810228f8bff51462f60678fe06898",
+          "size_bytes": 1703936,
+          "source": "上游仓库自带"
+        }
+      ],
+      "data_assets": [
+        {
+          "path": "PIP-constraint/data/TSPDL",
+          "tree_sha256": "76652bff3eb2c9c34bcf58719bd8f29af320b495e2c1acb166370197beeedc39",
+          "n_files": 8,
+          "total_bytes": 108752812,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "PIP-constraint/data/TSPTW",
+          "tree_sha256": "daa504fc5af297cae7a83ce23da1603a64260f451c7870327df7102b66956641",
+          "n_files": 12,
+          "total_bytes": 195832939,
+          "source": "上游仓库自带"
+        }
+      ],
+      "binary_artifacts": null
+    },
+    {
+      "method": "POMO",
+      "upstream_repo": "yd-kwon/POMO",
+      "upstream_commit": "d7c3d6ea580499a53e874fe9e065f69e799a8551",
+      "upstream_branch": "master",
+      "source_tree_sha256": "d63d7a219a8ffbfb5c4267940cfa18adf51656daf8027ec61b5dbe6076b7c0f8",
+      "source_n_files": 65,
+      "assets": [
+        {
+          "path": "POMO/NEW_py_ver/CVRP/POMO/result/saved_CVRP100_model/checkpoint-30500.pt",
+          "sha256": "d7a08f6115623eba15cf789db85c0356107178927724815f456188aa075d5ce8",
+          "size_bytes": 16358236,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "POMO/NEW_py_ver/CVRP/vrp100_test_seed1234.pt",
+          "sha256": "1bcf400f6205e00af032c653b77080e8051b92d24a57f4d131db304f81ecc857",
+          "size_bytes": 12080568,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "POMO/NEW_py_ver/TSP/POMO/result/saved_tsp100_model/checkpoint-2000.pt",
+          "sha256": "1a55eea5cce3e4f9fd5a456d7a86089330aae211c2745c80656932d246dc71b5",
+          "size_bytes": 15405953,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "POMO/NEW_py_ver/TSP/POMO/result/saved_tsp100_model2_longTrain/checkpoint-1900.pt",
+          "sha256": "b0d78866c6ac395c4938ed63bf037e3f26d8c96403b74d2f3c0a6333424b235b",
+          "size_bytes": 15401921,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "POMO/NEW_py_ver/TSP/POMO/result/saved_tsp100_model2_longTrain/checkpoint-3000.pt",
+          "sha256": "f945afab19015a958b8f968e0c043d1319d47675d85b08d21ebfc316f346bca3",
+          "size_bytes": 15445953,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "POMO/NEW_py_ver/TSP/POMO/result/saved_tsp100_model2_longTrain/checkpoint-3100.pt",
+          "sha256": "5c624bc4b9eb30efb45bf50f927513ae46d483d623c3870211ba0cc2e7d400bf",
+          "size_bytes": 15449921,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "POMO/NEW_py_ver/TSP/POMO/result/saved_tsp20_model/checkpoint-500.pt",
+          "sha256": "0a347777364cb179b572d9b1f5423ce18e21851bbcda973cfbf6ff3092c3f074",
+          "size_bytes": 15300488,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "POMO/NEW_py_ver/TSP/POMO/result/saved_tsp20_model/checkpoint-510.pt",
+          "sha256": "dccf37b76f98965574a64a3d09462ecf8d026b3864c9b132c15eba4de3849f56",
+          "size_bytes": 15300888,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "POMO/NEW_py_ver/TSP/POMO/result/saved_tsp50_model/checkpoint-1000.pt",
+          "sha256": "8949170863c01530d60013b8604c8011bd8badd8b597c8bcf42985754963c1dd",
+          "size_bytes": 15365953,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "POMO/OLD_ipynb_ver/POMO_CVRP/result/Saved_CVRP100_Model/ACTOR_state_dic.pt",
+          "sha256": "815bf39cc791444553802186d4ce8004f934c73ccad11a0c6b24600461f1418f",
+          "size_bytes": 5119178,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "POMO/OLD_ipynb_ver/POMO_KP/result/Saved_KP200_Model/ACTOR_state_dic.pt",
+          "sha256": "404633bdbcc839083f4b114158dd3784e407ebd4a1b68eb257c2aa36f81d6c47",
+          "size_bytes": 5051217,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "POMO/OLD_ipynb_ver/POMO_TSP/result/Saved_TSP100_Model/ACTOR_state_dic.pt",
+          "sha256": "be12608b7fd3cf482b6450fc131b08974abed3196762b2cffeb4de592171419d",
+          "size_bytes": 5182221,
+          "source": "上游仓库自带"
+        }
+      ],
+      "data_assets": [],
+      "binary_artifacts": null
+    },
+    {
+      "method": "PyVRP",
+      "upstream_repo": "PyVRP/PyVRP",
+      "upstream_commit": "4b2aa285f34efb8e2ff1995a87b834414c1c5c17",
+      "upstream_branch": "main",
+      "source_tree_sha256": "eb11fd9c087669548379c0d991e2ebe43f42a40516d9b2e4d66c55959f48c009",
+      "source_n_files": 331,
+      "assets": [],
+      "data_assets": [],
+      "binary_artifacts": null
+    },
+    {
+      "method": "RRNCO",
+      "upstream_repo": "?",
+      "upstream_commit": "?",
+      "upstream_branch": "?",
+      "source_tree_sha256": "1d3abb9f857751ee22557cf6d040368d0662d207b2c5f125bf785f0f735a0f78",
+      "source_n_files": 139,
+      "assets": [
+        {
+          "path": "RRNCO/checkpoints/.gitkeep",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0,
+          "source": "服务器已有副本（上游 ai4co/real-routing-nco，HF checkpoints）"
+        },
+        {
+          "path": "RRNCO/checkpoints/atsp/epoch_199.ckpt",
+          "sha256": "0775f27aeb2abfb80ca19cd6365ce887fb71c2f925da247988f171b1fcff1cd3",
+          "size_bytes": 41177711,
+          "source": "服务器已有副本（上游 ai4co/real-routing-nco，HF checkpoints）"
+        },
+        {
+          "path": "RRNCO/checkpoints/rcvrp/epoch_199.ckpt",
+          "sha256": "e4e3ce1356ee8cfc6d30f4c0c7780a215a81851c5849b067c2f5c569d4dcf5d0",
+          "size_bytes": 41980876,
+          "source": "服务器已有副本（上游 ai4co/real-routing-nco，HF checkpoints）"
+        },
+        {
+          "path": "RRNCO/checkpoints/rcvrptw/epoch_199.ckpt",
+          "sha256": "b1ff3191ee2f28c19e4807748b3c1b83522e1e96c6fb7bf9238442cf859464b3",
+          "size_bytes": 51653944,
+          "source": "服务器已有副本（上游 ai4co/real-routing-nco，HF checkpoints）"
+        }
+      ],
+      "data_assets": [],
+      "binary_artifacts": null
+    },
+    {
+      "method": "RouteFinder",
+      "upstream_repo": "ai4co/routefinder",
+      "upstream_commit": "cc3ab078650e8db62c0562a60f421defe38d5ae3",
+      "upstream_branch": "main",
+      "source_tree_sha256": "dad4912710370630bd3d6301f23a63b5c9c561f2eed384b7848add1abd2d497d",
+      "source_n_files": 170,
+      "assets": [
+        {
+          "path": "RouteFinder/checkpoints/100/rf-transformer.ckpt",
+          "sha256": "eb09cee46108bac04012c2702f7cd4aac64341064167363255f02f2e63167f90",
+          "size_bytes": 20147300,
+          "source": "HF ai4co/routefinder（经 hf-mirror）"
+        },
+        {
+          "path": "RouteFinder/checkpoints/50/rf-moe.ckpt",
+          "sha256": "860c4729d78bedb0b4f145290f72c82271d6125084080865c89485d932df64f9",
+          "size_bytes": 44808458,
+          "source": "HF ai4co/routefinder（经 hf-mirror）"
+        },
+        {
+          "path": "RouteFinder/checkpoints/50/rf-pomo.ckpt",
+          "sha256": "384ee9a33548065979bdc21338e5d4120619f4ed61e0f1b0bad9c4c08f5aa3fb",
+          "size_bytes": 15521244,
+          "source": "HF ai4co/routefinder（经 hf-mirror）"
+        },
+        {
+          "path": "RouteFinder/checkpoints/50/rf-transformer.ckpt",
+          "sha256": "2110637a8e41de6e3f243973c4907362f9a4852821111164f2c9afa6d2ce5d62",
+          "size_bytes": 20145572,
+          "source": "HF ai4co/routefinder（经 hf-mirror）"
+        }
+      ],
+      "data_assets": [],
+      "binary_artifacts": null
+    },
+    {
+      "method": "SGBS",
+      "upstream_repo": "yd-kwon/SGBS",
+      "upstream_commit": "d8038171628e2592358865ba5268e09f8e1d4ce7",
+      "upstream_branch": "main",
+      "source_tree_sha256": "be6f34ca4bbea0c04aafa5afa8adfff933e4490c3a7c35a1cbf6a99509e1ccc7",
+      "source_n_files": 47,
+      "assets": [
+        {
+          "path": "SGBS/CVRP/1_pre_trained_model/Saved_CVRP100_Model/checkpoint-10000.pt",
+          "sha256": "c6b14b85d7bef9769d262c9edc0b2304100d75091e2bcc1d5a884ce23fe7e379",
+          "size_bytes": 15538140,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "SGBS/CVRP/1_pre_trained_model/Saved_CVRP100_Model/checkpoint-30500.pt",
+          "sha256": "d7a08f6115623eba15cf789db85c0356107178927724815f456188aa075d5ce8",
+          "size_bytes": 16358236,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "SGBS/TSP/1_pre_trained_model/20220226_114432_train__tsp_n100__3000epoch/checkpoint-1900.pt",
+          "sha256": "b0d78866c6ac395c4938ed63bf037e3f26d8c96403b74d2f3c0a6333424b235b",
+          "size_bytes": 15401921,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "SGBS/TSP/1_pre_trained_model/20220226_114432_train__tsp_n100__3000epoch/checkpoint-2800.pt",
+          "sha256": "f7abd259d557df62d693255d5e5cb4fc6378f2190b94b0dd01b2c958b875be62",
+          "size_bytes": 15437953,
+          "source": "上游仓库自带"
+        }
+      ],
+      "data_assets": [],
+      "binary_artifacts": {
+        "tree_sha256": "f4cb777fd021b115eb35e82dcfd17254ffcfe90e2681071f41998b9b455b6a26",
+        "n_files": 6
+      }
+    },
+    {
+      "method": "Sym-NCO",
+      "upstream_repo": "alstn12088/Sym-NCO",
+      "upstream_commit": "bbd2f16548bb005e0e9b638766c3cc92127a9fc5",
+      "upstream_branch": "main",
+      "source_tree_sha256": "2fa90aa9a1b4f66d9e5496778026c3527ba7b60a0c7848e7f5463d19a2aedf36",
+      "source_n_files": 18312,
+      "assets": [
+        {
+          "path": "Sym-NCO/Sym-NCO-AM/pretrained_model/op_100/epoch-99.pt",
+          "sha256": "b279122e38db7754036bfbf23f710babb5ddc76947e8d6dadd0c777dcc1fe4ff",
+          "size_bytes": 15940983,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Sym-NCO/Sym-NCO-AM/pretrained_model/pctsp_100/epoch-99.pt",
+          "sha256": "40981faf9340ac173c8c863743b1efb32e6cb36875b6ff56fe15ac327a8a55a8",
+          "size_bytes": 15942519,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Sym-NCO/Sym-NCO-POMO/CVRP/pretrained_model/POMO_baseline/checkpoint-8000.pt",
+          "sha256": "978f2801581f6f815796c3647b7e50c7097f46f58ad00423c213a4f5732dc662",
+          "size_bytes": 15650989,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Sym-NCO/Sym-NCO-POMO/CVRP/pretrained_model/Sym-NCO/checkpoint-8000.pt",
+          "sha256": "09d25c9796ff59cf7e4ebec464efb2204a22d0a178b91db843a063574001a1b2",
+          "size_bytes": 16049177,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Sym-NCO/Sym-NCO-POMO/TSP/pretrained_model/POMO_baseline/checkpoint-2010.pt",
+          "sha256": "61e07525a1de09b71e2c042e49edc8893bdfd0b38db979dd058f027df06d140e",
+          "size_bytes": 15599283,
+          "source": "上游仓库自带"
+        },
+        {
+          "path": "Sym-NCO/Sym-NCO-POMO/TSP/pretrained_model/Sym-NCO/checkpoint-2010.pt",
+          "sha256": "64127df30a54deadd0d66ad2f91649d80a168c00ec28af4254d9a6a4b3e27bd6",
+          "size_bytes": 15997471,
+          "source": "上游仓库自带"
+        }
+      ],
+      "data_assets": [
+        {
+          "path": "Sym-NCO/Sym-NCO-AM/data",
+          "tree_sha256": "a2a63b87ce0cc271180d44c4221a123795ed91619a57a59202c22f576ff7d2be",
+          "n_files": 2,
+          "total_bytes": 80841156,
+          "source": "上游仓库自带"
+        }
+      ],
+      "binary_artifacts": {
+        "tree_sha256": "f577c1a9c274b6a34903ab645cf92a22fcbe82788d318cc95d0d00ae4dda2634",
+        "n_files": 1610
+      }
+    }
+  ]
+}

@@ -113,6 +113,90 @@ def mtrained_score_fn(model, Nv_max=None, M_max=None):
     return score_fn
 
 
+def mpre_score_fn_cached(backbone, Nv_max=None, M_max=None):
+    """同 mtrained_score_fn_cached，但 M-pre 只缓存 encoder 输出 H（无 C/δ）。"""
+    import jax
+
+    @jax.jit
+    def _encode(raw_3d, node_valid):
+        pair_valid = node_valid[..., None] * node_valid[..., None, :]
+        enc_bias = jnp.where(pair_valid, 0.0, -1e9)
+        return backbone.encode(raw_3d, attn_options={'bias': enc_bias})
+
+    @jax.jit
+    def _score_from_H(H, timestep, adjmat, node_valid, cust, pred, succ):
+        pair_valid = node_valid[..., None] * node_valid[..., None, :]
+        dec_bias = jnp.where(pair_valid, adjmat, -1e9)
+        L = backbone.decode(H, timestep, dec_bias, target='logit')
+        return edge_insertion_scores(L, cust, pred, succ)[0]
+
+    cache = {'key': None, 'H': None}
+
+    def score_fn(state):
+        raw = jnp.array(state['raw_3d']); nv = jnp.array(state['node_valid'])
+        adj = jnp.array(state['adjmat'][0])
+        cust = jnp.array(state['cust']); pred = jnp.array(state['pred'])
+        succ = jnp.array(state['succ']); M = cust.shape[1]
+        pn = Nv_max - raw.shape[1] if Nv_max is not None else 0
+        pm = M_max - M if M_max is not None else 0
+        raw_p = jnp.pad(raw, ((0, 0), (0, pn), (0, 0)))
+        nv_p = jnp.pad(nv, ((0, 0), (0, pn)), constant_values=False)
+        adj_p = jnp.pad(adj, ((0, pn), (0, pn)))
+        cust_p = jnp.pad(cust, ((0, 0), (0, pm)))
+        pred_p = jnp.pad(pred, ((0, 0), (0, pm)))
+        succ_p = jnp.pad(succ, ((0, 0), (0, pm)))
+        if cache['key'] is None or not np.array_equal(state['raw_3d'], cache['key']):
+            cache['key'] = np.array(state['raw_3d'], copy=True)
+            cache['H'] = _encode(raw_p, nv_p)
+        s = _score_from_H(cache['H'], jnp.array([state['timestep']], jnp.float32), adj_p,
+                          nv_p, cust_p, pred_p, succ_p)
+        return np.asarray(s[:M])
+
+    return score_fn
+
+
+def mtrained_score_fn_cached(model, Nv_max=None, M_max=None):
+    """缓存冻结 encoder 输出 H0（同事件内 raw_3d 不变），每步只重算 C + decoder + δ。"""
+    import jax
+
+    @jax.jit
+    def _encode(raw_3d, node_valid):
+        return model.encode_H0(raw_3d, node_valid)
+
+    @jax.jit
+    def _score_from_H0(H0, node_feats, timestep, adjmat, node_valid, cust, pred, succ,
+                       action_feats):
+        return model.score_from_H0(H0, node_feats, timestep, adjmat, node_valid, cust, pred,
+                                   succ, action_feats)[0]
+
+    cache = {'key': None, 'H0': None}
+
+    def score_fn(state):
+        raw = jnp.array(state['raw_3d']); nv = jnp.array(state['node_valid'])
+        nf = jnp.array(state['node_feats']); adj = jnp.array(state['adjmat'][0])
+        cust = jnp.array(state['cust']); pred = jnp.array(state['pred'])
+        succ = jnp.array(state['succ']); af = jnp.array(state['action_feats'])
+        M = cust.shape[1]
+        pn = Nv_max - raw.shape[1] if Nv_max is not None else 0
+        pm = M_max - M if M_max is not None else 0
+        raw_p = jnp.pad(raw, ((0, 0), (0, pn), (0, 0)))
+        nv_p = jnp.pad(nv, ((0, 0), (0, pn)), constant_values=False)
+        nf_p = jnp.pad(nf, ((0, 0), (0, pn), (0, 0)))
+        adj_p = jnp.pad(adj, ((0, pn), (0, pn)))
+        cust_p = jnp.pad(cust, ((0, 0), (0, pm)))
+        pred_p = jnp.pad(pred, ((0, 0), (0, pm)))
+        succ_p = jnp.pad(succ, ((0, 0), (0, pm)))
+        af_p = jnp.pad(af, ((0, 0), (0, pm), (0, 0)))
+        if cache['key'] is None or not np.array_equal(state['raw_3d'], cache['key']):
+            cache['key'] = np.array(state['raw_3d'], copy=True)
+            cache['H0'] = _encode(raw_p, nv_p)
+        s = _score_from_H0(cache['H0'], nf_p, jnp.array([state['timestep']], jnp.float32),
+                           adj_p, nv_p, cust_p, pred_p, succ_p, af_p)
+        return np.asarray(s[:M])
+
+    return score_fn
+
+
 def cc_lns_policy_search(env, inst_idx, clock, vehicles, served_mask, visible_ids, replan_ids,
                          deferred, contract, budget_s, score_fn, extract_fn, seed=0,
                          protected=frozenset(), n_rounds=N_ROUNDS):
@@ -170,6 +254,9 @@ def cc_lns_policy_search(env, inst_idx, clock, vehicles, served_mask, visible_id
                 continue
             r = evaluate_visible_plan(vis, _plan_suffixes(cand), contract, objective)
             stats['n_eval'] += 1
+            if time.perf_counter() - t0 > budget_s:
+                stats['stop_reason'] = 'budget'
+                break
             if not r.finite or not r.feasible:
                 continue
             if r.J_vis < best_J - 1e-9:

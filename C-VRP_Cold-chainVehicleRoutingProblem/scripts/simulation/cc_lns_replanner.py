@@ -175,6 +175,9 @@ def cc_lns_search(env, inst_idx, clock, vehicles, served_mask, visible_ids, repl
             else:
                 r = evaluate_visible_plan(vis, _plan_suffixes(cand), contract, objective)
                 stats['n_eval'] += 1
+                if time.perf_counter() - t0 > budget_s:
+                    stats['stop_reason'] = 'budget'
+                    break
                 if not r.finite or not r.feasible:
                     stats['n_eval_infeasible'] += 1
                     continue

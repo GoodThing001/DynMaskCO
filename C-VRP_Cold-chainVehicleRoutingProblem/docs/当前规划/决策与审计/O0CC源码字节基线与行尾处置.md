@@ -74,7 +74,7 @@ C-VRP_Cold-chainVehicleRoutingProblem/archive/诊断与作废冻结包/
 3. 将受过滤影响的 39 个冻结包文件按原封存字节重新加入 Git；
 4. 精确的本地忽略项，例如 `/.claude/settings.local.json` 与 `/docs/superpowers/`；不得笼统忽略 `/docs/` 或整个 `CC_Compare/`。
 
-提交 D 未在自身内容中写入自己的 commit SHA；Git commit identity 是内容的一部分，这避免了不可解的自引用。`O0CC_SOURCE_BASELINE.json` 已登记 D 的完整 SHA，并在服务器离机备份通过后转为 `sealed`，待后续文档提交 E 保存。
+提交 D 未在自身内容中写入自己的 commit SHA；Git commit identity 是内容的一部分，这避免了不可解的自引用。`O0CC_SOURCE_BASELINE.json` 已登记 D 的完整 SHA，并在服务器离机备份通过后转为 `sealed`，已由文档提交 E 保存。
 
 实际提交 SHA：
 
@@ -90,7 +90,7 @@ C-VRP_Cold-chainVehicleRoutingProblem/archive/诊断与作废冻结包/
 
 版本化记录使用稳定别名 `o0cc-backup-server-01`，不保存私有 Tailscale 地址；精确网络 locator 保留在执行人的私有传输日志中，其规范字符串 SHA-256 为 `98f57068bd53dd2640aca60d85f8ca9b1d12ecad3fd8dc3e43764fd9d79f2b03`。这样既能由私有原始记录复核，也不会把私有网络拓扑永久写入可能公开的 Git 历史。
 
-服务器 Git 2.51.0 下，第一次在非 Git 仓库上下文直接运行 `git bundle verify` 返回 rc=1，信息为“需要一个仓库来校验一个归档”。该尝试没有执行归档内容验证，分类为前置条件不足，而非 archive 验证失败。按预定 runbook 先执行 `git init` 后复验通过，因此最终 `git_bundle_verify_pass=true` 有效。提交 E 后必须另建带 E SHA 的 bundle 或推送受控远端，不得覆盖本 D bundle。
+服务器 Git 2.51.0 下，第一次在非 Git 仓库上下文直接运行 `git bundle verify` 返回 rc=1，信息为“需要一个仓库来校验一个归档”。该尝试没有执行归档内容验证，分类为前置条件不足，而非 archive 验证失败。按预定 runbook 先执行 `git init` 后复验通过，因此最终 `git_bundle_verify_pass=true` 有效。E 的独立 bundle 已据执行人回传完成目的端验证；不覆盖本 D bundle。
 
 ## 6. 字节基线退出门控
 
@@ -107,6 +107,18 @@ C-VRP_Cold-chainVehicleRoutingProblem/archive/诊断与作废冻结包/
 - [x] 已生成完整分支 bundle，并在服务器目的端完成 SHA、bundle、ref 和恢复 checkout 三重验证；
 - [x] 提交 D 的完整 SHA 已回填进当前机读基线草案；
 - [x] 离机证据已回填，机读基线已转为 `sealed`；
-- [ ] 由后续文档提交 E 保存本记录；之后的 CAL-PHYS freeze seal 也绑定提交 E 中的本记录字节。
+- [x] 提交 E（6dbfe407f98c588166100f83948bc58bf38930f9）已保存本记录；其独立备份据执行人回传完成。
 
-源码字节基线的技术阻断已经清零；提交 E 是把本记录纳入版本历史的最后治理动作。CAL-PHYS 协议自身仍为 `draft_blocked`，还必须关闭现实对象、仪器、设计、样本量与分析阈值阻断后，才可进入相应注册状态。源码基线 sealed 不授权执行 P1，更不授权 confirmatory P2–P6。
+源码字节基线和 E 文档入库已完成，不再作为当前算法开发待办。路线 B 已替代实测 P1–P6 草案；这里的历史封口不决定模型训练许可。
+
+## 7. 提交 E 后续证据（执行人回传）
+
+- E：6dbfe407f98c588166100f83948bc58bf38930f9；本次本地 HEAD 已核对。
+- 独立 bundle：codex-o0cc-cal-phys-E-6dbfe40.bundle，191169446 bytes。
+- SHA-256：6bee06ea13172004934afb7417d979046a4a5c5d91b1dc2a974571b9e873e454。
+- 目的端：o0cc-backup-server-01:/home/hzeng/backups/MASKCO-Main/o0cc/。
+- 执行人记录：2026-09-13T04:55:46Z，bundle/ref/独立恢复均通过，恢复 HEAD=E；D/E 文件互不覆盖。
+- 本轮只核对本地版本并引用回传证据，未重新连接服务器或宣称新独立复验。
+- O0CC_SOURCE_BASELINE.json 的 sealed D 记录原始字节保持不变，不向其回填 E 造成不必要的来源 hash 漂移。
+
+后续正常研究修改只需版本化记录；最终论文运行再保存对应新身份，不复写 D/E 的不可变备份。

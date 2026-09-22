@@ -1,0 +1,10 @@
+{
+  "schema_version": "cc-compare-freeze-seal-v1",
+  "method": "PyVRP-RH-D",
+  "sealed_at": "2026-09-11 08:48:01",
+  "binds": {
+    "source_manifest_sha256": "8b5eb7266246a3b785d045a207f9577c47cbf804278ce463cb640fc522cffdef",
+    "frozen_config_sha256": "ac23d8a2bedb21458b13a09e772d8a9b434250d225296a9b344e7e75779c261e"
+  },
+  "note": "单向绑定：SOURCE_MANIFEST 绑源码/依赖/环境资产（不含 README 与 FROZEN_CONFIG）；FROZEN_CONFIG 绑 SOURCE_MANIFEST + 行为配置 + 证据。identity rev4（common baseline_contract artifact_hash 修复）+ rev4 行为 parity 证据。"
+}

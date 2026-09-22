@@ -8,9 +8,11 @@ MaskCO is the official ICLR 2026 implementation of a Neural Combinatorial Optimi
 
 The `C-VRP_Cold-chainVehicleRoutingProblem/` subdirectory extends MaskCO from standard CVRP to **CVRPTW** (Time Windows), **Cold-Chain** (temperature), and **Dynamic Cold Chain (DCC)** (reveal_time + EDoD). This is an isolated workspace — **never modify files under `MASKCO_code/`**.
 
-## ⚠️ 当前状态（2026-09-03）：P0-M、C0 已完成；下一步 O0-D
+## ⚠️ 当前状态（2026-09-19）：event_plan两轮未建立正效用，按投入边界收束；下一步为证据归档与方法职责决策
 
 > **唯一状态入口**：`C-VRP_Cold-chainVehicleRoutingProblem/项目当前状态.md`。本文件保留工程规则和历史背景；若研究进度或权威路径冲突，以 `项目当前状态.md` 及其链接的论文优先版进度表为准。
+
+> **本轮分工与任务**：助手维护重要文档，用户/执行端实施代码、实验、归档与提交。event_plan两轮已有本地结果，A/B/S_proxy均锁∞，未建立正效用，按D-056收束；源码投影与运行身份仍有局限，不能据此认定表示不是主要瓶颈。下一步见扩展目录 `docs/当前规划/决策与审计/event_plan两轮收束与后续决策.md`：保存已有证据，重新定义学习职责、目标/信息和可部署强对照。不默认pairwise第三轮，也不因新发现缺陷自动修复后重跑。助手不代跑/提交，冻结上游/数据与评价规则仍有效。
 
 > **目录迁移状态**：P0-M 已通过。扩展入口统一使用 `scripts/project_paths.py` 解析 `WORKSPACE_ROOT`、`MASKCO_ROOT` 和扩展根目录；路径/导入/入口/syntax 7/7 与 P0-R/S/A/U 回归通过。后续仍不得修改 `MASKCO_code/`。
 
