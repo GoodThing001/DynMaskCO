@@ -1,0 +1,42 @@
+{
+  "split": "train",
+  "n_states": 32,
+  "n_instances": 16,
+  "D1": {
+    "gap_exh_vs_greedy": {
+      "mean": 0.012620267582375205,
+      "ci_lo": 0.006875244491680332,
+      "ci_hi": 0.01937243470997898
+    },
+    "gap_exh_vs_dist_sgbs": {
+      "mean": 0.003245253723650591,
+      "ci_lo": 0.0012057773696034484,
+      "ci_hi": 0.005855136128726818
+    },
+    "per_state_quantiles": {
+      "p50": 0.002879573631817345,
+      "p90": 0.03229338209815192,
+      "max": 0.07897955465767592
+    },
+    "n_states_gap_gt_0p01": 13,
+    "n_states_gap_gt_0p005": 15
+  },
+  "D2": {
+    "correction_signal_mean_ci": {
+      "mean": 0.012120409920258379,
+      "ci_lo": 0.00659597609294546,
+      "ci_hi": 0.018642547337151365
+    },
+    "per_state_quantiles": {
+      "p25": 0.0,
+      "p50": 0.002879573631817345,
+      "p90": 0.032267323021740055,
+      "max": 0.07897955465767592
+    },
+    "n_states_signal_gt_0": 22,
+    "n_states_signal_gt_0p01": 12,
+    "n_states_signal_gt_0p005": 15,
+    "n_dev_tried_total": 531,
+    "n_dev_improved_total": 32
+  }
+}

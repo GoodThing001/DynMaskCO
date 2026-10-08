@@ -48,6 +48,9 @@ class ThermalConfig:
 
     ambient_temperature_c: float = 25.0
     target_temperature_c: tuple[float, ...] = (18.0, 4.0, -18.0)
+    diurnal_amplitude_c: float = 6.0
+    diurnal_phase_hour: float = 14.0
+    dispatch_delay_hour: float = 0.0
     hard_temperature_bounds_c: tuple[tuple[float, float], ...] = (
         (0.0, 30.0),
         (0.0, 8.0),
@@ -61,6 +64,11 @@ class ThermalConfig:
     thermal_capacity_kwh_per_c: tuple[float, ...] = (0.30, 0.40, 0.50)
     dispatch_preconditioning_energy_kwh: tuple[float, ...] = (0.05, 0.15, 0.30)
     supported_temp_classes: tuple[int, ...] = (0, 1, 2)
+    precool_energy_per_unit_per_c: float = 0.15
+    precooled: bool = True
+    precool_min_temp_class: int = 0
+    precool_station_discount: float = 0.5
+    use_station: bool = False
 
 
 @dataclass(frozen=True)
@@ -548,3 +556,114 @@ def compute_coldchain_cost(
         + objective.lambda_quality * quality_loss / objective.quality_scale
         + objective.lambda_energy * energy_kwh / objective.energy_scale
     )
+
+
+# --------------------------------------------------------------------------- #
+# A-v1 品质配置 v2（版本化，独立于 v1 QualityConfig；文献依据）
+# --------------------------------------------------------------------------- #
+@dataclass(frozen=True)
+class QualityConfigV2:
+    """A-v1 品质配置 v2：per-温区动力学阶数 + 速率 + 绝对/无阈值。
+
+    复用 ``CargoLotState.initial_quality`` / ``quality_remaining`` 承载品质值，语义由阶数决定：
+      - 一阶（'first'）：``quality *= exp(-rate * hours)``，品质值 = 营养比例（初始 1.0）。
+      - 零阶（'zero'）：``quality -= rate * hours``，品质值 = 绝对感官评分（初始 9.0）。
+    阈值：
+      - 'absolute'：返仓 ``quality >= threshold`` 才可售（鱼评分 >= 5）。
+      - 'none'：不评价（番茄，salable 记为未定义）。
+
+    速率（每小时）来自文献：番茄可滴定酸 18°C 一阶 k≈0.00184/h；鲻鱼感官 0.452 点/天≈0.01883 点/h；
+    海鲈鱼 −18°C 由 580–623 天期限换算（9→5 分 ≈ 4 点 / ~600 天）≈0.000278 点/h。
+    """
+
+    dynamics_order: tuple[str, ...] = ('first', 'zero', 'zero')
+    metric_name: tuple[str, ...] = ('nutrient_ratio', 'sensory_score', 'sensory_score')
+    initial_value: tuple[float, ...] = (1.0, 9.0, 9.0)
+    rate_per_hour: tuple[float, ...] = (0.00184, 0.01883, 0.000278)
+    threshold_type: tuple[str, ...] = ('none', 'absolute', 'absolute')
+    threshold: tuple[float, ...] = (float('inf'), 5.0, 5.0)
+
+    def validate(self, n_zones: int) -> None:
+        fields = (self.dynamics_order, self.metric_name, self.initial_value,
+                  self.rate_per_hour, self.threshold_type, self.threshold)
+        if any(len(f) != n_zones for f in fields):
+            raise ValueError("all QualityConfigV2 fields must match temperature zones")
+        for i in range(n_zones):
+            if self.dynamics_order[i] not in ('first', 'zero'):
+                raise ValueError("dynamics_order must be 'first' or 'zero'")
+            if self.initial_value[i] <= 0:
+                raise ValueError("initial_value must be positive")
+            if self.rate_per_hour[i] < 0:
+                raise ValueError("rate_per_hour must be non-negative")
+            if self.threshold_type[i] not in ('none', 'absolute'):
+                raise ValueError("threshold_type must be 'none' or 'absolute'")
+            if self.threshold_type[i] == 'absolute':
+                if not (0 < self.threshold[i] < self.initial_value[i]):
+                    raise ValueError("absolute threshold must lie in (0, initial_value)")
+
+
+@dataclass(frozen=True)
+class ColdChainContractV2:
+    """C0 合同 v2：复用 operational/units/thermal/objective，品质换成 QualityConfigV2。
+
+    与 v1 共用 ``transition_segment`` 的温度/载货/能耗轨迹，仅品质更新按 v2 分支
+    （零阶/一阶 + 绝对/无阈值）。schema_version 与 contract_hash 均与 v1 不同。
+    """
+
+    schema_version: str = "coldchain-contract-v2"
+    operational: OperationalConfig = field(default_factory=OperationalConfig)
+    units: UnitScale = field(default_factory=UnitScale)
+    thermal: ThermalConfig = field(default_factory=ThermalConfig)
+    quality: QualityConfigV2 = field(default_factory=QualityConfigV2)
+    objective: ColdChainObjectiveConfig = field(default_factory=ColdChainObjectiveConfig)
+    parameter_provenance: tuple[ParameterProvenance, ...] = field(
+        default_factory=_default_provenance)
+
+    def validate(self) -> None:
+        op = self.operational
+        if op.mode != "pickup_to_depot":
+            raise ValueError("C0 requires pickup_to_depot operational semantics")
+        if op.fleet_model != "homogeneous_multi_compartment":
+            raise ValueError("C0 requires a homogeneous multi-compartment fleet")
+        if op.capacity_model != "shared_total":
+            raise ValueError("C0 supports shared_total capacity only")
+        if not op.single_trip or op.allow_reload:
+            raise ValueError("C0 requires single_trip=True and allow_reload=False")
+        if op.quality_clock != "service_finish_to_return_arrival":
+            raise ValueError("C0 quality clock must start at service_finish")
+        if op.shared_vehicle_capacity <= 0:
+            raise ValueError("shared vehicle capacity must be positive")
+        if (self.units.distance_km_per_unit <= 0
+                or self.units.hours_per_time_unit <= 0
+                or self.units.speed_kmph <= 0):
+            raise ValueError("all unit scale values must be positive")
+        th = self.thermal
+        classes = th.supported_temp_classes
+        if classes != tuple(range(len(classes))):
+            raise ValueError("temperature classes must be contiguous and zero based")
+        zone_fields = (th.target_temperature_c, th.hard_temperature_bounds_c,
+                       th.heat_transfer_per_hour, th.cooling_power_kw,
+                       th.cooling_rate_c_per_hour, th.door_heat_kwh,
+                       th.thermal_capacity_kwh_per_c, th.dispatch_preconditioning_energy_kwh)
+        if any(len(values) != len(classes) for values in zone_fields):
+            raise ValueError("all thermal zone fields must match supported_temp_classes")
+        obj = self.objective
+        if min(obj.distance_scale, obj.quality_scale, obj.energy_scale) <= 0:
+            raise ValueError("objective scales must be positive")
+        if min(obj.lambda_quality, obj.lambda_energy) < 0:
+            raise ValueError("objective weights must be non-negative")
+        self.quality.validate(len(classes))
+
+    @property
+    def contract_hash(self) -> str:
+        self.validate()
+        payload = json.dumps(asdict(self), sort_keys=True, separators=(",", ":"),
+                             ensure_ascii=True)
+        return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+    def to_manifest(self) -> dict[str, Any]:
+        self.validate()
+        result = asdict(self)
+        result["parameter_provenance"] = list(result["parameter_provenance"])
+        result["contract_hash"] = self.contract_hash
+        return result

@@ -12,6 +12,7 @@ from dataclasses import dataclass, replace
 
 from coldchain_contract import (
     ColdChainContract,
+    QualityConfigV2,
     distance_to_km,
     power_duration_to_kwh,
     time_to_hours,
@@ -29,6 +30,7 @@ class CargoLotState:
     pickup_finish_time: float
     initial_quality: float
     quality_remaining: float
+    precooled: bool = True
 
 
 @dataclass(frozen=True)
@@ -41,7 +43,7 @@ class DeliveredCargoRecord:
     initial_quality: float
     delivered_quality: float
     quality_loss: float
-    salable: bool
+    salable: bool | None  # v1: bool；v2 'none' 阈值时为 None（不评价）
 
 
 @dataclass(frozen=True)
@@ -146,7 +148,8 @@ def active_quality_loss(
     contract: ColdChainContract,
 ) -> float:
     """Recompute quality loss currently represented by the active manifest."""
-
+    if isinstance(contract.quality, QualityConfigV2):
+        return 0.0  # A-v1 v2：品质不货币化，仅独立报告
     total = 0.0
     for lot in state.cargo_manifest:
         value = contract.quality.product_value[lot.temp_class]
@@ -204,21 +207,31 @@ def transition_segment(
 
     end_time = float(arrival_time if return_to_depot else service_finish)
     duration_h = time_to_hours(end_time - float(depart_time), contract.units)
+    depart_h = time_to_hours(float(depart_time), contract.units)
+    end_h = time_to_hours(end_time, contract.units)
+    delay = float(getattr(contract.thermal, 'dispatch_delay_hour', 0.0))
+    depart_h = depart_h + delay
+    end_h = end_h + delay
     distance_km = distance_to_km(segment_distance_units, contract.units)
     temperature_before = tuple(state.compartment_temperature_c)
     temperature_after, cooling_energy = _advance_temperatures(
-        temperature_before, duration_h, zone_mask, contract)
+        temperature_before, duration_h, zone_mask, contract, depart_h=depart_h, end_h=end_h)
 
-    manifest, segment_quality_loss = _advance_manifest_quality(
-        state.cargo_manifest,
-        temperature_before,
-        temperature_after,
-        duration_h,
-        contract,
-    )
+    if isinstance(contract.quality, QualityConfigV2):
+        manifest, segment_quality_loss = _advance_manifest_quality_v2(
+            state.cargo_manifest, duration_h, contract)
+    else:
+        manifest, segment_quality_loss = _advance_manifest_quality(
+            state.cargo_manifest,
+            temperature_before,
+            temperature_after,
+            duration_h,
+            contract,
+        )
 
     door_heat = 0.0
     door_recovery_energy = 0.0
+    precool_energy = 0.0
     door_count = state.door_open_count
     picked_order_id = None
     if served_customer is not None:
@@ -232,8 +245,12 @@ def transition_segment(
         door_count += 1
         if order_quantity <= 0:
             raise ValueError("order_quantity must be positive for a pickup")
-        if not 0 < initial_quality <= 1:
-            raise ValueError("initial_quality must lie in (0, 1]")
+        if isinstance(contract.quality, QualityConfigV2):
+            if initial_quality <= 0:
+                raise ValueError("initial_quality must be positive (v2 absolute score)")
+        else:
+            if not 0 < initial_quality <= 1:
+                raise ValueError("initial_quality must lie in (0, 1]")
         known_ids = {lot.order_id for lot in manifest}
         known_ids.update(record.order_id for record in state.delivered_to_depot)
         if int(served_customer) in known_ids:
@@ -241,6 +258,15 @@ def transition_segment(
         projected_load = sum(lot.quantity for lot in manifest) + float(order_quantity)
         if projected_load > contract.operational.shared_vehicle_capacity + _EPS:
             raise ValueError("pickup exceeds shared vehicle capacity")
+        precooled = (bool(getattr(contract.thermal, 'precooled', True))
+                     and int(order_temp_class) >= int(getattr(contract.thermal, 'precool_min_temp_class', 0)))
+        cp = float(contract.thermal.precool_energy_per_unit_per_c)
+        if precooled and bool(getattr(contract.thermal, 'use_station', False)):
+            cp = cp * float(getattr(contract.thermal, 'precool_station_discount', 0.5))
+        if precooled:
+            delta_t = (float(contract.thermal.ambient_temperature_c)
+                       - float(contract.thermal.target_temperature_c[int(order_temp_class)]))
+            precool_energy = float(order_quantity) * cp * max(0.0, delta_t)
         manifest = manifest + (CargoLotState(
             order_id=int(served_customer),
             quantity=float(order_quantity),
@@ -248,6 +274,7 @@ def transition_segment(
             pickup_finish_time=float(service_finish),
             initial_quality=float(initial_quality),
             quality_remaining=float(initial_quality),
+            precooled=precooled,
         ),)
         picked_order_id = int(served_customer)
 
@@ -257,7 +284,10 @@ def transition_segment(
     unloaded_order_ids: tuple[int, ...] = ()
     closed = False
     if return_to_depot:
-        records = tuple(_delivery_record(lot, end_time, contract) for lot in manifest)
+        if isinstance(contract.quality, QualityConfigV2):
+            records = tuple(_delivery_record_v2(lot, end_time, contract) for lot in manifest)
+        else:
+            records = tuple(_delivery_record(lot, end_time, contract) for lot in manifest)
         delivered = delivered + records
         finalized_quality_loss += sum(record.quality_loss for record in records)
         unloaded_order_ids = tuple(record.order_id for record in records)
@@ -267,7 +297,7 @@ def transition_segment(
 
     violation_count, violation_duration = _thermal_violations(
         temperature_before, temperature_after, duration_h, contract)
-    segment_energy = cooling_energy + door_recovery_energy
+    segment_energy = cooling_energy + door_recovery_energy + precool_energy
     new_state = VehicleColdChainState(
         compartment_temperature_c=temperature_after,
         zone_load=zone_load,
@@ -302,11 +332,31 @@ def transition_segment(
     return new_state, metrics
 
 
+def _time_weighted_hours(depart_h, end_h, setpoint_c, contract):
+    """∫ (A(t) − T_set)/(A_ref − T_set) dt over [depart_h, end_h]（时钟加权时长）。
+
+    时变昼夜环境温度 A(t) = A_ref + amp·cos(2π(t−phase)/24) 使制冷能耗取决于"何时开"，
+    而非仅是时长。系数归一化到参考环境温度，使 amp=0 时退化为纯时长。
+    """
+    th = contract.thermal
+    amp = float(getattr(th, 'diurnal_amplitude_c', 0.0))
+    phase = float(getattr(th, 'diurnal_phase_hour', 14.0))
+    ref = float(th.ambient_temperature_c)
+    dur = float(end_h - depart_h)
+    if dur <= _EPS or amp <= _EPS or abs(ref - setpoint_c) < 1e-9:
+        return dur
+    omega = 2.0 * math.pi / 24.0
+    integral = (math.sin(omega * (end_h - phase)) - math.sin(omega * (depart_h - phase))) / omega
+    return dur + (amp / (ref - setpoint_c)) * integral
+
+
 def _advance_temperatures(
     temperatures: tuple[float, ...],
     duration_h: float,
     active_zone_mask: tuple[bool, ...],
     contract: ColdChainContract,
+    depart_h: float | None = None,
+    end_h: float | None = None,
 ) -> tuple[tuple[float, ...], float]:
     if duration_h <= _EPS:
         return tuple(temperatures), 0.0
@@ -324,7 +374,9 @@ def _advance_temperatures(
             target = th.target_temperature_c[zone]
             cooled = natural - th.cooling_rate_c_per_hour[zone] * duration_h
             updated = max(target, cooled)
-            energy += power_duration_to_kwh(th.cooling_power_kw[zone], duration_h)
+            weighted_hours = (_time_weighted_hours(depart_h, end_h, target, contract)
+                              if depart_h is not None and end_h is not None else duration_h)
+            energy += power_duration_to_kwh(th.cooling_power_kw[zone], weighted_hours)
         else:
             updated = natural
         result.append(float(updated))
@@ -343,8 +395,11 @@ def _advance_manifest_quality(
     updated_lots = []
     incremental_loss = 0.0
     for lot in manifest:
-        average_temperature = 0.5 * (
-            temperature_before[lot.temp_class] + temperature_after[lot.temp_class])
+        if lot.precooled:
+            average_temperature = 0.5 * (
+                temperature_before[lot.temp_class] + temperature_after[lot.temp_class])
+        else:
+            average_temperature = contract.thermal.ambient_temperature_c  # 田间温度（未预冷）
         rate = quality_rate_per_hour(lot.temp_class, average_temperature, contract)
         quality_remaining = lot.quality_remaining * math.exp(-rate * duration_h)
         quality_remaining = min(lot.quality_remaining, max(0.0, quality_remaining))
@@ -411,6 +466,52 @@ def _delivery_record(
         delivered_quality=lot.quality_remaining,
         quality_loss=float(loss),
         salable=lot.quality_remaining / lot.initial_quality >= threshold,
+    )
+
+
+def _advance_manifest_quality_v2(
+    manifest: tuple[CargoLotState, ...],
+    duration_h: float,
+    contract,
+) -> tuple[tuple[CargoLotState, ...], float]:
+    """A-v1 v2 品质推进：零阶（评分线性下降）或一阶（比例指数下降），不累加货币化损失。"""
+    if duration_h <= _EPS or not manifest:
+        return manifest, 0.0
+    q2 = contract.quality
+    updated = []
+    for lot in manifest:
+        c = lot.temp_class
+        if q2.dynamics_order[c] == 'zero':
+            new_val = lot.quality_remaining - q2.rate_per_hour[c] * duration_h
+            new_val = max(0.0, new_val)
+        else:  # 'first'
+            new_val = lot.quality_remaining * math.exp(-q2.rate_per_hour[c] * duration_h)
+        updated.append(replace(lot, quality_remaining=float(new_val)))
+    return tuple(updated), 0.0
+
+
+def _delivery_record_v2(
+    lot: CargoLotState,
+    return_arrival_time: float,
+    contract,
+) -> DeliveredCargoRecord:
+    """A-v1 v2 结算：绝对评分阈值（鱼 >= 5）或 none（番茄不评价，salable=None）。"""
+    q2 = contract.quality
+    c = lot.temp_class
+    if q2.threshold_type[c] == 'absolute':
+        salable = lot.quality_remaining >= q2.threshold[c] - 1e-9
+    else:  # 'none'
+        salable = None
+    return DeliveredCargoRecord(
+        order_id=lot.order_id,
+        quantity=lot.quantity,
+        temp_class=lot.temp_class,
+        pickup_finish_time=lot.pickup_finish_time,
+        return_arrival_time=float(return_arrival_time),
+        initial_quality=lot.initial_quality,
+        delivered_quality=lot.quality_remaining,
+        quality_loss=0.0,
+        salable=salable,
     )
 
 

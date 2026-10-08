@@ -1,5 +1,9 @@
 # CC_Compare — 对比方法复现工作区
 
+> **2026-09-29 全方法覆盖补充**：用户进一步要求考虑其他对比方法，现将全部 17 个方法目录纳入审查与分批适配候选清单，前述优先名单不是最终名单。MAPT 作者官方代码仓库已公开，旧“无源码”状态过时；CO-enriched-ML/MAPT 提升为动态决策适配优先评估组。CaDA/RouteFinder/MVMoE、POMO/AM/Sym-NCO/Omni-VRP、SGBS/DeepACO、两类学习改进方法均有对应队列与验收要求，见 [工作包全方法清单](A-v1对比方法适配工作包_2026-09-29.md)。只有任务/资产/桥接限制被核实后才标暂不可比，不以结果好坏排除。
+
+> **2026-09-29 当前方向 A**：可以现在并行推进 CC_Compare 的 A-v1 接/拒适配，不等待 MaskCO 或 S3 先取得正向。按上条全方法清单分批推进；具体路径、比赛条件与验收见 [A-v1 对比方法适配工作包](A-v1对比方法适配工作包_2026-09-29.md)。第三方原始源码和旧冻结目录保持历史身份，新协议另立适配版本；旧距离/全服务结果不直接拼入当前效用主表。以下方法清单与旧冻结状态为资产背景，不表示已完成 A-v1 正式比较。
+
 > 用途：复现「同赛道学习型方法」，并针对 DynMaskCO 做 DCC-VRP 协议适配，用于公平对比。
 > 约定：一个方法一个文件夹。本目录位于 MaskCO-main 根下（不改原始 MaskCO 源码，也不改动 `C-VRP_Cold-chainVehicleRoutingProblem/`）。
 
@@ -24,14 +28,14 @@
 | `MVMoE/` | Multi-Task MoE VRP Solver | ICML 2024 | [`RoyalSkye/Routing-MVMoE`](https://github.com/RoyalSkye/Routing-MVMoE) | ✅ | ✅ 仓库自带 `pretrained/`（n50/n100） |
 | `Learning-to-Delegate/` | Subproblem Selection for VRP | NeurIPS 2021 | [`mit-wu-lab/learning-to-delegate`](https://github.com/mit-wu-lab/learning-to-delegate) | ✅ | ⚠️ 另需 10GB Dropbox zip（非优先，未下载） |
 | `POMO/` | Policy Optimization with Multiple Optima | NeurIPS 2020 | [`yd-kwon/POMO`](https://github.com/yd-kwon/POMO) | ✅ | ✅ 仓库自带（CVRP100 等） |
-| `DeepACO/` | Neural-Enhanced Ant Systems | NeurIPS 2023 | [`henry-yeh/DeepACO`](https://github.com/henry-yeh/DeepACO) | ✅ | 仓库自带数据（网络权重待查） |
+| `DeepACO/` | Neural-Enhanced Ant Systems | NeurIPS 2023 | [`henry-yeh/DeepACO`](https://github.com/henry-yeh/DeepACO) | ✅ | 已发现 pretrained/cvrp 与 cvrp_nls 权重，待加载核验 |
 | `AttentionModel/` | Attention, Learn to Solve Routing Problems | ICLR 2019 | [`wouterkool/attention-learn-to-route`](https://github.com/wouterkool/attention-learn-to-route) | ✅ | ✅ 仓库自带 `pretrained/`（cvrp_50/100） |
 | `Omni-VRP/` | Omni-Generalizable VRP | ICML 2023 | [`RoyalSkye/Omni-VRP`](https://github.com/RoyalSkye/Omni-VRP) | ✅ | ✅ 仓库自带 `pretrained/` |
 | `Sym-NCO/` | Symmetric NCO | NeurIPS 2022 | [`alstn12088/Sym-NCO`](https://github.com/alstn12088/Sym-NCO) | ✅ | 仓库自带（Sym-NCO-POMO/AM 内） |
-| `SGBS/` | Simulation-Guided Beam Search | NeurIPS 2022 | [`yd-kwon/SGBS`](https://github.com/yd-kwon/SGBS) | ✅ | 待查 |
-| `Learn-Improvement-Heuristics/` | Learning Improvement Heuristics | IEEE TNNLS 2022 | [`WXY1427/Learn-Improvement-Heuristics-for-Routing`](https://github.com/WXY1427/Learn-Improvement-Heuristics-for-Routing) | ✅ | 待查 |
+| `SGBS/` | Simulation-Guided Beam Search | NeurIPS 2022 | [`yd-kwon/SGBS`](https://github.com/yd-kwon/SGBS) | ✅ | 已发现 CVRP checkpoint-30500.pt，待加载核验 |
+| `Learn-Improvement-Heuristics/` | Learning Improvement Heuristics | IEEE TNNLS 2022 | [`WXY1427/Learn-Improvement-Heuristics-for-Routing`](https://github.com/WXY1427/Learn-Improvement-Heuristics-for-Routing) | ✅ | 已发现 CVRP50 epoch-199.pt，待加载核验 |
 | `PIP-constraint/` | Learning to Handle Complex Constraints | NeurIPS 2024 | [`jieyibi/PIP-constraint`](https://github.com/jieyibi/PIP-constraint) | ✅ | ⛔ 不可适配（单车辆，缺容量） |
-| `MAPT/` | MA-Pointer-Transformer（多车动态取送货） | AAAI 2026 | ❌ 无公开源码 | — | 仅论文数据对比，见 [`MAPT/README.md`](MAPT/README.md) |
+| `MAPT/` | MA-Pointer-Transformer（多车动态取送货） | AAAI 2026 | ✅ [官方代码公开](https://github.com/Beihang-BIGSCity/MAPT)，本地待导入 | 待核定 | 动态决策优先适配评估，见 [`MAPT/README.md`](MAPT/README.md) |
 
 ### 许可证缺口（待补，准入前需确认）
 
@@ -50,7 +54,7 @@
 - **同步**：本地 → 服务器经 VSCode SFTP（`.vscode/sftp.json`；大文件/权重已加入 ignore，需上传时单独处理）。
 - **HF 下载**：huggingface.co 直连不可用，走 `hf-mirror.com` 镜像。
 
-> `MAPT` 无开源代码（仅论文数据对比，见 [`MAPT/README.md`](MAPT/README.md)，注意指标对齐）。
+> `MAPT` 官方代码公开状态已于 2026-09-29 核实；本地源码/权重资产及当前任务适配仍待交付，见 [`MAPT/README.md`](MAPT/README.md)。原论文任务数字仅作背景，不直接比较当前效用。
 
 ## DCC-VRP 适配（legacy one-shot 与正式 adapter 状态）
 

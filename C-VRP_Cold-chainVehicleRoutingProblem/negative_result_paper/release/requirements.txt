@@ -1,0 +1,8 @@
+# B 论文复现环境依赖（评估链最小集合）
+# 注意：flax 必须 ==0.10.4（0.10.7 破坏 SwiGLU）；jax 0.5.x（CPU）或 0.6.x+GPU 插件均可。
+numpy>=1.24
+jax>=0.5.0
+flax==0.10.4
+optax>=0.2.0
+matplotlib>=3.7
+pillow>=9.0

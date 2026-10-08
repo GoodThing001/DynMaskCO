@@ -1,0 +1,44 @@
+{
+  "split": "cal",
+  "n_states": 32,
+  "n_instances": 16,
+  "myopic_gap_exh_vs_dg": {
+    "mean": 0.008448380665617247,
+    "ci_lo": 0.005085608005851844,
+    "ci_hi": 0.01230130534920916
+  },
+  "terminal_gap_exh_vs_dg": {
+    "mean": -0.004580019831354462,
+    "ci_lo": -0.013058252036238133,
+    "ci_hi": 0.002802491920703597
+  },
+  "terminal_headroom_dg": {
+    "mean": 0.002257051238586827,
+    "ci_lo": -0.015008459518968034,
+    "ci_hi": 0.019915781132817584
+  },
+  "terminal_headroom_exh": {
+    "mean": -0.0023229685927676352,
+    "ci_lo": -0.02213457645256946,
+    "ci_hi": 0.014922522960296912
+  },
+  "terminal_component_delta_exh_vs_dg": {
+    "quality": {
+      "mean": -0.010105320784310132,
+      "ci_lo": -0.030797964426201103,
+      "ci_hi": 0.011398305707248488
+    },
+    "energy": {
+      "mean": -2.179579526418806,
+      "ci_lo": -7.804716020504711,
+      "ci_hi": 2.838032561461499
+    },
+    "distance": {
+      "mean": 0.01358117394556757,
+      "ci_lo": -0.14018221732148958,
+      "ci_hi": 0.14327177844206737
+    }
+  },
+  "n_states_terminal_headroom_exh_gt_0": 6,
+  "n_states_terminal_gap_exh_gt_myopic_gap": 6
+}

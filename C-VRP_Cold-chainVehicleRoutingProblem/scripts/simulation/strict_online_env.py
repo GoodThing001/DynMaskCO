@@ -106,6 +106,11 @@ class Replanner:
     def plan(self, env, inst_idx, clock, vehicles, served_mask, visible_ids, replan_ids=None):
         raise NotImplementedError
 
+    def on_reveal(self, env, inst_idx, clock, vehicles, served_mask, visible_ids):
+        """在每次揭示事件当场调用（即使无空闲车），用于 reveal 时立即记录 accept/reject。
+        默认无操作；需要"揭示即承诺"语义的 replanner 覆写此方法。"""
+        return None
+
     def export_state(self):
         """返回 replanner 的**决策状态**（影响后续 plan/ownership，随 snapshot 恢复）。
 
@@ -121,13 +126,16 @@ class Replanner:
 
 class StrictOnlineEnv:
     def __init__(self, dataset, capacity, tw_speed=1.0, num_vehicles=25, replanner=None,
-                 coldchain_contract=None):
+                 coldchain_contract=None, booking_horizon=None):
         self.dataset = dataset
         self.capacity = capacity
         self.tw_speed = tw_speed
         self.num_vehicles = num_vehicles
         self.replanner = replanner
         self.coldchain_contract = coldchain_contract
+        # 公开预约截止（因果口径）：订单只会在 [0, booking_horizon) 揭示。
+        # None = 旧行为（has_future_reveal 读真实未来，仅用于负结果比较、非因果主张）。
+        self.booking_horizon = booking_horizon
 
         self.coords = dataset['coords'].astype(np.float32)          # (N, nodes, 2)
         self.demands = dataset['demands'].astype(np.float32)        # (N, nodes)
@@ -238,7 +246,13 @@ class StrictOnlineEnv:
         return reserved
 
     def has_future_reveal(self, inst_idx, clock, served_mask):
-        """是否还有未服务客户在未来 reveal（用于 WAIT vs CLOSE 决策）。P0-C。"""
+        """是否还有未来揭示（用于 WAIT vs CLOSE 决策）。P0-C。
+
+        因果口径（booking_horizon 设置时）：只看公开预约截止，不读具体未来揭示时间。
+        None：旧行为（读真实 reveal_time，仅用于负结果比较，非因果主张）。
+        """
+        if self.booking_horizon is not None:
+            return clock < self.booking_horizon - 1e-6
         return any(not served_mask[i]
                    and self.reveal_time[inst_idx, i] > clock + 1e-6
                    for i in range(1, self.num_nodes))
@@ -478,6 +492,11 @@ class StrictOnlineEnv:
             next_reveal = reveal_events[reveal_idx] if reveal_idx < len(reveal_events) else None
             if next_reveal is not None:
                 next_clock = min(next_clock, next_reveal)
+            # 因果口径：预约截止作为一个公开事件，届时触发 replanner（返仓），
+            # 不依赖"后面有没有真实事件"（旧行为在无未来事件时用旧 clock 提前返仓 = 泄漏）。
+            is_booking_end = False
+            if self.booking_horizon is not None and self.booking_horizon > clock + 1e-6:
+                next_clock = min(next_clock, self.booking_horizon)
             for v in vehicles:
                 if v.status == 'committed' and v.committed_finish is not None:
                     next_clock = min(next_clock, v.committed_finish)
@@ -493,18 +512,31 @@ class StrictOnlineEnv:
 
             # 判断当前物理事件类型（决定是否触发重规划）
             is_reveal = (next_reveal is not None and abs(clock - next_reveal) < 1e-6)
+            if self.booking_horizon is not None and abs(clock - self.booking_horizon) < 1e-6:
+                is_booking_end = True
 
             # 推进 fleet：service completion / return completion 更新 FleetState
             self._advance_fleet(inst_idx, clock, vehicles, traces, served_mask)
 
             # P0-CTRL：reveal = 新信息 → 所有未 closed 车 needs_replan=True。
-            # committed 车保留标记，等完成当前不可撤销 leg 变 ready 后再重规划。
+            # 预约截止 = 公开返仓触发（不清尾部，只触发 replanner 决定返仓）。
             if is_reveal:
                 for v in vehicles:
                     if v.status != 'closed':
                         v.needs_replan = True
                         v.replan_reason = 'reveal'
                         v.mutable_suffix = []  # P0-CTRL-3：reveal invalidates mutable tail
+            elif is_booking_end:
+                for v in vehicles:
+                    if v.status != 'closed':
+                        v.needs_replan = True
+                        v.replan_reason = 'booking_end'
+
+            # 揭示即承诺：每次 reveal 事件当场记录 accept/reject（即使所有车都忙）。
+            if is_reveal and self.replanner is not None and hasattr(self.replanner, 'on_reveal'):
+                _vis = [i for i in all_customers
+                        if self.reveal_time[inst_idx, i] <= clock + 1e-6]
+                self.replanner.on_reveal(self, inst_idx, clock, vehicles, served_mask, _vis)
 
             self._maybe_snapshot(inst_idx, clock, reveal_idx, vehicles, traces, served_mask,
                                  all_customers)

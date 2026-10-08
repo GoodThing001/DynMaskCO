@@ -1,0 +1,35 @@
+{
+  "backend_config": {
+    "checkpoint_path": "CC_Compare/RRNCO/checkpoints/rcvrptw/epoch_199.ckpt",
+    "checkpoint_sha256": "b1ff3191ee2f28c19e4807748b3c1b83522e1e96c6fb7bf9238442cf859464b3",
+    "device": "cuda",
+    "distance_sample_size": 25,
+    "native_backhaul_mapping": true,
+    "normalize": true,
+    "num_loc": 100,
+    "sampling_policy": "visible_prob_sampling_v1",
+    "seed": 0,
+    "t_max": 4.6
+  },
+  "certificate": {
+    "pickup_to_depot": true,
+    "tolerance": 1e-06
+  },
+  "coordinator_rules": [
+    "open-new-vehicle 优先（已启动车续用，空载 depot 闲置车才新开）",
+    "归一化排名 → 增量距离 → vehicle_id → customer_id",
+    "排序非法 → EDD fallback（带原因）",
+    "provider 每车只调一次；SubProblem 无 view 引用；禁止默认 EDD"
+  ],
+  "decision_ref": "R1_FREEZE_PLAN.md (2026-09-26, 用户授权)",
+  "evidence": {
+    "evidence_manifest_sha256": "05b2189bd76beae94fd6c9321fc12d1607ff40f02d66194898efdc2f8d029395",
+    "run_a_id": "802c3a4e7a1a471bb366d0101a7ff801",
+    "run_b_id": "0551f33ebe724eaabf18802c10750e12"
+  },
+  "method": "RRNCO-Ordering-RH-D",
+  "revision": 1,
+  "schema_version": "rrnco-dcc-rh-v4-frozen-config-v1",
+  "scope": "旧 strict-online DCC-VRP 协议（SubProblem/coordinator/公共 Bridge 管线）; A-v1 accept 协议适配不在此冻结内",
+  "source_manifest_sha256": "903b2ebe8cdf7098496aff5f544691c9abf4e5a5eac00f72f0cbbcfc4acb6bc7"
+}

@@ -1,0 +1,22 @@
+{
+  "split": "train",
+  "rate_scale": 5.0,
+  "n_states": 32,
+  "myopic_gap_commit": {
+    "mean": 0.1983701728540779,
+    "ci_lo": 0.11836684056530225,
+    "ci_hi": 0.2772044454404257
+  },
+  "terminal_gap_commit": {
+    "mean": 0.002465581129533212,
+    "ci_lo": -0.06362419789353857,
+    "ci_hi": 0.06512458603079177
+  },
+  "terminal_headroom_commit": {
+    "mean": -0.013373468307399244,
+    "ci_lo": -0.08287496103536081,
+    "ci_hi": 0.05643799148754953
+  },
+  "n_terminal_gap_positive": 16,
+  "n_terminal_headroom_positive": 15
+}

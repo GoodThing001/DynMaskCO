@@ -1,0 +1,60 @@
+{
+  "n_records": 252,
+  "split": {
+    "n_train_instances": 5,
+    "n_test_instances": 3,
+    "train_instances": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "test_instances": [
+      5,
+      6,
+      7
+    ],
+    "note": "instance-level split, NOT independent-sample split"
+  },
+  "terminal_gain": {
+    "mean": -0.005961249794273678,
+    "median": 0.0,
+    "n_improving": 60,
+    "n_worsening": 75
+  },
+  "myopic_gain_vs_terminal_gain_spearman": 0.13634829509516236,
+  "linear_probe": {
+    "structural_only": {
+      "n_train": 166,
+      "n_test": 86,
+      "spearman_test": -0.07330381231273603,
+      "r2_test": -1.3620558935503295
+    },
+    "structural_plus_myopic": {
+      "n_train": 166,
+      "n_test": 86,
+      "spearman_test": -0.13421543276892225,
+      "r2_test": -1.4598410601292953
+    }
+  },
+  "feature_names": [
+    "tw_start",
+    "tw_end",
+    "service_time",
+    "demand",
+    "temp_class",
+    "initial_quality",
+    "reveal_time",
+    "dist_to_depot",
+    "incremental_distance",
+    "clock",
+    "n_pool",
+    "n_deferred",
+    "n_vehicles",
+    "total_load",
+    "max_load",
+    "n_idle_ready",
+    "myopic_gain"
+  ]
+}

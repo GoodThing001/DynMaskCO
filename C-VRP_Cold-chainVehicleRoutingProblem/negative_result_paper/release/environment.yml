@@ -1,0 +1,15 @@
+# conda 环境（等价于 requirements.txt；服务器实测环境为 conda MASKCO_env）
+name: maskco-b-repro
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy>=1.24
+  - matplotlib>=3.7
+  - pillow>=9.0
+  - pip
+  - pip:
+      - jax>=0.5.0
+      - flax==0.10.4
+      - optax>=0.2.0
+# GPU 可选（Linux+CUDA12）：pip install jax-cuda12-plugin==<与jax同版本> nvidia-*-cu12

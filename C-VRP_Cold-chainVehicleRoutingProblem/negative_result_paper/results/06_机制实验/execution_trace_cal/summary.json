@@ -1,0 +1,44 @@
+{
+  "n_states": 30,
+  "n_instances": 16,
+  "dist_greedy": {
+    "n_states": 30,
+    "n_executed": 0,
+    "executed_frac": 0.0,
+    "headroom_all": {
+      "mean": 0.002407522349760057,
+      "ci_lo": -0.014127369359005135,
+      "ci_hi": 0.020781931871429075
+    },
+    "headroom_executed": {
+      "mean": null,
+      "ci_lo": null,
+      "ci_hi": null
+    },
+    "headroom_overwritten": {
+      "mean": 0.002407522349760057,
+      "ci_lo": -0.014127369359005135,
+      "ci_hi": 0.020781931871429075
+    }
+  },
+  "exhaustive": {
+    "n_states": 30,
+    "n_executed": 1,
+    "executed_frac": 0.03333333333333333,
+    "headroom_all": {
+      "mean": -0.0028824074726961544,
+      "ci_lo": -0.019829921178184152,
+      "ci_hi": 0.014451456696250682
+    },
+    "headroom_executed": {
+      "mean": -0.0868318371015313,
+      "ci_lo": -0.0868318371015313,
+      "ci_hi": -0.0868318371015313
+    },
+    "headroom_overwritten": {
+      "mean": 1.240044553954066e-05,
+      "ci_lo": -0.015933213271267725,
+      "ci_hi": 0.016128980008601655
+    }
+  }
+}

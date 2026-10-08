@@ -1,0 +1,113 @@
+{
+  "n_states": 32,
+  "n_instances": 16,
+  "J0_mean": 0.8113669757055079,
+  "candidate_mean": {
+    "R": 0.7886115645516127,
+    "Mpre": 0.865394848565395,
+    "Mtrained": 0.865394848565395
+  },
+  "accepted_mean": {
+    "R": 0.7876227019647939,
+    "Mpre": 0.8094237405386168,
+    "Mtrained": 0.8094237405386168
+  },
+  "improvement_vs_J0": {
+    "R": 0.023744273740713973,
+    "Mpre": 0.0019432351668910997,
+    "Mtrained": 0.0019432351668910997
+  },
+  "acceptance_rate": {
+    "R": [
+      22,
+      0.6875
+    ],
+    "Mpre": [
+      3,
+      0.09375
+    ],
+    "Mtrained": [
+      3,
+      0.09375
+    ]
+  },
+  "candidate_paired": {
+    "Mtrained_minus_Mpre": {
+      "mean": 0.0,
+      "ci_lo": -1.0408340855860843e-17,
+      "ci_hi": 1.0408340855860843e-17
+    },
+    "Mtrained_minus_R": {
+      "mean": 0.07678328401378216,
+      "ci_lo": 0.06254320162524185,
+      "ci_hi": 0.090469817997046
+    },
+    "Mpre_minus_R": {
+      "mean": 0.07678328401378215,
+      "ci_lo": 0.06254320162524185,
+      "ci_hi": 0.090469817997046
+    }
+  },
+  "accepted_paired": {
+    "Mtrained_minus_Mpre": {
+      "mean": 0.0,
+      "ci_lo": 0.0,
+      "ci_hi": 0.0
+    },
+    "Mtrained_minus_R": {
+      "mean": 0.021801038573822817,
+      "ci_lo": 0.014147952622194343,
+      "ci_hi": 0.029873313686238204
+    },
+    "Mpre_minus_R": {
+      "mean": 0.021801038573822817,
+      "ci_lo": 0.014147952622194343,
+      "ci_hi": 0.029873313686238204
+    }
+  },
+  "Mtrained_vs_R_accepted": {
+    "win": 1,
+    "tie": 9,
+    "loss": 22
+  },
+  "fail_rate": {
+    "R": [
+      0,
+      0.0
+    ],
+    "Mpre": [
+      0,
+      0.0
+    ],
+    "Mtrained": [
+      0,
+      0.0
+    ]
+  },
+  "cert_fail_rate": {
+    "R": [
+      0,
+      0.0
+    ],
+    "Mpre": [
+      0,
+      0.0
+    ],
+    "Mtrained": [
+      0,
+      0.0
+    ]
+  },
+  "samples": {
+    "Mpre": {
+      "mean_candidate": 0.8633572976524866,
+      "best_of_8_accepted": 0.8094237405386168,
+      "fail_rate": 0.0
+    },
+    "Mtrained": {
+      "mean_candidate": 0.865394848565395,
+      "best_of_8_accepted": 0.8094237405386168,
+      "fail_rate": 0.0
+    }
+  }
+}

@@ -6,6 +6,8 @@ DynMaskCO extends the [MaskCO](https://github.com/ai4co/maskco) (ICLR 2026) mask
 
 > This directory is an **isolated extension workspace**. All new code lives here; the original MaskCO sources under `../MASKCO_code/` are never modified.
 
+Root-level remote helper scripts are organized in [`tools_remote/`](tools_remote/README.md); diagnostic logs are in `logs/root_diagnostics/`. Run helper scripts from this extension directory, for example `bash tools_remote/tools_remote_rr3_readiness.sh`.
+
 > **Current status (2026-09-03):** The paper line is fixed as a MaskCO-based method for dynamic cold-chain logistics. P0-M and the C0 implementation gate are complete: C0 contract/state/trace/snapshot/evaluator/teacher and legacy-isolation checks pass 20/20, with 7/7 pilot sensitivity checks. O0-D is next. The pilot parameters are not yet real-world calibrated and are not paper-level performance evidence. See [`项目当前状态.md`](项目当前状态.md).
 
 > **Execution warning:** upstream MaskCO has moved to `../MASKCO_code/`, while existing extension entry points still contain the old root-level import assumption. Do not run training/decoding as a valid experiment until P0-M is complete.

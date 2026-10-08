@@ -1,5 +1,13 @@
 # RRNCO-RH R0 可适配性判定报告
 
+> **更新（2026-09-26）**：Stage B 真实模型验证完成并双跑复验——
+> `b2_injection_gate` 29/29 PASS、`run_r0_5` run_a（802c3a4e…）/ run_b（0551f33e…）七门全 PASS、
+> 决策证据逐位一致、checkpoint sha256（b1ff3191…）全链一致、`verify_r0_5` ALL PASS。
+> 按 R0.5 放行标准升为 **`GO_R1_RRNCO_ORDERING_RH_D`**；R1 三层身份已冻结
+> （`SOURCE_MANIFEST.json` ← `FROZEN_CONFIG.json`(rev1, sha 318d2179…) ← `FREEZE_SEAL.json`(rev1)，
+> `verify_freeze` ALL PASS；见 [R1_FREEZE_PLAN.md](R1_FREEZE_PLAN.md)）。
+> A-v1 accept 协议的 RRNCO 接单适配另立工作区，不在本冻结内。
+>
 > 方法：RRNCO（`ai4co/real-routing-nco`，ICLR 2026）接入 strict-online DCC-VRP 的可适配性判定。
 > 判定方式：源码分析 + **离线可执行骨架（Stage A.1）**；真实模型尚未运行。
 > 边界：不改 `rrnco/` 上游源码、不改 `common/`、不改 `MASKCO_code/`；只读。
