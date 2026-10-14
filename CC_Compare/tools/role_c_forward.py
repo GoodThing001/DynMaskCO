@@ -118,10 +118,10 @@ class ForwardSpace(object):
     """
 
     __slots__ = ('dist', 'tws', 'twe', 'service', 'demand', 'reveal',
-                 'capacity', 'tw_speed', 'return_deadline')
+                 'capacity', 'tw_speed', 'return_deadline', 'tc', 'iq')
 
     def __init__(self, *, dist, tws, twe, service, demand, reveal,
-                 capacity, tw_speed, return_deadline):
+                 capacity, tw_speed, return_deadline, tc=None, iq=None):
         self.dist = dist
         self.tws = tws
         self.twe = twe
@@ -131,6 +131,10 @@ class ForwardSpace(object):
         self.capacity = float(capacity)
         self.tw_speed = float(tw_speed)
         self.return_deadline = float(return_deadline)
+        # `tc` / `iq` 只供**终局 C0 完成**（物理）使用；路线搜索（LS）不读它们
+        # —— 这正是 §2.1.2「能量只作硬约束、不进目标」的接口体现。
+        self.tc = tc
+        self.iq = iq
 
     def route_ctx(self):
         """本模块的 LS 上下文（`role_c_local_search.RouteContext`）。"""
