@@ -9,6 +9,7 @@
 # 仓库当前 core.autocrlf=true 且根目录无 .gitattributes：不加此文件时，LF 文件在 fresh
 # checkout 会被转成 CRLF，本审计登记的 raw sha256 将无法复现。
 /P1A_RoleC_*.md text eol=lf
+/P1A_D*.md text eol=lf
 /tools/role_c_controls.py text eol=lf
 /tools/role_c_opportunity_cost.py text eol=lf
 /tools/test_role_c_controls.py text eol=lf

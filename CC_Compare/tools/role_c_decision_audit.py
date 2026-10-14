@@ -236,12 +236,23 @@ def check_ablation_engagement(cases, activation=None):
 
     `activation` = `{开关名: 该集合内"机制被触发"的决策数}`（例如 `λ_B` 的
     `raw > 0` 计数），由 runner 从其诊断里统计后传入。**未提供或为 0 ⇒ not_applicable**。
-    仓库实据支持这一收紧：登记规则 v4 的 1000 条决策里 `b_rem` 最小 197.27（B=710.65）、
-    `reject_budget` 触发 0 次、每日 `spent_before` 峰值 ≤72.2% B、
-    `λ` 有 291/1000 落在网格下限 ⇒ 在这些日子上，**实现正确**的内生 `λ_B` 也会大面积 ≈0。
 
-    ⇒ **"机制是否接进代码"的正证仍由 T9③ 承担**（纯函数：`Ĵ` 换常数 ⇒ `λ_B ≡ 0`），
-    那比"结果序列不同"强得多，且不受资源松紧影响。
+    ⚠️ **2026-10-14 用户裁定③纠正了本函数原先的措辞（我原来的推论过头了）**：
+    仓库实据（登记规则 v4 的 1000 条决策）**只能**支持一件事——
+    **下界记账下的硬前置检查是松的**（`b_rem` 最小 197.27、`reject_budget` 触发 0 次、
+    每日 `spent_before` 峰值 ≤72.2% B）。它**不能**推出"其余 709 次决策的资源价格接近零"：
+
+      * **291/1000 触及网格下限 ≠ 另外 709 次 λ≈0** —— 触及下限只说明该次不受网格约束，
+        不给出其余决策的价格大小；两者不能互相推断。
+      * **`reject_budget = 0` 不证明不存在前瞻性机会成本** —— 一个**已经**在高耗能订单上
+        持续拒单的策略，本就会把预算维持在充足水平，于是硬前置检查**永远不会**触发。
+        "检查没响"因此可能是**机制在起作用的结果**，而不是"机制没有必要"的证据。
+      * `spent_before` 用的是 `Σ e_lower`（**下界**），而权威检查是 `certify_plan` 的
+        完整续行能量；且**旧规则日志未记录 `certify_energy`** ⇒ "资源是否真的稀缺"
+        在本轮**尚未闭合**，须由独立的资源可识别性诊断回答，不得由本函数假定。
+
+    ⇒ **"机制是否接进代码"的正证仍由 T2a 承担**（预设压力夹具上的数值行为 + T9③ 纯函数反证），
+    真实开发日上的**效果可识别性**由 T2b 承担；两者都**不**用"结果序列是否不同"当唯一判据。
     """
     rows, problems = [], []
     if not cases:
@@ -269,7 +280,129 @@ def check_ablation_engagement(cases, activation=None):
     return (not problems), rows, problems
 
 
-def audit(records, log_repeat=None, ablations=None, ablation_activation=None, tol=TOL):
+def check_t2a_shadow_price_correctness(fixtures):
+    """**T2a 实现正确性门**（在**预设资源压力输入**上；**不要求**最终动作不同）。
+
+    `fixtures` ＝ `[{'budget', 'e_o', 'v_hi', 'v_lo'}, ...]`，由运动者**事前构造**的压力夹具
+    （不是真实开发日）。逐条核对数值行为**符合公式**：
+
+      ① `lambda_raw == (v_hi − v_lo) / e_o`；
+      ② `lambda_B == max(lambda_raw, 0)`（下限截断）；
+      ③ `lambda_B >= 0`；
+      ④ `e_o <= 0 ⇒ lambda_B == 0`（不得凭空产生机会成本）；
+      ⑤ `B − e_o < 0 ⇒ infeasible=True` 且评估点截到 0；
+      ⑥ **消融差值**：`λ_B≡0` 与不消融的**评分**（`net_after`）必须不同（当 `λ_B·e_o != 0`）——
+         这里检查的是"价格确实进入了评分"，**不是**"动作必须改变"。
+
+    用户裁定③原文："这里要求数值行为符合公式，不要求最终动作必须不同。"
+    返回 `(ok, rows, problems)`。
+    """
+    from role_c_opportunity_cost import shadow_price_budget, decide
+    rows, problems = [], []
+    if not fixtures:
+        problems.append('未提供任何 T2a 压力夹具 ⇒ 无法判定实现正确性，fail-closed')
+        return False, rows, problems
+    for i, fx in enumerate(fixtures):
+        B, e = float(fx['budget']), float(fx['e_o'])
+        jhi, jlo = float(fx['v_hi']), float(fx['v_lo'])
+
+        def _fn(b, jhi=jhi, jlo=jlo, B=B):
+            return jhi if abs(b - B) < 1e-12 else jlo
+
+        lam, d = shadow_price_budget(B, e, _fn)
+        exp_raw = 0.0 if e <= 0 else (jhi - jlo) / e
+        exp_lam = max(exp_raw, 0.0)
+        checks = {
+            'raw_matches_formula': abs(d['lambda_raw'] - exp_raw) < 1e-9,
+            'clip_matches_max0': abs(lam - exp_lam) < 1e-9,
+            'nonnegative': lam >= 0.0,
+            'zero_energy_zero_cost': (e > 0) or (lam == 0.0 and d['lambda_B'] == 0.0),
+            'infeasible_and_clamped': (B - e >= 0) or (d['infeasible'] is True
+                                                       and d['b_lo_eval'] == 0.0),
+        }
+        # ⑥ 消融差值必须改变**评分**（价格进入评分），不要求动作改变
+        mn = 1.0
+        _acc_on, d_on = decide(myopic_net=mn, e_o=e, lambda_B=lam, certify_ok=True)
+        _acc_off, d_off = decide(myopic_net=mn, e_o=e, lambda_B=lam, certify_ok=True,
+                                 ablate_opportunity_cost=True)
+        price_nonzero = abs(lam * e) > 1e-12
+        score_differs = (d_on['net_after_opportunity_cost']
+                         != d_off['net_after_opportunity_cost'])
+        checks['ablation_changes_score_when_price_nonzero'] = (not price_nonzero) or score_differs
+        ok_i = all(checks.values())
+        rows.append({'fixture_index': i, 'budget': B, 'e_o': e, 'v_hi': jhi, 'v_lo': jlo,
+                     'lambda_raw': d['lambda_raw'], 'lambda_B': lam,
+                     'expected_raw': exp_raw, 'expected_lambda_B': exp_lam,
+                     'infeasible': d['infeasible'], 'checks': checks, 'ok': ok_i})
+        if not ok_i:
+            problems.append('T2a 夹具 %d 数值行为不符公式：%s'
+                            % (i, sorted(k for k, v in checks.items() if not v)))
+    return (not problems), rows, problems
+
+
+T2B_NOT_APPLICABLE = 'not_applicable'
+T2B_ACTIVATED_NO_EFFECT = 'mechanism_activated_no_behavioural_effect'
+T2B_ACTIVATED_WITH_EFFECT = 'mechanism_activated_with_behavioural_effect'
+T2B_WIRING_DEFECT = 'wiring_defect'
+
+
+def check_t2b_effect_identifiability(stats):
+    """**T2b 效果可识别性门**（真实日；只做"可识别性"判定，**不判效果好坏**）。
+
+    `stats` ＝ `{'n_decisions', 'n_raw_positive', 'n_lambda_effective_positive',
+                'n_score_changed', 'n_ordering_or_action_changed'}`
+    （全部由 runner 从其逐决策诊断统计；本函数**不读效用**）。
+
+    ⚠️ 用户裁定③：必须区分 **`raw > 0`** 与**截断后的实际 `λ_B`** ——
+    原始值为正但截断后与对照相同，**仍不构成可识别的价格干预**。
+
+    判定（四级，**只有接线缺陷才 FAIL**）：
+
+      * `raw > 0` 计数为 0 ⇒ `not_applicable`（本集合根本没有前瞻价格信号）；
+      * `raw > 0` 但**有效** `λ_B > 0` 为 0 ⇒ `not_applicable`
+        （截断后无有效价格 ⇒ 不构成干预，**不判 FAIL**）；
+      * 有效价格 > 0 但**评分变化**为 0 ⇒ `wiring_defect`（价格没进评分，**FAIL**）；
+      * 评分变化 > 0 但**排序/动作变化**为 0 ⇒ `mechanism_activated_no_behavioural_effect`
+        （**不是接线失败，也不是效果通过** —— 如实记为"机制已激活、未观察到行为效应"）；
+      * 动作也变化 ⇒ `mechanism_activated_with_behavioural_effect`
+        （**可识别**；"效果是否为正"仍归 P1-A 效果门，**本函数不判**）。
+
+    返回 `(verdict, row, problems)`；`problems` 只在 `wiring_defect` 时非空。
+    """
+    def _g(k):
+        return int((stats or {}).get(k, 0) or 0)
+
+    n_dec = _g('n_decisions')
+    n_raw = _g('n_raw_positive')
+    n_eff = _g('n_lambda_effective_positive')
+    n_score = _g('n_score_changed')
+    n_act = _g('n_ordering_or_action_changed')
+    row = {'n_decisions': n_dec, 'n_raw_positive': n_raw,
+           'n_lambda_effective_positive': n_eff, 'n_score_changed': n_score,
+           'n_ordering_or_action_changed': n_act,
+           'note_raw_vs_clipped': ('raw>0 只说明未截断前为正；判定用截断后的实际 λ_B'
+                                   '（n_lambda_effective_positive）')}
+    if n_raw <= 0:
+        row['reason'] = '本集合内 raw>0 计数为 0 ⇒ 没有前瞻价格信号'
+        return T2B_NOT_APPLICABLE, row, []
+    if n_eff <= 0:
+        row['reason'] = ('raw>0 但截断后有效 λ_B>0 为 0 ⇒ 不构成可识别的价格干预'
+                         '（注意：这不是接线失败）')
+        return T2B_NOT_APPLICABLE, row, []
+    if n_score <= 0:
+        row['reason'] = '有效价格>0 但候选评分无变化 ⇒ 价格没有进入评分路径（接线缺陷）'
+        return T2B_WIRING_DEFECT, row, ['T2b 接线缺陷：有效 λ_B>0 未改变候选评分']
+    if n_act <= 0:
+        row['reason'] = ('评分已变但排序/动作未变 ⇒ 机制已激活、**未观察到行为效应**；'
+                         '既不算接线失败，也不算效果通过')
+        return T2B_ACTIVATED_NO_EFFECT, row, []
+    row['reason'] = ('价格→评分→排序/动作 三级均可观察 ⇒ 机制可识别；'
+                     '效果方向与显著性归 P1-A 效果门，本函数不判')
+    return T2B_ACTIVATED_WITH_EFFECT, row, []
+
+
+def audit(records, log_repeat=None, ablations=None, ablation_activation=None, tol=TOL,
+          t2a_fixtures=None, t2b_stats=None):
     """跑全部可用检查，返回结构化报告（**不读任何效用**）。
 
     ⚠️ **`problems` 只放"真的违反了"**；「未提供对照 ⇒ 不适用」进 `not_applicable`。
@@ -290,19 +423,41 @@ def audit(records, log_repeat=None, ablations=None, ablation_activation=None, to
     else:
         t234_ok, t234_rows, t234 = check_ablation_engagement(
             ablations, activation=ablation_activation)
+    # ---- T2a 实现正确性（预设压力夹具；不要求动作不同）----
+    t2a_ok, t2a_rows = None, []
+    if t2a_fixtures is None:
+        na.append('T2a 影子价格实现正确性：未提供压力夹具（`t2a_fixtures`）⇒ 不适用')
+    else:
+        t2a_ok, t2a_rows, t2a_problems = check_t2a_shadow_price_correctness(t2a_fixtures)
+    # ---- T2b 效果可识别性（真实日；raw>0 与截断后有效 λ_B 必须分开）----
+    t2b_verdict, t2b_row = None, {}
+    if t2b_stats is None:
+        na.append('T2b 效果可识别性：未提供逐决策统计（`t2b_stats`）⇒ 不适用')
+    else:
+        t2b_verdict, t2b_row, t2b_problems = check_t2b_effect_identifiability(t2b_stats)
     checks = {'T2_T3_T4_ablation_engagement': t234_ok,
+              'T2a_shadow_price_correctness': t2a_ok,
               'T5_order_and_causality': t5_ok,
               'T6_commitments_and_budget': t6_ok,
               'T7_determinism': t7_ok}
     problems = list(t234) + list(t5) + list(t6) + list(t7)
+    if t2a_fixtures is not None:
+        problems += list(t2a_problems)
+    if t2b_stats is not None:
+        problems += list(t2b_problems)          # 只有 wiring_defect 才非空
     return {'schema_version': SCHEMA_VERSION,
             'n_records': len(records or []),
             'checks': checks,
             'ablation_rows': t234_rows,
+            't2a_rows': t2a_rows,
+            't2b_verdict': t2b_verdict,
+            't2b_row': t2b_row,
             'problems': problems,
             'not_applicable': na,
             # 只有**已执行**的检查才参与判定；未提供对照不算失败
             'passed': all(v is not False for v in checks.values()),
             'note': '只判"机制是否被违反 / 开关是否接入"，**不判有没有用**（不读效用）。'
                     '缺字段一律 FAIL（没记录 ≠ 没违反）；消融**有差异即算接入，不判显著性**；'
-                    '「不适用」进 `not_applicable`，**不**计入 `problems`。'}
+                    '「不适用」进 `not_applicable`，**不**计入 `problems`。'
+                    'T2b 的 `mechanism_activated_no_behavioural_effect` '
+                    '既不算接线失败，也不算效果通过。'}

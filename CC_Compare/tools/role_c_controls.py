@@ -9,8 +9,15 @@ Role C 的判决式 `myopic_net − λ·e > 0` 与既有 `knn` / `valuee20/30` *
 "**一个调好的密度阈值**"。
 
 ⇒ 必须增加 `B-density`：λ 用既有臂的**背包密度阈值**（外生，单位 revenue/kWh），
-其余（场景、路线修复、判据、预算）与 `B-shadow` 全同。比较 **`B‑shadow − B‑density`**。
+其余（场景、候选池、信息集、路线修复、判据、预算认证、执行规则）与 `B-shadow` 全同。
+比较 **`B‑shadow − B‑density`**。
 若该差 ≈ 0，正确表述是"**资源门槛机制**有用、**内生化**无增量"。
+
+⚠️ **2026-10-14 用户裁定①**：`B-density` 的近视基准必须与 Role C **同一个**
+（`m_o = R_o − c_f·ΔD_o + p_{c,o}`），否则该差值同时改变「λ 来源」与「近视基准」
+两件事 ⇒ 只能登记为**双因素探索性消融**，**不得**用于证明"内生化"的独立作用。
+原 `REV` 版本**不删除**，通过 `myopic_net_fn=None` 显式构造，并由 `factor_status()`
+标为 `two_factor_exploratory`。历史结果保持原裁决，不追溯改成单因素实验。
 
 ⚠️ **本模块是"对照臂"，不是 Role C**：`role_c_opportunity_cost.decide_candidate`
 **拒绝**用密度阈值估计 λ（会抛错），以免 Role C 退化为 `knn` 的同胞。
@@ -76,15 +83,20 @@ def decide_b_density_control(*, order, candidate_plan, budget_B,
     rem = float(budget_B if remaining_budget is None else remaining_budget)
     lam = density_threshold_lambda(future_vals, future_energys, rem)
     if myopic_net_fn is None:
-        mn, base_note = float(revenue_fn(order)), 'REV（**上游口径**；与 Role C 基准不同 ⇒ 不可归因）'
+        mn = float(revenue_fn(order))
+        base_note = 'REV（**上游口径**；与 Role C 基准不同 ⇒ 不可归因，仅作第二因素探索）'
+        base_label = rc.MYOPIC_BASE_REVENUE_ONLY
     else:
-        mn, base_note = float(myopic_net_fn(order)), 'R − fuel + p_c（与 Role C **同一基准**）'
+        mn = float(myopic_net_fn(order))
+        base_note = 'R − fuel + p_c（与 Role C **同一基准**）'
+        base_label = rc.MYOPIC_BASE_COMPONENTS
     certify_ok, certify_energy = certify_fn(candidate_plan)
     # 复用同一判决实现（`decide`），只是 λ 的来源不同 ⇒ 基准一致时两臂只差这一件事
     accept, diag = decide(myopic_net=mn, e_o=e_o, lambda_B=lam, certify_ok=certify_ok)
     diag.update({
         'arm': 'B_density_control',
         'lambda_estimator': LAMBDA_ESTIMATOR_DENSITY,
+        'myopic_base': base_label,
         'lambda_diag': {'lambda_B': lam, 'lambda_source': 'density_threshold_knapsack',
                         'n_future_orders': int(len(np.asarray(future_vals))),
                         'remaining_budget': rem},
@@ -108,9 +120,14 @@ def arms_are_matched(diag_shadow, diag_density):
     若确要保留上游 `REV` 基准，则须把"近视基准"**登记为第二个被检验因素**，
     不得再把 `B‑shadow − B‑density` 解释成"内生化"的单独效应。
     审计见 `CC_Compare/P1A_RoleC_效用公式与消融门审计_2026-10-14.md` §2.2。
+
+    ⚠️ **2026-10-14 用户裁定①补充**：除数值 `myopic_net` 外，还比**语义身份**
+    `myopic_base`（`components…` / `full_accept_minus_reject_margin` / `revenue_only_legacy`）。
+    仅数值偶然相等、而组装方式不同，仍判不可归因 —— 否则"我恰好调成了同一个数"
+    会被当成"基准相同"。
     """
     diffs = []
-    for k in ('e_o', 'certify_ok', 'budget_B', 'myopic_net'):
+    for k in ('e_o', 'certify_ok', 'budget_B', 'myopic_net', 'myopic_base'):
         a, b = diag_shadow.get(k), diag_density.get(k)
         if a != b:
             diffs.append((k, a, b))
@@ -118,3 +135,22 @@ def arms_are_matched(diag_shadow, diag_density):
         diffs.append(('lambda_estimator', diag_shadow.get('lambda_estimator'),
                       diag_density.get('lambda_estimator')))
     return (not diffs), diffs
+
+
+def factor_status(diag_shadow, diag_density):
+    """声明 `B‑shadow − B‑density` 这个差值**能证明什么**（用户裁定①）。
+
+    * `single_factor`：两臂近视基准语义一致（同 `myopic_base`）⇒ 差值可归因于
+      **λ 估计方式（内生化）** 这一件事，是**主对照**；
+    * `two_factor_exploratory`：两臂近视基准不同（典型：B-density 用 `REV` 上游口径）
+      ⇒ 差值同时改变「λ 来源」与「近视基准」两件事，**只能登记为第二因素的探索性消融**，
+      **不得**再用它证明"内生化"的独立作用。
+
+    历史结果保持原裁决，**不追溯**改成单因素实验。
+    """
+    ok, diffs = arms_are_matched(diag_shadow, diag_density)
+    if ok:
+        return 'single_factor', diffs
+    if any(k in ('myopic_net', 'myopic_base') for k, _a, _b in diffs):
+        return 'two_factor_exploratory', diffs
+    return 'not_comparable', diffs

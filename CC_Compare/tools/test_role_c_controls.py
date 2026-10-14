@@ -136,9 +136,13 @@ def main():
        ok is False and any(k == 'myopic_net' for k, _a, _b in diffs), diffs)
 
     d_shadow_matched = dict(d_shadow)
-    d_shadow_matched['myopic_net'] = d['myopic_net']       # 人为对齐基准
+    d_shadow_matched['myopic_net'] = d['myopic_net']
+    # ⚠️ 2026-10-14 用户裁定①：除数值外还须对齐**语义身份** `myopic_base`，
+    #    否则"恰好把数调成一样"会被当成"基准相同"。只对齐数值 ⇒ 仍判不可归因
+    #    （该反例在 test_role_c_adjudication_20261014.py 中单独断言）。
+    d_shadow_matched['myopic_base'] = d['myopic_base']
     ok2, diffs2 = ctl.arms_are_matched(d_shadow_matched, d)
-    ck('⑤ 近视基准对齐后，其余共享字段一致 + λ 标签不同 ⇒ 可归因',
+    ck('⑤ 近视基准数值+语义身份都对齐后，其余共享字段一致 + λ 标签不同 ⇒ 可归因',
        ok2 is True, diffs2)
 
     # ★ 2026-10-14（用户裁定「只替换 λ 估计器」+ 审计 D2b）：走**真实代码路径**的正例 ——

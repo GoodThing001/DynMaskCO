@@ -220,14 +220,63 @@ def myopic_net(revenue, fuel, reject_loss):
     `fuel` 口径 = **边际**行驶燃料 `FUEL_COST_PER_KM × Δdistance(插入 o)`，
     不是分摊/整日燃料（否则近视基准量级错，归因失真）。
     **不得**在此再扣机会成本。
+
+    ⚠️ 本函数只接受**分量**（revenue / fuel / reject_loss）。若调用方手上的量
+    **已经是** `J_accept − J_reject`（其中已含拒单罚金），必须改调
+    `myopic_net_from_full_margin` —— 否则会在修好 D1 之后**又加一次** `p_c`
+    （偏差 `2·p_c`），这正是 2026-10-14 用户裁定①要求补符号单测的原因。
     """
     return float(revenue) - float(fuel) + float(reject_loss)
+
+
+# 近视基准的**两种来源**：必须显式声明，供 `arms_are_matched` 做语义身份检查。
+#   components  ：调用方给 R / ΔF / p_c 三个分量 ⇒ 由 `myopic_net` 组装
+#   full_margin ：调用方给的量**已经等于** J_accept − J_reject（已含 p_c）⇒ 原样使用
+MYOPIC_BASE_COMPONENTS = 'components_revenue_fuel_reject_loss'
+MYOPIC_BASE_FULL_MARGIN = 'full_accept_minus_reject_margin'
+MYOPIC_BASES = (MYOPIC_BASE_COMPONENTS, MYOPIC_BASE_FULL_MARGIN)
+
+# 第二因素探索臂的近视基准（`REV` 版，对齐上游 knn/valuee）。
+# ⚠️ 它**不得**再用于 `B-shadow − B-density` 的单因素归因比较（2026-10-14 用户裁定①）：
+#    该差值会同时改变「λ 估计方式」与「近视基准」两件事，只能登记为**双因素**探索性消融。
+MYOPIC_BASE_REVENUE_ONLY = 'revenue_only_legacy'
+
+
+def myopic_net_from_full_margin(margin, *, reject_loss=None):
+    """调用方给的量**已经是** `J_accept − J_reject`（含拒单罚金）⇒ **原样返回**。
+
+    对应 2026-10-14 用户裁定①的符号单测：修好 D1（`+p_c`）之后，若把"已经完全含 p_c
+    的差值"再喂给 `myopic_net(...)`，就会产生**新的重复计入**。因此本函数**不接受**
+    `reject_loss`：一旦传入即抛错，逼迫调用方二选一。
+    """
+    if reject_loss is not None:
+        raise ValueError(
+            '传入了已经是 J_accept − J_reject 的完整差值，**不得**再加 reject_loss：'
+            '该差值已含拒单罚金，再加一次 = 重复计入 p_c（偏差 2·p_c）。'
+            '若手上只有分量，请改用 myopic_net(revenue, fuel, reject_loss)。')
+    return float(margin)
+
+
+def myopic_net_from_components_or_margin(*, myopic_base, revenue=None, fuel=None,
+                                        reject_loss=None, margin=None):
+    """按显式声明的 `myopic_base` 选择组装方式，返回 `(value, base_label)`。"""
+    if myopic_base == MYOPIC_BASE_COMPONENTS:
+        if None in (revenue, fuel, reject_loss):
+            raise ValueError('myopic_base=components 需要 revenue / fuel / reject_loss 三者')
+        return myopic_net(revenue, fuel, reject_loss), MYOPIC_BASE_COMPONENTS
+    if myopic_base == MYOPIC_BASE_FULL_MARGIN:
+        if margin is None:
+            raise ValueError('myopic_base=full_margin 需要 margin')
+        return (myopic_net_from_full_margin(margin, reject_loss=reject_loss),
+                MYOPIC_BASE_FULL_MARGIN)
+    raise ValueError('未知 myopic_base=%r；应为 %s' % (myopic_base, ' / '.join(MYOPIC_BASES)))
 
 
 def decide_candidate(*, order, candidate_plan, budget_B,
                      myopic_net_fn, marginal_energy_fn, future_value_fn, certify_fn,
                      ablate_opportunity_cost=False, ablate_lookahead=False,
-                     lambda_estimator=LAMBDA_ESTIMATOR_SHADOW):
+                     lambda_estimator=LAMBDA_ESTIMATOR_SHADOW,
+                     myopic_base=MYOPIC_BASE_COMPONENTS):
     """**Role C 的候选评估核心**（规格 §2.1 + §2.4 的"候选评估 → certify → 提交"）。
 
     环境相关的部分**全部注入**（`myopic_net_fn` / `marginal_energy_fn` /
@@ -285,6 +334,7 @@ def decide_candidate(*, order, candidate_plan, budget_B,
                 'lambda_diag': {'lambda_source': 'boundary_short_circuit',
                                 'undefined': rule == 'B3_lambda_undefined'},
                 'lambda_estimator': lambda_estimator,
+                'myopic_base': myopic_base,
                 'budget_B': float(budget_B), 'ablate_lookahead': bool(ablate_lookahead),
                 'reject_reason': reason,
                 'formulation': '(i) myopic_net − λ_B·e_o > 0 ∧ certify_ok',
@@ -309,6 +359,7 @@ def decide_candidate(*, order, candidate_plan, budget_B,
     diag.update({
         'lambda_diag': lam_diag,
         'lambda_estimator': lambda_estimator,
+        'myopic_base': myopic_base,
         'certify_energy': certify_energy,
         'budget_B': float(budget_B),
         'ablate_lookahead': bool(ablate_lookahead),

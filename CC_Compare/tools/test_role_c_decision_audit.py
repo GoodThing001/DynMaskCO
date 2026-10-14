@@ -222,10 +222,18 @@ def main():
     ck('audit() 整合：T2–T7 全过', r['passed'] is True and r['problems'] == [],
        r['problems'])
     r = aud.audit(base)
-    ck('audit()：未提供重复日志/消融 ⇒ 记 None（不适用）且**不进 problems**，整体 passed',
+    # ⚠️ 2026-10-14 用户裁定③：T2 拆成 T2a（预设压力夹具上的实现正确性）与 T2b（真实日效果可识别性）。
+    #    两者未提供时也进 `not_applicable` ⇒ 条目数由 2 变 4；判据改为"点名包含"而非"恰好等于 2"。
+    ck('audit()：未提供重复日志/消融/T2a/T2b ⇒ 记 None（不适用）且**不进 problems**，整体 passed',
        r['checks']['T7_determinism'] is None
        and r['checks']['T2_T3_T4_ablation_engagement'] is None
-       and r['problems'] == [] and len(r['not_applicable']) == 2 and r['passed'] is True,
+       and r['checks']['T2a_shadow_price_correctness'] is None
+       and r['problems'] == [] and len(r['not_applicable']) == 4
+       and any('T7' in s for s in r['not_applicable'])
+       and any('T2/T3/T4' in s for s in r['not_applicable'])
+       and any('T2a' in s for s in r['not_applicable'])
+       and any('T2b' in s for s in r['not_applicable'])
+       and r['passed'] is True,
        'problems=%s na=%s' % (r['problems'], r['not_applicable']))
     r = aud.audit(base, ablations=onepairs)
     ck('audit()：有开关未接入 ⇒ passed=False', r['passed'] is False)
