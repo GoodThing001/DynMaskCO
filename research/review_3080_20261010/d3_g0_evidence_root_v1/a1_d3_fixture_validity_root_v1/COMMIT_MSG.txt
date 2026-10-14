@@ -1,0 +1,49 @@
+D3 A2/A3 fixture-validity review: runtime attribution, legal-fixture control, A3 two-way certifier control, new freeze identity with import proof
+
+Authorised scope: existing tests only, frozen identity, read-only evidence, NO F-vs-D-Geo
+effect comparison, NO change to any existing freeze tree, NO change to MASKCO_code/.
+
+Runtime attribution of the three failing assertions in the FROZEN historical suite
+(test_d3_assembly_invariants.py, 20 PASS / 3 FAIL in both the tree copy and the worktree):
+
+1+2. A2 end-to-end / only-added-field: the caller fixture is ILLEGAL -- legal_fn over
+     mask_set=[5] yields len(legal)=1 while score_fn returns 2 scores.  The new assembly
+     fails closed by contract: failure_reason='score_len', n_steps=0, plan rolled back.
+     The assertion therefore compared [] against the legacy sampler's 1 step.  The legacy
+     stepwise_sample has no score-length guard, which is exactly where the 1-vs-0 came from.
+3.   A3 "success path installs exactly once": the call passes NO certify_fn while
+     INSTALL_REQUIRES_CERTIFICATION=True, so the transaction refuses BEFORE sampling:
+     failure_reason='no_certifier', n_installs=0, install_fn never called, no exception.
+
+Verdict: all three are CALLER/FIXTURE defects, not implementation defects.  The fail-closed
+behaviour (score_len rollback, no_certifier refusal) is correct and was NOT relaxed.  The
+historical suite is left untouched and stays red by design.
+
+Legal-fixture A2 control (same customer, two legal actions, len(scores)==len(legal), exact
+tie, canonical key order reversed vs legal order): the assembly RECORDS the first action in
+legal order as chosen, matching the historical F projection, in both orderings; canonical keys
+are still recorded; and a new coherence probe (two distinct customers) shows the action the
+assembly APPLIES matches the action it records.
+
+A3 two-way control: no certifier => must refuse (no_certifier, 0 installs, deterministic
+across two fresh ledgers); a clearly TEST-ONLY deterministic certifier => installs exactly
+once with installed plan identity == certified plan identity.  The test certifier is not
+certify_plan, never appears as a real certifier surface, produces no D8 install receipt, and
+cannot bypass the score-length guard (certifier + illegal fixture still fails closed).
+
+New freeze identity freeze_tree_5273739d (24 files = the registered 22-file identity + this
+round's 2 new files, byte-verified) with an IMPORT PROOF: 24/24 modules imported FROM_TREE,
+EPS_D_PRIMARY_REL=0.0, EPS_D_PRIMARY_ABS=0.0, TIE_BREAK_LEGAL_ORDER='legal_order_first',
+INSTALL_REQUIRES_CERTIFICATION=true.
+
+Raw records of all three regression suites plus the new suite, run from both the freeze tree
+and the worktree; failed attempts 1 and 2 preserved verbatim (harness defects: a matcher that
+compared candidate repr against FleetAction repr, and an incomplete non-frozen helper path).
+
+New: scripts/tests/test_d3_assembly_fixture_validity.py (21 rows, 21 PASS)
+     scripts/tests/d3_fixvalid_import_proof.py
+     research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_fixture_validity_root_v1/
+       (RUN_FIXVALID.py, report, manifest, identity, records, freeze_tree_5273739d/, raw/)
+
+algorithmic_gain_claim: none.  F_vs_D_Geo_effect: NOT_COMPARED.  No metric, threshold or
+PENDING value was frozen or changed by this round.

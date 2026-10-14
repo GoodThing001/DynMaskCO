@@ -1,0 +1,413 @@
+{
+  "n_fail": 4,
+  "n_pass": 15,
+  "n_rows": 19,
+  "records": {
+    "C_legal_head_is_larger_canonical_key": {
+      "applied_index": null,
+      "apply_calls": [
+        {
+          "args": [
+            "{1: VehiclePlan(vehicle_id=1, anchor_node=3, anchor_time=0.0, anchor_load=0.0, suffix=[4]), 2: VehiclePlan(vehicle_id=2, anchor_node=0, anchor_time=0.0, anchor_load=0.0, suffix=[]), 3: VehiclePlan(vehicle_id=3, anchor_node=0, anchor_time=0.0, anchor_load=0.0, suffix=[5])}",
+            "FleetAction(customer=5, slot=ActionSlot(kind='anchored', anchor=3), position=0, predecessor=3, successor=3, incumbent=False)"
+          ],
+          "kwargs": {
+            "allowed_vehicle_ids": "{1, 2, 3}"
+          }
+        }
+      ],
+      "canonical_key_head_index": 1,
+      "canonical_keys": "[[5, 1, 0, 3, 1, 0, 0], [5, 1, 0, 3, 0, 3, 3]]",
+      "canonical_order_differs_from_legal_order": true,
+      "chosen_step": "{'customer': 5, 'vehicle_id': 1, 'slot_kind': 'anchored', 'slot_anchor': 3, 'position': 1, 'predecessor': 0, 'successor': 0, 'incremental_distance': 5.0}",
+      "customers": [
+        5,
+        5
+      ],
+      "failure_reason": null,
+      "historical_projection_index": 0,
+      "legal_order_positions": [
+        1,
+        0
+      ],
+      "n_legal": 2,
+      "n_scores": 2,
+      "n_steps": 1
+    },
+    "C_legal_head_is_smaller_canonical_key": {
+      "applied_index": null,
+      "apply_calls": [
+        {
+          "args": [
+            "{1: VehiclePlan(vehicle_id=1, anchor_node=3, anchor_time=0.0, anchor_load=0.0, suffix=[4]), 2: VehiclePlan(vehicle_id=2, anchor_node=0, anchor_time=0.0, anchor_load=0.0, suffix=[]), 3: VehiclePlan(vehicle_id=3, anchor_node=0, anchor_time=0.0, anchor_load=0.0, suffix=[5])}",
+            "FleetAction(customer=5, slot=ActionSlot(kind='anchored', anchor=3), position=0, predecessor=3, successor=3, incumbent=False)"
+          ],
+          "kwargs": {
+            "allowed_vehicle_ids": "{1, 2, 3}"
+          }
+        }
+      ],
+      "canonical_key_head_index": 0,
+      "canonical_keys": "[[5, 1, 0, 3, 0, 3, 3], [5, 1, 0, 3, 1, 0, 0]]",
+      "canonical_order_differs_from_legal_order": false,
+      "chosen_step": "{'customer': 5, 'vehicle_id': 1, 'slot_kind': 'anchored', 'slot_anchor': 3, 'position': 0, 'predecessor': 3, 'successor': 3, 'incremental_distance': 5.0}",
+      "customers": [
+        5,
+        5
+      ],
+      "failure_reason": null,
+      "historical_projection_index": 0,
+      "legal_order_positions": [
+        0,
+        1
+      ],
+      "n_legal": 2,
+      "n_scores": 2,
+      "n_steps": 1
+    },
+    "C_order_reversal_discriminates_legal_order_from_canonical_key": {
+      "canonical_heads": [
+        1,
+        0
+      ],
+      "run1_applied": null,
+      "run2_applied": null,
+      "verdict": "NOT distinguishable (both runs applied the same action)"
+    },
+    "D_certifier_with_illegal_fixture": {
+      "install_fn_calls": 0,
+      "ledger": {
+        "events": "[{'action': 'rollback', 'reason': 'score_len', 'candidate_discarded': True, 'committed_state_restored': False, 'rollback_unverified': True}]",
+        "finish": "<bound method InstallLedger.finish of <d3_geo_adapter.InstallLedger object at 0x000001DF7F126FF0>>",
+        "finished": "True",
+        "install_fn": "<function verify_a3_two_way.<locals>.<lambda> at 0x000001DF7F1476A0>",
+        "installed_plans": "[]",
+        "installs": "[]",
+        "n_installs": "0",
+        "n_pre_sampling_refusals": "0",
+        "n_refusals": "0",
+        "n_rollback_unverified": "1",
+        "n_rollbacks": "1",
+        "n_state_restorations": "0",
+        "rollback_fn": "None"
+      },
+      "raised": null,
+      "reason": null,
+      "returned": "False"
+    },
+    "D_no_certifier_A": {
+      "install_fn_calls": 0,
+      "ledger": {
+        "events": "[{'action': 'refuse', 'reason': 'no_certifier', 'refused_before_sampling': True, 'candidate_discarded': True, 'committed_state_restored': True, 'rollback_unverified': False}]",
+        "finish": "<bound method InstallLedger.finish of <d3_geo_adapter.InstallLedger object at 0x000001DF7F126780>>",
+        "finished": "True",
+        "install_fn": "<function verify_a3_two_way.<locals>._refusal_run.<locals>.<lambda> at 0x000001DF7F1476A0>",
+        "installed_plans": "[]",
+        "installs": "[]",
+        "n_installs": "0",
+        "n_pre_sampling_refusals": "1",
+        "n_refusals": "0",
+        "n_rollback_unverified": "0",
+        "n_rollbacks": "0",
+        "n_state_restorations": "0",
+        "rollback_fn": "None"
+      },
+      "raised": null,
+      "reason": null,
+      "returned": "False"
+    },
+    "D_no_certifier_B": {
+      "install_fn_calls": 0,
+      "ledger": {
+        "events": "[{'action': 'refuse', 'reason': 'no_certifier', 'refused_before_sampling': True, 'candidate_discarded': True, 'committed_state_restored': True, 'rollback_unverified': False}]",
+        "finish": "<bound method InstallLedger.finish of <d3_geo_adapter.InstallLedger object at 0x000001DF7F126780>>",
+        "finished": "True",
+        "install_fn": "<function verify_a3_two_way.<locals>._refusal_run.<locals>.<lambda> at 0x000001DF7F1476A0>",
+        "installed_plans": "[]",
+        "installs": "[]",
+        "n_installs": "0",
+        "n_pre_sampling_refusals": "1",
+        "n_refusals": "0",
+        "n_rollback_unverified": "0",
+        "n_rollbacks": "0",
+        "n_state_restorations": "0",
+        "rollback_fn": "None"
+      },
+      "raised": null,
+      "reason": null,
+      "returned": "False"
+    },
+    "D_real_certifier_surfaces": {
+      "d3_composed_certifier": {
+        "CERTIFICATION_CHECKS": "('repair_plan', 'full_partition', 'route_feasible', 'energy_budget')",
+        "compose_certification": "<function compose_certification at 0x000001DF7F147EC0>"
+      },
+      "d3_install_gate": {},
+      "rolling_optimizer": "<unimportable: ModuleNotFoundError(\"No module named 'rolling_optimizer'\")>"
+    },
+    "D_test_only_certifier": {
+      "certified_plan_ids": [
+        "2eaf6bedd0923ee1"
+      ],
+      "certifier_calls": 1,
+      "certifier_identity": "__main__._test_only_deterministic_certifier",
+      "install_fn_calls": 1,
+      "installed_plan_ids": [
+        "2eaf6bedd0923ee1"
+      ],
+      "ledger": {
+        "events": "[{'action': 'install', 'reason': None, 'plan_hash': '2eaf6bedd0923ee1', 'certified_plan_hash': '2eaf6bedd0923ee1', 'certifier': '__main__._test_only_deterministic_certifier', 'candidate_discarded': False, 'committed_state_restored': False, 'rollback_unverified': False}]",
+        "finish": "<bound method InstallLedger.finish of <d3_geo_adapter.InstallLedger object at 0x000001DF7F126780>>",
+        "finished": "True",
+        "install_fn": "<function verify_a3_two_way.<locals>.<lambda> at 0x000001DF7F147A60>",
+        "installed_plans": "[{1: VehiclePlan(vehicle_id=1, anchor_node=3, anchor_time=0.0, anchor_load=0.0, suffix=[4]), 2: VehiclePlan(vehicle_id=2, anchor_node=0, anchor_time=0.0, anchor_load=0.0, suffix=[])}]",
+        "installs": "[{'plan_hash': '2eaf6bedd0923ee1', 'certified_plan_hash': '2eaf6bedd0923ee1', 'certifier': '__main__._test_only_deterministic_certifier', 'plan': {1: VehiclePlan(vehicle_id=1, anchor_node=3, anchor_time=0.0, anchor_load=0.0, suffix=[4]), 2: VehiclePlan(vehicle_id=2, anchor_node=0, anchor_time=0.0, anchor_load=0.0, suffix=[])}}]",
+        "n_installs": "1",
+        "n_pre_sampling_refusals": "0",
+        "n_refusals": "0",
+        "n_rollback_unverified": "0",
+        "n_rollbacks": "0",
+        "n_state_restorations": "0",
+        "rollback_fn": "None"
+      },
+      "raised": null,
+      "reason": null,
+      "returned": "True"
+    },
+    "V_frozen_A2_fixture": {
+      "legal_actions_for_mask_5": 1,
+      "legal_customers": [
+        5
+      ],
+      "score_fn": "lambda st: [1.0, 1.0]",
+      "scores_len": 2
+    },
+    "V_frozen_A3_call_no_certify_fn": {
+      "install_fn_calls": 0,
+      "ledger": {
+        "events": "[{'action': 'refuse', 'reason': 'no_certifier', 'refused_before_sampling': True, 'candidate_discarded': True, 'committed_state_restored': True, 'rollback_unverified': False}]",
+        "finish": "<bound method InstallLedger.finish of <d3_geo_adapter.InstallLedger object at 0x000001DF7F126600>>",
+        "finished": "True",
+        "install_fn": "<function verify_attribution.<locals>.<lambda> at 0x000001DF7F147560>",
+        "installed_plans": "[]",
+        "installs": "[]",
+        "n_installs": "0",
+        "n_pre_sampling_refusals": "1",
+        "n_refusals": "0",
+        "n_rollback_unverified": "0",
+        "n_rollbacks": "0",
+        "n_state_restorations": "0",
+        "rollback_fn": "None"
+      },
+      "raised": null,
+      "reason": null,
+      "returned": "False"
+    },
+    "V_legacy_sampler_on_illegal_fixture": {
+      "failure_reason": null,
+      "first_step": "{'customer': 5, 'vehicle_id': 2, 'slot_kind': 'new_route', 'slot_anchor': -1, 'position': 0, 'predecessor': -1, 'successor': -1}",
+      "n_steps": 1
+    },
+    "V_new_assembly_on_illegal_fixture": {
+      "diag": "{'selector': 'geo_unified_minimum', 'mask_order': [5], 'divergence': None, 'n_steps': 0, 'certified': False, 'certifier': None, 'certified_plan_hash': None, 'deadline_ok': None, 'score_contract': {'violation': 'len(scores) != len(legal)', 'len_scores': 2, 'n_legal': 1}, 'rollback': True, 'rollback_to': 'the original plans passed in by the caller', 'partial_plan_at_failure': {1: [4], 2: []}}",
+      "failure_reason": "score_len",
+      "n_records": 0,
+      "n_steps": 0,
+      "plan_unchanged": true
+    },
+    "imported_modules": {
+      "action_contract": {
+        "file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\action_contract.py",
+        "sha256": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b"
+      },
+      "d3_geo_adapter": {
+        "file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_geo_adapter.py",
+        "sha256": "099c3517472d886ece4ea3e929df2ec54d0e459b2a2e2e07da5b658acc07adc5"
+      },
+      "mpre_policy": {
+        "file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\mpre_policy.py",
+        "sha256": "5b03e4cae812fa20785e68ce837be3a615aadb44ab29b7dbdc4b95f104a4a191"
+      }
+    },
+    "primary_constants": {
+      "EPS_D_PRIMARY_ABS": 0.0,
+      "EPS_D_PRIMARY_REL": 0.0,
+      "INSTALL_REQUIRES_CERTIFICATION": true,
+      "REFUSAL_REASONS": "('already_finished', 'certification_missing', 'certified_plan_hash_missing', 'certified_plan_identity_mismatch', 'certifier_identity_missing', 'decision_deadline_exceeded')",
+      "TIE_BREAK_CANONICAL": "canonical_key",
+      "TIE_BREAK_LEGAL_ORDER": "legal_order_first"
+    }
+  },
+  "rows": [
+    {
+      "detail": {
+        "len_legal": 1,
+        "len_scores": 2
+      },
+      "name": "V-A2a the FROZEN A2/A3 caller fixture is ILLEGAL: len(scores)=2 but len(legal)=1 for mask_set=[5]",
+      "ok": true
+    },
+    {
+      "detail": {
+        "failure_reason": "score_len",
+        "n_steps": 0
+      },
+      "name": "V-A2b the NEW assembly FAILS CLOSED on the illegal fixture (score_len, zero steps) -- this is the runtime cause of the 2 frozen A2 assertion failures",
+      "ok": true
+    },
+    {
+      "detail": {
+        "legacy_steps": 1,
+        "new_steps": 0
+      },
+      "name": "V-A2c the LEGACY sampler still returns a step on the same illegal fixture (no score-length guard) -- the frozen A2 comparison therefore compared 1 step against 0",
+      "ok": true
+    },
+    {
+      "detail": {
+        "install_fn_calls": 0,
+        "n_installs": "0",
+        "reason": null,
+        "returned": "False"
+      },
+      "name": "V-A3 the FROZEN A3 \"installs exactly once\" call passes NO certify_fn, so with INSTALL_REQUIRES_CERTIFICATION=True the transaction refuses (n_installs=0) -- the runtime cause of the 3rd frozen failure",
+      "ok": true
+    },
+    {
+      "detail": {
+        "len_legal": 2
+      },
+      "name": "C-legal_head_is_larger_canonical_key precondition: SAME customer, 2 legal actions, len(scores)==len(legal)==2",
+      "ok": true
+    },
+    {
+      "detail": {
+        "failure_reason": null,
+        "n_steps": 1
+      },
+      "name": "C-legal_head_is_larger_canonical_key the legal fixture samples cleanly (no fail-closed reason, exactly one step)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "applied_index": null,
+        "historical_projection_index": 0,
+        "legal_head_position": 1
+      },
+      "name": "C-legal_head_is_larger_canonical_key on an exact tie the assembly picks the FIRST action in legal order, matching the historical F projection",
+      "ok": false
+    },
+    {
+      "detail": {
+        "canonical_keys": "[[5, 1, 0, 3, 1, 0, 0], [5, 1, 0, 3, 0, 3, 3]]"
+      },
+      "name": "C-legal_head_is_larger_canonical_key canonical keys are still recorded for audit (len == len(legal))",
+      "ok": true
+    },
+    {
+      "detail": {
+        "len_legal": 2
+      },
+      "name": "C-legal_head_is_smaller_canonical_key precondition: SAME customer, 2 legal actions, len(scores)==len(legal)==2",
+      "ok": true
+    },
+    {
+      "detail": {
+        "failure_reason": null,
+        "n_steps": 1
+      },
+      "name": "C-legal_head_is_smaller_canonical_key the legal fixture samples cleanly (no fail-closed reason, exactly one step)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "applied_index": null,
+        "historical_projection_index": 0,
+        "legal_head_position": 0
+      },
+      "name": "C-legal_head_is_smaller_canonical_key on an exact tie the assembly picks the FIRST action in legal order, matching the historical F projection",
+      "ok": false
+    },
+    {
+      "detail": {
+        "canonical_keys": "[[5, 1, 0, 3, 0, 3, 3], [5, 1, 0, 3, 1, 0, 0]]"
+      },
+      "name": "C-legal_head_is_smaller_canonical_key canonical keys are still recorded for audit (len == len(legal))",
+      "ok": true
+    },
+    {
+      "detail": {
+        "run1": {
+          "applied": null,
+          "canon": 1,
+          "proj": 0
+        },
+        "run2": {
+          "applied": null,
+          "canon": 0,
+          "proj": 0
+        }
+      },
+      "name": "C3 order reversal proves the rule is ORDER-DEPENDENT (legal-order-first), not a fixed canonical-key choice",
+      "ok": false
+    },
+    {
+      "detail": {
+        "install_fn_calls": 0,
+        "n_installs": "0",
+        "raised": null,
+        "reason": null,
+        "returned": "False"
+      },
+      "name": "D1a NO certifier => the transaction must REFUSE: no_certifier, zero installs, no exception escaping",
+      "ok": true
+    },
+    {
+      "detail": {
+        "identical_dump": true
+      },
+      "name": "D1b the refusal is deterministic across a second, fresh ledger",
+      "ok": true
+    },
+    {
+      "detail": {
+        "certifier_calls": 1,
+        "install_fn_calls": 1,
+        "n_installs": "1",
+        "raised": null,
+        "returned": "True"
+      },
+      "name": "D2 with the TEST-ONLY deterministic certifier the transaction installs EXACTLY ONCE",
+      "ok": true
+    },
+    {
+      "detail": {
+        "certified": [
+          "2eaf6bedd0923ee1"
+        ],
+        "installed": [
+          "2eaf6bedd0923ee1"
+        ]
+      },
+      "name": "D2b the certified plan identity equals the installed plan identity (binding, not a bare boolean)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "certifier_identity": "__main__._test_only_deterministic_certifier",
+        "dump_mentions_real_certifier": false
+      },
+      "name": "D3 anti-masquerade: the test-only certifier identity is labelled TEST_ONLY, contains no real certifier name, and is distinct from every real certifier surface",
+      "ok": false
+    },
+    {
+      "detail": {
+        "n_installs": "0",
+        "reason": null,
+        "returned": "False"
+      },
+      "name": "D4 a present certifier does NOT bypass the score-length guard: the illegal fixture still fails closed with score_len and zero installs",
+      "ok": true
+    }
+  ]
+}
