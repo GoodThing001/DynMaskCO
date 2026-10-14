@@ -25,6 +25,8 @@ DOC = pathlib.Path("CC_Compare/P1A_RoleC_方案1_PhaseA_归因登记_2026-10-14.
 PRESERVED = {
     "CC_Compare/P1A_RoleC_方案1_PhaseA_归因登记_v1_reviewed_2026-10-14.md":
         "6ac795b223d9a3154a669a074a00697e533a506350db8537f868b198b2620db9",
+    "CC_Compare/P1A_RoleC_方案1_PhaseA_归因登记_REV2_reviewed_2026-10-14.md":
+        "63ee24e1adbac9bd1db4d56887703fb2e5f91db85a705d273ce1b521ddd45c7a",
     "CC_Compare/P1A_RoleC_收束裁定_2026-10-14.md":
         "5f3ac98c579759e442fc8f09eb3d83f297b3889edd708cc78caa2b60675f5b09",
     "CC_Compare/P1A_T2判据分层裁定_2026-10-14.md":
@@ -102,8 +104,8 @@ def _byte_container_warnings() -> list[str]:
             out.append(
                 f"{rel}: HEAD blob != worktree bytes "
                 f"(blob {bsha[:12]}..., worktree {wt[:12]}...) "
-                f"-> missing .gitattributes entry; registered sha256 is not "
-                f"reproducible from a fresh checkout"
+                f"-> **已裁定 (b)：已知的跨平台字节身份限制，不修**"
+                f"（并列身份见 CC_Compare/P1A_资源门登记_字节身份_双记录_2026-10-14.json）"
             )
     return out
 
@@ -149,8 +151,12 @@ def main() -> int:
 
     for s in FORBIDDEN_UNLESS_NEGATED:
         for m in re.finditer(re.escape(s), text):
-            ctx = text[max(0, m.start() - 160): m.end() + 160]
-            negated = any(k in ctx for k in ("不得", "禁止", "废除", "REV1", "标签"))
+            # 检查**整行**（而不是固定字符窗口）：长表格行里否定词可能离得很远，
+            # 固定窗口会把"§6.5 必要工作量 | … | 该推断**废除**"误判成未否定。
+            ls = text.rfind("\n", 0, m.start()) + 1
+            le = text.find("\n", m.end())
+            line = text[ls: le if le != -1 else len(text)]
+            negated = any(k in line for k in ("不得", "禁止", "废除", "REV1", "标签"))
             if not negated:
                 problems.append(f"unnegated forbidden claim: {s}")
 

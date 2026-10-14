@@ -1,0 +1,108 @@
+{
+  "authorization": {
+    "conditional": "三项工程前置门全部满足后才允许按预登记范围启动 L1/L2 测量",
+    "granted": [
+      "建立专用资源登记",
+      "实现测量工装",
+      "完成仪器正确性回归"
+    ],
+    "not_granted": [
+      "Phase B",
+      "烟测",
+      "40 天正式批次",
+      "最终测试",
+      "L3（不得自动启动）"
+    ],
+    "rulings": {
+      "crlf_sha_disposition": "选择 (b)：不 renormalize、不改封存件，另行记录跨平台字节身份限制",
+      "decision_points": "沿用原 M=8，固定 digest，不替换/不筛选/不增加",
+      "launch_phase_a": "有条件批准（先过三项工程门）",
+      "p9_equals_residual": "否 —— P9_measured 是未归因时间，P9_residual 是对账误差，正常应接近零",
+      "who_registers": "由执行端建立；数值已给定，无须重新征询"
+    },
+    "source": "用户 2026-10-14 Phase A REV2 审查与最终裁定：\"原则上批准 Phase A，但实行有条件放行\"",
+    "verbatim": "允许执行端建立专用资源登记、实现测量工装并完成仪器正确性回归。只有下述工程前置条件全部满足后，才允许按预登记范围启动 L1/L2 测量。不授权 Phase B、烟测、40 天正式批次或最终测试。"
+  },
+  "ceiling_id": "p1a-rolec-phasea-v1",
+  "classes": {
+    "A": {
+      "counts_as_online_evidence": false,
+      "internal_deadline": "disabled",
+      "per_decision_cap_s": 600.0,
+      "purpose": "完整路径归因（成本在哪里）；关闭内部截止 ⇒ 不产生在线行为证据",
+      "scenario_scope_scenarios": 10,
+      "truncation_fields": [
+        "leaf_at_truncation",
+        "scenario_index_at_truncation",
+        "n_scenarios_completed_at_truncation",
+        "elapsed_s_at_truncation"
+      ]
+    },
+    "B": {
+      "counts_as_online_evidence": true,
+      "internal_deadline": 10.0,
+      "per_decision_cap_s": 10.0,
+      "purpose": "在线截止诊断（10 s 截止到来时执行到哪一步）—— 时限**不变**"
+    }
+  },
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "decision_points": {
+    "digest": "5b432f2826ea66622173ecc514378bae8d11013374d4e93ad7940a392b2de3dc",
+    "n": 8,
+    "note": "沿用基线捕获的固定集合；轮转重复观测只描述测量波动，不得人为扩大状态数量；任一点被截断即按 inconclusive_censored 停止，**不**拿其余点重新定义样本",
+    "policy": "fixed_no_replace_no_filter_no_add",
+    "rotation_is_not_independent_state": true
+  },
+  "hardware": {
+    "cpu_count": 96,
+    "machine": "服务器 /home/hzeng/project/MASKCO-Main",
+    "mem_gb": 265.3
+  },
+  "parent_baseline_ceiling_id": "p1a-rolec-v1",
+  "phase_scope": [
+    "decision_point_preparation",
+    "L1_counting",
+    "L2_partitioned_timing",
+    "B_class_diagnostics"
+  ],
+  "phase_total_cap_s": 12000.0,
+  "reconciliation": {
+    "adjustable_after_execution": false,
+    "conditions": [
+      "1_exclusive_vs_offline",
+      "2_unattributed_vs_offline",
+      "3_closure_consistency",
+      "4_structure_invariants"
+    ],
+    "note": "条件 ③ 在记账正确时是代数恒等式 ⇒ 它抓实现层故障，不是独立证据；独立性来自 ①②（离线区间扫描用另一套算法）",
+    "p9_measured_equals_p9_residual": false,
+    "p9_measured_is_unattributed_time": true,
+    "tolerance_rule": "max(5 ms, 1% * T_decision)"
+  },
+  "registered_at": "2026-10-14",
+  "registered_by": "P1A-rolec-phasea-exec-2026-10-14",
+  "source_policy": "P1A_RoleC_方案1_PhaseA_归因登记_2026-10-14.md REV2 §5.1/§8 + 用户 2026-10-14 Phase A 有条件放行裁定（三项启动前置门）",
+  "supervision": {
+    "kill_signal": "SIGKILL",
+    "mode": "subprocess_hard_kill",
+    "note": "\"已登记上限\"必须同时是\"已执行硬上限\"：进程内的 SIGALRM 只能中断可响应信号的调用；卡在 C 扩展/阻塞 IO 时只有外层超时能真正终止。",
+    "preserve_truncation_record": true,
+    "reclaim": true
+  },
+  "thread_caps": {
+    "MKL_NUM_THREADS": 1,
+    "NUMEXPR_NUM_THREADS": 1,
+    "OMP_NUM_THREADS": 1,
+    "OPENBLAS_NUM_THREADS": 1
+  },
+  "workers": 8
+}

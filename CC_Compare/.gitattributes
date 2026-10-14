@@ -35,3 +35,18 @@
 /P1A_资源计时_*.json text eol=lf
 /P1A_资源计时_*.jsonl text eol=lf
 /PUBLIC_TOOL_FIX_SHAS_*.json text eol=lf
+# --- Phase A（2026-10-14 有条件放行）新增的字节容器与工装 ---
+# ⚠️ `P1A_资源门登记.json`（父门）**故意没有条目**：它是 CRLF 工作树字节，raw SHA
+#    已写进**已封存**的收束裁定；用户 2026-10-14 裁定 (b) 明确"不 renormalize"。
+#    其 CRLF/LF 双身份并列记录见 P1A_资源门登记_字节身份_双记录_2026-10-14.json。
+/P1A_资源门登记_PhaseA_v1.json text eol=lf
+/P1A_资源门登记_字节身份_双记录_*.json text eol=lf
+/P1A_PhaseA_*.json text eol=lf
+/P1A_资源阶段_决策点身份探针_*.json text eol=lf
+/tools/role_c_phasea_partition.py text eol=lf
+/tools/role_c_phasea_ceiling.py text eol=lf
+/tools/role_c_phasea_digest_probe.py text eol=lf
+/tools/run_phasea_gates.py text eol=lf
+/tools/test_role_c_phasea_partition.py text eol=lf
+/tools/test_role_c_phasea_ceiling.py text eol=lf
+/tools/_check_phasea_registration_doc.py text eol=lf
