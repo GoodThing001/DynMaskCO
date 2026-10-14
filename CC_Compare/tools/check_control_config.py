@@ -1,0 +1,220 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""P1-A 对照配置核对器：证明某次运行的配置与**冻结对照规格**逐字段一致。
+
+用途（P1-A §0.2.2 与 T 系列 T8）：
+  * 跑批**前**：确认即将运行的 `cond_hist + SAA` 与 Role C 用的是同一套冻结旋钮；
+  * 跑批**后**：从两臂 gate 各自的实际 `config` + `_identity` 出发，核对
+    「两臂可配对的共享字段逐字段相同」——不配对就**不许**进入效果比较。
+
+事实来源：`CC_Compare/P1A_CONTROL_FROZEN.json`（值取自 gate 落盘实据）。
+
+用法：
+    python CC_Compare/tools/check_control_config.py --config <run_config.json>
+    python CC_Compare/tools/check_control_config.py --against-a <gateA.json> --against-b <gateB.json>
+    # 自检（不需要任何实验产物）：
+    python CC_Compare/tools/check_control_config.py --self-test
+"""
+import argparse
+import io
+import json
+import os
+import sys
+
+if hasattr(sys.stdout, 'buffer'):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(HERE))
+SPEC = os.path.join(ROOT, 'CC_Compare', 'P1A_CONTROL_FROZEN.json')
+# 必须在两臂之间**逐字段相同**的共享字段（来自 spec 的 role_c_alignment_requirements）
+PAIR_FIELDS = ('n_orders', 'capacity', 'num_vehicles', 'rho', 'gate_instances', 'gate_seed',
+               'K', 'time_limit', 'future_policy', 'budget_B', 'cooling_share',
+               'contract_sha256', 'data_sha256', 'data_meta_sha256')
+
+
+def load_spec(path=SPEC):
+    with io.open(path, encoding='utf-8') as f:
+        return json.load(f)
+
+
+def _norm(v):
+    """比较用归一：浮点按 1e-9 容差（跑批会经过 JSON 往返），其余按值。"""
+    if isinstance(v, bool):
+        return ('bool', v)
+    if isinstance(v, (int, float)):
+        return ('num', round(float(v), 9))
+    return ('other', v)
+
+
+def compare_config(cfg, spec):
+    """把一份运行配置与冻结 config 逐字段比。返回 `(ok, rows)`。
+
+    `rows` 每项 `(字段, 冻结值, 实际值, 状态)`；缺失/多出/不等都记下来 ——
+    **多出的字段不算失败**（如 provider/arm 等 runner 自有字段），但要列出来供人看。
+    """
+    frozen = spec['frozen_config']
+    rows, bad = [], []
+    for k, want in frozen.items():
+        got = (cfg or {}).get(k, '<缺>')
+        if _norm(got) != _norm(want):
+            bad.append(k)
+            rows.append((k, want, got, '✗ 不一致'))
+        else:
+            rows.append((k, want, got, 'OK'))
+    extra = sorted(set((cfg or {}).keys()) - set(frozen.keys()))
+    return (not bad), rows, extra, bad
+
+
+def compare_pair(a, b, spec=None):
+    """两臂 gate 的配置/身份**配对性**核对：共享字段必须逐字段相同。
+
+    ⚠️ **fail-closed**（2026-10-14 实测踩到并修正）：第一版 `pick()` 只看 gate 顶层与
+    `results[*]._identity`，**没看 `config` / `identity` 子块** ⇒ 真实 baseline gate 的
+    `K` / `time_limit` / `budget_B` / 合同哈希**全部取到 `'<缺>'`**，而"缺失 == 缺失"
+    被 `_norm` 判为相等 ⇒ 输出 `PAIRABLE` —— 一个**假通过**。
+    现在：① 依次在 `顶层 → config → identity → results[*]._identity` 里找；
+    ② **任一侧缺失即判失败**（拿不到值就**不能**证明"相同"）。
+    """
+    def pick(d, key):
+        d = d or {}
+        if key in d:
+            return d[key]
+        for sub in ('config', 'identity', 'shared_config'):
+            blk = d.get(sub)
+            if isinstance(blk, dict) and key in blk:
+                return blk[key]
+        for _yr, yb in (d.get('results') or {}).items():
+            if not isinstance(yb, dict):
+                continue
+            idt = yb.get('_identity')
+            if isinstance(idt, dict) and key in idt:
+                return idt[key]
+            if key in yb:
+                return yb[key]
+        return None                       # None 表示**缺失**（与"值为 None"不同）
+
+    def missing(v):
+        return v is None
+
+    rows, bad = [], []
+    for k in PAIR_FIELDS:
+        va, vb = pick(a, k), pick(b, k)
+        if missing(va) or missing(vb):
+            bad.append(k)
+            rows.append((k, '<缺>' if missing(va) else va,
+                         '<缺>' if missing(vb) else vb, '✗ 缺失（无法证明相同）'))
+        elif _norm(va) != _norm(vb):
+            bad.append(k)
+            rows.append((k, va, vb, '✗ 两臂不一致'))
+        else:
+            rows.append((k, va, vb, 'OK'))
+    return (not bad), rows, bad
+
+
+def _self_check_spec(spec):
+    """规格自洽性：必须存在的键 + 明确的未授权项。"""
+    need = ('frozen_config', 'shared_identity_anchor', 'evidence',
+            'must_rerun_same_batch', 'forbidden')
+    missing = [k for k in need if k not in spec]
+    problems = []
+    if missing:
+        problems.append('规格缺键: %s' % missing)
+    if spec.get('must_rerun_same_batch', {}).get('required') is not True:
+        problems.append('必须声明 must_rerun_same_batch.required=true（历史基线不可复用）')
+    if spec.get('frozen_config', {}).get('future_policy') not in ('reveal', 'density'):
+        problems.append('future_policy 未冻结为已知值')
+    # 保留最终测试种子不得进入本次可用种子
+    res = spec.get('shared_identity_anchor', {}).get('seeds', {}).get('final_test_reserved')
+    if not res:
+        problems.append('规格未声明 final_test_reserved（禁止触碰的种子）')
+    return problems
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--config', help='单个运行配置 JSON（与冻结 config 逐字段比）')
+    ap.add_argument('--against-a', help='gate A json（配对核对）')
+    ap.add_argument('--against-b', help='gate B json（配对核对）')
+    ap.add_argument('--spec', default=SPEC)
+    ap.add_argument('--self-test', action='store_true', dest='self_test')
+    a = ap.parse_args()
+    spec = load_spec(a.spec)
+    rc = 0
+
+    print('=== 规格自洽性 ===')
+    probs = _self_check_spec(spec)
+    for p in probs:
+        print('   ✗ %s' % p)
+    if probs:
+        rc = 1
+    else:
+        print('   OK 规格齐备（含 must_rerun_same_batch / forbidden / 保留种子）')
+    print('   冻结 config 字段数 = %d；共享身份锚点 = %d 项'
+          % (len(spec['frozen_config']), len(spec['shared_identity_anchor'])))
+    print('   future_policy = %r（对照强度由此固定）' % spec['frozen_config']['future_policy'])
+
+    if a.self_test:
+        # 合成自检：用冻结值本身当"一次运行"⇒ 必须全 OK
+        ok, rows, extra, bad = compare_config(dict(spec['frozen_config']), spec)
+        print('\n=== 自检：用冻结值自身当运行配置 ===')
+        print('   逐字段 = %d；不一致 = %d；多出字段 = %s'
+              % (len(rows), len(bad), extra or '无'))
+        if not ok:
+            print('   ✗ 自检失败：冻结值与自己都不一致（规格内部矛盾）')
+            rc = 1
+        else:
+            print('   OK 全部一致（规格自洽）')
+        # 反面：改一个字段必须被抓到
+        broken = dict(spec['frozen_config'])
+        broken['K'] = 20
+        ok2, _r2, _e2, bad2 = compare_config(broken, spec)
+        print('   反例 K=20 ⇒ 被抓到 = %s（%s）' % (bad2 == ['K'], bad2))
+        if bad2 != ['K']:
+            rc = 1
+        # 配对：同一配置两臂 ⇒ OK；身份不一致 ⇒ 必须失败；**缺字段 ⇒ 必须失败**
+        g = {'config': dict(spec['frozen_config']), **spec['shared_identity_anchor']}
+        ok3, _r3, bad3 = compare_pair(g, g, spec)
+        print('   配对（同一 gate）⇒ OK=%s' % ok3)
+        g2 = json.loads(json.dumps(g))
+        g2['contract_sha256'] = 'f' * 64
+        ok4, _r4, bad4 = compare_pair(g, g2, spec)
+        print('   配对（合同哈希不同）⇒ OK=%s，检出 %s' % (ok4, bad4))
+        # 回归本日踩到的**假通过**：两个空 gate 不得被判 PAIRABLE
+        ok5, _r5, bad5 = compare_pair({}, {}, spec)
+        print('   配对（两个空 gate）⇒ OK=%s，检出缺失 %d 项（必须 >0）'
+              % (ok5, len(bad5)))
+        if ok3 is not True or ok4 or bad4 != ['contract_sha256'] or ok5 or not bad5 or rc:
+            rc = 1
+
+    if a.config:
+        cfg = json.load(io.open(a.config, encoding='utf-8'))
+        cfg = cfg.get('config', cfg)
+        print('\n=== 与冻结 config 逐字段比对：%s ===' % a.config)
+        ok, rows, extra, bad = compare_config(cfg, spec)
+        for k, want, got, st in rows:
+            print('   %-20s 冻结=%-12r 实际=%-12r %s' % (k, want, got, st))
+        if extra:
+            print('   （额外字段，不计失败）: %s' % extra)
+        print('   => %s%s' % ('CONFIG_MATCH' if ok else 'CONFIG_MISMATCH: ',
+                             '' if ok else ','.join(bad)))
+        if not ok:
+            rc = 1
+
+    if a.against_a and a.against_b:
+        A = json.load(io.open(a.against_a, encoding='utf-8'))
+        B = json.load(io.open(a.against_b, encoding='utf-8'))
+        print('\n=== 两臂配对性核对（共享字段必须相同）===')
+        ok, rows, bad = compare_pair(A, B, spec)
+        for k, va, vb, st in rows:
+            print('   %-20s A=%-16r B=%-16r %s' % (k, va, vb, st))
+        print('   => %s%s' % ('PAIRABLE' if ok else 'NOT_PAIRABLE: ', '' if ok else ','.join(bad)))
+        if not ok:
+            rc = 1
+
+    print('\n%s' % ('CHECK_CONTROL_CONFIG_PASS' if rc == 0 else 'CHECK_CONTROL_CONFIG_FAIL'))
+    return rc
+
+
+if __name__ == '__main__':
+    sys.exit(main())

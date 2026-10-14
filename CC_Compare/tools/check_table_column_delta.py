@@ -7,6 +7,13 @@
 本工具按**列名**对齐两版 Markdown 表，丢掉新列后**逐格字符串比对**，
 把"只加了列"与"改了数"区分开。
 
+两种模式（按 `--new-col` 是否已存在于旧表自动判定）：
+  * **迁移模式**（旧表无、新表有）：要求新增的**恰好**是 `--new-col` 这一列，
+    其余共同列逐格比对，差异必须逐条在 `--allow` 里声明；
+  * **同列集模式**（两表都有 `--new-col`，即迁移已完成）：没有"新增列"可验，
+    此时退化为**全列逐格一致性核对**（`--allow` 可为空）—— 用于确认"当前渲染结果
+    与已归档快照一致"，仍然是有意义的检查，而**不是**报错。
+
 用法：
     python CC_Compare/tools/check_table_column_delta.py \
         --old <旧表.md> --new <新表.md> --new-col "期刊/会议等级 (CCF)" \
@@ -55,9 +62,19 @@ def main():
 
     added = [c for c in hn if c not in ho]
     removed = [c for c in ho if c not in hn]
+    migration = (a.new_col not in ho) and (a.new_col in hn)
+    mode = '迁移模式（新增列）' if migration else '同列集模式（全列一致性）'
+    print('模式：%s' % mode)
     print('列：旧 %d → 新 %d；新增 %s；删除 %s' % (len(ho), len(hn), added, removed or '无'))
-    if added != [a.new_col]:
-        bad.append('新增列 %s ≠ 期望 [%s]' % (added, a.new_col))
+    if a.new_col not in hn:
+        bad.append('新表没有 --new-col=%r（列名写错？）' % a.new_col)
+    if migration:
+        if added != [a.new_col]:
+            bad.append('新增列 %s ≠ 期望恰好 [%s]' % (added, a.new_col))
+    elif a.new_col in ho:
+        # 同列集模式：不要求有新增列，但列集必须完全一致
+        if added or removed:
+            bad.append('同列集模式下不应有列增删（新增 %s / 删除 %s）' % (added, removed))
     if removed:
         bad.append('有列被删除：%s' % removed)
     if set(ro) != set(rn):
@@ -69,6 +86,8 @@ def main():
         if k not in rn:
             continue
         for c in ho:
+            if c not in hn:
+                continue
             n_cells += 1
             x, y = ro[k].get(c), rn[k].get(c)
             if x != y:
@@ -98,8 +117,12 @@ def main():
             print('   ✗ %s' % b)
         print('TABLE_COLUMN_DELTA_FAIL: %d' % len(bad))
         return 1
-    print('TABLE_COLUMN_DELTA_PASS：除新增列 `%s` 与 %d 个已声明单元格、'
-          '以及新增脚注外，**逐格未变**' % (a.new_col, len(diffs)))
+    if migration:
+        print('TABLE_COLUMN_DELTA_PASS：除新增列 `%s` 与 %d 个已声明单元格、'
+              '以及新增脚注外，**逐格未变**' % (a.new_col, len(diffs)))
+    else:
+        print('TABLE_COLUMN_SAME_SET_PASS：列集相同，%d 行 × %d 列 = %d 格**逐格一致**'
+              '（差异 %d 个，均已声明）' % (len(ro), len(ho), n_cells, len(diffs)))
     return 0
 
 
