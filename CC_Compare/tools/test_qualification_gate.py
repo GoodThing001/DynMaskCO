@@ -228,6 +228,115 @@ def informativeness_checks():
     return out
 
 
+def method_class_checks():
+    """**方法身份类型**（2026-10-14 用户裁决后新增）。
+
+    用户要求：「**不应**为它制造一个虚假的 checkpoint，也**不应**简单标记 `is_rule=True`
+    来绕过求解器健康检查。」⇒ `nonlearning_solver` 必须同时满足：
+      · 不要求（也不得声明）`checkpoint_sha256`；
+      · 必须闭合 `provider_dependency_sha256` + `solver_config_sha256`（且需独立重算相符）；
+      · `Q_method` **照查**（真实调用 + 无 fallback）—— 非学习 ≠ 免检；
+      · 共享身份与配对身份仍然强制。
+    """
+    out = []
+    solver_ident = dict(source_stable=True, **_SHARED,
+                        provider_dependency_sha256='b' * 64,
+                        solver_config_sha256='c' * 64)
+    actual_solver = {'provider_dependency_sha256': 'b' * 64,
+                     'solver_config_sha256': 'c' * 64}
+    part_na = {'required': False, 'present': False}
+
+    # ① 正例：无 checkpoint 的非学习求解器 ⇒ 合格（且不因此被要求伪造 checkpoint）
+    r = evaluate(good_evidence(method_class='nonlearning_solver', identity=solver_ident,
+                               actual_hashes=actual_solver, participation=part_na))
+    out.append(('非学习求解器（无 checkpoint）⇒ qualified=True 且 qualified_full=True',
+                r['qualified'] is True and r['qualified_full'] is True
+                and r['method_class'] == 'nonlearning_solver'
+                and 'checkpoint_sha256' not in r['required_identity_fields']))
+
+    # ② 求解器健康**不豁免**：n_solves 缺失 / 有 fallback ⇒ 否决
+    r = evaluate(good_evidence(method_class='nonlearning_solver', identity=solver_ident,
+                               actual_hashes=actual_solver, participation=part_na,
+                               solver_meta={}))
+    out.append(('非学习求解器缺 n_solves ⇒ Q_method 否决（非学习≠免检）',
+                r['criteria']['Q_method']['ok'] is False and 'Q_method' in r['vetoes']))
+    r = evaluate(good_evidence(method_class='nonlearning_solver', identity=solver_ident,
+                               actual_hashes=actual_solver, participation=part_na,
+                               solver_meta={'n_solves': 900, 'n_fail': 7}))
+    out.append(('非学习求解器有 fallback ⇒ Q_method 否决',
+                r['criteria']['Q_method']['ok'] is False and 'Q_method' in r['vetoes']))
+
+    # ③ 闭包字段：缺 solver_config_sha256 / 未独立重算 ⇒ qualified_full=False
+    r = evaluate(good_evidence(method_class='nonlearning_solver',
+                               identity=dict(source_stable=True, **_SHARED,
+                                             provider_dependency_sha256='b' * 64),
+                               actual_hashes={'provider_dependency_sha256': 'b' * 64},
+                               participation=part_na))
+    out.append(('非学习求解器缺 solver_config_sha256 ⇒ closure=False（core 仍 True）',
+                r['qualified'] is True and r['qualified_full'] is False
+                and r['Q_dependency_closure']['ok'] is False))
+    r = evaluate(good_evidence(method_class='nonlearning_solver', identity=solver_ident,
+                               actual_hashes=None, participation=part_na))
+    out.append(('非学习求解器无独立重算 ⇒ fail-closed 判不合格',
+                r['Q_dependency_closure']['ok'] is False))
+
+    # ④ 防绕过：rule 却带求解器调用记录 ⇒ 否决
+    r = evaluate(good_evidence(method_class='rule', pairing={}, participation=part_na,
+                               identity=dict(source_stable=True, **_SHARED),
+                               solver_meta={'n_solves': 500, 'n_fail': 0}))
+    out.append(('标 `rule` 却带 n_solves ⇒ Q_class_consistency 否决（防绕过体检）',
+                r['criteria']['Q_class_consistency']['ok'] is False
+                and 'Q_class_consistency' in r['vetoes']))
+
+    # ⑤ 防伪造：nonlearning_solver 却声明 checkpoint_sha256 ⇒ 否决
+    r = evaluate(good_evidence(method_class='nonlearning_solver',
+                               identity=dict(solver_ident, checkpoint_sha256='a' * 64),
+                               actual_hashes=dict(actual_solver, checkpoint_sha256='a' * 64),
+                               participation=part_na))
+    out.append(('标 `nonlearning_solver` 却声明 checkpoint ⇒ Q_class_consistency 否决',
+                r['criteria']['Q_class_consistency']['ok'] is False))
+
+    # ⑥ 向后兼容：不给 method_class 时按 is_rule 推断，学习型仍强制 checkpoint
+    r = evaluate(good_evidence())
+    out.append(('未给 method_class ⇒ 推断为 learned，仍要求 checkpoint',
+                r['method_class'] == 'learned'
+                and 'checkpoint_sha256' in r['required_identity_fields']))
+    r = evaluate(good_evidence(is_rule=True, pairing={}, solver_meta={},
+                               participation=part_na,
+                               identity=dict(source_stable=True, **_SHARED)))
+    out.append(('未给 method_class 且 is_rule=True ⇒ 推断为 rule（行为不变）',
+                r['method_class'] == 'rule' and r['qualified'] is True))
+
+    # ⑦ 非学习求解器的共享/配对身份**不豁免**
+    r = evaluate(good_evidence(method_class='nonlearning_solver',
+                               identity=dict(solver_ident, contract_sha256=None),
+                               actual_hashes=actual_solver, participation=part_na))
+    out.append(('非学习求解器缺共享身份（合同哈希）⇒ 仍被拒',
+                r['criteria']['Q_identity']['ok'] is False and 'Q_identity' in r['vetoes']))
+    r = evaluate(good_evidence(method_class='nonlearning_solver', identity=solver_ident,
+                               actual_hashes=actual_solver, participation=part_na,
+                               pairing={'identity_verified': False, 'problems': ['x']}))
+    out.append(('非学习求解器配对身份未通过 ⇒ 仍被拒（对照不是豁免对象）',
+                r['criteria']['Q_identity']['ok'] is False))
+    return out
+
+
+def q_days_strict_checks():
+    """`q_days` 的**非整数** day_id 反例（与矩阵同一缺陷，第三版修正）。"""
+    out = []
+    ok, why = evaluate(good_evidence(per_day=[dict(d, i=d['i'] + 0.5)
+                                              for d in good_per_day()]))['criteria']['Q_days']['ok'], ''
+    out.append(('gate·q_days：0.5..39.5 非整数日号 ⇒ 拒绝（int() 截断会误通过）', ok is False))
+    r = evaluate(good_evidence(per_day=[dict(d, i=str(d['i'])) for d in good_per_day()]))
+    out.append(('gate·q_days：数字字符串日号 ⇒ 拒绝', r['criteria']['Q_days']['ok'] is False))
+    r = evaluate(good_evidence(per_day=[dict(d, i=bool(d['i'] % 2)) for d in good_per_day()]))
+    out.append(('gate·q_days：bool 日号 ⇒ 拒绝', r['criteria']['Q_days']['ok'] is False))
+    r = evaluate(good_evidence(per_day=[dict(d, i=(38 if d['i'] == 39 else d['i']))
+                                        for d in good_per_day()]))
+    out.append(('gate·q_days：重复日号 ⇒ 拒绝', r['criteria']['Q_days']['ok'] is False))
+    return out
+
+
 def run():
     passed = failed = 0
     for name, expect_q, expect_veto, over in CASES:
@@ -244,6 +353,9 @@ def run():
                   % (name, expect_q, expect_veto, res['qualified'], res['vetoes']))
     for title, checks in (('\nQ_dependency_closure 三重校验：', closure_checks()),
                           ('\n全拒单成因对齐（Q_validity 第二版）：', validity_checks()),
+                          ('\n方法身份类型（nonlearning_solver，2026-10-14 用户裁决）：',
+                           method_class_checks()),
+                          ('\ngate·q_days 非整数日号（第三版）：', q_days_strict_checks()),
                           ('\n有效性 / 信息量分离：', informativeness_checks())):
         print(title)
         for name, ok in checks:
