@@ -70,6 +70,10 @@ def current_scope():
     return getattr(_SCOPE, 'mode', None)
 
 
+def current_policy():
+    return getattr(_SCOPE, 'policy', None)
+
+
 def scope_owner():
     return getattr(_SCOPE, 'owner', None)
 
@@ -77,19 +81,26 @@ def scope_owner():
 class write_scope(object):
     """Context manager that grants write permission to the current thread for one authority."""
 
-    def __init__(self, owner, mode):
+    def __init__(self, owner, mode, policy=None):
         if mode not in WRITE_SCOPES or mode is None:
             raise ValueError('write_scope needs %r or %r' % (SCOPE_EXECUTION, SCOPE_REVEAL))
-        self.owner, self.mode = owner, mode
+        # PRE-EMPTIVE: the compatibility-install interface must not be callable at all under a
+        # certified policy (user ruling: it must not become a permanent channel around D8).
+        if mode == SCOPE_COMPAT_INSTALL and policy == 'certified':
+            record_attempt('compat_install_scope_under_certified_policy', {'mode': mode})
+            raise UnauthorizedWrite(
+                'compat_install_not_allowed_under_certified_policy: the labelled compatibility '
+                'install scope cannot be opened while the certified policy is in force')
+        self.owner, self.mode, self.policy = owner, mode, policy
         self._prev = None
 
     def __enter__(self):
-        self._prev = (current_scope(), scope_owner())
-        _SCOPE.mode, _SCOPE.owner = self.mode, self.owner
+        self._prev = (current_scope(), scope_owner(), current_policy())
+        _SCOPE.mode, _SCOPE.owner, _SCOPE.policy = self.mode, self.owner, self.policy
         return self
 
     def __exit__(self, exc_type, exc, tb):
-        _SCOPE.mode, _SCOPE.owner = self._prev
+        _SCOPE.mode, _SCOPE.owner, _SCOPE.policy = self._prev
         return False
 
 
@@ -117,9 +128,12 @@ def _is_monotone_shrink(old, new):
     return o[len(o) - len(n):] == n if n else True
 
 
-def _authorised(owner, field, old=None, new=None, policy=None):
+def _authorised(owner, field, old=None, new=None, committed_next=None):
     mode = current_scope()
-    if mode == SCOPE_COMPAT_INSTALL and policy == 'certified':
+    # MEASURED DEFECT found by the user's source review: the rule existed but was never in force,
+    # because callers did not pass `policy` and the parameter defaulted to None.  The policy now
+    # travels WITH the scope (thread-local), so the rule applies to every guarded write.
+    if mode == SCOPE_COMPAT_INSTALL and current_policy() == 'certified':
         return False, 'compat_install_not_allowed_under_certified_policy'
     if mode is None or scope_owner() != owner:
         return False, 'no_write_scope'
@@ -143,8 +157,9 @@ def _authorised(owner, field, old=None, new=None, policy=None):
             n = [int(x) for x in (new or ())]
             if n == o:
                 return True, 'execution_scope_no_op'
-            if len(n) == len(o) - 1 and o[1:] == n:
-                # head-drop by exactly one == the commit loop's pop.  DEFERRED REFINEMENT (recorded):
+            if (len(n) == len(o) - 1 and o[1:] == n and committed_next is not None
+                    and int(committed_next) == o[0]):
+                # head-drop by exactly one AND the consumed head is the vehicle's committed_next:
                 # tying this to "the head was actually committed" needs the vehicle context; without
                 # it a bare head-drop is still allowed, which is disclosed as a residual.
                 return True, 'execution_scope_head_consumed'
@@ -269,7 +284,9 @@ class AuthoritativeVehicleState(VehicleState):
         if name in GUARDED_FIELDS:
             old_val = object.__getattribute__(self, name) if name in ('mutable_suffix',
                                                                         'served_route') else None
-            ok, why = _authorised(self._d3_owner, name, old_val, value)
+            cnext = (object.__getattribute__(self, 'committed_next')
+                     if name == 'mutable_suffix' else None)
+            ok, why = _authorised(self._d3_owner, name, old_val, value, committed_next=cnext)
             if not ok:
                 record_attempt('attribute_write', {'field': name, 'why': why,
                                                    'vehicle_id': int(self.vehicle_id)})
@@ -282,7 +299,9 @@ class AuthoritativeVehicleState(VehicleState):
         if name in GUARDED_FIELDS and object.__getattribute__(self, '_d3_locked'):
             old_val = object.__getattribute__(self, name) if name in ('mutable_suffix',
                                                                         'served_route') else None
-            ok, why = _authorised(self._d3_owner, name, old_val, value)
+            cnext = (object.__getattribute__(self, 'committed_next')
+                     if name == 'mutable_suffix' else None)
+            ok, why = _authorised(self._d3_owner, name, old_val, value, committed_next=cnext)
             if not ok:
                 record_attempt('attribute_delete', {'field': name, 'why': why})
                 raise UnauthorizedWrite('delete of %r refused: %s' % (name, why))

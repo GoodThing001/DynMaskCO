@@ -40,7 +40,8 @@ CAL_NPZ = EXT / 'data' / 'm0_scale' / 'dcc_50_r1_edod05_cal_teacher.npz'
 PROFILE_JSON = EXT / 'results' / 'o0cc' / 'scale_v2' / 'objective_profile.json'
 FROZEN_ENV_SHA = 'fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6'
 PREREGISTERED = ['B2A-ATTR', 'B2A-NESTED', 'B2A-STALE', 'B2A-COMMIT',
-                 'B2A-REVEAL', 'B2A-ADVANCE', 'B2A-POS', 'B2A-DEFAULTOFF', 'B2A-CAND']
+                 'B2A-REVEAL', 'B2A-ADVANCE', 'B2A-POS', 'B2A-DEFAULTOFF', 'B2A-CAND',
+                 'B2A-COMPATPOLICY', 'B2A-DELETE']
 R = []
 
 
@@ -217,6 +218,60 @@ def main():
              excl.snapshot().get('compat_isolation_writes_are_uncertified') is False,
          'labelling_rule': 'late addition; not disguised as an original pre-registered row',
          'counted_as_certified_install': False})
+    # ---- LATE-ADDITION diagnostics (declared separately, never presented as the original eight) --
+    # (1) COMPAT_INSTALL must be refused pre-emptively under the certified policy
+    # the pre-emptive refusal happens when the scope is OPENED, so no second authority is needed;
+    # the "state unchanged" evidence is the already-run authoritative list (measured defect of the
+    # ninth execution: a fresh, un-run container has no adopted vehicles -> IndexError).
+    tgt_c = authoritative[0]
+    before_c = [int(x) for x in tgt_c.mutable_suffix]
+    AS.reset_attempts()
+    excl_c = excl            # policy is read from the scope, not from a second authority
+    compat_attempt = attempt(lambda: AS.write_scope(excl.owner, AS.SCOPE_COMPAT_INSTALL,
+                                                    policy='certified').__enter__())
+    unchanged_c = [int(x) for x in tgt_c.mutable_suffix] == before_c
+    chk('B2A-COMPATPOLICY',
+        'B2A-COMPATPOLICY (late addition) compat-install is pre-emptively REFUSED under certified policy',
+        'REFUSED_AND_STATE_UNCHANGED'
+        if (compat_attempt['refused'] and unchanged_c) else 'UNEXPECTED',
+        {'policy': excl_c.policy, 'mode': excl_c.mode,
+         'scope_open_attempt': compat_attempt,
+         'expected_refusal_reason': 'compat_install_not_allowed_under_certified_policy',
+         'authoritative_state_unchanged': unchanged_c,
+         'actual_authoritative_write': not unchanged_c,
+         'attempts_recorded': AS.attempts()[:2],
+         'why': ('the rule must be IN FORCE, not merely present in source: the earlier version took '
+                 '`policy` as a parameter that callers never passed, so the check never ran'),
+         'counted_as_certified_install': False,
+         'labelling_rule': 'late addition'})
+
+    # (2) execution scope must not delete an un-executed, non-revealed customer
+    tgt_d = excl.authoritative()[2]
+    with AS.write_scope(excl.owner, AS.SCOPE_COMPAT_INSTALL, policy='observation'):
+        tgt_d.mutable_suffix = [3, 4, 5]
+        tgt_d.committed_next = None
+    deep_before = [int(x) for x in tgt_d.mutable_suffix]
+    with AS.write_scope(excl.owner, AS.SCOPE_EXECUTION, policy='observation'):
+        middle_del = attempt(lambda: setattr(tgt_d, 'mutable_suffix', [3, 5]))
+        bare_head = attempt(lambda: setattr(tgt_d, 'mutable_suffix', [4, 5]))
+        tgt_d.committed_next = 3
+        legit_head = attempt(lambda: setattr(tgt_d, 'mutable_suffix', [4, 5]))
+        after_legit = [int(x) for x in tgt_d.mutable_suffix]
+    del_ok = (middle_del['refused'] and bare_head['refused']
+              and legit_head['refused'] is False and after_legit == [4, 5])
+    chk('B2A-DELETE',
+        'B2A-DELETE (late addition) un-executed customers cannot be deleted; the committed head still can',
+        'REFUSED_FOR_UNCOMMITTED_DELETION_AND_ALLOWED_FOR_THE_COMMITTED_HEAD' if del_ok
+        else 'UNEXPECTED',
+        {'before': deep_before, 'middle_deletion': middle_del, 'bare_head_drop': bare_head,
+         'committed_head_consumption': legit_head, 'after': after_legit,
+         'binding': ['vehicle commitment state (committed_next)', 'identity of the consumed customer',
+                     'call phase (execution scope, not reveal)'],
+         'expected_refusal_reason': 'execution_scope_may_only_consume_the_committed_head',
+         'residual_disclosed': ('this does not yet tie the consumption to a service-completion event '
+                               'object; the binding is to the commitment identity'),
+         'labelling_rule': 'late addition'})
+
     ids = [r['cid'] for r in R]
     missing = [i for i in PREREGISTERED if i not in ids]
     chk('PREREG', 'every pre-registered row is present', 'OK' if not missing else 'MISSING',

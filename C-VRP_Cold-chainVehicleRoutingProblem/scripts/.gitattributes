@@ -130,3 +130,8 @@ tests/test_d3_b3at2h_write_inventory.py -text
 # acceptance suite; both raw sha256 are registered by B3AT2B1_WIRING_MATRIX.json.  Additive.
 simulation/d3_execution_authority.py -text
 tests/test_d3_b3at2b1_wiring.py -text
+# Added by D3-G0 Evidence B3-AT2B-2a (2026-10-14).  Object-level write exclusion and its
+# acceptance suite; both raw sha256 are registered by B3AT2B2A_EXCLUSION_MATRIX.json.  Additive.
+simulation/d3_authoritative_state.py -text
+simulation/d3_write_exclusion.py -text
+tests/test_d3_b3at2b2a_write_exclusion.py -text

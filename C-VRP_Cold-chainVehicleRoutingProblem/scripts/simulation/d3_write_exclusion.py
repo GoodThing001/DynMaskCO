@@ -46,9 +46,12 @@ class WriteExclusion(object):
 
     MODES = ('strict', 'compat_isolation')
 
-    def __init__(self, authority, *, name=None, mode='strict'):
+    def __init__(self, authority, *, name=None, mode='strict', policy='observation'):
         if mode not in self.MODES:
             raise ValueError('unknown exclusion mode %r' % (mode,))
+        if policy not in ('observation', 'certified'):
+            raise ValueError('unknown policy %r' % (policy,))
+        self.policy = policy
         self.mode = mode
         self.candidate_records = []
         self.authority = authority
@@ -76,7 +79,8 @@ class WriteExclusion(object):
             # recorded as an uncertified compatibility install and is never counted as certified.
             return AS.write_scope(self.owner,
                                   AS.SCOPE_COMPAT_INSTALL if self.mode == 'compat_isolation'
-                                  else AS.SCOPE_EXECUTION)
+                                  else AS.SCOPE_EXECUTION,
+                                  policy=self.policy)
 
         def _require(name):
             if AS.current_scope() is None or AS.scope_owner() != self.owner:
@@ -172,7 +176,7 @@ class WriteExclusion(object):
         return self.authority.container._vehicles
 
     def snapshot(self):
-        return {'mode': self.mode, 'exclusion_attached': self.attached, 'objects_guarded': self.guarded,
+        return {'mode': self.mode, 'policy': self.policy, 'exclusion_attached': self.attached, 'objects_guarded': self.guarded,
                 'n_candidate_records': len(self.candidate_records),
                 'candidate_records': self.candidate_records[:4],
                 'compat_isolation_writes_are_uncertified': self.mode == 'compat_isolation',
@@ -189,7 +193,7 @@ class WriteExclusion(object):
 
 
 def make_authority_with_exclusion(env, container, *, instance_id='d3-exec-2a',
-                                  mode='strict'):
+                                  mode='strict', policy='observation'):
     """Convenience: the AT2B-1 authority plus object-level write exclusion.
 
     `mode='strict'` is the default and refuses every uncertified authoritative write;
@@ -200,6 +204,6 @@ def make_authority_with_exclusion(env, container, *, instance_id='d3-exec-2a',
     import d3_execution_authority as EA
     authority = EA.D3ExecutionAuthority(env, container=container, instance_id=instance_id)
     authority.attach()
-    exclusion = WriteExclusion(authority, name=instance_id + ':excl', mode=mode)
+    exclusion = WriteExclusion(authority, name=instance_id + ':excl', mode=mode, policy=policy)
     exclusion.attach()
     return authority, exclusion

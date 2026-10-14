@@ -22,7 +22,9 @@
     "B2A-ADVANCE",
     "B2A-POS",
     "B2A-DEFAULTOFF",
-    "B2A-CAND"
+    "B2A-CAND",
+    "B2A-COMPATPOLICY",
+    "B2A-DELETE"
   ],
   "covered": [
     "FROZEN",
@@ -34,7 +36,9 @@
     "B2A-STALE",
     "B2A-COMMIT",
     "B2A-POS",
-    "B2A-CAND"
+    "B2A-CAND",
+    "B2A-COMPATPOLICY",
+    "B2A-DELETE"
   ],
   "missing": [],
   "verdict_counts": {
@@ -42,11 +46,12 @@
     "IDENTICAL_HISTORY_BEHAVIOUR": 1,
     "LEGITIMATE_ADVANCE_NOT_BLOCKED": 1,
     "REVEAL_ALLOWED_WITH_COMMITMENT_FROZEN": 1,
-    "REFUSED_AND_STATE_UNCHANGED": 2,
+    "REFUSED_AND_STATE_UNCHANGED": 3,
     "STALE_REFERENCE_INEFFECTIVE": 1,
     "REFUSED": 1,
     "COMMIT_ALLOWED_INSIDE_SCOPE": 1,
-    "REFUSED_SUFFIX_GROWTH_REQUIRES_DECISION_SCOPE": 1
+    "REFUSED_SUFFIX_GROWTH_REQUIRES_DECISION_SCOPE": 1,
+    "REFUSED_FOR_UNCOMMITTED_DELETION_AND_ALLOWED_FOR_THE_COMMITTED_HEAD": 1
   },
   "results": [
     {
@@ -128,7 +133,7 @@
               "vehicle_id": 0
             },
             "scope": null,
-            "thread": 25356
+            "thread": 39420
           }
         ]
       }
@@ -227,6 +232,71 @@
       }
     },
     {
+      "cid": "B2A-COMPATPOLICY",
+      "name": "B2A-COMPATPOLICY (late addition) compat-install is pre-emptively REFUSED under certified policy",
+      "verdict": "REFUSED_AND_STATE_UNCHANGED",
+      "detail": {
+        "policy": "observation",
+        "mode": "compat_isolation",
+        "scope_open_attempt": {
+          "refused": true,
+          "exception": "UnauthorizedWrite: compat_install_not_allowed_under_certified_policy: the labelled compatibility install scop"
+        },
+        "expected_refusal_reason": "compat_install_not_allowed_under_certified_policy",
+        "authoritative_state_unchanged": true,
+        "actual_authoritative_write": false,
+        "attempts_recorded": [
+          {
+            "kind": "compat_install_scope_under_certified_policy",
+            "detail": {
+              "mode": "compat_candidate_install"
+            },
+            "scope": null,
+            "thread": 39420
+          }
+        ],
+        "why": "the rule must be IN FORCE, not merely present in source: the earlier version took `policy` as a parameter that callers never passed, so the check never ran",
+        "counted_as_certified_install": false,
+        "labelling_rule": "late addition"
+      }
+    },
+    {
+      "cid": "B2A-DELETE",
+      "name": "B2A-DELETE (late addition) un-executed customers cannot be deleted; the committed head still can",
+      "verdict": "REFUSED_FOR_UNCOMMITTED_DELETION_AND_ALLOWED_FOR_THE_COMMITTED_HEAD",
+      "detail": {
+        "before": [
+          3,
+          4,
+          5
+        ],
+        "middle_deletion": {
+          "refused": true,
+          "exception": "UnauthorizedWrite: write to 'mutable_suffix' refused: execution_scope_may_only_consume_the_head_or_refuse"
+        },
+        "bare_head_drop": {
+          "refused": true,
+          "exception": "UnauthorizedWrite: write to 'mutable_suffix' refused: execution_scope_may_only_consume_the_head_or_refuse"
+        },
+        "committed_head_consumption": {
+          "refused": false,
+          "result": "WRITE_SUCCEEDED"
+        },
+        "after": [
+          4,
+          5
+        ],
+        "binding": [
+          "vehicle commitment state (committed_next)",
+          "identity of the consumed customer",
+          "call phase (execution scope, not reveal)"
+        ],
+        "expected_refusal_reason": "execution_scope_may_only_consume_the_committed_head",
+        "residual_disclosed": "this does not yet tie the consumption to a service-completion event object; the binding is to the commitment identity",
+        "labelling_rule": "late addition"
+      }
+    },
+    {
       "cid": "PREREG",
       "name": "every pre-registered row is present",
       "verdict": "OK",
@@ -240,7 +310,9 @@
           "B2A-ADVANCE",
           "B2A-POS",
           "B2A-DEFAULTOFF",
-          "B2A-CAND"
+          "B2A-CAND",
+          "B2A-COMPATPOLICY",
+          "B2A-DELETE"
         ],
         "covered": [
           "FROZEN",
@@ -252,7 +324,9 @@
           "B2A-STALE",
           "B2A-COMMIT",
           "B2A-POS",
-          "B2A-CAND"
+          "B2A-CAND",
+          "B2A-COMPATPOLICY",
+          "B2A-DELETE"
         ],
         "missing": []
       }
@@ -266,6 +340,7 @@
         "production_state_written": false,
         "exclusion": {
           "mode": "compat_isolation",
+          "policy": "observation",
           "exclusion_attached": true,
           "objects_guarded": true,
           "n_candidate_records": 0,
@@ -315,7 +390,7 @@
               "scope_owner": null
             }
           ],
-          "write_attempts_observed": 8,
+          "write_attempts_observed": 3,
           "residual_not_intercepted": [
             "served_mask (numpy array) in-place element writes"
           ],
@@ -334,9 +409,9 @@
     "profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
     "effective_contract_hash": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
     "code": {
-      "scripts/simulation/d3_write_exclusion.py": "2c980de67fee444485156b8c606a0d4cc64a006f829207dc17aaef4c13fad3a8",
-      "scripts/simulation/d3_authoritative_state.py": "3adff81fea6a0cf1b96d7250460d0eba928515d0b31fd8cc0d4c2579e1b123ae",
-      "scripts/tests/test_d3_b3at2b2a_write_exclusion.py": "835a212067f00101ff89f9d7f1bc47791da0a483d25e1fe246e6cb0c482980b9",
+      "scripts/simulation/d3_write_exclusion.py": "1868813dcf573cf98faca7cd650971cb45947e5552702ec2eb2671eae7d82590",
+      "scripts/simulation/d3_authoritative_state.py": "86e60e94d44d1922385773c9756732fcc9f5e242a559c83d236ae334ae695c35",
+      "scripts/tests/test_d3_b3at2b2a_write_exclusion.py": "94b34d370dd31b9feff75deb47b02d23fdd08533bcc52e6ae05a98f8872d6460",
       "scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
     }
   }
