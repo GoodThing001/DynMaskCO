@@ -170,6 +170,7 @@ class D3StateContainer(object):
         self.event = event
         self.reveal_idx = reveal_idx
         self.all_customers = list(all_customers or [])
+        self.adopted = False
         self.publishes = 0
         self.partial_publishes = 0
         self.refused = 0
@@ -179,6 +180,23 @@ class D3StateContainer(object):
     def _authoritative(self):
         return self._vehicles
 
+    # ---- D3 mode: ADOPT the environment's own list (no copy) ---------------------------------
+    def adopt(self, vehicles, traces=None, served_mask=None):
+        """Take ownership of the environment's own list WITHOUT copying.
+
+        Used by the AT2B-1 D3 mode: the environment keeps a borrowed reference, the container owns
+        the objects and is the only mutator, so there is exactly ONE authoritative state (the user
+        ruling forbids an env copy and a container copy running in parallel).  The ingest-by-deepcopy
+        path above remains the behaviour for external callers.
+        """
+        self._vehicles = vehicles
+        if traces is not None:
+            self._traces = traces
+        if served_mask is not None:
+            self._served_mask = served_mask
+        self.adopted = True
+        return self
+
     def read_only_view(self):
         return ReadOnlyStateView(self._vehicles, epoch=self.epoch(), container_name=self.name)
 
@@ -186,9 +204,28 @@ class D3StateContainer(object):
         return ([copy.deepcopy(v) for v in self._vehicles], copy.deepcopy(self._traces),
                 copy.deepcopy(self._served_mask))
 
+    def set_context(self, inst=None, clock=None, event=None, reveal_idx=None):
+        """Keep the sanctioned (inst, clock, event, reveal_idx) context current during a run.
+
+        Measured defect of the first version: the container was built for a single decision point
+        (inst/clock set) and then reused for a live run where they were None, so `epoch()` crashed
+        inside `capture_recourse_snapshot`.  The epoch now falls back to a field hash when the
+        context is incomplete, and the authority keeps the context up to date.
+        """
+        if inst is not None:
+            self.inst = inst
+        if clock is not None:
+            self.clock = clock
+        if event is not None:
+            self.event = event
+        if reveal_idx is not None:
+            self.reveal_idx = reveal_idx
+        return self
+
     def epoch(self):
         """Version of the authoritative state, computed from the container's OWN objects."""
-        if self.env is not None:
+        if (self.env is not None and self.inst is not None and self.clock is not None
+                and self._traces):
             return state_version(self.env, self.inst, self.clock, self.event, self.reveal_idx,
                                  self._vehicles, self._traces, self._served_mask, self.all_customers)
         h = hashlib.sha256()

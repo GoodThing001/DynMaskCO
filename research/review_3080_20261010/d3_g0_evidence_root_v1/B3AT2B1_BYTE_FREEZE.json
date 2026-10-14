@@ -1,0 +1,70 @@
+{
+  "record": "D3_G0_Evidence_B3AT2B1_byte_freeze",
+  "date": "2026-10-14",
+  "revision": 1,
+  "base_commit": "8510643",
+  "why": "the AT2B-1 matrix registers the wiring module, its acceptance suite, the container it adopts state from, and the historical env file (recorded as the UNMODIFIED frozen identity)",
+  "historical_env_file_modified": false,
+  "historical_env_sha256": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6",
+  "self_reference_note": "this record does not register its own sha256; the directory pin covers it",
+  "pin_set": {
+    "file": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/.gitattributes",
+    "added_by_this_record": [
+      "simulation/d3_execution_authority.py -text",
+      "tests/test_d3_b3at2b1_wiring.py -text"
+    ],
+    "n_pinned_before": 34,
+    "n_pinned_after": 36,
+    "additive_check": "blob==worktree"
+  },
+  "registered_byte_containers_b3at2b1": {
+    "scripts": {
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_execution_authority.py": "50ab7d834fb5fcd3c3ce3e18569a95668098c2b62e0c45015158db647c654102",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at2b1_wiring.py": "acc60e6d10faa06ec5c787fbb9da6afc9bc8827356c39f527ae84be493bc0b76",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_state_container.py": "8119e2e7ef8820bc7c4469f4ae982cd8941d2f0da81ce558de8293314e66f0df",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+    },
+    "evidence": {
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2B1_COUNTEREXAMPLE_SPEC.json": "8eb097354021923290786e82c0b3d94c2288000e5b06287c54f13745693acd29",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2B1_REPORT.md": "ca9f63857c8fc9fe2e98ee600bd7f02db1bc375046141e0390fa78db2b445494",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2B1_WIRING_MATRIX.json": "24d8c1950a08c202a8205fbdc1a9bd3b79a138c006ec09678d3fe049e8f52aff"
+    },
+    "raw": {
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2B1_instance0.txt": "639ef2c0efed7331d20ea8cf4b27ec527907f584b2a9ab0d874fc810afc53b21",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2B1_instance1.txt": "639ef2c0efed7331d20ea8cf4b27ec527907f584b2a9ab0d874fc810afc53b21",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2B1_instance2.txt": "639ef2c0efed7331d20ea8cf4b27ec527907f584b2a9ab0d874fc810afc53b21",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2B1_stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2B1_stdout.txt": "639ef2c0efed7331d20ea8cf4b27ec527907f584b2a9ab0d874fc810afc53b21",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2B1_WIRING_MATRIX_instance0.json": "24d8c1950a08c202a8205fbdc1a9bd3b79a138c006ec09678d3fe049e8f52aff",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2B1_WIRING_MATRIX_instance1.json": "48712bb60e6c16019b1be9dff688f5b4bea42153db808cd10310231f06bf7279",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2B1_WIRING_MATRIX_instance2.json": "5458bf4d83cba06f97b335405444b00f79ee364c8b9c8e6712bcff5ffc790c7a"
+    }
+  },
+  "verdicts_headline": {
+    "FROZEN": "OK",
+    "B1-DEFAULTOFF": "IDENTICAL_HISTORY_BEHAVIOUR",
+    "B1-AUTH-SINGLE": "SINGLE_AUTHORITATIVE_STATE",
+    "B1-COMPAT-METRICS": "COMPATIBILITY_HOLDS",
+    "B1-REVEAL": "REVEAL_INVALIDATION_VERIFIED_WITH_NEGATIVE_CONTROL",
+    "B1-ANCHOR-ORDER": "ANCHOR_AFTER_PREPARATION",
+    "B1-REPLANNER-ISOLATION": "COPY_MUTATION_INEFFECTIVE",
+    "B1-ADVANCE": "LEGITIMATE_ADVANCE_NOT_BLOCKED",
+    "B1-BYPASS": "BYPASS_BLOCKED_OR_INEFFECTIVE (honest reading: attribute writes are DETECTED, not object-level blocked)",
+    "B1-D8": "D8_STILL_BLOCKING",
+    "B1-PRODUCTION-OFF": "ZERO_REAL_WRITE_BACK",
+    "B1-WRITE-GRAPH": "WRITE_GRAPH_RECORDED",
+    "B1-SAFETYFIX": "SAFETY_FIX_LABELLED_SEPARATELY"
+  },
+  "credential_policy_this_batch": "observation",
+  "non_claims": [
+    "P2 NOT_ESTABLISHED",
+    "G-L/G-C NOT_ESTABLISHED",
+    "D8 CAPABILITY_GAP_BLOCKING",
+    "no real production write-back",
+    "does not authorise AT2B-2 automatically",
+    "threat model excludes arbitrary reflection / malicious memory modification",
+    "no algorithmic gain claim"
+  ],
+  "algorithmic_gain_claim": "none",
+  "verification_required_after_commit": "git archive HEAD <each pinned path> must reproduce the registered sha256"
+}
