@@ -274,7 +274,13 @@ def check_ablation_engagement(cases, activation=None):
                          '「接线但资源不稀缺」。接入的正证请用 T9③（纯函数）。'
                          % ('未提供' if act is None else act))
         rows.append(r)
-        if r['engaged'] is not True:
+        # ⚠️ **2026-10-14 修复（缺陷已由用户裁定）**：原为 `is not True`，于是上面刚把
+        # `engaged` 置 `None`（= **not_applicable**、本意"不判 FAIL"）的那一支**也**命中，
+        # 降级被自己的 `problems` 抵消 ⇒ `t234_ok=False`、`audit['passed']=False` ——
+        # 与本节 docstring 及 `audit()` 的"结构性不适用被当成失败"警告直接矛盾，
+        # 也与规格 §5 T2 条"报 not_applicable，**不报 FAIL**"矛盾。
+        # 只有**明确判定为未接入**（`engaged is False`）才计入 problems。
+        if r['engaged'] is False:
             problems.append('开关 %s 未接入决策路径：%s' % (name, r.get('note')))
         problems.extend(r.get('problems') or [])
     return (not problems), rows, problems

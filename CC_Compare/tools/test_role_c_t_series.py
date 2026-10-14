@@ -146,13 +146,11 @@ def main():
                for r in au['ablation_rows'] if r['switch'] in ('opportunity_cost',
                                                                'lookahead')),
        au['ablation_rows'])
-    ck('★6a **如实记录**：审计器把已降级为 not_applicable 的开关**仍列进 `problems`**'
-       '（`check_ablation_engagement` L277-278 用 `is not True` 而非 `is False`），'
-       '与规格"报 not_applicable 不报 FAIL"矛盾 —— 本模块只报告、不代改他方模块',
-       rep['findings'] and rep['findings'][0]['finding']
-       == 'ablation_downgraded_but_listed_in_problems'
-       and 'L277-278' in rep['findings'][0]['where']
-       and au['passed'] is False,
+    ck('★6a 审计器缺陷已按用户 2026-10-14 裁定**修复**：降级为 not_applicable 的开关'
+       '**不再**进 `problems` ⇒ `_audit_findings` 不再报告该缺陷'
+       '（该检查保留为**回归哨兵**）',
+       not any(f.get('finding') == 'ablation_downgraded_but_listed_in_problems'
+               for f in rep['findings']),
        rep['findings'])
     ck('6b T2b 在 slack 夹具上如实报 not_applicable（无价格信号）',
        au['t2b_verdict'] in ('not_applicable', 'mechanism_activated_no_behavioural_effect',
@@ -163,10 +161,11 @@ def main():
     ck('7b T8 **如实列出**冻结文件未记录的配对字段（不冒充相等）',
        isinstance(rep['t8']['gaps'], list), rep['t8']['gaps'])
     row_seed = [r for r in rep['t8']['rows'] if r['field'] == 'arm_seed']
-    ck('★7d T8 **额外**强制 `arm_seed`（裁定补录后已在冻结文件里），并标明它不是'
-       '`check_control_config.PAIR_FIELDS` 的字段（供用户决定是否也加进那张清单）',
+    ck('★7d `arm_seed` 现已在公共 `PAIR_FIELDS` 里（用户裁定）⇒ T8 对它的强制'
+       '**自动退化为同一套判据**（`beyond_pair_fields=False`），不再有第二套判据；'
+       '且两侧值都是 7002',
        len(row_seed) == 1 and row_seed[0]['status'] == 'ok'
-       and row_seed[0]['beyond_pair_fields'] is True
+       and row_seed[0]['beyond_pair_fields'] is False
        and row_seed[0]['control'] == 7002
        and row_seed[0]['role_c'] == 7002, row_seed)
     ck('★7c T8 的字段清单是 **AST 抽取**而来，**没有 import** `check_control_config`'
@@ -222,6 +221,18 @@ def main():
        rep_t['audit']['t2b_verdict'])
     ck('★11d tight 夹具**不得**出现 wiring_defect（价格必须真的进了评分）',
        rep_t['audit']['t2b_verdict'] != 'wiring_defect', rep_t['audit']['t2b_row'])
+    # ★ tight 夹具上暴露的**规格内部张力**：T2 判据（完全相同⇒FAIL）与 T2b 的四级判定
+    #   （`mechanism_activated_no_behavioural_effect` **不是**接线失败）互相冲突。
+    #   本模块**不选边**，只把事实并报出来交用户裁定。
+    find_t = [f for f in rep_t['findings']
+              if f.get('finding') == 'T2_criterion_vs_T2b_verdict_tension']
+    ck('★11e tight 夹具上把"T2 判据 vs T2b 判定"的张力**并报**出来（不代裁）：'
+       'activation>0 ∧ 动作序列完全相同 ∧ T2b = mechanism_activated_no_behavioural_effect',
+       bool(find_t) and find_t[0]['facts']['activation_count > 0'] is True
+       and find_t[0]['facts']['action_sequences_identical'] is True
+       and find_t[0]['facts']['t2b_verdict']
+       == 'mechanism_activated_no_behavioural_effect',
+       rep_t['findings'])
     ck('12. tight 夹具仍满足 T5/T6（激活机制不破坏认证顺序与承诺）',
        rep_t['audit']['checks']['T5_order_and_causality'] is True
        and rep_t['audit']['checks']['T6_commitments_and_budget'] is True,

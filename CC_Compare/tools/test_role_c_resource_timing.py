@@ -166,7 +166,7 @@ def test_unregistered_refuses():
                           '缺必需字段' in str(exc), str(exc)[:80]))
         # run_timing 必须拒绝（不能"照跑但记个警告"）
         try:
-            timing.run_timing(work_fn=lambda: {'diag': 1}, n_decisions=3, path=p)
+            timing.run_timing(work_fn=lambda: {'diag': 1}, n_decisions=3, path=p, decision_points_digest='test-fixture')
             cases.append(('★R3 未登记 ⇒ run_timing 抛 TimingRefused', False, '未抛错'))
         except timing.TimingRefused as exc:
             cases.append(('★R3 未登记 ⇒ run_timing 抛 TimingRefused',
@@ -174,21 +174,45 @@ def test_unregistered_refuses():
         except ceil.CeilingNotRegistered as exc:
             cases.append(('★R3 未登记 ⇒ run_timing 拒绝（CeilingNotRegistered）',
                           True, str(exc)[:90]))
-    # 真实仓库里当前**没有**登记文件 ⇒ 全局状态必须是"未登记"
+    # ★ 用户 2026-10-14 授权后登记已落盘 ⇒ 全局状态必须是"已登记"，且**逐字段等于裁定值**
     st_repo = ceil.registration_status()
-    cases.append(('★R4 当前仓库**确实**没有登记文件 ⇒ 全局状态 = 未登记'
-                  '（资源计时因此被机械挡住）',
-                  st_repo['registered'] is False, st_repo))
-    cases.append(('R4b 登记路径指向 CC_Compare/P1A_资源门登记.json',
+    cases.append(('★R4 资源门**已登记**（用户 2026-10-14 授权后落盘），'
+                  '且 ceiling_id/占用率与裁定一致',
+                  st_repo['registered'] is True
+                  and st_repo.get('ceiling_id') == 'p1a-rolec-v1'
+                  and st_repo['occupancy'] == {'workers': 8, 'max_thread_cap': 1,
+                                               'cores_requested': 8, 'cpu_count': 96},
+                  st_repo))
+    reg = ceil.load_ceiling()
+    cases.append(('★R4b 登记值**逐字段**等于用户批准值（workers/affinity/四项线程上限/'
+                  'cpu_count/mem/单决策/总墙钟）',
+                  reg['workers'] == 8 and reg['cpu_affinity'] == list(range(8))
+                  and all(reg['thread_caps'][k] == 1 for k in ceil.THREAD_CAP_FIELDS)
+                  and reg['hardware']['cpu_count'] == 96
+                  and abs(reg['hardware']['mem_gb'] - 265.3) < 1e-9
+                  and abs(reg['single_decision_time_limit_s'] - 10.0) < 1e-12
+                  and abs(reg['total_wall_clock_limit_s'] - 43200.0) < 1e-9,
+                  {k: reg[k] for k in ('workers', 'cpu_affinity', 'thread_caps',
+                                       'single_decision_time_limit_s',
+                                       'total_wall_clock_limit_s')}))
+    cases.append(('★R4c 登记留存**授权来源**（不冒充执行人签名）',
+                  isinstance(reg.get('authorization'), str)
+                  and '2026-10-14' in reg['authorization']
+                  and reg['registered_by'] == 'P1A-resource-review-2026-10-14'
+                  and '12 小时' in reg['authorization'],
+                  str(reg.get('authorization'))[:100]))
+    cases.append(('R4d 登记路径指向 CC_Compare/P1A_资源门登记.json',
                   ceil.CEILING_REL.endswith('P1A_资源门登记.json'), ceil.CEILING_REL))
-    # ★ 模板即使被改名放到登记路径上也必须被拒 —— 否则复制模板就把门意外打开了
+    # ★ 登记路径上必须是**真登记**（不是被改名的模板）
     cc_dir = os.path.dirname(HERE)                       # .../CC_Compare
     tpl_path = os.path.join(cc_dir, 'P1A_资源门登记_模板.json')
     reg_path = os.path.join(cc_dir, ceil.CEILING_REL.split('/')[-1])
-    cases.append(('★R5 模板文件存在且**不在**登记路径上（门保持关闭）',
-                  os.path.isfile(tpl_path)
-                  and os.path.abspath(tpl_path).lower() != os.path.abspath(reg_path).lower()
-                  and not os.path.isfile(reg_path), (tpl_path, reg_path)))
+    cases.append(('★R5 登记路径上是**真登记**（无 `is_template`），模板在另一个文件里',
+                  os.path.isfile(tpl_path) and os.path.isfile(reg_path)
+                  and os.path.abspath(tpl_path).lower()
+                  != os.path.abspath(reg_path).lower()
+                  and json.load(io.open(reg_path, encoding='utf-8')).get('is_template')
+                  is None, (tpl_path, reg_path)))
     with io.open(tpl_path, encoding='utf-8') as f:
         tpl = json.load(f)
     ok_t, probs_t = ceil.validate_ceiling(tpl)
@@ -221,6 +245,7 @@ def test_timing_harness():
         return {'diag': calls['n'], 'elapsed_label': 'fake'}   # 非效用 ⇒ 允许
 
     rep = timing.run_timing(work_fn=work, n_decisions=20, warmup=3, ceiling=good,
+                            decision_points_digest='test-fixture',
                             env=envc, affinity=aff,
                             env_record_fn=lambda: rt.environment_record(),
                             affinity_fn=lambda: aff, loadavg_fn=lambda: [1.0, 2.0, 3.0])
@@ -248,6 +273,7 @@ def test_timing_harness():
             ('affinity 不同', dict(affinity=[99]), '亲和性')):
         try:
             timing.run_timing(work_fn=work, n_decisions=2, ceiling=good,
+                              decision_points_digest='test-fixture',
                               env_record_fn=lambda: {}, affinity_fn=lambda: None,
                               loadavg_fn=lambda: None, **kw)
             cases.append(('★T6 %s ⇒ TimingRefused（耗时不可解释）' % name, False, '未抛错'))
@@ -258,6 +284,7 @@ def test_timing_harness():
     # work_fn 返回效用 ⇒ UtilityLeakError
     try:
         timing.run_timing(work_fn=lambda: {'utility': 1.0}, n_decisions=2, ceiling=good,
+                          decision_points_digest='test-fixture',
                           env=envc, affinity=aff, env_record_fn=lambda: {},
                           affinity_fn=lambda: aff, loadavg_fn=lambda: None)
         cases.append(('★T7 work_fn 返回效用字段 ⇒ UtilityLeakError 直接抛',
@@ -275,6 +302,7 @@ def test_timing_harness():
             cases.append(('T8 %s ⇒ TimingRefused' % name, True, None))
     try:
         timing.run_timing(work_fn='not-callable', n_decisions=2, ceiling=good,
+                          decision_points_digest='test-fixture',
                           env=envc, affinity=aff)
         cases.append(('T8b work_fn 不可调用 ⇒ TimingRefused', False, '未抛错'))
     except timing.TimingRefused:
@@ -302,6 +330,7 @@ def test_ceiling_template_roundtrip():
         cases.append(('T10b 读出的登记仍通过校验（round-trip）', ok is True, probs))
         # 真实计时路径：登记文件 + 注入 work_fn
         rep = timing.run_timing(work_fn=lambda: {'diag': 1}, n_decisions=5, path=p,
+                                decision_points_digest='test-fixture',
                                 env=_live_env(), affinity=list(range(c['workers'])),
                                 env_record_fn=lambda: {}, affinity_fn=lambda: None,
                                 loadavg_fn=lambda: [0.5])
@@ -363,6 +392,7 @@ def test_decision_work_fn():
                   _leaked(leak_out)))
     rep_leak = timing.run_timing(
         work_fn=wf_leak, n_decisions=2, ceiling=good_ceiling(), env=_live_env(),
+        decision_points_digest='test-fixture',
         affinity=list(range(good_ceiling()['workers'])), env_record_fn=lambda: {},
         affinity_fn=lambda: None, loadavg_fn=lambda: None)
     cases.append(('★W7b 因此即使诊断带效用，计时报告里也不会出现（并有 rt 递归检查兜底）',
@@ -372,6 +402,7 @@ def test_decision_work_fn():
         p = os.path.join(tmp, 'r.json')
         rep = timing.run_timing(work_fn=wf, n_decisions=6, ceiling=good_ceiling(),
                                 warmup=1, env=_live_env(),
+                                decision_points_digest='test-fixture',
                                 affinity=list(range(good_ceiling()['workers'])),
                                 env_record_fn=lambda: {}, affinity_fn=lambda: None,
                                 loadavg_fn=lambda: None)
@@ -536,11 +567,151 @@ def test_registration_builder_and_cli():
     return cases
 
 
+def test_supervision_and_timeouts():
+    """**超时监督**（用户 2026-10-14 点名必须补的缺口）：单决策可终止并回收、总墙钟是硬上限、
+    决策点集合先固定、竞争有判据，且报告含全部必需字段。"""
+    import subprocess
+    import sys as _sys
+    import time as _time
+    cases = []
+    good = good_ceiling()
+    ncpu_good_aff = list(range(good['workers']))
+    env = _live_env()
+
+    def mk(**kw):
+        base = dict(ceiling=good, env=env, affinity=ncpu_good_aff,
+                    env_record_fn=lambda: {}, affinity_fn=lambda: ncpu_good_aff,
+                    loadavg_fn=lambda: [1.0], decision_points_digest='fixture-set-v1')
+        base.update(kw)
+        return base
+
+    # ---- A. 决策点集合必须先固定（不得事后剔除"耗时高的状态"）----
+    try:
+        timing.run_timing(work_fn=lambda: {'diag': 1}, n_decisions=2,
+                          **mk(decision_points_digest=None))
+        cases.append(('★S1 未提供 decision_points_digest 且 work_fn 无 digest() ⇒ 拒绝',
+                      False, '未抛错'))
+    except timing.TimingRefused as exc:
+        cases.append(('★S1 未提供 decision_points_digest 且 work_fn 无 digest() ⇒ 拒绝',
+                      '固定待测决策点' in str(exc), str(exc)[:80]))
+    rep_u = timing.run_timing(work_fn=lambda: {'diag': 1}, n_decisions=2,
+                              **mk(decision_points_digest=None, allow_undigested=True))
+    cases.append(('S1b 显式 allow_undigested=True 才放行，且报告中如实记 None',
+                  rep_u['decision_points_digest'] is None, None))
+    cases.append(('S1c 提供了 digest ⇒ 报告里带着它（事后可核对集合未被换掉）',
+                  timing.run_timing(work_fn=lambda: {'diag': 1}, n_decisions=1,
+                                    **mk())['decision_points_digest']
+                  == 'fixture-set-v1', None))
+
+    # ---- B. 单决策超时：终止 + 回收 + 计数（不阻塞整轮）----
+    slow = lambda: (_time.sleep(0.30), {'diag': 1})[1]        # noqa: E731
+    rep_t = timing.run_timing(work_fn=slow, n_decisions=3, **mk(per_decision_limit_s=0.05,
+                                                               contention_check=False))
+    if hasattr(__import__('signal'), 'SIGALRM'):
+        cases.append(('★S2 POSIX：单决策超限被 SIGALRM **硬中断并回收**（3 次都超时）',
+                      rep_t['n_timeouts'] >= 1 and rep_t['n_completed'] == 0
+                      and rep_t['enforcement'] == 'hard_sigalrm',
+                      (rep_t['n_timeouts'], rep_t['n_completed'],
+                       rep_t['enforcement'])))
+    else:
+        cases.append(('★S2 非 POSIX：**无法**硬中断，但超限被如实检出并计数'
+                      '（`enforcement=cooperative` ⇒ 该次计时不合格）',
+                      rep_t['n_overruns'] >= 1 and rep_t['enforcement'] == 'cooperative'
+                      and rep_t['qualified'] is False
+                      and any('enforcement' in x for x in rep_t['unqualified_reasons']),
+                      (rep_t['n_overruns'], rep_t['enforcement'],
+                       rep_t['unqualified_reasons'])))
+    cases.append(('S2b 超时的**完整记录**保留在 records 里（不剔除）',
+                  len(rep_t['records']) >= 1
+                  and any(r['exceeded_per_decision_limit'] for r in rep_t['records']),
+                  rep_t['records'][:2]))
+    cases.append(('S2c 「已登记上限」≠「已执行硬上限」：非硬中断 ⇒ qualified=False',
+                  (rep_t['qualified'] is True) if rep_t['enforcement'] == 'hard_sigalrm'
+                  else (rep_t['qualified'] is False), rep_t['unqualified_reasons']))
+
+    # ---- C. 总墙钟是硬上限：用注入时钟确定性地触发 ----
+    tick = {'t': 0.0}
+
+    def fake_clock():
+        tick['t'] += 1.0
+        return tick['t']
+    rep_w = timing.run_timing(work_fn=lambda: {'diag': 1}, n_decisions=100,
+                              **mk(total_wall_s=5.0, monotonic=fake_clock,
+                                   contention_check=False))
+    cases.append(('★S3 总墙钟上限被触及 ⇒ 停下、`total_wall_exceeded=True`、'
+                  '完成数 < 请求数、qualified=False',
+                  rep_w['total_wall_exceeded'] is True
+                  and rep_w['n_completed'] < 100 and rep_w['qualified'] is False
+                  and any('总墙钟' in x for x in rep_w['unqualified_reasons']),
+                  (rep_w['total_wall_exceeded'], rep_w['n_completed'],
+                   rep_w['unqualified_reasons'])))
+
+    # ---- D. 竞争判据（loadavg 不足以证明钉住的核没被别人用）----
+    cont = timing.affinity_contention([0, 1, 2, 3], sample_s=0.05)
+    cases.append(('S4 affinity_contention 在无 /proc/stat 时**如实报无法判定**'
+                  '（不得当作"无竞争"）',
+                  ('available' in cont)
+                  and (cont['available'] or '无法判定' in (cont.get('reason') or '')
+                       or '不可用' in (cont.get('reason') or '')), cont))
+    old = timing.affinity_contention
+    try:
+        timing.affinity_contention = lambda *a, **k: {
+            'available': True, 'external_busy_ratio': 0.9, 'per_cpu': {}, 'reason': '',
+            'checked': True}
+        rep_c = timing.run_timing(work_fn=lambda: {'diag': 1}, n_decisions=2,
+                                  **mk(contention_check=True))
+        cases.append(('★S5 外部占用 0.9 > 0.5 ⇒ qualified=False，且**不**换核集/加 workers'
+                      '（报告里 affinity_actual 仍是登记的 0–7）',
+                      rep_c['qualified'] is False
+                      and any('明显竞争' in x for x in rep_c['unqualified_reasons'])
+                      and rep_c['affinity_actual'] == ncpu_good_aff,
+                      (rep_c['unqualified_reasons'], rep_c['affinity_actual'])))
+        timing.affinity_contention = lambda *a, **k: {
+            'available': True, 'external_busy_ratio': 0.01, 'per_cpu': {}, 'reason': '',
+            'checked': True}
+        rep_c2 = timing.run_timing(work_fn=lambda: {'diag': 1}, n_decisions=2,
+                                   **mk(contention_check=True))
+        cases.append(('S5b 外部占用 0.01 ⇒ 不再因竞争判不合格（判据非恒失败）',
+                      not any('明显竞争' in x for x in rep_c2['unqualified_reasons']),
+                      rep_c2['unqualified_reasons']))
+    finally:
+        timing.affinity_contention = old
+
+    # ---- E. 报告必须含用户要求的全部字段 ----
+    rep_f = timing.run_timing(work_fn=lambda: {'diag': 1}, n_decisions=4, warmup=1,
+                              **mk(contention_check=False))
+    need = ('records', 'per_decision', 'n_timeouts', 'n_overruns', 'affinity_actual',
+            'thread_caps_actual', 'loadavg_before', 'loadavg_after', 'contention',
+            'decision_points_digest', 'enforcement', 'qualified',
+            'unqualified_reasons', 'total_elapsed_s', 'total_wall_limit_s',
+            'per_decision_limit_s')
+    cases.append(('★S6 报告含用户点名的全部字段（完整单次耗时/P95/超时次数/真实亲和性/'
+                  '线程配置/机器负载/监督判据）', all(k in rep_f for k in need),
+                  [k for k in need if k not in rep_f]))
+    cases.append(('S6b per_decision 含 P95（资源规划证据）',
+                  rep_f['per_decision'] and 'p95' in rep_f['per_decision'],
+                  rep_f['per_decision']))
+    cases.append(('S6c 报告仍**无任何效用字段**', _leaked(rep_f) == [], _leaked(rep_f)))
+
+    # ---- F. 外层监督器：超时**硬杀并回收** ----
+    sup = timing.run_supervised(
+        [_sys.executable, '-c', 'import time; time.sleep(30)'], total_wall_s=1.0)
+    cases.append(('★S7 外层监督器在总墙钟超限时**硬杀并回收**子进程（timed_out=True）',
+                  sup['timed_out'] is True and sup['elapsed_s'] < 20.0, sup))
+    sup2 = timing.run_supervised(
+        [_sys.executable, '-c', 'print("ok")'], total_wall_s=30.0)
+    cases.append(('S7b 正常完成的子进程如实返回 rc=0 且 timed_out=False',
+                  sup2['timed_out'] is False and sup2['rc'] == 0
+                  and 'ok' in sup2['stdout_tail'], sup2))
+    return cases
+
+
 def main():
     cases = []
     for fn in (test_gate_validation, test_unregistered_refuses, test_timing_harness,
                test_ceiling_template_roundtrip, test_decision_work_fn,
-               test_capture_real_contexts, test_registration_builder_and_cli):
+               test_capture_real_contexts, test_registration_builder_and_cli,
+               test_supervision_and_timeouts):
         try:
             cases.extend(fn())
         except Exception as exc:                            # noqa: BLE001

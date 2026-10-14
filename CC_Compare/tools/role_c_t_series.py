@@ -174,22 +174,34 @@ def activation_counts(diags):
     * `opportunity_cost` / `lookahead`：`lambda_raw > 0` 的决策数
       —— 规格 §5 T2 条（审计 D3b）明确要求用**未截断**的 `raw` 计数当激活量，
       因为截断后的 `λ_B` 为 0 也可能是"raw>0 但被 clip"或"raw 本来就 ≤0"；
-    * `scenarios`：**前瞻真的被求值**的决策数（未被边界/插入短路掉）
-      —— 场景机制只有被跑到才谈得上"接没接进去"。
+    * `scenarios`：**场景集真的进入了评分**的决策数，即 `|λ_B·e_o| > 0` 的条数。
+
+      ⚠️ 第一版把它写成"前瞻被求值过"（未被边界/插入短路），那是**错的**：
+      `λ_B ≡ 0` 时场景集**没有任何通道**进入判决（`myopic_net − 0·e_o`），
+      改 `K`/改场景顺序**必然**得到同一串动作 —— 那是"机制无通道"，不是"没接线"。
+      按第一版口径，slack 夹具（λ≡0）会被判 `engaged=False + activation=4` ⇒ **假 FAIL**。
+      现在的口径与 T2 的激活量同源：**只有价格真的进了评分，场景机制才算被触发**。
     """
     n_raw = 0
-    n_scen = 0
+    n_price_entered = 0
     for d in diags or []:
-        ld = (d or {}).get('lambda_diag') or {}
+        d = d or {}
+        ld = d.get('lambda_diag') or {}
         raw = ld.get('lambda_raw')
         try:
             if raw is not None and float(raw) > 0.0:
                 n_raw += 1
         except (TypeError, ValueError):
             pass
-        if (d or {}).get('forward') is not None:
-            n_scen += 1
-    return {'opportunity_cost': n_raw, 'lookahead': n_raw, 'scenarios': n_scen}
+        lam, e_o = ld.get('lambda_B'), d.get('e_o')
+        try:
+            if lam is not None and e_o is not None \
+                    and abs(float(lam) * float(e_o)) > 1e-12:
+                n_price_entered += 1
+        except (TypeError, ValueError):
+            pass
+    return {'opportunity_cost': n_raw, 'lookahead': n_raw,
+            'scenarios': n_price_entered}
 
 
 def t2b_stats(diags_main, actions_ablated=None):
@@ -281,10 +293,11 @@ def t8_shared_config_check(*, config=None, frozen=None):
     冻结文件里**缺**的字段（如 `arm_seed`）**不冒充相等**，而是列进 `gaps` 如实上报。
     """
     pair_fields = _extract_const('PAIR_FIELDS')
-    # `arm_seed` 由 2026-10-14 用户裁定补录进冻结文件（见 `role_c_identity` 模块头），
-    # 但 `check_control_config.PAIR_FIELDS`（他方已登记模块）**没有**它 ⇒ 本层**额外**
-    # 强制它，并把它标为 `beyond_pair_fields`，供用户决定是否也加进那张清单。
+    # `arm_seed` 已由 2026-10-14 用户裁定**加入公共 `PAIR_FIELDS`** ⇒ 本层对它的强制
+    # **自动退化为同一套判据**（不再有第二套）。这里显式去重：既在 `PAIR_FIELDS` 又在
+    # `extra_fields` 的字段只比较**一次**（否则同一字段会出两行，等于两套判据）。
     extra_fields = ('arm_seed',)
+    fields = list(pair_fields) + [f for f in extra_fields if f not in pair_fields]
     f = frozen if frozen is not None else ri.load_frozen_control()
     cfg = config if config is not None else ri.role_c_solver_config(frozen=f)
     mine = dict(cfg['shared'])
@@ -294,7 +307,7 @@ def t8_shared_config_check(*, config=None, frozen=None):
     flat.update({k: v for k, v in f['shared_identity_anchor'].items()
                  if k not in ('seeds', 'main_penalty')})
     rows, mismatches = [], []
-    for name in tuple(pair_fields) + tuple(extra_fields):
+    for name in fields:
         beyond = name not in pair_fields
         if name not in flat:
             rows.append({'field': name, 'role_c': mine.get(name), 'control': None,
@@ -403,18 +416,46 @@ def _audit_findings(audit):
     的开关点名列出，供用户裁定由谁修。
     """
     out = []
+    probs = ' | '.join(str(p) for p in (audit.get('problems') or []))
     downgraded = [r.get('switch') for r in (audit.get('ablation_rows') or [])
                   if r.get('engaged') is None]
-    if downgraded:
+    # ⚠️ 只在**降级了却仍进 problems**时才报告（那才是"结构性不适用被当成失败"的缺陷）。
+    # 2026-10-14：该缺陷已按用户裁定修复（`is not True` → `is False`），故正常情况下
+    # 这里**不再产生** finding；保留检查是为了防止将来回归。
+    offenders = sorted(x for x in downgraded if x and ('开关 %s ' % x) in probs)
+    if offenders:
         out.append({
             'finding': 'ablation_downgraded_but_listed_in_problems',
-            'switches': sorted(x for x in downgraded if x),
-            'where': 'role_c_decision_audit.check_ablation_engagement (L277-278)',
-            'detail': "`engaged` 已置 None（= not_applicable），但 `if r['engaged'] is "
-                      "not True: problems.append(...)` 仍命中 ⇒ 降级被抵消、"
-                      "`t234_ok`/`audit['passed']` 变 False。规格要求此处**报 "
-                      "not_applicable 而不报 FAIL**。",
-            'suggested_fix': "把 `is not True` 改为 `is False`（其自身测试 "
-                             "case (a)(b) 只断言行字段、不断言 ok/problems，故不受影响）",
-            'not_fixed_by': 'role_c_t_series（不改他方已登记 SHA 的模块）'})
+            'switches': offenders,
+            'where': 'role_c_decision_audit.check_ablation_engagement（`problems` 追加处）',
+            'detail': "`engaged` 为 None（= not_applicable）却仍被列入 `problems` ⇒ "
+                      "降级被抵消、`audit['passed']` 变 False。规格 §5 T2 条要求此处"
+                      "**报 not_applicable 而不报 FAIL**。",
+            'suggested_fix': "确保只有 `engaged is False` 才追加 problems"
+                             "（2026-10-14 用户裁定后已修）。",
+            'status': 'REGRESSED —— 该缺陷此前已修复，此处再次出现，须立即排查'})
+    # ⚠️ **规格内部张力（2026-10-14 实测发现，本模块只并报、不代裁）**：
+    #   规格 §5 的 **T2 判据**说"`λ_B≡0` 与不消融的决策序列**不得完全相同**（完全相同 ⇒ FAIL）"；
+    #   而同一份规格的 **T2b** 把"价格进了评分、动作没变"明确标为
+    #   `mechanism_activated_no_behavioural_effect`，并写明那是"**不是**接线失败，
+    #   也不是效果通过"。两者在"score 变了但动作没变"这一情形上给出**相反**结论。
+    #   本函数不选边：把两边的**事实**都摆出来（activation>0 ∧ 动作序列完全相同 ∧
+    #   T2b 的判定），供用户裁定该以哪一条为准。
+    verdict = audit.get('t2b_verdict')
+    same_action = sorted(r.get('switch') for r in (audit.get('ablation_rows') or [])
+                         if r.get('engaged') is False and int(r.get('activation_count') or 0) > 0)
+    if same_action and verdict == 'mechanism_activated_no_behavioural_effect':
+        out.append({
+            'finding': 'T2_criterion_vs_T2b_verdict_tension',
+            'switches': same_action,
+            'facts': {'activation_count > 0': True,
+                      'action_sequences_identical': True,
+                      't2b_verdict': verdict},
+            'detail': '规格 T2 判据（"完全相同 ⇒ FAIL"）与 T2b 的四级判定在此情形上冲突：'
+                      'T2b 明说 `mechanism_activated_no_behavioural_effect` **不是**接线失败，'
+                      '而 T2 的判据会把"动作序列完全相同"直接判 FAIL。'
+                      '关键事实：`n_score_changed > 0`（价格**确实进了评分**），'
+                      '只是在本夹具的状态集合上没有翻转任何动作。',
+            'not_decided_by': 'role_c_t_series —— 两套判据都写在规格里，取哪一条需用户裁定',
+        })
     return out

@@ -179,9 +179,18 @@ def main():
     ok, rows, pr = aud.check_ablation_engagement(allpairs)
     ck('T2/T3/T4：三开关全部接入 ⇒ PASS', ok is True and len(rows) == 3, pr)
     onepairs = dict(allpairs, scenarios=(base, copy.deepcopy(base)))
-    ok, rows, pr = aud.check_ablation_engagement(onepairs)
-    ck('T2/T3/T4：其中 scenarios **未接入** ⇒ FAIL 且点名该开关',
+    # ⚠️ **2026-10-14 修复（用户裁定）**：`check_ablation_engagement` 原先用
+    #    `if r['engaged'] is not True`, 于是"降级为 not_applicable"（engaged=None）**也**
+    #    进 problems ⇒ `ok=False`。已改为 `is False`。因此本用例必须**证明机制被触发过**
+    #    （`activation>0`）才构成"真未接入"；未提供 activation 的情形见下面新增的对照用例
+    #    （应按 `not_applicable` 处理，**不**判失败）。
+    ok, rows, pr = aud.check_ablation_engagement(onepairs, activation={'scenarios': 5})
+    ck('T2/T3/T4：其中 scenarios **未接入**（且已证明被触发过）⇒ FAIL 且点名该开关',
        ok is False and any('scenarios' in p for p in pr), pr)
+    ok_na, rows_na, pr_na = aud.check_ablation_engagement(onepairs)
+    ck('★ 同上但**未提供 activation** ⇒ not_applicable（结构性不适用不算失败）',
+       ok_na is True and pr_na == [] and rows_na[2]['engaged'] is None
+       and 'not_applicable' in (rows_na[2].get('note') or ''), (pr_na, rows_na[2]))
     ok, rows, pr = aud.check_ablation_engagement({})
     ck('fail-closed：未提供任何消融对照 ⇒ FAIL（不能默认通过）',
        ok is False and any('cases 为空' in p for p in pr), pr)
@@ -235,8 +244,14 @@ def main():
        and any('T2b' in s for s in r['not_applicable'])
        and r['passed'] is True,
        'problems=%s na=%s' % (r['problems'], r['not_applicable']))
-    r = aud.audit(base, ablations=onepairs)
-    ck('audit()：有开关未接入 ⇒ passed=False', r['passed'] is False)
+    # ⚠️ 2026-10-14 修复后：`audit()` 也必须**只在机制被证明触发过**时判失败；
+    #    未提供 activation 的同一份消融对照应进 `not_applicable` 而**不**使 passed=False。
+    r = aud.audit(base, ablations=onepairs, ablation_activation={'scenarios': 5})
+    ck('audit()：有开关未接入（且已证明被触发过）⇒ passed=False', r['passed'] is False)
+    r_na = aud.audit(base, ablations=onepairs)
+    ck('★ audit()：未证明被触发 ⇒ 不判失败（passed=True），且 problems 为空',
+       r_na['passed'] is True and not any('scenarios' in p for p in r_na['problems']),
+       'problems=%s' % (r_na['problems'],))
 
     # ---------- 结构性：schema 常量化（必填 ∪ 条件必填 == 完整字段集）----------
     all_cond = set()

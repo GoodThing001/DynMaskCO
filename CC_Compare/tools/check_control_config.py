@@ -22,8 +22,18 @@ import json
 import os
 import sys
 
-if hasattr(sys.stdout, 'buffer'):
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+# ⚠️ **2026-10-14 修复（缺陷已由用户裁定）**：原实现是
+#     `sys.stdout = io.TextIOWrapper(sys.stdout.buffer, ...)`
+# —— 它把 `sys.stdout` **换成新对象**，旧 `TextIOWrapper` 失去引用后被 GC，而
+# `TextIOWrapper.__del__` 会按所有权**关闭底层 buffer** ⇒ **任何 import 本模块的进程**
+# 此后所有 `print` 都抛 `ValueError: I/O operation on closed file`（Role C 的 T 系列
+# 第一版就是这样崩的；`role_c_t_series` 因此改为 AST 抽取常量、不敢 import 本模块）。
+# 修法：用 `reconfigure` **就地**改造编码，不替换对象 ⇒ 不产生"旧对象被 GC"的副作用。
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:                                         # noqa: BLE001
+        pass
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -32,6 +42,13 @@ SPEC = os.path.join(ROOT, 'CC_Compare', 'P1A_CONTROL_FROZEN.json')
 # + CC_Compare/COMPARISON_PROTOCOL_2026-10-14.md §4.1 的协议字段）
 PAIR_FIELDS = ('n_orders', 'capacity', 'num_vehicles', 'rho', 'gate_instances', 'gate_seed',
                'K', 'time_limit', 'future_policy', 'shadow_mode', 'k_neighbors',
+               # ⚠️ **2026-10-14 加入（用户裁定）**：`arm_seed` 不只是日志属性 —— 它决定
+               # `CondHistoricalSampler` 的随机**场景流**（`scenario_saa.py:1002`）。
+               # P1-A 要求信息匹配与共同随机数流 ⇒ 场景种子属于**正式配对身份**的一部分。
+               # `cond_hist` 用已核实的 7002（**不是** `SaaReplanner` 默认的 7001）；
+               # 任一侧缺失或两侧不一致 ⇒ 新协议一律判配对身份失败。
+               # 历史 gate **不因新增字段被追溯修改**，仍保留原资格标签。
+               'arm_seed',
                'budget_B', 'cooling_share',
                'contract_sha256', 'data_sha256', 'data_meta_sha256')
 # 两臂都必须为 **True**（不是"相等"）—— 各自"启动==结束"

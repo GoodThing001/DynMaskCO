@@ -235,19 +235,23 @@ def registration_status(path=None):
 def build_registration(*, workers, cpu_affinity, total_wall_clock_limit_s,
                        registered_by, registered_at=None, ceiling_id='p1a-rolec-v1',
                        thread_caps=None, hardware=None, source_policy=None,
-                       single_decision_time_limit_s=None):
+                       single_decision_time_limit_s=None, authorization=None):
     """**纯函数**：把用户裁定的上限组装成登记 dict（不写盘、不校验通过与否）。
 
     只做"组装 + 事实填写"：`hardware` 必须由调用方给（登记描述的是**跑批那台机器**，
     不是写登记那台）；`thread_caps` 缺省 = 四项全 1（规格点名 OMP=1；另三项漏配即过度
     订阅风险，故缺省就把它们设成 1，而不是留空）。
+
+    `registered_by` 是**裁定标识**（如 `P1A-resource-review-…`），**不是**执行人签名；
+    `authorization` 用来留存本次授权的来源与原文要点（用户 2026-10-14 要求），
+    使"谁批的、批了什么"与登记值一起被哈希进身份。
     """
     caps = dict(thread_caps or {})
     for k in THREAD_CAP_FIELDS:
         caps.setdefault(k, 1)
     if not isinstance(cpu_affinity, (list, tuple)):
         cpu_affinity = list(cpu_affinity or [])
-    return {
+    reg = {
         'ceiling_id': ceiling_id,
         'registered_by': registered_by,
         'registered_at': registered_at or __import__('datetime').date.today().isoformat(),
@@ -263,6 +267,10 @@ def build_registration(*, workers, cpu_affinity, total_wall_clock_limit_s,
             else single_decision_time_limit_s),
         'total_wall_clock_limit_s': float(total_wall_clock_limit_s),
     }
+    if authorization is not None:
+        reg['authorization'] = dict(authorization) if isinstance(authorization, dict) \
+            else str(authorization)
+    return reg
 
 
 def write_registration(reg, path=None, *, force=False):
@@ -315,7 +323,10 @@ def main(argv=None):
     ap.add_argument('--affinity', required=True, help="如 '0-7' 或 '0,1,2'")
     ap.add_argument('--total-wall', type=float, required=True,
                     help='总墙钟上限（秒）')
-    ap.add_argument('--registered-by', required=True)
+    ap.add_argument('--registered-by', required=True,
+                    help='**裁定标识**（不是执行人签名）')
+    ap.add_argument('--authorization', default=None,
+                    help='授权来源/原文要点（写入登记，与值一起进哈希）')
     ap.add_argument('--ceiling-id', default='p1a-rolec-v1')
     ap.add_argument('--cpu-count', type=int, required=True,
                     help='**跑批那台机器**的核数（本机核数可能不同）')
@@ -337,7 +348,8 @@ def main(argv=None):
                      'OPENBLAS_NUM_THREADS': a.openblas,
                      'NUMEXPR_NUM_THREADS': a.numexpr},
         hardware={'machine': a.machine or '(由登记人填写)', 'cpu_count': a.cpu_count,
-                  'mem_gb': a.mem_gb})
+                  'mem_gb': a.mem_gb},
+        authorization=a.authorization)
     ok, problems = validate_ceiling(reg)
     print(json.dumps({'occupancy': occupancy(reg), 'valid': ok,
                       'problems': problems}, ensure_ascii=False, indent=2))

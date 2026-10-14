@@ -27,16 +27,32 @@ from __future__ import annotations
 import io
 import json
 import os
+import signal
+import time
 
 import resource_timing as rt
 import role_c_resource_ceiling as ceil
 
-__all__ = ['TimingRefused', 'run_timing', 'validate_preconditions',
-           'make_decision_work_fn', 'write_report', 'DecisionWorkFn']
+__all__ = ['TimingRefused', 'DecisionTimeout', 'CONTENTION_RULE',
+           'MAX_EXTERNAL_BUSY_RATIO', 'run_timing', 'validate_preconditions',
+           'make_decision_work_fn', 'write_report', 'DecisionWorkFn',
+           'affinity_contention', 'run_supervised']
+
+# 竞争判据（**事前写死并记录在报告里**，不是事后挑选的阈值）：
+# 实测期间**外部**任务在 affinity 核集上的平均占用比 > 该值 ⇒ 本次计时**不合格**
+# （保留资源登记，但**不**产生合格结论；**不得**临场换核集或加 workers）。
+MAX_EXTERNAL_BUSY_RATIO = 0.5
+CONTENTION_RULE = ('external_busy_ratio_on_affinity_set > '
+                   'MAX_EXTERNAL_BUSY_RATIO(%.1f) ⇒ qualified=False'
+                   % MAX_EXTERNAL_BUSY_RATIO)
 
 
 class TimingRefused(RuntimeError):
     """前置条件不满足 ⇒ 拒绝计时（fail-closed；不是"耗时偏大"这类软判断）。"""
+
+
+class DecisionTimeout(RuntimeError):
+    """单决策超出 `single_decision_time_limit_s` ⇒ 终止该次并**回收**（计入超时次数）。"""
 
 
 def _default_loadavg():
@@ -61,22 +77,124 @@ def validate_preconditions(ceiling=None, *, env=None, affinity=None, path=None):
     return ceiling, problems
 
 
+def _read_proc_stat():
+    """读 `/proc/stat` 的每核累计 jiffies（Linux）；不可用 ⇒ None。"""
+    try:
+        with io.open('/proc/stat', encoding='utf-8') as f:
+            out = {}
+            for line in f:
+                if not line.startswith('cpu') or line.startswith('cpu '):
+                    continue
+                parts = line.split()
+                idx = int(parts[0][3:])
+                vals = [int(x) for x in parts[1:]]
+                idle = vals[3] + (vals[4] if len(vals) > 4 else 0)
+                out[idx] = (sum(vals), idle)
+            return out or None
+    except Exception:                                         # noqa: BLE001
+        return None
+
+
+def affinity_contention(affinity=None, *, sample_s=1.0):
+    """实测 **affinity 核集上"外部"任务的占用比**（用于判"明显竞争"）。
+
+    ⚠️ 为什么不能用 `loadavg`：它反映**整机**负载，**不能**证明被钉住的 0–7 核上没有
+    其他任务（用户 2026-10-14 明确指出这一点）。故这里读 `/proc/stat` 的**每核** jiffies
+    差值，只统计 affinity 集合内的核。
+
+    返回 `{'available', 'external_busy_ratio', 'reason', 'per_cpu'}`；
+    非 Linux（无 `/proc/stat`）⇒ `available=False` 且**如实**写明"无法判定"，
+    **不得**当成"无竞争"。
+    """
+    a = sorted(int(c) for c in (affinity or []))
+    if not a:
+        return {'available': False, 'external_busy_ratio': None,
+                'reason': '未给出 affinity 核集 ⇒ 无法判定'}
+    s1 = _read_proc_stat()
+    if not s1:
+        return {'available': False, 'external_busy_ratio': None,
+                'reason': '/proc/stat 不可用（非 Linux？）⇒ **无法判定**是否有竞争；'
+                          '不得当作"无竞争"'}
+    time.sleep(float(sample_s))
+    s2 = _read_proc_stat() or {}
+    busy = 0
+    total = 0
+    per = {}
+    for c in a:
+        if c not in s1 or c not in s2:
+            continue
+        dt = (s2[c][0] - s1[c][0])
+        di = (s2[c][1] - s1[c][1])
+        if dt <= 0:
+            continue
+        busy += (dt - di)
+        total += dt
+        per[str(c)] = round((dt - di) / float(dt), 4)
+    if total <= 0:
+        return {'available': False, 'external_busy_ratio': None,
+                'reason': '采样期内无 jiffies 差 ⇒ 无法判定', 'per_cpu': per}
+    return {'available': True, 'external_busy_ratio': round(busy / float(total), 4),
+            'n_cpus_sampled': len(per), 'per_cpu': per, 'sample_s': float(sample_s),
+            'reason': ''}
+
+
+def _run_with_limit(fn, limit_s):
+    """在**硬时限**下跑一次 `fn`（POSIX `SIGALRM`）；返回 `(out, timed_out, elapsed)`。
+
+    非 POSIX（无 `SIGALRM`/`setitimer`）⇒ 退化为**协作式**：只能事后判定"超了"，
+    **无法**中断阻塞调用。此时报告里 `enforcement='cooperative'` 且该次计时**不合格**
+    （"已登记上限"≠"已执行硬上限"，用户 2026-10-14 明确指出）。
+    """
+    t0 = time.perf_counter()
+    if not (hasattr(signal, 'SIGALRM') and hasattr(signal, 'setitimer')):
+        out = fn()
+        return out, False, time.perf_counter() - t0, False
+
+    def _handler(_signum, _frame):
+        raise DecisionTimeout('单决策超过 %.3fs 硬时限 ⇒ 终止并回收' % limit_s)
+
+    old = signal.signal(signal.SIGALRM, _handler)
+    signal.setitimer(signal.ITIMER_REAL, float(limit_s))
+    try:
+        out = fn()
+        return out, False, time.perf_counter() - t0, True
+    except DecisionTimeout:
+        return None, True, time.perf_counter() - t0, True
+    finally:
+        signal.setitimer(signal.ITIMER_REAL, 0.0)
+        signal.signal(signal.SIGALRM, old)
+
+
 def run_timing(*, work_fn, n_decisions, ceiling=None, warmup=0, label='role_c_decision',
                path=None, env=None, affinity=None, env_record_fn=None,
-               affinity_fn=None, loadavg_fn=None):
-    """跑一次**不看效用**的单决策级计时，返回报告 dict。
+               affinity_fn=None, loadavg_fn=None, decision_points_digest=None,
+               contention_check=True, contention_sample_s=1.0,
+               max_external_busy_ratio=MAX_EXTERNAL_BUSY_RATIO,
+               total_wall_s=None, per_decision_limit_s=None, monotonic=None,
+               allow_undigested=False):
+    """跑一次**不看效用**的单决策级计时，返回报告 dict（含**超时监督**与**竞争判定**）。
 
-    参数
+    参数（除新增的监督项外与既有语义一致）
     ----
-    work_fn : 可调用，执行**一次决策**（由调用方注入：真实 runner 或合成夹具）。
-        其返回值会被 `resource_timing._check_no_utility` 检查 ⇒ 返回效用类字段即抛错。
+    work_fn : 可调用，执行**一次决策**（由调用方注入）。返回值会被
+        `resource_timing._check_no_utility` 检查 ⇒ 返回效用类字段即抛错。
     n_decisions : 采样次数（>0）。
     ceiling : 已登记的上限 dict；不给则从登记文件读（未登记 ⇒ 抛 `CeilingNotRegistered`）。
-    warmup : 预热次数，**单独计次且不进统计**（排除编译/缓存冷启动污染稳态耗时）。
-    env / affinity / env_record_fn / affinity_fn / loadavg_fn : 可注入，便于离线测试。
+    warmup : 预热次数，**单独计次且不进统计**。
+    decision_points_digest : **待测决策点集合的指纹**（用户 2026-10-14 要求"计时前固定集合、
+        不得在看到某些状态耗时高后剔除"）。若 `work_fn` 自带 `digest()` 则自动取用；
+        两者都没有 ⇒ **拒绝计时**（除非显式 `allow_undigested=True`，且报告里如实标注）。
+    contention_check : 计时**前**实测 affinity 核集上**外部**任务的占用比
+        （`loadavg` 不能证明 0–7 核没有别的任务）。有竞争 ⇒ 报告 `qualified=False`，
+        但**保留**资源登记，且**不**临场换核集/加 workers。
+    total_wall_s / per_decision_limit_s : 缺省取登记值（43200 / 10.0）。
+        **单决策**用 `SIGALRM` **硬中断并回收**；**总墙钟**在每次调用前复查，
+        并在单决策时限里取 `min(单决策, 剩余总时间)` ⇒ 总上限也是**硬**的（POSIX）。
+    monotonic : 计时时钟（可注入，便于离线测试"超总预算"分支）。
 
-    返回：`{ceiling_id, occupancy, per_decision, n, timings, environment,
-            live_environment, loadavg_before, loadavg_after, note, ...}` —— 无任何效用字段。
+    返回：**无任何效用字段**；含 `per_decision`（mean/P50/P95/max）、
+    **完整单次耗时** `records`、`n_timeouts`、真实 `affinity_actual`、`thread_caps_actual`、
+    `loadavg_before/after`、`contention`、`enforcement` 与 `qualified`/`unqualified_reasons`。
     """
     if not callable(work_fn):
         raise TimingRefused('work_fn 必须可调用（执行一次决策）')
@@ -92,30 +210,135 @@ def run_timing(*, work_fn, n_decisions, ceiling=None, warmup=0, label='role_c_de
     affinity_fn = affinity_fn or (lambda: sorted(os.sched_getaffinity(0))
                                   if hasattr(os, 'sched_getaffinity') else None)
     loadavg_fn = loadavg_fn or _default_loadavg
-
+    clock = monotonic or time.monotonic
+    per_lim = float(per_decision_limit_s if per_decision_limit_s is not None
+                    else c['single_decision_time_limit_s'])
+    tot_lim = float(total_wall_s if total_wall_s is not None
+                    else c['total_wall_clock_limit_s'])
+    # ---- 决策点集合必须**先固定**（不得事后剔除"耗时高的状态"）----
+    digest = decision_points_digest
+    if digest is None and hasattr(work_fn, 'digest'):
+        digest = work_fn.digest()
+    if digest is None and not allow_undigested:
+        raise TimingRefused(
+            '未提供 `decision_points_digest` 且 work_fn 无 `digest()` ⇒ 拒绝计时：'
+            '用户 2026-10-14 要求"计时前固定待测决策点集合，不能在看到某些状态耗时较高后'
+            '将其剔除"。若确为纯合成夹具，请显式 `allow_undigested=True` 并接受报告中'
+            '如实标注 `decision_points_digest=None`。')
+    aff = affinity_fn()
+    # ---- 计时**前**的竞争检查（loadavg 不足以证明钉住的核没被别人用）----
+    contention = {'checked': False}
+    if contention_check:
+        try:
+            contention = affinity_contention(aff, sample_s=contention_sample_s)
+        except Exception as exc:                              # noqa: BLE001
+            contention = {'available': False, 'external_busy_ratio': None,
+                          'reason': '竞争探测失败：%s' % exc}
+        contention['checked'] = True
+        contention['rule'] = CONTENTION_RULE
+        contention['max_external_busy_ratio'] = float(max_external_busy_ratio)
     before = loadavg_fn()
-    rep = rt.measure_series(work_fn, n=int(n_decisions), label=label, warmup=int(warmup))
+    t_start = clock()
+    records = []
+    hard = None
+    with_timeouts = 0
+    overruns = 0
+    errors = 0
+    total_exceeded = False
+    # 预热（不计入统计，但仍受总预算与单决策硬时限约束 —— 预热也不能挂住）
+    for _ in range(int(warmup)):
+        if clock() - t_start >= tot_lim:
+            total_exceeded = True
+            break
+        remain = max(1e-6, tot_lim - (clock() - t_start))
+        try:
+            _run_with_limit(work_fn, min(per_lim, remain))
+        except DecisionTimeout:
+            with_timeouts += 1
+        except Exception:                                     # noqa: BLE001
+            errors += 1
+    for i in range(int(n_decisions)):
+        if total_exceeded or (clock() - t_start) >= tot_lim:
+            total_exceeded = True
+            break
+        remain = max(1e-6, tot_lim - (clock() - t_start))
+        t0 = clock()
+        try:
+            out, timed_out, elapsed, _hard = _run_with_limit(work_fn, min(per_lim, remain))
+            hard = _hard if hard is None else hard
+            if timed_out:
+                with_timeouts += 1
+                records.append({'i': i, 'elapsed_s': elapsed, 'status': 'timeout',
+                                'exceeded_per_decision_limit': True})
+                continue
+            rt._check_no_utility(out)          # 效用泄漏 ⇒ 立刻抛（不静默）
+            over = elapsed > per_lim
+            if over:
+                overruns += 1
+            records.append({'i': i, 'elapsed_s': elapsed, 'status': 'ok',
+                            'exceeded_per_decision_limit': over})
+        except DecisionTimeout:
+            with_timeouts += 1
+            records.append({'i': i, 'elapsed_s': clock() - t0, 'status': 'timeout',
+                            'exceeded_per_decision_limit': True})
+        except rt.UtilityLeakError:
+            raise
+        except Exception as exc:                              # noqa: BLE001
+            errors += 1
+            records.append({'i': i, 'elapsed_s': clock() - t0, 'status': 'error',
+                            'error': type(exc).__name__,
+                            'exceeded_per_decision_limit': False})
+    total_elapsed = clock() - t_start
     after = loadavg_fn()
-    rep.update({
-        'ceiling_id': c.get('ceiling_id'),
-        'n': int(n_decisions),
-        'n_decisions': int(n_decisions),
-        'occupancy': ceil.occupancy(c),
-        'affinity_actual': affinity_fn(),
+    ok_times = [r['elapsed_s'] for r in records if r['status'] == 'ok']
+    rep = {
+        'label': label, 'unit': 's', 'warmup_calls': int(warmup),
+        'n_requested': int(n_decisions), 'n_completed': len(ok_times),
+        'n_timeouts': with_timeouts, 'n_overruns': overruns, 'n_errors': errors,
+        'total_wall_exceeded': bool(total_exceeded),
+        'total_elapsed_s': total_elapsed,
+        'total_wall_limit_s': tot_lim, 'per_decision_limit_s': per_lim,
+        'per_decision': rt._stats(ok_times),
+        'records': records,                 # **完整单次耗时**（含超时/失败，不剔除）
+        'n': int(n_decisions), 'n_decisions': int(n_decisions),
+        'ceiling_id': c.get('ceiling_id'), 'occupancy': ceil.occupancy(c),
+        'affinity_actual': aff,
+        'thread_caps_actual': {k: (env or os.environ).get(k)
+                               for k in ceil.THREAD_CAP_FIELDS},
         'live_environment': env_record_fn(),
         'live_environment_problems': [],
-        'loadavg_before': before,
-        'loadavg_after': after,
+        'loadavg_before': before, 'loadavg_after': after,
+        'contention': contention,
+        'decision_points_digest': digest,
+        'enforcement': 'hard_sigalrm' if hard else 'cooperative',
         'note': ('只含时间与资源量；**不含效用**。资源门登记：%s。'
-                 '⚠️ 不得据计时结果挑 workers / K / 档位（规格 §6）。'
+                 '⚠️ 不得据计时结果挑 workers / K / 档位（规格 §6）；'
+                 'P95 是资源规划证据，**不是**放宽 10 s 决策硬限制的理由。'
                  % (c.get('ceiling_id'),)),
-    })
-    # 再核一次实参：**跑完之后**进程环境仍须与登记一致（防中途被改）
+    }
     rep['live_environment_problems'] = ceil.live_environment_problems(
-        c, env=env, affinity=affinity_fn())
+        c, env=env, affinity=aff)
+    reasons = []
     if rep['live_environment_problems']:
-        raise TimingRefused('计时过程中环境与登记不符 ⇒ 该次耗时不可解释：\n  - '
-                            + '\n  - '.join(rep['live_environment_problems']))
+        reasons.append('实参与登记不符：%s' % rep['live_environment_problems'])
+    if rep['enforcement'] != 'hard_sigalrm':
+        reasons.append('enforcement=%s（非 POSIX 硬中断）⇒ "已登记上限"不等于'
+                       '"已执行硬上限"' % rep['enforcement'])
+    if rep['total_wall_exceeded']:
+        reasons.append('总墙钟上限被触及（%.1fs ≥ %.1fs）⇒ 未跑完全部采样'
+                       % (total_elapsed, tot_lim))
+    if rep['n_completed'] < int(n_decisions):
+        reasons.append('完成 %d / 请求 %d' % (rep['n_completed'], int(n_decisions)))
+    if contention.get('checked') and contention.get('available'):
+        if float(contention['external_busy_ratio']) > float(max_external_busy_ratio):
+            reasons.append('affinity 核集上外部占用 %.4f > %.4f ⇒ 有明显竞争'
+                           % (contention['external_busy_ratio'],
+                              max_external_busy_ratio))
+    elif contention_check:
+        reasons.append('竞争无法判定（%s）⇒ 不产生合格结论'
+                       % (contention.get('reason') or '未知'))
+    rep['unqualified_reasons'] = reasons
+    rep['qualified'] = not reasons
     rt._check_no_utility(rep)          # 自检：报告本身不得夹带效用
     return rep
 
@@ -154,6 +377,26 @@ class DecisionWorkFn(object):
     def __len__(self):
         return len(self.contexts)
 
+    def digest(self):
+        """**待测决策点集合的指纹**（计时前固定；事后不可剔除"耗时高"的状态）。
+
+        对每个冻结上下文取 `(inst_idx, clock, order, plan, 车辆指纹)` 的规范文本后聚合哈希。
+        车辆指纹复用 `role_c_t_series.vehicle_fingerprint`（懒导入，避免模块级循环依赖）。
+        """
+        import hashlib
+        import role_c_t_series as ts
+        rows = []
+        for c in self.contexts:
+            plan = c.get('plan') or {}
+            rows.append(json.dumps({
+                'inst_idx': c.get('inst_idx'), 'clock': round(float(c.get('clock') or 0), 9),
+                'order': c.get('order'),
+                'plan': {str(k): list(v) for k, v in sorted(plan.items())},
+                'vehicles': [list(x) for x in
+                             ts.vehicle_fingerprint(c.get('vehicles') or ())],
+            }, sort_keys=True, ensure_ascii=False))
+        return hashlib.sha256(('\n'.join(sorted(rows))).encode('utf-8')).hexdigest()
+
     def __call__(self):
         ctx = self.contexts[self.i % len(self.contexts)]
         self.i += 1
@@ -180,6 +423,33 @@ class DecisionWorkFn(object):
 def make_decision_work_fn(decide_fn, contexts, **kw):
     """构造单决策计时单元（见 `DecisionWorkFn`）。"""
     return DecisionWorkFn(decide_fn, contexts, **kw)
+
+
+def run_supervised(argv, *, total_wall_s, cwd=None, env=None):
+    """**外层监督器**：把计时子进程限制在 `total_wall_s` 内，超时**硬杀并回收**。
+
+    为什么需要：进程内的 `SIGALRM` 只能中断**解释器可响应信号**的调用；若子进程卡在
+    C 扩展/阻塞 IO 里，只有**外部**超时才能真正终止它。用户 2026-10-14 明确要求
+    "由外层监督器强制限制总墙钟时间"。`subprocess.run(timeout=…)` 会在超时后 kill 子进程
+    并回收，因此"已登记上限"同时成为"已执行硬上限"。
+    """
+    import subprocess
+    t0 = time.monotonic()
+    try:
+        p = subprocess.run(argv, cwd=cwd, env=env, timeout=float(total_wall_s),
+                           stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        return {'rc': p.returncode, 'timed_out': False,
+                'elapsed_s': time.monotonic() - t0,
+                'stdout_tail': (p.stdout or b'').decode('utf-8', 'replace')[-2000:],
+                'stderr_tail': (p.stderr or b'').decode('utf-8', 'replace')[-2000:]}
+    except subprocess.TimeoutExpired as exc:
+        return {'rc': None, 'timed_out': True, 'elapsed_s': time.monotonic() - t0,
+                'stdout_tail': (exc.stdout or b'').decode('utf-8', 'replace')[-2000:]
+                if isinstance(exc.stdout, bytes) else (exc.stdout or '')[-2000:],
+                'stderr_tail': (exc.stderr or b'').decode('utf-8', 'replace')[-2000:]
+                if isinstance(exc.stderr, bytes) else (exc.stderr or '')[-2000:],
+                'note': '总墙钟超限 ⇒ 子进程被外层监督器**硬杀并回收**；'
+                        '本次计时按未完成处理，不产生合格结论。'}
 
 
 def write_report(report, path):
