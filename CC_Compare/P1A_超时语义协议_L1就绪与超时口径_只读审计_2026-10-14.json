@@ -80,7 +80,7 @@
       "identity_mismatch__Q_identity_veto": 22,
       "intermediate_1_to_5": 1,
       "not_verifiable__gate_record_absent_locally": 46,
-      "real_timeout_magnitude_ge_5_per_day": 19,
+      "reported_timeout_magnitude_ge_5_per_day": 19,
       "small_magnitude_lt_1_per_day": 62
     },
     "limits": [
@@ -98,7 +98,7 @@
         "arm": "maskco",
         "gate_local": true,
         "identity_mismatch": true,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 19.825,
         "method": "maskco",
         "p_c": "p_c=0"
@@ -108,7 +108,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": true,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 35.45,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -118,7 +118,7 @@
         "arm": "explicit_feat",
         "gate_local": true,
         "identity_mismatch": true,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 38.4,
         "method": "explicit_feat",
         "p_c": "p_c=0"
@@ -128,7 +128,7 @@
         "arm": "uncond_hist",
         "gate_local": true,
         "identity_mismatch": true,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 33.725,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -138,7 +138,7 @@
         "arm": "maskco",
         "gate_local": true,
         "identity_mismatch": true,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 18.85,
         "method": "maskco",
         "p_c": "p_c=(5,10,15)"
@@ -148,7 +148,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": true,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 34.5,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -158,7 +158,7 @@
         "arm": "explicit_feat",
         "gate_local": true,
         "identity_mismatch": true,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 34.175,
         "method": "explicit_feat",
         "p_c": "p_c=(5,10,15)"
@@ -168,7 +168,7 @@
         "arm": "uncond_hist",
         "gate_local": true,
         "identity_mismatch": true,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 32.3,
         "method": "uncond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -178,7 +178,7 @@
         "arm": "maskco",
         "gate_local": true,
         "identity_mismatch": true,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 4.95,
         "method": "maskco",
         "p_c": "p_c=(10,20,30)"
@@ -188,7 +188,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": true,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 34.5,
         "method": "cond_hist",
         "p_c": "p_c=(10,20,30)"
@@ -198,7 +198,7 @@
         "arm": "explicit_feat",
         "gate_local": true,
         "identity_mismatch": true,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 38.775,
         "method": "explicit_feat",
         "p_c": "p_c=(10,20,30)"
@@ -208,7 +208,7 @@
         "arm": "uncond_hist",
         "gate_local": true,
         "identity_mismatch": true,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 33.075,
         "method": "uncond_hist",
         "p_c": "p_c=(10,20,30)"
@@ -218,7 +218,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 42.7,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -228,7 +228,7 @@
         "arm": "reconstruction_control",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 44.175,
         "method": "reconstruction_control",
         "p_c": "p_c=(5,10,15)"
@@ -238,7 +238,7 @@
         "arm": "maskco",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 37.325,
         "method": "maskco",
         "p_c": "p_c=(5,10,15)"
@@ -248,7 +248,7 @@
         "arm": "warmstart",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 36.825,
         "method": "warmstart",
         "p_c": "p_c=(5,10,15)"
@@ -258,7 +258,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -268,7 +268,7 @@
         "arm": "uncond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -278,7 +278,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -288,7 +288,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -298,7 +298,7 @@
         "arm": "uncond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -308,7 +308,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -318,7 +318,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -328,7 +328,7 @@
         "arm": "uncond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -338,7 +338,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -348,7 +348,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -358,7 +358,7 @@
         "arm": "uncond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -368,7 +368,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -378,7 +378,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -388,7 +388,7 @@
         "arm": "uncond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -398,7 +398,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -408,7 +408,7 @@
         "arm": "ordering_accept",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 25.35,
         "method": "lih",
         "p_c": "p_c=0"
@@ -418,7 +418,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -428,7 +428,7 @@
         "arm": "uncond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -438,7 +438,7 @@
         "arm": "ordering_accept",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 54.225,
         "method": "lih",
         "p_c": "p_c=(5,10,15)"
@@ -448,7 +448,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -458,7 +458,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -468,7 +468,7 @@
         "arm": "uncond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -478,7 +478,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -488,7 +488,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -498,7 +498,7 @@
         "arm": "uncond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -508,7 +508,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -518,7 +518,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -528,7 +528,7 @@
         "arm": "uncond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -538,7 +538,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -548,7 +548,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -558,7 +558,7 @@
         "arm": "uncond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -568,7 +568,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -578,7 +578,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.725,
         "method": "cond_hist",
         "p_c": "p_c=(10,20,30)"
@@ -588,7 +588,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -598,7 +598,7 @@
         "arm": "uncond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -608,7 +608,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -618,7 +618,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -628,7 +628,7 @@
         "arm": "uncond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -638,7 +638,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -648,7 +648,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.725,
         "method": "cond_hist",
         "p_c": "p_c=(10,20,30)"
@@ -658,7 +658,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -668,7 +668,7 @@
         "arm": "uncond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -678,7 +678,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -688,7 +688,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -698,7 +698,7 @@
         "arm": "uncond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -708,7 +708,7 @@
         "arm": "cond_hist",
         "gate_local": true,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -718,7 +718,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": true,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -728,7 +728,7 @@
         "arm": "uncond_hist",
         "gate_local": false,
         "identity_mismatch": true,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -738,7 +738,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": true,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -748,7 +748,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": true,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -758,7 +758,7 @@
         "arm": "uncond_hist",
         "gate_local": false,
         "identity_mismatch": true,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -768,7 +768,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": true,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -778,7 +778,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": true,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -788,7 +788,7 @@
         "arm": "uncond_hist",
         "gate_local": false,
         "identity_mismatch": true,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -798,7 +798,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": true,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -808,7 +808,7 @@
         "arm": "ordering_accept",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 12.025,
         "method": "sgbs",
         "p_c": "p_c=0"
@@ -818,7 +818,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -828,7 +828,7 @@
         "arm": "uncond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -838,7 +838,7 @@
         "arm": "ordering_accept",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": true,
+        "magnitude_reported_timeout": true,
         "mean_timeouts": 9.075,
         "method": "sgbs",
         "p_c": "p_c=(5,10,15)"
@@ -848,7 +848,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -858,7 +858,7 @@
         "arm": "ordering_accept",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.075,
         "method": "symnco",
         "p_c": "p_c=0"
@@ -868,7 +868,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.8,
         "method": "cond_hist",
         "p_c": "p_c=0"
@@ -878,7 +878,7 @@
         "arm": "uncond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.05,
         "method": "uncond_hist",
         "p_c": "p_c=0"
@@ -888,7 +888,7 @@
         "arm": "ordering_accept",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.225,
         "method": "symnco",
         "p_c": "p_c=(5,10,15)"
@@ -898,7 +898,7 @@
         "arm": "cond_hist",
         "gate_local": false,
         "identity_mismatch": false,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.75,
         "method": "cond_hist",
         "p_c": "p_c=(5,10,15)"
@@ -908,7 +908,7 @@
         "arm": "ordering_accept",
         "gate_local": false,
         "identity_mismatch": true,
-        "magnitude_real_timeout": false,
+        "magnitude_reported_timeout": false,
         "mean_timeouts": 0.025,
         "method": "sgbs",
         "p_c": "p_c=(5,10,15)"
@@ -958,5 +958,127 @@
     ],
     "registered_runs": 16,
     "why": "预声明 §7.1 的主判要求逐位比较 `action` **与** 被采纳 `plan_of`；要比较旧版就必须有旧版的 **8 次** 运行证据。而 §7.4 只写了\"各 1 次 + write_off 各 1 次 = 16 次\"，把旧版那一组**漏在账外**（或默认旧版可复用 —— 但 §8.3/本审计显示旧版 `plan_of` 在任何归档里都不存在）"
+  },
+  "supplementary_gaps": {
+    "discipline": "本块是**补充**；上面 14 字段的可用/缺失统计**保持不变**，不因本块而改写（用户明确要求\"不要悄悄改变原 14 字段统计\"）",
+    "gap1_plan_of_traversal_was_handwritten": {
+      "note": "原结论与机械化遍历**一致**，但先前**没有**工具证据；本项把它变成可复算 —— 这正是用户要求的\"不能把人工写入的结论当成工具已机械验证的结论\"",
+      "now_mechanical": true,
+      "traversal": {
+        "detail": "遍历 24194 个文件：11 个含 `plan_of`，其中**归档类 0 个**（已排除本审计/协议**自引用** 2 个：那些只是\"文档提到了这个词\"）",
+        "exts": [
+          ".json",
+          ".jsonl",
+          ".py",
+          ".md"
+        ],
+        "files": [
+          {
+            "kind": "code_doc",
+            "matches": 1,
+            "path": "CC_Compare/P1A_RoleC_方案1_PhaseA_归因登记_2026-10-14.md",
+            "sha256": "d79862deec612449f1717b6ae5f6e84084929cb2768a45aeedd0291ce0c391c7"
+          },
+          {
+            "kind": "code_doc",
+            "matches": 1,
+            "path": "CC_Compare/P1A_RoleC_方案1_PhaseA_归因登记_REV2_reviewed_2026-10-14.md",
+            "sha256": "63ee24e1adbac9bd1db4d56887703fb2e5f91db85a705d273ce1b521ddd45c7a"
+          },
+          {
+            "kind": "code_doc",
+            "matches": 1,
+            "path": "CC_Compare/P1A_RoleC_方案1_PhaseA_归因登记_v1_reviewed_2026-10-14.md",
+            "sha256": "6ac795b223d9a3154a669a074a00697e533a506350db8537f868b198b2620db9"
+          },
+          {
+            "kind": "code_doc",
+            "matches": 1,
+            "path": "CC_Compare/P1A_RoleC_方案1_七要素预声明草案_2026-10-14.md",
+            "sha256": "381b05b13702a120dc1bbd886b3c15bcd7debefe56798ad6ca49d6a2c033c909"
+          },
+          {
+            "kind": "self_reference",
+            "matches": 15,
+            "path": "CC_Compare/P1A_超时语义协议_L1就绪与超时口径_只读审计_2026-10-14.json",
+            "sha256": "63abac096d610b1c01fe719875a3d86ed07e34e1eb7fe2bbccb6a6884c6dafc8"
+          },
+          {
+            "kind": "self_reference",
+            "matches": 11,
+            "path": "CC_Compare/P1A_超时语义协议_L1就绪与超时口径_只读审计_2026-10-14.md",
+            "sha256": "ab4bd08e334df134d6fbe5a4ac47313ea07c673d95eb326ad929ad7f1af7b203"
+          },
+          {
+            "kind": "code_doc",
+            "matches": 1,
+            "path": "CC_Compare/P1A_超时语义协议_正式预声明登记_2026-10-14.md",
+            "sha256": "d3b4c6ebf5aae1e4cf1c2f9954d2279b6d5d56aac70178dbb6ed770b8e218ae6"
+          },
+          {
+            "kind": "code_doc",
+            "matches": 1,
+            "path": "CC_Compare/tools/role_c_harness.py",
+            "sha256": "ed7466cf6e1cdfce11b70c82279f715ffb2256b707bdeb8ce140015fd3b5c7df"
+          },
+          {
+            "kind": "code_doc",
+            "matches": 25,
+            "path": "CC_Compare/tools/role_c_l1_readiness_audit.py",
+            "sha256": "daf991036058f451b937bcb1bc315e8b43f1aaf750d529534c325bcc9727a701"
+          },
+          {
+            "kind": "code_doc",
+            "matches": 4,
+            "path": "CC_Compare/tools/role_c_local_search.py",
+            "sha256": "52e7e4e5284460a1764f8641a82245c35b22cedd1435c1fcefabfbba00c0b3c8"
+          },
+          {
+            "kind": "code_doc",
+            "matches": 20,
+            "path": "CC_Compare/tools/test_role_c_local_search.py",
+            "sha256": "d927833eb3b44a05fdea28d9ff2a75041bf10af13e8dd7f97c9f9fa1ad6037e5"
+          }
+        ],
+        "n_archive_files_with_plan_of": 0,
+        "n_files_with_plan_of": 11,
+        "n_self_reference_hits": 2,
+        "scanned_files": 24194,
+        "self_reference_excluded": [
+          "CC_Compare/P1A_超时语义协议_L1就绪与超时口径_只读审计_2026-10-14.json",
+          "CC_Compare/P1A_超时语义协议_L1就绪与超时口径_只读审计_2026-10-14.md"
+        ],
+        "verdict": "MISSING"
+      },
+      "verdict_unchanged": "仍然 MISSING：归档类文件中出现 `plan_of` 的个数 = 0"
+    },
+    "gap2_hi_lo_injection_interface": {
+      "now_proven": true,
+      "proof": {
+        "conforming_injector": {
+          "hi": {
+            "budget_point": "hi",
+            "correct": true,
+            "exception_type": "DecisionTimeout",
+            "hard_deadline_exception": true,
+            "lambda_B": null
+          },
+          "lo": {
+            "budget_point": "lo",
+            "correct": true,
+            "exception_type": "DecisionTimeout",
+            "hard_deadline_exception": true,
+            "lambda_B": null
+          }
+        },
+        "naive_lambda": {
+          "budget_point": "unknown",
+          "hard_deadline_exception": true
+        },
+        "note": "注入器只需暴露 `calls` 且在**成功返回后**追加；**不需要**修改 `role_c_opportunity_cost.py` 的推断逻辑。裸 lambda 仍得 `unknown` —— 这是**设计允许**的降级，第 1/2 类反例必须使用合约定注入器。",
+        "passes": true
+      },
+      "requirement": "第 1/2 类反例**必须**使用合约定注入器（暴露 `calls`、成功返回后追加）；**不得**为让测试通过而临时修改已冻结的分类逻辑"
+    }
   }
 }

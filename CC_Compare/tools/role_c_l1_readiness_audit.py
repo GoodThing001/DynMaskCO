@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import collections
 import glob
+import hashlib
 import io
 import json
 import os
@@ -52,6 +53,110 @@ def _root():
 def _read(rel, root):
     p = os.path.join(root, rel.replace('/', os.sep))
     return io.open(p, encoding='utf-8').read() if os.path.isfile(p) else None
+
+
+def old_version_plan_of_traversal(*, root=None, exts=('.json', '.jsonl', '.py', '.md')):
+    """**真正遍历**归档树，机械核验"`plan_of` 是否出现在任何归档里"（用户指出的工具缺陷）。
+
+    第一版把 `OLD_VERSION_plan_of = MISSING` **人工写死**并附"全树搜索"字样，
+    但函数**并没有真的搜**。本函数把该结论变成**可复算**的：输出**逐文件路径 + SHA-256 +
+    匹配数**，并区分"归档（data）"与"源码/文档（code_doc）"。
+    """
+    root = root or _root()
+    hits, scanned = [], 0
+    for dp, dn, fn in os.walk(os.path.join(root, 'CC_Compare')):
+        if 'MAPT_code' in dp:
+            continue
+        for f in fn:
+            if not f.lower().endswith(exts):
+                continue
+            p = os.path.join(dp, f)
+            try:
+                b = io.open(p, 'rb').read()
+            except Exception:                                    # noqa: BLE001
+                continue
+            scanned += 1
+            n = b.count(b'plan_of')
+            if n:
+                # ⚠️ **自引用排除**：本审计/协议自己的报告里会出现 `plan_of` 这个词
+                #    （因为我们正在讨论它）⇒ 那是"文档提到了这个词"，
+                #    不是"存在计划数据"。不排除会得出**误导性的 AVAILABLE**。
+                selfref = f.startswith('P1A_超时语义协议_L1就绪与超时口径_只读审计_')
+                kind = ('self_reference' if selfref else
+                        'archive' if f.lower().endswith(('.json', '.jsonl'))
+                        else 'code_doc')
+                hits.append({'path': os.path.relpath(p, root).replace(os.sep, '/'),
+                             'sha256': hashlib.sha256(b).hexdigest(),
+                             'kind': kind, 'matches': n})
+    arch = [h for h in hits if h['kind'] == 'archive']
+    selfref = [h for h in hits if h['kind'] == 'self_reference']
+    return {'scanned_files': scanned, 'exts': list(exts),
+            'n_files_with_plan_of': len(hits),
+            'n_archive_files_with_plan_of': len(arch),
+            'n_self_reference_hits': len(selfref),
+            'files': hits,
+            # 判定只看**排除自引用**后的归档命中
+            'verdict': 'MISSING' if not arch else 'AVAILABLE',
+            'detail': ('遍历 %d 个文件：%d 个含 `plan_of`，其中**归档类 %d 个**'
+                       '（已排除本审计/协议**自引用** %d 个：那些只是"文档提到了这个词"）'
+                       % (scanned, len(hits), len(arch), len(selfref))),
+            'self_reference_excluded': [h['path'] for h in selfref]}
+
+
+def hi_lo_injection_proof():
+    """**hi/lo 注入接口证明**（用户指出的第二处工具缺口）。
+
+    缺口：正式反例要注入**自定义** `future_value_fn`；而 `budget_point` 由
+    `FutureValueFn.calls` 长度推断 ⇒ 注入普通 lambda 时只能得到 `unknown`，
+    但第 1/2 类反例要求明确区分 `hi`/`lo`。
+
+    本证明**不改已冻结的分类逻辑**，而是证明：只要注入器**遵守既有调用约定**
+    （与 `FutureValueFn` 一样在**成功返回后**追加 `calls`），
+    `budget_point` 就能**正确**判为 `hi`/`lo`；并给出反例（裸 lambda ⇒ unknown）。
+    """
+    import role_c_opportunity_cost as oc
+
+    class _ConformingInjector(object):
+        """符合既有约定的注入器：`calls` 只在**成功返回后**追加。"""
+
+        def __init__(self, raise_on):
+            self.calls = []
+            self.raise_on = raise_on          # 'hi' | 'lo' | None
+
+        def __call__(self, b):
+            which = 'hi' if not self.calls else 'lo'
+            if self.raise_on == which:
+                from role_c_timing import DecisionTimeout
+                raise DecisionTimeout('synthetic %s' % which)
+            self.calls.append((float(b), 0.0))
+            return 0.0
+
+    out = {'conforming_injector': {}, 'naive_lambda': {}, 'note': ''}
+    for which in ('hi', 'lo'):
+        inj = _ConformingInjector(raise_on=which)
+        lam, diag = oc.shadow_price_budget(100.0, 1.0, inj)
+        a = (diag or {}).get('exception_audit') or {}
+        out['conforming_injector'][which] = {
+            'budget_point': a.get('budget_point'),
+            'correct': a.get('budget_point') == which,
+            'hard_deadline_exception': a.get('hard_deadline_exception'),
+            'exception_type': a.get('exception_type'),
+            'lambda_B': lam,
+        }
+    def _naive(_b):
+        from role_c_timing import DecisionTimeout
+        raise DecisionTimeout('synthetic naive')
+
+    lam, diag = oc.shadow_price_budget(100.0, 1.0, _naive)
+    a = (diag or {}).get('exception_audit') or {}
+    out['naive_lambda'] = {'budget_point': a.get('budget_point'),
+                           'hard_deadline_exception': a.get('hard_deadline_exception')}
+    out['passes'] = all(v['correct'] for v in out['conforming_injector'].values())
+    out['note'] = ('注入器只需暴露 `calls` 且在**成功返回后**追加；'
+                   '**不需要**修改 `role_c_opportunity_cost.py` 的推断逻辑。'
+                   '裸 lambda 仍得 `unknown` —— 这是**设计允许**的降级，'
+                   '第 1/2 类反例必须使用合约定注入器。')
+    return out
 
 
 def audit_l1_readiness(*, root=None):
@@ -138,6 +243,40 @@ def audit_l1_readiness(*, root=None):
                      'NOT_VERIFIABLE = 现有资料不足以判定（**不得**读成"没发生"）')}
 
 
+def supplementary_gaps(*, root=None):
+    """**补充缺口**（用户 2026-10-14 指出；**不动**上面 14 字段的统计）。
+
+    缺口 1：`OLD_VERSION_plan_of` 原先是**人工写死**的结论，工具并未真的遍历
+            ⇒ 现在给出**可复算的遍历证明**（`old_version_plan_of_traversal`）。
+    缺口 2：`budget_point` 对**不合约定的注入器**只能给 `unknown`，
+            而第 1/2 类反例要求区分 hi/lo
+            ⇒ 给出**hi/lo 注入接口证明**（`hi_lo_injection_proof`），
+            并要求反例使用**合约定注入器**（**不得**改已冻结的分类逻辑）。
+    """
+    trav = old_version_plan_of_traversal(root=root)
+    proof = hi_lo_injection_proof()
+    return {
+        'gap1_plan_of_traversal_was_handwritten': {
+            'now_mechanical': True,
+            'traversal': trav,
+            'verdict_unchanged': ('仍然 MISSING：归档类文件中出现 `plan_of` 的个数 = %d'
+                                  % trav['n_archive_files_with_plan_of']),
+            'note': ('原结论与机械化遍历**一致**，但先前**没有**工具证据；'
+                     '本项把它变成可复算 —— 这正是用户要求的'
+                     '"不能把人工写入的结论当成工具已机械验证的结论"'),
+        },
+        'gap2_hi_lo_injection_interface': {
+            'now_proven': proof['passes'],
+            'proof': proof,
+            'requirement': ('第 1/2 类反例**必须**使用合约定注入器'
+                            '（暴露 `calls`、成功返回后追加）；'
+                            '**不得**为让测试通过而临时修改已冻结的分类逻辑'),
+        },
+        'discipline': ('本块是**补充**；上面 14 字段的可用/缺失统计**保持不变**，'
+                       '不因本块而改写（用户明确要求"不要悄悄改变原 14 字段统计"）'),
+    }
+
+
 def run_count_account(*, registered_runs=16):
     """三版本 × 8 决策点的**次数账**（用户指出的 16 vs 24 差额）。"""
     m = 8
@@ -199,12 +338,12 @@ def audit_timeout_accounting(*, root=None, matrix=None):
         rows.append({
             'arm': a.get('arm'), 'method': a.get('method'), 'p_c': a.get('p_c'),
             'mean_timeouts': mt(a),
-            'magnitude_real_timeout': bool((mt(a) or 0) >= 5.0),
+            'magnitude_reported_timeout': bool((mt(a) or 0) >= 5.0),
             'accounting_incomplete': not (a.get('health') or {}).get('n_solves'),
             'identity_mismatch': 'Q_identity' in (a.get('Q_vetoes') or []),
             'gate_local': os.path.isfile(p),
         })
-    big = [r for r in rows if r['magnitude_real_timeout']]
+    big = [r for r in rows if r['magnitude_reported_timeout']]
     small = [r for r in rows if (r['mean_timeouts'] or 0) < 1.0]
     mid = [r for r in rows if 1.0 <= (r['mean_timeouts'] or 0) < 5.0]
     # 本地 gate.json 能否核验 booking_horizon
@@ -225,7 +364,7 @@ def audit_timeout_accounting(*, root=None, matrix=None):
         'n_arms_total': len(arms),
         'n_timeout_clean_false': len(bad),
         'categories': {
-            'real_timeout_magnitude_ge_5_per_day': len(big),
+            'reported_timeout_magnitude_ge_5_per_day': len(big),
             'small_magnitude_lt_1_per_day': len(small),
             'intermediate_1_to_5': len(mid),
             'accounting_incomplete__health_not_produced':
@@ -264,6 +403,7 @@ def main(argv=None):
     a = ap.parse_args(argv)
     rep = {'label': 'P1A-C2-post-freeze-readonly-audit',
            'l1_readiness': audit_l1_readiness(),
+           'supplementary_gaps': supplementary_gaps(),
            'run_count_account': run_count_account(),
            'priority2_timeout_accounting': audit_timeout_accounting(matrix=a.matrix),
            'authorization': ('只读：不跑 L1/L2、不改预声明、不改被测模块、'
