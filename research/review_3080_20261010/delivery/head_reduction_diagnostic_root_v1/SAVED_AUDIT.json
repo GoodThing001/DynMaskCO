@@ -1,0 +1,50 @@
+{
+  "stage": "saved_small_synthetic_reduction_audit",
+  "checks_count": 10,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "source_registration_identity",
+      "pass": true
+    },
+    {
+      "name": "source_runner_identity",
+      "pass": true
+    },
+    {
+      "name": "seven_prespecified_stages",
+      "pass": true
+    },
+    {
+      "name": "all_finite_nonnegative_differences",
+      "pass": true
+    },
+    {
+      "name": "reported_first_difference_consistent",
+      "pass": true
+    },
+    {
+      "name": "counts_consistent",
+      "pass": true
+    },
+    {
+      "name": "fixed_actions",
+      "pass": true
+    },
+    {
+      "name": "original_strict_fail_kept",
+      "pass": true
+    },
+    {
+      "name": "no_original_rerun",
+      "pass": true
+    },
+    {
+      "name": "no_backbone_or_full_request",
+      "pass": true
+    }
+  ],
+  "scope": "Source identity and saved consistency only; does not independently rerun JAX arithmetic.",
+  "original_34_gate_still_failed": true,
+  "stable_online_gain": false
+}

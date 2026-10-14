@@ -1,0 +1,124 @@
+{
+  "created_utc": "2026-10-13T09:09:06.746561+00:00",
+  "sources": {
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_matching_head_update_root_v1\\head_action_matching.py": "ab7df735aea8e0452fd512b3b42f55fac202c16618c172ebb24946d0ebb104cf",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_matching_head_update_root_v1\\run.py": "097600d0248c3546fab021b392e47081f8b9751a0b3ea67d1fc84126c69ba126",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_matching_head_update_root_v1\\audit.py": "4423f9fa3c47697d2db36c3cffadcbcd5ecd60f69272b1b2571f3084f008eb6a",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_matching_head_update_root_v1\\prepare.py": "737b4277dc0bf73a0d27abe173d5e8751e6618574af7f9774ca4506bf5c8b389",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_matching_head_update_root_v1\\supervise.py": "d79ff7a310d4448928c0523c66f8027c253817fe15ae4fc8513e9539dab3640e",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\engineering_stage_closure_v1.py": "2e823979ef6fff9f133e158f2a2cc2e66a71ae7c43e65dc7edf71793f79adf4f"
+  },
+  "stage": "delivery_n12_action_matching_head_update",
+  "goal": "Connect the action-matching scoring-head update / fixed order / save / reload: head-only four-leaf per-customer feasible-action cross-entropy over already sealed MaskCO decoder node latents.",
+  "scope_boundary": "No backbone forward, no C0 physics, no solver, no teacher cost input, no model optimizer update, no new scientific data, no formal trained control claim.",
+  "cycle": 5,
+  "cycle_root": "research/review_3080_20261010/dual_track_optimization_20261013_root_v1/cycle5_20261013_root_v1",
+  "sealed": {
+    "arm": "pretrained_initial",
+    "records": 30,
+    "npz_directory": "research/review_3080_20261010/delivery/actual_action_head_execution_root_v1/downloaded",
+    "manifest": "research/review_3080_20261010/delivery/actual_action_head_execution_root_v1/DOWNLOAD_MANIFEST.json",
+    "head_source": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\head_intermediate_arithmetic_root_v1\\delivery_actual_action_head_v1.py",
+    "head_source_sha256": "d9664585a8a6ab2d169ac8b9920669b8b04bfddefc56d7c84e425a138fbd409f",
+    "head_seed": 20261012,
+    "head_parameter_elements": 196929,
+    "head_leaf_shapes": {
+      "k1": [
+        3075,
+        64
+      ],
+      "b1": [
+        64
+      ],
+      "k2": [
+        64,
+        1
+      ],
+      "b2": [
+        1
+      ]
+    },
+    "action_options_sha256": "9f898fdf0eba508ebd7366233b11d37ae877a274614b4bcca6fe968fe4f65d52",
+    "intermediates_sha256": "c269a9a174d1e7c7a44f18a999ef6decee3a47ac7b827fb7f4a0259bb01ed181"
+  },
+  "groups": {
+    "expected_supervised": 29,
+    "min_eligible": 2,
+    "max_eligible": 6,
+    "derivation": "sealed eligible rows mapped into the saved head-input action grid; target must be in the subset"
+  },
+  "update": {
+    "epochs": 8,
+    "learning_rate": 0.003,
+    "b1": 0.9,
+    "b2": 0.999,
+    "eps": 1e-08,
+    "fixed_order": "ascending sealed record index over supervised groups"
+  },
+  "tolerances": {
+    "forward_vs_sealed_scores_max_abs": 2e-05,
+    "audit_concat_max_abs": 1e-30,
+    "audit_reference_loss_max_abs": 1e-05,
+    "audit_trajectory_loss_max_abs": 0.0001,
+    "audit_final_param_max_abs": 0.0001,
+    "audit_gradient_max_abs": 0.001,
+    "adam_step1_max_abs": 1e-06,
+    "reload_bit_exact": 0.0
+  },
+  "runtime": {
+    "numpy": "1.26.4",
+    "jax": "0.5.0",
+    "flax": "0.10.4",
+    "optax": "0.2.5"
+  },
+  "resource": {
+    "python": "3.12.7",
+    "cpu_affinity": [
+      7
+    ],
+    "min_available_ram_gib_without_backbone": 1.0,
+    "full_backbone_threshold_gib": 8.0,
+    "backbone_loaded": false
+  },
+  "normal_runs": 1,
+  "audit_runs": 1,
+  "supervision_cap_seconds": 600,
+  "papers": [
+    {
+      "title": "MaskCO: Masked Generation Drives Effective Representation Learning and Exploiting for Combinatorial Optimization",
+      "venue": "ICLR 2026",
+      "authors": "Lvda Chen, Yang Li, Junchi Yan",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2026/file/d85816bf41e54d9b0847e02249f4fcc6-Paper-Conference.pdf",
+      "read_scope": "abstract, section 3 partial-solution/selection operators, section 4.1 variable BCE training",
+      "use": "per-customer feasible-action CE wiring inspiration only, not the original variable-BCE recipe"
+    },
+    {
+      "title": "A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning",
+      "venue": "AISTATS 2011, PMLR 15:627-635",
+      "authors": "Stephane Ross, Geoffrey J. Gordon, J. Andrew Bagnell",
+      "url": "https://proceedings.mlr.press/v15/ross11a.html",
+      "read_scope": "sections 2.1 and 3 and Algorithm 3.1",
+      "use": "future learned-trajectory aggregation plan only; no DAgger executed in this round"
+    },
+    {
+      "title": "Reinforcement and Imitation Learning via Interactive No-Regret Learning",
+      "venue": "arXiv:1406.5979v1 preprint",
+      "authors": "Stephane Ross, J. Andrew Bagnell",
+      "url": "https://arxiv.org/abs/1406.5979",
+      "read_scope": "official abstract and version metadata only",
+      "use": "cost-to-go supervision direction only; not implemented, no AggreVaTe claim"
+    }
+  ],
+  "formal_trained_control_qualified": false,
+  "formal_controls_qualified": false,
+  "full_request_budget_qualified": false,
+  "full_scientific_loaded_closure_qualified": false,
+  "scientific_data_generated": false,
+  "new_science_family": false,
+  "scientific_family3_started": false,
+  "optimizer_updates_of_model": 0,
+  "learned_output_qualified": false,
+  "stable_online_gain": false,
+  "shared_MD_uploaded": false,
+  "final_pickup_seeds_used": false
+}

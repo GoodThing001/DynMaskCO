@@ -1,0 +1,204 @@
+{
+  "input_sha256": "e2eb35fd06d2b3de94972d4988de989f3ca0ebda0e7de202cf22c115232ddb74",
+  "history_sha256": "44064ff788b7e322294a23e6ac6de39da9f399dec326b70af7a0f7439895d3c6",
+  "prior_result_sha256": "884a7c751a282a566a7eb897d4a351931b21363aa0b15f8065fb1e1636c20cd5",
+  "record_position": 2,
+  "order": 61,
+  "clock": 2.6122889518737793,
+  "elapsed_seconds": 0.012930899858474731,
+  "current_decision": "accepted",
+  "accepted": [
+    17,
+    19,
+    20,
+    21,
+    43,
+    59,
+    61
+  ],
+  "rejected": [
+    25,
+    40,
+    46
+  ],
+  "pending": [],
+  "plan": {
+    "0": [
+      59,
+      19,
+      61,
+      21
+    ],
+    "1": [],
+    "2": []
+  },
+  "certificate": {
+    "__mapping__": [
+      [
+        "qualified",
+        true
+      ],
+      [
+        "evaluation",
+        {
+          "__mapping__": [
+            [
+              "pending_count",
+              0
+            ],
+            [
+              "provisional_not_full_day_utility",
+              true
+            ],
+            [
+              "utility",
+              143.12832975387573
+            ],
+            [
+              "revenue",
+              150.0
+            ],
+            [
+              "fuel_cost",
+              6.871670246124268
+            ],
+            [
+              "reject_loss",
+              0.0
+            ],
+            [
+              "energy_kwh",
+              57.06590952880255
+            ],
+            [
+              "distance_km",
+              68.71670246124268
+            ],
+            [
+              "budget_violated",
+              false
+            ],
+            [
+              "hard_feasible",
+              true
+            ],
+            [
+              "failures",
+              {
+                "__sequence__": "list",
+                "values": []
+              }
+            ],
+            [
+              "n_served",
+              7
+            ],
+            [
+              "n_rejected",
+              3
+            ],
+            [
+              "n_fish_unsalable",
+              0
+            ],
+            [
+              "service_rate",
+              {
+                "__mapping__": [
+                  [
+                    "0",
+                    0.5
+                  ],
+                  [
+                    "1",
+                    0.6666666666666666
+                  ],
+                  [
+                    "2",
+                    1.0
+                  ]
+                ]
+              }
+            ],
+            [
+              "reject_rate",
+              {
+                "__mapping__": [
+                  [
+                    "0",
+                    0.5
+                  ],
+                  [
+                    "1",
+                    0.3333333333333333
+                  ],
+                  [
+                    "2",
+                    0.0
+                  ]
+                ]
+              }
+            ],
+            [
+              "salable_rate",
+              {
+                "__mapping__": [
+                  [
+                    "0",
+                    null
+                  ],
+                  [
+                    "1",
+                    1.0
+                  ],
+                  [
+                    "2",
+                    1.0
+                  ]
+                ]
+              }
+            ],
+            [
+              "tomato_mean_quality",
+              0.9964193900101924
+            ]
+          ]
+        }
+      ],
+      [
+        "all_fleet_energy_accounted",
+        true
+      ],
+      [
+        "pending_without_rejection_penalty",
+        true
+      ],
+      [
+        "provisional_not_full_day",
+        true
+      ]
+    ]
+  },
+  "raw_digest": "351ce5723689ea3fe9b8f6c3d90b8c3b3a1236328b873a68bbbe33453892e445",
+  "prior_independent_decision": "accepted",
+  "prior_independent_plan": {
+    "0": [
+      59,
+      19,
+      61,
+      21
+    ],
+    "1": [],
+    "2": []
+  },
+  "decision_same": true,
+  "plan_same": true,
+  "input_unchanged": true,
+  "admission_class": "UncondDynamicReplanner",
+  "history_count": 200,
+  "continuous_owner_qualified": false,
+  "formal_strong_dynamic_qualified": false,
+  "complete_request_budget_qualified": false,
+  "scientific_data_generated": false,
+  "stable_online_gain": false
+}

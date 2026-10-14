@@ -1,0 +1,32 @@
+{
+  "start_clock": null,
+  "end_clock": 1019216.7090822,
+  "elapsed": null,
+  "kill_clock": null,
+  "reap_clock": null,
+  "child_launched": false,
+  "actual_worker_returncode": null,
+  "worker_reaped": false,
+  "worker_trace_sha256": null,
+  "caller_trace_sha256": null,
+  "handles_closed": {
+    "stdout": true,
+    "stderr": true,
+    "control": true,
+    "input": true,
+    "output": true,
+    "telemetry": true
+  },
+  "cleanup_errors": [],
+  "within_declared_window": true,
+  "archive_and_handle_cleanup_in_elapsed": true,
+  "receipt_creation_in_elapsed": false,
+  "selected_output_revoked": false,
+  "full_request_budget_qualified": false,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\early_launch_lifecycle_root_v1\\delivery_phase_shared_parent_v3.py\", line 48, in request\n    child=subprocess.Popen([str(python),'-B',str(worker_path),str(specpath)],stdout=stdout,stderr=log,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\PyCharm_\\MASKCO-Main\\tools\\run_delivery_early_launch_v1.py\", line 69, in tracked_popen\n    handle=real_popen(*a,**kw);children.append(handle);return handle\n           ^^^^^^^^^^^^^^^^^^^\n  File \"D:\\AA_Py\\A_Anaconda\\Lib\\subprocess.py\", line 1026, in __init__\n    self._execute_child(args, executable, preexec_fn, close_fds,\n  File \"D:\\AA_Py\\A_Anaconda\\Lib\\subprocess.py\", line 1538, in _execute_child\n    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [WinError 2] \u7cfb\u7edf\u627e\u4e0d\u5230\u6307\u5b9a\u7684\u6587\u4ef6\u3002\n",
+  "child_identity": null,
+  "selected": false,
+  "selection_clock": null,
+  "qualification": false,
+  "initialization_outside_request": true
+}

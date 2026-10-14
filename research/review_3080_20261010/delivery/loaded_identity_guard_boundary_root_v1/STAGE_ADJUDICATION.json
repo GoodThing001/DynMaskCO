@@ -1,0 +1,333 @@
+{
+  "status": "RAW_GUARD_BOUNDARIES_VERIFIED_ORIGINAL_FULL_TREE_SUFFICIENCY_FAIL_NO_REPLACEMENT",
+  "registration_sha256": "ac4244562b1507b1f14f5c84c38cabb3f33ff085c30718bb80db732f5ef1ff39",
+  "independent_checks": 104649,
+  "independent_failures": 0,
+  "raw_boundary_observation_qualified": true,
+  "original_RESULT_loaded_only_component_qualified": false,
+  "original_full_tree_contract_sufficient": false,
+  "negative_unloaded_registered_source_actual": {
+    "candidate_accepts": true,
+    "original_full_gate_accepts": false,
+    "changed_original_paths": [
+      "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\loaded_identity_guard_boundary_root_v1\\unloaded_registered_probe.py"
+    ],
+    "mutation_byte_witness": "attempt_unloaded_change.py"
+  },
+  "cases": [
+    {
+      "name": "01_normal",
+      "file": "01_normal.json",
+      "sha256": "bd9a010cea8022a7056d377cacf8ffedfabb5afe4c6be197dc36e3645abbe6c9",
+      "accepted": true,
+      "full_accepted": true,
+      "expected_loaded_accept": true,
+      "expected_full_accept": true,
+      "loaded_seconds": 2.2864458998665214,
+      "full_live_parameter_seconds": 0.6118869003839791,
+      "guard_decision_seconds": 0.001284499652683735,
+      "sequential_full_reference_seconds": 7.725197600200772,
+      "actual_loaded_file_count": 2051,
+      "reason_kinds": [],
+      "reason_details": [],
+      "full_changed_files": [],
+      "full_new_files": [],
+      "actual_modules_count": 1030,
+      "actual_native_count": 114,
+      "case_note": "Actual initial76M model and loaded_probe imports, no model forward.",
+      "source_snapshot_sha256": "bd9a010cea8022a7056d377cacf8ffedfabb5afe4c6be197dc36e3645abbe6c9"
+    },
+    {
+      "name": "02_new_presealed_module",
+      "file": "02_new_presealed_module.json",
+      "sha256": "f38a8da0af8b66a91dfd160b84bd56a253ac17fcda785acf5ea7c450a37fb206",
+      "accepted": true,
+      "full_accepted": true,
+      "expected_loaded_accept": true,
+      "expected_full_accept": true,
+      "loaded_seconds": 2.2639233004301786,
+      "full_live_parameter_seconds": 0.606477199587971,
+      "guard_decision_seconds": 0.0013310001231729984,
+      "sequential_full_reference_seconds": 7.7576636001467705,
+      "actual_loaded_file_count": 2052,
+      "reason_kinds": [],
+      "reason_details": [],
+      "full_changed_files": [],
+      "full_new_files": [],
+      "actual_modules_count": 1031,
+      "actual_native_count": 114,
+      "case_note": "Real exec_module after full seal; source presealed.",
+      "source_snapshot_sha256": "f38a8da0af8b66a91dfd160b84bd56a253ac17fcda785acf5ea7c450a37fb206"
+    },
+    {
+      "name": "03_origin_rebound",
+      "file": "03_origin_rebound.json",
+      "sha256": "a009f6cca0f8da66a2ca13e88810f60516ed0747c0faf8803bc4dd0f7880e67e",
+      "accepted": false,
+      "full_accepted": false,
+      "expected_loaded_accept": false,
+      "expected_full_accept": false,
+      "loaded_seconds": 2.2585838004015386,
+      "full_live_parameter_seconds": 0.5860643996857107,
+      "guard_decision_seconds": 0.0013061999343335629,
+      "sequential_full_reference_seconds": 7.5242628999985754,
+      "actual_loaded_file_count": 2052,
+      "reason_kinds": [
+        "existing_module_origin_rebound"
+      ],
+      "reason_details": [
+        {
+          "kind": "existing_module_origin_rebound",
+          "module": "guard_existing_probe"
+        }
+      ],
+      "full_changed_files": [],
+      "full_new_files": [],
+      "actual_modules_count": 1030,
+      "actual_native_count": 114,
+      "case_note": "Real already-loaded module.__file__ rebound to different presealed source; module.spec.origin retained.",
+      "source_snapshot_sha256": "a009f6cca0f8da66a2ca13e88810f60516ed0747c0faf8803bc4dd0f7880e67e"
+    },
+    {
+      "name": "04_parameter_rebound",
+      "file": "04_parameter_rebound.json",
+      "sha256": "d4a555f9c9b2e9092291fb88c358bff35e5d5834b60e85ffd933eca5481ca3a4",
+      "accepted": false,
+      "full_accepted": false,
+      "expected_loaded_accept": false,
+      "expected_full_accept": false,
+      "loaded_seconds": 2.2177428998984396,
+      "full_live_parameter_seconds": 0.5849081999622285,
+      "guard_decision_seconds": 0.0013183997943997383,
+      "sequential_full_reference_seconds": 7.551928400062025,
+      "actual_loaded_file_count": 2051,
+      "reason_kinds": [
+        "live_parameter_identity_changed"
+      ],
+      "reason_details": [
+        {
+          "kind": "live_parameter_identity_changed"
+        }
+      ],
+      "full_changed_files": [],
+      "full_new_files": [],
+      "actual_modules_count": 1030,
+      "actual_native_count": 114,
+      "case_note": "Actual NNX Param.value rebinding in private engineering instance; no optimizer.",
+      "source_snapshot_sha256": "d4a555f9c9b2e9092291fb88c358bff35e5d5834b60e85ffd933eca5481ca3a4"
+    },
+    {
+      "name": "05_unsealed_module",
+      "file": "05_unsealed_module.json",
+      "sha256": "e78a8fdf08cae80ad5093fdb11317a4861bba68962000bdf46e2f5514cc00acb",
+      "accepted": false,
+      "full_accepted": false,
+      "expected_loaded_accept": false,
+      "expected_full_accept": false,
+      "loaded_seconds": 2.227635100018233,
+      "full_live_parameter_seconds": 0.5837098998017609,
+      "guard_decision_seconds": 0.001340900082141161,
+      "sequential_full_reference_seconds": 7.518427699804306,
+      "actual_loaded_file_count": 2052,
+      "reason_kinds": [
+        "unsealed_loaded_file"
+      ],
+      "reason_details": [
+        {
+          "kind": "unsealed_loaded_file",
+          "path": "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\loaded_identity_guard_boundary_root_v1\\actual_unsealed_module.py"
+        }
+      ],
+      "full_changed_files": [],
+      "full_new_files": [
+        "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\loaded_identity_guard_boundary_root_v1\\actual_unsealed_module.py"
+      ],
+      "actual_modules_count": 1031,
+      "actual_native_count": 114,
+      "case_note": "Real new source created after start and actually imported.",
+      "source_snapshot_sha256": "e78a8fdf08cae80ad5093fdb11317a4861bba68962000bdf46e2f5514cc00acb"
+    },
+    {
+      "name": "06_loaded_byte_changed",
+      "file": "06_loaded_byte_changed.json",
+      "sha256": "2704f29143e79f7e65e344018d3ed7e7c1d95a33caa1ca38599bbed03d57feed",
+      "accepted": false,
+      "full_accepted": false,
+      "expected_loaded_accept": false,
+      "expected_full_accept": false,
+      "loaded_seconds": 2.2308612996712327,
+      "full_live_parameter_seconds": 0.5827502002939582,
+      "guard_decision_seconds": 0.0013182000257074833,
+      "sequential_full_reference_seconds": 7.4918754999525845,
+      "actual_loaded_file_count": 2051,
+      "reason_kinds": [
+        "loaded_byte_changed"
+      ],
+      "reason_details": [
+        {
+          "kind": "loaded_byte_changed",
+          "path": "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\loaded_identity_guard_boundary_root_v1\\loaded_probe.py"
+        }
+      ],
+      "full_changed_files": [
+        "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\loaded_identity_guard_boundary_root_v1\\loaded_probe.py"
+      ],
+      "full_new_files": [],
+      "actual_modules_count": 1030,
+      "actual_native_count": 114,
+      "case_note": "Actual loaded source altered; mutation bytes preserved, then own mutable fixture restored.",
+      "source_snapshot_sha256": "2704f29143e79f7e65e344018d3ed7e7c1d95a33caa1ca38599bbed03d57feed"
+    },
+    {
+      "name": "07_unloaded_tree_changed",
+      "file": "07_unloaded_tree_changed.json",
+      "sha256": "a64ada6ea25fd6760f784728a54f53a28fbf93fccdb552adbf27514ea02d7904",
+      "accepted": true,
+      "full_accepted": false,
+      "expected_loaded_accept": true,
+      "expected_full_accept": false,
+      "loaded_seconds": 2.245509799569845,
+      "full_live_parameter_seconds": 0.5829011001624167,
+      "guard_decision_seconds": 0.0013449001125991344,
+      "sequential_full_reference_seconds": 7.528636899776757,
+      "actual_loaded_file_count": 2051,
+      "reason_kinds": [],
+      "reason_details": [],
+      "full_changed_files": [
+        "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\loaded_identity_guard_boundary_root_v1\\unloaded_registered_probe.py"
+      ],
+      "full_new_files": [],
+      "actual_modules_count": 1030,
+      "actual_native_count": 114,
+      "case_note": "Real never-loaded registered source changed; loaded-only misses original full-tree gate. Mutation archived, own fixture restored afterward.",
+      "source_snapshot_sha256": "a64ada6ea25fd6760f784728a54f53a28fbf93fccdb552adbf27514ea02d7904"
+    },
+    {
+      "name": "08_actual_native_load",
+      "file": "08_actual_native_load.json",
+      "sha256": "f9785010642776b6df37e8d982405569de6cd729af2c99a33dc7683fe06861a7",
+      "accepted": false,
+      "full_accepted": false,
+      "expected_loaded_accept": false,
+      "expected_full_accept": false,
+      "loaded_seconds": 2.2388142002746463,
+      "full_live_parameter_seconds": 0.5826495997607708,
+      "guard_decision_seconds": 0.0013228999450802803,
+      "sequential_full_reference_seconds": 7.536979700438678,
+      "actual_loaded_file_count": 2052,
+      "reason_kinds": [
+        "unsealed_loaded_file"
+      ],
+      "reason_details": [
+        {
+          "kind": "unsealed_loaded_file",
+          "path": "C:\\Windows\\System32\\winmm.dll"
+        }
+      ],
+      "full_changed_files": [],
+      "full_new_files": [
+        "C:\\Windows\\System32\\winmm.dll"
+      ],
+      "actual_modules_count": 1030,
+      "actual_native_count": 115,
+      "case_note": "Fixed Win32 actual winmm.dll load after start. If file was already sealed this requested unsealed-native boundary is unexercised, not relabeled PASS.",
+      "source_snapshot_sha256": "f9785010642776b6df37e8d982405569de6cd729af2c99a33dc7683fe06861a7"
+    }
+  ],
+  "actual_live_parameter_identity": {
+    "backbone_leaves": 234,
+    "head_leaves": 4,
+    "initial_equals_final": true,
+    "all_normal_and_deliberately_changed_parameter_hashes_independently_verified": true
+  },
+  "source_identity": {
+    "producer": {
+      "start_file_count": 8910,
+      "end_file_count": 8911,
+      "start_modulemap": 1030,
+      "end_modulemap": 1030,
+      "maps_equal": true,
+      "changed": [],
+      "new_files": [
+        "C:\\Windows\\System32\\winmm.dll"
+      ],
+      "module_mapping_additions": {}
+    },
+    "independent": {
+      "start_file_count": 8923,
+      "end_file_count": 8923,
+      "start_modulemap": 1013,
+      "end_modulemap": 1013,
+      "maps_equal": true,
+      "changed": [],
+      "new_files": [],
+      "module_mapping_additions": {}
+    }
+  },
+  "source_scope": "Normal cases and every actual fault loaded source/pyc/spec_origin/interpreter/native SHA have corresponding original full-tree snapshots and independent complete-byte witnesses. Producer final deliberate unsealed WinMM native addition is preserved; do not report production source-start/end equality. Its original full-tree sufficiency FAIL is distinct from raw replay0fail.",
+  "normal_timing": {
+    "actual_loaded_file_count": 2051,
+    "source_sha_seconds": 2.2864458998665214,
+    "actual_full_live_parameters_sha_seconds": 0.6118869003839791,
+    "decision_seconds": 0.001284499652683735
+  },
+  "time_scope": "Standalone candidate clocks include actual loaded set enumeration/full byte hashing and actual full live parameter hashing. Original full reference each case and archive/starting seal/model initialization are separately performed; not a whole8+2 request. File set and order/cache differ from prior n6, so no causal acceleration claim.",
+  "protections_not_proven": [
+    "unloaded registered tree mutation is a measured missed change",
+    "ephemeral imports removed before snapshot",
+    "in-memory code monkeypatch",
+    "native arbitrary memory writes",
+    "cryptographic trust of module.__file__/__spec__ metadata",
+    "parent crash/persistent logs/irreversible external effects",
+    "all scientific training/control chain dependency closure"
+  ],
+  "exits": {
+    "RUN_EXIT.json": {
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 125.45945269986987,
+      "natural_exit": true,
+      "worker_pid": 9184
+    },
+    "AUDIT_RUN_EXIT.json": {
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 89.77017860021442,
+      "natural_exit": true,
+      "worker_pid": 23100
+    },
+    "CHAIN_EXIT.json": {
+      "exit_code": 0,
+      "supervisor_pid": 17472,
+      "wall_seconds": 215.24802017211914,
+      "optimizer_steps": 0,
+      "scientific_family3_started": false
+    }
+  },
+  "archive": {
+    "files": 62,
+    "bytes": 47066037,
+    "chunk_bytes": 262144,
+    "all_original_sha_match": true,
+    "actual_owned_tree_empty_before_download": true
+  },
+  "resource": {
+    "available_ram_gib": 20.235015869140625,
+    "cpu15_busy_percent": 8.5,
+    "observed_other_python_count": 1,
+    "other_processes_not_touched": true
+  },
+  "old_full_hash_publication_gate_unchanged": true,
+  "candidate_installed": false,
+  "full_request_budget_qualified": false,
+  "full_scientific_loaded_closure_qualified": false,
+  "formal_trained_control_qualified": false,
+  "equal_time_maskco_iteration_qualified": false,
+  "family2_closed": true,
+  "scientific_family3_started": false,
+  "model_forward_calls": 0,
+  "C0_solver_calls": 0,
+  "optimizer_updates": 0,
+  "stable_online_gain": false,
+  "next": "Do not rerun these8 fault/normal cases or104649 independent checks. Loaded-only cannot replace original complete-tree gate. Any immutable-source lease/ownership alternative must be newly preregistered and tested only on new exclusive source copies, without locking team/global files, and preserve full original file/loaded/native/parameter requirements or openly declare a new contract before scientific data. Per-expression whole-request deployment remains gated."
+}

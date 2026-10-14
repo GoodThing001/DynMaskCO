@@ -1,0 +1,34 @@
+{
+  "created_utc": "2026-10-11T11:00:57.678150+00:00",
+  "program_sha256": "17da31a7776d1342bee2d708c8ff673eeb4b4d374a9e83b202548c40846a7ff3",
+  "inputs": {
+    "RESEARCH_REGISTRATION.json": "562fc0304cb0202238e6618c0a20cf1602ac38d6763261d7d407743e02d21176",
+    "EXTERNAL_REGISTRATION_BINDING.json": "eec7469244794d504b930fdc3b36e8e3936a2ef956eb0c8654b5c3eefb119573",
+    "collector.py": "e481858948ded2eeae8faf01eb427233d47a8847788cfefa00fef3f658d5fbae",
+    "retained_gls.py": "ea85cc01218568cda7d3716257681a483e1b41958d2cbd3c14473556d3012ef6",
+    "QUALIFIED_SERVER_REFERENCE.json": "db437e86e823937d94f2e6ba49d8b092e1383d7e9f749e64684988345dfd3a84",
+    "STATES.jsonl": "586604a77c7a443841ad78de1cf9ec403f4c21dcf3be0bcee0d3fc175460d77d",
+    "REQUESTS_STARTED.jsonl": "7d41b84f2d65b6c387b9fde9123d3b137df4ef4f2baa73f0b85e9b43379ce93a",
+    "SOURCE_START.json": "7e690ed1c6cb8a963e7259a43e9c9e221ada744c02000c43590bfabc105f3d13",
+    "SOURCE_END.json": "b152985a02a2b5c4caeb415fd9b81efab881b75d15f1f54e96d693fcb307ab2d",
+    "RESULT.json": "d0953d911636206632dc29258a32c874316969eafc96bce3169b7bb0fbe6ab45",
+    "RUN_EXIT.json": "58e6a8c726aae5199a84552a1e6de3622fc84374bb20b87d28b5b905254200b7",
+    "WORKER_IDENTITY.json": "dbcb0ecba75d6b738a35b956a2276ec02a38e315a67fe8ca4287ccc388287825"
+  },
+  "research_registration_sha256": "562fc0304cb0202238e6618c0a20cf1602ac38d6763261d7d407743e02d21176",
+  "scope": "independent full256 raw replay; diagnostic when the original declared barrier fails; never turn original FAIL into PASS",
+  "producer_original_actual_run_exit": {
+    "exit_code": 1,
+    "failure": null,
+    "wall_s": 895.3764152526855,
+    "optimizer_steps": 0,
+    "supervisor_pid": 21520,
+    "training_launched": false
+  },
+  "max_s": 1200,
+  "cpu": [
+    15
+  ],
+  "shared_physical_evaluator": true,
+  "automatic_training": false
+}

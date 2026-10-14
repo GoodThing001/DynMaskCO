@@ -1,0 +1,83 @@
+{
+  "created_utc": "2026-10-13T05:15:47.473396+00:00",
+  "registration_sha256": "786edc87c9f07db76779dc6afb3d6624528dabe52afcfc69320d93e298847f44",
+  "resource_observation": {
+    "available_ram_gib": 18.165069580078125,
+    "allowed_cpu": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "cpu15_busy_percent": 0.8,
+    "processes": [
+      {
+        "ppid": 22264,
+        "cmdline": [
+          "D:\\anaconda\\envs\\pytorch\\python.exe",
+          "-u",
+          "a1_accept_v1/train_mapt_a1.py",
+          "--algorithm",
+          "mapt",
+          "--env_config_path",
+          "a1_accept_v1/env_a1_c64.yaml",
+          "--num_episodes",
+          "2304",
+          "--n_rollout_threads",
+          "16",
+          "--mini_batch_size",
+          "64",
+          "--seed",
+          "20260925",
+          "--n_training_threads",
+          "4",
+          "--save_interval",
+          "8",
+          "--log_interval",
+          "1",
+          "--eval_interval",
+          "16",
+          "--eval_episodes",
+          "40"
+        ],
+        "pid": 6828,
+        "name": "python.exe",
+        "create_time": 1791863359.567296,
+        "username": "DESKTOP-9V1OPDI\\ZH",
+        "owned": false,
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "rss": 3358232576
+      }
+    ]
+  },
+  "remote_directory": "research/review_3080_20261010/parallel_identity_collection_root_v1"
+}

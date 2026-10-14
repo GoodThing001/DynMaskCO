@@ -1,0 +1,26 @@
+{
+  "created_utc": "2026-10-11T04:34:00.946052+00:00",
+  "scope": "old two engineering fixtures only; no new train/development/confirmation data",
+  "fixtures_sha256": "67fa1b6854e62d6133f4a27f08be81474f86e790e3fe1ce0ace79488e0f4a302",
+  "program_sha256": "aac9581f9cfb2b9359e9ea7dd23eb89f7ca3f7af19765f3e711e81649ff6b345",
+  "teacher_sha256": "d33eb69df4ff65818b04958c16727d2e569ed2c0ced15e4fa37390fb6f8f324f",
+  "actual_parent_worker_cpu": [
+    7
+  ],
+  "request_cap_s": 10.0,
+  "solver_search_cap_s": 3.0,
+  "fault_cap_s": 0.01,
+  "masks": [
+    "original_registered_mask_ordinal0",
+    "all_edges_retained"
+  ],
+  "partial_adjacency_semantics": "original undirected edges plus actual insertion decoder skeleton: all unmasked orders retain original vehicle and relative order; removed orders can be reinserted",
+  "contract_hash": "ba40cd0d08fc21ef09d418c7df2bff940294ee2cfecebd2a4ba9ddde35a8268a",
+  "research_new_days": 0,
+  "stable_online_gain": false,
+  "previous_teacher_action_mismatch_preserved": true,
+  "references": [
+    "https://developers.google.com/optimization/routing/routing_tasks",
+    "https://proceedings.neurips.cc/paper/2019/file/131f383b434fdf48079bff1e44e2d9a5-Paper.pdf"
+  ]
+}

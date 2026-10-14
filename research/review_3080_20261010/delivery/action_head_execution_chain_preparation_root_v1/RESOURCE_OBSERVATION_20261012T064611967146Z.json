@@ -1,0 +1,8 @@
+{
+  "created_utc": "2026-10-12T06:46:11.967146+00:00",
+  "minimum_available_ram_gib": 8,
+  "local_available_ram_gib": 3.8859291076660156,
+  "model_executed": false,
+  "server_upload": false,
+  "failure": "Traceback (most recent call last):\n  File \"D:\\PyCharm_\\MASKCO-Main\\tools\\inspect_action_head_resources_v1.py\", line 29, in main\n    raw=run_capture(build(cfg,r'C:\\Users\\zh\\project\\MASKCO-Main',r'D:\\anaconda\\envs\\MASKCO_env\\python.exe','-B',['-c',code],'windows'),30,cfg)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\PyCharm_\\MASKCO-Main\\tools\\_srv_exec_v2.py\", line 49, in run_capture\n    client.connect(host, port=22, username=user, password=password, timeout=30)\n  File \"D:\\AA_Py\\A_Anaconda\\Lib\\site-packages\\paramiko\\client.py\", line 349, in connect\n    retry_on_signal(lambda: sock.connect(addr))\n  File \"D:\\AA_Py\\A_Anaconda\\Lib\\site-packages\\paramiko\\util.py\", line 283, in retry_on_signal\n    return function()\n           ^^^^^^^^^^\n  File \"D:\\AA_Py\\A_Anaconda\\Lib\\site-packages\\paramiko\\client.py\", line 349, in <lambda>\n    retry_on_signal(lambda: sock.connect(addr))\n                            ^^^^^^^^^^^^^^^^^^\nPermissionError: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。\n"
+}

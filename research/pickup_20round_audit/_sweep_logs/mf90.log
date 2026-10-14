@@ -1,0 +1,69 @@
+=== START mask_fraction=0.9 out=D:\PyCharm_\MASKCO-Main\research\pickup_20round_audit\pickup_arm_pilot_mf90_v1 2026-10-10T16:43:59.5149332+08:00 ===
+{
+  "n_states": 8,
+  "n_rows": 96,
+  "per_mode": {
+    "maskco": {
+      "n": 32,
+      "mean_raw_delta_utility": -5.621444572159049,
+      "n_raw_positive": 12,
+      "n_raw_zero": 0,
+      "n_raw_negative": 20,
+      "mean_accepted_delta_utility": 0.0016129720025332972,
+      "n_hard_feasible": 32,
+      "n_identity_to_template": 0,
+      "decoder_calls_total": 32,
+      "n_mask_extended": 0
+    },
+    "recon_only": {
+      "n": 32,
+      "mean_raw_delta_utility": -7.4931192394578545,
+      "n_raw_positive": 12,
+      "n_raw_zero": 0,
+      "n_raw_negative": 20,
+      "mean_accepted_delta_utility": 1.882744165253854,
+      "n_hard_feasible": 32,
+      "n_identity_to_template": 0,
+      "decoder_calls_total": 32,
+      "n_mask_extended": 0
+    },
+    "discard": {
+      "n": 32,
+      "mean_raw_delta_utility": -7.4931192394578545,
+      "n_raw_positive": 12,
+      "n_raw_zero": 0,
+      "n_raw_negative": 20,
+      "mean_accepted_delta_utility": 1.882744165253854,
+      "n_hard_feasible": 32,
+      "n_identity_to_template": 0,
+      "decoder_calls_total": 32,
+      "n_mask_extended": 0
+    }
+  },
+  "paired_contrasts": {
+    "maskco_minus_recon_only": {
+      "n_pairs": 16,
+      "mean": 7.4735234247986,
+      "ci95": [
+        3.7225116849527353,
+        11.229442562613949
+      ],
+      "n_positive": 12,
+      "n_zero": 0,
+      "n_negative": 4
+    },
+    "recon_only_minus_discard": {
+      "n_pairs": 16,
+      "mean": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "n_positive": 0,
+      "n_zero": 16,
+      "n_negative": 0
+    }
+  },
+  "wall_s": 71.79752020002343
+}
+=== END mask_fraction=0.9 exit=0 ===

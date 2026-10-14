@@ -1,0 +1,143 @@
+{
+  "created_utc": "2026-10-13T09:20:55.898229+00:00",
+  "sources": {
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_matching_generalization_root_v1\\head_action_matching.py": "ab7df735aea8e0452fd512b3b42f55fac202c16618c172ebb24946d0ebb104cf",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_matching_generalization_root_v1\\run.py": "21ed8110a53bb14fea5fc146f419276375f384b3f7359f207e1ed9cac4a6cf13",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_matching_generalization_root_v1\\audit.py": "c5548c04d9194041e395e7bd69c46253d10f7680023cc1d3517883a95c86df88",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_matching_generalization_root_v1\\prepare.py": "8bfae6e304d46b43024c08af3e0ab279ab68112b179d855724b906739b5f1651",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_matching_generalization_root_v1\\supervise.py": "d79ff7a310d4448928c0523c66f8027c253817fe15ae4fc8513e9539dab3640e",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\engineering_stage_closure_v1.py": "2e823979ef6fff9f133e158f2a2cc2e66a71ae7c43e65dc7edf71793f79adf4f"
+  },
+  "stage": "delivery_n13_action_matching_generalization",
+  "goal": "Measure whether the action-matching scoring-head update transfers to sealed states it never saw, and whether its optimisation trajectory can be reproduced by an independent implementation.",
+  "scope_boundary": "Head-only four-leaf CE over already sealed MaskCO decoder latents of the pretrained_initial arm. No backbone forward, no C0, no solver, no teacher cost input, no model optimizer update, no new data, no formal trained-control or gain claim.",
+  "cycle": 6,
+  "sealed": {
+    "arm": "pretrained_initial",
+    "records": 30,
+    "npz_directory": "research/review_3080_20261010/delivery/actual_action_head_execution_root_v1/downloaded",
+    "manifest": "research/review_3080_20261010/delivery/actual_action_head_execution_root_v1/DOWNLOAD_MANIFEST.json",
+    "head_source": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\head_intermediate_arithmetic_root_v1\\delivery_actual_action_head_v1.py",
+    "head_source_sha256": "d9664585a8a6ab2d169ac8b9920669b8b04bfddefc56d7c84e425a138fbd409f",
+    "head_seed": 20261012,
+    "head_parameter_elements": 196929,
+    "action_options_sha256": "9f898fdf0eba508ebd7366233b11d37ae877a274614b4bcca6fe968fe4f65d52",
+    "intermediates_sha256": "c269a9a174d1e7c7a44f18a999ef6decee3a47ac7b827fb7f4a0259bb01ed181"
+  },
+  "round5_artifacts": {
+    "step0_grad": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_matching_head_update_root_v2\\HEAD_STEP0_GRAD.npz",
+    "step0_grad_sha256": "006d1de7e32b8df43b870a7f4d1becfdbeaca412f8ee427cf010a3154e0ea0be",
+    "root": "research/review_3080_20261010/delivery/action_matching_head_update_root_v2",
+    "role": "source of the pre-declared matched step-scale derivation and of the recorded Adam control divergence"
+  },
+  "split": {
+    "rule": "ascending sealed record index over the 29 supervised groups; every third group from position 2 is held out",
+    "held_out_positions": [
+      2,
+      5,
+      8,
+      11,
+      14,
+      17,
+      20,
+      23,
+      26
+    ],
+    "expected_train": 20,
+    "expected_held_out": 9,
+    "declared_before_execution": true,
+    "no_selection_by_outcome": true
+  },
+  "arms": [
+    {
+      "name": "sgd_matched",
+      "kind": "sgd",
+      "learning_rate": 0.08607391167617187
+    },
+    {
+      "name": "sgd_conservative",
+      "kind": "sgd",
+      "learning_rate": 0.01
+    },
+    {
+      "name": "adam_control",
+      "kind": "adam",
+      "learning_rate": 0.003,
+      "b1": 0.9,
+      "b2": 0.999,
+      "eps": 1e-08
+    }
+  ],
+  "primary_arm": "sgd_matched",
+  "primary_arm_reason": "Plain SGD keeps the step proportional to the gradient, so it is the arm whose full trajectory is asserted to be reproducible across arithmetics.",
+  "arm_reporting": "all three arms are reported in full; no arm is selected or discarded by outcome",
+  "update": {
+    "epochs": 8,
+    "steps_per_arm": 160,
+    "order": "ascending train record index",
+    "matched_lr_derivation": {
+      "rule": "mean |Adam t=1 step| / mean |g| over the sealed round-5 step-0 gradient artifact",
+      "mean_abs_adam_step_t1": 0.0006951489918115264,
+      "mean_abs_gradient": 0.00807618682913846,
+      "matched_lr": 0.08607391167617187,
+      "derived_before_execution": true,
+      "source_artifact": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_matching_head_update_root_v2\\HEAD_STEP0_GRAD.npz"
+    }
+  },
+  "tolerances": {
+    "forward_vs_sealed_scores_max_abs": 2e-05,
+    "audit_metric_max_abs": 1e-05,
+    "audit_sgd_trajectory_max_abs": 0.0001,
+    "audit_sgd_final_param_max_abs": 0.0001,
+    "reload_bit_exact": 0.0,
+    "adam_arm_trajectory_asserted": false
+  },
+  "runtime": {
+    "numpy": "1.26.4",
+    "jax": "0.5.0",
+    "flax": "0.10.4",
+    "optax": "0.2.5"
+  },
+  "resource": {
+    "python": "3.12.7",
+    "cpu_affinity": [
+      7
+    ],
+    "min_available_ram_gib_without_backbone": 1.0,
+    "full_backbone_threshold_gib": 8.0,
+    "backbone_loaded": false
+  },
+  "normal_runs": 1,
+  "audit_runs": 1,
+  "supervision_cap_seconds": 600,
+  "papers": [
+    {
+      "title": "MaskCO: Masked Generation Drives Effective Representation Learning and Exploiting for Combinatorial Optimization",
+      "venue": "ICLR 2026",
+      "authors": "Lvda Chen, Yang Li, Junchi Yan",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2026/file/d85816bf41e54d9b0847e02249f4fcc6-Paper-Conference.pdf",
+      "read_scope": "abstract, section 3 partial-solution/selection operators, section 4.1 variable BCE training",
+      "use": "per-customer feasible-action CE wiring inspiration only, not the original variable-BCE recipe"
+    },
+    {
+      "title": "Adam: A Method for Stochastic Optimization",
+      "venue": "ICLR 2015, arXiv:1412.6980",
+      "authors": "Diederik P. Kingma, Jimmy Ba",
+      "url": "https://arxiv.org/abs/1412.6980",
+      "read_scope": "algorithm 1 and the per-coordinate normalisation and epsilon role (optionally read this round)",
+      "use": "explains why a normalised update saturates to +/-lr and is not reproducible at the float32 floor"
+    }
+  ],
+  "formal_trained_control_qualified": false,
+  "formal_controls_qualified": false,
+  "full_request_budget_qualified": false,
+  "full_scientific_loaded_closure_qualified": false,
+  "scientific_data_generated": false,
+  "new_science_family": false,
+  "scientific_family3_started": false,
+  "optimizer_updates_of_model": 0,
+  "learned_output_qualified": false,
+  "stable_online_gain": false,
+  "shared_MD_uploaded": false,
+  "final_pickup_seeds_used": false
+}

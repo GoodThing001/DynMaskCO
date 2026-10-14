@@ -1,0 +1,105 @@
+{
+  "version": "three-line-research-20261010-v1",
+  "authorization": {
+    "date": "2026-10-10",
+    "user_instruction": "继续完成这三个方向，不断修正完善，直到有稳定的正向增益",
+    "scope": "new documented hypotheses, isolated implementations, finite registered server experiments and independent confirmations"
+  },
+  "prior_failures_immutable": [
+    "i3_online_recovery_1009_v1",
+    "delivery_pilot_1008_v2",
+    "negative_result_paper"
+  ],
+  "objective": "stable attributable MaskCO online utility on pickup and delivery; accurate reproducible scientific reporting on the negative-result line",
+  "not_guaranteed": "No positive outcome is promised; exhausted hypotheses and negative results remain evidence.",
+  "search": {
+    "cycles_per_line": 12,
+    "hypothesis_fixed_within_experiment": true,
+    "development_feedback_allowed": true,
+    "old_failed_chain_repeats": false,
+    "new_protocol_before_data": true,
+    "new_result_directory_each_attempt": true,
+    "all_attempts_retained": true,
+    "no_success_conditioned_resampling": true
+  },
+  "validation": {
+    "old_pickup_final_seeds_forbidden": [
+      20260927,
+      20260928
+    ],
+    "selection": "Select at most one frozen candidate per registered confirmation family using development only; never tune on confirmation",
+    "stable_online": "Three fresh 40-complete-day cohorts, every cohort passes main and attribution gates, all hard, complete independently checked source/weight/data/contract/budget identity and raw trajectory replay.",
+    "pickup_main": "I3-derived new method minus cond_hist >=20 utility/day and paired CI lower>0; minus same-init reconstruction-only control mean>0 and CI lower>0. Also compare qualified same-contract strong rolling controller before stronger efficiency claims.",
+    "delivery_main": "Against each registered random/nonlearned and qualified strong rolling control, mean relative complete-cost reduction>=1% and paired CI lower>0; same online information, legal actions and total budget.",
+    "alpha_spending": "For confirmation family j=1,2,... allocate two-sided alpha_total=0.05/(j*(j+1)), split equally across pickup and delivery and Bonferroni across registered contrasts and cohorts within each line; exploratory pilot 95% CIs are descriptive only.",
+    "statistical_method": "Independent complete days or snapshots, paired percentile bootstrap with predeclared counts/seed; Monte Carlo tail precision checked before confirmation. No formal discovery if sample/coverage assumptions are unsupported.",
+    "sample_size": "First mechanism pilot is bounded exploratory n=32, no power claim. Dynamic n=40/cohort is a resource boundary; plan detectable-effect/precision before confirming, no interim-significance expansion."
+  },
+  "delivery_first_pilot": {
+    "id": "D-EQ8-20261010-v1",
+    "scope": "exploratory snapshot attribution only; not same-time competitiveness or online gain",
+    "dataset_seed": 2026101002,
+    "instance_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "mask_schedule_seed": 2026101041,
+    "arm_order_seed": 2026101099,
+    "bootstrap_seed": 2026101077,
+    "bootstrap_replicates": 2000,
+    "random_model_seed": 42,
+    "arms": [
+      "pretrained",
+      "random",
+      "nonlearned"
+    ],
+    "attempts": 8,
+    "mask_fraction": 0.3,
+    "guide_weight": 1.0,
+    "all_incomplete_attempts_keep_incumbent": true,
+    "fixed_schedule_no_resample": true,
+    "endpoint": 8,
+    "secondary_endpoint": 1,
+    "mean_relative_attribution_threshold": 0.01,
+    "confirmation_not_triggered_by_pilot_alone": true
+  },
+  "execution": {
+    "current_gpu_policy": "No team GPU until fresh availability audit; CPU-only initial engineering/mechanism tasks",
+    "bounded_jobs": "tmux for >5min; explicit wall timeout, own PID tree only; never kill team processes",
+    "max_single_job_s": 28800,
+    "server_shared_md_upload": "still pending explicit separate approval, do not retry",
+    "publication": "not authorized",
+    "physical_scope": "literature-based simulation; no own physical-calibration claim or universal calibration barrier"
+  },
+  "current_stage": "hypothesis-bound parallel implementation and engineering qualification; no stable-positive claim"
+}

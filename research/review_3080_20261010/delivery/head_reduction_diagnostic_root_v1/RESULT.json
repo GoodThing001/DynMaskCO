@@ -1,0 +1,87 @@
+{
+  "stage": "small_synthetic_head_reduction_diagnostic",
+  "jax_version": "0.5.0",
+  "numpy_version": "1.26.4",
+  "backend": "cpu",
+  "rows": [
+    {
+      "name": "route",
+      "shape": [
+        32,
+        8
+      ],
+      "bitwise_equal": true,
+      "different_float32_elements": 0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "prefix",
+      "shape": [
+        32,
+        8
+      ],
+      "bitwise_equal": true,
+      "different_float32_elements": 0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "suffix",
+      "shape": [
+        32,
+        8
+      ],
+      "bitwise_equal": true,
+      "different_float32_elements": 0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "concat",
+      "shape": [
+        32,
+        52
+      ],
+      "bitwise_equal": true,
+      "different_float32_elements": 0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "linear1_bias",
+      "shape": [
+        32,
+        16
+      ],
+      "bitwise_equal": true,
+      "different_float32_elements": 0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "tanh",
+      "shape": [
+        32,
+        16
+      ],
+      "bitwise_equal": true,
+      "different_float32_elements": 0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "linear2_bias",
+      "shape": [
+        32
+      ],
+      "bitwise_equal": true,
+      "different_float32_elements": 0,
+      "max_abs_difference": 0.0
+    }
+  ],
+  "first_differing_stage": null,
+  "source_sha256": {
+    "REGISTRATION.json": "d160f054fb898224606b7f466fb234ba3de050bb9d8b24bc986fef7a0921d219",
+    "run.py": "9508bae7e49e1604acf69acc0adba44d798ac121f870a374442cd6f36970d1b0"
+  },
+  "original_34_cases_rerun": false,
+  "original_compiled_head_strict_gate_pass": false,
+  "full_backbone_loaded": false,
+  "full_request_qualified": false,
+  "stable_online_gain": false
+}

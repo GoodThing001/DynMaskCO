@@ -1,6 +1,6 @@
 """Meaningful private-archive replay and corruption guards on a tiny fixture."""
 from copy import deepcopy
-from dataclasses import asdict
+from dataclasses import asdict, replace
 import hashlib
 from pathlib import Path
 import sys
@@ -12,8 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 for folder in ('tests', 'training', 'evaluation', 'simulation', 'coldchain'):
     sys.path.insert(0, str(ROOT / folder))
 from test_i3_counterfactual_teacher import fixture, replay, check_raises
-from i3_teacher_archive import write_archive, load_archive
-from i3_counterfactual_teacher import TRAIN_SEED, teacher_preference
+from i3_teacher_archive import write_archive, load_archive, _pack, _unpack
+from i3_counterfactual_teacher import TRAIN_SEED, teacher_preference, record_identity
 from run_identity import dataset_identity, dataset_meta_sha256
 
 
@@ -34,7 +34,7 @@ def test_archive():
         'dataset_meta_sha256': dataset_meta_sha256(ds), 'contract_hash': contract.contract_hash,
         'source_sha256': {'teacher': hashlib.sha256(source.read_bytes()).hexdigest()},
         'generator_config': {'kind': 'tiny controlled fixture, not a scientific dataset'},
-        'collection_config': {'ordinals': list(range(4)), 'not_formal': True},
+        'collection_config': {'ordinals': list(range(4)), 'minimum_gap': 5, 'not_formal': True},
         'history_dataset_sha256': 'fixture history externally defined in test',
         'history_dataset_meta_sha256': 'fixture history externally defined in test'}
     keys = [(0, i) for i in range(4)]
@@ -71,11 +71,38 @@ def test_archive():
         duplicate = entries + [entries[0]]
         check_raises(lambda: write_archive(Path(temp) / 'duplicate.json', context=context,
                      dataset=ds, entries=duplicate, expected_keys=keys))
+        wrong_labels = deepcopy(entries)
+        wrong_labels[0]['preference']['loss_teacher_margin'] += 1
+        check_raises(lambda: write_archive(Path(temp) / 'wrong_label.json', context=context,
+                     dataset=ds, entries=wrong_labels, expected_keys=keys))
         path.write_bytes(path.read_bytes() + b' ')
         check_raises(lambda: load_archive(path, archive_sha256=digest,
                      expected_context=context, expected_keys=keys))
     print('ALL PASS: typed private archive roundtrip, all-state completeness, invalid teacher retained, exact resumed utility/sets, metadata/external checksum guards and no overwrite')
 
 
+def test_unordered_identity():
+    _, _, _, _, records, _ = fixture(infeasible=True)
+    record = records[0]
+    # Sparse IDs with hash collisions above 128 reproduce the real day-3
+    # reload fault, missed by the old four-order fixture.
+    rejected = frozenset([130, 2, 3, 133, 134, 135, 136, 137, 5, 12, 13, 141,
+        142, 143, 144, 145, 146, 147, 21, 150, 151, 152, 23, 26, 155, 156,
+        29, 159, 160, 31, 162, 33, 34, 35, 36, 37, 38, 39, 41, 171, 172,
+        42, 44, 45, 48, 49, 54, 57, 62, 63, 67, 68, 69, 73, 77, 78, 79,
+        81, 83, 85, 87, 89, 90, 94, 95, 100, 103, 114, 117, 119, 120,
+        122, 123, 125, 126, 127])
+    accepted = frozenset(set(range(1, 175)) - rejected)
+    record = replace(record, visible=replace(record.visible, accepted=accepted, rejected=rejected))
+    record = replace(record, record_hash=record_identity(record))
+    restored = _unpack(_pack(record))
+    assert restored.visible == record.visible
+    assert record_identity(restored) == record.record_hash
+    altered = replace(restored, visible=replace(restored.visible, rejected=rejected - {130}))
+    assert record_identity(altered) != record.record_hash, 'Member changes must still fail identity'
+    print('ALL PASS: sparse 174-ID frozenset typed roundtrip identity, changed membership rejected')
+
+
 if __name__ == '__main__':
     test_archive()
+    test_unordered_identity()

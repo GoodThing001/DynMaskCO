@@ -9,7 +9,7 @@ import argparse
 import json
 import os
 import sys
-from multiprocessing import Pool
+from multiprocessing import Pool, get_context
 
 import numpy as np
 from flax import nnx
@@ -50,6 +50,31 @@ DELTA_3 = 20.0
 TRAIN_SEED = 20260925
 DEV_SEED = 20260926
 FINAL_SEEDS = (20260927, 20260928)
+
+
+def require_online_model_qualification(model_bin):
+    """Engineering/incomplete I3 checkpoints cannot enter the paper gate.
+
+    Existing historical model cards predate these fields; their ordinary source,
+    lineage and pairing checks remain mandatory and are not waived here.
+    """
+    path = os.path.join(os.path.dirname(os.path.abspath(model_bin)), 'config.json')
+    if not os.path.exists(path):
+        raise ValueError('Missing model lineage card is not eligible for the online paper gate')
+    with open(path, encoding='utf-8') as stream:
+        card = json.load(stream)
+    if (card.get('qualification') == 'engineering' or
+            ('training_complete' in card and card['training_complete'] is not True)):
+        raise ValueError('Engineering/incomplete checkpoint is not eligible for the online paper gate')
+    if 'qualification' in card and card['qualification'] != 'formal_development':
+        raise ValueError('Unknown checkpoint qualification is not eligible for the online paper gate')
+    if 'i3_training' in card:
+        # This historical driver rebuilds a full history decoding pool. I3
+        # training excludes its teacher-objective holdout from that pool.
+        # A new sealed I3 adapter must explicitly reproduce that lineage;
+        # ordinary generation-code hash checks alone cannot guarantee this.
+        raise ValueError('I3 decoder-pool lineage requires its registered adapter; '
+                         'this historical driver is not eligible for the I3 paper gate')
 
 
 def _build_sampler(spec):
@@ -137,7 +162,7 @@ def _baseline_identity_for(base, gate_seed):
     return blk.get("_identity")
 
 
-def main(argv=None):
+def main(argv=None, *, online_adapter=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--model-bin", required=True, help="训练好的 maskco 模型 model.bin")
     ap.add_argument("--arm", choices=["random", "explicit", "pretrained", "random_cvrp"],
@@ -188,9 +213,14 @@ def main(argv=None):
                     help="放行模型代码世代不匹配（显式标注，仅诊断用途）")
     ap.add_argument("--out", required=True)
     args = ap.parse_args(argv)
+    if online_adapter is None:
+        require_online_model_qualification(args.model_bin)
+    else:
+        online_adapter.qualify(args)
 
     contract = make_c0_contract_v2()
-    src_seal = source_seal(SOURCE_FILES_STEP3)   # Q-04：启动封存源码 hash（结束复查见报告前）
+    source_files = SOURCE_FILES_STEP3 + (online_adapter.source_files if online_adapter else [])
+    src_seal = source_seal(source_files)   # Q-04：启动封存源码 hash（结束复查见报告前）
     model_sha = _sha256_path(args.model_bin)
     model_gen = check_model_generation(args.model_bin,
                                        allow_mismatch=args.allow_code_mismatch)
@@ -221,7 +251,7 @@ def main(argv=None):
     B, cooling_share, _ = compute_budget_and_dwell(
         train_ds, contract, args.num_vehicles, TRAIN_SEED, args.rho, hist_tc,
         k=args.k_neighbors)
-    pools = HistoryPools(hist)
+    pools = (online_adapter.build_pools(train_ds, hist) if online_adapter else HistoryPools(hist))
 
     if args.final_test:
         seeds = FINAL_SEEDS
@@ -239,6 +269,8 @@ def main(argv=None):
                            "k_neighbors": args.k_neighbors},
              "explicit_feat": {"kind": "explicit_feat", "history": hist},
              "uncond_hist": {"kind": "uncond_hist", "history": hist}}
+    if online_adapter is not None:
+        specs = online_adapter.make_specs(specs)
     if args.only:
         specs = {args.only: specs[args.only]}
 
@@ -275,7 +307,9 @@ def main(argv=None):
                               args.shadow_mode, args.energy_pricing,
                               args.future_policy, args.standby_orders))
         if args.workers > 1:
-            with Pool(args.workers) as pool:
+            initializer = online_adapter.worker_init if online_adapter else None
+            pool_type = get_context('spawn').Pool if online_adapter else Pool
+            with pool_type(args.workers, initializer=initializer) as pool:
                 task_results = pool.map(_worker, tasks)
         else:
             task_results = [_worker(t) for t in tasks]
@@ -308,12 +342,11 @@ def main(argv=None):
                 "maskco_minus_cond_hist": st, "delta_3": DELTA_3,
                 "criterion": "mean>=delta_3 AND ci_lo>0 AND both hard_feasible_rate==1.0",
                 "passed": passed, "violations_present": not both_ok}
-            results[gate_seed][pname]["maskco_minus_explicit_feat"] = paired_all_days(
-                per_day[gate_seed]["maskco"][pname],
-                per_day[gate_seed]["explicit_feat"][pname], gate_seed, args.dev_instances)
-            results[gate_seed][pname]["maskco_minus_uncond_hist"] = paired_all_days(
-                per_day[gate_seed]["maskco"][pname],
-                per_day[gate_seed]["uncond_hist"][pname], gate_seed, args.dev_instances)
+            for other in ("explicit_feat", "uncond_hist", "warmstart", "reconstruction_control"):
+                if other in per_day[gate_seed]:
+                    results[gate_seed][pname]["maskco_minus_" + other] = paired_all_days(
+                        per_day[gate_seed]["maskco"][pname],
+                        per_day[gate_seed][other][pname], gate_seed, args.dev_instances)
             results[gate_seed][pname]["per_day"] = {
                 name: per_day[gate_seed][name][pname] for name in per_day[gate_seed]}
 
@@ -322,6 +355,8 @@ def main(argv=None):
     for gate_seed in seeds:
         ident = _run_identity(args, contract, gate_ds_by_seed[gate_seed], gate_seed,
                               model_sha, B, cooling_share, src_seal)
+        if online_adapter:
+            ident['model_adapter'] = online_adapter.identity()
         results[gate_seed]["_identity"] = ident
         if args.baseline_from:
             b_id = _baseline_identity_for(baseline_doc, gate_seed)
@@ -336,6 +371,10 @@ def main(argv=None):
             verified = bool(ident["source_stable"])
             pairing_note = ("maskco 与 cond_hist 同进程同源码同数据（同运行内配对），"
                             "身份核实以 source_stable + 数据身份为准")
+        if online_adapter and not online_adapter.formal_eligible:
+            verified = False
+            pairing['identity_verified'] = False
+            pairing['problems'] = pairing.get('problems', []) + ['engineering_online_adapter']
         results[gate_seed]["_pairing_identity"] = pairing
         for pname in results[gate_seed]:
             if not isinstance(results[gate_seed][pname], dict):
@@ -381,6 +420,8 @@ def main(argv=None):
         "note": "A-v1 步骤 3：MaskCO 场景生成器 vs 条件历史采样强基线（共用 SAA 下游、同 K/时限、不筛天）。"
                 "主比较 = maskco − cond_hist；只赢无条件/显式特征不算 MaskCO 贡献。",
     }
+    if online_adapter:
+        report['model_adapter'] = online_adapter.identity()
     os.makedirs(args.out, exist_ok=True)
     with open(os.path.join(args.out, "gate.json"), "w") as f:
         json.dump(report, f, indent=2)

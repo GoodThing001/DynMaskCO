@@ -1,0 +1,1194 @@
+{
+  "checks_count": 29,
+  "failed": 0,
+  "failure_names": [],
+  "checks": [
+    {
+      "name": "frozen_dataset_identity_matches_recorded",
+      "pass_": true
+    },
+    {
+      "name": "frozen_dataset_meta_matches_recorded",
+      "pass_": true
+    },
+    {
+      "name": "frozen_contract_identity_matches_recorded",
+      "pass_": true
+    },
+    {
+      "name": "recorded_controls_sha256",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_utility_above_bound:uncond_hist:tw_only",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_served_count_above_reachable:uncond_hist:tw_only",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_revenue_above_reachable:uncond_hist:tw_only",
+      "pass_": true
+    },
+    {
+      "name": "per_day_vehicle_hours_within_capacity:uncond_hist:tw_only",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_utility_above_bound:uncond_hist:tw_and_horizon",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_served_count_above_reachable:uncond_hist:tw_and_horizon",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_revenue_above_reachable:uncond_hist:tw_and_horizon",
+      "pass_": true
+    },
+    {
+      "name": "per_day_vehicle_hours_within_capacity:uncond_hist:tw_and_horizon",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_utility_above_bound:cond_hist:tw_only",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_served_count_above_reachable:cond_hist:tw_only",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_revenue_above_reachable:cond_hist:tw_only",
+      "pass_": true
+    },
+    {
+      "name": "per_day_vehicle_hours_within_capacity:cond_hist:tw_only",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_utility_above_bound:cond_hist:tw_and_horizon",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_served_count_above_reachable:cond_hist:tw_and_horizon",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_revenue_above_reachable:cond_hist:tw_and_horizon",
+      "pass_": true
+    },
+    {
+      "name": "per_day_vehicle_hours_within_capacity:cond_hist:tw_and_horizon",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_utility_above_bound:explicit_feat:tw_only",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_served_count_above_reachable:explicit_feat:tw_only",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_revenue_above_reachable:explicit_feat:tw_only",
+      "pass_": true
+    },
+    {
+      "name": "per_day_vehicle_hours_within_capacity:explicit_feat:tw_only",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_utility_above_bound:explicit_feat:tw_and_horizon",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_served_count_above_reachable:explicit_feat:tw_and_horizon",
+      "pass_": true
+    },
+    {
+      "name": "no_recorded_revenue_above_reachable:explicit_feat:tw_and_horizon",
+      "pass_": true
+    },
+    {
+      "name": "per_day_vehicle_hours_within_capacity:explicit_feat:tw_and_horizon",
+      "pass_": true
+    },
+    {
+      "name": "actual_loaded_files_and_maps_start_end",
+      "pass_": true
+    }
+  ],
+  "stage": "pickup_a1_budget_reachability_bound",
+  "dataset_sha256": "8767a03d787c0e0fcad112b4888edf46db44c55e9b50b9705bfc5830f4fb378d",
+  "dataset_meta_sha256": "72a805fd5bc0b2b7a94b0daa712cb11112bcc3e4a5daf7817ca8ca53e28322ba",
+  "contract_sha256": "e25a12104b20c3ea99cb4033f6d3bf32adecf2974de6b5168dbfa0d5a058a41b",
+  "tier": "p_c=0",
+  "budget_B": 710.6548152249378,
+  "num_vehicles": 15,
+  "horizon": 16.0,
+  "days": [
+    {
+      "i": 0,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4650.0,
+        "energy_lower_total": 1853.037013167143,
+        "vehicle_hours_lower_total": 109.83100652558863,
+        "total_distance_lower_km": 1497.4650978838295,
+        "lp_energy_bound": 2450.692219669632,
+        "lp_time_bound": 4650.0,
+        "lp_min_bound": 2450.692219669632
+      },
+      "tw_and_horizon": {
+        "reachable": 194,
+        "reachable_revenue": 4520.0,
+        "energy_lower_total": 1805.8314030015467,
+        "vehicle_hours_lower_total": 105.80497044479216,
+        "total_distance_lower_km": 1441.5745566718824,
+        "lp_energy_bound": 2426.9545669411323,
+        "lp_time_bound": 4520.0,
+        "lp_min_bound": 2426.9545669411323
+      }
+    },
+    {
+      "i": 1,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3320.0,
+        "energy_lower_total": 1034.0417871713637,
+        "vehicle_hours_lower_total": 98.01006920845427,
+        "total_distance_lower_km": 1320.1510381268138,
+        "lp_energy_bound": 2683.7494878158063,
+        "lp_time_bound": 3320.0,
+        "lp_min_bound": 2683.7494878158063
+      },
+      "tw_and_horizon": {
+        "reachable": 198,
+        "reachable_revenue": 3280.0,
+        "energy_lower_total": 1019.7409241604805,
+        "vehicle_hours_lower_total": 97.0797493322385,
+        "total_distance_lower_km": 1307.696239983578,
+        "lp_energy_bound": 2676.726545892448,
+        "lp_time_bound": 3280.0,
+        "lp_min_bound": 2676.726545892448
+      }
+    },
+    {
+      "i": 2,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4260.0,
+        "energy_lower_total": 1530.2586481690405,
+        "vehicle_hours_lower_total": 108.82067582326812,
+        "total_distance_lower_km": 1482.3101373490217,
+        "lp_energy_bound": 2586.7704039379587,
+        "lp_time_bound": 4260.0,
+        "lp_min_bound": 2586.7704039379587
+      },
+      "tw_and_horizon": {
+        "reachable": 196,
+        "reachable_revenue": 4170.0,
+        "energy_lower_total": 1504.2115443921089,
+        "vehicle_hours_lower_total": 105.55712458980346,
+        "total_distance_lower_km": 1436.3568688470518,
+        "lp_energy_bound": 2562.973881726293,
+        "lp_time_bound": 4170.0,
+        "lp_min_bound": 2562.973881726293
+      }
+    },
+    {
+      "i": 3,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3540.0,
+        "energy_lower_total": 1129.4048257291317,
+        "vehicle_hours_lower_total": 101.95304149950468,
+        "total_distance_lower_km": 1379.2956224925701,
+        "lp_energy_bound": 2713.455546528106,
+        "lp_time_bound": 3540.0,
+        "lp_min_bound": 2713.455546528106
+      },
+      "tw_and_horizon": {
+        "reachable": 198,
+        "reachable_revenue": 3500.0,
+        "energy_lower_total": 1117.1949466156962,
+        "vehicle_hours_lower_total": 100.77998269328677,
+        "total_distance_lower_km": 1363.1997403993014,
+        "lp_energy_bound": 2703.5370414339914,
+        "lp_time_bound": 3500.0,
+        "lp_min_bound": 2703.5370414339914
+      }
+    },
+    {
+      "i": 4,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3910.0,
+        "energy_lower_total": 1340.7489788234234,
+        "vehicle_hours_lower_total": 105.46039196240982,
+        "total_distance_lower_km": 1431.9058794361472,
+        "lp_energy_bound": 2674.2017958121955,
+        "lp_time_bound": 3910.0,
+        "lp_min_bound": 2674.2017958121955
+      },
+      "tw_and_horizon": {
+        "reachable": 194,
+        "reachable_revenue": 3800.0,
+        "energy_lower_total": 1302.509454407692,
+        "vehicle_hours_lower_total": 102.30657849332789,
+        "total_distance_lower_km": 1389.098677399918,
+        "lp_energy_bound": 2647.25853727216,
+        "lp_time_bound": 3800.0,
+        "lp_min_bound": 2647.25853727216
+      }
+    },
+    {
+      "i": 5,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4950.0,
+        "energy_lower_total": 1919.3085546433927,
+        "vehicle_hours_lower_total": 105.77755337318696,
+        "total_distance_lower_km": 1436.6633005978047,
+        "lp_energy_bound": 2515.3042633013356,
+        "lp_time_bound": 4950.0,
+        "lp_min_bound": 2515.3042633013356
+      },
+      "tw_and_horizon": {
+        "reachable": 194,
+        "reachable_revenue": 4790.0,
+        "energy_lower_total": 1847.8718030059338,
+        "vehicle_hours_lower_total": 102.22957318883451,
+        "total_distance_lower_km": 1387.9435978325173,
+        "lp_energy_bound": 2505.3781112113766,
+        "lp_time_bound": 4790.0,
+        "lp_min_bound": 2505.3781112113766
+      }
+    },
+    {
+      "i": 6,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3530.0,
+        "energy_lower_total": 1193.9988893449304,
+        "vehicle_hours_lower_total": 99.93667849676153,
+        "total_distance_lower_km": 1349.0501774514228,
+        "lp_energy_bound": 2587.0436560740595,
+        "lp_time_bound": 3530.0,
+        "lp_min_bound": 2587.0436560740595
+      },
+      "tw_and_horizon": {
+        "reachable": 197,
+        "reachable_revenue": 3500.0,
+        "energy_lower_total": 1187.8041387689113,
+        "vehicle_hours_lower_total": 98.51923522174737,
+        "total_distance_lower_km": 1330.0385283262103,
+        "lp_energy_bound": 2571.4123390533646,
+        "lp_time_bound": 3500.0,
+        "lp_min_bound": 2571.4123390533646
+      }
+    },
+    {
+      "i": 7,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4040.0,
+        "energy_lower_total": 1419.441119378805,
+        "vehicle_hours_lower_total": 103.70636780344162,
+        "total_distance_lower_km": 1405.5955170516245,
+        "lp_energy_bound": 2615.878649336511,
+        "lp_time_bound": 4040.0,
+        "lp_min_bound": 2615.878649336511
+      },
+      "tw_and_horizon": {
+        "reachable": 197,
+        "reachable_revenue": 3980.0,
+        "energy_lower_total": 1395.2904325973986,
+        "vehicle_hours_lower_total": 101.83632803132195,
+        "total_distance_lower_km": 1379.7949204698293,
+        "lp_energy_bound": 2610.8885056511153,
+        "lp_time_bound": 3980.0,
+        "lp_min_bound": 2610.8885056511153
+      }
+    },
+    {
+      "i": 8,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4740.0,
+        "energy_lower_total": 1938.6347375392913,
+        "vehicle_hours_lower_total": 110.38985344761491,
+        "total_distance_lower_km": 1505.8478017142234,
+        "lp_energy_bound": 2413.381502010002,
+        "lp_time_bound": 4740.0,
+        "lp_min_bound": 2413.381502010002
+      },
+      "tw_and_horizon": {
+        "reachable": 196,
+        "reachable_revenue": 4660.0,
+        "energy_lower_total": 1903.3777995324135,
+        "vehicle_hours_lower_total": 108.15367517081799,
+        "total_distance_lower_km": 1475.3051275622697,
+        "lp_energy_bound": 2406.8302005261007,
+        "lp_time_bound": 4660.0,
+        "lp_min_bound": 2406.8302005261007
+      }
+    },
+    {
+      "i": 9,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3510.0,
+        "energy_lower_total": 1134.2564497411252,
+        "vehicle_hours_lower_total": 97.53549917253423,
+        "total_distance_lower_km": 1313.0324875880137,
+        "lp_energy_bound": 2723.2708304093994,
+        "lp_time_bound": 3510.0,
+        "lp_min_bound": 2723.2708304093994
+      },
+      "tw_and_horizon": {
+        "reachable": 198,
+        "reachable_revenue": 3490.0,
+        "energy_lower_total": 1129.2327162253855,
+        "vehicle_hours_lower_total": 96.7083118335369,
+        "total_distance_lower_km": 1302.1246775030536,
+        "lp_energy_bound": 2715.3301209139045,
+        "lp_time_bound": 3490.0,
+        "lp_min_bound": 2715.3301209139045
+      }
+    },
+    {
+      "i": 10,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3850.0,
+        "energy_lower_total": 1371.9817162752151,
+        "vehicle_hours_lower_total": 103.22196801734552,
+        "total_distance_lower_km": 1398.3295202601828,
+        "lp_energy_bound": 2592.6255323918513,
+        "lp_time_bound": 3850.0,
+        "lp_min_bound": 2592.6255323918513
+      },
+      "tw_and_horizon": {
+        "reachable": 198,
+        "reachable_revenue": 3820.0,
+        "energy_lower_total": 1362.2759541916844,
+        "vehicle_hours_lower_total": 101.90853029174912,
+        "total_distance_lower_km": 1380.1279543762366,
+        "lp_energy_bound": 2585.332479884032,
+        "lp_time_bound": 3820.0,
+        "lp_min_bound": 2585.332479884032
+      }
+    },
+    {
+      "i": 11,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3780.0,
+        "energy_lower_total": 1254.0198965191842,
+        "vehicle_hours_lower_total": 96.29450251346071,
+        "total_distance_lower_km": 1294.4175377019105,
+        "lp_energy_bound": 2668.686730625305,
+        "lp_time_bound": 3780.0,
+        "lp_min_bound": 2668.686730625305
+      },
+      "tw_and_horizon": {
+        "reachable": 195,
+        "reachable_revenue": 3690.0,
+        "energy_lower_total": 1226.0063936412334,
+        "vehicle_hours_lower_total": 93.26789837744569,
+        "total_distance_lower_km": 1252.7684756616852,
+        "lp_energy_bound": 2644.1280974455676,
+        "lp_time_bound": 3690.0,
+        "lp_min_bound": 2644.1280974455676
+      }
+    },
+    {
+      "i": 12,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4810.0,
+        "energy_lower_total": 1873.152905654907,
+        "vehicle_hours_lower_total": 107.96990366374797,
+        "total_distance_lower_km": 1469.5485549562195,
+        "lp_energy_bound": 2484.7884173446873,
+        "lp_time_bound": 4810.0,
+        "lp_min_bound": 2484.7884173446873
+      },
+      "tw_and_horizon": {
+        "reachable": 194,
+        "reachable_revenue": 4660.0,
+        "energy_lower_total": 1811.2180745267867,
+        "vehicle_hours_lower_total": 104.87014281059948,
+        "total_distance_lower_km": 1427.552142158992,
+        "lp_energy_bound": 2471.41044345246,
+        "lp_time_bound": 4660.0,
+        "lp_min_bound": 2471.41044345246
+      }
+    },
+    {
+      "i": 13,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4620.0,
+        "energy_lower_total": 1787.6646525621413,
+        "vehicle_hours_lower_total": 107.39314201137734,
+        "total_distance_lower_km": 1460.8971301706601,
+        "lp_energy_bound": 2496.3987840715367,
+        "lp_time_bound": 4620.0,
+        "lp_min_bound": 2496.3987840715367
+      },
+      "tw_and_horizon": {
+        "reachable": 197,
+        "reachable_revenue": 4530.0,
+        "energy_lower_total": 1743.7145126652717,
+        "vehicle_hours_lower_total": 105.8324195611562,
+        "total_distance_lower_km": 1439.7362934173432,
+        "lp_energy_bound": 2493.780843474998,
+        "lp_time_bound": 4530.0,
+        "lp_min_bound": 2493.780843474998
+      }
+    },
+    {
+      "i": 14,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3780.0,
+        "energy_lower_total": 1285.3472971737383,
+        "vehicle_hours_lower_total": 99.64275630700465,
+        "total_distance_lower_km": 1344.6413446050694,
+        "lp_energy_bound": 2602.680966703923,
+        "lp_time_bound": 3780.0,
+        "lp_min_bound": 2602.680966703923
+      },
+      "tw_and_horizon": {
+        "reachable": 199,
+        "reachable_revenue": 3750.0,
+        "energy_lower_total": 1266.7067045652866,
+        "vehicle_hours_lower_total": 98.80289309736813,
+        "total_distance_lower_km": 1332.7933964605218,
+        "lp_energy_bound": 2602.680966703923,
+        "lp_time_bound": 3750.0,
+        "lp_min_bound": 2602.680966703923
+      }
+    },
+    {
+      "i": 15,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3990.0,
+        "energy_lower_total": 1344.1131823539733,
+        "vehicle_hours_lower_total": 105.64486685267704,
+        "total_distance_lower_km": 1434.6730027901554,
+        "lp_energy_bound": 2685.6265707669263,
+        "lp_time_bound": 3990.0,
+        "lp_min_bound": 2685.6265707669263
+      },
+      "tw_and_horizon": {
+        "reachable": 198,
+        "reachable_revenue": 3950.0,
+        "energy_lower_total": 1327.6867412078382,
+        "vehicle_hours_lower_total": 104.61036745053619,
+        "total_distance_lower_km": 1420.6555117580428,
+        "lp_energy_bound": 2680.150362614679,
+        "lp_time_bound": 3950.0,
+        "lp_min_bound": 2680.150362614679
+      }
+    },
+    {
+      "i": 16,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3540.0,
+        "energy_lower_total": 1177.427736264467,
+        "vehicle_hours_lower_total": 98.10168112458115,
+        "total_distance_lower_km": 1321.525216868717,
+        "lp_energy_bound": 2590.8563786208624,
+        "lp_time_bound": 3540.0,
+        "lp_min_bound": 2590.8563786208624
+      },
+      "tw_and_horizon": {
+        "reachable": 198,
+        "reachable_revenue": 3520.0,
+        "energy_lower_total": 1174.5715319561957,
+        "vehicle_hours_lower_total": 96.90227307320015,
+        "total_distance_lower_km": 1305.0340960980022,
+        "lp_energy_bound": 2577.4625765348533,
+        "lp_time_bound": 3520.0,
+        "lp_min_bound": 2577.4625765348533
+      }
+    },
+    {
+      "i": 17,
+      "n_universe": 164,
+      "tw_only": {
+        "reachable": 164,
+        "reachable_revenue": 2700.0,
+        "energy_lower_total": 883.3224555873871,
+        "vehicle_hours_lower_total": 82.96922614750885,
+        "total_distance_lower_km": 1121.5383922126327,
+        "lp_energy_bound": 2392.8084931769804,
+        "lp_time_bound": 2700.0,
+        "lp_min_bound": 2392.8084931769804
+      },
+      "tw_and_horizon": {
+        "reachable": 164,
+        "reachable_revenue": 2700.0,
+        "energy_lower_total": 883.3224555873871,
+        "vehicle_hours_lower_total": 82.96922614750885,
+        "total_distance_lower_km": 1121.5383922126327,
+        "lp_energy_bound": 2392.8084931769804,
+        "lp_time_bound": 2700.0,
+        "lp_min_bound": 2392.8084931769804
+      }
+    },
+    {
+      "i": 18,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3450.0,
+        "energy_lower_total": 1118.8221023261544,
+        "vehicle_hours_lower_total": 99.92010498602122,
+        "total_distance_lower_km": 1348.8015747903185,
+        "lp_energy_bound": 2678.837649169857,
+        "lp_time_bound": 3450.0,
+        "lp_min_bound": 2678.837649169857
+      },
+      "tw_and_horizon": {
+        "reachable": 198,
+        "reachable_revenue": 3400.0,
+        "energy_lower_total": 1101.4231442737578,
+        "vehicle_hours_lower_total": 98.6775503345073,
+        "total_distance_lower_km": 1331.6632550176093,
+        "lp_energy_bound": 2668.669111196744,
+        "lp_time_bound": 3400.0,
+        "lp_min_bound": 2668.669111196744
+      }
+    },
+    {
+      "i": 19,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3930.0,
+        "energy_lower_total": 1351.8487345397473,
+        "vehicle_hours_lower_total": 104.79029071725873,
+        "total_distance_lower_km": 1421.8543607588808,
+        "lp_energy_bound": 2632.8990776202972,
+        "lp_time_bound": 3930.0,
+        "lp_min_bound": 2632.8990776202972
+      },
+      "tw_and_horizon": {
+        "reachable": 196,
+        "reachable_revenue": 3830.0,
+        "energy_lower_total": 1320.1558612143992,
+        "vehicle_hours_lower_total": 102.12779943175468,
+        "total_distance_lower_km": 1384.91699147632,
+        "lp_energy_bound": 2607.971117460878,
+        "lp_time_bound": 3830.0,
+        "lp_min_bound": 2607.971117460878
+      }
+    },
+    {
+      "i": 20,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4820.0,
+        "energy_lower_total": 1873.595647639036,
+        "vehicle_hours_lower_total": 109.33766346945679,
+        "total_distance_lower_km": 1490.064952041852,
+        "lp_energy_bound": 2518.237111187546,
+        "lp_time_bound": 4820.0,
+        "lp_min_bound": 2518.237111187546
+      },
+      "tw_and_horizon": {
+        "reachable": 190,
+        "reachable_revenue": 4580.0,
+        "energy_lower_total": 1771.562983626127,
+        "vehicle_hours_lower_total": 103.86394678025704,
+        "total_distance_lower_km": 1415.4592017038553,
+        "lp_energy_bound": 2491.80833011435,
+        "lp_time_bound": 4580.0,
+        "lp_min_bound": 2491.80833011435
+      }
+    },
+    {
+      "i": 21,
+      "n_universe": 176,
+      "tw_only": {
+        "reachable": 176,
+        "reachable_revenue": 2900.0,
+        "energy_lower_total": 906.358991894722,
+        "vehicle_hours_lower_total": 86.12719638098363,
+        "total_distance_lower_km": 1159.9079457147545,
+        "lp_energy_bound": 2523.533721110236,
+        "lp_time_bound": 2900.0,
+        "lp_min_bound": 2523.533721110236
+      },
+      "tw_and_horizon": {
+        "reachable": 172,
+        "reachable_revenue": 2830.0,
+        "energy_lower_total": 887.9998206984997,
+        "vehicle_hours_lower_total": 84.1481046677564,
+        "total_distance_lower_km": 1133.221570016346,
+        "lp_energy_bound": 2494.513134722809,
+        "lp_time_bound": 2830.0,
+        "lp_min_bound": 2494.513134722809
+      }
+    },
+    {
+      "i": 22,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4580.0,
+        "energy_lower_total": 1784.095853960514,
+        "vehicle_hours_lower_total": 105.74924831355037,
+        "total_distance_lower_km": 1436.2387247032555,
+        "lp_energy_bound": 2487.4108334272582,
+        "lp_time_bound": 4580.0,
+        "lp_min_bound": 2487.4108334272582
+      },
+      "tw_and_horizon": {
+        "reachable": 194,
+        "reachable_revenue": 4450.0,
+        "energy_lower_total": 1724.6508931720255,
+        "vehicle_hours_lower_total": 102.7535753150049,
+        "total_distance_lower_km": 1395.8036297250733,
+        "lp_energy_bound": 2470.237523567957,
+        "lp_time_bound": 4450.0,
+        "lp_min_bound": 2470.237523567957
+      }
+    },
+    {
+      "i": 23,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4740.0,
+        "energy_lower_total": 1857.7624525129795,
+        "vehicle_hours_lower_total": 105.90118167300369,
+        "total_distance_lower_km": 1438.517725095055,
+        "lp_energy_bound": 2482.8954421021226,
+        "lp_time_bound": 4740.0,
+        "lp_min_bound": 2482.8954421021226
+      },
+      "tw_and_horizon": {
+        "reachable": 194,
+        "reachable_revenue": 4610.0,
+        "energy_lower_total": 1808.9777991318701,
+        "vehicle_hours_lower_total": 102.4718422833802,
+        "total_distance_lower_km": 1391.5776342507029,
+        "lp_energy_bound": 2463.189825109192,
+        "lp_time_bound": 4610.0,
+        "lp_min_bound": 2463.189825109192
+      }
+    },
+    {
+      "i": 24,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4820.0,
+        "energy_lower_total": 1855.120934587717,
+        "vehicle_hours_lower_total": 107.00028001491094,
+        "total_distance_lower_km": 1455.004200223664,
+        "lp_energy_bound": 2504.6509738701006,
+        "lp_time_bound": 4820.0,
+        "lp_min_bound": 2504.6509738701006
+      },
+      "tw_and_horizon": {
+        "reachable": 194,
+        "reachable_revenue": 4690.0,
+        "energy_lower_total": 1795.362445988655,
+        "vehicle_hours_lower_total": 103.3588704497558,
+        "total_distance_lower_km": 1404.883056746337,
+        "lp_energy_bound": 2493.7361255773617,
+        "lp_time_bound": 4690.0,
+        "lp_min_bound": 2493.7361255773617
+      }
+    },
+    {
+      "i": 25,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3640.0,
+        "energy_lower_total": 1195.6820247769356,
+        "vehicle_hours_lower_total": 101.84266383512134,
+        "total_distance_lower_km": 1377.6399575268201,
+        "lp_energy_bound": 2640.9507181929353,
+        "lp_time_bound": 3640.0,
+        "lp_min_bound": 2640.9507181929353
+      },
+      "tw_and_horizon": {
+        "reachable": 199,
+        "reachable_revenue": 3620.0,
+        "energy_lower_total": 1187.622932579517,
+        "vehicle_hours_lower_total": 100.97164171467924,
+        "total_distance_lower_km": 1365.3246257201881,
+        "lp_energy_bound": 2640.9507181929353,
+        "lp_time_bound": 3620.0,
+        "lp_min_bound": 2640.9507181929353
+      }
+    },
+    {
+      "i": 26,
+      "n_universe": 161,
+      "tw_only": {
+        "reachable": 161,
+        "reachable_revenue": 2810.0,
+        "energy_lower_total": 903.2125137603283,
+        "vehicle_hours_lower_total": 77.67391906954,
+        "total_distance_lower_km": 1044.3587860431,
+        "lp_energy_bound": 2453.641509740949,
+        "lp_time_bound": 2810.0,
+        "lp_min_bound": 2453.641509740949
+      },
+      "tw_and_horizon": {
+        "reachable": 160,
+        "reachable_revenue": 2780.0,
+        "energy_lower_total": 890.8781960725785,
+        "vehicle_hours_lower_total": 77.1575936242979,
+        "total_distance_lower_km": 1037.3639043644687,
+        "lp_energy_bound": 2451.029337526486,
+        "lp_time_bound": 2780.0,
+        "lp_min_bound": 2451.029337526486
+      }
+    },
+    {
+      "i": 27,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3540.0,
+        "energy_lower_total": 1166.3702079713344,
+        "vehicle_hours_lower_total": 97.6943399461555,
+        "total_distance_lower_km": 1315.4150991923323,
+        "lp_energy_bound": 2603.4100638058817,
+        "lp_time_bound": 3540.0,
+        "lp_min_bound": 2603.4100638058817
+      },
+      "tw_and_horizon": {
+        "reachable": 199,
+        "reachable_revenue": 3530.0,
+        "energy_lower_total": 1163.8515034401416,
+        "vehicle_hours_lower_total": 97.07355651543102,
+        "total_distance_lower_km": 1306.853347731465,
+        "lp_energy_bound": 2599.804038646352,
+        "lp_time_bound": 3530.0,
+        "lp_min_bound": 2599.804038646352
+      }
+    },
+    {
+      "i": 28,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4760.0,
+        "energy_lower_total": 1839.8013941943645,
+        "vehicle_hours_lower_total": 107.76189653272637,
+        "total_distance_lower_km": 1466.4284479908954,
+        "lp_energy_bound": 2522.513356785369,
+        "lp_time_bound": 4760.0,
+        "lp_min_bound": 2522.513356785369
+      },
+      "tw_and_horizon": {
+        "reachable": 196,
+        "reachable_revenue": 4690.0,
+        "energy_lower_total": 1814.7779931759833,
+        "vehicle_hours_lower_total": 105.37516001177065,
+        "total_distance_lower_km": 1433.6274001765594,
+        "lp_energy_bound": 2511.56584486654,
+        "lp_time_bound": 4690.0,
+        "lp_min_bound": 2511.56584486654
+      }
+    },
+    {
+      "i": 29,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3690.0,
+        "energy_lower_total": 1229.8662558317185,
+        "vehicle_hours_lower_total": 96.31550984050651,
+        "total_distance_lower_km": 1294.7326476075978,
+        "lp_energy_bound": 2586.746306407567,
+        "lp_time_bound": 3690.0,
+        "lp_min_bound": 2586.746306407567
+      },
+      "tw_and_horizon": {
+        "reachable": 198,
+        "reachable_revenue": 3650.0,
+        "energy_lower_total": 1212.8154793071744,
+        "vehicle_hours_lower_total": 94.94724675247005,
+        "total_distance_lower_km": 1275.7087012870506,
+        "lp_energy_bound": 2579.7581602487053,
+        "lp_time_bound": 3650.0,
+        "lp_min_bound": 2579.7581602487053
+      }
+    },
+    {
+      "i": 30,
+      "n_universe": 127,
+      "tw_only": {
+        "reachable": 127,
+        "reachable_revenue": 2190.0,
+        "energy_lower_total": 703.6654521775245,
+        "vehicle_hours_lower_total": 59.63902307963841,
+        "total_distance_lower_km": 799.3353461945763,
+        "lp_energy_bound": 2190.0,
+        "lp_time_bound": 2190.0,
+        "lp_min_bound": 2190.0
+      },
+      "tw_and_horizon": {
+        "reachable": 127,
+        "reachable_revenue": 2190.0,
+        "energy_lower_total": 703.6654521775245,
+        "vehicle_hours_lower_total": 59.63902307963841,
+        "total_distance_lower_km": 799.3353461945763,
+        "lp_energy_bound": 2190.0,
+        "lp_time_bound": 2190.0,
+        "lp_min_bound": 2190.0
+      }
+    },
+    {
+      "i": 31,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4650.0,
+        "energy_lower_total": 1736.2814618468285,
+        "vehicle_hours_lower_total": 104.6481338909216,
+        "total_distance_lower_km": 1419.722008363824,
+        "lp_energy_bound": 2569.5558922912996,
+        "lp_time_bound": 4650.0,
+        "lp_min_bound": 2569.5558922912996
+      },
+      "tw_and_horizon": {
+        "reachable": 193,
+        "reachable_revenue": 4490.0,
+        "energy_lower_total": 1685.7421062338353,
+        "vehicle_hours_lower_total": 100.40583430967868,
+        "total_distance_lower_km": 1361.33751464518,
+        "lp_energy_bound": 2527.84310380605,
+        "lp_time_bound": 4490.0,
+        "lp_min_bound": 2527.84310380605
+      }
+    },
+    {
+      "i": 32,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3520.0,
+        "energy_lower_total": 1157.0631998121737,
+        "vehicle_hours_lower_total": 94.07364979413376,
+        "total_distance_lower_km": 1261.1047469120062,
+        "lp_energy_bound": 2615.9131430099396,
+        "lp_time_bound": 3520.0,
+        "lp_min_bound": 2615.9131430099396
+      },
+      "tw_and_horizon": {
+        "reachable": 199,
+        "reachable_revenue": 3490.0,
+        "energy_lower_total": 1141.0243799889085,
+        "vehicle_hours_lower_total": 93.59640272543635,
+        "total_distance_lower_km": 1254.6960408815453,
+        "lp_energy_bound": 2615.9131430099396,
+        "lp_time_bound": 3490.0,
+        "lp_min_bound": 2615.9131430099396
+      }
+    },
+    {
+      "i": 33,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4460.0,
+        "energy_lower_total": 1728.4154694855213,
+        "vehicle_hours_lower_total": 106.69941693140042,
+        "total_distance_lower_km": 1450.4912539710062,
+        "lp_energy_bound": 2522.335518563402,
+        "lp_time_bound": 4460.0,
+        "lp_min_bound": 2522.335518563402
+      },
+      "tw_and_horizon": {
+        "reachable": 199,
+        "reachable_revenue": 4430.0,
+        "energy_lower_total": 1711.257315918207,
+        "vehicle_hours_lower_total": 105.95031241348636,
+        "total_distance_lower_km": 1440.004686202295,
+        "lp_energy_bound": 2522.335518563402,
+        "lp_time_bound": 4430.0,
+        "lp_min_bound": 2522.335518563402
+      }
+    },
+    {
+      "i": 34,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4230.0,
+        "energy_lower_total": 1586.7988929390906,
+        "vehicle_hours_lower_total": 104.56016290645795,
+        "total_distance_lower_km": 1418.4024435968693,
+        "lp_energy_bound": 2563.460385107172,
+        "lp_time_bound": 4230.0,
+        "lp_min_bound": 2563.460385107172
+      },
+      "tw_and_horizon": {
+        "reachable": 197,
+        "reachable_revenue": 4180.0,
+        "energy_lower_total": 1571.6627744746206,
+        "vehicle_hours_lower_total": 102.54054969548028,
+        "total_distance_lower_km": 1390.358245432204,
+        "lp_energy_bound": 2549.987859120401,
+        "lp_time_bound": 4180.0,
+        "lp_min_bound": 2549.987859120401
+      }
+    },
+    {
+      "i": 35,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3430.0,
+        "energy_lower_total": 1091.9142244637012,
+        "vehicle_hours_lower_total": 97.75301630462764,
+        "total_distance_lower_km": 1316.2952445694145,
+        "lp_energy_bound": 2667.4538518010963,
+        "lp_time_bound": 3430.0,
+        "lp_min_bound": 2667.4538518010963
+      },
+      "tw_and_horizon": {
+        "reachable": 199,
+        "reachable_revenue": 3420.0,
+        "energy_lower_total": 1090.6788342261311,
+        "vehicle_hours_lower_total": 97.273030188751,
+        "total_distance_lower_km": 1309.8454528312648,
+        "lp_energy_bound": 2660.496298898521,
+        "lp_time_bound": 3420.0,
+        "lp_min_bound": 2660.496298898521
+      }
+    },
+    {
+      "i": 36,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3440.0,
+        "energy_lower_total": 1142.093048387766,
+        "vehicle_hours_lower_total": 96.57693551414332,
+        "total_distance_lower_km": 1298.6540327121497,
+        "lp_energy_bound": 2596.059907173363,
+        "lp_time_bound": 3440.0,
+        "lp_min_bound": 2596.059907173363
+      },
+      "tw_and_horizon": {
+        "reachable": 196,
+        "reachable_revenue": 3380.0,
+        "energy_lower_total": 1126.2564096248148,
+        "vehicle_hours_lower_total": 94.42200003830307,
+        "total_distance_lower_km": 1269.330000574546,
+        "lp_energy_bound": 2574.0268719064265,
+        "lp_time_bound": 3380.0,
+        "lp_min_bound": 2574.0268719064265
+      }
+    },
+    {
+      "i": 37,
+      "n_universe": 133,
+      "tw_only": {
+        "reachable": 133,
+        "reachable_revenue": 2300.0,
+        "energy_lower_total": 786.6171602416039,
+        "vehicle_hours_lower_total": 65.82357449306096,
+        "total_distance_lower_km": 887.6036173959144,
+        "lp_energy_bound": 2176.1878655776477,
+        "lp_time_bound": 2300.0,
+        "lp_min_bound": 2176.1878655776477
+      },
+      "tw_and_horizon": {
+        "reachable": 133,
+        "reachable_revenue": 2300.0,
+        "energy_lower_total": 786.6171602416039,
+        "vehicle_hours_lower_total": 65.82357449306096,
+        "total_distance_lower_km": 887.6036173959144,
+        "lp_energy_bound": 2176.1878655776477,
+        "lp_time_bound": 2300.0,
+        "lp_min_bound": 2176.1878655776477
+      }
+    },
+    {
+      "i": 38,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 4540.0,
+        "energy_lower_total": 1724.3858340084553,
+        "vehicle_hours_lower_total": 108.56532498074816,
+        "total_distance_lower_km": 1478.4798747112222,
+        "lp_energy_bound": 2560.9151628786044,
+        "lp_time_bound": 4540.0,
+        "lp_min_bound": 2560.9151628786044
+      },
+      "tw_and_horizon": {
+        "reachable": 195,
+        "reachable_revenue": 4400.0,
+        "energy_lower_total": 1668.2248179793357,
+        "vehicle_hours_lower_total": 105.45408378245611,
+        "total_distance_lower_km": 1435.5612567368416,
+        "lp_energy_bound": 2541.292943833879,
+        "lp_time_bound": 4400.0,
+        "lp_min_bound": 2541.292943833879
+      }
+    },
+    {
+      "i": 39,
+      "n_universe": 200,
+      "tw_only": {
+        "reachable": 200,
+        "reachable_revenue": 3490.0,
+        "energy_lower_total": 1122.7875538647172,
+        "vehicle_hours_lower_total": 99.7160298918862,
+        "total_distance_lower_km": 1345.740448378293,
+        "lp_energy_bound": 2676.4694161218977,
+        "lp_time_bound": 3490.0,
+        "lp_min_bound": 2676.4694161218977
+      },
+      "tw_and_horizon": {
+        "reachable": 199,
+        "reachable_revenue": 3470.0,
+        "energy_lower_total": 1118.8571311795708,
+        "vehicle_hours_lower_total": 99.29596219922684,
+        "total_distance_lower_km": 1340.1894329884024,
+        "lp_energy_bound": 2665.6979513822353,
+        "lp_time_bound": 3470.0,
+        "lp_min_bound": 2665.6979513822353
+      }
+    }
+  ],
+  "bracket": {
+    "tw_only": {
+      "mean_upper_bound": 2556.3074533635404,
+      "min_upper_bound": 2176.1878655776477,
+      "max_upper_bound": 2723.2708304093994,
+      "mean_reachable": [
+        194
+      ],
+      "uncond_hist": {
+        "mean_utility": 1712.0543386847828,
+        "mean_gap": 844.2531146787576,
+        "min_gap": 546.339732311666
+      },
+      "cond_hist": {
+        "mean_utility": 1703.7438735159697,
+        "mean_gap": 852.5635798475707,
+        "min_gap": 565.6714825816453
+      },
+      "explicit_feat": {
+        "mean_utility": 1742.8307367394561,
+        "mean_gap": 813.4767166240842,
+        "min_gap": 639.6294878559729
+      }
+    },
+    "tw_and_horizon": {
+      "mean_upper_bound": 2544.3014734309545,
+      "min_upper_bound": 2176.1878655776477,
+      "max_upper_bound": 2715.3301209139045,
+      "mean_reachable": [
+        190
+      ],
+      "uncond_hist": {
+        "mean_utility": 1712.0543386847828,
+        "mean_gap": 832.2471347461717,
+        "min_gap": 546.339732311666
+      },
+      "cond_hist": {
+        "mean_utility": 1703.7438735159697,
+        "mean_gap": 840.5575999149848,
+        "min_gap": 565.6714825816453
+      },
+      "explicit_feat": {
+        "mean_utility": 1742.8307367394561,
+        "mean_gap": 801.4707366914984,
+        "min_gap": 628.714639563234
+      }
+    }
+  },
+  "violations": {
+    "uncond_hist": {
+      "tw_only": {
+        "utility_gt_bound": [],
+        "served_gt_reachable": [],
+        "revenue_gt_reachable": [],
+        "time_gt_capacity": []
+      },
+      "tw_and_horizon": {
+        "utility_gt_bound": [],
+        "served_gt_reachable": [],
+        "revenue_gt_reachable": [],
+        "time_gt_capacity": []
+      }
+    },
+    "cond_hist": {
+      "tw_only": {
+        "utility_gt_bound": [],
+        "served_gt_reachable": [],
+        "revenue_gt_reachable": [],
+        "time_gt_capacity": []
+      },
+      "tw_and_horizon": {
+        "utility_gt_bound": [],
+        "served_gt_reachable": [],
+        "revenue_gt_reachable": [],
+        "time_gt_capacity": []
+      }
+    },
+    "explicit_feat": {
+      "tw_only": {
+        "utility_gt_bound": [],
+        "served_gt_reachable": [],
+        "revenue_gt_reachable": [],
+        "time_gt_capacity": []
+      },
+      "tw_and_horizon": {
+        "utility_gt_bound": [],
+        "served_gt_reachable": [],
+        "revenue_gt_reachable": [],
+        "time_gt_capacity": []
+      }
+    }
+  },
+  "source_actual_files": 442,
+  "source_actual_maps": 219,
+  "elapsed_seconds": 0.4563984000124037,
+  "formal_strong_dynamic_qualified": false,
+  "full_request_budget_qualified": false,
+  "scientific_data_generated": false,
+  "new_science_family": false,
+  "scientific_family3_started": false,
+  "stable_online_gain": false
+}

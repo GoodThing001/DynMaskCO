@@ -1,0 +1,80 @@
+{
+  "registration_sha256": "4ed52dbe11d173d1d59762caf9aaa034e0e03e532e7e3e2fab570592bbed6464",
+  "rows": [
+    {
+      "arm": "pretrained_initial",
+      "stage_clocks": {
+        "1": 3167183.5063275,
+        "2": 3167183.6359064,
+        "3": 3167184.6634115,
+        "4": 3167185.3064246,
+        "5": 3167190.2150233,
+        "6": 3167190.2836161
+      },
+      "stage4_to_5": {
+        "numerator": 10541135443,
+        "denominator": 2147483648,
+        "seconds": 4.908598700072616
+      },
+      "stage5_to_6": {
+        "numerator": 36825479,
+        "denominator": 536870912,
+        "seconds": 0.06859279982745647
+      },
+      "stage6_to_deadline": {
+        "numerator": 2622516695,
+        "denominator": 2147483648,
+        "seconds": 1.2212045001797378
+      },
+      "stage6_to_actual_kill": {
+        "numerator": 1326200109,
+        "denominator": 1073741824,
+        "seconds": 1.2351200999692082
+      },
+      "candidate_cost": 224.65556673399234,
+      "incumbent_cost": 112.74336364694572,
+      "source_end_complete": false,
+      "published": false
+    },
+    {
+      "arm": "random888_initial",
+      "stage_clocks": {
+        "1": 3167205.9317906,
+        "2": 3167206.0562283,
+        "3": 3167207.0901522,
+        "4": 3167207.7340599,
+        "5": 3167212.682597,
+        "6": 3167212.7527424
+      },
+      "stage4_to_5": {
+        "numerator": 1328362813,
+        "denominator": 268435456,
+        "seconds": 4.948537100106478
+      },
+      "stage5_to_6": {
+        "numerator": 150636099,
+        "denominator": 2147483648,
+        "seconds": 0.07014539977535605
+      },
+      "stage6_to_deadline": {
+        "numerator": 625129215,
+        "denominator": 536870912,
+        "seconds": 1.164393899962306
+      },
+      "stage6_to_actual_kill": {
+        "numerator": 1255027347,
+        "denominator": 1073741824,
+        "seconds": 1.1688353000208735
+      },
+      "candidate_cost": 182.7358798289899,
+      "incumbent_cost": 112.74336364694572,
+      "source_end_complete": false,
+      "published": false
+    }
+  ],
+  "saved_only": true,
+  "request_rerun": false,
+  "post_selection_source_and_parameter_duration_measured": false,
+  "full_request_budget_qualified": false,
+  "stable_online_gain": false
+}

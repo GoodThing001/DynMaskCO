@@ -1,0 +1,5057 @@
+{
+  "objective_coefficient": 0.0,
+  "fixed_steps": 1,
+  "same_initial_state_digest": "32d342119fdcaed927c8ef1087224410644eede80dd053b294850f35f9d349f9",
+  "loss_total": 4.0583672523498535,
+  "loss_CE": 4.0583672523498535,
+  "loss_preference": 0.018172988668084145,
+  "score_delta": 3.998718738555908,
+  "gradient_stats": {
+    "full": {
+      "leaves": 234,
+      "finite": 234,
+      "nonzero": 234
+    },
+    "encoder": {
+      "leaves": 160,
+      "finite": 160,
+      "nonzero": 160
+    },
+    "decoder": {
+      "leaves": 60,
+      "finite": 60,
+      "nonzero": 60
+    }
+  },
+  "extra_feature_projection_gradient_norm": 235.83067321777344,
+  "parameter_change_counts": {
+    "full": 234,
+    "encoder": 160,
+    "decoder": 60
+  },
+  "attribute_removal_max_logit_effect_after_step": 22.540706634521484,
+  "routes": [
+    [
+      8,
+      41,
+      3,
+      7,
+      16,
+      4,
+      9,
+      10
+    ],
+    [
+      11,
+      17,
+      48,
+      15,
+      44,
+      5,
+      21,
+      19,
+      20
+    ],
+    [
+      31,
+      22,
+      23,
+      18,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    [
+      2,
+      13,
+      36,
+      32,
+      33,
+      34,
+      6,
+      35,
+      1,
+      38,
+      39,
+      24,
+      25
+    ],
+    [
+      42,
+      43,
+      37,
+      14,
+      46,
+      47,
+      45,
+      12,
+      49,
+      40,
+      50
+    ]
+  ],
+  "projection": {
+    "hard": true,
+    "complete": true,
+    "errors": [],
+    "cost": 185.940427495147,
+    "distance_km": 183.08827458719014,
+    "energy_kwh": 26.097741708321553,
+    "quality_loss_value": 0.24237873712467595,
+    "delivered": [
+      {
+        "order_id": 8,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.13783899062589378,
+        "quantity": 1.0,
+        "quality": 0.9998383893176618,
+        "quality_loss_value": 0.00016161068233822018
+      },
+      {
+        "order_id": 41,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.22852838442360354,
+        "quantity": 1.0,
+        "quality": 0.9996715617203249,
+        "quality_loss_value": 0.00032843827967510286
+      },
+      {
+        "order_id": 3,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.3072948514810908,
+        "quantity": 4.0,
+        "quality": 0.9995266895200366,
+        "quality_loss_value": 0.0018932419198534056
+      },
+      {
+        "order_id": 7,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.39927379608142866,
+        "quantity": 5.0,
+        "quality": 8.993423174419787,
+        "quality_loss_value": 0.0054806879835109235
+      },
+      {
+        "order_id": 16,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.5123390495963577,
+        "quantity": 2.0,
+        "quality": 0.9991496578946771,
+        "quality_loss_value": 0.001700684210645731
+      },
+      {
+        "order_id": 4,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.566788822373032,
+        "quantity": 2.0,
+        "quality": 8.990268866474716,
+        "quality_loss_value": 0.003243711175094477
+      },
+      {
+        "order_id": 9,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.6333962090002601,
+        "quantity": 4.0,
+        "quality": 0.9989271269157444,
+        "quality_loss_value": 0.004291492337022529
+      },
+      {
+        "order_id": 10,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.7987583399959036,
+        "quantity": 4.0,
+        "quality": 0.9986232332685042,
+        "quality_loss_value": 0.005507066925983128
+      },
+      {
+        "order_id": 11,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.18134509080567138,
+        "quantity": 5.0,
+        "quality": 8.999963486064756,
+        "quality_loss_value": 4.057103916044191e-05
+      },
+      {
+        "order_id": 17,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.3606625284764592,
+        "quantity": 1.0,
+        "quality": 8.999913635817082,
+        "quality_loss_value": 1.9192040648485786e-05
+      },
+      {
+        "order_id": 48,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.39755079909434954,
+        "quantity": 1.0,
+        "quality": 8.99990338087785,
+        "quality_loss_value": 2.147091603332818e-05
+      },
+      {
+        "order_id": 15,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.6150612728786797,
+        "quantity": 4.0,
+        "quality": 8.999842912966137,
+        "quality_loss_value": 0.00013963291898910768
+      },
+      {
+        "order_id": 44,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.6897403081344918,
+        "quantity": 1.0,
+        "quality": 8.987953689997825,
+        "quality_loss_value": 0.002007718333695785
+      },
+      {
+        "order_id": 5,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.7914002649112413,
+        "quantity": 3.0,
+        "quality": 8.99979389072635,
+        "quality_loss_value": 0.00013740618243351932
+      },
+      {
+        "order_id": 21,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.8422752253787582,
+        "quantity": 5.0,
+        "quality": 8.99977974748734,
+        "quality_loss_value": 0.0002447250140669155
+      },
+      {
+        "order_id": 19,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.8747675341048105,
+        "quantity": 5.0,
+        "quality": 8.999770714625512,
+        "quality_loss_value": 0.00025476152720860235
+      },
+      {
+        "order_id": 20,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 1.0880583740099756,
+        "quantity": 3.0,
+        "quality": 8.999711419772018,
+        "quality_loss_value": 0.00019238681865463292
+      },
+      {
+        "order_id": 31,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.13267288344989234,
+        "quantity": 5.0,
+        "quality": 8.998443269604637,
+        "quality_loss_value": 0.0012972753294693273
+      },
+      {
+        "order_id": 22,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.19694500644922655,
+        "quantity": 1.0,
+        "quality": 8.999959149288205,
+        "quality_loss_value": 9.077935954282523e-06
+      },
+      {
+        "order_id": 23,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.3772939211606636,
+        "quantity": 3.0,
+        "quality": 8.999909012289915,
+        "quality_loss_value": 6.0658473389541e-05
+      },
+      {
+        "order_id": 18,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.5100492703904552,
+        "quantity": 3.0,
+        "quality": 8.991337272238544,
+        "quality_loss_value": 0.0043313638807277455
+      },
+      {
+        "order_id": 26,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.5790635485441911,
+        "quantity": 4.0,
+        "quality": 8.999852920333502,
+        "quality_loss_value": 0.00013073748133152208
+      },
+      {
+        "order_id": 27,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.752048049382064,
+        "quantity": 2.0,
+        "quality": 0.9987090655628117,
+        "quality_loss_value": 0.002581868874376614
+      },
+      {
+        "order_id": 28,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.8755900841418162,
+        "quantity": 4.0,
+        "quality": 8.984454138715604,
+        "quality_loss_value": 0.010363907522930482
+      },
+      {
+        "order_id": 29,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 1.1080069122233593,
+        "quantity": 2.0,
+        "quality": 0.9980551609366348,
+        "quality_loss_value": 0.003889678126730356
+      },
+      {
+        "order_id": 30,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 1.3904334386298027,
+        "quantity": 2.0,
+        "quality": 8.999627359504055,
+        "quality_loss_value": 0.0001656179981974759
+      },
+      {
+        "order_id": 2,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.2707745696646572,
+        "quantity": 1.0,
+        "quality": 8.995842814853214,
+        "quality_loss_value": 0.0006928641911309597
+      },
+      {
+        "order_id": 13,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.42996550207600526,
+        "quantity": 4.0,
+        "quality": 0.9993011078151742,
+        "quality_loss_value": 0.0027955687393030892
+      },
+      {
+        "order_id": 36,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.48361335436787867,
+        "quantity": 3.0,
+        "quality": 8.999879455487482,
+        "quality_loss_value": 8.036300834524113e-05
+      },
+      {
+        "order_id": 32,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.5590688298842876,
+        "quantity": 3.0,
+        "quality": 0.9990637519070102,
+        "quality_loss_value": 0.0028087442789692663
+      },
+      {
+        "order_id": 33,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.8884689755653075,
+        "quantity": 2.0,
+        "quality": 0.9984584065627407,
+        "quality_loss_value": 0.0030831868745186952
+      },
+      {
+        "order_id": 34,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 1.1960573578793225,
+        "quantity": 4.0,
+        "quality": 8.97841973995113,
+        "quality_loss_value": 0.01438684003257995
+      },
+      {
+        "order_id": 6,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 1.502062235298786,
+        "quantity": 4.0,
+        "quality": 8.97265766810932,
+        "quality_loss_value": 0.018228221260453203
+      },
+      {
+        "order_id": 35,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 1.5660807045351608,
+        "quantity": 3.0,
+        "quality": 8.99957852956413,
+        "quality_loss_value": 0.0002809802905792136
+      },
+      {
+        "order_id": 1,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 1.6274457981215278,
+        "quantity": 2.0,
+        "quality": 0.9971017079129603,
+        "quality_loss_value": 0.005796584174079467
+      },
+      {
+        "order_id": 38,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 1.7750518192617566,
+        "quantity": 3.0,
+        "quality": 8.967517274243297,
+        "quality_loss_value": 0.01624136287835115
+      },
+      {
+        "order_id": 39,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 2.07669297968899,
+        "quantity": 3.0,
+        "quality": 0.996277829432042,
+        "quality_loss_value": 0.01116651170387395
+      },
+      {
+        "order_id": 24,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 2.174721058681599,
+        "quantity": 5.0,
+        "quality": 8.959991502465021,
+        "quality_loss_value": 0.03334041461248244
+      },
+      {
+        "order_id": 25,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 2.277365263443045,
+        "quantity": 4.0,
+        "quality": 8.958058712089363,
+        "quality_loss_value": 0.02796085860709141
+      },
+      {
+        "order_id": 42,
+        "vehicle": 4,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.2959338234673313,
+        "quantity": 4.0,
+        "quality": 8.995369066104109,
+        "quality_loss_value": 0.0030872892639273175
+      },
+      {
+        "order_id": 43,
+        "vehicle": 4,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.4464713485011963,
+        "quantity": 3.0,
+        "quality": 8.999889780965114,
+        "quality_loss_value": 7.347935659063332e-05
+      },
+      {
+        "order_id": 37,
+        "vehicle": 4,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.5514908481802182,
+        "quantity": 2.0,
+        "quality": 0.999077682435903,
+        "quality_loss_value": 0.0018446351281939943
+      },
+      {
+        "order_id": 14,
+        "vehicle": 4,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.6006168260505952,
+        "quantity": 3.0,
+        "quality": 8.989631885165466,
+        "quality_loss_value": 0.005184057417267129
+      },
+      {
+        "order_id": 46,
+        "vehicle": 4,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.6808732551377886,
+        "quantity": 3.0,
+        "quality": 8.999824617235067,
+        "quality_loss_value": 0.00011692184328859767
+      },
+      {
+        "order_id": 47,
+        "vehicle": 4,
+        "loading_finish": 0.05,
+        "delivery_finish": 1.0965047136554409,
+        "quantity": 4.0,
+        "quality": 8.999709071689598,
+        "quality_loss_value": 0.0002586029425799552
+      },
+      {
+        "order_id": 45,
+        "vehicle": 4,
+        "loading_finish": 0.05,
+        "delivery_finish": 1.1416887665985578,
+        "quantity": 5.0,
+        "quality": 8.979443500524946,
+        "quality_loss_value": 0.017130416229211576
+      },
+      {
+        "order_id": 12,
+        "vehicle": 4,
+        "loading_finish": 0.05,
+        "delivery_finish": 1.2563739660383317,
+        "quantity": 3.0,
+        "quality": 8.999664628037435,
+        "quality_loss_value": 0.00022358130837663026
+      },
+      {
+        "order_id": 49,
+        "vehicle": 4,
+        "loading_finish": 0.05,
+        "delivery_finish": 1.4505404646982865,
+        "quantity": 1.0,
+        "quality": 8.999610649750807,
+        "quality_loss_value": 8.652227759853304e-05
+      },
+      {
+        "order_id": 40,
+        "vehicle": 4,
+        "loading_finish": 0.05,
+        "delivery_finish": 1.5276317568545248,
+        "quantity": 3.0,
+        "quality": 8.972176194018424,
+        "quality_loss_value": 0.01391190299078815
+      },
+      {
+        "order_id": 50,
+        "vehicle": 4,
+        "loading_finish": 0.05,
+        "delivery_finish": 1.654231947633615,
+        "quantity": 3.0,
+        "quality": 8.969792312426053,
+        "quality_loss_value": 0.015103843786973714
+      }
+    ],
+    "traces": [
+      {
+        "vehicle": 0,
+        "return_time": 0.9634852967720895,
+        "events": [
+          {
+            "kind": "load",
+            "time": 0.05,
+            "orders": [
+              8,
+              41,
+              3,
+              7,
+              16,
+              4,
+              9,
+              10
+            ],
+            "load_after": 23.0,
+            "preconditioning_energy_kwh": 0.5
+          },
+          {
+            "kind": "travel",
+            "start": 0.05,
+            "end": 0.10783899062589378,
+            "distance_km": 1.7351697187768131,
+            "energy_kwh": 0.08236871485431389,
+            "load": 23.0,
+            "manifest": [
+              8,
+              41,
+              3,
+              7,
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.10783899062589378,
+            "end": 0.10783899062589378,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 23.0,
+            "manifest": [
+              8,
+              41,
+              3,
+              7,
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.10783899062589378,
+            "end": 0.13783899062589378,
+            "distance_km": 0.0,
+            "energy_kwh": 0.04259604991781787,
+            "load": 23.0,
+            "manifest": [
+              8,
+              41,
+              3,
+              7,
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 8,
+            "time": 0.13783899062589378,
+            "load_before": 23.0,
+            "load_after": 22.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.13783899062589378,
+            "end": 0.19852838442360354,
+            "distance_km": 1.820681813931293,
+            "energy_kwh": 0.08591192308937626,
+            "load": 22.0,
+            "manifest": [
+              41,
+              3,
+              7,
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.19852838442360354,
+            "end": 0.19852838442360354,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 22.0,
+            "manifest": [
+              41,
+              3,
+              7,
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.19852838442360354,
+            "end": 0.22852838442360354,
+            "distance_km": 0.0,
+            "energy_kwh": 0.04234253420206016,
+            "load": 22.0,
+            "manifest": [
+              41,
+              3,
+              7,
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 41,
+            "time": 0.22852838442360354,
+            "load_before": 22.0,
+            "load_after": 21.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.22852838442360354,
+            "end": 0.27729485148109084,
+            "distance_km": 1.4629940117246187,
+            "energy_kwh": 0.0686569223127174,
+            "load": 21.0,
+            "manifest": [
+              3,
+              7,
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.27729485148109084,
+            "end": 0.27729485148109084,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 21.0,
+            "manifest": [
+              3,
+              7,
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.27729485148109084,
+            "end": 0.3072948514810908,
+            "distance_km": 0.0,
+            "energy_kwh": 0.04213179173893088,
+            "load": 21.0,
+            "manifest": [
+              3,
+              7,
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 3,
+            "time": 0.3072948514810908,
+            "load_before": 21.0,
+            "load_after": 17.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.3072948514810908,
+            "end": 0.36927379608142863,
+            "distance_km": 1.8593683380101345,
+            "energy_kwh": 0.08679741910582599,
+            "load": 17.0,
+            "manifest": [
+              7,
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.36927379608142863,
+            "end": 0.36927379608142863,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 17.0,
+            "manifest": [
+              7,
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.36927379608142863,
+            "end": 0.39927379608142866,
+            "distance_km": 0.0,
+            "energy_kwh": 0.04189693585456282,
+            "load": 17.0,
+            "manifest": [
+              7,
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 7,
+            "time": 0.39927379608142866,
+            "load_before": 17.0,
+            "load_after": 12.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.39927379608142866,
+            "end": 0.4823390495963577,
+            "distance_km": 2.491957605447872,
+            "energy_kwh": 0.11562410388098748,
+            "load": 12.0,
+            "manifest": [
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.4823390495963577,
+            "end": 0.4823390495963577,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 12.0,
+            "manifest": [
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.4823390495963577,
+            "end": 0.5123390495963577,
+            "distance_km": 0.0,
+            "energy_kwh": 0.04162501775933225,
+            "load": 12.0,
+            "manifest": [
+              16,
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 16,
+            "time": 0.5123390495963577,
+            "load_before": 12.0,
+            "load_after": 10.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.5123390495963577,
+            "end": 0.5367888223730319,
+            "distance_km": 0.7334931833002294,
+            "energy_kwh": 0.03387297045931966,
+            "load": 10.0,
+            "manifest": [
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.5367888223730319,
+            "end": 0.5367888223730319,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 10.0,
+            "manifest": [
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.5367888223730319,
+            "end": 0.566788822373032,
+            "distance_km": 0.0,
+            "energy_kwh": 0.04150073468449666,
+            "load": 10.0,
+            "manifest": [
+              4,
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 4,
+            "time": 0.566788822373032,
+            "load_before": 10.0,
+            "load_after": 8.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.566788822373032,
+            "end": 0.60339620900026,
+            "distance_km": 1.0982215988168427,
+            "energy_kwh": 0.0022073834473737707,
+            "load": 8.0,
+            "manifest": [
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.60339620900026,
+            "end": 0.60339620900026,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 8.0,
+            "manifest": [
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.60339620900026,
+            "end": 0.6333962090002601,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0017848815650120613,
+            "load": 8.0,
+            "manifest": [
+              9,
+              10
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 9,
+            "time": 0.6333962090002601,
+            "load_before": 8.0,
+            "load_after": 4.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.6333962090002601,
+            "end": 0.7687583399959036,
+            "distance_km": 4.0608639298693054,
+            "energy_kwh": 0.007796176475410532,
+            "load": 4.0,
+            "manifest": [
+              10
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.7687583399959036,
+            "end": 0.7687583399959036,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 4.0,
+            "manifest": [
+              10
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.7687583399959036,
+            "end": 0.7987583399959036,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0016734996724213184,
+            "load": 4.0,
+            "manifest": [
+              10
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 10,
+            "time": 0.7987583399959036,
+            "load_before": 4.0,
+            "load_after": 0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "return",
+            "start": 0.7987583399959036,
+            "end": 0.9634852967720895,
+            "distance_km": 4.941808703285575,
+            "energy_kwh": 0.0,
+            "load": 0,
+            "manifest": []
+          }
+        ],
+        "terminal_manifest": []
+      },
+      {
+        "vehicle": 1,
+        "return_time": 1.1972802148940642,
+        "events": [
+          {
+            "kind": "load",
+            "time": 0.05,
+            "orders": [
+              11,
+              17,
+              48,
+              15,
+              44,
+              5,
+              21,
+              19,
+              20
+            ],
+            "load_after": 28.0,
+            "preconditioning_energy_kwh": 0.5
+          },
+          {
+            "kind": "travel",
+            "start": 0.05,
+            "end": 0.15134509080567138,
+            "distance_km": 3.0403527241701416,
+            "energy_kwh": 0.4211475224656674,
+            "load": 28.0,
+            "manifest": [
+              11,
+              17,
+              48,
+              15,
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.15134509080567138,
+            "end": 0.15134509080567138,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 28.0,
+            "manifest": [
+              11,
+              17,
+              48,
+              15,
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.15134509080567138,
+            "end": 0.18134509080567138,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12443405676718403,
+            "load": 28.0,
+            "manifest": [
+              11,
+              17,
+              48,
+              15,
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 11,
+            "time": 0.18134509080567138,
+            "load_before": 28.0,
+            "load_after": 23.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.18134509080567138,
+            "end": 0.33066252847645916,
+            "distance_km": 4.479523130123634,
+            "energy_kwh": 0.6178270428278251,
+            "load": 23.0,
+            "manifest": [
+              17,
+              48,
+              15,
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.33066252847645916,
+            "end": 0.33066252847645916,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 23.0,
+            "manifest": [
+              17,
+              48,
+              15,
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.33066252847645916,
+            "end": 0.3606625284764592,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12383754080612352,
+            "load": 23.0,
+            "manifest": [
+              17,
+              48,
+              15,
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 17,
+            "time": 0.3606625284764592,
+            "load_before": 23.0,
+            "load_after": 22.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.3606625284764592,
+            "end": 0.3675507990943495,
+            "distance_km": 0.20664811853670928,
+            "energy_kwh": 0.02842085977102525,
+            "load": 22.0,
+            "manifest": [
+              48,
+              15,
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.3675507990943495,
+            "end": 0.3675507990943495,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 22.0,
+            "manifest": [
+              48,
+              15,
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.3675507990943495,
+            "end": 0.39755079909434954,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12372193696972784,
+            "load": 22.0,
+            "manifest": [
+              48,
+              15,
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 48,
+            "time": 0.39755079909434954,
+            "load_before": 22.0,
+            "load_after": 21.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03507880501756801
+          },
+          {
+            "kind": "travel",
+            "start": 0.39755079909434954,
+            "end": 0.5850612728786797,
+            "distance_km": 5.6253142135299035,
+            "energy_kwh": 0.7712806837550216,
+            "load": 21.0,
+            "manifest": [
+              15,
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.5850612728786797,
+            "end": 0.5850612728786797,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 21.0,
+            "manifest": [
+              15,
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.5850612728786797,
+            "end": 0.6150612728786797,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12309045569299482,
+            "load": 21.0,
+            "manifest": [
+              15,
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 15,
+            "time": 0.6150612728786797,
+            "load_before": 21.0,
+            "load_after": 17.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.6150612728786797,
+            "end": 0.6597403081344918,
+            "distance_km": 1.3403710576743633,
+            "energy_kwh": 0.18317042598828537,
+            "load": 17.0,
+            "manifest": [
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.6597403081344918,
+            "end": 0.6597403081344918,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 17.0,
+            "manifest": [
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.6597403081344918,
+            "end": 0.6897403081344918,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12289366764689863,
+            "load": 17.0,
+            "manifest": [
+              44,
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 44,
+            "time": 0.6897403081344918,
+            "load_before": 17.0,
+            "load_after": 16.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.6897403081344918,
+            "end": 0.7614002649112412,
+            "distance_km": 2.1497987033024835,
+            "energy_kwh": 0.199079777424656,
+            "load": 16.0,
+            "manifest": [
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.7614002649112412,
+            "end": 0.7614002649112412,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 16.0,
+            "manifest": [
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.7614002649112412,
+            "end": 0.7914002649112413,
+            "distance_km": 0.0,
+            "energy_kwh": 0.08328611666263196,
+            "load": 16.0,
+            "manifest": [
+              5,
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 5,
+            "time": 0.7914002649112413,
+            "load_before": 16.0,
+            "load_after": 13.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.7914002649112413,
+            "end": 0.8122752253787582,
+            "distance_km": 0.6262488140255075,
+            "energy_kwh": 0.05793378512633436,
+            "load": 13.0,
+            "manifest": [
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.8122752253787582,
+            "end": 0.8122752253787582,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 13.0,
+            "manifest": [
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.8122752253787582,
+            "end": 0.8422752253787582,
+            "distance_km": 0.0,
+            "energy_kwh": 0.08323106617449101,
+            "load": 13.0,
+            "manifest": [
+              21,
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 21,
+            "time": 0.8422752253787582,
+            "load_before": 13.0,
+            "load_after": 8.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.8422752253787582,
+            "end": 0.8447675341048104,
+            "distance_km": 0.07476926178156797,
+            "energy_kwh": 0.006913160186900729,
+            "load": 8.0,
+            "manifest": [
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.8447675341048104,
+            "end": 0.8447675341048104,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 8.0,
+            "manifest": [
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.8447675341048104,
+            "end": 0.8747675341048105,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0831970917919937,
+            "load": 8.0,
+            "manifest": [
+              19,
+              20
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 19,
+            "time": 0.8747675341048105,
+            "load_before": 8.0,
+            "load_after": 3.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03507110654769165
+          },
+          {
+            "kind": "travel",
+            "start": 0.8747675341048105,
+            "end": 1.0580583740099756,
+            "distance_km": 5.498725197154956,
+            "energy_kwh": 0.507674753318004,
+            "load": 3.0,
+            "manifest": [
+              20
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 1.0580583740099756,
+            "end": 1.0580583740099756,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 3.0,
+            "manifest": [
+              20
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 1.0580583740099756,
+            "end": 1.0880583740099756,
+            "distance_km": 0.0,
+            "energy_kwh": 0.08299717920162222,
+            "load": 3.0,
+            "manifest": [
+              20
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 20,
+            "time": 1.0880583740099756,
+            "load_before": 3.0,
+            "load_after": 0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "return",
+            "start": 1.0880583740099756,
+            "end": 1.1972802148940642,
+            "distance_km": 3.2766552265226587,
+            "energy_kwh": 0.0,
+            "load": 0,
+            "manifest": []
+          }
+        ],
+        "terminal_manifest": []
+      },
+      {
+        "vehicle": 2,
+        "return_time": 1.5662698169290463,
+        "events": [
+          {
+            "kind": "load",
+            "time": 0.05,
+            "orders": [
+              31,
+              22,
+              23,
+              18,
+              26,
+              27,
+              28,
+              29,
+              30
+            ],
+            "load_after": 26.0,
+            "preconditioning_energy_kwh": 0.5
+          },
+          {
+            "kind": "travel",
+            "start": 0.05,
+            "end": 0.10267288344989234,
+            "distance_km": 1.58018650349677,
+            "energy_kwh": 0.22297919939186805,
+            "load": 26.0,
+            "manifest": [
+              31,
+              22,
+              23,
+              18,
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.10267288344989234,
+            "end": 0.10267288344989234,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 26.0,
+            "manifest": [
+              31,
+              22,
+              23,
+              18,
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.10267288344989234,
+            "end": 0.13267288344989234,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1268093608434525,
+            "load": 26.0,
+            "manifest": [
+              31,
+              22,
+              23,
+              18,
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 31,
+            "time": 0.13267288344989234,
+            "load_before": 26.0,
+            "load_after": 21.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.13267288344989234,
+            "end": 0.16694500644922655,
+            "distance_km": 1.028163689980026,
+            "energy_kwh": 0.14470272826126276,
+            "load": 21.0,
+            "manifest": [
+              22,
+              23,
+              18,
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.16694500644922655,
+            "end": 0.16694500644922655,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 21.0,
+            "manifest": [
+              22,
+              23,
+              18,
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.16694500644922655,
+            "end": 0.19694500644922655,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1265230748813733,
+            "load": 21.0,
+            "manifest": [
+              22,
+              23,
+              18,
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 22,
+            "time": 0.19694500644922655,
+            "load_before": 21.0,
+            "load_after": 20.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.19694500644922655,
+            "end": 0.3472939211606636,
+            "distance_km": 4.510467441343112,
+            "energy_kwh": 0.6321618959663581,
+            "load": 20.0,
+            "manifest": [
+              23,
+              18,
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.3472939211606636,
+            "end": 0.3472939211606636,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 20.0,
+            "manifest": [
+              23,
+              18,
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.3472939211606636,
+            "end": 0.3772939211606636,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12576910075072348,
+            "load": 20.0,
+            "manifest": [
+              23,
+              18,
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 23,
+            "time": 0.3772939211606636,
+            "load_before": 20.0,
+            "load_after": 17.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.3772939211606636,
+            "end": 0.48004927039045525,
+            "distance_km": 3.0826604768937487,
+            "energy_kwh": 0.4298978497276692,
+            "load": 17.0,
+            "manifest": [
+              18,
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.48004927039045525,
+            "end": 0.48004927039045525,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 17.0,
+            "manifest": [
+              18,
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.48004927039045525,
+            "end": 0.5100492703904552,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12526133718010862,
+            "load": 17.0,
+            "manifest": [
+              18,
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 18,
+            "time": 0.5100492703904552,
+            "load_before": 17.0,
+            "load_after": 14.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.5100492703904552,
+            "end": 0.549063548544191,
+            "distance_km": 1.1704283446120756,
+            "energy_kwh": 0.16273643923085462,
+            "load": 14.0,
+            "manifest": [
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.549063548544191,
+            "end": 0.549063548544191,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 14.0,
+            "manifest": [
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.549063548544191,
+            "end": 0.5790635485441911,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1250134325986274,
+            "load": 14.0,
+            "manifest": [
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 26,
+            "time": 0.5790635485441911,
+            "load_before": 14.0,
+            "load_after": 10.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.5790635485441911,
+            "end": 0.722048049382064,
+            "distance_km": 4.289535025136189,
+            "energy_kwh": 0.5944358206626368,
+            "load": 10.0,
+            "manifest": [
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.722048049382064,
+            "end": 0.722048049382064,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 10.0,
+            "manifest": [
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.722048049382064,
+            "end": 0.752048049382064,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12444098402103956,
+            "load": 10.0,
+            "manifest": [
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 27,
+            "time": 0.752048049382064,
+            "load_before": 10.0,
+            "load_after": 8.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.752048049382064,
+            "end": 0.8455900841418161,
+            "distance_km": 2.806261042792564,
+            "energy_kwh": 0.3874338395268215,
+            "load": 8.0,
+            "manifest": [
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.8455900841418161,
+            "end": 0.8455900841418161,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 8.0,
+            "manifest": [
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.8455900841418161,
+            "end": 0.8755900841418162,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12407546840414607,
+            "load": 8.0,
+            "manifest": [
+              28,
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 28,
+            "time": 0.8755900841418162,
+            "load_before": 8.0,
+            "load_after": 4.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.8755900841418162,
+            "end": 1.0780069122233593,
+            "distance_km": 6.072504842446295,
+            "energy_kwh": 0.5711231497500393,
+            "load": 4.0,
+            "manifest": [
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 1.0780069122233593,
+            "end": 1.0780069122233593,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 4.0,
+            "manifest": [
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 1.0780069122233593,
+            "end": 1.1080069122233593,
+            "distance_km": 0.0,
+            "energy_kwh": 0.08448273547578779,
+            "load": 4.0,
+            "manifest": [
+              29,
+              30
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 29,
+            "time": 1.1080069122233593,
+            "load_before": 4.0,
+            "load_after": 2.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 1.1080069122233593,
+            "end": 1.3604334386298027,
+            "distance_km": 7.572795792193304,
+            "energy_kwh": 0.6973311032887068,
+            "load": 2.0,
+            "manifest": [
+              30
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 1.3604334386298027,
+            "end": 1.3604334386298027,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 2.0,
+            "manifest": [
+              30
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 1.3604334386298027,
+            "end": 1.3904334386298027,
+            "distance_km": 0.0,
+            "energy_kwh": 0.08278335483858584,
+            "load": 2.0,
+            "manifest": [
+              30
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 30,
+            "time": 1.3904334386298027,
+            "load_before": 2.0,
+            "load_after": 0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "return",
+            "start": 1.3904334386298027,
+            "end": 1.5662698169290463,
+            "distance_km": 5.27509134897731,
+            "energy_kwh": 0.0,
+            "load": 0,
+            "manifest": []
+          }
+        ],
+        "terminal_manifest": []
+      },
+      {
+        "vehicle": 3,
+        "return_time": 2.302724227545785,
+        "events": [
+          {
+            "kind": "load",
+            "time": 0.05,
+            "orders": [
+              2,
+              13,
+              36,
+              32,
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ],
+            "load_after": 41.0,
+            "preconditioning_energy_kwh": 0.5
+          },
+          {
+            "kind": "travel",
+            "start": 0.05,
+            "end": 0.24077456966465716,
+            "distance_km": 5.723237089939715,
+            "energy_kwh": 0.8056287108260138,
+            "load": 41.0,
+            "manifest": [
+              2,
+              13,
+              36,
+              32,
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.24077456966465716,
+            "end": 0.24077456966465716,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 41.0,
+            "manifest": [
+              2,
+              13,
+              36,
+              32,
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.24077456966465716,
+            "end": 0.2707745696646572,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1262055697741445,
+            "load": 41.0,
+            "manifest": [
+              2,
+              13,
+              36,
+              32,
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 2,
+            "time": 0.2707745696646572,
+            "load_before": 41.0,
+            "load_after": 40.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.2707745696646572,
+            "end": 0.39996550207600523,
+            "distance_km": 3.875727972340442,
+            "energy_kwh": 0.5420786464363001,
+            "load": 40.0,
+            "manifest": [
+              13,
+              36,
+              32,
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.39996550207600523,
+            "end": 0.39996550207600523,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 40.0,
+            "manifest": [
+              13,
+              36,
+              32,
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.39996550207600523,
+            "end": 0.42996550207600526,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12556280371206194,
+            "load": 40.0,
+            "manifest": [
+              13,
+              36,
+              32,
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 13,
+            "time": 0.42996550207600526,
+            "load_before": 40.0,
+            "load_after": 36.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.42996550207600526,
+            "end": 0.4536133543678787,
+            "distance_km": 0.7094355687562024,
+            "energy_kwh": 0.09889543784188326,
+            "load": 36.0,
+            "manifest": [
+              36,
+              32,
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.4536133543678787,
+            "end": 0.4536133543678787,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 36.0,
+            "manifest": [
+              36,
+              32,
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.4536133543678787,
+            "end": 0.48361335436787867,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12535921893380636,
+            "load": 36.0,
+            "manifest": [
+              36,
+              32,
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 36,
+            "time": 0.48361335436787867,
+            "load_before": 36.0,
+            "load_after": 33.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.48361335436787867,
+            "end": 0.5290688298842876,
+            "distance_km": 1.3636642654922666,
+            "energy_kwh": 0.18973135604490038,
+            "load": 33.0,
+            "manifest": [
+              32,
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.5290688298842876,
+            "end": 0.5290688298842876,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 33.0,
+            "manifest": [
+              32,
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.5290688298842876,
+            "end": 0.5590688298842876,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12508411714297074,
+            "load": 33.0,
+            "manifest": [
+              32,
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 32,
+            "time": 0.5590688298842876,
+            "load_before": 33.0,
+            "load_after": 30.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.5590688298842876,
+            "end": 0.8584689755653074,
+            "distance_km": 8.982004370430595,
+            "energy_kwh": 1.242894689574577,
+            "load": 30.0,
+            "manifest": [
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.8584689755653074,
+            "end": 0.8584689755653074,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 30.0,
+            "manifest": [
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.8584689755653074,
+            "end": 0.8884689755653075,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12403946087023429,
+            "load": 30.0,
+            "manifest": [
+              33,
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 33,
+            "time": 0.8884689755653075,
+            "load_before": 30.0,
+            "load_after": 28.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.8884689755653075,
+            "end": 1.1660573578793225,
+            "distance_km": 8.32765146942045,
+            "energy_kwh": 1.1441081440423317,
+            "load": 28.0,
+            "manifest": [
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 1.1660573578793225,
+            "end": 1.1660573578793225,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 28.0,
+            "manifest": [
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 1.1660573578793225,
+            "end": 1.1960573578793225,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12329844601454613,
+            "load": 28.0,
+            "manifest": [
+              34,
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 34,
+            "time": 1.1960573578793225,
+            "load_before": 28.0,
+            "load_after": 24.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 1.1960573578793225,
+            "end": 1.472062235298786,
+            "distance_km": 8.2801463225839,
+            "energy_kwh": 1.1318363236386761,
+            "load": 24.0,
+            "manifest": [
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 1.472062235298786,
+            "end": 1.472062235298786,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 24.0,
+            "manifest": [
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 1.472062235298786,
+            "end": 1.502062235298786,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1227908379974556,
+            "load": 24.0,
+            "manifest": [
+              6,
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 6,
+            "time": 1.502062235298786,
+            "load_before": 24.0,
+            "load_after": 20.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 1.502062235298786,
+            "end": 1.5360807045351608,
+            "distance_km": 1.0205540770912451,
+            "energy_kwh": 0.13919353246769248,
+            "load": 20.0,
+            "manifest": [
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 1.5360807045351608,
+            "end": 1.5360807045351608,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 20.0,
+            "manifest": [
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 1.5360807045351608,
+            "end": 1.5660807045351608,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12271393981944134,
+            "load": 20.0,
+            "manifest": [
+              35,
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 35,
+            "time": 1.5660807045351608,
+            "load_before": 20.0,
+            "load_after": 17.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 1.5660807045351608,
+            "end": 1.5974457981215278,
+            "distance_km": 0.9409528075910101,
+            "energy_kwh": 0.041815731967445806,
+            "load": 17.0,
+            "manifest": [
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 1.5974457981215278,
+            "end": 1.5974457981215278,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 17.0,
+            "manifest": [
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 1.5974457981215278,
+            "end": 1.6274457981215278,
+            "distance_km": 0.0,
+            "energy_kwh": 0.03997622109765778,
+            "load": 17.0,
+            "manifest": [
+              1,
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 1,
+            "time": 1.6274457981215278,
+            "load_before": 17.0,
+            "load_after": 15.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 1.6274457981215278,
+            "end": 1.7450518192617566,
+            "distance_km": 3.5281806342068602,
+            "energy_kwh": 0.15655745656781905,
+            "load": 15.0,
+            "manifest": [
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 1.7450518192617566,
+            "end": 1.7450518192617566,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 15.0,
+            "manifest": [
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 1.7450518192617566,
+            "end": 1.7750518192617566,
+            "distance_km": 0.0,
+            "energy_kwh": 0.039902849652153544,
+            "load": 15.0,
+            "manifest": [
+              38,
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 38,
+            "time": 1.7750518192617566,
+            "load_before": 15.0,
+            "load_after": 12.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 1.7750518192617566,
+            "end": 2.04669297968899,
+            "distance_km": 8.149234812817005,
+            "energy_kwh": 0.3609958707826708,
+            "load": 12.0,
+            "manifest": [
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 2.04669297968899,
+            "end": 2.04669297968899,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 12.0,
+            "manifest": [
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 2.04669297968899,
+            "end": 2.07669297968899,
+            "distance_km": 0.0,
+            "energy_kwh": 0.03986022079730262,
+            "load": 12.0,
+            "manifest": [
+              39,
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 39,
+            "time": 2.07669297968899,
+            "load_before": 12.0,
+            "load_after": 9.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 2.07669297968899,
+            "end": 2.1447210586815992,
+            "distance_km": 2.040842369778283,
+            "energy_kwh": 0.08747982848696571,
+            "load": 9.0,
+            "manifest": [
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 2.1447210586815992,
+            "end": 2.1447210586815992,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 9.0,
+            "manifest": [
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 2.1447210586815992,
+            "end": 2.174721058681599,
+            "distance_km": 0.0,
+            "energy_kwh": 0.038584954529794525,
+            "load": 9.0,
+            "manifest": [
+              24,
+              25
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 24,
+            "time": 2.174721058681599,
+            "load_before": 9.0,
+            "load_after": 4.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 2.174721058681599,
+            "end": 2.247365263443045,
+            "distance_km": 2.179326142843381,
+            "energy_kwh": 0.09345726318446662,
+            "load": 4.0,
+            "manifest": [
+              25
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 2.247365263443045,
+            "end": 2.247365263443045,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 4.0,
+            "manifest": [
+              25
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 2.247365263443045,
+            "end": 2.277365263443045,
+            "distance_km": 0.0,
+            "energy_kwh": 0.03860784915407926,
+            "load": 4.0,
+            "manifest": [
+              25
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 25,
+            "time": 2.277365263443045,
+            "load_before": 4.0,
+            "load_after": 0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "return",
+            "start": 2.277365263443045,
+            "end": 2.302724227545785,
+            "distance_km": 0.7607689230821981,
+            "energy_kwh": 0.0,
+            "load": 0,
+            "manifest": []
+          }
+        ],
+        "terminal_manifest": []
+      },
+      {
+        "vehicle": 4,
+        "return_time": 1.8231829300986868,
+        "events": [
+          {
+            "kind": "load",
+            "time": 0.05,
+            "orders": [
+              42,
+              43,
+              37,
+              14,
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ],
+            "load_after": 34.0,
+            "preconditioning_energy_kwh": 0.5
+          },
+          {
+            "kind": "travel",
+            "start": 0.05,
+            "end": 0.26593382346733135,
+            "distance_km": 6.47801470401994,
+            "energy_kwh": 0.911478522170476,
+            "load": 34.0,
+            "manifest": [
+              42,
+              43,
+              37,
+              14,
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.26593382346733135,
+            "end": 0.26593382346733135,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 34.0,
+            "manifest": [
+              42,
+              43,
+              37,
+              14,
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.26593382346733135,
+            "end": 0.2959338234673313,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12610016505563143,
+            "load": 34.0,
+            "manifest": [
+              42,
+              43,
+              37,
+              14,
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 42,
+            "time": 0.2959338234673313,
+            "load_before": 34.0,
+            "load_after": 30.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.2959338234673313,
+            "end": 0.4164713485011963,
+            "distance_km": 3.6161257510159497,
+            "energy_kwh": 0.5054325632701633,
+            "load": 30.0,
+            "manifest": [
+              43,
+              37,
+              14,
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.4164713485011963,
+            "end": 0.4164713485011963,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 30.0,
+            "manifest": [
+              43,
+              37,
+              14,
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.4164713485011963,
+            "end": 0.4464713485011963,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12549946237027876,
+            "load": 30.0,
+            "manifest": [
+              43,
+              37,
+              14,
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 43,
+            "time": 0.4464713485011963,
+            "load_before": 30.0,
+            "load_after": 27.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.4464713485011963,
+            "end": 0.5214908481802182,
+            "distance_km": 2.2505849903706565,
+            "energy_kwh": 0.31333788743716495,
+            "load": 27.0,
+            "manifest": [
+              37,
+              14,
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.5214908481802182,
+            "end": 0.5214908481802182,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 27.0,
+            "manifest": [
+              37,
+              14,
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.5214908481802182,
+            "end": 0.5514908481802182,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12511114948425472,
+            "load": 27.0,
+            "manifest": [
+              37,
+              14,
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 37,
+            "time": 0.5514908481802182,
+            "load_before": 27.0,
+            "load_after": 25.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.5514908481802182,
+            "end": 0.5706168260505952,
+            "distance_km": 0.5737793361113084,
+            "energy_kwh": 0.07854229334818867,
+            "load": 25.0,
+            "manifest": [
+              14,
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.5706168260505952,
+            "end": 0.5706168260505952,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 25.0,
+            "manifest": [
+              14,
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.5706168260505952,
+            "end": 0.6006168260505952,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12312970802643355,
+            "load": 25.0,
+            "manifest": [
+              14,
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 14,
+            "time": 0.6006168260505952,
+            "load_before": 25.0,
+            "load_after": 22.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.6006168260505952,
+            "end": 0.6508732551377886,
+            "distance_km": 1.5076928726158014,
+            "energy_kwh": 0.20608777321887906,
+            "load": 22.0,
+            "manifest": [
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.6508732551377886,
+            "end": 0.6508732551377886,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 22.0,
+            "manifest": [
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.6508732551377886,
+            "end": 0.6808732551377886,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12291649274493399,
+            "load": 22.0,
+            "manifest": [
+              46,
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 46,
+            "time": 0.6808732551377886,
+            "load_before": 22.0,
+            "load_after": 19.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.6808732551377886,
+            "end": 1.0665047136554409,
+            "distance_km": 11.568943755529567,
+            "energy_kwh": 1.5737852855289005,
+            "load": 19.0,
+            "manifest": [
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 1.0665047136554409,
+            "end": 1.0665047136554409,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 19.0,
+            "manifest": [
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 1.0665047136554409,
+            "end": 1.0965047136554409,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12200546859740924,
+            "load": 19.0,
+            "manifest": [
+              47,
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 47,
+            "time": 1.0965047136554409,
+            "load_before": 19.0,
+            "load_after": 15.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 1.0965047136554409,
+            "end": 1.1116887665985578,
+            "distance_km": 0.4555215882935031,
+            "energy_kwh": 0.061730921466934555,
+            "load": 15.0,
+            "manifest": [
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 1.1116887665985578,
+            "end": 1.1116887665985578,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 15.0,
+            "manifest": [
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 1.1116887665985578,
+            "end": 1.1416887665985578,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12192622873626098,
+            "load": 15.0,
+            "manifest": [
+              45,
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 45,
+            "time": 1.1416887665985578,
+            "load_before": 15.0,
+            "load_after": 10.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 1.1416887665985578,
+            "end": 1.2263739660383317,
+            "distance_km": 2.540555983193215,
+            "energy_kwh": 0.34391175579767613,
+            "load": 10.0,
+            "manifest": [
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 1.2263739660383317,
+            "end": 1.2263739660383317,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 10.0,
+            "manifest": [
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 1.2263739660383317,
+            "end": 1.2563739660383317,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12174276695499994,
+            "load": 10.0,
+            "manifest": [
+              12,
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 12,
+            "time": 1.2563739660383317,
+            "load_before": 10.0,
+            "load_after": 7.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 1.2563739660383317,
+            "end": 1.4205404646982864,
+            "distance_km": 4.924994959798642,
+            "energy_kwh": 0.665473398395376,
+            "load": 7.0,
+            "manifest": [
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 1.4205404646982864,
+            "end": 1.4205404646982864,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 7.0,
+            "manifest": [
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 1.4205404646982864,
+            "end": 1.4505404646982865,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12149030185274329,
+            "load": 7.0,
+            "manifest": [
+              49,
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 49,
+            "time": 1.4505404646982865,
+            "load_before": 7.0,
+            "load_after": 6.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 1.4505404646982865,
+            "end": 1.4976317568545248,
+            "distance_km": 1.412738764687147,
+            "energy_kwh": 0.060775288854870206,
+            "load": 6.0,
+            "manifest": [
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 1.4976317568545248,
+            "end": 1.4976317568545248,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 6.0,
+            "manifest": [
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 1.4976317568545248,
+            "end": 1.5276317568545248,
+            "distance_km": 0.0,
+            "energy_kwh": 0.03869688540913762,
+            "load": 6.0,
+            "manifest": [
+              40,
+              50
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 40,
+            "time": 1.5276317568545248,
+            "load_before": 6.0,
+            "load_after": 3.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 1.5276317568545248,
+            "end": 1.624231947633615,
+            "distance_km": 2.898005723372702,
+            "energy_kwh": 0.12450741556128428,
+            "load": 3.0,
+            "manifest": [
+              50
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 1.624231947633615,
+            "end": 1.624231947633615,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 3.0,
+            "manifest": [
+              50
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 1.624231947633615,
+            "end": 1.654231947633615,
+            "distance_km": 0.0,
+            "energy_kwh": 0.038640232859103826,
+            "load": 3.0,
+            "manifest": [
+              50
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 50,
+            "time": 1.654231947633615,
+            "load_before": 3.0,
+            "load_after": 0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "return",
+            "start": 1.654231947633615,
+            "end": 1.8231829300986868,
+            "distance_km": 5.068529473952155,
+            "energy_kwh": 0.0,
+            "load": 0,
+            "manifest": []
+          }
+        ],
+        "terminal_manifest": []
+      }
+    ],
+    "contract_hash": "ba40cd0d08fc21ef09d418c7df2bff940294ee2cfecebd2a4ba9ddde35a8268a",
+    "qualification": "delivery_engineering_snapshot_only",
+    "online_gain_established": false
+  },
+  "remaining": [],
+  "status": "complete",
+  "retained_edges_preserved": true,
+  "save_sha256": "b3eecbc7ed3949bbba9a6606abeec3a703c5bc83141a1477186b3dfaab0b09fb",
+  "reload_logits_exact": true,
+  "parameter_inventory": {
+    "('decoder', 'layers', 0, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "1d287d7e297ead9c89ca2380a817a8034cfc2c6e0f81b300034259988108b643"
+    },
+    "('decoder', 'layers', 0, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "4215fb89fe237f96eac5e92d62c30811f73dc9070d5912229eb6a3c9f4e3b70b"
+    },
+    "('decoder', 'layers', 0, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "61b78b7baca044a8ed2fb296b13ae9fce452f37d91917f44b61f5f8a96b29d29"
+    },
+    "('decoder', 'layers', 0, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "1da80a9223bd37a02289047c6ba1d26806a792a40ebe22e14fa01219f4c23970"
+    },
+    "('decoder', 'layers', 0, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "60fd00a763802b4e620dfa83dd682eca61da4fb9e37671427957503f7b5f1d20"
+    },
+    "('decoder', 'layers', 0, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "5fa5dd86ad3f7a799339e8464a4c86400765a734b357dc30bc10d19d1592b624"
+    },
+    "('decoder', 'layers', 0, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "63c538ff89ba6964b895b93a4a84e0bfdf521366933c2753c4af2af4433f0053"
+    },
+    "('decoder', 'layers', 0, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "37dc04f87ed93bf089f7c2adf63b3d51191060754f3ddcf89058c76cb881570a"
+    },
+    "('decoder', 'layers', 0, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "c83bd0fb22d8a47310bb2863da830c576adde826dd57c81ed6ade8974b49ce1b"
+    },
+    "('decoder', 'layers', 0, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "c7c2d6a0ed55743223eb4a6039473d16bedf7a3e274bd02228d80983e58ef741"
+    },
+    "('decoder', 'layers', 1, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "55b9395e309da21a414c9ca133df00999c91773fa9acfb0b8523f07d669b1ee1"
+    },
+    "('decoder', 'layers', 1, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "f0ddf0628cfc04bb2fc76b51febb1f088fc943d780ff7593c899bde637385d31"
+    },
+    "('decoder', 'layers', 1, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "65107c58dab123252987273a747d1102005a4323a2de0ee0089d43f5ab3ced68"
+    },
+    "('decoder', 'layers', 1, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "8c823c0665c82e918ac0c81e5b86e4151e483cdd10ec1a961cea6f088c65370a"
+    },
+    "('decoder', 'layers', 1, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "33661bca685017ea7d51ba93a7980ad9d4226a3f7c22a8e1c627ed079a1bbd7e"
+    },
+    "('decoder', 'layers', 1, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "21a258b7fa42a7a66c7a6e5cfd91e1455bec865bc5c69f5860b83bdd8571011e"
+    },
+    "('decoder', 'layers', 1, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "8323d35a239e249a0e3d1ef1c979a8e810a7e391c41eb899c68765e7fe6ab745"
+    },
+    "('decoder', 'layers', 1, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "24be32614971e5765b5f20907d69eec321f5284e94805a4f6fb08b877024374f"
+    },
+    "('decoder', 'layers', 1, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "54f9eb8475d054fd52c016b32eb9924b6255cbda16441031d6bfaf188c959948"
+    },
+    "('decoder', 'layers', 1, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "8424a1cc2a0f7986e9771e75fe0e408fbd44e96e97a447b82f42c335ce111490"
+    },
+    "('decoder', 'layers', 2, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "dfe77696258b787a4c86c601e407ef1b5f1ced1879ed5ea73713b1ca52f7a685"
+    },
+    "('decoder', 'layers', 2, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "308d58a22cad90768573f19b08fbfae96310cb653107fa14c18911bb3b30b8b5"
+    },
+    "('decoder', 'layers', 2, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "1dd5284127ab52eeb65e4287b8b765453d1b7da071cc61e03113453305b64a69"
+    },
+    "('decoder', 'layers', 2, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "f43860ec55a4d921facda852cff20da72c5b658d8ca7a7292d165c092c32c641"
+    },
+    "('decoder', 'layers', 2, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "6af955b6b024b5c6b3174af5740452fb68edac461db05f06416da86deb6a33a0"
+    },
+    "('decoder', 'layers', 2, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "e0b2d9f96365fa9a0dc656d5366649d3a3da3399d8124273b9f349d1d94d2a8d"
+    },
+    "('decoder', 'layers', 2, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "598ae19faad770834a465dde623b283d412fd543918cc317a5dd17039989539b"
+    },
+    "('decoder', 'layers', 2, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "3302516c1bc6b726572114756782892f9f995d05f59cc16817d85f102f928d9d"
+    },
+    "('decoder', 'layers', 2, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "10bca2958ddf8798b914e55a656b266bce0468f9bf3a4d49615329719c0d04e5"
+    },
+    "('decoder', 'layers', 2, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "28f861c93513febf1ba201b7344c375429e2f6a00b2dfddb65b939819a150a20"
+    },
+    "('decoder', 'layers', 3, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "5740bd953ad8f9d7ca5f48d0fd8ea9ec62c2c568604e1571c5c4d0131571f536"
+    },
+    "('decoder', 'layers', 3, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "c247b99b50104391f021f10af7c240e04127c94d8f49d5269ee3cb18162db894"
+    },
+    "('decoder', 'layers', 3, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "6b4dccba6e270989ac5f35335e89eb84aac5590c3f61593fedc6129e102e5c0f"
+    },
+    "('decoder', 'layers', 3, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "7942f44a15618ecc88a28e7c3d8a1840d1e3a3bf54580ca3d249f0f40d77bb64"
+    },
+    "('decoder', 'layers', 3, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "030d733f1b70d83d1515d538e27321814be21a15063d911262e7addd8c52b85d"
+    },
+    "('decoder', 'layers', 3, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "98df46f82b9ca44fd33cb685efe093fa87d9d5343fab8bbb86d5622170c5be29"
+    },
+    "('decoder', 'layers', 3, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "bef2983f3de4a67af7bb678418f166e55e64ad4305ceb638a8b4f3cdd2962e9e"
+    },
+    "('decoder', 'layers', 3, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "5f8bc363784504a77068e39c67df8dffda8d503171446425cedfb56dcb86c8ba"
+    },
+    "('decoder', 'layers', 3, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "0c284c4c341657b411f3434e172a84b26e676974e2cf1248523a9ec0f9079be2"
+    },
+    "('decoder', 'layers', 3, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "d1e7c24ca3f38586890b86f9e796cbcb5de2e4efd2849c8bd770fa067427a24e"
+    },
+    "('decoder', 'layers', 4, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "8424177ab18ffba86c5a8fa80e36b0efad3bb1cf032cca189a9ff0d0153b7f71"
+    },
+    "('decoder', 'layers', 4, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "2223f8025a85cb125fe2a61b6b2c1853210c3fb5d4692484822a9d122a6763ad"
+    },
+    "('decoder', 'layers', 4, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "5e64a981c401a8e32d5f8d10ac26aefa8b93089c5e1594ab3bcde16d30014405"
+    },
+    "('decoder', 'layers', 4, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "fc3e6bc525f9d3ceb8339dee011408df1de5611132c5523a7390d0177a73e2f0"
+    },
+    "('decoder', 'layers', 4, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "1e6fc434d8df4818274715a4f5ca15476d9c67caeb1e0a880de71e8130e8ee53"
+    },
+    "('decoder', 'layers', 4, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "8994513eec1865c466c76636eb688c92e6797606ecc1894db63e438af36dceee"
+    },
+    "('decoder', 'layers', 4, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "16eb46b1221d98afc5f1261f376b4ac072002431236e8fb6a1e20847e7a5e287"
+    },
+    "('decoder', 'layers', 4, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "4ed221d2445a7ec2c274cdcda6a42f5934819dea5e2df3b292539e33081c73fe"
+    },
+    "('decoder', 'layers', 4, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "ffe2c6907d2bf5e495d4a9aaa64b204266d5ae1e23153d267f41a20e762151fa"
+    },
+    "('decoder', 'layers', 4, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "abd59feb5a51900d63146711cf591fc5f08ad4f94dde568b751d1207eee11f55"
+    },
+    "('decoder', 'layers', 5, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "eefea747b931eac9bb55dde25b477890c123bc3865b400084e906c2caaeff8ea"
+    },
+    "('decoder', 'layers', 5, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "5357ed307136b3775dae3177284558797923b033f17d90d9acdd6807e52b6d2d"
+    },
+    "('decoder', 'layers', 5, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "f6cc0e8096d640d876b71eec8db31b82fb764abc1bc3165c95da4c83373527c6"
+    },
+    "('decoder', 'layers', 5, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "1c52a6f12e501b43419380893ba71b11fbbabc233b23469a58ad226b0c954e24"
+    },
+    "('decoder', 'layers', 5, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "207db03d087c12617c90acf43c00d3add45494c258841ffb630e7e053cb49353"
+    },
+    "('decoder', 'layers', 5, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "4b9a09b7774fa196bae572a4527a7524acb569d4d5fd1de40562302bfb58c87d"
+    },
+    "('decoder', 'layers', 5, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "c63d40d3b1e77c3547ba50c94e72b6a79fb3e39bd2a87337de69f42d8786bbb2"
+    },
+    "('decoder', 'layers', 5, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "96a199f25aff58923d7656320052e1357abe251b223632acfcd419d78fd3b011"
+    },
+    "('decoder', 'layers', 5, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "10d413b72d481ac71ee49310a88650aacc942988bcfb018aeb7513b91eab3548"
+    },
+    "('decoder', 'layers', 5, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "aba41027e18b451f1e89898a09afc66b8d30496ec75d1cb44d92cd3d185e73a3"
+    },
+    "('depot_bias',)": {
+      "shape": [
+        512
+      ],
+      "sha256": "8d6d7c01715d6c4de7ecec24b38aba2aa6ee2229cf638c9adf3098d0ed88e737"
+    },
+    "('encoder', 'layers', 0, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "261eb5aaa005b4e10f7112953a1936b304321bfb1ed5a32ec76565771f191916"
+    },
+    "('encoder', 'layers', 0, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "5e8f8d6bf12acc605c42e475b20544a689259ed82720da5c1254f7c1ad5d0143"
+    },
+    "('encoder', 'layers', 0, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "a5e0a55017a1c3f4fb481337a061316abb438e7fbaaa2857fc1440524a0ea10d"
+    },
+    "('encoder', 'layers', 0, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "8b61a94ddc0fea48a533e1dd40b3132da9ea6d3f092f2242ea387e034ad13290"
+    },
+    "('encoder', 'layers', 0, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "d08b3e33778a27b1e014fff1fc041a6fc690abbee0a766431ce8fb2cdf2f2a22"
+    },
+    "('encoder', 'layers', 0, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "53ddfa8de2098bb8a13c879a83fa331b6675912e1b57e854d146cd624d053b2f"
+    },
+    "('encoder', 'layers', 0, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "0b13c8989d14ea557fe0d8cce2f798c84cd58324b07649b93b3feaec00054ffc"
+    },
+    "('encoder', 'layers', 0, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "7eb762c7f49bd5f7605c043b73aae43bc3090a338225b481845197c290ed0b3d"
+    },
+    "('encoder', 'layers', 0, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "d008db06d9be0c640316ad752ca3d98f5eec56764459174eabea52154dbd6782"
+    },
+    "('encoder', 'layers', 0, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "c385b077d87736e3c502ea99f47c58f9cdaf3b18cd96b22aa1b4c47ed8c5a2e6"
+    },
+    "('encoder', 'layers', 1, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "3fbd488553d888bee8bf8cc9888c717e88e0a4ea26516226fd68797cb8b929c4"
+    },
+    "('encoder', 'layers', 1, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "4c0151de91b7f2a4b3e7e24cc9698bdcdef88ae9ce599fc0da1909389fe77c61"
+    },
+    "('encoder', 'layers', 1, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "de90d97b5a392a26e243ccf7b1275e8bae74ef4ff0559415b5a90a493cab351c"
+    },
+    "('encoder', 'layers', 1, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "d44ae255c1bd6dd5af6a5c2bf520ced1e1c4aa50e6b286e43de8f9547d1c4415"
+    },
+    "('encoder', 'layers', 1, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "cb9f50c7b1c8c5bce2250f6b1c2cd913182dd47cdf2a6cc94a3a77035883b7e9"
+    },
+    "('encoder', 'layers', 1, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "858b791523370b1e652c669a46b19e0cb007e63a5284ac29f2f2ecd1b1e24d06"
+    },
+    "('encoder', 'layers', 1, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "4690f65857b226a9f693e401456ad680e662a4c7163383a4c8123ea6632d1996"
+    },
+    "('encoder', 'layers', 1, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "fce10076d07756761224b58bcefbd61c6017c5291a3e7c249f1400e4692beefa"
+    },
+    "('encoder', 'layers', 1, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "3ef27ee1db8f500b92ead4d887f74da2ed71c45899e3a36e49de4c050e7661c8"
+    },
+    "('encoder', 'layers', 1, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "805a9d48d2071476794175ba4cb0b51f48eae4a4d347d8046e0a83cbdf785208"
+    },
+    "('encoder', 'layers', 2, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "4caf222766b84e5f0a33aa2679a9c6f1d055f72b29f4bc24ec679997b31d0c21"
+    },
+    "('encoder', 'layers', 2, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "3d5497f0599f49a0daa362519fd060cd707729ed01e110504199e66a008ff4ef"
+    },
+    "('encoder', 'layers', 2, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "4b23c5730efe44f625eedd4bbd83a72fbd542e1ab2d6bb841e45de2e66e7eb5c"
+    },
+    "('encoder', 'layers', 2, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "c347bb9504f9ce80ca3cf0622e2cda359b384e92ff87eaff63d7dcf03f51e935"
+    },
+    "('encoder', 'layers', 2, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "e67390b51b4ee019ff7f07f1e69b51f80e2e7cbeafb49351e5995568da0ce9ec"
+    },
+    "('encoder', 'layers', 2, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "9a3970323270492b677e8de08524d3b3b9ced40f842334711c992883d82f5a15"
+    },
+    "('encoder', 'layers', 2, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "2bca4481845977283c047a2428020d6f879b44ced42067a7cbc4a623529f0b0d"
+    },
+    "('encoder', 'layers', 2, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "a0ccd9158e08c44ca71719c27d89ed0a4363026dc02394240cb0e79392dc12c6"
+    },
+    "('encoder', 'layers', 2, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "34b6118e07b6d26b7f3f7774a33139ad910e4c1833776b19eaa00aa11d0491f2"
+    },
+    "('encoder', 'layers', 2, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "d1b22e9a0d4074a57d27b0445ffb59dd2a7778fbc13f11a1927d9964a1926820"
+    },
+    "('encoder', 'layers', 3, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "afcd3c126764a1733a9676426537f1219675802f4c3197bbd33682615b5f3ccc"
+    },
+    "('encoder', 'layers', 3, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "75c48082aedafbc08b67e18a9919db5e5ad3e4c6d525594bd4bc66b1a2328ad4"
+    },
+    "('encoder', 'layers', 3, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "3d576206ec48464c747002157601d63775a07e8871e71485cabcb2ef9f7a96fb"
+    },
+    "('encoder', 'layers', 3, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "bc9d272c0f9f795dd97007f8746564e07e0bfd0b6c81f9090b92c65558905a38"
+    },
+    "('encoder', 'layers', 3, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "564b5d7e46752a1a2c1aaac55c6afc14d144c9884138175773a1a15ed6f141e7"
+    },
+    "('encoder', 'layers', 3, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "782fe975f7e9845288dde3749a74f745868f99a30d7641ff1236afa47feea6dd"
+    },
+    "('encoder', 'layers', 3, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "593e60c5ca24023667e1cfe2872176f2a31c68b08df9ccf8ef10e4ea3fa99d83"
+    },
+    "('encoder', 'layers', 3, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "038b1f80da2dbfc696ea44e0c4c660467c407571be525caef47df5c4280ccfff"
+    },
+    "('encoder', 'layers', 3, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "c31c481687a629781f45d0f802d98de599159ad9881edcaecc675dc224a79628"
+    },
+    "('encoder', 'layers', 3, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "8c1fc0ecc2eaced814f924f61ace637df433bcfb6728f4edd1d89076cbc0a4bf"
+    },
+    "('encoder', 'layers', 4, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "bf6bdecc4bd287a088333d3ae1d0ae02cd1a12f14890b81387edf3b0c4355fc2"
+    },
+    "('encoder', 'layers', 4, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "67a068cd0e36afb6f69427b4d34e2554f6a0321bce88231237012d7118a7488e"
+    },
+    "('encoder', 'layers', 4, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "b5608e633df8ccaae59e78f8a112317507d44f5c006c50477a16de6a1a639c19"
+    },
+    "('encoder', 'layers', 4, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "1be186c7aaa5a3ad27d60694edadb16f9899e89610443ff6646150bda94477b2"
+    },
+    "('encoder', 'layers', 4, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "edef36765c32d3abf1b634ff4cc7e5eb61278115c13288b8851b8cd07b70f529"
+    },
+    "('encoder', 'layers', 4, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "11481f101c3693c6d405ecb394e4668a40197db37ac21800bd289da145a7a474"
+    },
+    "('encoder', 'layers', 4, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "2c7a73bca972797749012fa5598c1bd0fdb00a3a9cf441e1fb6020f173e2715b"
+    },
+    "('encoder', 'layers', 4, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "95190d64ddc75d25011492bb2a7f8eb574a9352e961fa07e039a6900e96f0f34"
+    },
+    "('encoder', 'layers', 4, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "3b993f6dd09ec4cd51eb4163856e5419fdd15c42f9c6f54c866352541ed9c4c2"
+    },
+    "('encoder', 'layers', 4, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "502cf2bf1bfa23305bf67656e9fb3e1504aeb94d1a1d944c8afc3571a473adb1"
+    },
+    "('encoder', 'layers', 5, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "df7b216bc696a53b6867f2206ffbb58cc9295b3f9cca9f4c9ce939618345a43d"
+    },
+    "('encoder', 'layers', 5, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "69a46a9a766bf64a7c7343f015cd3b8f6525ef32cb14b03abff68351d7195aa7"
+    },
+    "('encoder', 'layers', 5, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "0042ad175a4d82e5a6c972cf06cb56a3359cf60fab7e9d99c32659dbb6f91d6a"
+    },
+    "('encoder', 'layers', 5, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "6c5f77ec860de1470e7910114dc34720eb0d39d359afc589e4a18bdaa29e37e0"
+    },
+    "('encoder', 'layers', 5, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "79539f5d6a2f82be97040137b255cc34713da9f9d41ebb384c9c4d9ab3fa2d38"
+    },
+    "('encoder', 'layers', 5, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "c4b8dfe68a395bfc3962d79335fe6b545053b65eac041ebffcf677333845e721"
+    },
+    "('encoder', 'layers', 5, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "0292ed508139a7dddb8f11ea547bc638617901369dd668b76936f6d4b56d8ceb"
+    },
+    "('encoder', 'layers', 5, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "efb1a2ea2b98e936e6ea1a9ab0519d131dd60989177bdefdb3eab3bfeabd9051"
+    },
+    "('encoder', 'layers', 5, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "59601fd48c27a3a5487afdac1553b84862cfcf2583c6ab0b007bf5cc916382f2"
+    },
+    "('encoder', 'layers', 5, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "6a906d69cda9595d521782fa3076b59ca618f7d40caf154f71ba025a9659723b"
+    },
+    "('encoder', 'layers', 6, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "beedf6db69204c3bbc7dbdcbec3e672582bae57779896348d72b392186e2506d"
+    },
+    "('encoder', 'layers', 6, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "7019f7411bf34c4e2d190e83b4933016e9d793bc000d9cd50e55108d6ddf10c1"
+    },
+    "('encoder', 'layers', 6, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "31904972ce2121baf9d5e48d2f0f6bb06a0ed274a2e76545ef16706938de660c"
+    },
+    "('encoder', 'layers', 6, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "967b81590346160478f684ee2676a9e0529d27812572a06d28a36899e3738754"
+    },
+    "('encoder', 'layers', 6, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "91db83012fdc78e8c3366f09bb1074935dc153368b09659d09bb3ca0da9ac631"
+    },
+    "('encoder', 'layers', 6, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "1e9e728827ede0f4b5fb6c59cfe6147d289f710d186f5ec51eb08bb311c9bb56"
+    },
+    "('encoder', 'layers', 6, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "29470db5412d467b90b25e25d0779fafa93a06661f1ac41921d38f8a5a99b7e1"
+    },
+    "('encoder', 'layers', 6, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "a564a9688b959ab52228e83e49720059cad1a624a1362888120676ea9b63ba27"
+    },
+    "('encoder', 'layers', 6, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "642c616e576d4a368500b49fd368edc95373d41b3bb549605a88082a70d5aa93"
+    },
+    "('encoder', 'layers', 6, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "f1322adc4616cbdaaa00f6c9860dec5a55fbf4c5f5701fc8e877789338f6b8b2"
+    },
+    "('encoder', 'layers', 7, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "3ae76323086adf2481480d6ada73fa3f9cd42ff710a8c685aede07da2e718fed"
+    },
+    "('encoder', 'layers', 7, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "e5ff46e673f99e1129e82c045169afff388c30d4c7b61431a9cf843a05d8abc1"
+    },
+    "('encoder', 'layers', 7, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "a6b58ac5fa6bba0d92367146583bee17c4ee76145130f0f2afdc10c0dffefdce"
+    },
+    "('encoder', 'layers', 7, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "c7e84ee456fe952738ec683f045e8c9c8c992715fb871103e76d7229a4e6a550"
+    },
+    "('encoder', 'layers', 7, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "844beb7484f640ddb924cfd3cde0e943d41344cb5036ec5380a97aef914d095a"
+    },
+    "('encoder', 'layers', 7, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "2c80cb47619b6825f400b653358cd4e41365cd524b812008e03abf255ad22800"
+    },
+    "('encoder', 'layers', 7, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "33254e7b9e0a245d126fc81a067bde1d43d1e94ede2c6f112868e40ae96b223f"
+    },
+    "('encoder', 'layers', 7, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "7470635a572e01e09176782c52b751d610c15cea78a3d9703ff8c8580b390d82"
+    },
+    "('encoder', 'layers', 7, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "a10e6db467eeb8795a20f78b1b7e591c335ef32561b4f0929c90d0276d632df5"
+    },
+    "('encoder', 'layers', 7, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "4f450c420719115694f61ef32b4cddb69ccab92573f25edb2570b761aa8a54eb"
+    },
+    "('encoder', 'layers', 8, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "f0688e9f433b4473d536211d73a221ff36a6777d5c7a03271e8f7076cc46386c"
+    },
+    "('encoder', 'layers', 8, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "7b04800cb485eda0513e572366ba3a85ebad3ec8aa9ed719f34730362a9207a2"
+    },
+    "('encoder', 'layers', 8, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "4c0c59c26d26f2828c0c98127af245443e3d85105da52e3d69385e4aa0807db8"
+    },
+    "('encoder', 'layers', 8, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "fa7b5910d5beafcfef399ff8dc2e3caebe5bbdbb19d37526b3d7dbe31221ea17"
+    },
+    "('encoder', 'layers', 8, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "d281bffc3e7a35344bdabfaa76e5fe6e30bd9a1ab6d04d8326a8d9eb6d85d787"
+    },
+    "('encoder', 'layers', 8, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "0161dd9752b02d36df2af1ffa07b7faba88619a12f654d388a4f2014526e3673"
+    },
+    "('encoder', 'layers', 8, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "414e726303f75f4a3232a3696846584d203c37bedf69fc220beff8eae0e2ff84"
+    },
+    "('encoder', 'layers', 8, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "7869022f4b63936c57b96ed0319074476987a04233cf32449cc83bd90f490bdc"
+    },
+    "('encoder', 'layers', 8, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "9c9bb46a85124635a0837b389ff3f20b8c11f87fee1a2c73556a8cc3aab31851"
+    },
+    "('encoder', 'layers', 8, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "e59b83936ae99ba22ec338932a82864cc6a427999cc6ce8720f379f05fd275d8"
+    },
+    "('encoder', 'layers', 9, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "d1302ee2a590800f3d5a62742d22c494be6f57d0bf77bceef8130ab68297e1c6"
+    },
+    "('encoder', 'layers', 9, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "b57bbaad69bc2e6455256c53ff5629e688cbbe5d923455e1d6735f92fdb90d18"
+    },
+    "('encoder', 'layers', 9, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "2c47f88d98d0518153559ab48940ab789459a2129e9fc1cbcaa6536d11ab8b81"
+    },
+    "('encoder', 'layers', 9, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "f2dab326a02183d5eb555b1c1a58c50fa1798e57ce807bc25eff3f210ea07660"
+    },
+    "('encoder', 'layers', 9, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "68b64379f17a373c9afe039bc7b8578feaea6719659e6bd57bafe36569db908d"
+    },
+    "('encoder', 'layers', 9, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "10bc6b90a9ed36e999038201fd37ca497cd7f024972e40eff8222c8e368c86b0"
+    },
+    "('encoder', 'layers', 9, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "de5311d69101fc93a60b2b8ecdaa11fe00a39ca80e809a2d06f915840c35a97b"
+    },
+    "('encoder', 'layers', 9, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "906a63b1ab6186242b8e5cab1f7af52ff11ea67fb32bf280c174a630e3326dc9"
+    },
+    "('encoder', 'layers', 9, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "c8f2ccc6725b2be54255622f918002a83dabf3f78ab29b8e8862b5e7f749eb25"
+    },
+    "('encoder', 'layers', 9, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "285c255472e6c793bc1a9632927d48fad0bc73c6e1a6df0b46a3f1fc9f1191c0"
+    },
+    "('encoder', 'layers', 10, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "4e8058df8484ced56b82fc103b5483667b9357b01feb475eb78cb7d898d96b53"
+    },
+    "('encoder', 'layers', 10, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "39ed45d84eaf9ba32644f113a72d59604b58d22bf881e0878f45b61403e6a8e3"
+    },
+    "('encoder', 'layers', 10, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "d3f50eebb8f7172cc1e503b1767b0e32567e1f621c1cf8e4bb0902194cf1110c"
+    },
+    "('encoder', 'layers', 10, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "d3616e3511a556a099b60117277e3601a77d12cf30247e1add5d7945df3deead"
+    },
+    "('encoder', 'layers', 10, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "b3e23aaad1969d498b4407527eeffd54a7f406cffa80b50374dbcb4ebabe3dcf"
+    },
+    "('encoder', 'layers', 10, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "32b2ba2157411dd1ca711ae132b96a27a67f007aa0505e48de5a16fc431afdb3"
+    },
+    "('encoder', 'layers', 10, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "8c4c7bfbc8963fa09228688e29587e1d3efe5702154cbcea658d3981c322e983"
+    },
+    "('encoder', 'layers', 10, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "67cad8ffb1582f6a70b92ce663a93cea82933e33ca6cdb9bdbe32ce79b7abab1"
+    },
+    "('encoder', 'layers', 10, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "a963a9f2ddafc749f138f1bc42be0a1777f4a2f2e5a0c93e5d0b54ea9c6f7dd6"
+    },
+    "('encoder', 'layers', 10, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "3aacd766d0306226d16c8c4b4ebf0009cac585aaf6976140c1571bd311651961"
+    },
+    "('encoder', 'layers', 11, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "2f8de12334133fbd06cb35bd31ae127c4a15656e90dfcb20bfe8c5755d1cf0d8"
+    },
+    "('encoder', 'layers', 11, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "a67943a84617150ff7d92faaad50858d74cc50838860df712ba05085c1c72934"
+    },
+    "('encoder', 'layers', 11, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "ac8112c05d66d51457fb7af66f0d5c0afeaf37a2fd2a5482725387894a452623"
+    },
+    "('encoder', 'layers', 11, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "fe6f9340a038249f82a577bd9bc2333e31ebe218ff647b96101ae1dde8e78dbc"
+    },
+    "('encoder', 'layers', 11, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "df26356292fe54f74ba199d1807461c9972aaf1a7fb471cd00ef6b886417674b"
+    },
+    "('encoder', 'layers', 11, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "a07c7d1822cc0df81a4cc7f9f0007366417ec95e92cb497c675928d96acc9779"
+    },
+    "('encoder', 'layers', 11, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "6f350a438a2f645f38245ec1537068959cd5d7bf3a5c84cd18e83af0906eb059"
+    },
+    "('encoder', 'layers', 11, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "e76ea6704d34bdd181cd75d92b5f50a6224c3b7ad6f4a591d6c6c5035b35c062"
+    },
+    "('encoder', 'layers', 11, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "13e6fd5e107d03d0aa9dbd2c81364ea5508ea8caaa3a35e61c7d6af164469650"
+    },
+    "('encoder', 'layers', 11, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "b97ba0c1ed0dbc5f907f4ff9fc53b0a7244117af7d48b6c0d33374be5ec6e9a5"
+    },
+    "('encoder', 'layers', 12, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "378af03d3de507a699a1ac5b5ad3378a8db05c86ff855e18e3a06c5245b1c2a6"
+    },
+    "('encoder', 'layers', 12, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "dfac7d33589467cd3cb1a58ea352dbfb6d3f195d2745ad198a119a21a832d713"
+    },
+    "('encoder', 'layers', 12, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "905d313d419d2879efc802ed8f178bec07ea2d90ce5e3a0cdc9387b07f448672"
+    },
+    "('encoder', 'layers', 12, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "4206e23f74b5e05548a23a3f7663d24dceb16a05990346933d2ae8828f00b5e2"
+    },
+    "('encoder', 'layers', 12, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "8c60d76024383ee248d52c03e8abf4c6dc05cb46ded7d35f69d56a0878ac657e"
+    },
+    "('encoder', 'layers', 12, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "9947fbdc8f83fb973ab4b536bdd95b6bb575883c50d198f06d410f9cfe8e53c4"
+    },
+    "('encoder', 'layers', 12, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "eec1a019060745f2f6c0e713e989b9aec7b0361dec0ebcb6943128e74db74ce6"
+    },
+    "('encoder', 'layers', 12, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "f42fc93e1500585e14eb22c03b4b03ef25c7afa98834ffd60715061cb185eed9"
+    },
+    "('encoder', 'layers', 12, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "09af92e8dcfcd6065208c3ba8e20fe7eb5142397afb5b80a32bce5e4193ed587"
+    },
+    "('encoder', 'layers', 12, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "d6ce224acf8c0b76df7695685f170bb08d49114d9fc60b380768600385dfd1b2"
+    },
+    "('encoder', 'layers', 13, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "67d62c7fe3708cd4d53ed03b3bc232b0d089764c1f4c1fd061658388b7e59db4"
+    },
+    "('encoder', 'layers', 13, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "6c535e65291b55a6789b3564e37d81a0e4e8464689cd365560e7e4564e03cd91"
+    },
+    "('encoder', 'layers', 13, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "37a1dfae2d9db0aaf1c346d5184db8e33ef1ea9278a734050aeed2d7e73826c4"
+    },
+    "('encoder', 'layers', 13, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "6a55cadff46f3b34f0a9c07a292b0007157280db7bf40db0e12018a983047628"
+    },
+    "('encoder', 'layers', 13, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "fbf0749549b7e42c6f003274b4ff4a86375ecf333a8a4979ca18ff2392356ec7"
+    },
+    "('encoder', 'layers', 13, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "0be9177ec59ad94d4eeb78de7a0af93e63b53c6b19782c3b6bf394303a8bb77c"
+    },
+    "('encoder', 'layers', 13, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "e6062d22f419136675e9b8c92dd4ede2738ed822f62ca649571e25dcb2b9e16c"
+    },
+    "('encoder', 'layers', 13, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "eb230201dc30ac6f54fbc2dfced07631eb050a5c0fb8dfff80840f47fc30e384"
+    },
+    "('encoder', 'layers', 13, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "28a70526334d6889dfc3ef9c1d77a9dfdb111b10e831114b77fe1938a6bec0c2"
+    },
+    "('encoder', 'layers', 13, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "9503a55ab005af666072cf6bfab616da0e99d0a3e2b8bc8c7571e1e0260594f7"
+    },
+    "('encoder', 'layers', 14, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "fd706f6ff2cbeeafafc7ccdb42834402c10b5028d83a16210f13a97ca1455243"
+    },
+    "('encoder', 'layers', 14, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "fdb0b8865d16abcc5658312618bc20cd855dee2e566efe1bf397314db31c6de6"
+    },
+    "('encoder', 'layers', 14, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "070b7289cac58bd021636d08992ab90cee44142a40fdefb58e7033a28126b90c"
+    },
+    "('encoder', 'layers', 14, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "a309e7ac9c465f5df1a933c29d281368628e66036b22e44685c4fd9c7cd5af8d"
+    },
+    "('encoder', 'layers', 14, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "3d208a307b70e9cd3eb45632bbdc6521c2dafa2dd39d0c647899aafa775ebd41"
+    },
+    "('encoder', 'layers', 14, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "d080cdccafd99b0879ba1a079575d6669f3c29db5b6a73a2ef04764d26cc8709"
+    },
+    "('encoder', 'layers', 14, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "ae618d0e130a82686a02ebc67d1e21e9c53fb8061f4f7167f321399453731b17"
+    },
+    "('encoder', 'layers', 14, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "6eb59ff8f16680d2a652f9ffc83689feba2dbe216250a1f0627f2b052f8e534d"
+    },
+    "('encoder', 'layers', 14, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "786377d77749469fbf43eb475fe6e89efb8c7f6bfa8182d68449c2cc2a160a47"
+    },
+    "('encoder', 'layers', 14, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "8bcf6861a57052d7b5db8efd7887fe6dc3f7873ce16f8d2fd852a46dc245637f"
+    },
+    "('encoder', 'layers', 15, 'attn', 'out_proj_params')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "1405c0f90fc0eecd225044bd4d516c7d2e546678c6ec1101483235e9964cd635"
+    },
+    "('encoder', 'layers', 15, 'attn', 'qkv_proj_params')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "01cc6983d22cc7b2de4bf57070a57eacf396611debbb27cb211bdad1d44f9ea3"
+    },
+    "('encoder', 'layers', 15, 'ffn', 'v')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "7aea17ddf9742f0b1a8a499c8c5085e7cb2c72b328efc34728bd90be94905692"
+    },
+    "('encoder', 'layers', 15, 'ffn', 'v_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "a0609bdfe770a2902c7a43328601274b9c0675a4486757bddee401e4ff3a1b42"
+    },
+    "('encoder', 'layers', 15, 'ffn', 'w')": {
+      "shape": [
+        512,
+        1536
+      ],
+      "sha256": "b9d58d688787b17d350b6a73731c69670f0038caa297ab2fcc08586d1a00ce45"
+    },
+    "('encoder', 'layers', 15, 'ffn', 'w2')": {
+      "shape": [
+        1536,
+        512
+      ],
+      "sha256": "6f836cb593341bec83a711de61fde48d73e9ef28883090619589b9e95d1d4a43"
+    },
+    "('encoder', 'layers', 15, 'ffn', 'w2_bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "7a6892e968fed18c4108a8dfe422ea219053508cff85f3940e00b8e4d47341ed"
+    },
+    "('encoder', 'layers', 15, 'ffn', 'w_bias')": {
+      "shape": [
+        1536
+      ],
+      "sha256": "aed0b595f3a46c5cb0aa4d6a95f85033293ed786c7f93fc2b7f8b849772f5194"
+    },
+    "('encoder', 'layers', 15, 'ln1', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "f02347ce944da09a00ef62adfecedffc0358a0f5c7b1213dd4638478348190be"
+    },
+    "('encoder', 'layers', 15, 'ln2', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "c8845675966bc1df9a8d28339973c6eaff43c281bac1d7eb5bf40e93d2629f3c"
+    },
+    "('final_norm', 'scale')": {
+      "shape": [
+        512
+      ],
+      "sha256": "1fd691c2336d46763e8d822d23ce19d3ef599632d29e577a130bc9096897d468"
+    },
+    "('final_proj', 'inner', 'layers', 0, 'bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "5c340ca5048df2499e1782fe3f6ee3777fbd306731c4f05a064f0eb1c75f53cb"
+    },
+    "('final_proj', 'inner', 'layers', 0, 'kernel')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "446c3299b6ab2fae93778178b5b5ae59110846e2d89e27b92478072ee969b3a8"
+    },
+    "('final_proj', 'inner', 'layers', 2, 'bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "736896c7fd1c4a00891ac814e39eda79a8121c473730e4790997d590d71c58f7"
+    },
+    "('final_proj', 'inner', 'layers', 2, 'kernel')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "7372cd3cf14de5b82cbff49fd4b0fc88dbf8275f66b862d4fa7cc020fb9a2c16"
+    },
+    "('init_proj', 'bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "d7a4f94a5c4d1df82ed8b3a4155ae5c346326c3d0f5d23a7e59d486ca0c8e5a6"
+    },
+    "('init_proj', 'kernel')": {
+      "shape": [
+        10,
+        512
+      ],
+      "sha256": "67a0fd818c5aecaedbe2170b252a7fc77045f36b072cd98cb4fb3160c8dcc579"
+    },
+    "('mid_proj', 'bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "3fb4e7f636ec1ced7c95e595d5b1c2f1ab7ed7ca07220227df559606c3eb0b75"
+    },
+    "('mid_proj', 'kernel')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "6a57806fbdc49111bcbff142c459f21e006e58d5aa39befde53e43d422ff5977"
+    },
+    "('timestep_embedder', 'mlp', 'layers', 0, 'bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "db5b003c0ad0a8c58d325fe6f2482718c6a3cb2405c4c4a0d7b3f80bc9c8b1e5"
+    },
+    "('timestep_embedder', 'mlp', 'layers', 0, 'kernel')": {
+      "shape": [
+        256,
+        512
+      ],
+      "sha256": "a0fccd0c9ff3ab11ea7cb20bf20bf67975746db8997bbd65e36fcb20ef0bb9e3"
+    },
+    "('timestep_embedder', 'mlp', 'layers', 2, 'bias')": {
+      "shape": [
+        512
+      ],
+      "sha256": "c094d288842ab07b8b2663056e9c45078b41202d2e5484b1c70d72885f2e8b73"
+    },
+    "('timestep_embedder', 'mlp', 'layers', 2, 'kernel')": {
+      "shape": [
+        512,
+        512
+      ],
+      "sha256": "6de4b3aa371cca3b1ee1496e5778dd21c4f219f3dee5bdfa6d0a653d6e7484c7"
+    }
+  }
+}

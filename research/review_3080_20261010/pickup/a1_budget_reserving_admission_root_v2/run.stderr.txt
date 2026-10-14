@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "D:\PyCharm_\MASKCO-Main\research\review_3080_20261010\pickup\a1_budget_reserving_admission_root_v2\run.py", line 197, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "D:\PyCharm_\MASKCO-Main\research\review_3080_20261010\pickup\a1_budget_reserving_admission_root_v2\run.py", line 109, in main
+    g_table = calibrate(train_ds, REG['objective'], fz['booking_horizon'], lam_grid, clock_grid)
+                                  ~~~^^^^^^^^^^^^^
+KeyError: 'objective'

@@ -1,0 +1,72 @@
+{
+  "schema": "delivery_same_incumbent_route_pilot_v1",
+  "predeclared": true,
+  "registered_date": "2026-10-08",
+  "authorization": "User requested independent delivery contract/baselines, same-initial-route equal-budget pilot, positive-clue-only online full validation",
+  "activation": "Delivery contract and baseline engineering QA plus actual pretrained encoder/decoder and same-architecture random control QA pass; freeze full runner closure before creating development instances",
+  "stage": "pre_dispatch_route_snapshot_not_online",
+  "contract_version": "delivery-coldchain-engineering-v1",
+  "contract_overrides": {},
+  "parameter_scope": "pilot physics references, not calibrated operational evidence",
+  "dataset": {
+    "origin": "new synthetic delivery-only instances; no pickup teacher or results reused",
+    "seed": 2026100802,
+    "instance_ids": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
+    "customers": 50,
+    "independent_unit": "one newly generated route snapshot per instance_id, no repeated solver runs counted as new instances",
+    "generator": "numpy PCG64 SeedSequence([seed,instance_id]); customer coords uniform [0,10]^2 km; depot [5,5]; integer demands uniform 1..5; temp_class uniform 0..2",
+    "reveal_ready_times_h": 0.0,
+    "wave_h": 0.0,
+    "customer_service_time_h": 0.03,
+    "time_window_h": [0.0,8.0],
+    "time_window_scope": "broad windows in first route-transfer pilot; does not establish performance under tight TW or dynamic release",
+    "same_initial_routes": "five fixed customer-ID blocks [1..10],[11..20],[21..30],[31..40],[41..50], same order; independently certify all 32 before running any improvement arm",
+    "no_resampling_or_screening": true,
+    "final_holdout": "not generated or accessed by this pilot; online development/final sets require a separate declaration"
+  },
+  "arms": ["incumbent","ortools_gls","destroy_regret_lns","maskco_single","maskco_iterative","maskco_random_single"],
+  "primary_method": "maskco_single",
+  "strong_controls": ["ortools_gls","destroy_regret_lns"],
+  "pretraining_control": "maskco_random_single",
+  "iteration_comparison": "maskco_iterative_minus_maskco_single",
+  "weights": {
+    "checkpoint": "../MASKCO_code/ckpts/cvrp100.ckpt",
+    "sha256": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+    "use": "full original CVRP encoder and decoder; no I3 actor; no adaptation training",
+    "random_same_architecture_seed": 42,
+    "dtype": "float32"
+  },
+  "timing": {
+    "total_per_arm_per_instance_s": 10.0,
+    "included": ["features","initial certification","instance construction for solver","encoder inference","decoder inference","search","candidate certification","submission deadline check"],
+    "excluded_common_setup": ["read-only weight loading","fixed synthetic 51-node JIT prewarm of both actual and random models","static solver library import"],
+    "hardware": "same pinned CPU54, BLAS and OMP one thread, no GPU allocation",
+    "method_uses_less_than_limit": "report actual wall time; unused budget is not credited as additional gain",
+    "late_submission": "common initial certified route fallback, count timeout; do not drop instance",
+    "arm_order": "fixed numpy SeedSequence([seed,instance_id,999]) permutation of five improvement arms, recorded per instance"
+  },
+  "reconstruction": {
+    "mask_fraction": 0.3,
+    "mask": "uniform customer subset ceil(0.3*N); only original nonremoved edges retained, no shortcut edges as model observations",
+    "retained_edges": "cannot be removed by insertion within a reconstruction cycle",
+    "insertion_score": "distance_delta / instance mean offdiagonal distance - guide_weight * logit_delta / offdiagonal logit std",
+    "guide_weight": 1.0,
+    "single": "one masked decode-reconstruct candidate; choose common incumbent or lower full contract cost",
+    "iterative": "same weights and score; repeatedly remask current best while total deadline allows; no training difference",
+    "seed": "SeedSequence([dataset.seed,instance_id,41]); same mask stream in pretrained single/iteration and random single"
+  },
+  "baseline": {
+    "ortools": "same initial assignment, distance GLS proposals with capacity/TW dimensions; independently certify and select by full cold-chain contract objective",
+    "lns": "same initial routes, random customer removal max(2,N//5), regret-2 distance insertion, annealed current route, full cold-chain certified best",
+    "scope": "two runnable classical search candidates; neither called validated online SOTA or HGS/ALNS",
+    "lns_seed": "same SeedSequence([dataset.seed,instance_id,41])"
+  },
+  "main_metric": "fractional cost gain (control_cost - method_cost) / control_cost; lower full contract cost is better",
+  "practical_threshold": 0.01,
+  "bootstrap": {"repetitions":2000,"seed":2026100803,"method":"paired instance percentile bootstrap","confidence":0.95},
+  "pilot_pass": "maskco_single mean fractional gain >=1% and CI lower>0 against EACH of OR-Tools and regret-LNS; also positive mean and CI lower>0 against same-architecture random single; all six arms hard=1, exactly 32 unique finite paired instances, full source/contract/data/weight/timing identity and source_start=source_end",
+  "secondary_only": ["absolute cost differences","distance/energy/quality decomposition","iteration difference","actual runtime","timeouts"],
+  "failure_branch": "retain all instances/attempts and diagnose; no threshold/weight/budget/checkpoint/instance/seed adjustment or automatic rerun for better means; no delivery online full run",
+  "success_branch": "qualified route-transfer clue only; separately preregister and implement real delivery wave/fleet/cargo online contract and strong rolling controls before online full validation",
+  "pickup_final_seeds_never_access": [20260927,20260928]
+}

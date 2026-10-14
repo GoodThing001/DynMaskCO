@@ -1,0 +1,64 @@
+{
+  "checks": [
+    {
+      "name": "original79_oneFAIL_preserved",
+      "passed": true
+    },
+    {
+      "name": "original_failure_only_exact_append",
+      "passed": true
+    },
+    {
+      "name": "original78_successes_retained",
+      "passed": true
+    },
+    {
+      "name": "exact_original_prompt_prefix",
+      "passed": true
+    },
+    {
+      "name": "requested_one_terminal_LF",
+      "passed": true
+    },
+    {
+      "name": "only_one_terminal_LF_missing",
+      "passed": true
+    },
+    {
+      "name": "all_addendum_content_exact",
+      "passed": true
+    },
+    {
+      "name": "preserved_field:id",
+      "passed": true
+    },
+    {
+      "name": "preserved_field:kind",
+      "passed": true
+    },
+    {
+      "name": "preserved_field:name",
+      "passed": true
+    },
+    {
+      "name": "preserved_field:status",
+      "passed": true
+    },
+    {
+      "name": "preserved_field:rrule",
+      "passed": true
+    },
+    {
+      "name": "preserved_field:target_thread_id",
+      "passed": true
+    }
+  ],
+  "checks_count": 13,
+  "failed": 0,
+  "original_verification_sha256": "503acd463d9cda7054dff5bd81238cd3b4f540deda0875190bcdcede272b5051",
+  "actual_automation_sha256": "a44f7dca26e1c7ae9150d6030fa8450d54cfafa8f954b72cc5add0566d73be5d",
+  "scope": "Read-only original78 successes plus exact terminal-LF omission evidence. Original79/1FAIL unchanged; no model, QA, automation rewrite or scientific threshold change.",
+  "original_overall_PASS": false,
+  "model_executed": false,
+  "execution_authorized": false
+}

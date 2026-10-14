@@ -1,0 +1,38 @@
+{
+  "schema": "program-support-audit-v2",
+  "headline_checks": 29,
+  "headline_failures": 0,
+  "claim_overall_verdicts": {
+    "stable_online_gain_supported": "claim_excess_upheld",
+    "MaskCO_attributable_gain_established": "claim_excess_upheld",
+    "learning_side_closed": "claim_excess_upheld",
+    "pickup_impossibility_proven": "claim_excess_upheld",
+    "equivalence_established": "claim_excess_upheld"
+  },
+  "dimension_failure_counts": {
+    "numeric_consistency": 1,
+    "eligibility": 5,
+    "statistical_support": 5,
+    "generalization_scope": 5
+  },
+  "claim_excesses": [
+    "ANY50_stable_flag_exceeds_snapshot_95pct_merge_gate_and_PROGRAM",
+    "untested_path_list_not_exhaustive_no_global_exclusion_proof",
+    "CI_crossing_zero_does_not_prove_runtime_mechanism_absent",
+    "LNS_blanket_random_removal_statement_unsupported",
+    "one_instance_distance_share_times_cohort_gain_is_not_total_utility_upper_bound"
+  ],
+  "additional_findings": [
+    "cross_cohort_percentage_comparison:results/research_20261010/ROUND_20261010_GUIDE_DOSE.md:319",
+    "cross_cohort_percentage_comparison:results/research_20261010/WORK_STATUS.json:116",
+    "preregistered_confirmation_cohorts_found_1_of_3",
+    "universal_wording_without_measured_scope:results/research_20261010/ROUND_20261010_GUIDE_DOSE.md:182:impossibility"
+  ],
+  "checks": {
+    "confirmation_family_preregistered_cohorts": "insufficient_preregistered_cohorts",
+    "pruned_and_clean_status_missing_input": "all_pruned_statuses_have_evidence_on_disk",
+    "cross_cohort_percentage_comparisons": "flagged",
+    "documented_excess_locations": "available"
+  },
+  "report": "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\reproduction\\research\\review_3080_20261010\\reproduction\\LATEST_SUPPORT_AUDIT.json"
+}

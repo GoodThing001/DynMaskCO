@@ -1,0 +1,82 @@
+{
+  "registration_sha256": "f93b29e57531ef44bf18e8ff1c95271923ea6363113c1b6206a0cb8128eaf4a2",
+  "status": "NEW_INTERMEDIATE_OBSERVATION_VALID_OLD_COMPILED_SCHEDULE_NOT_REPRODUCED_NO_INSTALL",
+  "component_check_count": 8892,
+  "component_failure_count": 0,
+  "new_intermediate_count": 12,
+  "all_instrumented_vs_eager_intermediates_exact": true,
+  "eager_final_matches_saved_original": true,
+  "instrumented_final_matches_old_saved_compiled": false,
+  "instrumented_vs_old_saved_compiled": {
+    "bitwise_mismatch_count": 563,
+    "max_abs_error": 1.7881393432617188e-07
+  },
+  "first_divergent_new_intermediate": null,
+  "old_graph_first_divergence_localized": false,
+  "insight": "For the prospectively fixed first input, returning all intermediate arrays changed the compiled final value relative to the previously saved non-returning compiled graph. The new observed tuple graph is bitwise equal to eager. Observation affects compiled scheduling; this does not prove a unique compiler pass or the cause of all old34 mismatches.",
+  "nnx_internal_dot_observable_qualified": false,
+  "operator_observable_note": "linear1_dot and linear2_dot are separately evaluated explicit matmul expressions, not taps inside NNX Linear dot_general. linear1_bias uses actual head.input(x) and output uses actual head.output(t). No NNX internal primitive trace or compiler-pass IR was archived.",
+  "producer": {
+    "files_start": 8855,
+    "files_end": 8855,
+    "modulemap_start": 992,
+    "modulemap_end": 992,
+    "changed": [],
+    "new_files": [],
+    "maps_equal": true
+  },
+  "independent": {
+    "files_start": 8764,
+    "files_end": 8764,
+    "modulemap_start": 885,
+    "modulemap_end": 886,
+    "changed": [],
+    "new_files": [],
+    "maps_equal": false
+  },
+  "exits": {
+    "RUN_EXIT.json": {
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 68.14891409967095,
+      "natural_exit": true,
+      "worker_pid": 23832
+    },
+    "AUDIT_RUN_EXIT.json": {
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 20.92768849991262,
+      "natural_exit": true,
+      "worker_pid": 8668
+    },
+    "CHAIN_EXIT.json": {
+      "exit_code": 0,
+      "supervisor_pid": 21468,
+      "wall_seconds": 89.18879628181458,
+      "optimizer_steps": 0,
+      "scientific_family3_started": false
+    }
+  },
+  "archive": {
+    "files": 32,
+    "bytes": 46899731,
+    "all_sha_match": true,
+    "chunk_size": 262144
+  },
+  "original_strict0_of34_failure_unchanged": true,
+  "candidate_installed": false,
+  "full_backbone_executions": 0,
+  "C0_solver_calls": 0,
+  "optimizer_updates": 0,
+  "new_scientific_family_started": false,
+  "full_request_budget_qualified": false,
+  "formal_controls_qualified": false,
+  "full_scientific_loaded_closure_qualified": false,
+  "stable_online_gain": false,
+  "next": "Do not repeat this fixed intermediate observation or old34 compiled QA. A semantics-preserving scheduling design must separately specify and validate arithmetic observables/outputs without assuming debug tuple return leaves original graph unchanged, then actual whole8+2 request gates. Formal trained CE/taskrandom/strongdynamic/equal-time science remain gated.",
+  "source_reference": {
+    "title": "JAX FAQ: jit changes the exact numerics of outputs",
+    "url": "https://docs.jax.dev/en/latest/faq.html#jit-changes-the-exact-numerics-of-outputs",
+    "kind": "Official technical documentation; root verified; contextual possibility, not measured pass attribution"
+  }
+}

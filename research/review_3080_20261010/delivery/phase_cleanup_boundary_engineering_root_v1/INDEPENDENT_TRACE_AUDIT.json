@@ -1,0 +1,420 @@
+{
+  "checks": 102,
+  "failures": [
+    "Producer actual source start/end"
+  ],
+  "items": [
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\action_head_runtime_v1.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\bounded_phase_trace_v1.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\CHAIN_INPUT.json",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\delivery_actual_action_head_v1.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\delivery_actual_score_chain_v1.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\delivery_feasible_action_options_v1.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\delivery_phase_actual_engine_v1.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\delivery_phase_shared_parent_v1.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\delivery_phase_shared_parent_v2.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\delivery_phase_shared_worker_v1.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\delivery_retained_edge_action_guard_v1.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\features_objective.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\independent_phase_trace_parser_v1.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\PHASE_DESIGN.json",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\phase_failure_cleanup_v1.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\timed_evidence_io_v1.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:research\\review_3080_20261010\\delivery\\phase_cleanup_boundary_engineering_root_v1\\ENGINEERING_REGISTRATION.json",
+      "pass_condition": true
+    },
+    {
+      "name": "file:tools\\run_phase_cleanup_boundary_v1.py",
+      "pass_condition": true
+    },
+    {
+      "name": "file:tools\\audit_phase_cleanup_boundary_v1.py",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:RESULT.json",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:RUN_EXIT.json",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:SOURCE_START.json",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:SOURCE_END.json",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:ACTUAL_CLEANUP_RECEIPT.json",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:CHILD_SOURCE_START.json",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:CHILD_OPEN_ENTRY.json",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:CHILD_OWNER.json",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:CHILD_READY.json",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:producer_SUPERVISOR_EXIT.json",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:nested_success.bin",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:recorded_exception.bin",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:capacity_overflow.bin",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:cleanup_worker.bin",
+      "pass_condition": true
+    },
+    {
+      "name": "actual input:cleanup_caller.bin",
+      "pass_condition": true
+    },
+    {
+      "name": "nested_success:raw identity",
+      "pass_condition": true
+    },
+    {
+      "name": "nested_success:exact clocks0",
+      "pass_condition": true
+    },
+    {
+      "name": "nested_success:exact rational0",
+      "pass_condition": true
+    },
+    {
+      "name": "nested_success:exact clocks1",
+      "pass_condition": true
+    },
+    {
+      "name": "nested_success:exact rational1",
+      "pass_condition": true
+    },
+    {
+      "name": "nested_success:actual phases",
+      "pass_condition": true
+    },
+    {
+      "name": "nested_success:actual statuses",
+      "pass_condition": true
+    },
+    {
+      "name": "nested_success:union",
+      "pass_condition": true
+    },
+    {
+      "name": "nested_success:not scientific qualification",
+      "pass_condition": true
+    },
+    {
+      "name": "recorded_exception:raw identity",
+      "pass_condition": true
+    },
+    {
+      "name": "recorded_exception:exact clocks0",
+      "pass_condition": true
+    },
+    {
+      "name": "recorded_exception:exact rational0",
+      "pass_condition": true
+    },
+    {
+      "name": "recorded_exception:exact clocks1",
+      "pass_condition": true
+    },
+    {
+      "name": "recorded_exception:exact rational1",
+      "pass_condition": true
+    },
+    {
+      "name": "recorded_exception:actual phases",
+      "pass_condition": true
+    },
+    {
+      "name": "recorded_exception:actual statuses",
+      "pass_condition": true
+    },
+    {
+      "name": "recorded_exception:union",
+      "pass_condition": true
+    },
+    {
+      "name": "recorded_exception:not scientific qualification",
+      "pass_condition": true
+    },
+    {
+      "name": "capacity_overflow:raw identity",
+      "pass_condition": true
+    },
+    {
+      "name": "capacity_overflow:exact clocks0",
+      "pass_condition": true
+    },
+    {
+      "name": "capacity_overflow:exact rational0",
+      "pass_condition": true
+    },
+    {
+      "name": "capacity_overflow:actual phases",
+      "pass_condition": true
+    },
+    {
+      "name": "capacity_overflow:actual statuses",
+      "pass_condition": true
+    },
+    {
+      "name": "capacity_overflow:union",
+      "pass_condition": true
+    },
+    {
+      "name": "capacity_overflow:not scientific qualification",
+      "pass_condition": true
+    },
+    {
+      "name": "actual_open_writer_kill:raw identity",
+      "pass_condition": true
+    },
+    {
+      "name": "actual_open_writer_kill:exact clocks0",
+      "pass_condition": true
+    },
+    {
+      "name": "actual_open_writer_kill:exact rational0",
+      "pass_condition": true
+    },
+    {
+      "name": "actual_open_writer_kill:actual phases",
+      "pass_condition": true
+    },
+    {
+      "name": "actual_open_writer_kill:actual statuses",
+      "pass_condition": true
+    },
+    {
+      "name": "actual_open_writer_kill:union",
+      "pass_condition": true
+    },
+    {
+      "name": "actual_open_writer_kill:not scientific qualification",
+      "pass_condition": true
+    },
+    {
+      "name": "parent_exception_cleanup:raw identity",
+      "pass_condition": true
+    },
+    {
+      "name": "parent_exception_cleanup:exact clocks0",
+      "pass_condition": true
+    },
+    {
+      "name": "parent_exception_cleanup:exact rational0",
+      "pass_condition": true
+    },
+    {
+      "name": "parent_exception_cleanup:exact clocks1",
+      "pass_condition": true
+    },
+    {
+      "name": "parent_exception_cleanup:exact rational1",
+      "pass_condition": true
+    },
+    {
+      "name": "parent_exception_cleanup:actual phases",
+      "pass_condition": true
+    },
+    {
+      "name": "parent_exception_cleanup:actual statuses",
+      "pass_condition": true
+    },
+    {
+      "name": "parent_exception_cleanup:union",
+      "pass_condition": true
+    },
+    {
+      "name": "parent_exception_cleanup:not scientific qualification",
+      "pass_condition": true
+    },
+    {
+      "name": "Exact registered mutation set",
+      "pass_condition": true
+    },
+    {
+      "name": "malformed:magic",
+      "pass_condition": true
+    },
+    {
+      "name": "malformed:version",
+      "pass_condition": true
+    },
+    {
+      "name": "malformed:capacity",
+      "pass_condition": true
+    },
+    {
+      "name": "malformed:count",
+      "pass_condition": true
+    },
+    {
+      "name": "malformed:closed",
+      "pass_condition": true
+    },
+    {
+      "name": "malformed:header_padding",
+      "pass_condition": true
+    },
+    {
+      "name": "malformed:sequence",
+      "pass_condition": true
+    },
+    {
+      "name": "malformed:phase",
+      "pass_condition": true
+    },
+    {
+      "name": "malformed:status",
+      "pass_condition": true
+    },
+    {
+      "name": "malformed:record_padding",
+      "pass_condition": true
+    },
+    {
+      "name": "malformed:nonfinite_clock",
+      "pass_condition": true
+    },
+    {
+      "name": "malformed:clock_order",
+      "pass_condition": true
+    },
+    {
+      "name": "malformed:unused_tail",
+      "pass_condition": true
+    },
+    {
+      "name": "not_reaped",
+      "pass_condition": true
+    },
+    {
+      "name": "outer_bounds",
+      "pass_condition": true
+    },
+    {
+      "name": "Actual killed worker return saved",
+      "pass_condition": true
+    },
+    {
+      "name": "Real open entry reached",
+      "pass_condition": true
+    },
+    {
+      "name": "Post cleanup clock",
+      "pass_condition": true
+    },
+    {
+      "name": "Actual raw worker hash after reap",
+      "pass_condition": true
+    },
+    {
+      "name": "Actual raw caller hash",
+      "pass_condition": true
+    },
+    {
+      "name": "No selected-output revocation",
+      "pass_condition": true
+    },
+    {
+      "name": "Whole request qualification disabled",
+      "pass_condition": true
+    },
+    {
+      "name": "Producer actual source start/end",
+      "pass_condition": false
+    },
+    {
+      "name": "Actual owner identity",
+      "pass_condition": true
+    },
+    {
+      "name": "Actual writer exited",
+      "pass_condition": true
+    },
+    {
+      "name": "Independent actual loaded closure",
+      "pass_condition": true
+    }
+  ],
+  "scope": "New trace-only kernel and cleanup helper; no model/parent workload replay",
+  "full_request_budget_qualified": false,
+  "full_scientific_loaded_closure_qualified": false,
+  "old_QA_repeated": false
+}

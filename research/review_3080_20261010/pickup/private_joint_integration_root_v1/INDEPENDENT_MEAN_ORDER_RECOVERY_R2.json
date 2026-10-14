@@ -1,0 +1,152 @@
+{
+  "checks": [
+    {
+      "name": "original_failures_exact",
+      "pass": true
+    },
+    {
+      "name": "original_159_check_count",
+      "pass": true
+    },
+    {
+      "name": "original_raw_registration_identity",
+      "pass": true
+    },
+    {
+      "name": "actual_unchanged:D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\complete_history_energy_qa_root_v1\\complete_ledger\\FULLRAW.json",
+      "pass": true
+    },
+    {
+      "name": "actual_unchanged:D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\complete_history_energy_qa_root_v1\\complete_ledger\\cond_hist_trace.jsonl",
+      "pass": true
+    },
+    {
+      "name": "actual_unchanged:D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\shared_history_qualification_root_v1\\COMMON_HISTORY.pkl",
+      "pass": true
+    },
+    {
+      "name": "actual_unchanged:D:\\PyCharm_\\MASKCO-Main\\tools\\qualify_pickup_private_joint_v1.py",
+      "pass": true
+    },
+    {
+      "name": "actual_unchanged:D:\\PyCharm_\\MASKCO-Main\\tools\\pickup_private_joint_compute_v1.py",
+      "pass": true
+    },
+    {
+      "name": "actual_unchanged:D:\\PyCharm_\\MASKCO-Main\\tools\\pickup_shared_joint_transport_v1.py",
+      "pass": true
+    },
+    {
+      "name": "(0, 'own_incumbent'):independent_pairwise_bit_exact",
+      "pass": true
+    },
+    {
+      "name": "(0, 'candidate'):independent_pairwise_bit_exact",
+      "pass": true
+    },
+    {
+      "name": "(9, 'own_incumbent'):independent_pairwise_bit_exact",
+      "pass": true
+    },
+    {
+      "name": "(9, 'candidate'):independent_pairwise_bit_exact",
+      "pass": true
+    },
+    {
+      "name": "(13, 'own_incumbent'):independent_pairwise_bit_exact",
+      "pass": true
+    },
+    {
+      "name": "(13, 'candidate'):independent_pairwise_bit_exact",
+      "pass": true
+    },
+    {
+      "name": "producer_unchanged_no_reexecution",
+      "pass": true
+    }
+  ],
+  "checks_count": 16,
+  "failed": 0,
+  "original_independent_checks": 159,
+  "original_failures_preserved": 2,
+  "original_other_checks_passed": 157,
+  "new_exact_mean_checks": 6,
+  "arithmetic": [
+    {
+      "index": 0,
+      "candidate": "own_incumbent",
+      "registered_numpy_mean": 347.76164599419127,
+      "pure_python_same_pairwise_mean": 347.76164599419127,
+      "sequential_python_mean": 347.76164599419127,
+      "correctly_rounded_exact_rational_mean": 347.7616459941912,
+      "registered_hex": "0x1.5bc2fb3b5c2e5p+8",
+      "pairwise_hex": "0x1.5bc2fb3b5c2e5p+8",
+      "rational_error": "3/87960930222080"
+    },
+    {
+      "index": 0,
+      "candidate": "candidate",
+      "registered_numpy_mean": 347.76164599419127,
+      "pure_python_same_pairwise_mean": 347.76164599419127,
+      "sequential_python_mean": 347.76164599419127,
+      "correctly_rounded_exact_rational_mean": 347.7616459941912,
+      "registered_hex": "0x1.5bc2fb3b5c2e5p+8",
+      "pairwise_hex": "0x1.5bc2fb3b5c2e5p+8",
+      "rational_error": "3/87960930222080"
+    },
+    {
+      "index": 9,
+      "candidate": "own_incumbent",
+      "registered_numpy_mean": 488.4330866237571,
+      "pure_python_same_pairwise_mean": 488.4330866237571,
+      "sequential_python_mean": 488.4330866237571,
+      "correctly_rounded_exact_rational_mean": 488.4330866237571,
+      "registered_hex": "0x1.e86edec3d55f3p+8",
+      "pairwise_hex": "0x1.e86edec3d55f3p+8",
+      "rational_error": "1/87960930222080"
+    },
+    {
+      "index": 9,
+      "candidate": "candidate",
+      "registered_numpy_mean": 488.4330866237571,
+      "pure_python_same_pairwise_mean": 488.4330866237571,
+      "sequential_python_mean": 488.4330866237571,
+      "correctly_rounded_exact_rational_mean": 488.4330866237571,
+      "registered_hex": "0x1.e86edec3d55f3p+8",
+      "pairwise_hex": "0x1.e86edec3d55f3p+8",
+      "rational_error": "1/87960930222080"
+    },
+    {
+      "index": 13,
+      "candidate": "own_incumbent",
+      "registered_numpy_mean": 506.33369142634274,
+      "pure_python_same_pairwise_mean": 506.33369142634274,
+      "sequential_python_mean": 506.3336914263426,
+      "correctly_rounded_exact_rational_mean": 506.3336914263426,
+      "registered_hex": "0x1.fa556ccd23190p+8",
+      "pairwise_hex": "0x1.fa556ccd23190p+8",
+      "rational_error": "1/8796093022208"
+    },
+    {
+      "index": 13,
+      "candidate": "candidate",
+      "registered_numpy_mean": 506.33369142634274,
+      "pure_python_same_pairwise_mean": 506.33369142634274,
+      "sequential_python_mean": 506.3336914263426,
+      "correctly_rounded_exact_rational_mean": 506.3336914263426,
+      "registered_hex": "0x1.fa556ccd23190p+8",
+      "pairwise_hex": "0x1.fa556ccd23190p+8",
+      "rational_error": "1/8796093022208"
+    }
+  ],
+  "qualified_component": true,
+  "producer_sha256": "4f9062dbd6eef273038dd9d5efa6790a6e457f8201663aee27a0c24039b0e046",
+  "original_audit_sha256": "f14e3924c1ef44a6002d5be0d3ea053983dbf08e49486977acda546174b2fdb3",
+  "current_recovery_source_sha256": "5f2fa4b3a4094218a8aa442cce1bdfde9a6f392238dd1df353458cde9bbf623e",
+  "reduction_source": "https://github.com/numpy/numpy/blob/v1.26.4/numpy/core/src/umath/loops_utils.h.src",
+  "whole_live_request_qualified": false,
+  "parent_decode_preemptible": false,
+  "stable_online_gain": false,
+  "tolerance_relaxed": false,
+  "domain_algorithms_or_results_changed": false
+}

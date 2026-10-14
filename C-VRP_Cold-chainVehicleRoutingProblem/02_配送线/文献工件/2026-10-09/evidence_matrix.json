@@ -1,0 +1,1070 @@
+{
+  "schema": "delivery_literature_design_evidence_v1",
+  "date": "2026-10-09",
+  "user_authorization": "配送的各个协议和功能，你都需要查阅相关论文有理有据有根据的确定",
+  "scope": "targeted primary literature lookup; not exhaustive systematic review",
+  "predeclared_scientific_protocol": false,
+  "scientific_execution_performed": false,
+  "remote_document_upload_performed": false,
+  "D2_adjudication_changed": false,
+  "sources": [
+    {
+      "id": "S01",
+      "title": "The EURO Meets NeurIPS 2022 Vehicle Routing Competition",
+      "authors": "Kool, Wouter and Bliek, Laurens and Numeroso, Danilo and Zhang, Yingqian and Catshoek, Tom and Tierney, Kevin and Vidal, Thibaut and Gromicho, Joaquim",
+      "publication": "PMLR 220, 35–49; official citation year 2022, PDF header 2023",
+      "doi": "",
+      "url": "https://proceedings.mlr.press/v220/kool23a.html",
+      "fulltext_url": "https://proceedings.mlr.press/v220/kool23a/kool23a.pdf",
+      "access": "full proceedings PDF, sections 2–3",
+      "supports": "原竞赛采用一小时波次、无限车队、客户服务开始时间窗和必服务请求，目标为驾驶时间；原评测预算按轮次另定。",
+      "limits": "不能把五车返仓复用、半小时波次、10秒和冷链成本改造后的问题称为原竞赛协议或沿用排行榜资格。"
+    },
+    {
+      "id": "S02",
+      "title": "The Dynamic Dispatch Waves Problem for same-day delivery",
+      "authors": "Klapp, Mathias A. and Erera, Alan L. and Toriello, Alejandro",
+      "publication": "European Journal of Operational Research 271(2), 519–534 (2018)",
+      "doi": "10.1016/j.ejor.2018.05.032",
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0377221718304326",
+      "fulltext_url": "",
+      "access": "publisher abstract and introduction",
+      "supports": "提供动态备好请求、离散派车波次和派车/等待决策的依据。",
+      "limits": "原问题单车，含未服务惩罚；不直接支持我们的多车必服务成本合同。"
+    },
+    {
+      "id": "S03",
+      "title": "A dynamic vehicle routing problem with multiple delivery routes",
+      "authors": "Azi, Nabila and Gendreau, Michel and Potvin, Jean-Yves",
+      "publication": "Annals of Operations Research 199(1), 103–112 (2012)",
+      "doi": "10.1007/s10479-011-0991-3",
+      "url": "https://link.springer.com/article/10.1007/s10479-011-0991-3",
+      "fulltext_url": "https://www.cirrelt.ca/documentstravail/cirrelt-2010-44.pdf",
+      "access": "full author manuscript, sections 2, 4–5; publication metadata",
+      "supports": "有限车队可执行多个配送行程，装货占用时间；离仓后的路线固定，新请求进入后续行程。",
+      "limits": "原文按接纳利润优化；30km/h及3/5辆是数值案例设置，不能校准本项目车辆、需求或日程。"
+    },
+    {
+      "id": "S04",
+      "title": "The Same-Day Delivery Problem for Online Purchases",
+      "authors": "Voccia, Stacy A. and Campbell, Ann Melissa and Thomas, Barrett W.",
+      "publication": "Transportation Science 53(1), 167–184 (2019 issue; online 2017)",
+      "doi": "10.1287/trsc.2016.0732",
+      "url": "https://pubsonline.informs.org/doi/abs/10.1287/trsc.2016.0732?journalCode=trsc",
+      "fulltext_url": "",
+      "access": "publisher abstract and publication metadata",
+      "supports": "同日配送中等待和前瞻决策可影响后续服务能力，支持将派车控制器与路线模块分别评价。",
+      "limits": "本次没有取得全文；不据摘要断言具体有限车队、装货或热学实现已可直接使用。"
+    },
+    {
+      "id": "S05",
+      "title": "Preemptive depot returns for dynamic same-day delivery",
+      "authors": "Ulmer, Marlin W. and Thomas, Barrett W. and Mattfeld, Dirk C.",
+      "publication": "EURO Journal on Transportation and Logistics 8, 327–361 (2019 issue; online 2018)",
+      "doi": "10.1007/s13676-018-0124-0",
+      "url": "https://link.springer.com/article/10.1007/s13676-018-0124-0",
+      "fulltext_url": "",
+      "access": "publisher abstract and publication metadata",
+      "supports": "新增配送请求需返仓装货；主动提前返仓是一种可产生价值的独立控制动作。",
+      "limits": "首版排除提前返仓只是范围选择，不能称文献证明该动作不重要。"
+    },
+    {
+      "id": "S06",
+      "title": "An iterative sample scenario approach for the dynamic dispatch waves problem",
+      "authors": "Lan, Leon and van Doorn, Jasper M. H. and Wouda, Niels A. and Rijal, Arpan and Bhulai, Sandjai",
+      "publication": "Transportation Science 58(4), 726–740 (2024)",
+      "doi": "10.1287/trsc.2023.0111",
+      "url": "https://arxiv.org/html/2308.14476v3",
+      "fulltext_url": "",
+      "access": "full accepted author manuscript, section 3 and Appendix C",
+      "supports": "ICD提供历史分布抽样的前瞻派车方法；派车可行窗口与客户服务窗口不同。",
+      "limits": "基本模型无限车队；附录有限车队扩展允许无限外部加租，未实现唯一车辆返仓复用，多行程属于未来工作。"
+    },
+    {
+      "id": "S07",
+      "title": "Combinatorial Optimization-Enriched Machine Learning to Solve the Dynamic Vehicle Routing Problem with Time Windows",
+      "authors": "Baty, Léo and Jungel, Kai and Klein, Patrick S. and Parmentier, Axel and Schiffer, Maximilian",
+      "publication": "Transportation Science 58(4), 708–725 (2024)",
+      "doi": "10.1287/trsc.2023.0107",
+      "url": "https://pubsonline.informs.org/doi/10.1287/trsc.2023.0107",
+      "fulltext_url": "https://arxiv.org/pdf/2304.00789",
+      "access": "full 2023 author preprint; final publication metadata",
+      "supports": "学习派车收益与组合路线求解器结合，原波次竞赛中具有竞争力，适合作为前瞻控制器候选。",
+      "limits": "原模型无限车队、原试验预算不同；没有本项目有限多行程或热/品质合同，不能直接称10秒下已合格强对照。"
+    },
+    {
+      "id": "S08",
+      "title": "A Multi-Compartment Vehicle Routing Problem with Loading and Unloading Costs",
+      "authors": "Hübner, Alexander and Ostermeier, Manuel",
+      "publication": "Transportation Science 53(1), 282–300 (2019 issue; online 2018)",
+      "doi": "10.1287/trsc.2017.0775",
+      "url": "https://pubsonline.informs.org/doi/10.1287/trsc.2017.0775",
+      "fulltext_url": "",
+      "access": "publisher abstract and publication metadata",
+      "supports": "多温商品、舱室配置及装卸成本应共同建模；舱室可分配方案是明确的物理约束。",
+      "limits": "原文为可调分隔多舱模型；本项目仅共享总容量50并不等于固定三舱的物理容量约束。"
+    },
+    {
+      "id": "S09",
+      "title": "Energy-efficient frozen food transports: the Refrigerated Routing Problem",
+      "authors": "Meneghetti, Antonella and Ceschia, Sara",
+      "publication": "International Journal of Production Research 58(14), 4164–4181 (2020)",
+      "doi": "10.1080/00207543.2019.1640407",
+      "url": "https://www.tandfonline.com/doi/full/10.1080/00207543.2019.1640407",
+      "fulltext_url": "https://air.uniud.it/handle/11390/1159355",
+      "access": "institutional abstract and publication metadata; full text not available this lookup",
+      "supports": "牵引和制冷能耗受载重、速度、环境与开门影响，距离目标不能代表全部冷藏运输能耗。",
+      "limits": "不据摘要采纳具体系数；未验证本项目电制冷、COP或车辆参数。"
+    },
+    {
+      "id": "S10",
+      "title": "Extending and Solving the Refrigerated Routing Problem",
+      "authors": "Ceschia, Sara and Di Gaspero, Luca and Meneghetti, Antonella",
+      "publication": "Energies 13(23), 6214 (2020)",
+      "doi": "10.3390/en13236214",
+      "url": "https://www.mdpi.com/1996-1073/13/23/6214",
+      "fulltext_url": "https://air.uniud.it/retrieve/handle/11390/1194047/506303/energies-13-06214.pdf",
+      "access": "full publisher PDF via institutional repository, sections 3–4 and Table 1",
+      "supports": "车辆出仓装载、交付递减、空车返仓，牵引/传热/开门及驾驶员时间成本有明确单位与模型。",
+      "limits": "原问题静态单行程、设备类型和案例参数不同；不能为我们的电制冷/降温率/COP系数背书。"
+    },
+    {
+      "id": "S11",
+      "title": "Thermal and flow analysis of a refrigerated truck for cold chains under various conditions in practical use",
+      "authors": "Hwang, Hyun Sung and Rhee, Youngho and Lee, Dongchan",
+      "publication": "Applied Thermal Engineering 260, 125063 (2025)",
+      "doi": "10.1016/j.applthermaleng.2024.125063",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1359431124027315",
+      "fulltext_url": "https://pure.uos.ac.kr/en/publications/thermal-and-flow-analysis-of-a-refrigerated-truck-for-cold-chains/",
+      "access": "publisher indexed abstract/introduction and experimental description; metadata",
+      "supports": "实车测点与流场显示货物布置、风机和开门过程影响舱内温度，支持热模型校准和测点核验。",
+      "limits": "舱内空气温度不等于货物核心温度；该研究不校准本项目单节点热模型或品质动力学。"
+    },
+    {
+      "id": "S12",
+      "title": "Optimal distribution of perishable foods with storage temperature control and quality requirements: An integrated vehicle routing problem",
+      "authors": "Ahmadi-Javid, Amir and others",
+      "publication": "Computers & Industrial Engineering 182, 109215 (2023)",
+      "doi": "10.1016/j.cie.2023.109215",
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0360835223002395",
+      "fulltext_url": "",
+      "access": "publisher abstract and introduction; author list abbreviated",
+      "supports": "仓储温控能耗、运输及交付品质联立，支持评估仓库等待与初始品质的连续性。",
+      "limits": "没有读取全文；不移植其具体函数或参数。仓库是否为常数须依据我们合同逐项证明。"
+    },
+    {
+      "id": "S13",
+      "title": "Analysis of Nutrients and Volatile Compounds in Cherry Tomatoes Stored at Different Temperatures",
+      "authors": "Wang, Dan and others",
+      "publication": "Foods 12(1), 6 (2023 issue; online December 2022)",
+      "doi": "10.3390/foods12010006",
+      "url": "https://www.mdpi.com/2304-8158/12/1/6",
+      "fulltext_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9818793/",
+      "access": "publisher indexed full sections 2.1, 2.5.1, 3.3 and Tables 1–2; PubMed metadata",
+      "supports": "试验温度0/4/10/25°C；可滴定酸可用一阶模型，Table 2给Arrhenius拟合参数。",
+      "limits": "18°C速率为模型内插，非18°C直接测量；营养指标不能自动换算可售阈值、价格或全部品质。"
+    },
+    {
+      "id": "S14",
+      "title": "Shelf Life Study of Chilled Mullet (Mugil cephalus): Histamine Formation and Quality Degradation at Constant and Dynamic Storage Conditions",
+      "authors": "Ntzimani, Athina and Papamichail, Eirini and Dermesonlouoglou, Efimia and Tsironi, Theofania and Taoukis, Petros",
+      "publication": "Fishes 9(12), 480 (2024)",
+      "doi": "10.3390/fishes9120480",
+      "url": "https://www.mdpi.com/2410-3888/9/12/480",
+      "fulltext_url": "",
+      "access": "publisher indexed full section 3.2 and Tables 5–6",
+      "supports": "指定鲻鱼切片与包装的零阶感官模型，4°C参考拟合速率0.452评分点/天；试验温度0/2.5/5/10/15°C。",
+      "limits": "4°C是模型参考温度；评分5是该研究感官拒绝线，不能当作所有鱼种或微生物安全的普适阈值。"
+    },
+    {
+      "id": "S15",
+      "title": "Quality and Shelf-Life Modeling of Frozen Fish at Constant and Variable Temperature Conditions",
+      "authors": "Tsironi, Theofania N. and Stoforos, Nikolaos G. and Taoukis, Petros S.",
+      "publication": "Foods 9(12), 1893 (2020)",
+      "doi": "10.3390/foods9121893",
+      "url": "https://www.mdpi.com/2304-8158/9/12/1893",
+      "fulltext_url": "https://res.mdpi.com/d_attachment/foods/foods-09-01893/article_deploy/foods-09-01893-v2.pdf",
+      "access": "full publisher PDF, sections 2, 3.3 and Tables 1, 4",
+      "supports": "试验−5/−8/−12/−15°C，−18°C期限是外推；Table 4海鲈鱼感官期限580天，另一鱼种金枪鱼623天。",
+      "limits": "580–623不是海鲈鱼置信区间；代码约600天及评分9→5换算属近似，不是论文直接测得每小时速率。"
+    },
+    {
+      "id": "S16",
+      "title": "MaskCO: Masked Generation Drives Effective Representation Learning and Exploiting for Combinatorial Optimization",
+      "authors": "Chen, Lvda and Li, Yang and Yan, Junchi",
+      "publication": "ICLR 2026",
+      "doi": "",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2026/file/d85816bf41e54d9b0847e02249f4fcc6-Paper-Conference.pdf",
+      "fulltext_url": "",
+      "access": "full conference PDF, section 4.3, Algorithm 1, Table 13 and Appendix F",
+      "supports": "保留部分解结构作为上下文，进行掩码恢复与迭代；研究静态TSP/CVRP/MIS。",
+      "limits": "论文p为保留比例；D2 mask_fraction=0.3为删除客户比例，粒度/含义不同。论文不证明冷链或动态增益，也不指定8次/32例/1%/10秒。"
+    },
+    {
+      "id": "S17",
+      "title": "PyVRP: A High-Performance VRP Solver Package",
+      "authors": "Wouda, Niels A. and Lan, Leon and Kool, Wouter",
+      "publication": "INFORMS Journal on Computing 36(4), 943–955 (2024)",
+      "doi": "10.1287/ijoc.2023.0055",
+      "url": "https://pubsonline.informs.org/doi/10.1287/ijoc.2023.0055",
+      "fulltext_url": "https://research.vu.nl/ws/portalfiles/portal/388474973/wouda-et-al-2024-pyvrp-a-high-performance-vrp-solver-package.pdf",
+      "access": "full published PDF, scope and section 4",
+      "supports": "公开高性能CVRP/VRPTW HGS包含遗传搜索、交叉和局部搜索，可作为强路线模块候选。",
+      "limits": "没有本项目热/品质/固定多行程波次闭包；只调用距离搜索再做冷链认证，不等于直接优化完整冷链目标。"
+    },
+    {
+      "id": "S18",
+      "title": "Improving Reproducibility in Machine Learning Research (A Report from the NeurIPS 2019 Reproducibility Program)",
+      "authors": "Pineau, Joelle and others",
+      "publication": "Journal of Machine Learning Research 22(164), 1–20 (2021)",
+      "doi": "",
+      "url": "https://jmlr.org/papers/v22/20-303.html",
+      "fulltext_url": "",
+      "access": "primary abstract and publication metadata",
+      "supports": "支持明确披露实验设定、代码、数据和复现材料，配合本项目实际身份验收。",
+      "limits": "不为特定2000次bootstrap、32样本、1%门槛或样本精度提供直接依据。"
+    },
+    {
+      "id": "S19",
+      "title": "Bootstrap Methods: Another Look at the Jackknife",
+      "authors": "Efron, Bradley",
+      "publication": "The Annals of Statistics 7(1), 1–26 (1979)",
+      "doi": "10.1214/aos/1176344552",
+      "url": "https://projecteuclid.org/journals/annals-of-statistics/volume-7/issue-1/Bootstrap-Methods-Another-Look-at-the-Jackknife/10.1214/aos/1176344552.full",
+      "fulltext_url": "https://sites.stat.washington.edu/courses/stat527/s13/readings/ann_stat1979.pdf",
+      "access": "full original journal PDF via university; section 2, Method 2",
+      "supports": "从独立观测的经验分布有放回抽样，用Monte Carlo近似统计量的抽样分布；据此将同实例各臂结果或逐日配对差作为整体观测重采样。",
+      "limits": "配对/完整日单位是本研究的应用推导；原文不指定2000次、32实例或1%门，bootstrap本身不保证小样本百分位区间的精度/覆盖率。"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "F01",
+      "feature": "配送方向与单仓库",
+      "sources": [
+        "S01",
+        "S03",
+        "S10"
+      ],
+      "decision": "仓库发出货物、客户卸货、返仓；与空载出发的取货合同独立。",
+      "evidence_class": "文献机制 + 项目范围",
+      "acceptance": "路线、订单所有权及装/卸事件一致；不反转取货轨迹冒充配送。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F02",
+      "feature": "订单出现与可装车时刻",
+      "sources": [
+        "S02",
+        "S03",
+        "S06"
+      ],
+      "decision": "release与ready分开。ready是否可提前获知另登记；已知订单可见不代表实物可装。",
+      "evidence_class": "机制依据 + 信息合同待冻结",
+      "acceptance": "未release字段不可见，未ready不得载入manifest；同一事件不同可见真值反例。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F03",
+      "feature": "波次与派车窗口",
+      "sources": [
+        "S01",
+        "S02",
+        "S06"
+      ],
+      "decision": "固定波次是可审方案；dispatch窗口与客户TW分别保存。半小时仅候选，原公开协议为一小时。",
+      "evidence_class": "文献机制；数值未定",
+      "acceptance": "可延后/最后可派/末波必须处理的边界可重放，不能因TW宽而忽略派车截止。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F04",
+      "feature": "有限车队多次行程",
+      "sources": [
+        "S03",
+        "S05",
+        "S06"
+      ],
+      "decision": "每车唯一ID，实际回仓并完成周转后才能再派。ICD加租扩展不能充当该实现。",
+      "evidence_class": "文献机制 + 新实现待验收",
+      "acceptance": "在途/装货不能再次占用；返仓与下一波同刻的事件优先序固定，逐车占用区间不重叠。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F05",
+      "feature": "装货、周转与装货口",
+      "sources": [
+        "S03",
+        "S08"
+      ],
+      "decision": "装卸时间不可为零。装货口数量/队列或无限口假设必须明确；原3分钟不是校准值。",
+      "evidence_class": "文献机制；业务参数未定",
+      "acceptance": "加载起止、不可重复装载、排队与车辆可用性联账；有限装货口不能并发超过数量。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F06",
+      "feature": "仓库库存与货物守恒",
+      "sources": [
+        "S03",
+        "S10",
+        "S12"
+      ],
+      "decision": "每订单只在仓库/预约/该车manifest/已交付中占有一次；首版备好不短缺是显式范围。",
+      "evidence_class": "物理不变量；项目推导",
+      "acceptance": "质量数量守恒，重复预约、重复收益、货未上车却交付均被拒绝。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F07",
+      "feature": "已承诺与可修改后缀",
+      "sources": [
+        "S03",
+        "S05"
+      ],
+      "decision": "最小版可采用离仓路线固定；若允许修改，只改已在车的未执行后缀，冻结当前边/服务。此扩展需所有对照共有。",
+      "evidence_class": "原文路线固定；后缀规则为项目推导",
+      "acceptance": "未ready仓库货不得插入在途车；冻结前缀逐事件不变，路径改动不回溯已行驶段。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F08",
+      "feature": "主动提前返仓",
+      "sources": [
+        "S05"
+      ],
+      "decision": "首版暂排除并明示范围；若增加须独立状态转换、共同动作集和预声明。",
+      "evidence_class": "文献证明值得单独研究；范围选择",
+      "acceptance": "不能以删掉在车订单制造免费返仓，剩余货物和未服务承诺完整记账。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F09",
+      "feature": "时间窗与品质交付时点",
+      "sources": [
+        "S01",
+        "S03",
+        "S10"
+      ],
+      "decision": "客户TW按服务开始判定；交付完成卸货结束品质暴露，两者不可混用。",
+      "evidence_class": "TW有直接依据；品质终点为合同选择",
+      "acceptance": "等待、服务开始恰好截止、开始合格但结束越过截止的边界按注册语义认证。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F10",
+      "feature": "必服务与接拒任务",
+      "sources": [
+        "S01",
+        "S02",
+        "S03"
+      ],
+      "decision": "最小动态版优先必服务成本；可选接拒收益另合同，必须计拒绝/违约，不能混表。",
+      "evidence_class": "文献中存在不同任务；待业务选择",
+      "acceptance": "日终所有事前合格请求终账；接拒模式固定收入/拒绝损失，不能靠拒单伪造成本优势。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F11",
+      "feature": "有限车队下数据可行性",
+      "sources": [
+        "S01",
+        "S03"
+      ],
+      "decision": "必服务+有限车队需事前可服务性/资格生成规则，不能直接搬无限车队数据。",
+      "evidence_class": "问题定义推导；生成协议待定",
+      "acceptance": "完整生成清单、容量/时间下界与参考可执行证据；正式失败日不删、不事后筛日。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F12",
+      "feature": "多温舱与容量",
+      "sources": [
+        "S08"
+      ],
+      "decision": "固定分舱需各温区容量；可调分舱需分配/隔板可行约束。共享总容量50只保留为D2抽象。",
+      "evidence_class": "文献机制；物理选择未定",
+      "acceptance": "总量合格但某舱超载的反例；不同温区兼容、隔板/配置改变耗时合法。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F13",
+      "feature": "仓库到交付的品质连续性",
+      "sources": [
+        "S12",
+        "S13",
+        "S14",
+        "S15"
+      ],
+      "decision": "订单初始品质/货龄有来源，仓库等待和多次装货不能重置为新鲜；仓库恒温也需累计。",
+      "evidence_class": "文献机制；动力学需适配",
+      "acceptance": "延迟派车、返仓重装不会恢复品质；同一货龄在不同轨迹中连续传递。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F14",
+      "feature": "舱温与货物温度",
+      "sources": [
+        "S11",
+        "S13",
+        "S14",
+        "S15"
+      ],
+      "decision": "品质动力学用货物温度，或声明充分验证的等温近似；不能默认舱温等于核心温度。",
+      "evidence_class": "热学/动力学机制；尚无项目校准",
+      "acceptance": "记录两种温度或近似误差；开门短脉冲、货物负荷变化和滞后响应验证。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F15",
+      "feature": "番茄营养品质",
+      "sources": [
+        "S13"
+      ],
+      "decision": "可滴定酸一阶比例限指定品种/储存条件；18°C为Arrhenius内插，原0.00184/h是近似。",
+      "evidence_class": "模型内插；非直接测量",
+      "acceptance": "明确k单位、温度K和每日→每小时转换；不凭营养下降定义价格或可售。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F16",
+      "feature": "冷藏鲻鱼品质",
+      "sources": [
+        "S14"
+      ],
+      "decision": "零阶感官评分，4°C模型参考0.452点/天；原0.01883点/h近似保留历史身份。",
+      "evidence_class": "参考拟合值；物种/包装限定",
+      "acceptance": "绝对评分与比例分开，初值来源、5分研究阈值和包装条件明确。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F17",
+      "feature": "冷冻海鲈鱼品质",
+      "sources": [
+        "S15"
+      ],
+      "decision": "−18°C为外推，海鲈鱼580天与金枪鱼623天不能混为一个区间；原约600天换算只作工程近似。",
+      "evidence_class": "外推 + 项目近似",
+      "acceptance": "区分鱼种、拟合范围与外推；9→5换算只在初值与终点合同均适用时采用。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F18",
+      "feature": "热过程与温度硬约束",
+      "sources": [
+        "S10",
+        "S11"
+      ],
+      "decision": "环境/开门/传热/制冷/预冷须量纲一致。硬温度界限待产品/运营依据，当前界限是pilot。",
+      "evidence_class": "机制有据；所有设备系数待校准",
+      "acceptance": "每个占货舱连续区间最大/最小温度可认证，内部极值/门跳跃不只靠端点漏检。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F19",
+      "feature": "制冷、牵引与时间成本",
+      "sources": [
+        "S09",
+        "S10"
+      ],
+      "decision": "分列电kWh、牵引燃料、驾驶/装卸时间；COP、电功率与降温率不能任意互换或重复收费。",
+      "evidence_class": "机制有据；成本与设备数值待定",
+      "acceptance": "固定轨迹独立能量积分和成本分解，空载返程及空舱制冷策略均纳入。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F20",
+      "feature": "仓库能耗边界",
+      "sources": [
+        "S12"
+      ],
+      "decision": "只有证明仓库控制/开门/占用成本对政策不变才可省略共同常数；否则计入目标。",
+      "evidence_class": "文献机制 + 不变性待证明",
+      "acceptance": "不同派车等待/库存轨迹是否改变仓库能耗；不能用external字段代替证明。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F21",
+      "feature": "成本与品质价值",
+      "sources": [
+        "S10",
+        "S12",
+        "S13",
+        "S14",
+        "S15"
+      ],
+      "decision": "D2的D+0.1E+Q为工程标量，品质分数与营养比例不等于货币。新合同选有单位成本+品质约束或明示工程指标。",
+      "evidence_class": "成本机制；商业价值映射缺失",
+      "acceptance": "单位/单价/报废或降价函数事前冻结；不把不同品质量直接当同一种元。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F22",
+      "feature": "可见信息与历史场景",
+      "sources": [
+        "S01",
+        "S03",
+        "S06",
+        "S07"
+      ],
+      "decision": "全部方法相同观测、历史池和抽样信息；未来实际请求仅环境裁判可见。",
+      "evidence_class": "非预知/场景机制",
+      "acceptance": "未来字段/数量/全局ID不泄漏；改变未揭示真值不改变同种子当前动作。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F23",
+      "feature": "派车控制器贡献",
+      "sources": [
+        "S04",
+        "S06",
+        "S07"
+      ],
+      "decision": "先固定派车换路线模块，再固定路线换控制器；全系统主表另登记。",
+      "evidence_class": "文献支持重要性；消融设计为项目推导",
+      "acceptance": "同动作集/事件日程/信息与预算；不能把等待能力差异归给预训练路由。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F24",
+      "feature": "强路线模块",
+      "sources": [
+        "S03",
+        "S10",
+        "S17"
+      ],
+      "decision": "HGS/PyVRP或真正ALNS为候选；需完整冷链目标和硬认证适配，OR/简单LNS保留但不冒称已复现上述算法。",
+      "evidence_class": "候选有据；适配未完成",
+      "acceptance": "同初始解、共同全目标与控制器；不仅距离候选外接冷链认证，且依赖/合法路线核查完整。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F25",
+      "feature": "强前瞻滚动控制器",
+      "sources": [
+        "S06",
+        "S07"
+      ],
+      "decision": "ICD及学习派车方法需要有限多行程/仓库/冷链新适配；原无限或加租车队不能直接当强对照资格。",
+      "evidence_class": "候选有据；部署闭包缺失",
+      "acceptance": "唯一车辆可用性、返仓、装货、品质与同预算通过后才能进入正式主比较。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F26",
+      "feature": "MaskCO掩码与保留结构",
+      "sources": [
+        "S16"
+      ],
+      "decision": "完整encoder+decoder及真实掩码恢复需激活；D2删客户30%与论文保留比例p并不相同。",
+      "evidence_class": "原论文机制；适配为项目定义",
+      "acceptance": "每次原保留边与被删客户ID可追溯；shortcut不能冒充观测边；不以step=0猜初始化。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F27",
+      "feature": "等迭代日程归因",
+      "sources": [
+        "S16",
+        "S18"
+      ],
+      "decision": "P/R/H共用掩码尝试/修复/接受器，另记实际耗时；8次只是待审控制投入选择。",
+      "evidence_class": "混杂控制为项目实验设计",
+      "acceptance": "全部规定尝试和未完成候选保留；P自身迭代改善不代替P−R/P−H。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F28",
+      "feature": "完整部署预算",
+      "sources": [
+        "S01",
+        "S07",
+        "S17"
+      ],
+      "decision": "预算含信息准备、推理、搜索、认证和提交，允许预算与实际耗时并列。10秒是项目投入限制。",
+      "evidence_class": "公平比较设计；非论文固定值",
+      "acceptance": "波次/事件调用次数固定；按事件10秒与按波次10秒不能声称同日计算投入。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F29",
+      "feature": "样本、主门与统计单位",
+      "sources": [
+        "S18",
+        "S19"
+      ],
+      "decision": "快照归因单位为实例，动态单位为完整日；各臂共同抽样同一单位。32/1%/2000次均待精度论证和注册。",
+      "evidence_class": "重采样有据；单位选择和样本精度为项目设计",
+      "acceptance": "配对完整、不把波次/候选/随机初始化当独立n；Monte Carlo端点误差、多重主张/失败分叉和留出先冻结。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    },
+    {
+      "id": "F30",
+      "feature": "可复现与停止屏障",
+      "sources": [
+        "S18"
+      ],
+      "decision": "源、实际权重、数据、合同、预算封存并独立重放；工程资格与科学收益分开。",
+      "evidence_class": "复现原则 + 项目执行约束",
+      "acceptance": "实际文件起止hash一致，全部失败保留，不能因文献支持机制就自动启动或改裁D2。",
+      "implementation": "not yet qualified for dynamic delivery; D2 snapshot status unchanged"
+    }
+  ],
+  "parameter_groups": [
+    {
+      "id": "P01",
+      "family": "运营与时限",
+      "values": "capacity=50；vehicles=5；horizon=8h；speed=30km/h；装货0.05h；波次0.5h；服务0.03h",
+      "sources": [
+        "S01",
+        "S03",
+        "S08"
+      ],
+      "determination": "原工程设定。S03数值例使用30km/h及3/5辆，不校准本项目；S01原波次1h。新业务需容量单位、车队/需求与装卸数据。"
+    },
+    {
+      "id": "P02",
+      "family": "合成需求与初始解",
+      "values": "50客户；[0,10]²km；需求1..5；温区0..2；ready/release=0；TW[0,8]；五个固定ID块",
+      "sources": [
+        "S01",
+        "S16"
+      ],
+      "determination": "D2为全就绪宽TW快照。与原道路时间矩阵竞赛、原CVRP规模/需求分布不同；新动态数据独立注册，不事后筛日。"
+    },
+    {
+      "id": "P03",
+      "family": "成本与货物价值",
+      "values": "D+0.1E+Q；product_value=(1,1.5,2)",
+      "sources": [
+        "S10",
+        "S12"
+      ],
+      "determination": "工程权重/相对价值。论文不提供该数值；无元/kg、驾驶工资、售价和品质降价映射的业务校准。"
+    },
+    {
+      "id": "P04",
+      "family": "温区目标与硬界",
+      "values": "18/4/−18°C；[0,30]/[0,8]/[−25,−12]°C",
+      "sources": [
+        "S11",
+        "S13",
+        "S14",
+        "S15"
+      ],
+      "determination": "目标对应选定参考条件，非各品类通用最优温度；硬界是pilot，食品品质论文不直接证明全部硬界或安全合规。"
+    },
+    {
+      "id": "P05",
+      "family": "环境与发车",
+      "values": "环境25°C；昼变幅6°C；相位14h；发车延迟0",
+      "sources": [
+        "S10",
+        "S11"
+      ],
+      "determination": "环境曲线为pilot，需地点、时段与实测/外部天气资料；不能由论文泛称环境影响确定系数。"
+    },
+    {
+      "id": "P06",
+      "family": "传热与热容",
+      "values": "传热0.20/0.16/0.12 h⁻¹；热容0.30/0.40/0.50 kWh/°C",
+      "sources": [
+        "S10",
+        "S11"
+      ],
+      "determination": "车型/隔热/装载与舱室参数未标定；需闭门升温或传热识别，并区分货物与空气温度。"
+    },
+    {
+      "id": "P07",
+      "family": "制冷功率、降温率、COP",
+      "values": "电功率0.30/1.80/3.20 kW；降温率2/5/8 °C/h；COP参数3/0.03/1.2",
+      "sources": [
+        "S10",
+        "S11"
+      ],
+      "determination": "全部pilot。制冷输出=电功率×COP须与热容/传热协调，独立降温率需明确经验近似和适用范围。"
+    },
+    {
+      "id": "P08",
+      "family": "开门与预冷",
+      "values": "门热0.010/0.035/0.060 kWh；每次发车预冷0.05/0.15/0.30 kWh",
+      "sources": [
+        "S08",
+        "S10",
+        "S11"
+      ],
+      "determination": "门次数/持续时间/装载影响需实测；是否占空舱也冷却、返仓再发是否付预冷费必须注册。"
+    },
+    {
+      "id": "P09",
+      "family": "继承但未证实际激活的预冷配置",
+      "values": "precool_energy_per_unit_per_c=0.15；precooled=True；min_class=0；station_discount=0.5；use_station=False",
+      "sources": [
+        "S10"
+      ],
+      "determination": "继承字段存在不等于delivery evaluator实际调用。新合同先做字段→执行路径核查，不把未启用参数当已实施功能。"
+    },
+    {
+      "id": "P10",
+      "family": "品质速率、初值与阈值",
+      "values": "一阶/零阶/零阶；初值1/9/9；每小时0.00184/0.01883/0.000278；无阈值/5分/5分",
+      "sources": [
+        "S13",
+        "S14",
+        "S15"
+      ],
+      "determination": "番茄内插、鲻鱼参考拟合、海鲈鱼外推约600天近似。固定速率没有实时温度输入；初始货龄/产品匹配需冻结。"
+    },
+    {
+      "id": "P11",
+      "family": "品质计时与仓库边界",
+      "values": "装货完成→客户服务完成；storage=external_control_not_policy_cost",
+      "sources": [
+        "S12",
+        "S13",
+        "S14",
+        "S15"
+      ],
+      "determination": "D2注册范围保持。动态等待与复用必须另定义从仓庫至交付连续品质，省略仓库成本须有政策不变证明。"
+    },
+    {
+      "id": "P12",
+      "family": "温度认证与容量语义",
+      "values": "仅占货舱温度硬检查；共享总容量50；全路线货物离仓前装妥",
+      "sources": [
+        "S08",
+        "S10",
+        "S11"
+      ],
+      "determination": "抽象工程合同。真实固定三舱需单舱容量/布局，连续热约束需完整区间认证，不仅语义标志。"
+    },
+    {
+      "id": "P13",
+      "family": "MaskCO适配",
+      "values": "删除客户mask_fraction=0.3；guide_weight=1；随机seed42；float32",
+      "sources": [
+        "S16"
+      ],
+      "determination": "项目适配/身份选择。论文p=保留比例，不能以同样0.3宣称完全照用；guide和随机种子未获业务最优性证据。"
+    },
+    {
+      "id": "P14",
+      "family": "迭代、样本和数值门",
+      "values": "待审8次、32新实例、平均相对改善≥1%、2000次配对bootstrap95%CI",
+      "sources": [
+        "S18",
+        "S19"
+      ],
+      "determination": "控制投入与可检出效应/精度均属待审实验设计；重采样近似有原始方法依据，但不证明具体重复数/样本精度充分。"
+    },
+    {
+      "id": "P15",
+      "family": "预算与硬件",
+      "values": "原D2总10s/臂/实例、CPU54、BLAS/OMP1；仅固定合成预热/静态加载排除",
+      "sources": [
+        "S01",
+        "S07",
+        "S17",
+        "S18"
+      ],
+      "determination": "本项目资源边界；源论文采用不同预算/硬件，不能移植其排行榜结果或称等实际耗时。"
+    },
+    {
+      "id": "P16",
+      "family": "种子、退出和故障",
+      "values": "D2数据2026100802、bootstrap2026100803；原门失败；全部实例/回退保留",
+      "sources": [
+        "S18"
+      ],
+      "determination": "注册身份与执行约束，不是文献优化参数。新方案不自定种子、不运行数字试验、不覆盖旧结果。"
+    }
+  ],
+  "original_readonly_delivery_contract_defaults": {
+    "version": "delivery-coldchain-engineering-v1",
+    "mode": "depot_to_customer",
+    "capacity": 50.0,
+    "vehicles": 5,
+    "horizon_h": 8.0,
+    "speed_kmph": 30.0,
+    "loading_service_h": 0.05,
+    "wave_interval_h": 0.5,
+    "distance_weight": 1.0,
+    "energy_weight": 0.1,
+    "quality_weight": 1.0,
+    "product_value": [
+      1.0,
+      1.5,
+      2.0
+    ],
+    "quality_clock": "loading_finish_to_customer_service_finish",
+    "temperature_hard_scope": "occupied_compartments",
+    "storage_scope": "external_control_not_policy_cost",
+    "service_time_window": "customer_service_start",
+    "cargo_rule": "all_route_orders_loaded_before_departure",
+    "stage": "pre_dispatch_route_snapshot_engineering",
+    "online_ready": false
+  },
+  "original_readonly_thermal_defaults": {
+    "ambient_temperature_c": 25.0,
+    "target_temperature_c": [
+      18.0,
+      4.0,
+      -18.0
+    ],
+    "diurnal_amplitude_c": 6.0,
+    "diurnal_phase_hour": 14.0,
+    "dispatch_delay_hour": 0.0,
+    "hard_temperature_bounds_c": [
+      [
+        0.0,
+        30.0
+      ],
+      [
+        0.0,
+        8.0
+      ],
+      [
+        -25.0,
+        -12.0
+      ]
+    ],
+    "heat_transfer_per_hour": [
+      0.2,
+      0.16,
+      0.12
+    ],
+    "cooling_power_kw": [
+      0.3,
+      1.8,
+      3.2
+    ],
+    "cooling_rate_c_per_hour": [
+      2.0,
+      5.0,
+      8.0
+    ],
+    "cop_parameters": [
+      3.0,
+      0.03,
+      1.2
+    ],
+    "door_heat_kwh": [
+      0.01,
+      0.035,
+      0.06
+    ],
+    "thermal_capacity_kwh_per_c": [
+      0.3,
+      0.4,
+      0.5
+    ],
+    "dispatch_preconditioning_energy_kwh": [
+      0.05,
+      0.15,
+      0.3
+    ],
+    "supported_temp_classes": [
+      0,
+      1,
+      2
+    ],
+    "precool_energy_per_unit_per_c": 0.15,
+    "precooled": true,
+    "precool_min_temp_class": 0,
+    "precool_station_discount": 0.5,
+    "use_station": false
+  },
+  "original_readonly_quality_v2_defaults": {
+    "dynamics_order": [
+      "first",
+      "zero",
+      "zero"
+    ],
+    "metric_name": [
+      "nutrient_ratio",
+      "sensory_score",
+      "sensory_score"
+    ],
+    "initial_value": [
+      1.0,
+      9.0,
+      9.0
+    ],
+    "rate_per_hour": [
+      0.00184,
+      0.01883,
+      0.000278
+    ],
+    "threshold_type": [
+      "none",
+      "absolute",
+      "absolute"
+    ],
+    "threshold": [
+      "not_applicable_infinity",
+      5.0,
+      5.0
+    ]
+  },
+  "original_readonly_D2_protocol": {
+    "schema": "delivery_same_incumbent_route_pilot_v1",
+    "predeclared": true,
+    "registered_date": "2026-10-08",
+    "authorization": "User requested independent delivery contract/baselines, same-initial-route equal-budget pilot, positive-clue-only online full validation",
+    "activation": "Delivery contract and baseline engineering QA plus actual pretrained encoder/decoder and same-architecture random control QA pass; freeze full runner closure before creating development instances",
+    "stage": "pre_dispatch_route_snapshot_not_online",
+    "contract_version": "delivery-coldchain-engineering-v1",
+    "contract_overrides": {},
+    "parameter_scope": "pilot physics references, not calibrated operational evidence",
+    "dataset": {
+      "origin": "new synthetic delivery-only instances; no pickup teacher or results reused",
+      "seed": 2026100802,
+      "instance_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "customers": 50,
+      "independent_unit": "one newly generated route snapshot per instance_id, no repeated solver runs counted as new instances",
+      "generator": "numpy PCG64 SeedSequence([seed,instance_id]); customer coords uniform [0,10]^2 km; depot [5,5]; integer demands uniform 1..5; temp_class uniform 0..2",
+      "reveal_ready_times_h": 0.0,
+      "wave_h": 0.0,
+      "customer_service_time_h": 0.03,
+      "time_window_h": [
+        0.0,
+        8.0
+      ],
+      "time_window_scope": "broad windows in first route-transfer pilot; does not establish performance under tight TW or dynamic release",
+      "same_initial_routes": "five fixed customer-ID blocks [1..10],[11..20],[21..30],[31..40],[41..50], same order; independently certify all 32 before running any improvement arm",
+      "no_resampling_or_screening": true,
+      "final_holdout": "not generated or accessed by this pilot; online development/final sets require a separate declaration"
+    },
+    "arms": [
+      "incumbent",
+      "ortools_gls",
+      "destroy_regret_lns",
+      "maskco_single",
+      "maskco_iterative",
+      "maskco_random_single"
+    ],
+    "primary_method": "maskco_single",
+    "strong_controls": [
+      "ortools_gls",
+      "destroy_regret_lns"
+    ],
+    "pretraining_control": "maskco_random_single",
+    "iteration_comparison": "maskco_iterative_minus_maskco_single",
+    "weights": {
+      "checkpoint": "../MASKCO_code/ckpts/cvrp100.ckpt",
+      "sha256": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+      "use": "full original CVRP encoder and decoder; no I3 actor; no adaptation training",
+      "random_same_architecture_seed": 42,
+      "dtype": "float32"
+    },
+    "timing": {
+      "total_per_arm_per_instance_s": 10.0,
+      "included": [
+        "features",
+        "initial certification",
+        "instance construction for solver",
+        "encoder inference",
+        "decoder inference",
+        "search",
+        "candidate certification",
+        "submission deadline check"
+      ],
+      "excluded_common_setup": [
+        "read-only weight loading",
+        "fixed synthetic 51-node JIT prewarm of both actual and random models",
+        "static solver library import"
+      ],
+      "hardware": "same pinned CPU54, BLAS and OMP one thread, no GPU allocation",
+      "method_uses_less_than_limit": "report actual wall time; unused budget is not credited as additional gain",
+      "late_submission": "common initial certified route fallback, count timeout; do not drop instance",
+      "arm_order": "fixed numpy SeedSequence([seed,instance_id,999]) permutation of five improvement arms, recorded per instance"
+    },
+    "reconstruction": {
+      "mask_fraction": 0.3,
+      "mask": "uniform customer subset ceil(0.3*N); only original nonremoved edges retained, no shortcut edges as model observations",
+      "retained_edges": "cannot be removed by insertion within a reconstruction cycle",
+      "insertion_score": "distance_delta / instance mean offdiagonal distance - guide_weight * logit_delta / offdiagonal logit std",
+      "guide_weight": 1.0,
+      "single": "one masked decode-reconstruct candidate; choose common incumbent or lower full contract cost",
+      "iterative": "same weights and score; repeatedly remask current best while total deadline allows; no training difference",
+      "seed": "SeedSequence([dataset.seed,instance_id,41]); same mask stream in pretrained single/iteration and random single"
+    },
+    "baseline": {
+      "ortools": "same initial assignment, distance GLS proposals with capacity/TW dimensions; independently certify and select by full cold-chain contract objective",
+      "lns": "same initial routes, random customer removal max(2,N//5), regret-2 distance insertion, annealed current route, full cold-chain certified best",
+      "scope": "two runnable classical search candidates; neither called validated online SOTA or HGS/ALNS",
+      "lns_seed": "same SeedSequence([dataset.seed,instance_id,41])"
+    },
+    "main_metric": "fractional cost gain (control_cost - method_cost) / control_cost; lower full contract cost is better",
+    "practical_threshold": 0.01,
+    "bootstrap": {
+      "repetitions": 2000,
+      "seed": 2026100803,
+      "method": "paired instance percentile bootstrap",
+      "confidence": 0.95
+    },
+    "pilot_pass": "maskco_single mean fractional gain >=1% and CI lower>0 against EACH of OR-Tools and regret-LNS; also positive mean and CI lower>0 against same-architecture random single; all six arms hard=1, exactly 32 unique finite paired instances, full source/contract/data/weight/timing identity and source_start=source_end",
+    "secondary_only": [
+      "absolute cost differences",
+      "distance/energy/quality decomposition",
+      "iteration difference",
+      "actual runtime",
+      "timeouts"
+    ],
+    "failure_branch": "retain all instances/attempts and diagnose; no threshold/weight/budget/checkpoint/instance/seed adjustment or automatic rerun for better means; no delivery online full run",
+    "success_branch": "qualified route-transfer clue only; separately preregister and implement real delivery wave/fleet/cargo online contract and strong rolling controls before online full validation",
+    "pickup_final_seeds_never_access": [
+      20260927,
+      20260928
+    ]
+  },
+  "D2_protocol_sha256": "8e40c705e57a6b6f2ed2244fc9c73108b43db7757596ff8ed03283f110cc3642",
+  "quality_provenance_arithmetic": {
+    "tomato_TA_18C_from_table2_per_hour": 0.0018539749396767572,
+    "mullet_overall_impression_4C_per_hour": 0.018833333333333334,
+    "frozen_seabass_assumed_9_to_5_over_580d_per_hour": 0.00028735632183908046,
+    "frozen_fish_engineering_600d_approximation_per_hour": 0.0002777777777777778,
+    "scope": "Unit/provenance arithmetic only; no scientific experiment, parameter replacement or thermal calibration."
+  },
+  "remaining_barriers": [
+    "business scope and finite-fleet feasible generator",
+    "physical compartment and calibrated thermal/product response",
+    "units/cost or explicit engineering objective",
+    "strong finite multi-trip cold-chain controller adaptation",
+    "sample precision and independent preregistration",
+    "new explicit scientific execution authorization"
+  ]
+}

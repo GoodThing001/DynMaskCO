@@ -1,0 +1,140 @@
+{
+  "stage": "pickup_a1_budget_reachability_bound",
+  "directory": "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1",
+  "registration_sha256": "18065353f26b800f6120813ebaed3a86854791321f486ef4643bbda248ec6551",
+  "producer": {
+    "checks": 29,
+    "failed": 0
+  },
+  "audit": {
+    "checks": 49,
+    "failed": 0
+  },
+  "dataset_sha256": "8767a03d787c0e0fcad112b4888edf46db44c55e9b50b9705bfc5830f4fb378d",
+  "contract_sha256": "e25a12104b20c3ea99cb4033f6d3bf32adecf2974de6b5168dbfa0d5a058a41b",
+  "tier": "p_c=0",
+  "budget_B": 710.6548152249378,
+  "rigorous_upper_bound": {
+    "variant": "tw_and_horizon",
+    "mean": 2544.3014734309545,
+    "min": 2176.1878655776477,
+    "max": 2715.3301209139045
+  },
+  "strongest_recorded_control": {
+    "arm": "explicit_feat",
+    "mean_utility": 1742.8307367394561,
+    "mean_gap": 801.4707366914984,
+    "min_gap": 628.714639563234
+  },
+  "other_controls": {
+    "uncond_hist": {
+      "mean_utility": 1712.0543386847828,
+      "mean_gap": 832.2471347461717,
+      "min_gap": 546.339732311666
+    },
+    "cond_hist": {
+      "mean_utility": 1703.7438735159697,
+      "mean_gap": 840.5575999149848,
+      "min_gap": 565.6714825816453
+    }
+  },
+  "sensitivity": [
+    {
+      "share": 1.0,
+      "rigorous": true,
+      "mean_upper_bound": 2554.305683306427,
+      "gap_vs_cond_hist": 850.5618097904573,
+      "gap_vs_explicit_feat": 811.4749465669709
+    },
+    {
+      "share": 0.9,
+      "rigorous": false,
+      "mean_upper_bound": 2379.9621367829145,
+      "gap_vs_cond_hist": 676.2182632669449,
+      "gap_vs_explicit_feat": 637.1314000434584
+    },
+    {
+      "share": 0.8,
+      "rigorous": false,
+      "mean_upper_bound": 2195.5600112747115,
+      "gap_vs_cond_hist": 491.8161377587419,
+      "gap_vs_explicit_feat": 452.7292745352554
+    },
+    {
+      "share": 0.72,
+      "rigorous": false,
+      "mean_upper_bound": 2038.3425045736403,
+      "gap_vs_cond_hist": 334.5986310576707,
+      "gap_vs_explicit_feat": 295.5117678341842
+    },
+    {
+      "share": 0.6,
+      "rigorous": false,
+      "mean_upper_bound": 1786.015570396356,
+      "gap_vs_cond_hist": 82.27169688038634,
+      "gap_vs_explicit_feat": 43.184833656899855
+    }
+  ],
+  "falsification_oracle": {
+    "arm_days_checked": 120,
+    "utility_above_bound": 0,
+    "served_above_reachable": 0,
+    "revenue_above_reachable": 0,
+    "vehicle_hours_over_capacity": 0,
+    "note": "all recorded arm-days respect every relaxation, so no relaxation was falsified"
+  },
+  "day0_class_mix": {
+    "available": {
+      "0": 37,
+      "1": 56,
+      "2": 101
+    },
+    "relaxation_selected": {
+      "0": 37.0,
+      "1": 45.0,
+      "2": 38.916
+    },
+    "observed_service_rate": {
+      "uncond_hist": {
+        "0": 0.717948717948718,
+        "1": 0.5614035087719298,
+        "2": 0.25961538461538464
+      },
+      "cond_hist": {
+        "0": 0.717948717948718,
+        "1": 0.5614035087719298,
+        "2": 0.2692307692307692
+      },
+      "explicit_feat": {
+        "0": 0.7948717948717948,
+        "1": 0.631578947368421,
+        "2": 0.25961538461538464
+      }
+    }
+  },
+  "flags": {
+    "formal_strong_dynamic_qualified": false,
+    "full_request_budget_qualified": false,
+    "scientific_data_generated": false,
+    "new_science_family": false,
+    "scientific_family3_started": false,
+    "stable_online_gain": false
+  },
+  "evidence_hashes": {
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/REGISTRATION.json": "18065353f26b800f6120813ebaed3a86854791321f486ef4643bbda248ec6551",
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/RESULT.json": "d1345e9f9565184a68cfabc036719e0fb3a9395152bad5ad3fc61c5a5e052ebe",
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/RUN_EXIT.json": "81868a6e94ffc0178bf833deb1c9013d9fab4ee95ddb876a5e8ec4f1d26376d2",
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/INDEPENDENT_AUDIT.json": "85f88bb868ec6360f3a57a717c7403f16cc6df4d99cb560e79cfe584e1b01483",
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/AUDIT_RUN_EXIT.json": "81868a6e94ffc0178bf833deb1c9013d9fab4ee95ddb876a5e8ec4f1d26376d2",
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/SENSITIVITY_ADDENDUM.json": "b3682115338a56d3a81b40803b6ead3d245ee78e6a068e1e79d919b2e418bb71",
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/SOURCE_START.json": "f7e6adda45b68804ebeecdc3c736e5c81270b5d543751d9897dbf78815c5eb6f",
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/SOURCE_END.json": "f7e6adda45b68804ebeecdc3c736e5c81270b5d543751d9897dbf78815c5eb6f",
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/AUDIT_SOURCE_START.json": "da031425fe94e1eb4c38562bb39bda5e0395af45069c5c34d631a9a265aa7843",
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/AUDIT_SOURCE_END.json": "da031425fe94e1eb4c38562bb39bda5e0395af45069c5c34d631a9a265aa7843",
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/run.py": "d6778c44643822ac0df8734792a134752b04d7086afc30ab1fa82fbe31f89902",
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/audit.py": "3d675c059cb24edccd4c7bf9983ffbdf8431ec39d10e512ba4d7e187c0ee9d94",
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/prepare.py": "b60e589657cfabe18ecec43719295fed2a4e59c33e4b4143f16ab2437b57adb9",
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/supervise.py": "d79ff7a310d4448928c0523c66f8027c253817fe15ae4fc8513e9539dab3640e",
+    "research/review_3080_20261010/pickup/a1_budget_reachability_bound_root_v1/sensitivity_addendum.py": "3d1ff9962636505b0e54563949d6e2a2811bd954b5cff95ba3e2df5da21abd94"
+  }
+}

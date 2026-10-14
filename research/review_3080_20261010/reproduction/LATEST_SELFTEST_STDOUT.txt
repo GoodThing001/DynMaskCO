@@ -1,0 +1,61 @@
+clean              exit=0 PASS
+unsupported_claim  exit=2 PASS
+missing_input      exit=2 PASS
+{
+  "selftest_pass": true,
+  "fixtures": {
+    "clean": {
+      "fixture": "clean",
+      "expectation": "exit 0 and every claim not asserted",
+      "exit_code": 0,
+      "claim_overall_verdicts": {
+        "stable_online_gain_supported": "not_asserted_in_audited_documents",
+        "MaskCO_attributable_gain_established": "not_asserted_in_audited_documents",
+        "learning_side_closed": "not_asserted_in_audited_documents",
+        "pickup_impossibility_proven": "not_asserted_in_audited_documents",
+        "equivalence_established": "not_asserted_in_audited_documents"
+      },
+      "claim_excesses": [],
+      "additional_findings": [],
+      "report": "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\reproduction\\research\\review_3080_20261010\\reproduction\\selftest_fixtures\\clean.report.json",
+      "pass": true
+    },
+    "unsupported_claim": {
+      "fixture": "unsupported_claim",
+      "expectation": "exit 2 and the injected claim is named",
+      "exit_code": 2,
+      "claim_overall_verdicts": {
+        "stable_online_gain_supported": "not_asserted_in_audited_documents",
+        "MaskCO_attributable_gain_established": "not_asserted_in_audited_documents",
+        "learning_side_closed": "claim_excess_upheld",
+        "pickup_impossibility_proven": "not_asserted_in_audited_documents",
+        "equivalence_established": "not_asserted_in_audited_documents"
+      },
+      "claim_excesses": [
+        "untested_path_list_not_exhaustive_no_global_exclusion_proof"
+      ],
+      "additional_findings": [],
+      "report": "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\reproduction\\research\\review_3080_20261010\\reproduction\\selftest_fixtures\\unsupported_claim.report.json",
+      "pass": true
+    },
+    "missing_input": {
+      "fixture": "missing_input",
+      "expectation": "exit 2 because a searched document is missing",
+      "exit_code": 2,
+      "claim_overall_verdicts": {
+        "stable_online_gain_supported": "not_asserted_in_audited_documents",
+        "MaskCO_attributable_gain_established": "not_asserted_in_audited_documents",
+        "learning_side_closed": "not_asserted_in_audited_documents",
+        "pickup_impossibility_proven": "not_asserted_in_audited_documents",
+        "equivalence_established": "not_asserted_in_audited_documents"
+      },
+      "claim_excesses": [],
+      "additional_findings": [
+        "required_input_missing_or_unreadable:results/research_20261010/ROUND_20261010_GUIDE_DOSE.md",
+        "searched_document_missing:results/research_20261010/ROUND_20261010_GUIDE_DOSE.md"
+      ],
+      "report": "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\reproduction\\research\\review_3080_20261010\\reproduction\\selftest_fixtures\\missing_input.report.json",
+      "pass": true
+    }
+  }
+}

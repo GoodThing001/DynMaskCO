@@ -1,0 +1,326 @@
+{
+  "instance": 3,
+  "state": 0,
+  "event_id": 63,
+  "clock": 4.5779897570610055,
+  "vehicle_id": 0,
+  "vehicle_status": "ready",
+  "template_suffix": [
+    3,
+    90,
+    153
+  ],
+  "subproblem_orders": [
+    3,
+    90,
+    153
+  ],
+  "subproblem_slots": [
+    0,
+    1,
+    2
+  ],
+  "n_orders_in_template": 3,
+  "n_candidates": 6,
+  "expected_candidates": 6,
+  "no_force_replay_exact": true,
+  "identity_force_replay_exact": true,
+  "baseline_utility": 1292.5800874888896,
+  "baseline_n_served": 104,
+  "best_permutation": [
+    153,
+    3,
+    90
+  ],
+  "best_utility": 1292.6807895643637,
+  "best_n_served": 104,
+  "delta_utility": 0.10070207547414611,
+  "best_accepted_set_unchanged": false,
+  "effect_is_pure_reordering": false,
+  "n_hard_feasible": 6,
+  "n_strictly_better": 4,
+  "n_accepted_set_changed": 2,
+  "enumeration_wall_s": 3.3560495999408886,
+  "cap_used_s": 10.0,
+  "within_passed_cap": true,
+  "within_registered_10s_barrier": true,
+  "exact_within_declared_subproblem": true,
+  "candidates": [
+    {
+      "permutation": [
+        3,
+        90,
+        153
+      ],
+      "suffix": [
+        3,
+        90,
+        153
+      ],
+      "utility": 1292.5800874888896,
+      "hard_feasible": true,
+      "n_served": 104,
+      "accepted_set_unchanged": true,
+      "evaluation": {
+        "utility": 1292.5800874888896,
+        "revenue": 1910.0,
+        "fuel_cost": 2.419912511110306,
+        "reject_loss": 615.0,
+        "energy_kwh": 705.3885391758099,
+        "distance_km": 24.199125111103058,
+        "budget_violated": false,
+        "hard_feasible": true,
+        "failures": [],
+        "n_served": 104,
+        "n_rejected": 72,
+        "n_fish_unsalable": 0,
+        "service_rate": {
+          "0": 0.5,
+          "1": 0.6794871794871795,
+          "2": 0.5666666666666667
+        },
+        "reject_rate": {
+          "0": 0.5,
+          "1": 0.32051282051282054,
+          "2": 0.43333333333333335
+        },
+        "salable_rate": {
+          "0": null,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "tomato_mean_quality": 0.9879779967042799
+      }
+    },
+    {
+      "permutation": [
+        3,
+        153,
+        90
+      ],
+      "suffix": [
+        3,
+        153,
+        90
+      ],
+      "utility": 1292.5800874888896,
+      "hard_feasible": true,
+      "n_served": 104,
+      "accepted_set_unchanged": true,
+      "evaluation": {
+        "utility": 1292.5800874888896,
+        "revenue": 1910.0,
+        "fuel_cost": 2.419912511110306,
+        "reject_loss": 615.0,
+        "energy_kwh": 705.3885391758099,
+        "distance_km": 24.199125111103058,
+        "budget_violated": false,
+        "hard_feasible": true,
+        "failures": [],
+        "n_served": 104,
+        "n_rejected": 72,
+        "n_fish_unsalable": 0,
+        "service_rate": {
+          "0": 0.5,
+          "1": 0.6794871794871795,
+          "2": 0.5666666666666667
+        },
+        "reject_rate": {
+          "0": 0.5,
+          "1": 0.32051282051282054,
+          "2": 0.43333333333333335
+        },
+        "salable_rate": {
+          "0": null,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "tomato_mean_quality": 0.9879779967042799
+      }
+    },
+    {
+      "permutation": [
+        90,
+        3,
+        153
+      ],
+      "suffix": [
+        90,
+        3,
+        153
+      ],
+      "utility": 1292.5915943633765,
+      "hard_feasible": true,
+      "n_served": 104,
+      "accepted_set_unchanged": true,
+      "evaluation": {
+        "utility": 1292.5915943633765,
+        "revenue": 1910.0,
+        "fuel_cost": 2.408405636623502,
+        "reject_loss": 615.0,
+        "energy_kwh": 705.4030845411426,
+        "distance_km": 24.084056366235018,
+        "budget_violated": false,
+        "hard_feasible": true,
+        "failures": [],
+        "n_served": 104,
+        "n_rejected": 72,
+        "n_fish_unsalable": 0,
+        "service_rate": {
+          "0": 0.5,
+          "1": 0.6794871794871795,
+          "2": 0.5666666666666667
+        },
+        "reject_rate": {
+          "0": 0.5,
+          "1": 0.32051282051282054,
+          "2": 0.43333333333333335
+        },
+        "salable_rate": {
+          "0": null,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "tomato_mean_quality": 0.9879661885474907
+      }
+    },
+    {
+      "permutation": [
+        90,
+        153,
+        3
+      ],
+      "suffix": [
+        90,
+        153,
+        3
+      ],
+      "utility": 1292.5915943633765,
+      "hard_feasible": true,
+      "n_served": 104,
+      "accepted_set_unchanged": true,
+      "evaluation": {
+        "utility": 1292.5915943633765,
+        "revenue": 1910.0,
+        "fuel_cost": 2.408405636623502,
+        "reject_loss": 615.0,
+        "energy_kwh": 705.4030845411426,
+        "distance_km": 24.084056366235018,
+        "budget_violated": false,
+        "hard_feasible": true,
+        "failures": [],
+        "n_served": 104,
+        "n_rejected": 72,
+        "n_fish_unsalable": 0,
+        "service_rate": {
+          "0": 0.5,
+          "1": 0.6794871794871795,
+          "2": 0.5666666666666667
+        },
+        "reject_rate": {
+          "0": 0.5,
+          "1": 0.32051282051282054,
+          "2": 0.43333333333333335
+        },
+        "salable_rate": {
+          "0": null,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "tomato_mean_quality": 0.9879661885474907
+      }
+    },
+    {
+      "permutation": [
+        153,
+        3,
+        90
+      ],
+      "suffix": [
+        153,
+        3,
+        90
+      ],
+      "utility": 1292.6807895643637,
+      "hard_feasible": true,
+      "n_served": 104,
+      "accepted_set_unchanged": false,
+      "evaluation": {
+        "utility": 1292.6807895643637,
+        "revenue": 1910.0,
+        "fuel_cost": 2.3192104356363417,
+        "reject_loss": 615.0,
+        "energy_kwh": 703.9855575639649,
+        "distance_km": 23.192104356363416,
+        "budget_violated": false,
+        "hard_feasible": true,
+        "failures": [],
+        "n_served": 104,
+        "n_rejected": 72,
+        "n_fish_unsalable": 0,
+        "service_rate": {
+          "0": 0.5,
+          "1": 0.6794871794871795,
+          "2": 0.5666666666666667
+        },
+        "reject_rate": {
+          "0": 0.5,
+          "1": 0.32051282051282054,
+          "2": 0.43333333333333335
+        },
+        "salable_rate": {
+          "0": null,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "tomato_mean_quality": 0.9877235341123898
+      }
+    },
+    {
+      "permutation": [
+        153,
+        90,
+        3
+      ],
+      "suffix": [
+        153,
+        90,
+        3
+      ],
+      "utility": 1292.6807895643637,
+      "hard_feasible": true,
+      "n_served": 104,
+      "accepted_set_unchanged": false,
+      "evaluation": {
+        "utility": 1292.6807895643637,
+        "revenue": 1910.0,
+        "fuel_cost": 2.3192104356363417,
+        "reject_loss": 615.0,
+        "energy_kwh": 703.9855575639649,
+        "distance_km": 23.192104356363416,
+        "budget_violated": false,
+        "hard_feasible": true,
+        "failures": [],
+        "n_served": 104,
+        "n_rejected": 72,
+        "n_fish_unsalable": 0,
+        "service_rate": {
+          "0": 0.5,
+          "1": 0.6794871794871795,
+          "2": 0.5666666666666667
+        },
+        "reject_rate": {
+          "0": 0.5,
+          "1": 0.32051282051282054,
+          "2": 0.43333333333333335
+        },
+        "salable_rate": {
+          "0": null,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "tomato_mean_quality": 0.9877235341123898
+      }
+    }
+  ]
+}

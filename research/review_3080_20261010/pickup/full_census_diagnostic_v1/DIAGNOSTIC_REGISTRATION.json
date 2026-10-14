@@ -1,0 +1,45 @@
+{
+  "protocol": {
+    "protocol_id": "P-FULL-DAY-ALL-FLEET-CENSUS-DIAGNOSTIC-v1",
+    "registration_actual": "2026-10-10T10:59:57.670148+00:00",
+    "purpose": "diagnose already observed StageA days; no fresh gain inference",
+    "data_seed": 2026120201,
+    "history_seed": 2026120202,
+    "instances": 4,
+    "orders": 200,
+    "vehicles": 15,
+    "B": 710.6548152249378,
+    "capacity": 50.0,
+    "cooling_share": 3.7125478804082377,
+    "contract_constructor": "ColdChainContractV2() as original StageA; not silently corrected",
+    "contract_hash": "f70c91632f782188d07950832ec03a3bb94a7c561572cbd56edf7b8d76d53fc0",
+    "per_event": "every original snapshot hook, initial clock0 through terminal",
+    "per_vehicle": "all15 at each event; exact day/event/vehicle keys; no early return",
+    "histograms": [
+      "mutable visible suffix",
+      "accepted owned unserved tail excluding committed",
+      "fleet jointly owned tail"
+    ],
+    "protected_final_seeds": [
+      20260927,
+      20260928
+    ],
+    "no_model": true,
+    "no_new_gain_claim": true
+  },
+  "source_start": {
+    "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\pickup\\research\\review_3080_20261010\\pickup\\full_census.py": "0a04fff53e2567909b97bda9355ff897028b88654a8a65a7011a1a9852fdefc3",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_state.py": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\correction_engineering\\audit_io.py": "01f338d5269ada3c9b6b91d3e039becf7e41d43a954eb20d7fb0371d4bb421b6",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\correction_engineering\\pickup_trace_runner.py": "1e3dca350aefd9494e23a26941fcb89525019cb834ee79b2b12d87d053a7e71d",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\coldchain_evaluator_a1.py": "15510fa70f69e8ec80c5a89104068115a54189e91e089e2974626b41d0db3c7c",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_exp_encoder_v3.py": "06c9961f5660aa2a460b9ae1fface1801d21e0d68b74334609d9e2b51e55682f",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_exp_energy_c0.py": "9f0e9dd321abebe05a549dc98c14778251eb2583b71749adb9b39ba13a877bbf",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_exp_reserve.py": "60d032f772738ca953d62956e46f5d1fb8d171a939df716c94ed039e2b8e5d55",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_exp_rule_control.py": "6f9a3f18ae31827687398985c2521c4e6155fa0cd034f7784b0254a2a021e76b",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_identity.py": "ce56bc7718d7cc84abda97fc0a2ed021a1820acf7a209f04cac39291c815e28d",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\recourse_snapshot.py": "0af3535acaf6a84956104c0f1c8788c04e02499a087b6faa3d264239a19f27f8",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+  }
+}

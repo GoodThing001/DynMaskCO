@@ -1,0 +1,28 @@
+{
+  "version": "D-DESTROY2-v1",
+  "kind": "classical_destroy_operator_screen_not_gain_claim",
+  "base": "confirmed ANY50 (deadline-driven reconstruction, 50 percent mask, 10s)",
+  "arms": ["random", "related", "route", "near"],
+  "dataset_seed_dev": 2026101002,
+  "dataset_seed_confirmation": 2026101013,
+  "dev_instance_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
+  "confirmation_instance_ids": [1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031],
+  "anytime_seed_dev": 2026101131,
+  "anytime_seed_confirmation": 2026101175,
+  "mask_fraction": 0.5,
+  "time_limit_s": 10.0,
+  "bootstrap_seed": 2026101241,
+  "bootstrap_repetitions": 2000,
+  "signal_threshold": 0.01,
+  "selection_rule": "carry an arm into confirmation only if it beats random on dev with mean>=1 percent and paired 95 percent CI lower>0",
+  "operator_definitions": {
+    "related": "Shaw relatedness by travel distance, seed uniformly chosen, size nearest",
+    "route": "one uniformly chosen incumbent route dropped whole, truncated to size",
+    "near": "the size customers nearest the depot (direction check)"
+  },
+  "claims_online_gain": false,
+  "all_failures_retained": true,
+  "physics_note": "simulated parent-physics snapshot; not physical calibration",
+  "registered_before_data": true,
+  "interpretation": "tests the classical LNS destroy operators that no delivery panel has run; if related removal beats uniform random the confirmed base's advantage over LNS is partly a standard mask-choice trick and the mechanism claim must be narrowed"
+}

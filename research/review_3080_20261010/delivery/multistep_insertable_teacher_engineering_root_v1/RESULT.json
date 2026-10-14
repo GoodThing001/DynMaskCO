@@ -1,0 +1,86 @@
+{
+  "checks": [
+    {
+      "name": "actual_worker_cpu7",
+      "pass": true
+    },
+    {
+      "name": "(900000, 0):complete_response_in_cap",
+      "pass": true
+    },
+    {
+      "name": "(900000, 1):complete_response_in_cap",
+      "pass": true
+    },
+    {
+      "name": "(900000, 2):complete_response_in_cap",
+      "pass": true
+    },
+    {
+      "name": "(900000, 3):complete_response_in_cap",
+      "pass": true
+    },
+    {
+      "name": "(900001, 0):complete_response_in_cap",
+      "pass": true
+    },
+    {
+      "name": "(900001, 1):complete_response_in_cap",
+      "pass": true
+    },
+    {
+      "name": "(900001, 2):complete_response_in_cap",
+      "pass": true
+    },
+    {
+      "name": "(900001, 3):complete_response_in_cap",
+      "pass": true
+    },
+    {
+      "name": "actual_start_end_byte_identity",
+      "pass": true
+    },
+    {
+      "name": "no_unsealed_lazy_dependency",
+      "pass": false
+    },
+    {
+      "name": "worker_clean_exit",
+      "pass": true
+    },
+    {
+      "name": "eight_states_all_retained",
+      "pass": true
+    },
+    {
+      "name": "fixture_launcher_teacher_unchanged",
+      "pass": true
+    }
+  ],
+  "failed": 1,
+  "state_count": 8,
+  "registration_sha256": "5fab567dae462c21207a14c27580c41c6061285ac95be4b71ddfea885fe687a3",
+  "states_sha256": "66bda4765f7747053b6a09bf63c09eee761caca22bdd0223c32a780e5179bddd",
+  "ready": {
+    "kind": "ready",
+    "cpu": [
+      7
+    ],
+    "seal_sha256": "99517d25912e8f746c2b6c692825ba9de5f0b159ee1a4f74e225ace69aa67881"
+  },
+  "sealed": {
+    "kind": "sealed",
+    "changed": [],
+    "new_loaded_files": [
+      "D:\\AA_Py\\A_Anaconda\\envs\\cc_ortools\\Lib\\email\\__pycache__\\feedparser.cpython-312.pyc",
+      "D:\\AA_Py\\A_Anaconda\\envs\\cc_ortools\\Lib\\email\\__pycache__\\parser.cpython-312.pyc",
+      "D:\\AA_Py\\A_Anaconda\\envs\\cc_ortools\\Lib\\email\\feedparser.py",
+      "D:\\AA_Py\\A_Anaconda\\envs\\cc_ortools\\Lib\\email\\parser.py"
+    ]
+  },
+  "errors": [],
+  "worker_reaped": true,
+  "scientific_training_closure_qualified": false,
+  "engineering_only": true,
+  "stable_online_gain": false
+}

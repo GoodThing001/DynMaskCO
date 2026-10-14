@@ -1,0 +1,40 @@
+{
+  "created_utc": "2026-10-11T05:16:51.939099+00:00",
+  "scope": "candidate-only worker preparation and real C0ReserveReplanner plan-pointer publication; fixed old packet/five already produced plans",
+  "required_numpy": "1.26.4",
+  "actual_python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]",
+  "actual_executable": "D:\\AA_Py\\A_Anaconda\\python.exe",
+  "executable_sha256": "6965927a96b81d1717c1d2186de7feb9b29ebf8775464020ebc2f25de6ef8ee0",
+  "input_sha256": "5dc4172fd6567aa7f2bb6c8add078b49db463f64c264f96ceff870e98b23ad35",
+  "source_sha256": "5f14a271b193f28130de5e790629052d99ddfc1bad1192842bdb3480ca2f465e",
+  "installer_sha256": "20663fdf6a0b44ff9ca95336ebe8beaae1c8164c5403dfeaf1fabb21527470ed",
+  "normal_cap_s": 10.0,
+  "delayed_fault_cap_s": 0.01,
+  "actual_parent_worker_cpu": [
+    7
+  ],
+  "normal_modes": [
+    "own_incumbent",
+    "pretrained",
+    "random",
+    "discard",
+    "strong_rolling"
+  ],
+  "faults": [
+    "certification_delay",
+    "compile_delay",
+    "changed_plan_pointer",
+    "mutated_plan_in_place",
+    "changed_admissions",
+    "changed_fleet",
+    "changed_event",
+    "expired",
+    "replayed_token",
+    "wrong_request_identity",
+    "unqualified_worker",
+    "tampered_prepared_plan"
+  ],
+  "new_science_data": false,
+  "all_request_stages_covered": false,
+  "stable_online_gain": false
+}

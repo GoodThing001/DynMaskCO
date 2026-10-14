@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 for folder in ('', 'models', 'training', 'evaluation', 'simulation', 'coldchain'):
     sys.path.insert(0, str(ROOT / folder))
 from i3_optimizer import (parameter_hash, create_optimizer, make_gradient_step,
-                         apply_gradient_step)
+                         apply_gradient_step, make_reconstruction_step, apply_reconstruction_step)
 from maskco_scenario import (MaskCOScenarioModel, MASK_TOKEN, PAD_TOKEN,
                             VOCAB_SIZE, clock_support_mask, save_model, load_model)
 
@@ -63,6 +63,7 @@ def build_batch(model):
             'tokens': tokens, 'counts': counts, 'support': support,
             'losses': np.array([[.3, 1.2]], dtype=np.float32),
             'prior_baseline': np.array([.2], dtype=np.float32),
+            'decision_eligible': np.array([True], dtype=bool),
             'recon_x': x.copy(), 'recon_y': y,
             'recon_n': np.array([3], dtype=np.int32), 'recon_cb': cb.copy()}
 
@@ -92,6 +93,9 @@ def test_updates(cvrp_factory, use_jit):
     bad = dict(fresh, losses=np.array([[float('nan'), 1]], dtype=np.float32))
     raises(lambda: apply_gradient_step(model, compute, opt_state, trainable, bad,
                        sampled_trainable_hash=updated, sampled_frozen_hash=frozen))
+    bad_eligibility = dict(fresh, decision_eligible=np.array([False]))
+    raises(lambda: apply_gradient_step(model, compute, opt_state, trainable,
+                       bad_eligibility, sampled_trainable_hash=updated, sampled_frozen_hash=frozen))
     duplicate = fresh['mask_positions'].copy()
     duplicate[0, 1] = duplicate[0, 0]
     raises(lambda: apply_gradient_step(model, compute, opt_state, trainable,
@@ -100,6 +104,17 @@ def test_updates(cvrp_factory, use_jit):
     # The exact same-actor second step uses newly sampled scenes and prior-step baseline.
     _, opt_state, trainable = apply_gradient_step(model, compute, opt_state, trainable,
         fresh, sampled_trainable_hash=updated, sampled_frozen_hash=frozen)
+    # Actual frozen encoder receives reconstruction-only learning at a terminal
+    # clock, without fabricated actor draws or an illegal empty support set.
+    terminal = {key: value for key, value in fresh.items() if key.startswith('recon_')}
+    terminal['recon_cb'] = np.array([31], dtype=np.int32)
+    terminal['recon_n'] = np.array([0], dtype=np.int32)
+    terminal['recon_y'] = np.zeros_like(terminal['recon_y'])
+    recon_step = make_reconstruction_step(tx, reconstruction_weight=.1, use_jit=use_jit)
+    terminal_stats, opt_state, trainable = apply_reconstruction_step(model, recon_step,
+        opt_state, trainable, terminal, frozen_hash=frozen)
+    assert np.isfinite(terminal_stats['loss']) and terminal_stats['gradient_norm'] > 0
+    assert parameter_hash(model, frozen=True) == frozen
     before_save = model(jnp.asarray(fresh['actor_x']), clock_bin=jnp.asarray(fresh['actor_cb']))
     final_hash = parameter_hash(model, frozen=False)
     with tempfile.TemporaryDirectory() as temp:

@@ -1,0 +1,150 @@
+{
+  "version": "P-LIVE-DEV-PANEL-v2",
+  "kind": "protocol_amendment_registered_before_data_and_before_implementation",
+  "status": "amended_not_implemented_not_run",
+  "registered_at": "2026-10-10T17:37:44+08:00",
+  "registered_in_session": "handover-continuation (first session after HANDOVER_2026-10-10.md)",
+  "parent_program_sha256": "bc8cfcb51dba940af539e23194fad7c7e7caf681a1e98e68a5b296c7286632d5",
+  "decision_authority": {
+    "decision": "option (a) of COND_HIST_PREMISE_DEFECT.md: explicitly adopt the recorded equivalence, restate the main gate against arms that genuinely differ, and record the restatement as a protocol revision",
+    "option_b_status": "NEGATED by measurement; see evidence item 3. Option (b) (widen the energy budget B so that conditional sampling becomes discriminative) does not work: the two historical samplers remain bit-identical at Bx3.",
+    "option_c_status": "NOT CHOSEN in this amendment. Changing direction (e.g. to multi-vehicle reassignment) remains an available future hypothesis requiring its own registration.",
+    "authority": "user decision, recorded in the handover-continuation session"
+  },
+
+  "amends": {
+    "registration": "results/research_20261010_continuation_v2/pickup/P_LIVE_DEV_PANEL_V1_REGISTRATION.json",
+    "sha256": "f9d9396ca8144e3c67d6099ea919d4182b589b8bc750c219d02d7ac7a2695d4f",
+    "v1_bytes_unchanged": true,
+    "scope_of_amendment": "the identity of the main-gate contrast and the status of the cond_hist arm ONLY. Arms, matched resources, qualification requirements, data plan, required artifacts, explicit non-claims and protected records are inherited from v1 unchanged unless restated below.",
+    "why_a_new_file_instead_of_an_edit": "v1 is a registered pre-data artifact; editing its bytes would destroy the registration record. The amendment is therefore additive and pins v1 by SHA-256."
+  },
+
+  "amendment_reason": {
+    "summary": "The v1 main gate names cond_hist as the arm the new method must beat by >= 20 utility/day. In this A-v1 configuration cond_hist is not a discriminative arm: it is bit-identical to the unconditional historical sampler. A gate whose contrast provably cannot differ cannot test the hypothesis it was written to test.",
+    "why_this_is_a_protocol_defect_not_a_result": "The defect is about the IDENTIFIABILITY of the contrast, not about any measured gain. It says nothing about the new method, about MaskCO, about possibility or about equivalence, and it does not reopen the sealed I3 adjudication.",
+    "methodological_basis": "In decomposition-based integrated demand-management/routing (i-DMVRP) the accepted diagnostic is that an opportunity-cost approximation error matters only if it (i) changes the decision and (ii) does so in states that are actually encountered. A sampler that never changes the decision is decision-irrelevant by construction, so a contrast against it has no power. See Fleckenstein, Klein, Klein & Steinhardt, 'From approximation error to optimality gap', arXiv:2412.13851, and the canonical anticipatory-vs-myopic comparison of Bent & Van Hentenryck (Operations Research 2004 / IJCAI 2003).",
+    "note": "The literature basis motivates WHY the contrast must be rebuilt; it does NOT supply the >= 20 utility/day threshold, which remains a project decision."
+  },
+
+  "evidence": [
+    {
+      "id": "E1",
+      "fact": "cond_hist and uncond_hist are bit-identical at the registered A-v1 operating point",
+      "artifact": "research/pickup_20round_audit/pickup_wiring_smoke_n5h60_v1/result.json",
+      "value": {
+        "cond_hist": -376.40726526174694,
+        "uncond_hist": -376.40726526174694,
+        "n_served_both": 58,
+        "n_rejected_both": 142,
+        "strong_rolling": -361.1269913808442,
+        "uncond_dynamic": 552.8175809076056
+      },
+      "conditions_swept_without_change": "history 1 / 8 / 60 days; time_limit 2s / 10s; n_neighbors 10 / 5",
+      "citation_note": "these are 1-instance wiring smokes and must NOT be quoted as performance results"
+    },
+    {
+      "id": "E2",
+      "fact": "the codebase already recorded the equivalence as a measured fact over 40 days",
+      "artifact": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/scenario_saa.py",
+      "line": 1012,
+      "text_verbatim_fragment": "40 天实测 cond≡uncond≡myopic",
+      "context_verbatim": "影子计划把未来一天的订单塞满后真实能耗几乎恒超 B，逐场景置 -1e6 会把场景相关的价值信息（plan_rev/fuel/rej_loss）全部淹没，使投票退化为「p_c>0 全接 / p_c=0 全拒」的空转（40 天实测 cond≡uncond≡myopic）",
+      "reproduction_index": "results/research_20261010_continuation_v2/pickup/PRIOR_FINDINGS_INDEX.md"
+    },
+    {
+      "id": "E3",
+      "fact": "widening the binding energy budget changes the regime but STILL does not separate the two samplers => option (b) negated",
+      "artifact": "research/pickup_20round_audit/pickup_wiring_smoke_B3_v1/result.json",
+      "value": {
+        "budget_B": 710.6548152249378,
+        "budget_Bx3": 2131.9644456748134,
+        "at_B": {"cond_hist": -376.40726526174694, "uncond_hist": -376.40726526174694, "strong_rolling": -361.1269913808442, "uncond_dynamic": 388.09955997001384},
+        "at_Bx3": {"cond_hist": 4480.718498555943, "uncond_hist": 4480.718498555943, "strong_rolling": 4541.508049035166, "uncond_dynamic": 4390.564257044345},
+        "n_served_at_Bx3": {"cond_hist": 197, "uncond_hist": 197, "strong_rolling": 199, "uncond_dynamic": 195}
+      },
+      "interpretation": "The budget hypothesis about the REGIME is confirmed (served jumps 58 -> 197, utility turns large positive), but the sampler separation does not appear at either budget, so the path 'relax B to give conditioning something to say' produces no usable cond_hist baseline.",
+      "must_not_be_quoted_as": "a performance comparison between arms; it is a 1-instance wiring smoke"
+    },
+    {
+      "id": "E4",
+      "fact": "the 'empty scenario list' candidate explanation is refuted",
+      "artifact": "results/research_20261010_continuation_v2/pickup/COND_HIST_PREMISE_DEFECT.md",
+      "value": "scenarios non-empty on 8/8 history days; 441 orders still present at clock 12.0",
+      "consequence": "the decisive test previously proposed for this (pickup_scenario_nonempty_check.py) is redundant and MUST NOT be presented as an open question"
+    }
+  ],
+
+  "restated_main_gate": {
+    "primary_confirmatory_contrast": "maskco - strong_rolling: mean >= 20 utility/day AND paired instance-level bootstrap CI lower bound > 0",
+    "attribution_contrast": "maskco - recon_only: mean > 0 AND paired CI lower bound > 0 (same-initial-value reconstruction-only control)",
+    "secondary_reported_contrast": "maskco - discard_control: reported to separate information value from consumed compute",
+    "cond_hist_status": "RETIRED AS A GATE, RETAINED AS A REPORTED ARM. It is recorded in every result table for continuity and as the standing evidence that it is non-discriminative at this operating point. No main-gate claim may rest on a cond_hist contrast.",
+    "threshold": {"value": 20, "unit": "utility/day", "unchanged_from_v1": true},
+    "direction": "the new method must be BETTER (positive difference)",
+    "why_this_is_not_a_lowered_bar": "At both measured operating points strong_rolling is at least as strong as cond_hist (-361.13 vs -376.41 at B; 4541.51 vs 4480.72 at Bx3). Substituting strong_rolling therefore makes the primary contrast harder, never easier. The threshold 20 is carried over unchanged; the program also already required 'a comparison against a qualified same-contract strong rolling controller'.",
+    "honest_limitation": "The >= 20 utility/day threshold was originally calibrated against a cond_hist contrast. Re-pointing it at a strictly stronger arm is a project decision, not a literature-derived constant, and is recorded as such. It is not claimed to be calibrated for the new contrast.",
+    "no_cross_operating_point_comparison": "The sealed I3 40-day four-arm adjudication (cond_hist mean 600.997 on 40 complete days) is a DIFFERENT pipeline and operating point. It is not comparable to, and must never be differenced with, the wiring-smoke or panel numbers above."
+  },
+
+  "seed_integrity": {
+    "rule_inherited_from_v1": "no arm may reuse any instance id or seed already observed in either cycle",
+    "problem_found_and_fixed_in_this_amendment": "v1 registered mask_seed_dev=2026120202 and bootstrap_seed_dev=2026120212 as fresh. They WERE fresh at v1 registration time, but the pickup arm qualification and the n8-n14 development pilots were subsequently run with exactly those values (they are the defaults of pickup_maskco_arm.py --qual-seed, pickup_arm_pilot.py --pilot-seed and --bootstrap-seed, and appear in pickup_arm_pilot_v1/_n45_v1/_mf{50,70,80,90,100}_v1, pickup_arm_qualify_v1, pickup_headroom_v1/v2/mf90_v1, pickup_cust_headroom_v1 and pickup_learnability_v1). Inheriting them would violate v1's own rule, so v2 re-registers replacements.",
+    "verified_at_amendment_time": {
+      "method": "ripgrep over the whole workspace root for the exact integer literals",
+      "still_fresh_verified_no_matches": [2026120201, 2026120211, 2026120213, 2026120221, 2026120231, 2026120232, 2026120233],
+      "observed_before_this_amendment": [2026120202, 2026120212]
+    },
+    "v2_registered_seeds": {
+      "dev_dataset_seed": 2026120201,
+      "mask_seed_dev": 2026120231,
+      "arm_order_seed_dev": 2026120211,
+      "bootstrap_seed_dev": 2026120232,
+      "supersedes": {"mask_seed_dev": 2026120202, "bootstrap_seed_dev": 2026120212},
+      "unused_alternates_held_in_reserve": [2026120213, 2026120221, 2026120233]
+    },
+    "inference_rule": "a seed is 'fresh' only if a whole-workspace search at amendment time returns no matches. That check is cheap and MUST be repeated in the run registration immediately before data generation, because seeds can be consumed after a protocol is written - which is exactly what happened here."
+  },
+
+  "operating_point": {
+    "must_be_fixed_in_the_run_registration_before_data": true,
+    "budget_B": {
+      "value": 710.6548152249378,
+      "status": "PINNED by this amendment",
+      "authority": "the registered A-v1 budget, recorded verbatim in configs/i3_20261008_v1/protocol.json (\"budget\": 710.6548152249378) and configs/i3_20261008_v2/protocol.json; also the budget the A-v1 SAA replanner is constructed with and the one used by the exact-enumeration witness and by the Bx3 diagnostic (3x)",
+      "not_to_be_confused_with": "709.1017637699684, which appears only as a computed quantity inside the P-BUDGET-v1 result and is NOT the registered contract budget",
+      "Bx3_is_a_different_operating_point": "2131.9644456748134 is a diagnostic operating point used only to test option (b); its numbers are not panel numbers"
+    },
+    "contract": "A-v1 (QualityConfigV2 / ColdChainContractV2 path as used by the A-v1 evaluator)",
+    "K_scenarios": 10,
+    "per_decision_submit_barrier_s": 10.0
+  },
+
+  "development_gates_amended": {
+    "g1_vs_strong_rolling": "PRIMARY DIRECTIONAL SELECTION: maskco - strong_rolling mean > 0 AND paired CI lower bound > 0. Development only.",
+    "g2_vs_recon_only": "maskco - recon_only mean > 0 AND paired CI lower bound > 0. Development only.",
+    "g3_vs_discard": "maskco - discard_control reported; separates information value from throughput.",
+    "g4_vs_cond_hist": "reported only, NOT a gate and NOT a selection criterion. Recorded precisely so that a future reader cannot mistake its retirement for its omission.",
+    "status_of_these_gates": "DEVELOPMENT ONLY. They select at most one frozen candidate. They confer no confirmatory status and no alpha. Passing them is NOT passing the main gate, and the >= 20 utility/day bar is far above a mean of zero.",
+    "no_equivalence_claim": "a CI spanning zero means the difference is not established, never equivalence; no equivalence boundary is registered here"
+  },
+
+  "inherited_from_v1_unchanged": {
+    "registered_arms": ["maskco", "recon_only", "discard_control", "strong_rolling", "cond_hist (reported only)"],
+    "matched_resources": "as v1: matched per-day wall budget, matched ACTUAL decoder calls asserted from the run's own counters",
+    "qualification_required_before_the_panel_runs": "as v1 (read-only inference identity with fail-able positive controls; inference provably does not mutate frozen parameters; no arm may read unrevealed orders, enforced by the packet validator plus future-mutation invariance at every decision point)",
+    "data_plan": "as v1 in structure, but with the seed substitution recorded in seed_integrity above: mask_seed_dev 2026120202 -> 2026120231 and bootstrap_seed_dev 2026120212 -> 2026120232, because the two v1 values were consumed by the n8-n14 pilots after v1 was registered. dev_dataset_seed 2026120201 and arm_order_seed_dev 2026120211 are unchanged and were re-verified fresh.",
+    "required_artifacts": "as v1, including full public packet per decision point, best and baseline full typed traces with independent terminal replay of the full A-v1 utility, per-phase wall seconds, all timeouts and failures retained",
+    "protected": "as v1: final seeds 20260927/20260928 remain forbidden; original records untouched; the R1/C1 183-file seal remains as re-verified"
+  },
+
+  "explicit_non_claims": {
+    "stable_online_gain": false,
+    "maskco_attribution": false,
+    "pickup_impossibility": false,
+    "equivalence": false,
+    "physical_calibration": false,
+    "this_amendment_establishes_nothing_about_performance": true,
+    "note": "This file records a defect in the identifiability of a contrast and a decision about how to repair it. It contains no new measurement and no positive result. Every earlier pickup pilot number remains without a discriminative registered control until the amended panel is actually run and adjudicated."
+  }
+}

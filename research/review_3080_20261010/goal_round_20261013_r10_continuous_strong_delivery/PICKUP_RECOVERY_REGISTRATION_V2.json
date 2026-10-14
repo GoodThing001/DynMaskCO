@@ -1,0 +1,19 @@
+{
+  "stage": "next_natural_reveal_independent_rolling_owner_engineering_v2",
+  "created_utc": "2026-10-13T16:46:42.5047150Z",
+  "v1_failure_retained": "on_reveal visible parameter includes all visible orders, not only newly pending",
+  "recovery": "derive exactly one current pending order as visible minus accepted minus rejected",
+  "selection": "same next natural reveal from prior selected owner, no order or outcome choice",
+  "admission": "original rolling current-only zero reject penalties",
+  "K": 10,
+  "budget": "8s worker plus 2s cleanup",
+  "science_data": false,
+  "old_QA_rerun": false,
+  "source_sha256": {
+    "tools/qualify_pickup_strong_owner_next_v2.py": "f0db0220af8f3ade413003fe40f3184166aaea7bd4989f75a41752bdbcdbc1fa",
+    "research/review_3080_20261010/pickup/strong_independent_owner_next_root_v1/FAILURE.json": "5f9122e236dfe7572c92372cecf5e94e62af245d177d06354861497944cd9d56",
+    "tools/audit_pickup_strong_owner_next_v2.py": "04dfa8101fbf638a63e6acf41d629103558846e807153b67beb9424ee935bb89",
+    "research/review_3080_20261010/pickup/strong_independent_owner_root_v3/OWNER_RESULT_0.json": "2b56abd1b8c84bac119789da1ecd5d13a9da9489294348a40e16f65ea2bc70ba"
+  },
+  "stable_online_gain": false
+}

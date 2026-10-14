@@ -1,0 +1,27 @@
+{
+  "original_exception": {
+    "type": "SystemExit",
+    "message": "Registered startup identity interruption",
+    "notes": [],
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\PyCharm_\\MASKCO-Main\\tools\\run_delivery_early_launch_v3.py\", line 95, in run_case\n    parent.request(base,python,name,b'{}',[])\n  File \"D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\early_launch_lifecycle_root_v3\\delivery_phase_shared_parent_v3.py\", line 50, in request\n    process=psutil.Process(child.pid)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\PyCharm_\\MASKCO-Main\\tools\\run_delivery_early_launch_v3.py\", line 81, in tracked_process\n    if name=='identity_interrupt':raise SystemExit('Registered startup identity interruption')\n                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSystemExit: Registered startup identity interruption\n"
+  },
+  "acquired_mapping_count": 4,
+  "mapping_closed": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "launched_child_count": 1,
+  "child_returncodes": [
+    1
+  ],
+  "child_pids": [
+    24636
+  ],
+  "start_clock": 1019448.3769065,
+  "end_clock": 1019450.2050156,
+  "elapsed": 1.8281090999953449,
+  "model_executed": false,
+  "child_leaked_after_parent": false
+}

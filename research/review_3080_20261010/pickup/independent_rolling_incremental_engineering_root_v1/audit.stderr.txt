@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "D:\PyCharm_\MASKCO-Main\research\review_3080_20261010\pickup\independent_rolling_incremental_engineering_root_v1\audit.py", line 99, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ^^^^^^
+  File "D:\PyCharm_\MASKCO-Main\research\review_3080_20261010\pickup\independent_rolling_incremental_engineering_root_v1\audit.py", line 83, in main
+    saved=read(path);j=saved['index'];start=time.perf_counter();value=float(actor._sim_scenario(env,0,clock,states,indices[j],space));end=time.perf_counter()
+                       ~~~~~^^^^^^^^^
+KeyError: 'index'

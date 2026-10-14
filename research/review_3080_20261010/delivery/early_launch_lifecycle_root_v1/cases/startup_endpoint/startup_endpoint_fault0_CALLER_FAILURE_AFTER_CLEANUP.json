@@ -1,0 +1,42 @@
+{
+  "start_clock": null,
+  "end_clock": 1019217.8704513,
+  "elapsed": null,
+  "kill_clock": null,
+  "reap_clock": 1019217.8643617,
+  "child_launched": true,
+  "actual_worker_returncode": 1,
+  "worker_reaped": true,
+  "worker_trace_sha256": "fcb9cba3c23f8612eb7237aa6d3e331a87b252adcb178310bd8fa5bb23a129a8",
+  "caller_trace_sha256": null,
+  "handles_closed": {
+    "stdout": true,
+    "stderr": true,
+    "control": true,
+    "input": true,
+    "output": true,
+    "telemetry": true
+  },
+  "cleanup_errors": [],
+  "within_declared_window": true,
+  "archive_and_handle_cleanup_in_elapsed": true,
+  "receipt_creation_in_elapsed": false,
+  "selected_output_revoked": false,
+  "full_request_budget_qualified": false,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\early_launch_lifecycle_root_v1\\delivery_phase_shared_parent_v3.py\", line 52, in request\n    if child.poll() is not None:raise RuntimeError('Initialization exited: %s'%child.returncode)\n                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Initialization exited: 1\n",
+  "child_identity": {
+    "pid": 7856,
+    "create_time": 1791852783.8595717,
+    "cmdline": [
+      "D:\\AA_Py\\A_Anaconda\\python.exe",
+      "-B",
+      "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\early_launch_lifecycle_root_v1\\early_launch_fixture_worker_v1.py",
+      "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\early_launch_lifecycle_root_v1\\cases\\startup_endpoint\\startup_endpoint_fault0_SPEC.json"
+    ],
+    "username": "QY\\CodexSandboxOffline"
+  },
+  "selected": false,
+  "selection_clock": null,
+  "qualification": false,
+  "initialization_outside_request": true
+}

@@ -1,0 +1,86 @@
+{
+  "cases": [
+    {
+      "name": "nested_success",
+      "sequence": 1,
+      "file": "nested_success.bin",
+      "sha256": "e8a1efe7f365dbbf9c295404e1c6398814f5609edf6c31cfdafc2f5e8c171d6d",
+      "start_clock": 979408.9138846,
+      "end_clock": 979408.9139252,
+      "expected_phases": [
+        1,
+        2
+      ],
+      "expected_statuses": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "recorded_exception",
+      "sequence": 2,
+      "file": "recorded_exception.bin",
+      "sha256": "07bb41556a78dedf0ce335cb048697881f7ef2f64e84b7fb2b5b3fbb0f371ae4",
+      "start_clock": 979408.9144352,
+      "end_clock": 979408.9144555,
+      "expected_phases": [
+        3,
+        4
+      ],
+      "expected_statuses": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "capacity_overflow",
+      "sequence": 3,
+      "file": "capacity_overflow.bin",
+      "sha256": "40a32132495c651f4e18040309f3a2084de4efe2d9ede34f272be35fdd95b490",
+      "start_clock": 979408.914882,
+      "end_clock": 979408.9148952,
+      "expected_phases": [
+        5
+      ],
+      "expected_statuses": [
+        1
+      ]
+    },
+    {
+      "name": "actual_open_writer_kill",
+      "sequence": 4,
+      "file": "cleanup_worker.bin",
+      "sha256": "f0855b18392153e3a1aa62cc911f0a082282e3bdece2bbfadd71eb6ae934cb1f",
+      "start_clock": 979408.9158011,
+      "end_clock": 979409.4401102,
+      "expected_phases": [
+        7
+      ],
+      "expected_statuses": [
+        0
+      ]
+    },
+    {
+      "name": "parent_exception_cleanup",
+      "sequence": 5,
+      "file": "cleanup_caller.bin",
+      "sha256": "990dbbf3b46c5064690c3c2db7e1ced3945adb67fc8d028b38e812edca613fe2",
+      "start_clock": 979409.4250493,
+      "end_clock": 979409.4401102,
+      "expected_phases": [
+        18,
+        19
+      ],
+      "expected_statuses": [
+        2,
+        1
+      ]
+    }
+  ],
+  "source_unchanged": false,
+  "model_executed": false,
+  "full_request_budget_qualified": false,
+  "parent_model_workload_executed": false,
+  "old_QA_repeated": false,
+  "scientific_family3_started": false
+}

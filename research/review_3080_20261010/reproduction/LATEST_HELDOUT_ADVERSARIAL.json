@@ -1,0 +1,36 @@
+{
+  "protected_seed_acceptance": {
+    "necessary_design_conditions_pass": true,
+    "missing_conditions": [],
+    "allocated_contrast_cohort_alpha": 0.0020833333333333333,
+    "independent_semantic_raw_replay_implemented_here": false,
+    "stable_online_gain_supported": false,
+    "stable_maskco_attribution_supported": false
+  },
+  "negated_statement_scan": [
+    {
+      "document": "synthetic_current.md",
+      "line": 1,
+      "patterns": [
+        "impossibility"
+      ],
+      "asserts_exhaustiveness": true,
+      "excerpt": "不能证明取货不可能；未建立稳定收益。"
+    }
+  ],
+  "empty_named_route_eligibility": {
+    "verdict": "eligible_raw_trajectories_and_sources_present",
+    "pass": true,
+    "reason": "source identity and raw per-instance trajectory artifacts are on disk",
+    "evidence_paths": [
+      "synthetic",
+      "dummy_source.py",
+      "panel"
+    ],
+    "trajectory_artifacts": [
+      "panel/route.json"
+    ],
+    "per_instance_record_artifacts": []
+  },
+  "latest_source_sha256": "2871e5b9971c79b3703252b33eb7ec567269786c0f0c1374accec7de9776cfc1"
+}

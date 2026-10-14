@@ -1,0 +1,174 @@
+{
+  "version": "P-LIVE-DEV-PANEL-V2-RUN-REGISTRATION",
+  "kind": "run_registration_before_data",
+  "status": "registered_not_run",
+  "registered_at": "2026-10-10T18:05:00+08:00",
+  "registered_in_session": "handover-continuation",
+
+  "pins": {
+    "panel_v1_registration": {
+      "path": "results/research_20261010_continuation_v2/pickup/P_LIVE_DEV_PANEL_V1_REGISTRATION.json",
+      "sha256": "f9d9396ca8144e3c67d6099ea919d4182b589b8bc750c219d02d7ac7a2695d4f",
+      "bytes_unchanged": true
+    },
+    "panel_v2_amendment_registration": {
+      "path": "results/research_20261010_continuation_v2/pickup/P_LIVE_DEV_PANEL_V2_REGISTRATION.json",
+      "sha256": "dcf1c72f352727f7fee3223a419948a2a9a1bcd5b43b5179a7c7c57b0b18a490"
+    },
+    "panel_v2_amendment_doc": {
+      "path": "results/research_20261010_continuation_v2/pickup/P_LIVE_DEV_PANEL_V2_AMENDMENT.md",
+      "sha256": "1944959e9e27929d6b46cf685c9bc5e4440b1c606dce6aa48fb9e56ec0086cfa"
+    },
+    "program": {
+      "path": "results/research_20261010_continuation_v2/PROGRAM.json",
+      "sha256": "bc8cfcb51dba940af539e23194fad7c7e7caf681a1e98e68a5b296c7286632d5"
+    },
+    "whole_fleet_full_j_replay_qualification": {
+      "path": "research/pickup_20round_audit/live_qualify_fleet_v3/result.json",
+      "sha256": "2286132b9b1b67b6669efed88ced8a0dec304e16e5fdd899fd801226af965f33",
+      "protocol": "P-LIVE-QUALIFY-FLEET-v2",
+      "verdict": "all_qualifications_pass=true; 12/12 captures exact at dispatched width 3-4 of 15",
+      "tool_sha256": "17b15e52b19fe7a9c2cf13ef637a0dd5be8d9a6c37deeb6b130d08e5d728b294"
+    },
+    "arm_implementation": {
+      "path": "research/pickup_20round_audit/pickup_maskco_arm.py",
+      "sha256": "2865cc17e2653df2c113a03f046c5938f3df376e2ae4f52b990c85a058a65d45",
+      "note": "unchanged; the arm that passed P-MASKCO-ARM-v1 (5 checks, 0 failed)"
+    },
+    "pilot_harness": {
+      "path": "research/pickup_20round_audit/pickup_arm_pilot.py",
+      "sha256": "28d3f5a5536b6d9946bcdf39af35b4e11cacecce92f2fb5be9a892d3132a9ce8",
+      "note": "unchanged; the ONE-SHOT intervention harness. The panel needs a different harness (see stage_a)"
+    },
+    "registry_separate_1008": {
+      "path": "configs/i3_20261008_v1/protocol.json",
+      "fact": "is a SEPARATE, already-closed I3 registry. It is referenced only as the authority for the budget value; nothing in this registration reopens or amends it."
+    }
+  },
+
+  "operating_point": {
+    "budget_B_kwh": 710.6548152249378,
+    "budget_authority": "configs/i3_20261008_v1/protocol.json (\"budget\")",
+    "scenarios_K": 10,
+    "per_decision_submit_barrier_s": 10.0,
+    "wall_budget_s_per_instance": 10.0,
+    "reject_penalty_p_c": {"0": 5.0, "1": 10.0, "2": 15.0},
+    "fleet_size": 15,
+    "capacity": 50.0,
+    "contract": "ColdChainContractV2 (A-v1 evaluator path)",
+    "cooling_share": 3.7125478804082377,
+    "no_cross_operating_point_comparison": "the sealed I3 40-day four-arm adjudication is a different pipeline and operating point and must never be differenced with panel numbers"
+  },
+
+  "switch_declarations": {
+    "S3_3_overage_price": {"value": null, "state": "DISABLED", "evidence": "SaaReplanner.__init__ default overage_price=None; the continuous overage price is registered but not enabled here"},
+    "S3_4_incr_eval": {"value": false, "state": "DISABLED", "evidence": "incr_eval=False default; the code documents it as an equivalent acceleration that does not change numbers or choices"},
+    "S3_4_D3_anytime_vote": {"value": false, "state": "DISABLED", "evidence": "anytime_vote=False default = old behaviour (keep plan + reject + count timeout)"},
+    "anytime_early_stop": {"value": true, "state": "IRRELEVANT", "evidence": "only consulted when anytime_vote=True"},
+    "soft_knn_sampler": {"state": "NOT USED", "evidence": "SaaReplanner takes `sampler` as an explicit constructor argument (self.sampler = sampler); the soft k-NN class exists at scenario_saa.py:264 but is not wired into these arms"},
+    "standby_orders": {"value": null, "state": "DISABLED"},
+    "future_policy": {"value": "reveal", "state": "DEFAULT"},
+    "cond_hist_sampler_n_neighbors": {"value": 10, "state": "AS REGISTERED", "caveat": "cond_hist is a REPORTED arm only; its non-discriminative status at this operating point is recorded in the v2 amendment"}
+  },
+
+  "base_policy_pinning": {
+    "decision": "the three reconstruction arms (maskco / recon_only / discard_control) share ONE base trajectory: the uncond_dynamic rule arm. strong_rolling is a standalone arm. cond_hist is reported only.",
+    "why": "the three reconstruction arms must differ ONLY in how the masked orders are re-inserted, so they must share the same starting plan and acceptance bookkeeping. The qualification and both pilots already used uncond_dynamic as the base, so this is continuity rather than a new choice.",
+    "contrast_semantics": {
+      "maskco_vs_recon_only": "ATTRIBUTION contrast at identical state, mask schedule, decoder-call count and base: isolates the value of the decoder logits as a guide term.",
+      "maskco_vs_strong_rolling": "DEPLOYMENT contrast: same information, same legal actions and same per-day wall budget, but different base policy (rule base + reconstruction vs a rolling optimizer). This is what the amended main gate asks and it is the question a deployer faces; it is NOT a controlled single-variable ablation and must not be described as one."
+    },
+    "subproblem_scope": "masked reconstruction is applied per vehicle suffix, restricted to REVEALED and UNSERVED orders, using the same slot-preserving installation as the pilots (propose a permutation of the subproblem order set, install via force_suffix)"
+  },
+
+  "data_plan": {
+    "dev_dataset_seed": 2026120201,
+    "mask_seed_dev": 2026120231,
+    "arm_order_seed_dev": 2026120211,
+    "bootstrap_seed_dev": 2026120232,
+    "stage_a_instances": 4,
+    "stage_b_instances": 8,
+    "instance_seed_base": 20260924,
+    "instance_generator": "run_exp_energy_c0.generate_dataset(n, 200, seed) + coldchain_evaluator_a1.add_v2_initial_quality",
+    "freshness_reverified_at_registration": {
+      "method": "ripgrep over the whole workspace root (D:/PyCharm_/MASKCO-Main) for each exact integer literal",
+      "result": "2026120201, 2026120211, 2026120231, 2026120232 -> NO MATCHES (fresh at 2026-10-10T18:05)",
+      "rule": "this check MUST be repeated immediately before generation; 'fresh' is a statement about a moment, and the v1 seeds were consumed after v1 was written"
+    },
+    "superseded_seeds_must_not_be_reused": [2026120202, 2026120212],
+    "forbidden_final_seeds": [20260927, 20260928],
+    "sample_size_honesty": "8 instances is a RESOURCE-BOUNDED exploratory choice with no power claim; the confirmatory requirement (three fresh 40-complete-day cohorts under its own protocol with alpha_total = 0.05/(j(j+1))) is untouched by this registration"
+  },
+
+  "staged_execution": {
+    "rationale": "the program rule 'measure the oracle ceiling AND the learnability ceiling before allocating training budget' plus handover rule 6 ('a learned term that never wins locally cannot win globally') require a cheap stage that can kill the panel before the full 5-arm budget is spent.",
+    "stage_a_cheap_gate": {
+      "question": "does the ONLINE ITERATIVE masked reconstruction have any route at all - can it beat its own ONE-SHOT version and the reconstruction-only control on identical states, with local-win counting?",
+      "cost": "4 instances, bounded; no strong_rolling or cond_hist arm",
+      "reports_required": [
+        "per-state LOCAL WIN COUNT of the guide term versus the distance-only choice at the SAME state (the delivery lesson: a term that never picks a strictly better option at an identical state is a perturbation by construction)",
+        "iterative vs one-shot delta with a paired descriptive interval",
+        "every arm's value against the DO-NOTHING base, not only against each other (handover rule 4)"
+      ],
+      "stop_rule": "if the guide term records ZERO local wins, or if both reconstruction arms are worse than doing nothing, STOP: do not run stage B. Record as a negative result with the mechanism."
+    },
+    "stage_b_panel": {
+      "arms": ["maskco", "recon_only", "discard_control", "strong_rolling", "cond_hist (reported only)"],
+      "instances": 8,
+      "per_day_wall_budget_s": 10.0,
+      "actual_decoder_calls": "MUST be asserted equal across maskco/recon_only/discard from the run's own counters, never assumed",
+      "development_gates": "as v2 amendment: g1 vs strong_rolling (primary directional), g2 vs recon_only (attribution), g3 vs discard reported, g4 vs cond_hist reported only",
+      "not_the_main_gate": "passing stage B development gates is NOT passing the main gate; a mean above zero is far below the >= 20 utility/day bar"
+    }
+  },
+
+  "prior_evidence_about_the_treatment_arm": {
+    "must_be_read_before_running": true,
+    "facts": [
+      {"fact": "the frozen zero-shot guide LOST to distance-only at both tested subproblem sizes",
+       "values": {"n_orders_3": {"maskco_minus_recon_only": -1.2430819769544617, "descriptive_ci95": [-3.7508118054697146, 0.02077899347064734]},
+                  "n_orders_4_to_5": {"maskco_minus_recon_only": -2.8152379670587777, "descriptive_ci95": [-5.657406999582902, 0.0052412788639830685]}},
+       "artifacts": ["research/pickup_20round_audit/pickup_arm_pilot_v1/result.json", "research/pickup_20round_audit/pickup_arm_pilot_n45_v1/result.json"],
+       "status": "point estimates negative, intervals include zero => not established in either direction"},
+      {"fact": "the oracle prize is only reachable at n>=12 AND customer-level scoring, and a linear probe over the decision-time-visible feature family lands exactly on the base rate at n=12 and n=16",
+       "artifact": "results/research_20261010_continuation_v2/pickup/.arbor/tree.json (nodes n13, n14)",
+       "status": "GATE FAILS => the 'learn a scoring term over THIS feature family' direction is closed; explicitly NOT a proof that a nonlinear model or richer state cannot learn it"},
+      {"fact": "the distance-only reconstruction-only control is nearly inert at the registered mask fraction (identity rate 0.8125 at 0.5), and the guide-versus-control contrast changes sign across mask fractions",
+       "artifact": "research/pickup_20round_audit/PICKUP_CONTROL_STRENGTH_SWEEP.md",
+       "status": "the sweep is UNDETERMINED; quoting the favourable fraction would be selection"}
+    ],
+    "what_remains_genuinely_untested": [
+      "the FULL ONLINE ITERATIVE policy with accept-only-on-certified-improvement over a whole day (both pilots were ONE-SHOT interventions at a single decision point)",
+      "masked reconstruction at subproblem sizes n>=12 (the pilots ran n=3 and n=4-5 only)",
+      "a scoring function that is NONLINEAR or consumes richer state than the 11 features the linear probe used"
+    ],
+    "consequence": "stage A exists precisely to test whether the untested iterative route is live before the panel is built; a reader must not treat the registered panel as having a positive expectation."
+  },
+
+  "execution_host": {
+    "primary": "3080 (Windows, desktop-9v1opdi\\zh), interpreter D:\\anaconda\\envs\\MASKCO_env\\python.exe",
+    "why": "fastest single core in the recorded benchmark and the PROGRAM requires single-thread CPU isolation; the 3080 has no usable JAX GPU path and does not need one",
+    "env_pinning": "via research/pickup_20round_audit/_remote_run.py, which pins OMP/OPENBLAS/MKL/NUMEXPR/VECLIB/BLIS thread counts to 1 before numpy is imported (tools/_srv_exec.py cannot inject environment variables)",
+    "cross_host_expectation": "discrete decision structure is expected to be identical between hosts; clock floats differ at ~1e-9..2e-8 (measured). Do NOT claim bit-identical output; claim identical discrete structure.",
+    "tool_defect_fixed": "tools/_srv_exec.py duplicated its __main__ block, silently executing every remote command TWICE; fixed this session"
+  },
+
+  "required_artifacts": [
+    "every public packet per decision point and every candidate evaluation",
+    "best and baseline full typed traces with independent terminal replay of the full A-v1 utility",
+    "C0 contract hash, dataset hash, and actual source/weight start and end SHA",
+    "actual decoder-call counts per arm, per-phase wall seconds, and every timeout or failure retained",
+    "the mask schedule and its RNG seed, and the frozen candidate configuration",
+    "per-state LOCAL WIN COUNT of the guide term versus the distance-only choice at the same state"
+  ],
+
+  "explicit_non_claims": {
+    "stable_online_gain": false,
+    "maskco_attribution": false,
+    "pickup_impossibility": false,
+    "equivalence": false,
+    "physical_calibration": false,
+    "this_registration_contains_no_measurement": true,
+    "note": "registering a run is not running it. Nothing here is evidence about the method."
+  }
+}

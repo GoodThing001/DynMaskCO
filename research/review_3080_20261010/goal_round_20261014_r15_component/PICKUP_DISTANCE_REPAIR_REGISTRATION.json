@@ -1,0 +1,31 @@
+{
+  "script_sha256": "66e428e4c72b0b1b90f2ec13a8277f1dfede6f1ee1e16ba88455b818aefdeed9",
+  "owner_sha256": "2aa178f8de1be3528a282c4929772b9228f1411706941793ee1154d040a365ad",
+  "model_result_sha256": "bafea356db6caf6cc816f37b91c024a07ccfbae4e7384db4cf26308bf63a1cf8",
+  "source_files": [
+    "research/review_3080_20261010/pickup/public_fleet.py",
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/coldchain_evaluator_a1.py",
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/coldchain/coldchain_contract.py",
+    "tools/qualify_pickup_joint_policy_transaction_root_v3.py"
+  ],
+  "source_sha256": {
+    "research/review_3080_20261010/pickup/public_fleet.py": "52c6ffd454e3735e5eea12ae90e9961547329edcfb5359f923ce0caf857207cd",
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/coldchain_evaluator_a1.py": "15510fa70f69e8ec80c5a89104068115a54189e91e089e2974626b41d0db3c7c",
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/coldchain/coldchain_contract.py": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+    "tools/qualify_pickup_joint_policy_transaction_root_v3.py": "3bc4802b1853b9648bafa9612af25dfd6d4a23301fd6e661c07d5a9ff6ef4d69"
+  },
+  "masked_orders": [
+    25,
+    30
+  ],
+  "fixed_public_order": 77,
+  "fixed_rule": "at each step choose C0-certified insertion with least normalized Euclidean distance; preserve unmasked original edges; lexicographic tie-break",
+  "arms": [
+    "pretrained",
+    "random",
+    "pure_distance"
+  ],
+  "scope": "One old public engineering state, actual C0 certificate; no new scientific day, no live installation",
+  "scientific_family3_started": false,
+  "equal_time_formal_control": false
+}

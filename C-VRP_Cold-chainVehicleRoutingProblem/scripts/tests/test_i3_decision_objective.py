@@ -73,6 +73,9 @@ def test_baseline_and_bad_draws():
     # Document the one-set/current-loss baseline zero-gradient failure mode.
     self_baseline = jax.grad(score_function_loss)(logp[:, :1], loss[:, :1], loss[:, 0])
     np.testing.assert_array_equal(self_baseline, 0)
+    invalid_gradient = jax.grad(score_function_loss)(logp, jnp.zeros_like(loss),
+                                                    baseline, jnp.asarray([False]))
+    np.testing.assert_array_equal(invalid_gradient, 0)
     support = np.array([[True, True, False]])
     for tokens, counts in (([[[[0, 0]]]], [[[1]]]),
                            ([[[[2, 0]]]], [[[1]]]),

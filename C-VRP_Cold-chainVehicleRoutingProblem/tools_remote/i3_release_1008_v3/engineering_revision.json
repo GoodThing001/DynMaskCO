@@ -1,0 +1,22 @@
+{
+  "old_attempt": "results/i3_registered_1008_v3",
+  "new_attempt": "results/i3_registered_1008_v4",
+  "changed_release_files": [
+    "scripts/tests/validate_i3_registered_release.py",
+    "scripts/training/i3_counterfactual_teacher.py"
+  ],
+  "added_release_files": [
+    "scripts/evaluation/diag_i3_teacher_probe.py",
+    "scripts/tests/test_i3_teacher_archive.py"
+  ],
+  "fixes": [
+    "canonical unordered teacher membership identity",
+    "distinct dynamic CPU leases",
+    "independent all-state teacher audit before training",
+    "fresh engineering archives in QA"
+  ],
+  "scientific_parameters_changed": false,
+  "old_formal_states_reused": false,
+  "model_actor_optimizer_saa_online_driver_unchanged": true,
+  "protocol_sha256": "345604e3c3ed0ff2c40e049ded3c4a5a6784fcde1f464fe221dbc98850d8f5a5"
+}

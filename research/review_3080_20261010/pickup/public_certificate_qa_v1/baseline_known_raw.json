@@ -1,0 +1,980 @@
+{
+  "__mapping__": [
+    [
+      "certificate",
+      {
+        "__mapping__": [
+          [
+            "qualified",
+            true
+          ],
+          [
+            "evaluation",
+            {
+              "__mapping__": [
+                [
+                  "utility",
+                  75.48180642724037
+                ],
+                [
+                  "revenue",
+                  80.0
+                ],
+                [
+                  "fuel_cost",
+                  4.518193572759628
+                ],
+                [
+                  "reject_loss",
+                  0.0
+                ],
+                [
+                  "energy_kwh",
+                  28.98216639860907
+                ],
+                [
+                  "distance_km",
+                  45.18193572759628
+                ],
+                [
+                  "budget_violated",
+                  false
+                ],
+                [
+                  "hard_feasible",
+                  true
+                ],
+                [
+                  "failures",
+                  {
+                    "__sequence__": "list",
+                    "values": []
+                  }
+                ],
+                [
+                  "n_served",
+                  4
+                ],
+                [
+                  "n_rejected",
+                  0
+                ],
+                [
+                  "n_fish_unsalable",
+                  0
+                ],
+                [
+                  "service_rate",
+                  {
+                    "__mapping__": [
+                      [
+                        "0",
+                        1.0
+                      ],
+                      [
+                        "1",
+                        1.0
+                      ],
+                      [
+                        "2",
+                        1.0
+                      ]
+                    ]
+                  }
+                ],
+                [
+                  "reject_rate",
+                  {
+                    "__mapping__": [
+                      [
+                        "0",
+                        0.0
+                      ],
+                      [
+                        "1",
+                        0.0
+                      ],
+                      [
+                        "2",
+                        0.0
+                      ]
+                    ]
+                  }
+                ],
+                [
+                  "salable_rate",
+                  {
+                    "__mapping__": [
+                      [
+                        "0",
+                        null
+                      ],
+                      [
+                        "1",
+                        1.0
+                      ],
+                      [
+                        "2",
+                        1.0
+                      ]
+                    ]
+                  }
+                ],
+                [
+                  "tomato_mean_quality",
+                  0.9985697600269178
+                ]
+              ]
+            }
+          ],
+          [
+            "all_fleet_energy_accounted",
+            true
+          ],
+          [
+            "accepted_unchanged",
+            true
+          ],
+          [
+            "committed_unchanged",
+            true
+          ]
+        ]
+      }
+    ],
+    [
+      "traces",
+      {
+        "__sequence__": "list",
+        "values": [
+          {
+            "__dataclass__": "strict_online_env.VehicleTrace",
+            "fields": {
+              "vehicle_id": 0,
+              "dispatch_time": 1.29086434841156,
+              "services": {
+                "__sequence__": "list",
+                "values": [
+                  {
+                    "__dataclass__": "strict_online_env.ServiceRecord",
+                    "fields": {
+                      "vehicle_id": 0,
+                      "prev_node": 0,
+                      "node": 46,
+                      "depart_time": 1.29086434841156,
+                      "arrival_time": 1.556696633497874,
+                      "service_start": 1.556696633497874,
+                      "service_finish": 1.606696634242932,
+                      "coldchain_before": {
+                        "__dataclass__": "coldchain_state.VehicleColdChainState",
+                        "fields": {
+                          "compartment_temperature_c": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              18.0,
+                              4.0,
+                              -18.0
+                            ]
+                          },
+                          "zone_load": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              0.0,
+                              0.0,
+                              0.0
+                            ]
+                          },
+                          "cargo_manifest": {
+                            "__sequence__": "tuple",
+                            "values": []
+                          },
+                          "delivered_to_depot": {
+                            "__sequence__": "tuple",
+                            "values": []
+                          },
+                          "cumulative_energy_kwh": 0.5,
+                          "cumulative_distance_km": 0.0,
+                          "finalized_quality_loss": 0.0,
+                          "thermal_violation_count": 0,
+                          "thermal_violation_duration_h": 0.0,
+                          "door_open_count": 0,
+                          "dispatched": true,
+                          "closed": false
+                        }
+                      },
+                      "coldchain_after": {
+                        "__dataclass__": "coldchain_state.VehicleColdChainState",
+                        "fields": {
+                          "compartment_temperature_c": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              18.0,
+                              4.0875,
+                              -18.0
+                            ]
+                          },
+                          "zone_load": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              0.0,
+                              1.9723548889160156,
+                              0.0
+                            ]
+                          },
+                          "cargo_manifest": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 46,
+                                  "quantity": 1.9723548889160156,
+                                  "temp_class": 1,
+                                  "pickup_finish_time": 1.606696634242932,
+                                  "initial_quality": 9.0,
+                                  "quality_remaining": 9.0,
+                                  "precooled": true
+                                }
+                              }
+                            ]
+                          },
+                          "delivered_to_depot": {
+                            "__sequence__": "tuple",
+                            "values": []
+                          },
+                          "cumulative_energy_kwh": 8.021038929018136,
+                          "cumulative_distance_km": 7.9749685525894165,
+                          "finalized_quality_loss": 0.0,
+                          "thermal_violation_count": 0,
+                          "thermal_violation_duration_h": 0.0,
+                          "door_open_count": 1,
+                          "dispatched": true,
+                          "closed": false
+                        }
+                      },
+                      "picked_order_id": 46,
+                      "segment_energy_kwh": 7.521038929018136,
+                      "segment_quality_loss": 0.0,
+                      "segment_distance_km": 7.9749685525894165,
+                      "segment_thermal_violation_count": 0,
+                      "segment_thermal_violation_duration_h": 0.0
+                    }
+                  },
+                  {
+                    "__dataclass__": "strict_online_env.ServiceRecord",
+                    "fields": {
+                      "vehicle_id": 0,
+                      "prev_node": 46,
+                      "node": 43,
+                      "depart_time": 1.606696634242932,
+                      "arrival_time": 1.9903887795905273,
+                      "service_start": 1.9903887795905273,
+                      "service_finish": 2.0403887803355856,
+                      "coldchain_before": {
+                        "__dataclass__": "coldchain_state.VehicleColdChainState",
+                        "fields": {
+                          "compartment_temperature_c": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              18.0,
+                              4.0875,
+                              -18.0
+                            ]
+                          },
+                          "zone_load": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              0.0,
+                              1.9723548889160156,
+                              0.0
+                            ]
+                          },
+                          "cargo_manifest": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 46,
+                                  "quantity": 1.9723548889160156,
+                                  "temp_class": 1,
+                                  "pickup_finish_time": 1.606696634242932,
+                                  "initial_quality": 9.0,
+                                  "quality_remaining": 9.0,
+                                  "precooled": true
+                                }
+                              }
+                            ]
+                          },
+                          "delivered_to_depot": {
+                            "__sequence__": "tuple",
+                            "values": []
+                          },
+                          "cumulative_energy_kwh": 8.021038929018136,
+                          "cumulative_distance_km": 7.9749685525894165,
+                          "finalized_quality_loss": 0.0,
+                          "thermal_violation_count": 0,
+                          "thermal_violation_duration_h": 0.0,
+                          "door_open_count": 1,
+                          "dispatched": true,
+                          "closed": false
+                        }
+                      },
+                      "coldchain_after": {
+                        "__dataclass__": "coldchain_state.VehicleColdChainState",
+                        "fields": {
+                          "compartment_temperature_c": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              18.0,
+                              4.0875,
+                              -18.0
+                            ]
+                          },
+                          "zone_load": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              0.0,
+                              2.9955254793167114,
+                              0.0
+                            ]
+                          },
+                          "cargo_manifest": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 46,
+                                  "quantity": 1.9723548889160156,
+                                  "temp_class": 1,
+                                  "pickup_finish_time": 1.606696634242932,
+                                  "initial_quality": 9.0,
+                                  "quality_remaining": 8.991833576889077,
+                                  "precooled": true
+                                }
+                              },
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 43,
+                                  "quantity": 1.0231705904006958,
+                                  "temp_class": 1,
+                                  "pickup_finish_time": 2.0403887803355856,
+                                  "initial_quality": 9.0,
+                                  "quality_remaining": 9.0,
+                                  "precooled": true
+                                }
+                              }
+                            ]
+                          },
+                          "delivered_to_depot": {
+                            "__sequence__": "tuple",
+                            "values": []
+                          },
+                          "cumulative_energy_kwh": 13.029998402354321,
+                          "cumulative_distance_km": 19.485732913017273,
+                          "finalized_quality_loss": 0.0,
+                          "thermal_violation_count": 0,
+                          "thermal_violation_duration_h": 0.0,
+                          "door_open_count": 2,
+                          "dispatched": true,
+                          "closed": false
+                        }
+                      },
+                      "picked_order_id": 43,
+                      "segment_energy_kwh": 5.008959473336185,
+                      "segment_quality_loss": 0.0,
+                      "segment_distance_km": 11.510764360427856,
+                      "segment_thermal_violation_count": 0,
+                      "segment_thermal_violation_duration_h": 0.0
+                    }
+                  },
+                  {
+                    "__dataclass__": "strict_online_env.ServiceRecord",
+                    "fields": {
+                      "vehicle_id": 0,
+                      "prev_node": 43,
+                      "node": 20,
+                      "depart_time": 2.0403887803355856,
+                      "arrival_time": {
+                        "__array__": "float64",
+                        "shape": [],
+                        "values": 2.169068145255248
+                      },
+                      "service_start": {
+                        "__array__": "float64",
+                        "shape": [],
+                        "values": 2.169068145255248
+                      },
+                      "service_finish": {
+                        "__array__": "float64",
+                        "shape": [],
+                        "values": 2.219068146000306
+                      },
+                      "coldchain_before": {
+                        "__dataclass__": "coldchain_state.VehicleColdChainState",
+                        "fields": {
+                          "compartment_temperature_c": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              18.0,
+                              4.0875,
+                              -18.0
+                            ]
+                          },
+                          "zone_load": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              0.0,
+                              2.9955254793167114,
+                              0.0
+                            ]
+                          },
+                          "cargo_manifest": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 46,
+                                  "quantity": 1.9723548889160156,
+                                  "temp_class": 1,
+                                  "pickup_finish_time": 1.606696634242932,
+                                  "initial_quality": 9.0,
+                                  "quality_remaining": 8.991833576889077,
+                                  "precooled": true
+                                }
+                              },
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 43,
+                                  "quantity": 1.0231705904006958,
+                                  "temp_class": 1,
+                                  "pickup_finish_time": 2.0403887803355856,
+                                  "initial_quality": 9.0,
+                                  "quality_remaining": 9.0,
+                                  "precooled": true
+                                }
+                              }
+                            ]
+                          },
+                          "delivered_to_depot": {
+                            "__sequence__": "tuple",
+                            "values": []
+                          },
+                          "cumulative_energy_kwh": 13.029998402354321,
+                          "cumulative_distance_km": 19.485732913017273,
+                          "finalized_quality_loss": 0.0,
+                          "thermal_violation_count": 0,
+                          "thermal_violation_duration_h": 0.0,
+                          "door_open_count": 2,
+                          "dispatched": true,
+                          "closed": false
+                        }
+                      },
+                      "coldchain_after": {
+                        "__dataclass__": "coldchain_state.VehicleColdChainState",
+                        "fields": {
+                          "compartment_temperature_c": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              18.033333333333335,
+                              4.0,
+                              -18.0
+                            ]
+                          },
+                          "zone_load": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              1.0700973272323608,
+                              2.9955254793167114,
+                              0.0
+                            ]
+                          },
+                          "cargo_manifest": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 46,
+                                  "quantity": 1.9723548889160156,
+                                  "temp_class": 1,
+                                  "pickup_finish_time": 1.606696634242932,
+                                  "initial_quality": 9.0,
+                                  "quality_remaining": 8.98846904443361,
+                                  "precooled": true
+                                }
+                              },
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 43,
+                                  "quantity": 1.0231705904006958,
+                                  "temp_class": 1,
+                                  "pickup_finish_time": 2.0403887803355856,
+                                  "initial_quality": 9.0,
+                                  "quality_remaining": 8.996635467544534,
+                                  "precooled": true
+                                }
+                              },
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 20,
+                                  "quantity": 1.0700973272323608,
+                                  "temp_class": 0,
+                                  "pickup_finish_time": 2.219068146000306,
+                                  "initial_quality": 1.0,
+                                  "quality_remaining": 1.0,
+                                  "precooled": true
+                                }
+                              }
+                            ]
+                          },
+                          "delivered_to_depot": {
+                            "__sequence__": "tuple",
+                            "values": []
+                          },
+                          "cumulative_energy_kwh": 14.886710008563949,
+                          "cumulative_distance_km": 23.346113860607147,
+                          "finalized_quality_loss": 0.0,
+                          "thermal_violation_count": 0,
+                          "thermal_violation_duration_h": 0.0,
+                          "door_open_count": 3,
+                          "dispatched": true,
+                          "closed": false
+                        }
+                      },
+                      "picked_order_id": 20,
+                      "segment_energy_kwh": 1.8567116062096272,
+                      "segment_quality_loss": 0.0,
+                      "segment_distance_km": 3.8603809475898743,
+                      "segment_thermal_violation_count": 0,
+                      "segment_thermal_violation_duration_h": 0.0
+                    }
+                  },
+                  {
+                    "__dataclass__": "strict_online_env.ServiceRecord",
+                    "fields": {
+                      "vehicle_id": 0,
+                      "prev_node": 20,
+                      "node": 17,
+                      "depart_time": {
+                        "__array__": "float64",
+                        "shape": [],
+                        "values": 2.219068146000306
+                      },
+                      "arrival_time": {
+                        "__array__": "float64",
+                        "shape": [],
+                        "values": 2.586870448042949
+                      },
+                      "service_start": {
+                        "__array__": "float64",
+                        "shape": [],
+                        "values": 2.586870448042949
+                      },
+                      "service_finish": {
+                        "__array__": "float64",
+                        "shape": [],
+                        "values": 2.6368704487880072
+                      },
+                      "coldchain_before": {
+                        "__dataclass__": "coldchain_state.VehicleColdChainState",
+                        "fields": {
+                          "compartment_temperature_c": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              18.033333333333335,
+                              4.0,
+                              -18.0
+                            ]
+                          },
+                          "zone_load": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              1.0700973272323608,
+                              2.9955254793167114,
+                              0.0
+                            ]
+                          },
+                          "cargo_manifest": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 46,
+                                  "quantity": 1.9723548889160156,
+                                  "temp_class": 1,
+                                  "pickup_finish_time": 1.606696634242932,
+                                  "initial_quality": 9.0,
+                                  "quality_remaining": 8.98846904443361,
+                                  "precooled": true
+                                }
+                              },
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 43,
+                                  "quantity": 1.0231705904006958,
+                                  "temp_class": 1,
+                                  "pickup_finish_time": 2.0403887803355856,
+                                  "initial_quality": 9.0,
+                                  "quality_remaining": 8.996635467544534,
+                                  "precooled": true
+                                }
+                              },
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 20,
+                                  "quantity": 1.0700973272323608,
+                                  "temp_class": 0,
+                                  "pickup_finish_time": 2.219068146000306,
+                                  "initial_quality": 1.0,
+                                  "quality_remaining": 1.0,
+                                  "precooled": true
+                                }
+                              }
+                            ]
+                          },
+                          "delivered_to_depot": {
+                            "__sequence__": "tuple",
+                            "values": []
+                          },
+                          "cumulative_energy_kwh": 14.886710008563949,
+                          "cumulative_distance_km": 23.346113860607147,
+                          "finalized_quality_loss": 0.0,
+                          "thermal_violation_count": 0,
+                          "thermal_violation_duration_h": 0.0,
+                          "door_open_count": 3,
+                          "dispatched": true,
+                          "closed": false
+                        }
+                      },
+                      "coldchain_after": {
+                        "__dataclass__": "coldchain_state.VehicleColdChainState",
+                        "fields": {
+                          "compartment_temperature_c": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              18.0,
+                              4.0,
+                              -17.88
+                            ]
+                          },
+                          "zone_load": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              1.0700973272323608,
+                              2.9955254793167114,
+                              1.6855043172836304
+                            ]
+                          },
+                          "cargo_manifest": {
+                            "__sequence__": "tuple",
+                            "values": [
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 46,
+                                  "quantity": 1.9723548889160156,
+                                  "temp_class": 1,
+                                  "pickup_finish_time": 1.606696634242932,
+                                  "initial_quality": 9.0,
+                                  "quality_remaining": 8.98060182707212,
+                                  "precooled": true
+                                }
+                              },
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 43,
+                                  "quantity": 1.0231705904006958,
+                                  "temp_class": 1,
+                                  "pickup_finish_time": 2.0403887803355856,
+                                  "initial_quality": 9.0,
+                                  "quality_remaining": 8.988768250183043,
+                                  "precooled": true
+                                }
+                              },
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 20,
+                                  "quantity": 1.0700973272323608,
+                                  "temp_class": 0,
+                                  "pickup_finish_time": 2.219068146000306,
+                                  "initial_quality": 1.0,
+                                  "quality_remaining": 0.9992315391802405,
+                                  "precooled": true
+                                }
+                              },
+                              {
+                                "__dataclass__": "coldchain_state.CargoLotState",
+                                "fields": {
+                                  "order_id": 17,
+                                  "quantity": 1.6855043172836304,
+                                  "temp_class": 2,
+                                  "pickup_finish_time": 2.6368704487880072,
+                                  "initial_quality": 9.0,
+                                  "quality_remaining": 9.0,
+                                  "precooled": true
+                                }
+                              }
+                            ]
+                          },
+                          "delivered_to_depot": {
+                            "__sequence__": "tuple",
+                            "values": []
+                          },
+                          "cumulative_energy_kwh": 27.502237216949176,
+                          "cumulative_distance_km": 34.380182921886444,
+                          "finalized_quality_loss": 0.0,
+                          "thermal_violation_count": 0,
+                          "thermal_violation_duration_h": 0.0,
+                          "door_open_count": 4,
+                          "dispatched": true,
+                          "closed": false
+                        }
+                      },
+                      "picked_order_id": 17,
+                      "segment_energy_kwh": 12.615527208385227,
+                      "segment_quality_loss": 0.0,
+                      "segment_distance_km": 11.034069061279297,
+                      "segment_thermal_violation_count": 0,
+                      "segment_thermal_violation_duration_h": 0.0
+                    }
+                  }
+                ]
+              },
+              "return_depart": {
+                "__array__": "float64",
+                "shape": [],
+                "values": 2.6368704487880072
+              },
+              "return_arrival": {
+                "__array__": "float64",
+                "shape": [],
+                "values": 2.996928875645002
+              },
+              "final_coldchain_state": {
+                "__dataclass__": "coldchain_state.VehicleColdChainState",
+                "fields": {
+                  "compartment_temperature_c": {
+                    "__sequence__": "tuple",
+                    "values": [
+                      18.0,
+                      4.0,
+                      -18.0
+                    ]
+                  },
+                  "zone_load": {
+                    "__sequence__": "tuple",
+                    "values": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  },
+                  "cargo_manifest": {
+                    "__sequence__": "tuple",
+                    "values": []
+                  },
+                  "delivered_to_depot": {
+                    "__sequence__": "tuple",
+                    "values": [
+                      {
+                        "__dataclass__": "coldchain_state.DeliveredCargoRecord",
+                        "fields": {
+                          "order_id": 46,
+                          "quantity": 1.9723548889160156,
+                          "temp_class": 1,
+                          "pickup_finish_time": 1.606696634242932,
+                          "return_arrival_time": 2.996928875645002,
+                          "initial_quality": 9.0,
+                          "delivered_quality": 8.973821926894402,
+                          "quality_loss": 0.0,
+                          "salable": true
+                        }
+                      },
+                      {
+                        "__dataclass__": "coldchain_state.DeliveredCargoRecord",
+                        "fields": {
+                          "order_id": 43,
+                          "quantity": 1.0231705904006958,
+                          "temp_class": 1,
+                          "pickup_finish_time": 2.0403887803355856,
+                          "return_arrival_time": 2.996928875645002,
+                          "initial_quality": 9.0,
+                          "delivered_quality": 8.981988350005325,
+                          "quality_loss": 0.0,
+                          "salable": true
+                        }
+                      },
+                      {
+                        "__dataclass__": "coldchain_state.DeliveredCargoRecord",
+                        "fields": {
+                          "order_id": 20,
+                          "quantity": 1.0700973272323608,
+                          "temp_class": 0,
+                          "pickup_finish_time": 2.219068146000306,
+                          "return_arrival_time": 2.996928875645002,
+                          "initial_quality": 1.0,
+                          "delivered_quality": 0.9985697600269178,
+                          "quality_loss": 0.0,
+                          "salable": null
+                        }
+                      },
+                      {
+                        "__dataclass__": "coldchain_state.DeliveredCargoRecord",
+                        "fields": {
+                          "order_id": 17,
+                          "quantity": 1.6855043172836304,
+                          "temp_class": 2,
+                          "pickup_finish_time": 2.6368704487880072,
+                          "return_arrival_time": 2.996928875645002,
+                          "initial_quality": 9.0,
+                          "delivered_quality": 8.999899903757333,
+                          "quality_loss": 0.0,
+                          "salable": true
+                        }
+                      }
+                    ]
+                  },
+                  "cumulative_energy_kwh": 28.98216639860907,
+                  "cumulative_distance_km": 45.18193572759628,
+                  "finalized_quality_loss": 0.0,
+                  "thermal_violation_count": 0,
+                  "thermal_violation_duration_h": 0.0,
+                  "door_open_count": 4,
+                  "dispatched": true,
+                  "closed": true
+                }
+              },
+              "depot_unload_records": {
+                "__sequence__": "list",
+                "values": [
+                  {
+                    "__dataclass__": "coldchain_state.DeliveredCargoRecord",
+                    "fields": {
+                      "order_id": 46,
+                      "quantity": 1.9723548889160156,
+                      "temp_class": 1,
+                      "pickup_finish_time": 1.606696634242932,
+                      "return_arrival_time": 2.996928875645002,
+                      "initial_quality": 9.0,
+                      "delivered_quality": 8.973821926894402,
+                      "quality_loss": 0.0,
+                      "salable": true
+                    }
+                  },
+                  {
+                    "__dataclass__": "coldchain_state.DeliveredCargoRecord",
+                    "fields": {
+                      "order_id": 43,
+                      "quantity": 1.0231705904006958,
+                      "temp_class": 1,
+                      "pickup_finish_time": 2.0403887803355856,
+                      "return_arrival_time": 2.996928875645002,
+                      "initial_quality": 9.0,
+                      "delivered_quality": 8.981988350005325,
+                      "quality_loss": 0.0,
+                      "salable": true
+                    }
+                  },
+                  {
+                    "__dataclass__": "coldchain_state.DeliveredCargoRecord",
+                    "fields": {
+                      "order_id": 20,
+                      "quantity": 1.0700973272323608,
+                      "temp_class": 0,
+                      "pickup_finish_time": 2.219068146000306,
+                      "return_arrival_time": 2.996928875645002,
+                      "initial_quality": 1.0,
+                      "delivered_quality": 0.9985697600269178,
+                      "quality_loss": 0.0,
+                      "salable": null
+                    }
+                  },
+                  {
+                    "__dataclass__": "coldchain_state.DeliveredCargoRecord",
+                    "fields": {
+                      "order_id": 17,
+                      "quantity": 1.6855043172836304,
+                      "temp_class": 2,
+                      "pickup_finish_time": 2.6368704487880072,
+                      "return_arrival_time": 2.996928875645002,
+                      "initial_quality": 9.0,
+                      "delivered_quality": 8.999899903757333,
+                      "quality_loss": 0.0,
+                      "salable": true
+                    }
+                  }
+                ]
+              },
+              "dispatch_preconditioning_energy_kwh": 0.5,
+              "return_segment_energy_kwh": 1.4799291816598945,
+              "return_segment_quality_loss": 0.0,
+              "return_segment_distance_km": 10.801752805709839,
+              "return_segment_thermal_violation_count": 0,
+              "return_segment_thermal_violation_duration_h": 0.0
+            }
+          },
+          {
+            "__dataclass__": "strict_online_env.VehicleTrace",
+            "fields": {
+              "vehicle_id": 1,
+              "dispatch_time": null,
+              "services": {
+                "__sequence__": "list",
+                "values": []
+              },
+              "return_depart": null,
+              "return_arrival": null,
+              "final_coldchain_state": null,
+              "depot_unload_records": {
+                "__sequence__": "list",
+                "values": []
+              },
+              "dispatch_preconditioning_energy_kwh": 0.0,
+              "return_segment_energy_kwh": 0.0,
+              "return_segment_quality_loss": 0.0,
+              "return_segment_distance_km": 0.0,
+              "return_segment_thermal_violation_count": 0,
+              "return_segment_thermal_violation_duration_h": 0.0
+            }
+          },
+          {
+            "__dataclass__": "strict_online_env.VehicleTrace",
+            "fields": {
+              "vehicle_id": 2,
+              "dispatch_time": null,
+              "services": {
+                "__sequence__": "list",
+                "values": []
+              },
+              "return_depart": null,
+              "return_arrival": null,
+              "final_coldchain_state": null,
+              "depot_unload_records": {
+                "__sequence__": "list",
+                "values": []
+              },
+              "dispatch_preconditioning_energy_kwh": 0.0,
+              "return_segment_energy_kwh": 0.0,
+              "return_segment_quality_loss": 0.0,
+              "return_segment_distance_km": 0.0,
+              "return_segment_thermal_violation_count": 0,
+              "return_segment_thermal_violation_duration_h": 0.0
+            }
+          }
+        ]
+      }
+    ]
+  ]
+}

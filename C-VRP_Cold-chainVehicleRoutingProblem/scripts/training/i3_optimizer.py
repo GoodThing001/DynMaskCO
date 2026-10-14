@@ -78,12 +78,23 @@ def validate_actor_batch(model, batch, *, sampled_trainable_hash, sampled_frozen
         raise ValueError('Detached decision losses/baseline shape mismatch')
     if not np.isfinite(losses).all() or not np.isfinite(baseline).all():
         raise ValueError('Nonfinite detached decision loss/baseline')
+    eligible = np.asarray(batch['decision_eligible'])
+    if eligible.shape != (b,) or eligible.dtype != np.bool_:
+        raise ValueError('Explicit boolean teacher eligibility is required')
+    if np.any(losses[~eligible] != 0):
+        raise ValueError('Ineligible teacher states must have zero decision losses')
+    validate_reconstruction_batch(batch, max_count=m)
+
+
+def validate_reconstruction_batch(batch, *, max_count=200):
     rx, ry, rn, rcb = map(np.asarray, (batch['recon_x'], batch['recon_y'],
                                      batch['recon_n'], batch['recon_cb']))
     if (rx.ndim != 2 or ry.shape != rx.shape or rn.shape != (len(rx),) or
             rcb.shape != rn.shape or np.any((rx == MASK_TOKEN).sum(axis=1) == 0)):
         raise ValueError('Reconstruction inputs require masked targets and matching labels')
-    if (np.any(ry < 0) or np.any(ry >= VOCAB_SIZE) or np.any(rn < 0) or np.any(rn > m)):
+    if (any(v.dtype.kind not in 'iu' for v in (rx, ry, rn, rcb)) or
+            np.any(ry < 0) or np.any(ry >= VOCAB_SIZE) or
+            np.any(rn < 0) or np.any(rn > max_count)):
         raise ValueError('Invalid reconstruction target/count labels')
 
 
@@ -105,7 +116,7 @@ def actor_objective(model, batch, reconstruction_weight):
     lp = scenario_set_log_prob(t, c, batch['tokens'], batch['counts'], batch['support'])
     recon = reconstruction_loss(model, batch)
     return combined_loss(lp, batch['losses'], batch['prior_baseline'],
-                         recon, reconstruction_weight)
+                         recon, reconstruction_weight, batch['decision_eligible'])
 
 
 def create_optimizer(model, *, learning_rate, weight_decay, max_grad_norm):
@@ -145,6 +156,10 @@ def apply_gradient_step(model, compute, opt_state, trainable, batch, *,
     """
     validate_actor_batch(model, batch, sampled_trainable_hash=sampled_trainable_hash,
                          sampled_frozen_hash=sampled_frozen_hash)
+    return _commit_step(model, compute, opt_state, trainable, batch, sampled_frozen_hash)
+
+
+def _commit_step(model, compute, opt_state, trainable, batch, frozen_hash):
     current = trainable_state(model).flat_state()
     given = trainable.flat_state()
     if (list(current.paths) != list(given.paths) or
@@ -160,6 +175,37 @@ def apply_gradient_step(model, compute, opt_state, trainable, batch, *,
                     for v in jax.tree_util.tree_leaves(next_opt))):
         raise ValueError('Nonfinite optimizer output; actor was not updated')
     nnx.update(model, next_params)
-    if parameter_hash(model, frozen=True) != sampled_frozen_hash:
+    if parameter_hash(model, frozen=True) != frozen_hash:
         raise RuntimeError('Frozen encoder changed; update is not valid')
     return {'loss': float(value), 'gradient_norm': float(norm)}, next_opt, next_params
+
+
+def make_reconstruction_step(tx, *, reconstruction_weight, use_jit=True):
+    """No actor likelihood/draws for invalid teachers or terminal support.
+
+    Preserve reconstruction and explicit optimizer regularization for EVERY
+    state. Do not manufacture a past-clock actor input merely to pass support.
+    """
+    if not np.isfinite(reconstruction_weight) or reconstruction_weight <= 0:
+        raise ValueError('Reconstruction-only updates require a positive explicit weight')
+
+    def loss(model, batch):
+        return reconstruction_weight * reconstruction_loss(model, batch)
+
+    def compute(model, opt_state, trainable, batch):
+        value, grads = nnx.value_and_grad(loss)(model, batch)
+        fs = grads.flat_state()
+        selected = set(trainable.flat_state().paths)
+        grads = nnx.State.from_flat_path({p: v for p, v in zip(fs.paths, fs.leaves) if p in selected})
+        norm = optax.global_norm(grads)
+        updates, next_opt = tx.update(grads, opt_state, trainable)
+        return value, norm, next_opt, optax.apply_updates(trainable, updates)
+
+    return nnx.jit(compute, donate_argnums=()) if use_jit else compute
+
+
+def apply_reconstruction_step(model, compute, opt_state, trainable, batch, *, frozen_hash):
+    if parameter_hash(model, frozen=True) != frozen_hash:
+        raise ValueError('Frozen encoder identity changed before reconstruction update')
+    validate_reconstruction_batch(batch)
+    return _commit_step(model, compute, opt_state, trainable, batch, frozen_hash)

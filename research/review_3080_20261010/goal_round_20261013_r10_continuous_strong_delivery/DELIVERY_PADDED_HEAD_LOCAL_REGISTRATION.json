@@ -1,0 +1,15 @@
+{
+  "stage": "one_shape_stable_padded_head_component_v1",
+  "created_utc": "2026-10-13T16:52:01.0252787Z",
+  "selection": "pretrained_initial saved step13 because both fixed arms show same phase22 latency spike; not chosen by score, cost, or benefit",
+  "input_sha256": "a1296c3a934525ef9d59770728305f2b5f27c83fb94ab714630dd771e91fb3d4",
+  "program_sha256": "15e762a65d28c6a6f5bec7442f94b9f14e574afa919d94d6289f0c1f4197f780",
+  "original_head_source_sha256": "d9664585a8a6ab2d169ac8b9920669b8b04bfddefc56d7c84e425a138fbd409f",
+  "fixed_action_count": 750,
+  "fill": "duplicate first valid action/binding row for padding, compare only original 516",
+  "gate": "bitwise equality within same actual local head/runtime; no tolerance substitution",
+  "no_backbone_or_C0": true,
+  "no_old_34_or_9099_QA": true,
+  "engineering_only": true,
+  "stable_online_gain": false
+}

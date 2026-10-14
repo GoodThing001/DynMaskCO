@@ -27,7 +27,7 @@ def check_raises(fn, exc=ValueError):
     raise AssertionError('Expected ' + exc.__name__)
 
 
-def fixture(infeasible=False):
+def fixture(infeasible=False, terminal=False):
     contract = make_c0_contract_v2()
     ds = generate_dataset(1, 4, TRAIN_SEED)
     # Controlled fixture: same-time decisions, non-index reveal order and an
@@ -38,6 +38,8 @@ def fixture(infeasible=False):
         ds['demands'][0, 3] = 60
     ds['temp_class'][0] = 0
     ds['reveal_time'][0] = [1e6, 1, 1.02, 1, 2]
+    if terminal:
+        ds['reveal_time'][0, 4] = 16.
     ds['tw_start'][0] = 0
     ds['tw_end'][0] = 22
     ds = add_v2_initial_quality(ds, contract)

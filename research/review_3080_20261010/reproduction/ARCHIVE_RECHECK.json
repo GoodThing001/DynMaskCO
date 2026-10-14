@@ -1,0 +1,109 @@
+{
+  "schema": "negative-archive-paper-audit-v1",
+  "engineering_consistency_pass": true,
+  "scientific_positive_gain": false,
+  "stable_maskco_core_online_gain": false,
+  "full_from_zero_reproduction": false,
+  "equivalence_established": false,
+  "program_sha256": "8edbc3cd5cbe4563992112bf55acadef0be4242b12d2e8139684c3f146cdbbd8",
+  "manifest_sha256": "b7a881782dd400b0d4af6c3acddc26ab854fbd8c6023b5c0f3d9aa49e7073daf",
+  "paper_sha256": "4211fcf06e51d5c372d60bfa95cca190bfb8df720a88e94473e25ef335ec1776",
+  "original_package_files_unchanged": 183,
+  "formal_json_count": 14,
+  "c1_registered_joint_adjudication": {
+    "a": true,
+    "b": false,
+    "c": false,
+    "joint_pass": false,
+    "rule_scope": "historical_registered_case_not_new_program_confirmation"
+  },
+  "current_static_qualification": {
+    "status": "passed_current_static_artifact_only",
+    "full_reproduction": false,
+    "sha256": "b4fc81598958532fc16ebe89d1220925921912f0c23c1c57ad2ca8c61d714161",
+    "unresolved": [
+      "original training source identity and full historical lineage",
+      "original online event trajectories",
+      "new scientific protocol and matched strong dynamic controls"
+    ]
+  },
+  "recovery_inventory": {
+    "status": "passed_315_actual_recovered_file_identities",
+    "sha256": "113584274656a1ffe1a755d71e0d73f7b50cbcdb6cbaf7a5828a8210ac097246",
+    "original_training_identity_restored": false
+  },
+  "paper_checks": {
+    "numeric_cells_checked": 52,
+    "cautious_claim_checks": 9,
+    "publication_or_full_reproduction_qualification": false
+  },
+  "recomputation": {
+    "s42_train": {
+      "raw_state_recomputation": "passed_32_states_16_clusters_2000_bootstrap",
+      "trajectory_replay": "not_established"
+    },
+    "s42_cal": {
+      "raw_state_recomputation": "passed_32_states_16_clusters_2000_bootstrap",
+      "trajectory_replay": "not_established"
+    },
+    "s43_train": {
+      "raw_state_recomputation": "passed_32_states_16_clusters_2000_bootstrap",
+      "trajectory_replay": "not_established"
+    },
+    "s43_cal": {
+      "raw_state_recomputation": "passed_32_states_16_clusters_2000_bootstrap",
+      "trajectory_replay": "not_established"
+    },
+    "s44_train": {
+      "raw_state_recomputation": "passed_32_states_16_clusters_2000_bootstrap",
+      "trajectory_replay": "not_established"
+    },
+    "s44_cal": {
+      "raw_state_recomputation": "passed_32_states_16_clusters_2000_bootstrap",
+      "trajectory_replay": "not_established"
+    },
+    "heldout": {
+      "raw_state_recomputation": "passed_32_states_16_clusters_2000_bootstrap",
+      "trajectory_replay": "not_established"
+    },
+    "c1_s42": {
+      "raw_state_recomputation": "passed_32_states_16_clusters_2000_bootstrap",
+      "trajectory_replay": "not_established"
+    },
+    "c1_s43": {
+      "raw_state_recomputation": "passed_32_states_16_clusters_2000_bootstrap",
+      "trajectory_replay": "not_established"
+    },
+    "c1_s44": {
+      "raw_state_recomputation": "passed_32_states_16_clusters_2000_bootstrap",
+      "trajectory_replay": "not_established"
+    },
+    "loop_r1_s42": {
+      "summary_row_recomputation": "passed_16_instances_10000_bootstrap",
+      "hard_trajectory_replay": "unknown_missing_original_event_json",
+      "budget_execution_proof": "unknown_summary_only"
+    },
+    "loop_r1_s43": {
+      "summary_row_recomputation": "passed_16_instances_10000_bootstrap",
+      "hard_trajectory_replay": "unknown_missing_original_event_json",
+      "budget_execution_proof": "unknown_summary_only"
+    },
+    "loop_c1_s42": {
+      "summary_row_recomputation": "passed_16_instances_10000_bootstrap",
+      "hard_trajectory_replay": "unknown_missing_original_event_json",
+      "budget_execution_proof": "unknown_summary_only"
+    },
+    "loop_c1_s43": {
+      "summary_row_recomputation": "passed_16_instances_10000_bootstrap",
+      "hard_trajectory_replay": "unknown_missing_original_event_json",
+      "budget_execution_proof": "unknown_summary_only"
+    }
+  },
+  "limitations": [
+    "Inventory was recorded now; it is not proof of historical source or preregistration time.",
+    "Original training identity, s43/s44 training lineage, and closed-loop event trajectories are unresolved.",
+    "Recomputed fixed summaries and per-instance CIs do not certify full online execution, hard trajectories, or equal budgets.",
+    "CI crossing zero is not equivalence. Historical R1/C1 outcomes are not new PROGRAM confirmation.",
+    "Current paper check is finite required-phrase/numeric-table checking, not complete semantic peer review."
+  ]
+}

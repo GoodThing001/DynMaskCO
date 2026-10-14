@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "D:\PyCharm_\MASKCO-Main\research\review_3080_20261010\pickup\lazy_base_distance_full_scenario_root_v1\run.py", line 296, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "D:\PyCharm_\MASKCO-Main\research\review_3080_20261010\pickup\lazy_base_distance_full_scenario_root_v1\run.py", line 212, in main
+    pairs = paired.setdefault(r['operation'], [])
+            ^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'setdefault'

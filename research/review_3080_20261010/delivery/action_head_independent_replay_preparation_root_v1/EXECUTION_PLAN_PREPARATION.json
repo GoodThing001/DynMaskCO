@@ -1,0 +1,54 @@
+{
+  "execution_authorized": false,
+  "ordered_keys_digest": "7ef68add36bdc535ef591b62b0089d82e41eb7a03f9b827d7873e7e9b671f4cd",
+  "old_remote_root": "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\remote_finite_research_root_v2",
+  "checkpoint": "C:\\Users\\zh\\project\\MASKCO-Main\\MASKCO_code\\ckpts\\cvrp100.ckpt",
+  "checkpoint_sha256": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+  "contract_hash": "ba40cd0d08fc21ef09d418c7df2bff940294ee2cfecebd2a4ba9ddde35a8268a",
+  "minimum_ram_gib": 8,
+  "stage_timeout_seconds": 900,
+  "reap_timeout_seconds": 10,
+  "numpy_head_max_abs_error": 2e-05,
+  "head_seed": 20261012,
+  "random_seed": 888,
+  "random_projection": "original3D initialization then exact7 zero rows as pretrained extension",
+  "optimizer_steps": 0,
+  "first_states": 30,
+  "model_executed": false,
+  "scientific_family3_started": false,
+  "formal_controls_qualified": false,
+  "full_C0_qualified": false,
+  "full_request_budget_qualified": false,
+  "source_inputs": {
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\family2_remaining_action_diagnosis_root_v1\\OBSERVED_ACTION_RECORDS.json": "a8db10dd2134f032fadf99059ca96b636349f12f6b4df99dc0169721a8aad886",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\directed_action_chain_root_v1\\ACTION_CHAINS.jsonl": "e7bfcba1c7eb5e9ec43ecccfe06bc8103961ddb11e9469d2086b09c82cb515f3"
+  },
+  "resource_observation": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_head_execution_chain_preparation_root_v1\\RESOURCE_OBSERVATION_20261012T064629866143Z.json",
+  "resource_observation_sha256": "ffa31996a812c82c944c0d9ad72aaffdbfd1671dbd97fae8ff69b221a99ce2fb",
+  "created_utc": "2026-10-12T07:22:47.284295+00:00",
+  "status": "FULL_REPLAY_SOURCE_PREPARATION_ONLY",
+  "package_files": {
+    "delivery_actual_action_head_v1.py": "d9664585a8a6ab2d169ac8b9920669b8b04bfddefc56d7c84e425a138fbd409f",
+    "action_head_runtime_v1.py": "492a14effd3e7966bacc6e21149387f8754c0ea34c7b0ebd03ff017c464ead23",
+    "run_delivery_actual_action_head_v2.py": "8c2cb0610e6b4cb74e3dfbfa2544e034a7522b9bbff51df0a9469904768047f0",
+    "audit_delivery_actual_action_head_v2.py": "fb4c7b19b35aab4f8d3db533310bb0531dcf258dcc26f16f85f4e239861d9b96",
+    "supervise_delivery_action_head_v2.py": "0b53971726b61e8c123f5401ccf98b220eed4d97ffe549e9fac17b59d712d5c7",
+    "features_objective.py": "2b1049f3c6bd665b4d78d6882680f0571f583fb23a6e5191f05482d9c6ba8481",
+    "INPUTS.json": "2803e212d6210b8a5dbdfc978aedf01f6eb8db58d04fe8c96bda99b9ef1fa826"
+  },
+  "normalization_sources": {
+    "modules/functional/coord_transform.py": "09de9bf90d6b21991759511bf2905700791e76cfd2f3b3986c7a7f1cff193da7",
+    "modules/functional/__init__.py": "ddccb363c3131b28c460b767231757e84c7fa963e19c06b1b8ce52cf6855e303"
+  },
+  "production_forward_records": 60,
+  "independent_full_forward_records": 60,
+  "backbone_comparison": "exact full float32 arrays and all234 parameter identities; no relaxed latent/feature tolerance",
+  "coordinate_comparison": "exact independent mean/L2/mean/divide using same JAX grouping; shared runtime, not another normalization implementation",
+  "numeric_bound_scope": "Only preregistered new NumPy versus JAX float32 head arithmetic. Full backbone, seeded parameters and10D features require exact identity. No old scientific tolerance change.",
+  "outstanding": [
+    "Exact prospective execution registration and exclusive upload/dispatch/readonly download chain still required before any execution.",
+    "Recheck real available8GiB RAM, CPU15 load and actual process ownership before execution; no team process termination.",
+    "This source preparation has not imported JAX or performed any forward, gradient, optimizer, solver or C0; no runtime qualification.",
+    "Formal trained same-initializationCE/task-trainedrandom controls, fullC0, full10second request and equal-time dynamic iteration remain."
+  ]
+}

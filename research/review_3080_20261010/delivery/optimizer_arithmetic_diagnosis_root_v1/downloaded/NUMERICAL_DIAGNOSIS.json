@@ -1,0 +1,54 @@
+{
+  "arms": {
+    "pretrained_CE": {
+      "mismatches": [
+        {
+          "path": "('final_norm', 'scale')",
+          "different_elements": 14,
+          "max_absolute_difference": 1.11445687257292e-38,
+          "all_plain_mismatches_subnormal": true,
+          "all_observed_mismatches_zero": true,
+          "FTZ_model_exact": true
+        }
+      ],
+      "FTZ_model_all234_exact": true,
+      "gradient_and_actual_update_match_frozen_failure": true,
+      "loss": 3.4376909732818604
+    },
+    "pretrained_paired": {
+      "mismatches": [
+        {
+          "path": "('final_norm', 'scale')",
+          "different_elements": 14,
+          "max_absolute_difference": 1.11445687257292e-38,
+          "all_plain_mismatches_subnormal": true,
+          "all_observed_mismatches_zero": true,
+          "FTZ_model_exact": true
+        }
+      ],
+      "FTZ_model_all234_exact": true,
+      "gradient_and_actual_update_match_frozen_failure": true,
+      "loss": 3.4942805767059326
+    }
+  },
+  "float32_min_normal": 1.1754943508222875e-38,
+  "multiply_probe_input": [
+    5.877471754111438e-39,
+    -5.877471754111438e-39,
+    1.1754943508222875e-38,
+    0.0
+  ],
+  "multiply_probe_observed": [
+    0.0,
+    -0.0,
+    0.0,
+    0.0
+  ],
+  "all_FTZ_predictions_exact": true,
+  "source_changed": [],
+  "new_unsealed_files": [],
+  "optimizer_steps": 0,
+  "frozen_failure_unchanged": true,
+  "scientific_gain": false,
+  "scope": "Actual same CPU/runtime/first4 OLD tensors and exact two frozen gradient/update inventories; controlled backend subnormal multiply probe. No tolerance relaxation or changed optimizer."
+}

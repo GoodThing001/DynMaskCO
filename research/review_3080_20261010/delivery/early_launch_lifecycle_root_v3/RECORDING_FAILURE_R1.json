@@ -1,0 +1,8 @@
+{
+  "original_recorder_exit": 1,
+  "original_tool": "tools/record_delivery_early_launch_20261013.py",
+  "cause": "Recorder required full traceback text equality between inner parent receipt and outer harness exception; outer harness adds its own call frame.",
+  "new_R2_check": "Verify the complete parent traceback tail byte-for-byte inside the outer harness traceback, after its traceback header; do not change saved evidence.",
+  "model_or_production_rerun": false,
+  "earlier_scientific_or_source_failures_changed": false
+}

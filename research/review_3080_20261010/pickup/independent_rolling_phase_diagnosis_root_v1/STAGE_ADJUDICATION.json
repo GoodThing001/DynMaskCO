@@ -1,0 +1,53 @@
+{
+  "stage": "independent_rolling_phase_diagnosis_root_v1",
+  "registration_sha256": "61d71415311a784bdab5787e30920e32955040baa3890ad7766f20a1e713a474",
+  "producer_exit": 1,
+  "worker_actual_returncode": 1,
+  "worker_reaped": true,
+  "output_selected": false,
+  "parent_elapsed_seconds": 8.033721299958415,
+  "phase_observation_qualification": {
+    "checks": 264,
+    "failures": 0,
+    "audit_exit": 0,
+    "records": 54,
+    "method_AST_identical_after_telemetry_removal": true
+  },
+  "completed_prefix": {
+    "reject": {
+      "complete_C0": 1,
+      "complete_SAA": 3
+    },
+    "accept": {
+      "complete_C0": 5,
+      "complete_SAA": 0
+    }
+  },
+  "completed_operation_durations_seconds": {
+    "route_recourse": 0.0224521,
+    "full_C0_certification": 0.0334047,
+    "three_full_reject_SAA": 6.3932917
+  },
+  "actual_cancel_phase": [
+    {
+      "sequence": 54,
+      "clock_ns": 1025260295490200,
+      "stage": "SAA_begin",
+      "index": 3,
+      "branch": 0,
+      "value0": 0,
+      "value1": 0
+    }
+  ],
+  "end_source_closure_present": false,
+  "result_serialization_reached": false,
+  "formal_strong_dynamic_qualified": false,
+  "full_request_budget_qualified": false,
+  "full_scientific_loaded_closure": false,
+  "component_qualified": false,
+  "stable_online_gain": false,
+  "bounded_insight": "This newly observed method completes route recourse and six immediate C0 certifications quickly, but three full historical reject-branch local-search rollouts consume6.3932917seconds and cancellation occurs inside fourth. It does not identify the old uninstrumented run phase or prove removing/incrementally filtering operations preserves outputs or makes20complete branches fit8seconds.",
+  "no_budget_or_sample_or_seed_change": true,
+  "no_retry_original_or_diagnostic": true,
+  "next": "Separately preregister semantics-preserving incremental route filtering/matched rollout optimization, with actual current accept/reject accounting and strict original scenario outputs; keep all oldFAIL and do not startscience until formal learnedCE/random and entirebudget/gates qualify."
+}

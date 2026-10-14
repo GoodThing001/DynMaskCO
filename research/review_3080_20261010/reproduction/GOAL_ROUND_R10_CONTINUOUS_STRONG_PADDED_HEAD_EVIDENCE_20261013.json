@@ -1,0 +1,37 @@
+{
+  "scope": "r10 bounded pickup next-natural-event and delivery saved timing/fixed-shape head only",
+  "report": "docs/当前规划/决策与审计/双线第十二轮_连续独立接拒与定形动作头严格门_2026-10-13.md",
+  "report_sha256": "8175c4bd7e8960c97febfa7c21e13b89c5326829f4d9b996f71b44c1c1561a89",
+  "input_sha256": {
+    "goal_round_20261013_r10_continuous_strong_delivery/REGISTRATION.json": "fe8a73cc47295e04c90d0aa88d0cf1233079dd407283c0f68399bf8861f48448",
+    "goal_round_20261013_r10_continuous_strong_delivery/PICKUP_RECOVERY_REGISTRATION_V2.json": "bc5737778faff42ebac610533e9e7121f5ff5110654cb08192b06e9c2e0559ee",
+    "pickup/strong_independent_owner_next_root_v2/RESULT.json": "8d9d34b67234b35c238ca143dcf6613cc6da305f1cede8c1ed894e1eca22a64c",
+    "pickup/strong_independent_owner_next_root_v2/INDEPENDENT_PRIVATE_OWNER.json": "06e2e2da26250d903d977acebaea2cdf4060be59cecd18314ce8f0eea92de238",
+    "pickup/strong_independent_owner_next_root_v2/INDEPENDENT_PENALTY_ASSUMPTION_RECOVERY_R3.json": "6577f7add6bd56dfd4075d46ac3ba956be8d70aaeee25d5ae33ce3fa6eef2cda",
+    "goal_round_20261013_r10_continuous_strong_delivery/DELIVERY_HEAD_SCALING_REGISTRATION.json": "bb75bc932c6bcd628b541f41c4958ef3c544f734bc61fd10ae235022e56a1cba",
+    "goal_round_20261013_r10_continuous_strong_delivery/DELIVERY_HEAD_SCALING_DIAGNOSIS.json": "9ca7b443c94b79c9c530a7f828ac549803c8392add66a3b1af5f9e13ee1a9fea",
+    "goal_round_20261013_r10_continuous_strong_delivery/INDEPENDENT_DELIVERY_HEAD_SCALING.json": "c8f3db44cafd04874f0d67a1588cde1db1fb5ac690267bbb2dc8a2f208d0c81d",
+    "goal_round_20261013_r10_continuous_strong_delivery/DELIVERY_PADDED_HEAD_LOCAL_REGISTRATION.json": "d479530f7e4939ece3b401162967f605bc1fe87ac283be1703a3eaabae824607",
+    "goal_round_20261013_r10_continuous_strong_delivery/DELIVERY_PADDED_HEAD_LOCAL_RESULT.json": "035192551476627e5c941d9842d51a33a039e13850f642b82ef015087bb3521a",
+    "goal_round_20261013_r10_continuous_strong_delivery/DELIVERY_PADDED_HEAD_AUDIT_REGISTRATION.json": "f38d1a126abbcec2f63e89411ffd8447dbe585b74daccbcbce094d0bdc3d3402",
+    "goal_round_20261013_r10_continuous_strong_delivery/INDEPENDENT_DELIVERY_PADDED_HEAD_LOCAL.json": "1377934b3168f652d0f87cee849adf982d0fd6468b36fbb3fed7986568648c4e",
+    "goal_round_20261013_r10_continuous_strong_delivery/SERVER_RESOURCE_OBSERVATION.json": "1ae062a2620c35d2be71cbd70c0db1c0e06e11d9021fd611a9c02bf2dd3313f5"
+  },
+  "pickup_v1_preproduction_failure_preserved": true,
+  "pickup_production_checks": 7,
+  "pickup_independent_original_checks": 626,
+  "pickup_independent_original_failures_preserved": 1,
+  "pickup_narrow_recovery_checks": 7,
+  "pickup_formal_strong_dynamic_qualified": false,
+  "delivery_saved_timing_independent_checks": 79,
+  "delivery_padded_head_strict_equal": [
+    513,
+    516
+  ],
+  "delivery_padded_head_independent_checks": 9,
+  "delivery_padded_head_qualified": false,
+  "delivery_full_request_budget_qualified": false,
+  "server_research_launched": false,
+  "scientific_family3_started": false,
+  "stable_online_gain": false
+}

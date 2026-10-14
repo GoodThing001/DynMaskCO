@@ -1,0 +1,750 @@
+{
+  "schema": "program-support-audit-v1",
+  "engineering_headline_consistency": {
+    "n_checks": 29,
+    "n_failures": 0,
+    "checks": [
+      {
+        "kind": "headline_number",
+        "line": "delivery",
+        "node": "n7",
+        "field": "primary_ANY50_over_LNS.mean_relative_gain",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "delivery",
+        "node": "n10",
+        "field": "gains.GLS_over_ANY50.mean_relative_gain",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "delivery",
+        "node": "n12",
+        "field": "dev.gains_vs_random.long_edge.mean_relative_gain",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "delivery",
+        "node": "n13",
+        "field": "dev.gains_vs_random.related.mean_relative_gain",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "delivery",
+        "node": "n6",
+        "field": "dev.ANY50_over_LNS.mean_relative_gain",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "delivery",
+        "node": "n8",
+        "field": "dev.gains.guided_over_guided_rand.mean_relative_gain",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "delivery",
+        "node": "n5",
+        "field": "dev.lns_gain_over_H.mean_relative_gain",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "delivery",
+        "node": "n11",
+        "field": "mean_relative_distance_gain",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "pickup",
+        "node": "n4",
+        "field": "distance_headroom.mean_relative_gain",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "pickup",
+        "node": "n5",
+        "field": "ceiling_if_per_order_cost_held.relative_service_gain",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "pickup",
+        "node": "n7",
+        "field": "shares.threshold",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "pickup",
+        "node": "n8",
+        "field": "served_count_comparison.mean_relative_gain",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "pickup",
+        "node": "n9",
+        "field": "rows.3.relative_service_gain_vs_base",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "delivery",
+        "node": "n14",
+        "field": "relative_distance_advantage_ANY50_over_LNS",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "delivery",
+        "node": "n15",
+        "field": "component_shares_of_cost_difference.distance_component",
+        "pass": true
+      },
+      {
+        "kind": "headline_number",
+        "line": "delivery",
+        "node": "n16",
+        "field": "dev.gains_vs_base.0.7.mean_relative_gain",
+        "pass": true
+      },
+      {
+        "kind": "EXPECTED_FLAGS",
+        "line": "delivery",
+        "node": "n7",
+        "field": "gate_passed",
+        "pass": true
+      },
+      {
+        "kind": "EXPECTED_FLAGS",
+        "line": "delivery",
+        "node": "n10",
+        "field": "confirmed_base_dominated_by_GLS",
+        "pass": true
+      },
+      {
+        "kind": "EXPECTED_FLAGS",
+        "line": "delivery",
+        "node": "n12",
+        "field": "confirmation_run",
+        "pass": true
+      },
+      {
+        "kind": "EXPECTED_FLAGS",
+        "line": "delivery",
+        "node": "n13",
+        "field": "confirmation_run",
+        "pass": true
+      },
+      {
+        "kind": "EXPECTED_FLAGS",
+        "line": "delivery",
+        "node": "n11",
+        "field": "positive_control_changed_outcome_on_all_instances",
+        "pass": true
+      },
+      {
+        "kind": "EXPECTED_FLAGS",
+        "line": "pickup",
+        "node": "n8",
+        "field": "threshold_is_too_conservative",
+        "pass": true
+      },
+      {
+        "kind": "EXPECTED_FLAGS",
+        "line": "pickup",
+        "node": "n6",
+        "field": "verdict",
+        "pass": true
+      },
+      {
+        "kind": "SCOPE_FLAGS",
+        "line": "delivery",
+        "node": "n7",
+        "field": "online_gain_established",
+        "pass": true
+      },
+      {
+        "kind": "SCOPE_FLAGS",
+        "line": "delivery",
+        "node": "n10",
+        "field": "online_gain_established",
+        "pass": true
+      },
+      {
+        "kind": "SCOPE_FLAGS",
+        "line": "delivery",
+        "node": "n12",
+        "field": "maskco_attributable_gain_established",
+        "pass": true
+      },
+      {
+        "kind": "SCOPE_FLAGS",
+        "line": "delivery",
+        "node": "n13",
+        "field": "maskco_attributable_gain_established",
+        "pass": true
+      },
+      {
+        "kind": "SCOPE_FLAGS",
+        "line": "delivery",
+        "node": "n11",
+        "field": "maskco_attributable_gain_established",
+        "pass": true
+      },
+      {
+        "kind": "SCOPE_FLAGS",
+        "line": "pickup",
+        "node": "n8",
+        "field": "online_gain_established",
+        "pass": true
+      }
+    ],
+    "unaudited_executed_nodes": [
+      [
+        "pickup",
+        "n1"
+      ],
+      [
+        "pickup",
+        "n2"
+      ],
+      [
+        "delivery",
+        "n1"
+      ],
+      [
+        "delivery",
+        "n2"
+      ],
+      [
+        "delivery",
+        "n3"
+      ],
+      [
+        "reproduction",
+        "n1"
+      ],
+      [
+        "reproduction",
+        "n2"
+      ],
+      [
+        "reproduction",
+        "n3"
+      ],
+      [
+        "reproduction",
+        "n4"
+      ],
+      [
+        "reproduction",
+        "n5"
+      ]
+    ],
+    "supports_scientific_sufficiency": false
+  },
+  "learning_reference_intervals": [
+    {
+      "mean": -0.09424432943024111,
+      "descriptive_95_CI": [
+        -0.13574204031944048,
+        -0.05171868512025053
+      ],
+      "point_estimate_worse": true,
+      "descriptive_interval_entirely_worse": true,
+      "zero_inside_descriptive_interval": false,
+      "equivalence_established": false,
+      "family_adjusted_discovery": false,
+      "global_upper_bound_or_learning_exclusion": false,
+      "label": "D-EQ8-v1 pretrained vs zero guide, equal attempts, n=32",
+      "original_declared_direction": "harmful",
+      "source": "research_20261010/INDEPENDENT_EQ8_PROGRESS_ADJUDICATION.json"
+    },
+    {
+      "mean": -0.029944002252176347,
+      "descriptive_95_CI": [
+        -0.06736499530743544,
+        0.00638777329025465
+      ],
+      "point_estimate_worse": true,
+      "descriptive_interval_entirely_worse": false,
+      "zero_inside_descriptive_interval": true,
+      "equivalence_established": false,
+      "family_adjusted_discovery": false,
+      "global_upper_bound_or_learning_exclusion": false,
+      "label": "D-EQ8-v1 pretrained vs random same-architecture guide, n=32",
+      "original_declared_direction": "harmful",
+      "source": "research_20261010/INDEPENDENT_EQ8_PROGRESS_ADJUDICATION.json"
+    },
+    {
+      "mean": 1.8856036252565707,
+      "descriptive_95_CI": [
+        1.6856055525776883,
+        2.113931957065964
+      ],
+      "point_estimate_worse": true,
+      "descriptive_interval_entirely_worse": true,
+      "zero_inside_descriptive_interval": false,
+      "equivalence_established": false,
+      "family_adjusted_discovery": false,
+      "global_upper_bound_or_learning_exclusion": false,
+      "label": "D-GUIDE-v1 guide harm under a state-matched 2x2 role factorization",
+      "original_declared_direction": "harmful_positive",
+      "source": "research_20261010/delivery_guide_misalignment_v1/result.json"
+    },
+    {
+      "mean": -0.09424432943024111,
+      "descriptive_95_CI": [
+        -0.1363548269754568,
+        -0.052188412115807485
+      ],
+      "point_estimate_worse": true,
+      "descriptive_interval_entirely_worse": true,
+      "zero_inside_descriptive_interval": false,
+      "equivalence_established": false,
+      "family_adjusted_discovery": false,
+      "global_upper_bound_or_learning_exclusion": false,
+      "label": "D-DOSE-v1 dose response at guide weight 1.0",
+      "original_declared_direction": "harmful",
+      "source": "research_20261010/delivery_dose_v1/result.json"
+    },
+    {
+      "mean": -0.024274886583600004,
+      "descriptive_95_CI": [
+        -0.04706382577082369,
+        -0.00017773214254795618
+      ],
+      "point_estimate_worse": true,
+      "descriptive_interval_entirely_worse": true,
+      "zero_inside_descriptive_interval": false,
+      "equivalence_established": false,
+      "family_adjusted_discovery": false,
+      "global_upper_bound_or_learning_exclusion": false,
+      "label": "D-DOSE-v1 dose response at guide weight 0.1",
+      "original_declared_direction": "harmful",
+      "source": "research_20261010/delivery_dose_v1/result.json"
+    },
+    {
+      "mean": -0.06296888922773203,
+      "descriptive_95_CI": [
+        -0.11428046135742466,
+        -0.010703150871597216
+      ],
+      "point_estimate_worse": true,
+      "descriptive_interval_entirely_worse": true,
+      "zero_inside_descriptive_interval": false,
+      "equivalence_established": false,
+      "family_adjusted_discovery": false,
+      "global_upper_bound_or_learning_exclusion": false,
+      "label": "D-DESTROY-v1 guide as a destroy operator, cost-matched contrast",
+      "original_declared_direction": "harmful",
+      "source": "research_20261010/delivery_destroy_v1/result.json"
+    },
+    {
+      "mean": 0.005189866623672617,
+      "descriptive_95_CI": [
+        -0.01105336711497952,
+        0.02127914155348343
+      ],
+      "point_estimate_worse": false,
+      "descriptive_interval_entirely_worse": false,
+      "zero_inside_descriptive_interval": true,
+      "equivalence_established": false,
+      "family_adjusted_discovery": false,
+      "global_upper_bound_or_learning_exclusion": false,
+      "label": "D-MASKHEUR-v1 best hand-designed mask heuristic vs uniform random",
+      "original_declared_direction": "no_signal",
+      "source": "research_20261010/delivery_maskheur_v1/result.json"
+    },
+    {
+      "mean": -0.05163112317694191,
+      "descriptive_95_CI": [
+        -0.07676400341938147,
+        -0.025689085353302527
+      ],
+      "point_estimate_worse": true,
+      "descriptive_interval_entirely_worse": true,
+      "zero_inside_descriptive_interval": false,
+      "equivalence_established": false,
+      "family_adjusted_discovery": false,
+      "global_upper_bound_or_learning_exclusion": false,
+      "label": "D-DESTROY2-v1 classical Shaw related removal vs uniform random",
+      "original_declared_direction": "harmful",
+      "source": "research_20261010/delivery_destroy2_v1/result.json"
+    }
+  ],
+  "program_confirmation_protocols": {
+    "delivery_any50_confirm_protocol.json": {
+      "necessary_design_conditions_pass": false,
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    },
+    "delivery_anytime_protocol.json": {
+      "necessary_design_conditions_pass": false,
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    },
+    "delivery_control_protocol.json": {
+      "necessary_design_conditions_pass": false,
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    },
+    "delivery_destroy2_protocol.json": {
+      "necessary_design_conditions_pass": false,
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    },
+    "delivery_destroy_eq8_pilot_protocol_DRAFT.json": {
+      "necessary_design_conditions_pass": false,
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    },
+    "delivery_destroy_eq8_qa_protocol.json": {
+      "necessary_design_conditions_pass": false,
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    },
+    "delivery_dose_protocol.json": {
+      "necessary_design_conditions_pass": false,
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    },
+    "delivery_eq8_qa_protocol.json": {
+      "necessary_design_conditions_pass": false,
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    },
+    "delivery_guide_destroy_protocol.json": {
+      "necessary_design_conditions_pass": false,
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    },
+    "delivery_mask_heuristics_protocol.json": {
+      "necessary_design_conditions_pass": false,
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    },
+    "delivery_maskfrac_protocol.json": {
+      "necessary_design_conditions_pass": false,
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    },
+    "actual_ANY50_result_protocol": {
+      "necessary_design_conditions_pass": false,
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    },
+    "actual_dynamic_suffix_screen_protocol": {
+      "necessary_design_conditions_pass": false,
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    }
+  },
+  "scientific_support": {
+    "stable_online_gain_supported": false,
+    "MaskCO_attributable_gain_established": false,
+    "pickup_impossibility_proven": false,
+    "learning_side_closed": false,
+    "equivalence_established": false,
+    "reported_findings_level": "bounded_descriptive_snapshot_and_policy_diagnostics",
+    "claim_excesses": [
+      "ANY50_stable_flag_exceeds_snapshot_95pct_merge_gate_and_PROGRAM",
+      "pickup_impossibility_not_proven_by_finite_policy_diagnostics",
+      "learning_side_closed_exceeds_tested_checkpoint_adapter_roles",
+      "untested_path_list_not_exhaustive_no_global_exclusion_proof",
+      "CI_crossing_zero_does_not_prove_runtime_mechanism_absent",
+      "LNS_blanket_random_removal_statement_unsupported",
+      "one_instance_distance_share_times_cohort_gain_is_not_total_utility_upper_bound"
+    ],
+    "pickup_tail_mean_distance_gain": 0.009970540505734128,
+    "pickup_tail_objective_scope": "A-v1 utility headroom (energy and quality not re-simulated)",
+    "clairvoyant_reference": "run_exp_energy_c0.clairvoyant_profit_c0 (greedy)",
+    "dynamic_suffix_screen": {
+      "n_instances": 8,
+      "reported_mean_relative_distance_gain": 0.0,
+      "raw_execution_replayed_here": false,
+      "source_contains_shared_NN_initialization": true,
+      "limited_to": "same loaded cargo, same ownership, deterministic nearest-neighbour suffix recomputation",
+      "does_not_exclude": [
+        "other suffix searches or MaskCO reconstructions",
+        "reassignment/admission/dispatch policies",
+        "different release and loading patterns"
+      ],
+      "logical_note": "A deterministic nearest-neighbour sequence retains the same successor choices after its executed prefix is removed, when no input geometry/cargo changes; its zero recourse effect is not an action-set upper bound."
+    },
+    "why_no_impossibility": "A feasible greedy full-information policy is a lower bound on an optimum; a null or worse result cannot close policies or action sets.",
+    "why_no_learning_bound": "Finite nonlearned masking heuristics do not upper-bound learned policies; worse downstream objective is not a measured representation correlation.",
+    "open_paths_nonexhaustive": [
+      "task-specific training",
+      "objective-aligned guide/critic and decoding",
+      "learned or adaptive mask with equal decoder overhead control",
+      "joint reassignment/admission and recourse",
+      "true dynamic delivery lifecycle and qualified strong rolling control"
+    ]
+  },
+  "read_only_input_sha256": {
+    "results/research_20261010/PROGRAM.json": "8edbc3cd5cbe4563992112bf55acadef0be4242b12d2e8139684c3f146cdbbd8",
+    "scripts/research_20261010/program_evidence_audit.py": "fc550de4d7e838a52e798e2d058f9cf842a28cc2a6efa2b9a7acd0d7e2f342a6",
+    "results/research_20261010/pickup/.arbor/tree.json": "b8e5369ae0314adce8f1e969d4d11c11fe98a13178fb4fc2f92688d593eaf087",
+    "results/research_20261010/delivery/.arbor/tree.json": "c595b39e40157368a99f293f38848467ce7eb5a412f7ee5fac539637e429c68e",
+    "results/research_20261010/reproduction/.arbor/tree.json": "a8407516e26c6a0ae28c10cef9d4199d638f8f635cdc3cf1462147d504b91170",
+    "results/research_20261010/delivery_any50_confirm_v1/result.json": "b5281a6c455c2ca8e699ab53504145ea4122fcb0827b3e483a91f0646b507519",
+    "results/research_20261010/delivery_gls_v1/result.json": "f59ab3b5d73a08cbd45be7c3eaae6fdb22d846c85cac63f3bf5d0040cee6b260",
+    "results/research_20261010/delivery_maskheur_v1/result.json": "742b3b0ca36cff992111fda19b9459cc0ac83c8bac3522c90a3a9a6a39c9d525",
+    "results/research_20261010/delivery_destroy2_v1/result.json": "bfb28b1d95c41dc1d9de6d687ccdc90d671ed6cce235d0138230f2ce77b2f950",
+    "results/research_20261010/delivery_anytime_v1/posthoc_any50_comparison.json": "87195f1e5a9fbb38affa39a141289cbc903e6b9b00f55be85a5eb87a32a1b8c5",
+    "results/research_20261010/delivery_destroy_v1/result.json": "82af069a577d4dff8a9cd4a01614b272b5aced0198a7e842688ebc9623073e8a",
+    "results/research_20261010/delivery_control_v1/result.json": "45500e373692121cf0da8efea9a0d58a2da828b77f6a27099fd283a40eb8323b",
+    "results/research_20261010/delivery_dynamic_suffix_v1/result.json": "14dd22ff7cf9f304f80514db7b4ea88d07eae84bb34d5fd517b7160fd4d40ff3",
+    "results/research_20261010/pickup_tail_census_v1/result.json": "4b1cec6de1dfededd2e93c716e8e9d78efba20cbc2f6ecf7564f743ec2c7ad2a",
+    "results/research_20261010/pickup_budget_headroom_v1/result.json": "6e1f958502128c417ae849b4bd23d7fa64f704651a2c55512f2432fc452559d4",
+    "results/research_20261010/pickup_rejection_attribution_v1/result.json": "96b81de92121898bdf70c4a2b23770eef81a4a8b0b0cac58f1c3c7e822d26159",
+    "results/research_20261010/pickup_clairvoyant_gap_v1/result.json": "83351a3a24f37a2200fac5769f3f3a7da7272174d43bbf542ea5e4afdad45f89",
+    "results/research_20261010/pickup_budget_sweep_v1/result.json": "caba9aea2c4dd4c7ed6795f848e4c18304b7900e72db411840dd99e891c7be7e",
+    "results/research_20261010/delivery_recheck_v1/result.json": "af985b10711f5993e0268b7f1db771549e64e4f9789b89d17dc863eb073f48e6",
+    "results/research_20261010/delivery_decomp_v1/result.json": "e39823bd20161c0cde0bd32d87e4f74c0fc1430b16de9623302ccae076e230f0",
+    "results/research_20261010/delivery_maskfrac_v1/result.json": "ca818d03e5e8a34a76a25c2a645437c03232a92a9cc4c6e3c8b3357ed9482b47",
+    "results/research_20261010/pickup_residual_census_v1/result.json": "ec0b5673afe4c2544264843ea037da1978420a07e4cc85f32a1a7c9492905b9d",
+    "scripts/research_20261010/learning_attribution_adjudication.py": "42dc632b3672a25a74789fde5e619fbf78286c97647eede72b0c4d92e26e6f20",
+    "results/research_20261010/INDEPENDENT_EQ8_PROGRESS_ADJUDICATION.json": "b65dcd3d21d61bf9aa085a48087f1de107c91e2351b06b352eca50dcc1f28f8d",
+    "results/research_20261010/delivery_guide_misalignment_v1/result.json": "32bd1ffc76594c8bc3cd2bdfaf31a3aaba289dd90b988c695d040c24f1f75580",
+    "results/research_20261010/delivery_dose_v1/result.json": "ddab386b8bdc5873ef78a4c76559da0a57a3ea8e4580c65c328e5771766282d9",
+    "scripts/research_20261010/delivery_any50_confirm_protocol.json": "11f673cb9ba9b3377a877f9e6b8e2c822ed3c19adb05f843f2d031a0059bf166",
+    "scripts/research_20261010/delivery_anytime_protocol.json": "086aebed19a978ef34c062b2ccbcc5cebec1a40dd868c1e150697c7ce781a40e",
+    "scripts/research_20261010/delivery_control_protocol.json": "ac6990f704978e20569b155442594c8948b1b053e8b76ecb074744e51fa91cd5",
+    "scripts/research_20261010/delivery_destroy2_protocol.json": "edde00496c227b8d9a0f39df31ac91f29f2abf61e3978014db6e6d2d1ef098f1",
+    "scripts/research_20261010/delivery_destroy_eq8_pilot_protocol_DRAFT.json": "64f6743df1989a6d2f60a15972c31cb93a84c52d7de5e01e6139915771405d3a",
+    "scripts/research_20261010/delivery_destroy_eq8_qa_protocol.json": "9ca2b8ddfec79a7421d7db7a760ecfb7d42d8c25a70062e4080f783c22ab24b1",
+    "scripts/research_20261010/delivery_dose_protocol.json": "5d422a3850e5b890afe887f63b09281c332492e2b0a1ddd5eade8e5221b89055",
+    "scripts/research_20261010/delivery_eq8_qa_protocol.json": "26bf9c92e5eeb34fa06861d988f38525e647b84d93b29b8467f1db3b2c35109f",
+    "scripts/research_20261010/delivery_guide_destroy_protocol.json": "a1855aff26b76d869b973b0b6e415572b2aaf38765a9ad99d08c57b11e64614a",
+    "scripts/research_20261010/delivery_mask_heuristics_protocol.json": "4b121662975a4b4f8eb6bac82eb184573873cb32139da8523eb93ba01b3757e4",
+    "scripts/research_20261010/delivery_maskfrac_protocol.json": "da26b864ef68531871111be0c8452360e8b30c761c264f3b2e52af83010b8633",
+    "results/research_20261010/PROGRAM_CLOSEOUT.md": "3c62363bf64b42c4e1272c03bd58e146b9bac5ac4582b0c430e8fa2a586ac402",
+    "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md": "1fb945a59c0be5fb8deb511bf64d61acd2fa9b6d29765dadfc08f3b302ba9b7f",
+    "scripts/research_20261010/delivery_dynamic_suffix.py": "2592e841a52e3dfa6ddb35fd0d3ceb80175f4b9fdbd8fe69eeb6ec73a23ca694"
+  },
+  "limitations": [
+    "No new numerical experiment or original audit script executed.",
+    "Headline values and CIs were read, not reconstructed here from raw trajectories.",
+    "Literal registered_before_data flags do not prove registration time or immutable pre-data closure.",
+    "Even necessary design checks passing cannot substitute for independent executed-cohort replay and main/attribution tests."
+  ]
+}

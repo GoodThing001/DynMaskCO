@@ -1,0 +1,27 @@
+{
+  "created_utc": "2026-10-11T06:52:43.779982+00:00",
+  "scope": "Two failed first-step OLD-state float32 arithmetic diagnosis; no optimizer update",
+  "program_sha256": "71113bc06ba37688df73785e2b3516a72a08a315d40c7bc1715b86101200b552",
+  "inputs": {
+    "ENGINEERING_REGISTRATION.json": "d3b63706b55a9a003209f2cad1dcf9205f4d25e6e1bc49b84d796be5a6545e6e",
+    "train.py": "f2304249fdc5e9efc065733b1605daa4afe783a247d827f7b3a12cd113488404",
+    "RUN_EXIT.json": "f13019490a2b7d88fddc7e4c952de08e05cde56a08547d5ea7d4745ec7c49bfe",
+    "RESULT.json": "5dcb1821439872f844443d2f4bbccfdb051530529f447904cdc4eb48a9803aa2",
+    "INITIAL_PARAMETERS.json": "d31a073a9a8dee9a68ecac7d8818844c94093db00b33fc0f395b97c8c59a7b12",
+    "pretrained_CE_STEPS.jsonl": "43d3b377fec2767387f341bd4d07ce91662737eb96165748db3bf840456ea600",
+    "pretrained_paired_STEPS.jsonl": "40463a66ab15ddec3dc0681fe866a66c5c26a54f307ee98732c453a83b055bc9",
+    "random_task_paired_STEPS.jsonl": "1de85472e753fc8097c9dfab918b32de2f7e8c2320f9c6cf9a6ae752ff2ca77a"
+  },
+  "cpu": [
+    15
+  ],
+  "minimum_ram_gib": 8,
+  "max_s": 1200,
+  "objective_decomposition_absolute_tolerance": 1e-06,
+  "gradient_hash_equality": "exact",
+  "optimizer_steps": 0,
+  "fresh_data": false,
+  "new_science_family": false,
+  "scientific_training_qualified": false,
+  "shared_MD_uploaded": false
+}

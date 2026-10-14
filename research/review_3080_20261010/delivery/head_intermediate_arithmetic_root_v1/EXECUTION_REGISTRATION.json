@@ -1,0 +1,88 @@
+{
+  "created_utc": "2026-10-13T02:22:47.921042+00:00",
+  "status": "PROSPECTIVE_FIXED_ONE_INPUT_NEW_INTERMEDIATE_DIAGNOSIS",
+  "execution_authorized": true,
+  "independent_timed_request_checker_sealed": true,
+  "fixed_input": {
+    "arm": "pretrained_initial",
+    "step": 0,
+    "path": "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\score_split_timed_execution_root_v1\\pretrained_initial_fault0_worker\\request\\00.npz",
+    "sha256": "25c2e23b334043ec872d79748b111153a0e55b0dd969a1d841259a9ebb2a393b"
+  },
+  "old_compiled_output": {
+    "path": "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\compiled_head_identity_root_v1\\00_OUTPUT.npz",
+    "sha256": "65bd296e70028ed4c2c73114aa2e97225a534d50cf5ab52b10f161bd40de3ab6"
+  },
+  "head_identity": {
+    "('input', 'bias')": {
+      "shape": [
+        64
+      ],
+      "dtype": "float32",
+      "sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1"
+    },
+    "('input', 'kernel')": {
+      "shape": [
+        3075,
+        64
+      ],
+      "dtype": "float32",
+      "sha256": "d230ae36a3ab99ae26b88bbccc91058f617b89caf3445d12a0d95e0c1fc399ea"
+    },
+    "('output', 'bias')": {
+      "shape": [
+        1
+      ],
+      "dtype": "float32",
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    },
+    "('output', 'kernel')": {
+      "shape": [
+        64,
+        1
+      ],
+      "dtype": "float32",
+      "sha256": "8d4f930ced107deb43a388773d28014a147ff1b7cedfa18ab91c1e887009f7ea"
+    }
+  },
+  "original_registration_sha256": "fccedcbc1bfa1a50383ecb3f8718d99462e8a7643b73541b056de35aa12a634e",
+  "cpu_affinity": [
+    15
+  ],
+  "minimum_available_ram_gib": 8,
+  "stage_timeout_seconds": 120,
+  "reap_timeout_seconds": 10,
+  "stage_execution": [
+    "run_intermediate_arithmetic_v1.py",
+    "audit_intermediate_arithmetic_v1.py"
+  ],
+  "package_files": {
+    "action_head_runtime_v1.py": "492a14effd3e7966bacc6e21149387f8754c0ea34c7b0ebd03ff017c464ead23",
+    "audit_intermediate_arithmetic_v1.py": "39ae9b90a43f429074f8158db87ce181920e30b3b22622186a074a7e504c1907",
+    "delivery_actual_action_head_v1.py": "d9664585a8a6ab2d169ac8b9920669b8b04bfddefc56d7c84e425a138fbd409f",
+    "FIXED_INPUT.json": "cd021453056891206b33614754dc56161ec6270c1fb257cb2590841946914e3f",
+    "intermediate_remote_launcher_v1.py": "d54622d87f0296ab9571e8e50aae7246c37e51a9cbe476a0cfee20d8eb0c15d1",
+    "intermediate_remote_status_v1.py": "8c28b0341b810a906dcfe37189d43f3f52d8eb3bcdf16784118298407c37e59e",
+    "run_intermediate_arithmetic_v1.py": "daab7f0abe1618bdff49ad4efd795d3439adc0bf0e3e85e5aaf6f76bb7ed6462",
+    "startup_native_identity_v1.py": "526d704ed7f4f7fd94b1b8908cf684477e2e3e75eb955f4ca49d07520e9f6173",
+    "supervise_intermediate_arithmetic_v1.py": "b391b8701d1ae45059c137cc55270251468f10ac2aa8eb1bf92456c8dffd7677",
+    "timed_evidence_io_v1.py": "633fad5d05006ae7c182db7e41fdc19e0e49eb5b365fa19bc5e0d4ed1dc14761"
+  },
+  "transport_tool_sha256": "31bfeea551bfbf185aa5003db09521eb1991f676f2e212dcf8aef1ac89244768",
+  "local_transport_helpers": {
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\_srv.py": "270c77af7688bd25af2fda24c638e8df3d67f4cf694ae1a3799b5c20e7cffe8a",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\_srv_exec_v2.py": "130d0f0ec6ad8481ede3ca88192d526037a04f006234adc8e8ac7a597aa9cdc0"
+  },
+  "download_max_file_bytes": 67108864,
+  "download_max_total_bytes": 134217728,
+  "download_chunk_bytes": 262144,
+  "observation": "One eager arithmetic-intermediate capture and one barrier-jit tuple capture on fixed first saved initial input. No backbone or old34 candidate/output qualification rerun. Compare to old saved final values to expose instrumentation changes, no compiler-pass causal proof.",
+  "source_preinitialization": "Initialize all closure imports and native identity BEFORE actual start; preserve originals, no repair of missing old starting SHA.",
+  "strict_previous_gate_unchanged": true,
+  "old_34_QA_not_repeated": true,
+  "optimizer_steps": 0,
+  "scientific_family3_started": false,
+  "learned_output_qualified": false,
+  "full_request_budget_qualified": false,
+  "stable_online_gain": false
+}

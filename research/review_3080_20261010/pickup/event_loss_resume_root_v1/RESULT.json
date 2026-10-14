@@ -1,0 +1,168 @@
+{
+  "checks": [
+    {
+      "name": "selected10_restore_duplicate_inside_window",
+      "pass_": true
+    },
+    {
+      "name": "restore_duplicate_zero_execution",
+      "pass_": true
+    },
+    {
+      "name": "duplicate_all_private_fields",
+      "pass_": true
+    },
+    {
+      "name": "new28_29_same_restored_resident",
+      "pass_": true
+    },
+    {
+      "name": "second_starts_first_actual_commit",
+      "pass_": true
+    },
+    {
+      "name": "0:qualified_C0_install",
+      "pass_": true
+    },
+    {
+      "name": "0:all20_branches",
+      "pass_": true
+    },
+    {
+      "name": "0:no_model_route_gain",
+      "pass_": true
+    },
+    {
+      "name": "0:selected_raw_writer_exact",
+      "pass_": true
+    },
+    {
+      "name": "0:normal_bounded_selection",
+      "pass_": true
+    },
+    {
+      "name": "1:qualified_C0_install",
+      "pass_": true
+    },
+    {
+      "name": "1:all20_branches",
+      "pass_": true
+    },
+    {
+      "name": "1:no_model_route_gain",
+      "pass_": true
+    },
+    {
+      "name": "1:selected_raw_writer_exact",
+      "pass_": true
+    },
+    {
+      "name": "1:normal_bounded_selection",
+      "pass_": true
+    },
+    {
+      "name": "normal12_final_graceful_reap",
+      "pass_": true
+    },
+    {
+      "name": "three_separate_windows_under10",
+      "pass_": true
+    },
+    {
+      "name": "start_to_normal_end_closure",
+      "pass_": true
+    },
+    {
+      "name": "registered_bytes",
+      "pass_": true
+    }
+  ],
+  "checks_count": 19,
+  "failed": 0,
+  "failure_names": [],
+  "host": [
+    {
+      "sequence": 11,
+      "pid": 14372,
+      "started": 941991.4191017,
+      "cutoff": 941999.4191017,
+      "chosen_at": 941994.9708274,
+      "finished": 941994.9719315,
+      "wall_s": 3.552829800057225,
+      "ticket": {
+        "epoch": 11,
+        "size": 37027,
+        "slot": 1,
+        "base_digest": "8a171e78711650bec3ad8655b74f647e231f39ea136419682c8f734a2112facf",
+        "payload_sha256": "0cc960f6176ae1106553005282d13209fff87385edd83e6cb551ab54f468c9a9",
+        "digest": "88c1760a7dcf719985b25a94118ca2a7f2a2cb838d79c6ccd8037affdd1f87ff"
+      },
+      "validation": {
+        "started": 941994.9707395,
+        "finished": 941994.9708206,
+        "slot_before": 1,
+        "slot_after": 1,
+        "payload_sha256": "0cc960f6176ae1106553005282d13209fff87385edd83e6cb551ab54f468c9a9",
+        "event_present": true,
+        "sequence": 11,
+        "base_digest": "8a171e78711650bec3ad8655b74f647e231f39ea136419682c8f734a2112facf"
+      },
+      "ack_present": true,
+      "event_signaled_final": true,
+      "final_reap_included": false,
+      "reaped": false,
+      "stage": 2,
+      "selected_slot": 1
+    },
+    {
+      "sequence": 12,
+      "pid": 14372,
+      "started": 941994.9724665,
+      "cutoff": 942002.9724665,
+      "chosen_at": 941998.8989133,
+      "finished": 941998.953816,
+      "wall_s": 3.981349500012584,
+      "ticket": {
+        "epoch": 12,
+        "size": 38929,
+        "slot": 0,
+        "base_digest": "88c1760a7dcf719985b25a94118ca2a7f2a2cb838d79c6ccd8037affdd1f87ff",
+        "payload_sha256": "3ae9e8f0348b15c544da7cfccfc8c03ce2e2154f3c7cca84fd4bacc70f1027b2",
+        "digest": "7750962d3fccba0ad95d05ae569a42a7a17ce2aa0b5a96f766a43e8862dd0180"
+      },
+      "validation": {
+        "started": 941998.8988523,
+        "finished": 941998.8989084,
+        "slot_before": 0,
+        "slot_after": 0,
+        "payload_sha256": "3ae9e8f0348b15c544da7cfccfc8c03ce2e2154f3c7cca84fd4bacc70f1027b2",
+        "event_present": true,
+        "sequence": 12,
+        "base_digest": "88c1760a7dcf719985b25a94118ca2a7f2a2cb838d79c6ccd8037affdd1f87ff"
+      },
+      "ack_present": true,
+      "event_signaled_final": true,
+      "final_reap_included": true,
+      "reaped": true,
+      "stage": 2,
+      "selected_slot": 0
+    }
+  ],
+  "restore_host": {
+    "started": 941990.7980156,
+    "finished": 941991.4186991,
+    "cutoff": 941998.7980156,
+    "epoch": 10,
+    "digest": "8a171e78711650bec3ad8655b74f647e231f39ea136419682c8f734a2112facf",
+    "pid": 14372,
+    "reaped": false,
+    "shared_envelope_unchanged": true,
+    "wall_s": 0.6206835000775754
+  },
+  "actual_worker_exit": 0,
+  "actual_worker_terminated": false,
+  "physical_ack_loss_qualified": false,
+  "full_live_request_qualified": false,
+  "full_loaded_dependency_closure_qualified": false,
+  "stable_online_gain": false
+}

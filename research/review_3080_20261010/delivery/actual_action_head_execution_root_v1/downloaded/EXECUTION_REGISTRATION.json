@@ -1,0 +1,79 @@
+{
+  "ordered_keys_digest": "7ef68add36bdc535ef591b62b0089d82e41eb7a03f9b827d7873e7e9b671f4cd",
+  "old_remote_root": "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\remote_finite_research_root_v2",
+  "checkpoint": "C:\\Users\\zh\\project\\MASKCO-Main\\MASKCO_code\\ckpts\\cvrp100.ckpt",
+  "checkpoint_sha256": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+  "contract_hash": "ba40cd0d08fc21ef09d418c7df2bff940294ee2cfecebd2a4ba9ddde35a8268a",
+  "minimum_ram_gib": 8,
+  "stage_timeout_seconds": 900,
+  "reap_timeout_seconds": 10,
+  "numpy_head_max_abs_error": 2e-05,
+  "head_seed": 20261012,
+  "random_seed": 888,
+  "random_projection": "original3D initialization then exact7 zero rows as pretrained extension",
+  "optimizer_steps": 0,
+  "first_states": 30,
+  "model_executed": false,
+  "scientific_family3_started": false,
+  "formal_controls_qualified": false,
+  "full_C0_qualified": false,
+  "full_request_budget_qualified": false,
+  "source_inputs": {
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\family2_remaining_action_diagnosis_root_v1\\OBSERVED_ACTION_RECORDS.json": "a8db10dd2134f032fadf99059ca96b636349f12f6b4df99dc0169721a8aad886",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\directed_action_chain_root_v1\\ACTION_CHAINS.jsonl": "e7bfcba1c7eb5e9ec43ecccfe06bc8103961ddb11e9469d2086b09c82cb515f3"
+  },
+  "normalization_sources": {
+    "modules/functional/coord_transform.py": "09de9bf90d6b21991759511bf2905700791e76cfd2f3b3986c7a7f1cff193da7",
+    "modules/functional/__init__.py": "ddccb363c3131b28c460b767231757e84c7fa963e19c06b1b8ce52cf6855e303"
+  },
+  "production_forward_records": 60,
+  "independent_full_forward_records": 60,
+  "backbone_comparison": "exact full float32 arrays and all234 parameter identities; no relaxed latent/feature tolerance",
+  "coordinate_comparison": "exact independent mean/L2/mean/divide using same JAX grouping; shared runtime, not another normalization implementation",
+  "numeric_bound_scope": "Only preregistered new NumPy versus JAX float32 head arithmetic. Full backbone, seeded parameters and10D features require exact identity. No old scientific tolerance change.",
+  "created_utc": "2026-10-12T07:46:34.192518+00:00",
+  "status": "PROSPECTIVE_INITIAL_ACTION_SCORING_ENGINEERING",
+  "execution_authorized": true,
+  "package_files": {
+    "delivery_actual_action_head_v1.py": "d9664585a8a6ab2d169ac8b9920669b8b04bfddefc56d7c84e425a138fbd409f",
+    "action_head_runtime_v1.py": "492a14effd3e7966bacc6e21149387f8754c0ea34c7b0ebd03ff017c464ead23",
+    "run_delivery_actual_action_head_v2.py": "8c2cb0610e6b4cb74e3dfbfa2544e034a7522b9bbff51df0a9469904768047f0",
+    "audit_delivery_actual_action_head_v2.py": "fb4c7b19b35aab4f8d3db533310bb0531dcf258dcc26f16f85f4e239861d9b96",
+    "features_objective.py": "2b1049f3c6bd665b4d78d6882680f0571f583fb23a6e5191f05482d9c6ba8481",
+    "INPUTS.json": "2803e212d6210b8a5dbdfc978aedf01f6eb8db58d04fe8c96bda99b9ef1fa826",
+    "supervise_delivery_action_head_v3.py": "961229ac34a6f64f97b369ddeab951d6d2e5b37002500abdf29d7f34eb29a8c3",
+    "action_head_remote_launcher_v1.py": "ac54b3f42e180b95fb1e43cfd6e072e74714c049c67d11776613e74c937133f0",
+    "action_head_remote_status_v1.py": "5a4cd34bf8e9c4e0b695bfe4eaed64328c050bfe117f4b6f3b6d1cf330292986"
+  },
+  "source_plan_sha256": "1cb852aa2574b772f1161984fd9188b3f455028d984840ce54529a6a794393bf",
+  "transport_tool_sha256": "58e44ced83f213d66960d41e4e73518e85f003d634fd87ae1e7dd684ada4c59b",
+  "local_transport_helpers": {
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\_srv.py": "270c77af7688bd25af2fda24c638e8df3d67f4cf694ae1a3799b5c20e7cffe8a",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\_srv_exec_v2.py": "130d0f0ec6ad8481ede3ca88192d526037a04f006234adc8e8ac7a597aa9cdc0"
+  },
+  "remote_directory": "research/review_3080_20261010/actual_action_head_execution_root_v1",
+  "allowed_upload_types": [
+    ".py",
+    ".json"
+  ],
+  "stage_execution": [
+    "run_delivery_actual_action_head_v2.py",
+    "audit_delivery_actual_action_head_v2.py"
+  ],
+  "resource_policy": {
+    "minimum_available_ram_gib": 8,
+    "affinity": [
+      15
+    ],
+    "maximum_preflight_cpu15_busy_percent": 20,
+    "refuse_observed_owned_research_tree": true,
+    "gpu_used": false
+  },
+  "download_max_file_bytes": 16777216,
+  "download_max_total_bytes": 268435456,
+  "download_chunk_bytes": 262144,
+  "scope": "Exactly60 new initial-model component production forwards and60 independent full replay forwards on fixed all30 old first skeletons; zero optimizer/teacher/solver/C0/dynamic day. This is not scientific family3 or online10second qualification.",
+  "scientific_model_qualified": false,
+  "stable_online_gain": false,
+  "failures": "Preserve all actual source/attempts/logs/output/exit; stop automatic retry; actual process inspection required; any repair uses new exclusive engineering registration and identical scientific parameters."
+}

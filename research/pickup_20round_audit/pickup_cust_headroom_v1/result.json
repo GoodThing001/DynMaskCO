@@ -1,0 +1,1523 @@
+{
+  "kind": "pickup_operator_customer_choice_headroom",
+  "n_decisions": 41,
+  "regret_rule_headroom_rate": 0.4878048780487805,
+  "immediate_delta_rule_headroom_rate": 0.7073170731707317,
+  "mean_plan_gap_if_regret_used": 0.0029739263961573964,
+  "max_plan_gap_if_regret_used": 0.07195129407189516,
+  "mean_plan_gap_if_immediate_delta_used": 0.0024429228037174578,
+  "max_plan_gap_if_immediate_delta_used": 0.03180300292051097,
+  "per_decision": [
+    {
+      "inst": 0,
+      "clock": 10.84978604565064,
+      "orders": [
+        97,
+        66,
+        134,
+        181,
+        93
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 93,
+      "argmin_by_plan_customer": 93,
+      "argmin_by_delta_customer": 134,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 97,
+          "regret": 0.06745839620184158,
+          "best_immediate_delta": 0.6099798905935822,
+          "completed_plan_distance": 2.8001266466122097
+        },
+        {
+          "customer": 134,
+          "regret": 0.11054462401475446,
+          "best_immediate_delta": 0.20503322918859268,
+          "completed_plan_distance": 2.8001266466122097
+        },
+        {
+          "customer": 93,
+          "regret": 0.2003950034295071,
+          "best_immediate_delta": 0.7750005124968566,
+          "completed_plan_distance": 2.8001266466122097
+        }
+      ]
+    },
+    {
+      "inst": 0,
+      "clock": 11.085283012439806,
+      "orders": [
+        66,
+        134,
+        181,
+        93
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 66,
+      "argmin_by_plan_customer": 66,
+      "argmin_by_delta_customer": 181,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 66,
+          "regret": 0.10794203933527402,
+          "best_immediate_delta": 0.19103888620098475,
+          "completed_plan_distance": 2.1901467560186276
+        },
+        {
+          "customer": 181,
+          "regret": 0.0928384457036332,
+          "best_immediate_delta": 0.03544092759823503,
+          "completed_plan_distance": 2.1901467560186276
+        }
+      ]
+    },
+    {
+      "inst": 0,
+      "clock": 13.007714480161667,
+      "orders": [
+        64,
+        75,
+        86,
+        65
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 64,
+      "argmin_by_plan_customer": 64,
+      "argmin_by_delta_customer": 86,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 64,
+          "regret": 0.3153429319594042,
+          "best_immediate_delta": 0.843732517334668,
+          "completed_plan_distance": 1.6170592888055264
+        },
+        {
+          "customer": 86,
+          "regret": 0.09072394762564234,
+          "best_immediate_delta": 0.30253933966135677,
+          "completed_plan_distance": 1.6170592888055264
+        }
+      ]
+    },
+    {
+      "inst": 1,
+      "clock": 4.926532135655483,
+      "orders": [
+        97,
+        181,
+        28,
+        197,
+        156,
+        89
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 97,
+      "argmin_by_plan_customer": 89,
+      "argmin_by_delta_customer": 197,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.007754291030411586,
+      "candidates": [
+        {
+          "customer": 97,
+          "regret": 0.021928497915031486,
+          "best_immediate_delta": 0.10622445566077648,
+          "completed_plan_distance": 1.6783204486822312
+        },
+        {
+          "customer": 197,
+          "regret": 0.003761284150994304,
+          "best_immediate_delta": 0.014901801977700191,
+          "completed_plan_distance": 1.6860747397126428
+        },
+        {
+          "customer": 89,
+          "regret": 0.012933160918429498,
+          "best_immediate_delta": 0.4644650753674801,
+          "completed_plan_distance": 1.6783204486822312
+        }
+      ]
+    },
+    {
+      "inst": 1,
+      "clock": 5.184198721001547,
+      "orders": [
+        28,
+        197,
+        156,
+        89
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 156,
+      "argmin_by_plan_customer": 28,
+      "argmin_by_delta_customer": 156,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 28,
+          "regret": 0.01802024052594775,
+          "best_immediate_delta": 0.09853713843108691,
+          "completed_plan_distance": 1.4309451150733261
+        },
+        {
+          "customer": 156,
+          "regret": 0.4055057727798925,
+          "best_immediate_delta": 0.022725574286392325,
+          "completed_plan_distance": 1.4309451150733261
+        }
+      ]
+    },
+    {
+      "inst": 1,
+      "clock": 12.325510218739506,
+      "orders": [
+        85,
+        152,
+        81,
+        120,
+        166,
+        4
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 85,
+      "argmin_by_plan_customer": 4,
+      "argmin_by_delta_customer": 120,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.014713622481139943,
+      "candidates": [
+        {
+          "customer": 85,
+          "regret": 0.33827032020213627,
+          "best_immediate_delta": 0.03472230872503518,
+          "completed_plan_distance": 1.6217337607987357
+        },
+        {
+          "customer": 120,
+          "regret": 0.010307883715650959,
+          "best_immediate_delta": 0.005139715847527704,
+          "completed_plan_distance": 1.6364473832798756
+        },
+        {
+          "customer": 4,
+          "regret": 0.07348048423988368,
+          "best_immediate_delta": 0.48374415609438276,
+          "completed_plan_distance": 1.6217337607987357
+        }
+      ]
+    },
+    {
+      "inst": 2,
+      "clock": 6.973634885003169,
+      "orders": [
+        80,
+        106,
+        99,
+        153
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 99,
+      "argmin_by_plan_customer": 80,
+      "argmin_by_delta_customer": 99,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 80,
+          "regret": 0.004904313749416966,
+          "best_immediate_delta": 0.20646732681128083,
+          "completed_plan_distance": 1.2855637452666564
+        },
+        {
+          "customer": 99,
+          "regret": 0.008869892845550675,
+          "best_immediate_delta": 0.008747932121567326,
+          "completed_plan_distance": 1.2855637452666564
+        }
+      ]
+    },
+    {
+      "inst": 2,
+      "clock": 7.07021346843491,
+      "orders": [
+        80,
+        106,
+        99,
+        153
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 99,
+      "argmin_by_plan_customer": 80,
+      "argmin_by_delta_customer": 99,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 80,
+          "regret": 0.004904313749416966,
+          "best_immediate_delta": 0.20646732681128083,
+          "completed_plan_distance": 1.2855637452666564
+        },
+        {
+          "customer": 99,
+          "regret": 0.008869892845550675,
+          "best_immediate_delta": 0.008747932121567326,
+          "completed_plan_distance": 1.2855637452666564
+        }
+      ]
+    },
+    {
+      "inst": 2,
+      "clock": 15.84926570331057,
+      "orders": [
+        92,
+        189,
+        6,
+        21,
+        82
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 92,
+      "argmin_by_plan_customer": 6,
+      "argmin_by_delta_customer": 6,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": false,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 92,
+          "regret": 0.11430354045193158,
+          "best_immediate_delta": 0.5650396267920195,
+          "completed_plan_distance": 1.405986365900854
+        },
+        {
+          "customer": 6,
+          "regret": 0.016489503314805115,
+          "best_immediate_delta": 0.004450740683360349,
+          "completed_plan_distance": 1.405986365900854
+        },
+        {
+          "customer": 82,
+          "regret": 0.0005695689172434404,
+          "best_immediate_delta": 0.05254435593134438,
+          "completed_plan_distance": 1.405986365900854
+        }
+      ]
+    },
+    {
+      "inst": 3,
+      "clock": 2.119797880450885,
+      "orders": [
+        126,
+        50,
+        162,
+        105,
+        69,
+        133
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 105,
+      "argmin_by_plan_customer": 105,
+      "argmin_by_delta_customer": 105,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": false,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 126,
+          "regret": 0.08717445059211654,
+          "best_immediate_delta": 0.3062462964857374,
+          "completed_plan_distance": 1.2088559618251333
+        },
+        {
+          "customer": 105,
+          "regret": 0.27249563510404634,
+          "best_immediate_delta": 0.0016094580224553234,
+          "completed_plan_distance": 1.2088559618251333
+        },
+        {
+          "customer": 133,
+          "regret": 0.031493187585351676,
+          "best_immediate_delta": 0.05000376043538658,
+          "completed_plan_distance": 1.2088559618251333
+        }
+      ]
+    },
+    {
+      "inst": 3,
+      "clock": 3.397561254600684,
+      "orders": [
+        14,
+        69,
+        133,
+        15
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 133,
+      "argmin_by_plan_customer": 133,
+      "argmin_by_delta_customer": 133,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": false,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 14,
+          "regret": 0.022014385505589207,
+          "best_immediate_delta": 0.47818815686626925,
+          "completed_plan_distance": 1.794144411957353
+        },
+        {
+          "customer": 133,
+          "regret": 0.027762087668136606,
+          "best_immediate_delta": 0.022241672767249976,
+          "completed_plan_distance": 1.7883967097948057
+        }
+      ]
+    },
+    {
+      "inst": 3,
+      "clock": 5.615398903687796,
+      "orders": [
+        153,
+        88,
+        129,
+        122,
+        110
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 129,
+      "argmin_by_plan_customer": 110,
+      "argmin_by_delta_customer": 153,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 153,
+          "regret": 0.006799296797519339,
+          "best_immediate_delta": 0.004961353137183877,
+          "completed_plan_distance": 2.0249432855001017
+        },
+        {
+          "customer": 129,
+          "regret": 0.04105855235699568,
+          "best_immediate_delta": 0.03504674750399217,
+          "completed_plan_distance": 2.0249432855001017
+        },
+        {
+          "customer": 110,
+          "regret": 0.018196504171011707,
+          "best_immediate_delta": 1.0645380703788145,
+          "completed_plan_distance": 2.0249432855001017
+        }
+      ]
+    },
+    {
+      "inst": 4,
+      "clock": 3.3351056215663752,
+      "orders": [
+        166,
+        101,
+        142,
+        154,
+        38
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 38,
+      "argmin_by_plan_customer": 38,
+      "argmin_by_delta_customer": 166,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.008989272446116026,
+      "candidates": [
+        {
+          "customer": 166,
+          "regret": 0.0019260792801293891,
+          "best_immediate_delta": 0.0003008599634473641,
+          "completed_plan_distance": 1.91008911909205
+        },
+        {
+          "customer": 142,
+          "regret": 0.010915351726245526,
+          "best_immediate_delta": 0.009815667869601363,
+          "completed_plan_distance": 1.901099846645934
+        },
+        {
+          "customer": 38,
+          "regret": 0.044559898973886014,
+          "best_immediate_delta": 0.7972922238625474,
+          "completed_plan_distance": 1.901099846645934
+        }
+      ]
+    },
+    {
+      "inst": 4,
+      "clock": 3.524815820157528,
+      "orders": [
+        101,
+        142,
+        154,
+        38
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 154,
+      "argmin_by_plan_customer": 101,
+      "argmin_by_delta_customer": 154,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 101,
+          "regret": 0.013079010697168603,
+          "best_immediate_delta": 0.20514828941769153,
+          "completed_plan_distance": 1.8988729074023571
+        },
+        {
+          "customer": 154,
+          "regret": 0.031480888276717245,
+          "best_immediate_delta": 0.0023171871168535807,
+          "completed_plan_distance": 1.8988729074023571
+        }
+      ]
+    },
+    {
+      "inst": 4,
+      "clock": 6.005487300455569,
+      "orders": [
+        170,
+        182,
+        183,
+        85,
+        80
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 170,
+      "argmin_by_plan_customer": 80,
+      "argmin_by_delta_customer": 80,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": false,
+      "plan_distance_gap_if_regret_used": 0.07195129407189516,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 170,
+          "regret": 0.018978942387907538,
+          "best_immediate_delta": 0.1069717835332854,
+          "completed_plan_distance": 2.2838961000928566
+        },
+        {
+          "customer": 183,
+          "regret": 0.006822141278474025,
+          "best_immediate_delta": 0.24394547137530387,
+          "completed_plan_distance": 2.2850555656881464
+        },
+        {
+          "customer": 80,
+          "regret": 0.007981606873763814,
+          "best_immediate_delta": 9.862804443705464e-06,
+          "completed_plan_distance": 2.2119448060209614
+        }
+      ]
+    },
+    {
+      "inst": 5,
+      "clock": 2.783407193919023,
+      "orders": [
+        41,
+        71,
+        6,
+        58,
+        125,
+        106
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 41,
+      "argmin_by_plan_customer": 41,
+      "argmin_by_delta_customer": 58,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 41,
+          "regret": 0.09760301303288532,
+          "best_immediate_delta": 0.2963806406341212,
+          "completed_plan_distance": 1.620215190240467
+        },
+        {
+          "customer": 58,
+          "regret": 0.09071968172173128,
+          "best_immediate_delta": 0.0006312854013501568,
+          "completed_plan_distance": 1.620215190240467
+        },
+        {
+          "customer": 106,
+          "regret": 0.08498108412156447,
+          "best_immediate_delta": 0.03812442700372959,
+          "completed_plan_distance": 1.620215190240467
+        }
+      ]
+    },
+    {
+      "inst": 5,
+      "clock": 7.362860850989818,
+      "orders": [
+        27,
+        30,
+        13,
+        64
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 27,
+      "argmin_by_plan_customer": 27,
+      "argmin_by_delta_customer": 13,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.004054705939405823,
+      "candidates": [
+        {
+          "customer": 27,
+          "regret": 0.014000272673364622,
+          "best_immediate_delta": 0.1191925048277997,
+          "completed_plan_distance": 1.346144392898269
+        },
+        {
+          "customer": 13,
+          "regret": 0.004913549367453585,
+          "best_immediate_delta": 0.00035307723108013445,
+          "completed_plan_distance": 1.3501990988376749
+        }
+      ]
+    },
+    {
+      "inst": 5,
+      "clock": 12.050893721481161,
+      "orders": [
+        5,
+        190,
+        85,
+        44,
+        69,
+        179
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 179,
+      "argmin_by_plan_customer": 5,
+      "argmin_by_delta_customer": 44,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 5,
+          "regret": 0.07114457998361148,
+          "best_immediate_delta": 0.025107258451909364,
+          "completed_plan_distance": 1.5824701666012277
+        },
+        {
+          "customer": 44,
+          "regret": 0.016137621557488574,
+          "best_immediate_delta": 0.0016423274481657535,
+          "completed_plan_distance": 1.5824701666012277
+        },
+        {
+          "customer": 179,
+          "regret": 0.09292219677526081,
+          "best_immediate_delta": 0.7871782943182981,
+          "completed_plan_distance": 1.5824701666012277
+        }
+      ]
+    },
+    {
+      "inst": 6,
+      "clock": 3.698805563151836,
+      "orders": [
+        56,
+        49,
+        79,
+        12,
+        14,
+        119
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 56,
+      "argmin_by_plan_customer": 12,
+      "argmin_by_delta_customer": 12,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": false,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 56,
+          "regret": 0.06474904547950494,
+          "best_immediate_delta": 0.017298603616746677,
+          "completed_plan_distance": 1.695545400532772
+        },
+        {
+          "customer": 12,
+          "regret": 0.002090254641575806,
+          "best_immediate_delta": 0.010408859284735117,
+          "completed_plan_distance": 1.695545400532772
+        },
+        {
+          "customer": 119,
+          "regret": 0.027482632971640608,
+          "best_immediate_delta": 0.12456315656401357,
+          "completed_plan_distance": 1.695545400532772
+        }
+      ]
+    },
+    {
+      "inst": 6,
+      "clock": 4.811107038209835,
+      "orders": [
+        142,
+        30,
+        146,
+        184,
+        127,
+        86
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 142,
+      "argmin_by_plan_customer": 142,
+      "argmin_by_delta_customer": 184,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 142,
+          "regret": 0.20828178680821463,
+          "best_immediate_delta": 0.32498030048452486,
+          "completed_plan_distance": 2.4493654511657277
+        },
+        {
+          "customer": 184,
+          "regret": 0.09457838587665376,
+          "best_immediate_delta": 0.004534435098098144,
+          "completed_plan_distance": 2.4493654511657277
+        },
+        {
+          "customer": 86,
+          "regret": 0.021033288578675258,
+          "best_immediate_delta": 0.7417065406417994,
+          "completed_plan_distance": 2.4513340620202206
+        }
+      ]
+    },
+    {
+      "inst": 6,
+      "clock": 5.126817461103201,
+      "orders": [
+        15,
+        30,
+        146,
+        184,
+        127,
+        86
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 15,
+      "argmin_by_plan_customer": 15,
+      "argmin_by_delta_customer": 184,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 15,
+          "regret": 0.19334654945610105,
+          "best_immediate_delta": 0.01920050414900032,
+          "completed_plan_distance": 2.0972696175343177
+        },
+        {
+          "customer": 184,
+          "regret": 0.09457838587665376,
+          "best_immediate_delta": 0.004534435098098144,
+          "completed_plan_distance": 2.0972696175343177
+        },
+        {
+          "customer": 86,
+          "regret": 0.021033288578675258,
+          "best_immediate_delta": 0.7417065406417994,
+          "completed_plan_distance": 2.0972696175343177
+        }
+      ]
+    },
+    {
+      "inst": 7,
+      "clock": 8.549651999026537,
+      "orders": [
+        71,
+        34,
+        99,
+        105
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 99,
+      "argmin_by_plan_customer": 71,
+      "argmin_by_delta_customer": 99,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 71,
+          "regret": 0.04292405623819451,
+          "best_immediate_delta": 0.045438313124283924,
+          "completed_plan_distance": 1.2107515682680123
+        },
+        {
+          "customer": 99,
+          "regret": 0.23598384499994218,
+          "best_immediate_delta": 0.031599370154176465,
+          "completed_plan_distance": 1.2107515682680123
+        }
+      ]
+    },
+    {
+      "inst": 7,
+      "clock": 12.114388480782507,
+      "orders": [
+        63,
+        7,
+        145,
+        86,
+        120
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 63,
+      "argmin_by_plan_customer": 63,
+      "argmin_by_delta_customer": 120,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 63,
+          "regret": 0.17151989686694036,
+          "best_immediate_delta": 0.07737481013767755,
+          "completed_plan_distance": 1.8261863260691709
+        },
+        {
+          "customer": 145,
+          "regret": 0.04560463437341278,
+          "best_immediate_delta": 0.007830736312521847,
+          "completed_plan_distance": 1.8489834639700273
+        },
+        {
+          "customer": 120,
+          "regret": 0.13227702763381233,
+          "best_immediate_delta": 0.007751546270947873,
+          "completed_plan_distance": 1.8261863260691709
+        }
+      ]
+    },
+    {
+      "inst": 8,
+      "clock": 2.739795494824648,
+      "orders": [
+        103,
+        186,
+        80,
+        132,
+        43
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 103,
+      "argmin_by_plan_customer": 80,
+      "argmin_by_delta_customer": 103,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.01817668525004712,
+      "plan_distance_gap_if_delta_used": 0.01817668525004712,
+      "candidates": [
+        {
+          "customer": 103,
+          "regret": 0.02554217467628822,
+          "best_immediate_delta": 0.04091429461531071,
+          "completed_plan_distance": 1.73106212416165
+        },
+        {
+          "customer": 80,
+          "regret": 0.0025953433503929646,
+          "best_immediate_delta": 0.28303132133489384,
+          "completed_plan_distance": 1.7128854389116028
+        },
+        {
+          "customer": 43,
+          "regret": 0.003919495398284567,
+          "best_immediate_delta": 0.37979216191154813,
+          "completed_plan_distance": 1.735373846574631
+        }
+      ]
+    },
+    {
+      "inst": 8,
+      "clock": 4.675582980116208,
+      "orders": [
+        182,
+        8,
+        79,
+        147,
+        176,
+        198
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 182,
+      "argmin_by_plan_customer": 147,
+      "argmin_by_delta_customer": 147,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": false,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 182,
+          "regret": 0.14209391941637398,
+          "best_immediate_delta": 0.03897127814763429,
+          "completed_plan_distance": 1.267473614604049
+        },
+        {
+          "customer": 147,
+          "regret": 0.03634437582126049,
+          "best_immediate_delta": 0.0005104034304928562,
+          "completed_plan_distance": 1.267473614604049
+        },
+        {
+          "customer": 198,
+          "regret": 0.006173246970515356,
+          "best_immediate_delta": 0.18572071963773207,
+          "completed_plan_distance": 1.353351058959111
+        }
+      ]
+    },
+    {
+      "inst": 8,
+      "clock": 5.650393032779296,
+      "orders": [
+        68,
+        88,
+        174,
+        89,
+        161,
+        187
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 68,
+      "argmin_by_plan_customer": 68,
+      "argmin_by_delta_customer": 187,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 68,
+          "regret": 0.3713654847701594,
+          "best_immediate_delta": 0.04879574094077882,
+          "completed_plan_distance": 1.7380108694474339
+        },
+        {
+          "customer": 89,
+          "regret": 0.082603325076545,
+          "best_immediate_delta": 0.02997346715659216,
+          "completed_plan_distance": 1.7380108694474339
+        },
+        {
+          "customer": 187,
+          "regret": 0.10076343647272828,
+          "best_immediate_delta": 0.027080800489096557,
+          "completed_plan_distance": 1.7380108694474339
+        }
+      ]
+    },
+    {
+      "inst": 9,
+      "clock": 7.0980533349017305,
+      "orders": [
+        80,
+        22,
+        95,
+        113
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 80,
+      "argmin_by_plan_customer": 80,
+      "argmin_by_delta_customer": 95,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 80,
+          "regret": 0.3784079093901847,
+          "best_immediate_delta": 0.26114910267170827,
+          "completed_plan_distance": 1.434910986204588
+        },
+        {
+          "customer": 95,
+          "regret": 0.02621231588206835,
+          "best_immediate_delta": 0.14637610752860086,
+          "completed_plan_distance": 1.434910986204588
+        }
+      ]
+    },
+    {
+      "inst": 9,
+      "clock": 11.900900675604744,
+      "orders": [
+        64,
+        181,
+        93,
+        82,
+        40,
+        2
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 2,
+      "argmin_by_plan_customer": 2,
+      "argmin_by_delta_customer": 82,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 64,
+          "regret": 0.034777427274845785,
+          "best_immediate_delta": 0.5881212628946364,
+          "completed_plan_distance": 1.4996603979909249
+        },
+        {
+          "customer": 82,
+          "regret": 0.0769308857480749,
+          "best_immediate_delta": 0.003178947418626163,
+          "completed_plan_distance": 1.4996603979909249
+        },
+        {
+          "customer": 2,
+          "regret": 0.1369236552973392,
+          "best_immediate_delta": 0.17387561997123913,
+          "completed_plan_distance": 1.4996603979909249
+        }
+      ]
+    },
+    {
+      "inst": 9,
+      "clock": 11.991768248379234,
+      "orders": [
+        64,
+        181,
+        93,
+        82,
+        40,
+        2
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 2,
+      "argmin_by_plan_customer": 2,
+      "argmin_by_delta_customer": 82,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 64,
+          "regret": 0.034777427274845785,
+          "best_immediate_delta": 0.5881212628946364,
+          "completed_plan_distance": 1.4996603979909249
+        },
+        {
+          "customer": 82,
+          "regret": 0.0769308857480749,
+          "best_immediate_delta": 0.003178947418626163,
+          "completed_plan_distance": 1.4996603979909249
+        },
+        {
+          "customer": 2,
+          "regret": 0.1369236552973392,
+          "best_immediate_delta": 0.17387561997123913,
+          "completed_plan_distance": 1.4996603979909249
+        }
+      ]
+    },
+    {
+      "inst": 10,
+      "clock": 4.403100313618779,
+      "orders": [
+        45,
+        98,
+        59,
+        51,
+        146,
+        80
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 45,
+      "argmin_by_plan_customer": 45,
+      "argmin_by_delta_customer": 51,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 45,
+          "regret": 0.02725574433019201,
+          "best_immediate_delta": 0.3768337866845783,
+          "completed_plan_distance": 1.4818818456309393
+        },
+        {
+          "customer": 51,
+          "regret": 0.004764631556435722,
+          "best_immediate_delta": 6.876758519391846e-05,
+          "completed_plan_distance": 1.4818818456309393
+        },
+        {
+          "customer": 80,
+          "regret": 0.0035698446638750547,
+          "best_immediate_delta": 0.32340843234021077,
+          "completed_plan_distance": 1.4818818456309393
+        }
+      ]
+    },
+    {
+      "inst": 10,
+      "clock": 4.57729627750814,
+      "orders": [
+        98,
+        59,
+        51,
+        146,
+        80
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 51,
+      "argmin_by_plan_customer": 51,
+      "argmin_by_delta_customer": 51,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": false,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 98,
+          "regret": 0.0014061894387186469,
+          "best_immediate_delta": 0.023166591010835624,
+          "completed_plan_distance": 1.102437644807866
+        },
+        {
+          "customer": 51,
+          "regret": 0.0036400538200309918,
+          "best_immediate_delta": 0.001193345321598649,
+          "completed_plan_distance": 1.102437644807866
+        },
+        {
+          "customer": 80,
+          "regret": 0.002604438122359609,
+          "best_immediate_delta": 0.32340843234021077,
+          "completed_plan_distance": 1.102437644807866
+        }
+      ]
+    },
+    {
+      "inst": 10,
+      "clock": 7.043590798974037,
+      "orders": [
+        133,
+        185,
+        102,
+        90
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 133,
+      "argmin_by_plan_customer": 102,
+      "argmin_by_delta_customer": 102,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": false,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 133,
+          "regret": 0.10065248350375744,
+          "best_immediate_delta": 0.04248605226636093,
+          "completed_plan_distance": 1.6661922976263364
+        },
+        {
+          "customer": 102,
+          "regret": 0.06922575362462097,
+          "best_immediate_delta": 0.03183212751066533,
+          "completed_plan_distance": 1.6661922976263364
+        }
+      ]
+    },
+    {
+      "inst": 11,
+      "clock": 6.300576677235465,
+      "orders": [
+        107,
+        155,
+        32,
+        97,
+        193
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 193,
+      "argmin_by_plan_customer": 32,
+      "argmin_by_delta_customer": 107,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 107,
+          "regret": 0.017365338668334895,
+          "best_immediate_delta": 0.2031992988967729,
+          "completed_plan_distance": 2.2406319296722934
+        },
+        {
+          "customer": 32,
+          "regret": 0.027246844620391064,
+          "best_immediate_delta": 0.3162609519364594,
+          "completed_plan_distance": 2.2406319296722934
+        },
+        {
+          "customer": 193,
+          "regret": 0.09425966204128944,
+          "best_immediate_delta": 0.6421494629681191,
+          "completed_plan_distance": 2.2406319296722934
+        }
+      ]
+    },
+    {
+      "inst": 11,
+      "clock": 6.341406314323346,
+      "orders": [
+        155,
+        32,
+        97,
+        193
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 155,
+      "argmin_by_plan_customer": 97,
+      "argmin_by_delta_customer": 97,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": false,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 155,
+          "regret": 0.21614396950677417,
+          "best_immediate_delta": 0.4038856709487846,
+          "completed_plan_distance": 2.042465466990221
+        },
+        {
+          "customer": 97,
+          "regret": 0.03366284703163669,
+          "best_immediate_delta": 0.0008931432444185816,
+          "completed_plan_distance": 2.042465466990221
+        }
+      ]
+    },
+    {
+      "inst": 11,
+      "clock": 13.085673407961925,
+      "orders": [
+        152,
+        115,
+        102,
+        62
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 102,
+      "argmin_by_plan_customer": 102,
+      "argmin_by_delta_customer": 102,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": false,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 152,
+          "regret": 0.05889121957865828,
+          "best_immediate_delta": 0.6294281184004912,
+          "completed_plan_distance": 1.3218392377788482
+        },
+        {
+          "customer": 102,
+          "regret": 0.15142250099003382,
+          "best_immediate_delta": 0.01376739234658414,
+          "completed_plan_distance": 1.3218392377788482
+        }
+      ]
+    },
+    {
+      "inst": 12,
+      "clock": 5.216551049302023,
+      "orders": [
+        196,
+        50,
+        125,
+        8
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 196,
+      "argmin_by_plan_customer": 125,
+      "argmin_by_delta_customer": 125,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": false,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 196,
+          "regret": 0.1375935342949398,
+          "best_immediate_delta": 0.3532397370788851,
+          "completed_plan_distance": 2.013979043827103
+        },
+        {
+          "customer": 125,
+          "regret": 0.10992940814667007,
+          "best_immediate_delta": 0.00264033722162782,
+          "completed_plan_distance": 2.013979043827103
+        }
+      ]
+    },
+    {
+      "inst": 12,
+      "clock": 6.690023687978587,
+      "orders": [
+        153,
+        181,
+        8,
+        165,
+        55,
+        112
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 153,
+      "argmin_by_plan_customer": 153,
+      "argmin_by_delta_customer": 165,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 153,
+          "regret": 0.1324085638636896,
+          "best_immediate_delta": 0.5197284837275153,
+          "completed_plan_distance": 1.8700298519168788
+        },
+        {
+          "customer": 165,
+          "regret": 0.09632749815659045,
+          "best_immediate_delta": 0.23022504388873075,
+          "completed_plan_distance": 1.8700298519168788
+        },
+        {
+          "customer": 112,
+          "regret": 0.1201812306885956,
+          "best_immediate_delta": 0.3961125175748959,
+          "completed_plan_distance": 1.8837913336194785
+        }
+      ]
+    },
+    {
+      "inst": 12,
+      "clock": 7.3522480117778,
+      "orders": [
+        165,
+        55,
+        81,
+        112
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 165,
+      "argmin_by_plan_customer": 165,
+      "argmin_by_delta_customer": 81,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.014668254884784293,
+      "candidates": [
+        {
+          "customer": 165,
+          "regret": 0.019678241669548624,
+          "best_immediate_delta": 0.3265525420453212,
+          "completed_plan_distance": 1.2602141651410914
+        },
+        {
+          "customer": 81,
+          "regret": 0.0025694312701294297,
+          "best_immediate_delta": 0.003438102176249125,
+          "completed_plan_distance": 1.2748824200258757
+        }
+      ]
+    },
+    {
+      "inst": 13,
+      "clock": 5.031281667451064,
+      "orders": [
+        120,
+        6,
+        73,
+        5,
+        177
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 73,
+      "argmin_by_plan_customer": 73,
+      "argmin_by_delta_customer": 120,
+      "regret_vs_plan_differ": false,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 120,
+          "regret": 0.012465438528348527,
+          "best_immediate_delta": 4.2448751874812896e-05,
+          "completed_plan_distance": 1.365228504914549
+        },
+        {
+          "customer": 73,
+          "regret": 0.014930428625005987,
+          "best_immediate_delta": 0.04717870304837646,
+          "completed_plan_distance": 1.365228504914549
+        },
+        {
+          "customer": 177,
+          "regret": 0.004813234041966319,
+          "best_immediate_delta": 0.612600816495943,
+          "completed_plan_distance": 1.365228504914549
+        }
+      ]
+    },
+    {
+      "inst": 13,
+      "clock": 6.275090844680865,
+      "orders": [
+        5,
+        177,
+        110,
+        114,
+        141
+      ],
+      "n_candidates": 3,
+      "argmax_by_regret_customer": 141,
+      "argmin_by_plan_customer": 5,
+      "argmin_by_delta_customer": 141,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": true,
+      "plan_distance_gap_if_regret_used": 0.03180300292051097,
+      "plan_distance_gap_if_delta_used": 0.03180300292051097,
+      "candidates": [
+        {
+          "customer": 5,
+          "regret": 0.02156628590406412,
+          "best_immediate_delta": 0.19292475023912026,
+          "completed_plan_distance": 1.8864527348337754
+        },
+        {
+          "customer": 110,
+          "regret": 0.022487325906025035,
+          "best_immediate_delta": 0.2194475709869681,
+          "completed_plan_distance": 1.9182557377542864
+        },
+        {
+          "customer": 141,
+          "regret": 0.03623482517329496,
+          "best_immediate_delta": 0.18616415450442075,
+          "completed_plan_distance": 1.9182557377542864
+        }
+      ]
+    },
+    {
+      "inst": 13,
+      "clock": 6.3964716245730715,
+      "orders": [
+        177,
+        110,
+        114,
+        141
+      ],
+      "n_candidates": 2,
+      "argmax_by_regret_customer": 177,
+      "argmin_by_plan_customer": 114,
+      "argmin_by_delta_customer": 114,
+      "regret_vs_plan_differ": true,
+      "delta_vs_plan_differ": false,
+      "plan_distance_gap_if_regret_used": 0.0,
+      "plan_distance_gap_if_delta_used": 0.0,
+      "candidates": [
+        {
+          "customer": 177,
+          "regret": 0.3174710457944425,
+          "best_immediate_delta": 0.6444038194164541,
+          "completed_plan_distance": 1.7839913462477845
+        },
+        {
+          "customer": 114,
+          "regret": 0.0041491039805180985,
+          "best_immediate_delta": 0.00514410141804722,
+          "completed_plan_distance": 1.7839913462477845
+        }
+      ]
+    }
+  ],
+  "reading": "Compare these two headroom rates with the position-choice headroom rate (about 0.098 with gaps of ~0.0036). A larger rate or a larger gap here means the CUSTOMER decision is where a learned term could plausibly win, and the operator should be changed to score customers rather than positions.",
+  "what_this_is_not": [
+    "not a method: nothing is trained and no arm is compared",
+    "the plan-distance proxy is pure geometry, not A-v1 utility",
+    "descriptive only; no interval is a registered test",
+    "no impossibility, equivalence, attribution or stable-gain claim"
+  ],
+  "mask_fraction": 0.5,
+  "mask_seed": 2026120202,
+  "wall_s": 9.057563400012441
+}

@@ -1,0 +1,54 @@
+{
+  "schema": "research_claim_gate_draft_v1",
+  "status": "engineering_candidate_not_scientific_experiment",
+  "hypothesis": "Source-complete provenance, raw paired rows, immutable registered splits and independent audit coverage prevent engineering or loop-only improvements from being reported as MaskCO core online gains.",
+  "development_evaluator": "python -m unittest -v test_evidence_gate",
+  "development_metric": "adversarial_synthetic_tests_passed_fraction",
+  "scientific_gain_metric": null,
+  "stable_claim_output": "always_false_in_v1; candidate_under_supplied_protocol_only",
+  "stable_program_binding": {
+    "trusted_external_PROGRAM_anchor_required": true,
+    "units": 40,
+    "resampling_unit": "day",
+    "confirmation_batches": 3,
+    "family_comparison_alpha": ".05/(j*(j+1))/2/(comparisons*3)",
+    "minimum_expected_bootstrap_samples_per_tail": 25,
+    "adjusted_independent_confirmation_implementation": "not_implemented_in_v1"
+  },
+  "held_out_evaluator": "Parent coordinator creates a fresh-worktree independent adversarial test set without reusing development fixtures.",
+  "held_out_status": "not_executed_by_executor",
+  "protected_science": {
+    "pickup_original_final_seeds": [20260927, 20260928],
+    "original_results": "read_only_and_not_re_run",
+    "negative_result_paper": "original_183_files_immutable"
+  },
+  "new_science_design_choices": {
+    "requires_new_preregistration_before_outcomes": true,
+    "stable_confirmation_batches_minimum": 3,
+    "resampling_units": ["day", "instance"],
+    "bootstrap_samples": 2000,
+    "bootstrap_implementation": "python_random_randrange_percentile_linear_v1",
+    "core_controls": ["strong_primary", "random_same_schedule", "nonlearning_same_schedule"],
+    "actual_completed_candidate_counts_equal_for_core_claim": true,
+    "requires_external_independent_raw_trajectory_and_identity_audit": true,
+    "repeated_search_familywise_error_control": "not_implemented_by_this_component"
+  },
+  "claim_map": {
+    "engineering_qa": "engineering_qualification_only",
+    "snapshot_gain": "snapshot_setting_only",
+    "single_to_iterative_gain": "loop_gain_without_pretraining_attribution",
+    "ci_cross_zero": "no_qualified_positive_gain_not_equivalence",
+    "partial_recovery": "partial_reproducibility_not_full_from_zero",
+    "stable_core_online_gain": "never_asserted_by_v1; requires_separate_adjusted_program_bound_independent_confirmation"
+  },
+  "historical_claim_boundaries": {
+    "R1_C1": "C1_joint_confirmation_failed; original_missing_training_identity_remains",
+    "pickup_I3": "original_main_gate_failed_and_preserved",
+    "delivery_D2": "original_single_step_main_gate_failed; loop_improvement_not_pretraining_attribution"
+  },
+  "primary_sources": [
+    {"doi_or_url": "https://proceedings.mlr.press/v97/bouthillier19a.html", "supports": "distinguish methods/numerical/findings reproducibility"},
+    {"doi_or_url": "https://doi.org/10.1073/pnas.1708274114", "supports": "distinguish exploratory from preregistered confirmatory analyses"},
+    {"doi_or_url": "https://doi.org/10.1080/00031305.2016.1154108", "supports": "effect size, transparent full reporting and uncertainty rather than threshold alone"}
+  ]
+}

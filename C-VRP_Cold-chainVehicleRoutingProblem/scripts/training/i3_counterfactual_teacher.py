@@ -44,12 +44,20 @@ class TeacherRecord:
 
 def record_identity(record):
     """Seal candidate/pending/visible/event draws, not just the physical snapshot."""
+    visible = asdict(record.visible)
+    # These fields are unordered memberships. The generic snapshot hasher's
+    # fallback repr(frozenset) depends on the set's internal insertion layout,
+    # which can change during an otherwise exact typed archive roundtrip.
+    # Canonicalize only the teacher identity view; keep the actual model input,
+    # physical snapshot hash, sampling and replay data unchanged.
+    for name in ('accepted', 'rejected'):
+        visible[name] = tuple(sorted(visible[name]))
     return snapshot_state_hash({
         'train_seed': record.train_seed, 'dataset_sha256': record.dataset_sha256,
         'dataset_meta_sha256': record.dataset_meta_sha256,
         'continuation_signature': record.continuation_signature,
         'snapshot_hash': snapshot_state_hash(record.snapshot),
-        'visible': asdict(record.visible), 'candidate': record.candidate,
+        'visible': visible, 'candidate': record.candidate,
         'pending': record.pending,
         'event_scenarios': [[asdict(o) for o in s] for s in record.event_scenarios]})
 

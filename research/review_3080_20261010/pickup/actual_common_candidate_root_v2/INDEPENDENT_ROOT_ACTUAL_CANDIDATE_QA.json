@@ -1,0 +1,803 @@
+{
+  "checks": [
+    {
+      "name": "registration_bound_to_actual_package",
+      "pass": true
+    },
+    {
+      "name": "actual_registered_bytes:launcher_sha256",
+      "pass": true
+    },
+    {
+      "name": "actual_registered_bytes:common_score_sha256",
+      "pass": true
+    },
+    {
+      "name": "actual_registered_bytes:masked_fleet_sha256",
+      "pass": true
+    },
+    {
+      "name": "actual_registered_bytes:history_sha256",
+      "pass": true
+    },
+    {
+      "name": "actual_registered_bytes:checkpoint_sha256",
+      "pass": true
+    },
+    {
+      "name": "actual_registered_bytes:energy_complete_saa_sha256",
+      "pass": true
+    },
+    {
+      "name": "actual_registered_bytes:rolling_source_sha256",
+      "pass": true
+    },
+    {
+      "name": "actual_registered_bytes:public_fleet_sha256",
+      "pass": true
+    },
+    {
+      "name": "actual_registered_bytes:fixture_sha256",
+      "pass": true
+    },
+    {
+      "name": "actual_domain_has_at_least_two_mutable",
+      "pass": true
+    },
+    {
+      "name": "exact_five_prototypes",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:complete_normal_request",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:all_parent_transmission_inside10",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:all_actual_cpu7",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:worker_clocks_inside_parent_cap",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:packet_exact_public_identity",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:sealed_actual_source_start_end",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:actual_checkpoint_bytes",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:real_full_original_history",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:delayed10ms_request_no_reply",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:fault_original_incumbent_only_and_reaped",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:actual10draws",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:causal_historical_future0",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:causal_historical_future1",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:causal_historical_future2",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:causal_historical_future3",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:causal_historical_future4",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:causal_historical_future5",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:causal_historical_future6",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:causal_historical_future7",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:causal_historical_future8",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:causal_historical_future9",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:same10draws_all_proposals",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:incumbent:all10_complete",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:incumbent:actual_complete_mean",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:incumbent:independent_known_certificate",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:candidate:all10_complete",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:candidate:actual_complete_mean",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:candidate:independent_known_certificate",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:incumbent_same10values_across_workers",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:common_SAA_selection_recomputed",
+      "pass": true
+    },
+    {
+      "name": "own_incumbent:selected_full_C0_hard",
+      "pass": true
+    },
+    {
+      "name": "pretrained:complete_normal_request",
+      "pass": true
+    },
+    {
+      "name": "pretrained:all_parent_transmission_inside10",
+      "pass": true
+    },
+    {
+      "name": "pretrained:all_actual_cpu7",
+      "pass": true
+    },
+    {
+      "name": "pretrained:worker_clocks_inside_parent_cap",
+      "pass": true
+    },
+    {
+      "name": "pretrained:packet_exact_public_identity",
+      "pass": true
+    },
+    {
+      "name": "pretrained:sealed_actual_source_start_end",
+      "pass": true
+    },
+    {
+      "name": "pretrained:actual_checkpoint_bytes",
+      "pass": true
+    },
+    {
+      "name": "pretrained:real_full_original_history",
+      "pass": true
+    },
+    {
+      "name": "pretrained:delayed10ms_request_no_reply",
+      "pass": true
+    },
+    {
+      "name": "pretrained:fault_original_incumbent_only_and_reaped",
+      "pass": true
+    },
+    {
+      "name": "pretrained:actual10draws",
+      "pass": true
+    },
+    {
+      "name": "pretrained:causal_historical_future0",
+      "pass": true
+    },
+    {
+      "name": "pretrained:causal_historical_future1",
+      "pass": true
+    },
+    {
+      "name": "pretrained:causal_historical_future2",
+      "pass": true
+    },
+    {
+      "name": "pretrained:causal_historical_future3",
+      "pass": true
+    },
+    {
+      "name": "pretrained:causal_historical_future4",
+      "pass": true
+    },
+    {
+      "name": "pretrained:causal_historical_future5",
+      "pass": true
+    },
+    {
+      "name": "pretrained:causal_historical_future6",
+      "pass": true
+    },
+    {
+      "name": "pretrained:causal_historical_future7",
+      "pass": true
+    },
+    {
+      "name": "pretrained:causal_historical_future8",
+      "pass": true
+    },
+    {
+      "name": "pretrained:causal_historical_future9",
+      "pass": true
+    },
+    {
+      "name": "pretrained:same10draws_all_proposals",
+      "pass": true
+    },
+    {
+      "name": "pretrained:incumbent:all10_complete",
+      "pass": true
+    },
+    {
+      "name": "pretrained:incumbent:actual_complete_mean",
+      "pass": true
+    },
+    {
+      "name": "pretrained:incumbent:independent_known_certificate",
+      "pass": true
+    },
+    {
+      "name": "pretrained:candidate:all10_complete",
+      "pass": true
+    },
+    {
+      "name": "pretrained:candidate:actual_complete_mean",
+      "pass": true
+    },
+    {
+      "name": "pretrained:candidate:independent_known_certificate",
+      "pass": true
+    },
+    {
+      "name": "pretrained:incumbent_same10values_across_workers",
+      "pass": true
+    },
+    {
+      "name": "pretrained:common_SAA_selection_recomputed",
+      "pass": true
+    },
+    {
+      "name": "pretrained:selected_full_C0_hard",
+      "pass": true
+    },
+    {
+      "name": "pretrained:full_actual_model_called",
+      "pass": true
+    },
+    {
+      "name": "pretrained:retained_edges_and_committed_preserved",
+      "pass": true
+    },
+    {
+      "name": "pretrained:ineligible_boundary_before10",
+      "pass": true
+    },
+    {
+      "name": "pretrained:ineligible_no_false_model_call",
+      "pass": true
+    },
+    {
+      "name": "pretrained:ineligible_own_plan_preserved",
+      "pass": true
+    },
+    {
+      "name": "random:complete_normal_request",
+      "pass": true
+    },
+    {
+      "name": "random:all_parent_transmission_inside10",
+      "pass": true
+    },
+    {
+      "name": "random:all_actual_cpu7",
+      "pass": true
+    },
+    {
+      "name": "random:worker_clocks_inside_parent_cap",
+      "pass": true
+    },
+    {
+      "name": "random:packet_exact_public_identity",
+      "pass": true
+    },
+    {
+      "name": "random:sealed_actual_source_start_end",
+      "pass": true
+    },
+    {
+      "name": "random:actual_checkpoint_bytes",
+      "pass": true
+    },
+    {
+      "name": "random:real_full_original_history",
+      "pass": true
+    },
+    {
+      "name": "random:delayed10ms_request_no_reply",
+      "pass": true
+    },
+    {
+      "name": "random:fault_original_incumbent_only_and_reaped",
+      "pass": true
+    },
+    {
+      "name": "random:actual10draws",
+      "pass": true
+    },
+    {
+      "name": "random:causal_historical_future0",
+      "pass": true
+    },
+    {
+      "name": "random:causal_historical_future1",
+      "pass": true
+    },
+    {
+      "name": "random:causal_historical_future2",
+      "pass": true
+    },
+    {
+      "name": "random:causal_historical_future3",
+      "pass": true
+    },
+    {
+      "name": "random:causal_historical_future4",
+      "pass": true
+    },
+    {
+      "name": "random:causal_historical_future5",
+      "pass": true
+    },
+    {
+      "name": "random:causal_historical_future6",
+      "pass": true
+    },
+    {
+      "name": "random:causal_historical_future7",
+      "pass": true
+    },
+    {
+      "name": "random:causal_historical_future8",
+      "pass": true
+    },
+    {
+      "name": "random:causal_historical_future9",
+      "pass": true
+    },
+    {
+      "name": "random:same10draws_all_proposals",
+      "pass": true
+    },
+    {
+      "name": "random:incumbent:all10_complete",
+      "pass": true
+    },
+    {
+      "name": "random:incumbent:actual_complete_mean",
+      "pass": true
+    },
+    {
+      "name": "random:incumbent:independent_known_certificate",
+      "pass": true
+    },
+    {
+      "name": "random:candidate:all10_complete",
+      "pass": true
+    },
+    {
+      "name": "random:candidate:actual_complete_mean",
+      "pass": true
+    },
+    {
+      "name": "random:candidate:independent_known_certificate",
+      "pass": true
+    },
+    {
+      "name": "random:incumbent_same10values_across_workers",
+      "pass": true
+    },
+    {
+      "name": "random:common_SAA_selection_recomputed",
+      "pass": true
+    },
+    {
+      "name": "random:selected_full_C0_hard",
+      "pass": true
+    },
+    {
+      "name": "random:full_actual_model_called",
+      "pass": true
+    },
+    {
+      "name": "random:retained_edges_and_committed_preserved",
+      "pass": true
+    },
+    {
+      "name": "random:ineligible_boundary_before10",
+      "pass": true
+    },
+    {
+      "name": "random:ineligible_no_false_model_call",
+      "pass": true
+    },
+    {
+      "name": "random:ineligible_own_plan_preserved",
+      "pass": true
+    },
+    {
+      "name": "discard:complete_normal_request",
+      "pass": true
+    },
+    {
+      "name": "discard:all_parent_transmission_inside10",
+      "pass": true
+    },
+    {
+      "name": "discard:all_actual_cpu7",
+      "pass": true
+    },
+    {
+      "name": "discard:worker_clocks_inside_parent_cap",
+      "pass": true
+    },
+    {
+      "name": "discard:packet_exact_public_identity",
+      "pass": true
+    },
+    {
+      "name": "discard:sealed_actual_source_start_end",
+      "pass": true
+    },
+    {
+      "name": "discard:actual_checkpoint_bytes",
+      "pass": true
+    },
+    {
+      "name": "discard:real_full_original_history",
+      "pass": true
+    },
+    {
+      "name": "discard:delayed10ms_request_no_reply",
+      "pass": true
+    },
+    {
+      "name": "discard:fault_original_incumbent_only_and_reaped",
+      "pass": true
+    },
+    {
+      "name": "discard:actual10draws",
+      "pass": true
+    },
+    {
+      "name": "discard:causal_historical_future0",
+      "pass": true
+    },
+    {
+      "name": "discard:causal_historical_future1",
+      "pass": true
+    },
+    {
+      "name": "discard:causal_historical_future2",
+      "pass": true
+    },
+    {
+      "name": "discard:causal_historical_future3",
+      "pass": true
+    },
+    {
+      "name": "discard:causal_historical_future4",
+      "pass": true
+    },
+    {
+      "name": "discard:causal_historical_future5",
+      "pass": true
+    },
+    {
+      "name": "discard:causal_historical_future6",
+      "pass": true
+    },
+    {
+      "name": "discard:causal_historical_future7",
+      "pass": true
+    },
+    {
+      "name": "discard:causal_historical_future8",
+      "pass": true
+    },
+    {
+      "name": "discard:causal_historical_future9",
+      "pass": true
+    },
+    {
+      "name": "discard:same10draws_all_proposals",
+      "pass": true
+    },
+    {
+      "name": "discard:incumbent:all10_complete",
+      "pass": true
+    },
+    {
+      "name": "discard:incumbent:actual_complete_mean",
+      "pass": true
+    },
+    {
+      "name": "discard:incumbent:independent_known_certificate",
+      "pass": true
+    },
+    {
+      "name": "discard:candidate:all10_complete",
+      "pass": true
+    },
+    {
+      "name": "discard:candidate:actual_complete_mean",
+      "pass": true
+    },
+    {
+      "name": "discard:candidate:independent_known_certificate",
+      "pass": true
+    },
+    {
+      "name": "discard:incumbent_same10values_across_workers",
+      "pass": true
+    },
+    {
+      "name": "discard:common_SAA_selection_recomputed",
+      "pass": true
+    },
+    {
+      "name": "discard:selected_full_C0_hard",
+      "pass": true
+    },
+    {
+      "name": "discard:full_actual_model_called",
+      "pass": true
+    },
+    {
+      "name": "discard:retained_edges_and_committed_preserved",
+      "pass": true
+    },
+    {
+      "name": "discard:ineligible_boundary_before10",
+      "pass": true
+    },
+    {
+      "name": "discard:ineligible_no_false_model_call",
+      "pass": true
+    },
+    {
+      "name": "discard:ineligible_own_plan_preserved",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:complete_normal_request",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:all_parent_transmission_inside10",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:all_actual_cpu7",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:worker_clocks_inside_parent_cap",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:packet_exact_public_identity",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:sealed_actual_source_start_end",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:actual_checkpoint_bytes",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:real_full_original_history",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:delayed10ms_request_no_reply",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:fault_original_incumbent_only_and_reaped",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:actual10draws",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:causal_historical_future0",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:causal_historical_future1",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:causal_historical_future2",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:causal_historical_future3",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:causal_historical_future4",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:causal_historical_future5",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:causal_historical_future6",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:causal_historical_future7",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:causal_historical_future8",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:causal_historical_future9",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:same10draws_all_proposals",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:incumbent:all10_complete",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:incumbent:actual_complete_mean",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:incumbent:independent_known_certificate",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:candidate:all10_complete",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:candidate:actual_complete_mean",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:candidate:independent_known_certificate",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:incumbent_same10values_across_workers",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:common_SAA_selection_recomputed",
+      "pass": true
+    },
+    {
+      "name": "strong_rolling:selected_full_C0_hard",
+      "pass": true
+    },
+    {
+      "name": "actual_pretrained_discard_same_param_identity",
+      "pass": true
+    },
+    {
+      "name": "actual_random_different_params_same_architecture",
+      "pass": true
+    }
+  ],
+  "checks_count": 184,
+  "failed": 0,
+  "actual_prototype_candidate_scoring_qualified": true,
+  "recorded_raw_sha256": "5dc4172fd6567aa7f2bb6c8add078b49db463f64c264f96ceff870e98b23ad35",
+  "summaries": {
+    "own_incumbent": {
+      "candidate_changed": false,
+      "accepted_on_common_SAA": false,
+      "paired_shadow_delta": 0.0,
+      "actual_request_s": 4.4155211000470445,
+      "prototype_route_hash": "01e05be3f890fe5da5bd8d1cf95e6f0a2aad7d2d874681d8e3743b107b3e730f",
+      "selected_route_hash": "01e05be3f890fe5da5bd8d1cf95e6f0a2aad7d2d874681d8e3743b107b3e730f"
+    },
+    "pretrained": {
+      "candidate_changed": true,
+      "accepted_on_common_SAA": true,
+      "paired_shadow_delta": 6.17682683733392,
+      "actual_request_s": 4.940849400009029,
+      "prototype_route_hash": "2566571cb2613a78d50ff4b26bb2f7304144333d77da883bc770707858a12be2",
+      "selected_route_hash": "2566571cb2613a78d50ff4b26bb2f7304144333d77da883bc770707858a12be2"
+    },
+    "random": {
+      "candidate_changed": true,
+      "accepted_on_common_SAA": true,
+      "paired_shadow_delta": 6.17682683733392,
+      "actual_request_s": 4.688241999945603,
+      "prototype_route_hash": "2566571cb2613a78d50ff4b26bb2f7304144333d77da883bc770707858a12be2",
+      "selected_route_hash": "2566571cb2613a78d50ff4b26bb2f7304144333d77da883bc770707858a12be2"
+    },
+    "discard": {
+      "candidate_changed": false,
+      "accepted_on_common_SAA": false,
+      "paired_shadow_delta": 0.0,
+      "actual_request_s": 4.721241099992767,
+      "prototype_route_hash": "01e05be3f890fe5da5bd8d1cf95e6f0a2aad7d2d874681d8e3743b107b3e730f",
+      "selected_route_hash": "01e05be3f890fe5da5bd8d1cf95e6f0a2aad7d2d874681d8e3743b107b3e730f"
+    },
+    "strong_rolling": {
+      "candidate_changed": false,
+      "accepted_on_common_SAA": false,
+      "paired_shadow_delta": 0.0,
+      "actual_request_s": 5.048223599907942,
+      "prototype_route_hash": "01e05be3f890fe5da5bd8d1cf95e6f0a2aad7d2d874681d8e3743b107b3e730f",
+      "selected_route_hash": "01e05be3f890fe5da5bd8d1cf95e6f0a2aad7d2d874681d8e3743b107b3e730f"
+    }
+  },
+  "independent_draws_verified": 10,
+  "normal_request_budget_s": 10,
+  "fault_budget_s": 0.01,
+  "fault_is_engineering_only": true,
+  "all_five_formal_deployment_qualified": false,
+  "same_init_trained_reconstruction_control_present": false,
+  "atomic_public_projection_live_installation_qualified": false,
+  "realized_online_utility_gain_measured": false,
+  "research_new_days": 0,
+  "stable_online_gain": false,
+  "limits": [
+    "One observed public state; not a full admission/day experiment",
+    "Original3D pretrained/random/discard are prototype roles; no task-trained same-init CE attribution arm",
+    "Common shadow scoring does not establish realized online gain",
+    "Worker cap includes actual proposal/scenarios/certification/identity/transmission; parent projection and live installation remain unqualified",
+    "Physical certificate/thermal equations shared with production, not alternate independently calibrated physics"
+  ]
+}

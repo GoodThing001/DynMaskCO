@@ -1,0 +1,71 @@
+{
+  "schema": "current-research-status-v2",
+  "updated": "2026-10-10T14:19:25.137563+08:00",
+  "parent_program_sha256": "bc8cfcb51dba940af539e23194fad7c7e7caf681a1e98e68a5b296c7286632d5",
+  "historical_rounds_preserved": 20,
+  "new_cycle_cap_per_line": 12,
+  "stable_online_gain_established": false,
+  "MaskCO_attribution_established": false,
+  "pickup_impossibility_proven": false,
+  "learning_side_closed": false,
+  "equivalence_established": false,
+  "delivery": {
+    "stage": "destroy_eq8_complete_independently_replayed_negative_signal",
+    "instances": 32,
+    "candidate_replays": 768,
+    "final_replays": 96,
+    "audit_checks": 8424,
+    "actual_end_items": 478,
+    "actual_end_mismatches": 0,
+    "mean_costs": {
+      "Pguided": 87.04124818789974,
+      "Rguided": 83.0427536968083,
+      "Pdiscard": 83.38775538867779
+    },
+    "paired": {
+      "Pguided_over_Pdiscard": {
+        "mean_relative_gain": -0.048392882432174184,
+        "descriptive_95_CI": [
+          -0.10363662270169685,
+          0.001461684864514861
+        ]
+      },
+      "Pguided_over_Rguided": {
+        "mean_relative_gain": -0.055077361112683305,
+        "descriptive_95_CI": [
+          -0.11846676408657084,
+          0.0028245977552883894
+        ]
+      }
+    },
+    "actual_decode_calls": {
+      "Pguided": 256,
+      "Rguided": 256,
+      "Pdiscard": 256
+    },
+    "timeouts": {
+      "Pguided": 0,
+      "Rguided": 0,
+      "Pdiscard": 0
+    },
+    "next": "task-specific full masked reconstruction and objective-aligned training engineering; new protocol before research data"
+  },
+  "pickup": {
+    "stage": "actual_midday_causal_suffix_engineering_in_progress",
+    "stable_positive": false,
+    "budget_mixed_arm_corrected": {
+      "uncond_usage": 0.9036071502168543,
+      "uncond_rejected": 109.8
+    },
+    "next": "resume parity, hard10s submission barrier, future-mutation invariance and whole-fleet full-J replay before new finite online comparison"
+  },
+  "reproduction": {
+    "stage": "headline_consistency_and_scientific_support_separated",
+    "headline_checks": 29,
+    "headline_failures": 0,
+    "old_original_package_modified": false,
+    "historical_source_training_closure_complete": false
+  },
+  "automation": "maskco-i3 ACTIVE each30min",
+  "server_shared_MD_uploaded": false
+}

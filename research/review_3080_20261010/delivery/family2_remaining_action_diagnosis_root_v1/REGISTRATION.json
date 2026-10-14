@@ -1,0 +1,34 @@
+{
+  "registered_utc": "2026-10-11T23:25:47.856817+00:00",
+  "inputs": {
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\multistep_insertable_family2_root_v1\\downloaded\\STATES.jsonl": "586604a77c7a443841ad78de1cf9ec403f4c21dcf3be0bcee0d3fc175460d77d",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\multistep_insertable_family2_data_audit_root_v2\\inspection_20261011T111137553714Z\\INDEPENDENT_FAMILY2_DATA_ACCEPTANCE.json": "f245065040771ebe06f318e00c82183d30c08086ebf8c9de0bc61832db5dfbf0",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\multistep_insertable_family2_root_v1\\downloaded\\SOURCE_START.json": "7e690ed1c6cb8a963e7259a43e9c9e221ada744c02000c43590bfabc105f3d13",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\parent_v3\\source_snapshot\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\research_20261010\\delivery_equal_schedule.py": "aeb11826cae626d1a6ab5c9bc3131488f8cf4518a54d06e583069f20c31e11c8",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\delivery\\delivery_baselines.py": "4ab1099b7ee6db25f843596f19998cc590c5b22db9b90e5704d0d3a57a69f0eb",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\multistep_insertable_family2_root_v1\\RESEARCH_REGISTRATION.json": "562fc0304cb0202238e6618c0a20cf1602ac38d6763261d7d407743e02d21176",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\diagnose_delivery_remaining_actions_v1.py": "6849d7c0bd26088ed7549d565e60d8d1c670b5355d0005eccb01926c573e58ec"
+  },
+  "actual_source_matches": [
+    {
+      "local": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\parent_v3\\source_snapshot\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\research_20261010\\delivery_equal_schedule.py",
+      "actual_path": "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\remote_finite_research_root_v2\\extension\\scripts\\research_20261010\\delivery_equal_schedule.py",
+      "sha256": "aeb11826cae626d1a6ab5c9bc3131488f8cf4518a54d06e583069f20c31e11c8"
+    },
+    {
+      "local": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\delivery\\delivery_baselines.py",
+      "actual_path": "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\remote_finite_research_root_v2\\extension\\scripts\\delivery\\delivery_baselines.py",
+      "sha256": "4ab1099b7ee6db25f843596f19998cc590c5b22db9b90e5704d0d3a57a69f0eb"
+    }
+  ],
+  "selection": "All existing audit summaries with oracle_exact=False and same_undirected_adjacency=False; expect30, no utility selection",
+  "method": "Replay saved insertion anchors only. First failure of per-slot teacher subsequence; score chosen and unique teacher-compatible same-customer insertion using saved binary target. No legality/solver/physical/model calls.",
+  "score_arithmetic_abs_tolerance": 1e-10,
+  "score_tolerance_is_new_diagnostic_not_original_acceptance_rule": true,
+  "causal_limit": "An unchosen target action may be excluded by physical filtering; score comparison alone does not prove cause. Customer regret competitors are not recomputed.",
+  "family2_FAIL_unchanged": true,
+  "new_scientific_family": false,
+  "new_probe": false,
+  "new_training": false,
+  "stable_online_gain": false
+}

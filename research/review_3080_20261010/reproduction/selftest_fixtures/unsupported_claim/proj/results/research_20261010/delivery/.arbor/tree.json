@@ -1,0 +1,27 @@
+{
+  "nodes": {
+    "n0": {
+      "status": "root",
+      "metadata": {}
+    },
+    "n4": {
+      "status": "pruned",
+      "metadata": {
+        "branch_ref": "synthetic_dose_gate",
+        "prune_reason": "SYNTHETIC prune reason",
+        "dev_score": -1.874,
+        "test_score": null,
+        "result": "SYNTHETIC pruned, no confirmation run."
+      }
+    },
+    "n7": {
+      "status": "merged",
+      "metadata": {
+        "branch_ref": "synthetic_confirm",
+        "dev_score": 2.09,
+        "test_score": 2.09,
+        "result": "SYNTHETIC merge gate record."
+      }
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "checks": [
+    {
+      "name": "two_new_callbacks20_21_same_resident",
+      "pass_": true
+    },
+    {
+      "name": "continuous_private_branch",
+      "pass_": true
+    },
+    {
+      "name": "3:qualified_private_compute_commit",
+      "pass_": true
+    },
+    {
+      "name": "3:20_complete_common_branches",
+      "pass_": true
+    },
+    {
+      "name": "3:no_learning_or_route_gain",
+      "pass_": true
+    },
+    {
+      "name": "4:qualified_private_compute_commit",
+      "pass_": true
+    },
+    {
+      "name": "4:20_complete_common_branches",
+      "pass_": true
+    },
+    {
+      "name": "4:no_learning_or_route_gain",
+      "pass_": true
+    },
+    {
+      "name": "first_exact_actual_payload",
+      "pass_": true
+    },
+    {
+      "name": "prepublication_cancel_retains_exact_prior_envelope",
+      "pass_": true
+    },
+    {
+      "name": "probe4:no_new_private_execution",
+      "pass_": true
+    },
+    {
+      "name": "probe5:no_new_private_execution",
+      "pass_": true
+    },
+    {
+      "name": "actual_restore_prior_committed_not_cancelled",
+      "pass_": true
+    },
+    {
+      "name": "separate_recovery_zero_execution",
+      "pass_": true
+    },
+    {
+      "name": "both_normal_cancel_within10",
+      "pass_": true
+    },
+    {
+      "name": "registered_bytes",
+      "pass_": true
+    }
+  ],
+  "checks_count": 16,
+  "failed": 0,
+  "failure_names": [],
+  "host": [
+    {
+      "sequence": 3,
+      "pid": 20072,
+      "started": 922146.8956608,
+      "cutoff": 922154.8956608,
+      "chosen_at": 922150.2554225,
+      "finished": 922150.2563065,
+      "wall_s": 3.360645700013265,
+      "ticket": {
+        "epoch": 3,
+        "size": 25369,
+        "base_digest": "fa5940b0c675e9c315b04650e34858cf50a55ff1eacba9830d8f8cbbc916c452",
+        "payload_sha256": "850d7d74a5fc32ae114d8eaa756a0b9b357f9800dda8c3e6d1193776be56fd18",
+        "digest": "e06721ea6c51b5aa8026c8bd55bc4664b8da966b0c2e11536c88476274754362"
+      },
+      "authority_digest": "e06721ea6c51b5aa8026c8bd55bc4664b8da966b0c2e11536c88476274754362",
+      "ack_present": true,
+      "final_reap_included": false,
+      "reaped": false,
+      "stage": 2
+    },
+    {
+      "sequence": 4,
+      "pid": 20072,
+      "started": 922150.2713377,
+      "cutoff": 922158.2713377,
+      "chosen_at": null,
+      "finished": 922158.290566,
+      "wall_s": 8.019228300079703,
+      "ticket": null,
+      "authority_digest": "e06721ea6c51b5aa8026c8bd55bc4664b8da966b0c2e11536c88476274754362",
+      "ack_present": false,
+      "final_reap_included": true,
+      "reaped": true,
+      "stage": 3
+    }
+  ],
+  "probe_host": [
+    {
+      "op": 4,
+      "sequence": 3,
+      "digest": "e06721ea6c51b5aa8026c8bd55bc4664b8da966b0c2e11536c88476274754362",
+      "started": 922150.257133,
+      "finished": 922150.2632811,
+      "stage": 4,
+      "authority_digest": "e06721ea6c51b5aa8026c8bd55bc4664b8da966b0c2e11536c88476274754362"
+    },
+    {
+      "op": 5,
+      "sequence": 2,
+      "digest": "0000000000000000000000000000000000000000000000000000000000000000",
+      "started": 922150.2632963,
+      "finished": 922150.2708974,
+      "stage": 5,
+      "authority_digest": "e06721ea6c51b5aa8026c8bd55bc4664b8da966b0c2e11536c88476274754362"
+    }
+  ],
+  "recovery_host": {
+    "pid": 26308,
+    "started": 922161.1924441,
+    "finished": 922161.8575318,
+    "wall_s": 0.665087700006552,
+    "digest": "e06721ea6c51b5aa8026c8bd55bc4664b8da966b0c2e11536c88476274754362",
+    "sequence": 3,
+    "exit_code": 0,
+    "reaped": true
+  },
+  "physical_ack_loss_qualified": false,
+  "full_live_request_qualified": false,
+  "full_loaded_dependency_closure_qualified": false,
+  "stable_online_gain": false
+}

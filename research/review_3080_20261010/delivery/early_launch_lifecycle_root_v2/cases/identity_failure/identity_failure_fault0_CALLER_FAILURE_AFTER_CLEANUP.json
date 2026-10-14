@@ -1,0 +1,32 @@
+{
+  "start_clock": null,
+  "end_clock": 1019305.5156225,
+  "elapsed": null,
+  "kill_clock": 1019305.4547747,
+  "reap_clock": 1019305.5015698,
+  "child_launched": true,
+  "actual_worker_returncode": 1,
+  "worker_reaped": true,
+  "worker_trace_sha256": "a633747ff54f4c5d899256ea114ca10b14f666a4c0f3a31320daa4b7037bc74c",
+  "caller_trace_sha256": null,
+  "handles_closed": {
+    "stdout": true,
+    "stderr": true,
+    "control": true,
+    "input": true,
+    "output": true,
+    "telemetry": true
+  },
+  "cleanup_errors": [],
+  "within_declared_window": true,
+  "archive_and_handle_cleanup_in_elapsed": true,
+  "receipt_creation_in_elapsed": false,
+  "selected_output_revoked": false,
+  "full_request_budget_qualified": false,
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\early_launch_lifecycle_root_v2\\delivery_phase_shared_parent_v3.py\", line 49, in request\n    process=psutil.Process(child.pid)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\PyCharm_\\MASKCO-Main\\tools\\run_delivery_early_launch_v2.py\", line 81, in tracked_process\n    raise PermissionError('Registered child identity query failure')\nPermissionError: Registered child identity query failure\n",
+  "child_identity": null,
+  "selected": false,
+  "selection_clock": null,
+  "qualification": false,
+  "initialization_outside_request": true
+}

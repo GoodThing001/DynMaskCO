@@ -1,0 +1,174 @@
+{
+  "source_model": "A-v1 retrained (train_coenrich_a1.py)",
+  "loader": "numpy-adam",
+  "input_shape": [
+    null,
+    20
+  ],
+  "layers": [
+    {
+      "class": "Dense",
+      "name": "dense",
+      "units": 10,
+      "activation": "relu",
+      "use_bias": true
+    },
+    {
+      "class": "Dense",
+      "name": "dense_1",
+      "units": 10,
+      "activation": "relu",
+      "use_bias": true
+    },
+    {
+      "class": "Dense",
+      "name": "dense_2",
+      "units": 10,
+      "activation": "relu",
+      "use_bias": true
+    },
+    {
+      "class": "Dense",
+      "name": "dense_3",
+      "units": 10,
+      "activation": "relu",
+      "use_bias": true
+    },
+    {
+      "class": "Dense",
+      "name": "dense_4",
+      "units": 1,
+      "activation": "linear",
+      "use_bias": false
+    }
+  ],
+  "weight_keys": [
+    "dense/bias",
+    "dense/kernel",
+    "dense_1/bias",
+    "dense_1/kernel",
+    "dense_2/bias",
+    "dense_2/kernel",
+    "dense_3/bias",
+    "dense_3/kernel",
+    "dense_4/kernel"
+  ],
+  "extra": {
+    "budget": {
+      "batch": 256,
+      "max_steps": 3000,
+      "lr": 0.001,
+      "seed": 42
+    },
+    "n_train": 1167,
+    "n_val": 400,
+    "val_from_day": 6,
+    "data_meta": {
+      "seed": 20260920,
+      "days": 8,
+      "n_orders": 200,
+      "capacity": 50.0,
+      "num_vehicles": 15,
+      "rho": 0.6,
+      "k": 10,
+      "B": 710.6548152249378,
+      "cooling_share": 3.7208946347769882,
+      "baseline_from": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/results/a1_step2_gate_c1_20260926/gate.json",
+      "reference_arm": "UncondDynamicReplanner",
+      "label": "accepted_by_reference_arm (\u884c\u4e3a\u514b\u9686\u53e3\u5f84)",
+      "label_scope": "new",
+      "feature_set": "dynamicstatic(A-v1 \u53ef\u89c1\u6c60\u53e3\u5f84)",
+      "n_features": 20
+    },
+    "loss_curve": [
+      {
+        "step": 1,
+        "train_mse": 0.3836132432050554,
+        "val_mse": 0.33342500737912134,
+        "val_acc": 0.2625
+      },
+      {
+        "step": 250,
+        "train_mse": 0.14252369914682805,
+        "val_mse": 0.15400115211290666,
+        "val_acc": 0.8025
+      },
+      {
+        "step": 500,
+        "train_mse": 0.13236199777103588,
+        "val_mse": 0.12509026484706284,
+        "val_acc": 0.8425
+      },
+      {
+        "step": 750,
+        "train_mse": 0.12278176019926743,
+        "val_mse": 0.12464654768210863,
+        "val_acc": 0.8475
+      },
+      {
+        "step": 1000,
+        "train_mse": 0.1276865591056383,
+        "val_mse": 0.12502874144453657,
+        "val_acc": 0.8525
+      },
+      {
+        "step": 1250,
+        "train_mse": 0.12405589554815051,
+        "val_mse": 0.12741820094564735,
+        "val_acc": 0.8425
+      },
+      {
+        "step": 1500,
+        "train_mse": 0.13315473067119707,
+        "val_mse": 0.12548164266397543,
+        "val_acc": 0.8475
+      },
+      {
+        "step": 1750,
+        "train_mse": 0.09792611373790103,
+        "val_mse": 0.1245139148057492,
+        "val_acc": 0.85
+      },
+      {
+        "step": 2000,
+        "train_mse": 0.10629853949650986,
+        "val_mse": 0.12144452324592754,
+        "val_acc": 0.8675
+      },
+      {
+        "step": 2250,
+        "train_mse": 0.10210717725338632,
+        "val_mse": 0.12005673250194668,
+        "val_acc": 0.8725
+      },
+      {
+        "step": 2500,
+        "train_mse": 0.0942827632575256,
+        "val_mse": 0.11967767996852832,
+        "val_acc": 0.8425
+      },
+      {
+        "step": 2750,
+        "train_mse": 0.12303885037302659,
+        "val_mse": 0.11935432377736994,
+        "val_acc": 0.8425
+      },
+      {
+        "step": 3000,
+        "train_mse": 0.09837485405985845,
+        "val_mse": 0.11716102990442767,
+        "val_acc": 0.8375
+      }
+    ],
+    "val_mse_final": 0.11716102990442767,
+    "val_acc_final": 0.8375,
+    "val_majority_rate": 0.5625,
+    "train_seconds": 4.352591037750244,
+    "objective": "MSE on reference-arm accept label\uff08\u66ff\u4ee3\u539f\u6587 SL \u635f\u5931\uff09",
+    "vs_official": {
+      "score_corr": -0.2204994667174538,
+      "official_val_acc": 0.4375,
+      "a1_val_acc": 0.8375
+    }
+  }
+}

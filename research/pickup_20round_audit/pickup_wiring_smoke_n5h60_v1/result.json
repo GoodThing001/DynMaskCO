@@ -1,0 +1,71 @@
+{
+  "kind": "pickup_main_gate_baseline_wiring_smoke",
+  "arms_requested": [
+    "cond_hist",
+    "uncond_hist",
+    "strong_rolling",
+    "uncond_dynamic"
+  ],
+  "instances": 1,
+  "K": 10,
+  "time_limit": 10.0,
+  "n_rows": 4,
+  "n_ran": 4,
+  "n_hard_feasible": 4,
+  "all_arms_constructible": true,
+  "rows": [
+    {
+      "arm": "cond_hist",
+      "instance": 0,
+      "wall_s": 55.95181400002912,
+      "ran": true,
+      "utility": -376.40726526174694,
+      "hard": true,
+      "n_served": 58,
+      "n_accepted": 58,
+      "n_rejected": 142
+    },
+    {
+      "arm": "uncond_hist",
+      "instance": 0,
+      "wall_s": 31.731650300091133,
+      "ran": true,
+      "utility": -376.40726526174694,
+      "hard": true,
+      "n_served": 58,
+      "n_accepted": 58,
+      "n_rejected": 142
+    },
+    {
+      "arm": "strong_rolling",
+      "instance": 0,
+      "wall_s": 4.830267800018191,
+      "ran": true,
+      "utility": -361.1269913808442,
+      "hard": true,
+      "n_served": 59,
+      "n_accepted": 59,
+      "n_rejected": 141
+    },
+    {
+      "arm": "uncond_dynamic",
+      "instance": 0,
+      "wall_s": 1.1001962000736967,
+      "ran": true,
+      "utility": 552.8175809076056,
+      "hard": true,
+      "n_served": 81,
+      "n_accepted": 81,
+      "n_rejected": 119
+    }
+  ],
+  "what_this_is": [
+    "wiring verification that the main gate baselines instantiate and complete a full A-v1 day under the strict-online environment"
+  ],
+  "what_this_is_not": [
+    "not a comparison: no arm is ranked, no interval computed, no claim made",
+    "one or two instances with a short time limit, so no performance reading is possible",
+    "nothing about stable gain, attribution, impossibility or equivalence"
+  ],
+  "wall_s": 94.03354809992015
+}

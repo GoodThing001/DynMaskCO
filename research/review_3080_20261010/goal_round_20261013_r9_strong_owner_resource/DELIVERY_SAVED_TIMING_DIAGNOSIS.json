@@ -1,0 +1,49 @@
+{
+  "source_sha256": "6639086c7162c07ddc81fa45edb128adb3aa57244448063782fd40d550d446df",
+  "scope": "read-only completed-span mechanism diagnosis; not a speed counterfactual",
+  "rows": [
+    {
+      "arm": "pretrained_initial",
+      "completed_insertions": 17,
+      "unfinished_insertions": 8,
+      "outer_elapsed_seconds": 8.096758299972862,
+      "completed_recording_phases_8_10_11_seconds": 0.2846260000951588,
+      "completed_head_phase22_seconds": 4.148549399804324,
+      "completed_decode_phase20_seconds": 1.7046040003187954,
+      "completed_encoder_phase4_seconds": 1.035660000052303,
+      "recording_fraction_of_outer_elapsed": 0.035153080967739,
+      "head_fraction_of_outer_elapsed": 0.512371648764448,
+      "source_gate_reached": false,
+      "parameter_gate_reached": false,
+      "selected": false
+    },
+    {
+      "arm": "random888_initial",
+      "completed_insertions": 17,
+      "unfinished_insertions": 8,
+      "outer_elapsed_seconds": 8.161358799785376,
+      "completed_recording_phases_8_10_11_seconds": 0.2895289999432862,
+      "completed_head_phase22_seconds": 4.165695201139897,
+      "completed_decode_phase20_seconds": 1.688826400320977,
+      "completed_encoder_phase4_seconds": 1.0300702000968158,
+      "recording_fraction_of_outer_elapsed": 0.03547558771106842,
+      "head_fraction_of_outer_elapsed": 0.5104168684814403,
+      "source_gate_reached": false,
+      "parameter_gate_reached": false,
+      "selected": false
+    }
+  ],
+  "checks": {
+    "exactly_previously_sealed_two_arms": true,
+    "both_incomplete_and_unselected": true,
+    "all_publication_gates_unreached": true,
+    "recording_less_than_head_each": true,
+    "old_independent_audit_not_rerun": true
+  },
+  "failed": [],
+  "interpretation": "Completed score-head spans dominate recorded serialization phases in both killed requests; deleting recording alone is insufficient evidence for a complete 8+2 request. Missing insertion steps and publication gates have unknown positive cost.",
+  "model_run": false,
+  "old_QA_rerun": false,
+  "full_request_budget_qualified": false,
+  "stable_online_gain": false
+}

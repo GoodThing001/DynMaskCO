@@ -1,0 +1,15 @@
+{
+  "stage": "small_synthetic_float32_compiled_head_reduction_diagnostic",
+  "created_date": "2026-10-13",
+  "reason": "Original compiled head differs bitwise on 34 frozen real inputs; do not rerun those inputs or relax its strict gate. Test where a small independently constructed arithmetic graph first diverges under JAX eager versus compiled optimization barriers, without loading the 76M backbone.",
+  "fixed_shapes": {"nodes": 8, "embedding": 8, "actions": 32, "scalars": 4, "hidden": 16},
+  "fixed_values": "float32 sin(arange+1)*0.07 for embeddings and weights; deterministic integer action indices and nonnegative route/prefix/suffix averaging matrices",
+  "operations": ["route_prefix_suffix_reduction", "concatenate", "linear1_bias", "tanh", "linear2_bias"],
+  "execution_limit_seconds": 60,
+  "strict_report": "Count bitwise equal outputs and report first intermediate disagreement and max absolute differences; no tolerance-based qualification of original head",
+  "original_34_cases_rerun": false,
+  "full_backbone_loaded": false,
+  "full_request_qualified": false,
+  "new_science_family": false,
+  "stable_online_gain": false
+}

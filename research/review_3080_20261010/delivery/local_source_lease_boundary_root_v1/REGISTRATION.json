@@ -1,0 +1,31 @@
+{
+  "schema": "owned-copy-lease-engineering-v1",
+  "environment": "local original Python3.12.7/CPU7,no model, no server/GPU",
+  "source_files": {
+    "D:\\AA_Py\\A_Anaconda\\Lib\\encodings\\utf_8.py": "ba0cac060269583523ca9506473a755203037c57d466a11aa89a30a5f6756f3d",
+    "D:\\AA_Py\\A_Anaconda\\Lib\\encodings\\__pycache__\\utf_8.cpython-312.pyc": "93d29091adb1768ed45596ffe23bd0cb271f41f18dd9df98669695d06d7bedca",
+    "D:\\AA_Py\\A_Anaconda\\Lib\\encodings\\cp437.py": "5c2a5015cd36cf7f561269f33dec4c323093d3d88b0673969accdabdcb9ce2cb",
+    "D:\\AA_Py\\A_Anaconda\\Lib\\encodings\\__pycache__\\cp437.cpython-312.pyc": "37b9330948347187b5ba148c0a9b145c9efea6f48f918b4d1ba86db52dfce42f"
+  },
+  "programs": {
+    "audit.py": "1658c2fac688366b6de308caecd418b0b9649b9128416177aa58baa00d2bdb84",
+    "lease_runtime.py": "4466da29179d82f8854f151bfa8ec88776b960706c89c2216b56218878f3cddc",
+    "owner.py": "b097ecb77afb41ade9335e5f895bc6fd859a061361b547cea1afb90399f663bf",
+    "probe.py": "5d3125e4c4c86489d6bd87c05c7a82c46b5e8e142a26dc4737a48ec0c4483f9f",
+    "run.py": "a8f1f9c3613110ffd7e8aa794fcce6346ff609c63f0e02af489b3b76f5480d67"
+  },
+  "helper_sha256": "2e823979ef6fff9f133e158f2a2cc2e66a71ae7c43e65dc7edf71793f79adf4f",
+  "source_count": 4,
+  "actual_cases": [
+    "six blocked writes/mutations",
+    "directory_add_allowed_manifest_reject",
+    "released_write",
+    "owner_held_write",
+    "owner_abnormal_exit17_release"
+  ],
+  "locks_only_owned_copies": true,
+  "no_old_QA_rerun": true,
+  "full_runtime_contract_replacement_enabled": false,
+  "full_request_budget_qualified": false,
+  "stable_online_gain": false
+}

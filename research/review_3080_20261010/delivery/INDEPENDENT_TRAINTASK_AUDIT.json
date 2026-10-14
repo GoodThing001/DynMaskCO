@@ -1,0 +1,136 @@
+{
+  "kind": "independent_traintask_evidence_scope_audit",
+  "pins": {
+    "results\\research_20261010_continuation_v2\\delivery\\train_run_v1\\result.json": "6f7015c6d0de378584225d5351b2328c9ec9db6231891c7ae60fceb340fbd2fc",
+    "results\\research_20261010_continuation_v2\\delivery\\dev_gate_v1\\result.json": "a8879318c4d2c796af44943c63b93887ffe938c903305fe0c67a341e38bbc92a",
+    "results\\research_20261010_continuation_v2\\delivery\\guide_diag_v1\\result.json": "240f7609e281973b556c14ae1cabdc8636fa952dc975d5164190bdfb2914bc6e",
+    "results\\research_20261010_continuation_v2\\delivery\\infer_ident_run1\\result.json": "34cfd881569c312d8e01616d4a293d3ee08b744d1e5dfdb2e57b3aa48a24fbeb",
+    "results\\research_20261010_continuation_v2\\delivery\\infer_ident_run2\\result.json": "980e7a9ef66dd69aee4aae9e6dbb785495ffc0f2d5edd9b5197c500a24738b0e",
+    "scripts\\research_20261010\\delivery_traintask_train.py": "24cae675f9cb7ffed2f694e4ab20e6327411e40fc99def6b37ac9c298b31c2b1",
+    "scripts\\research_20261010\\delivery_trained_guide.py": "e092218a581417bc79a0351effe199b5916318cced39500b4ec481e2ed9479c6",
+    "scripts\\research_20261010\\delivery_traintask_guide_diagnostic.py": "b209718833aa72bcb294f1cfecc36706832f4610aa1241e288c563bcdc411fa4",
+    "scripts\\research_20261010\\delivery_traintask_dev_gate.py": "db98ec55b6733d9473553ba0df9998a661b810aaef5a6dfbc821e469590ef9e5",
+    "scripts\\research_20261010\\delivery_traintask_recipe.json": "4c6d1998bd1ba8be5cb71fd31027b2417cc119589c7e866ce28ef285f48b8ac6"
+  },
+  "means_recomputed": {
+    "trained": 106.23038795034694,
+    "zeroshot_guide": 90.13923408087766,
+    "discard_control": 80.73098868170003,
+    "regret2_nolearn": 80.73098868170003
+  },
+  "paired_contrasts": {
+    "regret2_nolearn": {
+      "mean_relative_reduction": -0.3213549039456989,
+      "ci95": [
+        -0.3675392236925702,
+        -0.2756495220734045
+      ],
+      "improved": 0,
+      "worse": 32,
+      "mean_error": 0.0,
+      "ci_max_error": 0.0
+    },
+    "zeroshot_guide": {
+      "mean_relative_reduction": -0.18191428660837206,
+      "ci95": [
+        -0.215066062545568,
+        -0.15084564188344846
+      ],
+      "improved": 0,
+      "worse": 32,
+      "mean_error": 0.0,
+      "ci_max_error": 0.0
+    },
+    "discard_control": {
+      "mean_relative_reduction": -0.3213549039456989,
+      "ci95": [
+        -0.3675392236925702,
+        -0.2756495220734045
+      ],
+      "improved": 0,
+      "worse": 32,
+      "mean_error": 0.0,
+      "ci_max_error": 0.0
+    }
+  },
+  "numeric_recomputation_consistent": true,
+  "train_certified_available": 505,
+  "train_cycles_used": 200,
+  "actual_optimization_insertion_records": 5000,
+  "full_rule_steps_audited": 480,
+  "per_customer_option_steps_audited": 12625,
+  "base_hash_equal": true,
+  "head_hash_changed": true,
+  "diagnostic_summary_retained": {
+    "trained": {
+      "n_decisions": 400,
+      "mean_extra_delta": 0.603327191088677,
+      "median_extra_delta": 0.02440405278290203,
+      "n_extra_positive": 210,
+      "n_extra_zero": 190,
+      "n_extra_negative": 0,
+      "corr_logits_distance_pearson_mean": 0.041681704250245005,
+      "corr_logits_distance_spearman_mean": 0.02815817091787236,
+      "corr_per_mask_pearson": [
+        0.18118792945415285,
+        0.18118792945415285,
+        -0.012845997911159122,
+        -0.012845997911159122,
+        0.11427293251457546,
+        0.11427293251457546,
+        0.0433622749975509,
+        0.0433622749975509,
+        0.06247423952285936,
+        0.06247423952285936,
+        -0.02854258243514164,
+        -0.02854258243514164,
+        -0.012688241759829775,
+        -0.012688241759829775,
+        -0.01376692038104799,
+        -0.01376692038104799
+      ]
+    },
+    "zeroshot_guide": {
+      "n_decisions": 400,
+      "mean_extra_delta": 0.2739824180718214,
+      "median_extra_delta": 0.0,
+      "n_extra_positive": 162,
+      "n_extra_zero": 238,
+      "n_extra_negative": 0,
+      "corr_logits_distance_pearson_mean": -0.5276484641297583,
+      "corr_logits_distance_spearman_mean": -0.5123973309428919,
+      "corr_per_mask_pearson": [
+        -0.5507700182580151,
+        -0.5644166981399494,
+        -0.4352136731574827,
+        -0.4602972275171173,
+        -0.8650477201428872,
+        -0.8260037450163441,
+        -0.4862243896011677,
+        -0.5110561872471653,
+        -0.862267922126604,
+        -0.8320930367610467,
+        -0.7476863088558183,
+        -0.7673322109196833,
+        -0.15906238943507592,
+        -0.15525942012423602,
+        -0.10963139108948423,
+        -0.11001308768405485
+      ]
+    }
+  },
+  "interpretation": {
+    "full_encoder_decoder_task_training_tested": false,
+    "head_mask_context_consumed": false,
+    "signed_advantage_weighted_ce_matches_recipe": false,
+    "instant_min_delta_win_test_can_disprove_global_utility": false,
+    "independent_full_route_replay_qualified": false,
+    "fresh_confirmation_gain_established": false,
+    "stable_online_gain_established": false
+  },
+  "limits": [
+    "Arithmetic uses stored costs; original DEV per_instance has no routes or replay traces.",
+    "Inference identity artifacts are pinned and preserved; no model re-inference in this audit.",
+    "Signed gain coefficient inside score is different from signed weighting of CE."
+  ]
+}

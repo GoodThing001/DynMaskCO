@@ -1,0 +1,199 @@
+{
+  "executors": {
+    "delivery": {
+      "directory": "research/review_3080_20261010/delivery/action_matching_generalization_root_v1",
+      "stable_online_gain": false,
+      "scientific_family3_started": false,
+      "candidate_installed": false,
+      "formal_trained_control_qualified": false,
+      "producer_checks": 62,
+      "producer_failures": 0,
+      "audit_checks": 72,
+      "audit_failures": 2,
+      "registration_sha256": "0b7770c030d24a48d93688a8931427d019a204fb46d9d62acebae5506edbbd9d",
+      "generalisation": {
+        "split": {
+          "train": [
+            0,
+            1,
+            3,
+            4,
+            6,
+            7,
+            9,
+            10,
+            12,
+            13,
+            15,
+            16,
+            18,
+            19,
+            21,
+            22,
+            25,
+            26,
+            28,
+            29
+          ],
+          "held_out": [
+            2,
+            5,
+            8,
+            11,
+            14,
+            17,
+            20,
+            24,
+            27
+          ]
+        },
+        "before": {
+          "train": {
+            "mean_ce": 1.2508620391509655,
+            "argmax_correct": 6,
+            "n": 20,
+            "full_candidate_argmax_correct": 0
+          },
+          "held_out": {
+            "mean_ce": 1.373525763066014,
+            "argmax_correct": 2,
+            "n": 9,
+            "full_candidate_argmax_correct": 0
+          }
+        },
+        "after": {
+          "sgd_matched": {
+            "train": {
+              "mean_ce": 1.1348711122249224,
+              "argmax_correct": 12,
+              "n": 20,
+              "full_candidate_argmax_correct": 0
+            },
+            "held_out": {
+              "mean_ce": 1.2521554378178383,
+              "argmax_correct": 5,
+              "n": 9,
+              "full_candidate_argmax_correct": 0
+            }
+          },
+          "sgd_conservative": {
+            "train": {
+              "mean_ce": 0.21724495782177794,
+              "argmax_correct": 18,
+              "n": 20,
+              "full_candidate_argmax_correct": 0
+            },
+            "held_out": {
+              "mean_ce": 1.8231073597740333,
+              "argmax_correct": 4,
+              "n": 9,
+              "full_candidate_argmax_correct": 0
+            }
+          },
+          "adam_control": {
+            "train": {
+              "mean_ce": 0.23443050827189466,
+              "argmax_correct": 19,
+              "n": 20,
+              "full_candidate_argmax_correct": 0
+            },
+            "held_out": {
+              "mean_ce": 1.5245490807178832,
+              "argmax_correct": 5,
+              "n": 9,
+              "full_candidate_argmax_correct": 0
+            }
+          }
+        },
+        "primary_arm": "sgd_matched"
+      },
+      "mechanism": {
+        "gradient_sign_agreement_float32_vs_float64": 0.4977780048015528,
+        "adam_t1_step_max_abs_diff": 0.002568994280528147,
+        "sgd_step_max_abs_diff": 3.893996186263293e-08,
+        "train_step0_zero_gradient_fraction": 0.5523665889736911,
+        "adam_t1_saturated_fraction": 0.2317231083283823
+      },
+      "summary_zh": "配送 n13 把动作匹配评分头放到固定预登记的 20/9 训练-留出划分上，并预声明三个臂(SGD 匹配步长 0.0860739、SGD 保守 0.01、Adam 3e-3 控制)，全部报告不按结果挑臂。生产 62 项 0 失败、自然退出 0；独立审计 72 项 2 FAIL。泛化结论是负向且清楚：真正在优化的两个臂训练 CE 大幅下降(保守 SGD 1.2509→0.2172、Adam 1.2509→0.2344)，但留出 CE 反而升高(1.3735→1.8231、1.3735→1.5245)；留出 argmax 只从 2/9 变成 4–5/9，n=9 不构成迁移证据。主臂 SGD 匹配步长虽然两端都降(训练 1.1349、留出 1.2522)，但其训练轨迹震荡(0.989→1.135)从未收敛，因此留出变化不可归因。这说明在已封存 latent 上做头-only 动作匹配是记忆 20 个状态，不学到可迁移评分函数，\"在 pretrained_initial 封存 latent 上训头\"这条路线作为在线增益来源就此封闭。机制同时被量化：float32 与 float64 的梯度符号在非零并集坐标上一致率只有 0.4978(等于随机)，Adam 的逐坐标归一化把更新变成符号的函数并饱和到 ±lr (t=1 步长跨库最大差 2.569e-3)，而 SGD 步长正比于 |g|(3.894e-8)。训练第一步 55.24% 坐标梯度恰为零、23.17% 坐标处于饱和。两个 SGD 臂仍超出预登记 1e-4 轨迹/参数界(保守 4.27e-4、匹配 0.674)，原\"SGD 构造上可复现\"的说法过强、按原样保留为 FAIL；真正可复现的是功能结果(三臂训练/留出 CE 与 argmax 跨库一致到 2–5e-8)。",
+      "next_zh": "不重跑 v1/v2/n13 或诊断追 PASS，不放宽 1e-4 或改用功能等价冒充轨迹可复现。下一配送步骤必须离开已封存 latent：正式同初始化已训 CE、同任务训练随机与真实主干训练属于科学第3族，只有在全部已登记工程与科学屏障(完整 8+2 请求、参数/依赖发布前核验)满足后才可在新数据前登记；主干门满足前不加载 backbone。",
+      "evidence_hashes": {
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/REGISTRATION.json": "0b7770c030d24a48d93688a8931427d019a204fb46d9d62acebae5506edbbd9d",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/RESULT.json": "a89f5f26d4283d212199c1c0c872221d57c44af95599289d5c8cf338bb0f7c5e",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/RUN_EXIT.json": "81868a6e94ffc0178bf833deb1c9013d9fab4ee95ddb876a5e8ec4f1d26376d2",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/INDEPENDENT_AUDIT.json": "9fbb5c0dc365b2747146e91d382c80f94c2e7ad9bb3f57ca47cca47ba9d8d02f",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/AUDIT_RUN_EXIT.json": "56296949d3a02e635b050fd6b4762f0f0b52c23d05b925203095f7daf8e19027",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/SOURCE_START.json": "c7d345585bde5bcbed10d5c7ba8b25f0dfea4253e86d7aae5e8a92562e87e94f",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/SOURCE_END.json": "c7d345585bde5bcbed10d5c7ba8b25f0dfea4253e86d7aae5e8a92562e87e94f",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/AUDIT_SOURCE_START.json": "87bca011369897e89aead65e57c5ea4a81d14709e0ec39395b5b53bedadf0709",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/AUDIT_SOURCE_END.json": "87bca011369897e89aead65e57c5ea4a81d14709e0ec39395b5b53bedadf0709",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/STAGE_ADJUDICATION.json": "e36212906a3814af3aab7da48abf15619c7ae4d20bd0634734aff178a3d5f761",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/HEAD_AFTER_sgd_matched.npz": "f04ab8155c6d4e0a1dfe9f5920ef8b3d6bcba8e7ce59d2278b50a6eaa9cd4cfb",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/HEAD_AFTER_sgd_conservative.npz": "88be501e44f06a855efc59600d84a3717f05c0bb07bdc2225edf52682e873b8f",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/HEAD_AFTER_adam_control.npz": "8c7b8fba7b97146ccc9e3ec4b0a394f00aa5bab9f5122717afffa521f3a343cc",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/RUN_SUPERVISION_RECEIPT.json": "a21cb53edec230f346d67062f3344133d85d1c8f8be28aa9264c1d9fcbf62cd9",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/AUDIT_SUPERVISION_RECEIPT.json": "ae906c767c20aa5fcf32abd828d0e73f1b6e66664c8c3a71773d6ec228b63c5c",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/run.py": "21ed8110a53bb14fea5fc146f419276375f384b3f7359f207e1ed9cac4a6cf13",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/audit.py": "c5548c04d9194041e395e7bd69c46253d10f7680023cc1d3517883a95c86df88",
+        "research/review_3080_20261010/delivery/action_matching_generalization_root_v1/head_action_matching.py": "ab7df735aea8e0452fd512b3b42f55fac202c16618c172ebb24946d0ebb104cf"
+      }
+    },
+    "pickup": {
+      "directory": "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2",
+      "preserved_prior_attempt": "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v1",
+      "stable_online_gain": false,
+      "formal_strong_dynamic_qualified": false,
+      "full_request_budget_qualified": false,
+      "scientific_family3_started": false,
+      "candidate_installed": false,
+      "producer_checks": 30,
+      "producer_failures": 1,
+      "audit_checks": 48,
+      "audit_failures": 4,
+      "registration_sha256": "390820b4148ccb5364fd1b48b944c38225bde5ff2b223c42a577aeee3538f4ff",
+      "sequence_length": 166,
+      "feasibly_inserted": 71,
+      "reference_distance_calls": 1042,
+      "candidate_distance_calls": 733,
+      "removed_repeated_base_calls": 309,
+      "removed_fraction": 0.2965451055662188,
+      "summary_zh": "取货把上一轮只覆盖前四单的惰性 base 复用扩到固定已封存 scenario index8 的整条揭示序订单表(166 单，其中 71 单实际可插入)，并与未修改原实现做同输入配对对照，交错 REF,CAND 各重复两次。原实现的路线距离求值 1042 次，候选 733 次，去掉 309 次同循环重复 base，占 29.7%(上一轮 13/109=11.9%)；能跑的精确门全部通过：两臂插入选择、可行性调用与数值、80 段 C0 物理转移、终点能量/距离 hex 逐位相同，候选日志确实是原日志的按序删除，每条被删项都是同循环 base 调用，1042+733 个距离值全部由独立有序双求和逐位复算，两臂跨重复确定，距离矩阵与原公共参数摘要未变。结果同时给出两个负向/受限证据：其一，实测耗时没有改善，候选两次计时 0.2704/0.3976 秒反而高于原实现 0.2635/0.2418 秒(仅两次、区间小，不作反向加速结论)；其二，生产 1 项 FAIL：原实现根本不记录它的评分候选，因此\"评分候选严格相同\"这一门没有参考侧日志可比，属本轮夹具设计缺陷而不是科学结果；审计 4 项 FAIL 中 2 项是拒绝为失败生产背书、1 项是同一夹具缺陷、1 项是审计自身用对象身份跨两份日志判 base 的检查缺陷。以上全部按原样保留，不重跑追 PASS。",
+      "next_zh": "不重跑 v1/v2 或其审计、不调容量/重分组追速度，也不把省调用数当提速。取货运行时间线到此为负向结论，不再投入微优化；下一实质步骤应转向能产生在线收益的方向：正式学习提议、同初始化已训 CE、同任务训练随机与真正独立强动态接拒，并按已注册规则在全部屏障满足后另登记新鲜科学日。",
+      "evidence_hashes": {
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v1/SOURCE_START.json": "957ba94ef56e29a8da3c5587c1b211d60ced49a004fdccdd7e60ee9ed583d9cb",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v1/RUN_SUPERVISION_RECEIPT.json": "3bea236575cedc0b20b909fc7108d103610d85d46464bb7c2c76faf0ec81f702",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v1/run.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v1/run.stderr.txt": "e20ca5fb92b226aee2d3ac5894be17a27bfe4ed0aaf8eebd0add2f8f2ba1d492",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/REGISTRATION.json": "390820b4148ccb5364fd1b48b944c38225bde5ff2b223c42a577aeee3538f4ff",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/RESULT.json": "cb850995ea3834fafa3d1ea34825ab2a758f090ee8a321fb1c3ae2cd39a5a126",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/RUN_EXIT.json": "56296949d3a02e635b050fd6b4762f0f0b52c23d05b925203095f7daf8e19027",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/INDEPENDENT_AUDIT.json": "3559265bd1cf898672dc51fdfbf53ae992f5b191c690fb9480a7a9a25abe4526",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/AUDIT_RUN_EXIT.json": "56296949d3a02e635b050fd6b4762f0f0b52c23d05b925203095f7daf8e19027",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/SOURCE_START.json": "48ec485b08eebf952d5238b7c4acb0a8fb7d3236894248556f47b5ba29650684",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/SOURCE_END.json": "48ec485b08eebf952d5238b7c4acb0a8fb7d3236894248556f47b5ba29650684",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/AUDIT_SOURCE_START.json": "0cefc5483083cebee69d9cb8dd22d728901b8d05ad2ea82c95f5d830862b07c2",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/AUDIT_SOURCE_END.json": "0cefc5483083cebee69d9cb8dd22d728901b8d05ad2ea82c95f5d830862b07c2",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/STAGE_ADJUDICATION.json": "8008983623b4c6a3d27ee0ecd8c5ea5b97b7804f7554e9568a04903854eeb5d4",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/RUN_SUPERVISION_RECEIPT.json": "bbab35ffe2ad271f32b4a44ec748bb59e40278165ca7e34c8068ac4dda9c4330",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/AUDIT_SUPERVISION_RECEIPT.json": "0eef0e2f65331d7fcf947255603601c609c2f7f05f2b67d56b704a5195fec5ef",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/run.py": "161bd564ebf75b92406885063c0bc2cf0fcc1de6641fb98c565c37539307d3ee",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/audit.py": "afeaaa6ff020866bdf114677d669d70fc21b424340c6eab2ec5248805ec904c6",
+        "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v2/lazy_base_distance.py": "70081955c98aeb87d0fdfe438d3f3a7389e27bff96baaf5be97467fadc286093"
+      }
+    }
+  },
+  "report": "docs/当前规划/决策与审计/双线第六轮_评分头泛化与全场景惰性复用_2026-10-13.md",
+  "report_sha256": "67fe973041f57e8dd1d236a64a85c1913bded8583acadc66ea8319dff27f58f8",
+  "automation_id": "maskco",
+  "automation_status": "ACTIVE",
+  "interval_minutes": 30,
+  "automation_after_sha256": "e13cb8ed3b381b91bfe26fd1b1601be6e4478c495e6311af0e2f727fcd3c9d5a",
+  "cycle": 6,
+  "cycle_root": "research/review_3080_20261010/dual_track_optimization_20261013_root_v1/cycle6_20261013_root_v1",
+  "scientific_family3_started": false,
+  "stable_online_gain": false,
+  "shared_MD_uploaded": false,
+  "final_pickup_seeds_used": false,
+  "GPU_used": false,
+  "server_used": false,
+  "record_tool_sha256": "f322d6282da5f8bd50c5f984a23d0c4fa66c90709cc5069059b7cea4e458178a"
+}

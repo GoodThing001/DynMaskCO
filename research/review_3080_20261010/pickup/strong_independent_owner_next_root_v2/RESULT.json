@@ -1,0 +1,69 @@
+{
+  "records": [
+    {
+      "case": 0,
+      "fault": 0,
+      "pid": 32600,
+      "ready": {
+        "ready": true,
+        "pid": 32600,
+        "baseline": "f82e31921922bb3e0146c9c9cb26f3c82e474a09da2c2971efbff6e4d61b02bc",
+        "clock": 3.9158132076263428,
+        "event_id": 25,
+        "loaded_files": 512
+      },
+      "baseline": "f82e31921922bb3e0146c9c9cb26f3c82e474a09da2c2971efbff6e4d61b02bc",
+      "old_owner_after": "f82e31921922bb3e0146c9c9cb26f3c82e474a09da2c2971efbff6e4d61b02bc",
+      "prepared": "ba6c1ed731b4b6fc185d6d29d00c8d4253427528bf11db0731d23660eb939a6b",
+      "primary_advance": "566ca9edd938b7c2caa446a2ba5e0762a8d9f7a1b5146e2a04251be39ae06414",
+      "actual_process_owner_selected": true,
+      "promotion": 1076440.8747742,
+      "error": null,
+      "stage_reached": 3,
+      "started": 1076437.8601969,
+      "finished": 1076441.5717989,
+      "wall_s": 3.7116019998211414,
+      "cap_s": 10.0,
+      "reserve_s": 2.0,
+      "reaped": true,
+      "timed_parent_public_projection_or_pickle": false
+    }
+  ],
+  "checks": [
+    {
+      "name": "0:actual_old_owner_unchanged",
+      "pass_": true
+    },
+    {
+      "name": "0:total_with_cleanup_reserve",
+      "pass_": true
+    },
+    {
+      "name": "0:no_parent_public_encoding_or_decode",
+      "pass_": true
+    },
+    {
+      "name": "0:actual_owner_and_physical_progress",
+      "pass_": true
+    },
+    {
+      "name": "0:actual_compiled_pointer",
+      "pass_": true
+    },
+    {
+      "name": "0:actual_loaded_component_closure",
+      "pass_": true
+    },
+    {
+      "name": "registered_sources_unchanged",
+      "pass_": true
+    }
+  ],
+  "checks_count": 7,
+  "failed": 0,
+  "failure_names": [],
+  "endogenous_observed_owner_component_qualified": true,
+  "full_live_request_qualified": false,
+  "full_loaded_dependency_closure_qualified": false,
+  "stable_online_gain": false
+}

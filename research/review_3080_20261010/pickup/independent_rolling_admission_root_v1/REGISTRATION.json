@@ -1,0 +1,51 @@
+{
+  "created_utc": "2026-10-13T02:26:27.159892+00:00",
+  "sources": {
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\independent_rolling_admission_root_v1\\controller.py": "c3e38f8993e201872041f3d6be0bc1c1ac8ee8e45c8cd750e56d308c6ff19e9b",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\independent_rolling_admission_root_v1\\run.py": "59d4905fd56161bbf2ce5f2df3c0317589263b621dfde9b37b4a900c12f7a83f",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\independent_rolling_admission_root_v1\\audit.py": "4d66dff78e186c9f4da0a5cbbf9bca184151a9c9227dc7b395ba53d0a47baaac",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\undecided_public_input_root_v2\\RESULT.json": "e2eb35fd06d2b3de94972d4988de989f3ca0ebda0e7de202cf22c115232ddb74",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\shared_history_qualification_root_v1\\COMMON_HISTORY.pkl": "44064ff788b7e322294a23e6ac6de39da9f399dec326b70af7a0f7439895d3c6"
+  },
+  "input_selection": "first original record, variant0, with >=2 mutable noncommitted outstanding orders; metadata only, no cost selection",
+  "chosen": {
+    "position": 2,
+    "kind": "derived_old_state",
+    "index": 9,
+    "mutable_orders": 2
+  },
+  "current": 61,
+  "method": "current-only independent accept/reject branches; all insertion slots; four best-improvement distance relocate/swap passes; original full C0 for each final candidate; best known utility candidate per branch; unconditional historical K10 common once; complete energy-accounting SAA reveal-order future route local search; strictly higher paired mean accepts, ties reject",
+  "K": 10,
+  "seed": 202610130901,
+  "resource": {
+    "available_ram_gib": 3.296478271484375,
+    "cpu_affinity": [
+      7
+    ],
+    "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]",
+    "numpy": "1.26.4"
+  },
+  "worker_budget": 8.0,
+  "cleanup_reserve": 2.0,
+  "total_cap": 10.0,
+  "failure_policy": "keep original certified incumbent; current order remains undecided for caller, no publish; fail closed",
+  "library_initialization_input_preparation_and_shared_history_outside_component": true,
+  "original_evaluator_byte_changes": false,
+  "scientific_data_generated": false,
+  "formal_strong_dynamic_qualified": false,
+  "full_request_budget_qualified": false,
+  "full_scientific_loaded_closure": false,
+  "stable_online_gain": false,
+  "literature": {
+    "title": "Scenario-Based Planning for Partially Dynamic Vehicle Routing with Stochastic Customers",
+    "authors": [
+      "Russell W. Bent",
+      "Pascal Van Hentenryck"
+    ],
+    "year": 2004,
+    "doi": "10.1287/opre.1040.0124",
+    "url": "https://pubsonline.informs.org/doi/10.1287/opre.1040.0124",
+    "relationship": "engineering adaptation inspired by future-scenario planning; not consensus MSA replication; our C0 utility differs from served-customer objective"
+  }
+}

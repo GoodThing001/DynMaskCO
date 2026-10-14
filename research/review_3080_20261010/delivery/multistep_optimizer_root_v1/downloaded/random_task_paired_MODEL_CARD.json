@@ -1,0 +1,1768 @@
+{
+  "fixed_steps": 2,
+  "coefficient": 0.2,
+  "initial_identity": "d1444b5465fc387268f572cc4b15a15ca1fb5d6fec9ae5aa0225dfc28705f66d",
+  "final_identity": "9ed7d12c2d6e7d0632c9c9be82392a59025b60468d1236f562e17ef423949a3b",
+  "final_parameters": {
+    "('decoder', 'layers', 0, 'attn', 'out_proj_params')": {
+      "sha256": "6dd775eae909eff78527111c5fba305c400613072d654634b460539f28881f3e",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 0, 'attn', 'qkv_proj_params')": {
+      "sha256": "c90b05d4e505a2c90a8f525c7ee45bff2ebcd11509ff8a6bceb60f84735642ae",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 0, 'ffn', 'v')": {
+      "sha256": "fea2227a5b0ed52a6f18eae52b80b1e18a9516049867a1454d35840e4842e219",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 0, 'ffn', 'v_bias')": {
+      "sha256": "df4296a86c9949f9d5e58aee9c3e430c50e8005f9935f62ee32904f0b0bbc853",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 0, 'ffn', 'w')": {
+      "sha256": "090749846ae4707f69e031d3f503453c37c6ffc85f8c2a4a1123cb1f8923509e",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 0, 'ffn', 'w2')": {
+      "sha256": "154b0b610e5efbe7554c2a632bd7c61d0817a7ac9e75af1d103ddae4c247f179",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 0, 'ffn', 'w2_bias')": {
+      "sha256": "307246a4f6b89e31a837ce13a82f91b2c6593291f94d61fed03387ebdf0e94b5",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 0, 'ffn', 'w_bias')": {
+      "sha256": "9e924869106a17714f4f5389503a842f00a081cb61a5e5589c73534b500fe61b",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 0, 'ln1', 'scale')": {
+      "sha256": "2e30969f237418e089f0949b1bc0d88b73ec9d177a2cfa64fe1efac1ec7e60fd",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 0, 'ln2', 'scale')": {
+      "sha256": "d37aea217b8304775d5292055480c449696d43243bb925ac320e76640de6aea7",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 1, 'attn', 'out_proj_params')": {
+      "sha256": "210215bef61714a7112ab06e8c01a648654839c763de4a4a2861c1ea0f2059f5",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 1, 'attn', 'qkv_proj_params')": {
+      "sha256": "9a54f5d4efa8939697143a6394563041a0bfc1788d3bc75b582ad09f9ea798ba",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 1, 'ffn', 'v')": {
+      "sha256": "e5bebcab76f6a19971173092d704977a0d80ed8aaec4283b61f8b34b4f0c94f6",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 1, 'ffn', 'v_bias')": {
+      "sha256": "e5a610c2d0d07633c7539a83805140adf2316761a8197f52cd51bbe2cf9da7a6",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 1, 'ffn', 'w')": {
+      "sha256": "bbfce9bd0c2ee4dfc579a2bc77c2ae6ca4639148e6992ffa2a1d8348cdabdd8f",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 1, 'ffn', 'w2')": {
+      "sha256": "70f23801b7d14e1399a6e6ccc901ee51a4efe8cbe446ac8049ed1a5fb6447564",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 1, 'ffn', 'w2_bias')": {
+      "sha256": "9d69fdb34812647609ed1f7f84d9229a82e9a98fb1c8b6497941a32efef734d6",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 1, 'ffn', 'w_bias')": {
+      "sha256": "f1c88cf0eee0e72124b0910ddca0fb8b4f5003ff6deb2010e476b2bf9727629a",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 1, 'ln1', 'scale')": {
+      "sha256": "3817e7668db000449335ddf9a0fdc97f353c93423307439274d5e437432e389a",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 1, 'ln2', 'scale')": {
+      "sha256": "8d992c289a9a600d2de6fd93419b855c2d0d6841ffdf06e9f7b7195bd201a151",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 2, 'attn', 'out_proj_params')": {
+      "sha256": "1d89107c2d093effcc283a7b05c4b1615ef5fbb3666dd370b4f758ec9f379bb5",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 2, 'attn', 'qkv_proj_params')": {
+      "sha256": "9aab54764f390e036bdddeb65e79f02064606e51038d27b9d70da4ff7d9fa28e",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 2, 'ffn', 'v')": {
+      "sha256": "2b1db5f936838b1f442d55e7a3672a599db670e5167e1a89168c4c1b4b8e63bf",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 2, 'ffn', 'v_bias')": {
+      "sha256": "a8a17d3d8e5f86cc3c4ee5ffb8544903d1bd180c01ee2943fae5cbcf59b89e98",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 2, 'ffn', 'w')": {
+      "sha256": "e572ac0c2e6a16221fc4b1586819c24cd25d60a6af065c218c933e48359cd339",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 2, 'ffn', 'w2')": {
+      "sha256": "66281bb8b4efab943e41464f7fc5fc9c673ebce3ad50fdd7fe5f8092d0c40a83",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 2, 'ffn', 'w2_bias')": {
+      "sha256": "9a1847d42bf4a5efea06983b6342c3ec91341b3a0b4eb24c78d909f8a9880cc2",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 2, 'ffn', 'w_bias')": {
+      "sha256": "8196f49025984af1384d467eb0ea154091d208691abb80f3a401a1221409c150",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 2, 'ln1', 'scale')": {
+      "sha256": "af5fba243f986c3aac0358dacc3127e031fb54b63969a5cc3a25be1e908dfa4b",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 2, 'ln2', 'scale')": {
+      "sha256": "fef951e6c76ad6a01b208af650ca6d95769bec840e009981c5ae1316a42c90b1",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 3, 'attn', 'out_proj_params')": {
+      "sha256": "e782b1784aa2e9ca34f195866db4e55111c5ed7898d5d9b55837ff11eca9cf76",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 3, 'attn', 'qkv_proj_params')": {
+      "sha256": "e7c49287d77dcd81249bcb22516a2203fb0a68b89c7bf34366446f4aedb7c0a2",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 3, 'ffn', 'v')": {
+      "sha256": "a20b140c4dff4f0cfd9cab1b5f2d3e07957751ce420bdc8df377b2d3eb05dfe1",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 3, 'ffn', 'v_bias')": {
+      "sha256": "5263af38d26a7e358e0ea5ffce2dea2ad4b7d761fb043bb84e982155fdd975c6",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 3, 'ffn', 'w')": {
+      "sha256": "32536a9a4bbfd6bf320a3bbdf5780aee8221a8c5eef5e234042cd7e31a1a8020",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 3, 'ffn', 'w2')": {
+      "sha256": "579509744b4f06cfcdf754d66e6a6c76d932f8182166581b756384b8ddf095d3",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 3, 'ffn', 'w2_bias')": {
+      "sha256": "82f3853fa067445eeba0c3e963641cba28ddcce34d1fe25380c58afed7a5797c",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 3, 'ffn', 'w_bias')": {
+      "sha256": "d39e849e9d68420401112dc8fb877262ba9404ff98249fa5ebe773ccf29ec93c",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 3, 'ln1', 'scale')": {
+      "sha256": "d3b69b2d23d29dc8c65af9176affdcda667e65d9d22eef69fc9ee5fd5f7a12e5",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 3, 'ln2', 'scale')": {
+      "sha256": "fef951e6c76ad6a01b208af650ca6d95769bec840e009981c5ae1316a42c90b1",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 4, 'attn', 'out_proj_params')": {
+      "sha256": "ad45a3896cc8ffcf27a4ed54f82a9a706650de9c8b6eb491695fc0a4ae0e0f2f",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 4, 'attn', 'qkv_proj_params')": {
+      "sha256": "4aee707531d59d4d9e8cf971e953f52f3a67d3c47d53ecc1c724c720006ee0ff",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 4, 'ffn', 'v')": {
+      "sha256": "5042fc2bf2edd15b61978792d46960aec638ad72462c8bb44064a976eaace658",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 4, 'ffn', 'v_bias')": {
+      "sha256": "38bbebdcc4d882d711e6a3296ee5c6c840ca51a26a6688aa5566540cb4d62844",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 4, 'ffn', 'w')": {
+      "sha256": "eb16a0ead0cc840d4baaf9106bbd3ea4750421d3a7e6889b60ac977d9656cf18",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 4, 'ffn', 'w2')": {
+      "sha256": "a36568c364b5298764ad29fe7eae6dc5727944aca013d56f1bd3a0ae5d502abf",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 4, 'ffn', 'w2_bias')": {
+      "sha256": "8b7d446f10db04870a023c88f53a8a1d8c98403b80f2a60a085b9414367c6cf3",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 4, 'ffn', 'w_bias')": {
+      "sha256": "58e69b1adb7f47c5592f39b31c55618fdb277e27fd2054150587e73dac73b459",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 4, 'ln1', 'scale')": {
+      "sha256": "05c1ce2000a9e9f5347547b06b4bbb49aa4f59e15a67e9567167de012a62fa1b",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 4, 'ln2', 'scale')": {
+      "sha256": "d37aea217b8304775d5292055480c449696d43243bb925ac320e76640de6aea7",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 5, 'attn', 'out_proj_params')": {
+      "sha256": "6c7b49f6b2981bfdfea871d5587d86918fc77e76182f0aab640cfea79d940e69",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 5, 'attn', 'qkv_proj_params')": {
+      "sha256": "231b55306e9a28acf5fbc24f96be4ce4b282f7e3d7a2dd8a9941a344199feab1",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 5, 'ffn', 'v')": {
+      "sha256": "1cc54889cfd2f2eff54d24a4a58825bef4dd739d1e163dc2dd4251cb687eb302",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 5, 'ffn', 'v_bias')": {
+      "sha256": "82b58410cf4e1e80abddd32359e1eaf1e8a9d27b3aa9b1f7c947c3fd5715a9d0",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 5, 'ffn', 'w')": {
+      "sha256": "db8124e7929813fc3c25b2c314bc7d2428ece00630173291b0113f31afe324a1",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 5, 'ffn', 'w2')": {
+      "sha256": "936c5524a6ca863aa602ec38a947f6d5f0df4895bcd905aa409e059a75e833da",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 5, 'ffn', 'w2_bias')": {
+      "sha256": "9f962dfc030bcb67db7b20459d7830b27ab04f21d9aae55da1ff588b9673746f",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 5, 'ffn', 'w_bias')": {
+      "sha256": "af9fcf1c442dad881fb68b651e9ee95988980cc9d37f435c5de5a9fc3a516d71",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 5, 'ln1', 'scale')": {
+      "sha256": "9b1da86bafc676ff84e7558b6531e3893e7524083f13a482123b630d3c6e2f62",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('decoder', 'layers', 5, 'ln2', 'scale')": {
+      "sha256": "fef951e6c76ad6a01b208af650ca6d95769bec840e009981c5ae1316a42c90b1",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('depot_bias',)": {
+      "sha256": "82f23db6463e68030d82e75bc50f880740759c43ef45356befbb3ed5253ee931",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 0, 'attn', 'out_proj_params')": {
+      "sha256": "407beb88abee5e3534a0e3a99641de3c24eeb1e4acd110260ffed4d7322894e8",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 0, 'attn', 'qkv_proj_params')": {
+      "sha256": "e57cafc714082388a0c26bf707e0f0d11e1c2d7fe571729fe9560cd89197cabc",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 0, 'ffn', 'v')": {
+      "sha256": "9febe3eb237b558d839cd533f63b838744abad5e85b8686691b987c510795919",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 0, 'ffn', 'v_bias')": {
+      "sha256": "4b12a979fbb33072f2a4c6fe7aeae6123ac6cfc6d8634e932807dbd818d98c27",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 0, 'ffn', 'w')": {
+      "sha256": "bfe62f88b7c3f44d3bb6679687202d1cb220dea77534a54b5f2f460237b0e91e",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 0, 'ffn', 'w2')": {
+      "sha256": "1f9434f57bdf9c4198bf5da079c88bcea8a551e4a92f7b712acf171272c5feb8",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 0, 'ffn', 'w2_bias')": {
+      "sha256": "febd8e371651ba5335bcdb005243d12e166edd2247d2102311c64003eb4bfbbf",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 0, 'ffn', 'w_bias')": {
+      "sha256": "7fdca12fee84fffc0f99fa5b2ffaa1548e2de336cbb2346e18b3824bd7044b3b",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 0, 'ln1', 'scale')": {
+      "sha256": "93b2b5779c7041a25c9f22a05095a385b8ad4a454b6612b64bc81707fca36c93",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 0, 'ln2', 'scale')": {
+      "sha256": "e3019983bb4acad7775fec473f4639e2df672461685cd583589ed66e2ff1eb72",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 1, 'attn', 'out_proj_params')": {
+      "sha256": "4dd0cbbd71469772d0287211580053abbcccf761c56fffc2f472cbb61123496c",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 1, 'attn', 'qkv_proj_params')": {
+      "sha256": "ea15c2d5cbee82b3c6e41973707216b96ca955b6cf8237a4ff772b336f753ed8",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 1, 'ffn', 'v')": {
+      "sha256": "b4247fcc158deb192b497b5509f02f1beed3a1c0fcebe947647ebe60c324ca30",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 1, 'ffn', 'v_bias')": {
+      "sha256": "bc73372699fc32f1f7c015522928089be6ed8b010e649ac8e4e5ecf3fc26074f",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 1, 'ffn', 'w')": {
+      "sha256": "0e134fa59c09821f0497e68a4bda80f4c6b4aebad9601b186022a91b0d1778bc",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 1, 'ffn', 'w2')": {
+      "sha256": "4d6f0c370fdc9290a3892505484b14180775aeda3b135eb4c5c4b7628a38a2f6",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 1, 'ffn', 'w2_bias')": {
+      "sha256": "a75b6e7c88cd992455ef6b46b226e07d53b83c7aa909ce0b86e9b8059690e86a",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 1, 'ffn', 'w_bias')": {
+      "sha256": "bccb42706d2f69beca03fe45f31418ca9b2d8779f735c758dc35eef5dbba8672",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 1, 'ln1', 'scale')": {
+      "sha256": "5102b4ecf5218960b395c891a00c4b07a66ab7eb800511c7e27ae3598b5d7cb6",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 1, 'ln2', 'scale')": {
+      "sha256": "18fc060a727b44660b551780c3057be833d5b5d6e9939194c24edccfca4ee086",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 2, 'attn', 'out_proj_params')": {
+      "sha256": "28382689210f470eae1cae357bd6ac8eb590e9f2477be9916449201fa184e180",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 2, 'attn', 'qkv_proj_params')": {
+      "sha256": "486ec8d7eb73a1016311b069c0bd0912cc9519d36fe2d2f1c67ac42cdb17650b",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 2, 'ffn', 'v')": {
+      "sha256": "8fd3d37300d72f377e3c22a54073437977750fa6d1122960bba15689e4e5c4fe",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 2, 'ffn', 'v_bias')": {
+      "sha256": "5072015813cb0adbc026ed2485f2daf79f8f461b4bc5f275e7f101b346483fb2",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 2, 'ffn', 'w')": {
+      "sha256": "981c09128e42fc554c203959eadf2cd9706ea3f1cf65661bf149e204dd7cbf2e",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 2, 'ffn', 'w2')": {
+      "sha256": "3b852370c13b34f617c91a964081cfcf56377be1a536237decb9f6453bc58ed2",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 2, 'ffn', 'w2_bias')": {
+      "sha256": "3f7cdcc11a7b950a884bf3c8a465a746e580947b29292434f0631263fde10d3f",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 2, 'ffn', 'w_bias')": {
+      "sha256": "077b656216d51496a16650fec0a3b39ec6d7030ea8eb55d49a8239b92e992726",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 2, 'ln1', 'scale')": {
+      "sha256": "2e0d70239845de3534a6c59674d0648c61acfcf0426bf1ec614d50569e4e4752",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 2, 'ln2', 'scale')": {
+      "sha256": "304dc624ebbf5dc9d11078e0fa10fc174515ee6421bd39a61bf714d6061fa62c",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 3, 'attn', 'out_proj_params')": {
+      "sha256": "7aa7262650759ce1152005860b77a156e59f0bf78568bf53b17e34140fe81916",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 3, 'attn', 'qkv_proj_params')": {
+      "sha256": "a2c411ba66919e8b50a133f85fad90afdd5e438fb828e3f63cd60d8a0c7fd3ac",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 3, 'ffn', 'v')": {
+      "sha256": "f86a1b0e72010789b04ac089245de0f333f1a40689dd509dc01a372cffc7a752",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 3, 'ffn', 'v_bias')": {
+      "sha256": "31037af34c8d54b6dad6bf94fd418ccf7ac9be60083dc869c08d21945c712900",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 3, 'ffn', 'w')": {
+      "sha256": "3a9f194c8ce990c3ab2a2b869ebe806aea68fa49bd7bad68de35df29f8224c67",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 3, 'ffn', 'w2')": {
+      "sha256": "dc6481cc7ca2007e1a2a714a1472b241dcf87b5bced6bdc9c5a1e7f28f55d169",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 3, 'ffn', 'w2_bias')": {
+      "sha256": "e1747fa27e12ce1ab4637f3fd70c798764ea4d691b45594ca5acd6a8d0605bc8",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 3, 'ffn', 'w_bias')": {
+      "sha256": "f70299212f7a792940b25ae49a781abbf9bb1ab238cefb26b1fb7ef71e2d4b55",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 3, 'ln1', 'scale')": {
+      "sha256": "a13208ad7b42f431200b2095292eff9aa76faaf421eb8c9a6e0067dedd8a10f7",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 3, 'ln2', 'scale')": {
+      "sha256": "5afdfd90a70d6f48ec2f324e040ef9377df39dc8a56eb26f9577857ea106faef",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 4, 'attn', 'out_proj_params')": {
+      "sha256": "7ba68892548a535cd87ad29973e2fe19631717e0be5d823bb2df95b492617c73",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 4, 'attn', 'qkv_proj_params')": {
+      "sha256": "dba5c44c91856e51493b95af02e685d7a17dee896e6129056456a939e6d384d1",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 4, 'ffn', 'v')": {
+      "sha256": "dc9985a1f6438aaf50fb4999c53dda44d24fe847028e98786dcfb4613dd8f46a",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 4, 'ffn', 'v_bias')": {
+      "sha256": "f6a94f40441576241aef478ef1b449e0c8b9e842cbd6eda9d6d963118b2b8fd3",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 4, 'ffn', 'w')": {
+      "sha256": "98db85fb785207af9b196ee8cdae07829446f7df46853f1a27533c962bcf2afb",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 4, 'ffn', 'w2')": {
+      "sha256": "7728a9ee04a9c18d4d14af9c16db1eb0725de6c71ed7a6b06052cdf1518b55d4",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 4, 'ffn', 'w2_bias')": {
+      "sha256": "c7fa63d2f8f08d799c46023c0c6434cf2bcf788fa81cd87c2782768925ce170b",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 4, 'ffn', 'w_bias')": {
+      "sha256": "19b05d7f1034a09965ad9524a54e341f83dd1b69a9bb5f54a9d54b21879786aa",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 4, 'ln1', 'scale')": {
+      "sha256": "cd754afb61194c474d63cf57c6965d87f5c3565427c8c4672cdd7f052bc8d1bd",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 4, 'ln2', 'scale')": {
+      "sha256": "604e42403a09b9ae64de7758e7f6c11fa7c71da048753a018f553f0e7830228b",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 5, 'attn', 'out_proj_params')": {
+      "sha256": "04541794bee86dd87702c0b8eb2b7ac656d8c4b504ebb5c84d8038e416604941",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 5, 'attn', 'qkv_proj_params')": {
+      "sha256": "dbc71fb1458ccc2d3a1b6045ac55c048d80d6e9ba6321fe31637b2f86cde7b14",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 5, 'ffn', 'v')": {
+      "sha256": "750adee9cfec8e080d50a6869aadfaa4989eaa7c9be5ee2261fdf70027cea7bd",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 5, 'ffn', 'v_bias')": {
+      "sha256": "a3cda34a4abb0b98040a09bb40e1d038edc160967add0eede615b089158665a6",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 5, 'ffn', 'w')": {
+      "sha256": "9e7f58a816d6215efcd2f9b1cdf7b4205e87336371cd6fa1869b1b867d4f7bc0",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 5, 'ffn', 'w2')": {
+      "sha256": "274067200ce34991e1aca47e3b2e63b6482fe0277cb95cc795c294be58a029ba",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 5, 'ffn', 'w2_bias')": {
+      "sha256": "e0827b162791f56513a8bf11bf769b73d2f63d25933e9cca91458c1a95e9c277",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 5, 'ffn', 'w_bias')": {
+      "sha256": "aa6c289782ff30ed623b3bec4e55d4ca6b76bd50602b5cdd47725e432525dde0",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 5, 'ln1', 'scale')": {
+      "sha256": "edc4627afa41dd78be1e7008765460d58e8bc7d769b309b2bb7c822b473cf8ec",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 5, 'ln2', 'scale')": {
+      "sha256": "30e4753d8788e1b2aa06a1469ab1cc55ad97831f020a19b18653bc9461c5439c",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 6, 'attn', 'out_proj_params')": {
+      "sha256": "a5a313fec0f9e0d059cca1c0289455e53cff1d11d57d086d35fb2ba88589df14",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 6, 'attn', 'qkv_proj_params')": {
+      "sha256": "e2115da999ccf318df78ec47b373a41cd5db3b0aac92fb137dbb9ec00b77b792",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 6, 'ffn', 'v')": {
+      "sha256": "2f9b06afd33bd0dbb113862b8d03dacff0ed2e89b675801470ab9a1c5871387a",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 6, 'ffn', 'v_bias')": {
+      "sha256": "089bbd2942c4b0dc43f5d0c784e2018eefa16a3b4e9483a3f3c7fc3d1d0494db",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 6, 'ffn', 'w')": {
+      "sha256": "b27a3771273d40ac82b9850b14279444ac7d60531a356314d5f5abbb83a84cf9",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 6, 'ffn', 'w2')": {
+      "sha256": "2bf1338f7cbfa6535d43ac091ebcab6d7a09f986c7903c457df3dcd810f86aa3",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 6, 'ffn', 'w2_bias')": {
+      "sha256": "a28cb21f0ea271af90f5723900202e7f00a2bd5a82d1e3d16ef0407616cfeba8",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 6, 'ffn', 'w_bias')": {
+      "sha256": "5b12dccd6056a719440843139973e5117aaaf4927a72baef5b0dbc7daf5e334c",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 6, 'ln1', 'scale')": {
+      "sha256": "e9e8ad954629e956909f8561a07c0c282f4cad1303e2f0df9b208a5cc48c8ae7",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 6, 'ln2', 'scale')": {
+      "sha256": "1170c651492e6edb7333b201b2c29282ce4276a1739a3b7607171733fe6cd263",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 7, 'attn', 'out_proj_params')": {
+      "sha256": "f3e1816c21d094a53c93c34fc5f63ee53831dbb1fe94668aa7d834246e75e0b9",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 7, 'attn', 'qkv_proj_params')": {
+      "sha256": "fe14640045f4a62c910165d8d3d64603838bc4ffc154b6f1f76e7555c9b493bd",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 7, 'ffn', 'v')": {
+      "sha256": "789e19cd85dc4ee81d02ccd463f5ade65c77c303ab8822fe1d249b4ad95d01f6",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 7, 'ffn', 'v_bias')": {
+      "sha256": "6120a103b06762387276d123828b7fcea507e2560778130641cd25d489ab65d3",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 7, 'ffn', 'w')": {
+      "sha256": "a6d54b883df6520048642a1e9787344bfe5b6f5de219ff8887c22d4e1972f8d7",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 7, 'ffn', 'w2')": {
+      "sha256": "f70a7e06abffed5d052bc7aa8564d17f791387163cc21620a4e74d295c003c68",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 7, 'ffn', 'w2_bias')": {
+      "sha256": "7d43d18f2fd46fe3380b0e73412d0f231e769f6ea1ff5f8da61c20c079ce7f4c",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 7, 'ffn', 'w_bias')": {
+      "sha256": "47c3e018102993ccde7476b6024435e1cc5d35ab37611bea3fb7340dbb0efb4d",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 7, 'ln1', 'scale')": {
+      "sha256": "4ec1924f94a848682fdedd10e66108c2f6580b1cba492baab762b58abbad0156",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 7, 'ln2', 'scale')": {
+      "sha256": "d8ec02c8b5a9310e4cdf18b7c3ea55f2ad8f1a3ebb27934ecf0ff513c1d469db",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 8, 'attn', 'out_proj_params')": {
+      "sha256": "48ae7a775f9c969b2451fdd590fb7f81bcb5c4fa3bca897f225bbad51510c636",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 8, 'attn', 'qkv_proj_params')": {
+      "sha256": "8ea46e1277aa2e6f83ecc498afe2cb1ab08ff76216cfc2b0eab1600d22c5d4c6",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 8, 'ffn', 'v')": {
+      "sha256": "04593a6679f23df16a7a93ac763b54f936f4d333339c7156569d28ca09f51392",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 8, 'ffn', 'v_bias')": {
+      "sha256": "7bc6761c035e04e89e79a267ac325ccbc5414543073f0c02a774c4181565f02d",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 8, 'ffn', 'w')": {
+      "sha256": "50ae0e97795ec2f41d378e32bcddb9d0ff45db315b1294ffce803b4b85b7291f",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 8, 'ffn', 'w2')": {
+      "sha256": "5137e2338755ad99343ce805717949a5c30cf8a01a25aac930c128ab59c3798a",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 8, 'ffn', 'w2_bias')": {
+      "sha256": "8fc52392e186b7be6fd23dce54b5471e2e651584b5a306516511a847e0109dab",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 8, 'ffn', 'w_bias')": {
+      "sha256": "77961932c5c93727389d039c58c405a70bd5d58cca17e3f1a63d12335a191b20",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 8, 'ln1', 'scale')": {
+      "sha256": "b0d589d1c57a7b4c75d6090322f06dac1787beebeaf7d0284f434b625836db4f",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 8, 'ln2', 'scale')": {
+      "sha256": "a8b28d85df2634f5707d649f461685bfc3624748a2d81599762fd4ae1db89810",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 9, 'attn', 'out_proj_params')": {
+      "sha256": "4b57a0a58472767ba2801aff16fa9f1fd23c2593413c2ee086e44721281ff99d",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 9, 'attn', 'qkv_proj_params')": {
+      "sha256": "7833705bb8b4164dcc50d6312028dd1f33c66d598b0b02c7e871210dcb52f5dd",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 9, 'ffn', 'v')": {
+      "sha256": "e3f51c9a40bc62c8b3074bea0d0d22573f9eff3ee21cc81be948f65814010788",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 9, 'ffn', 'v_bias')": {
+      "sha256": "66d5f70166eb2cd792b36051dbeb1beb06890acf816cbe041fe95b461c28bb7a",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 9, 'ffn', 'w')": {
+      "sha256": "2aea75e3d8cdb7c1481ca1193d46531065c543eb918079897f9c9bfde5e3b4f4",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 9, 'ffn', 'w2')": {
+      "sha256": "ec4ce40513a010e1916fb3109d7d4b8664f9c8d2ec543b6d546d8de022ec76bb",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 9, 'ffn', 'w2_bias')": {
+      "sha256": "651c9eefe5d3d2e8c33b583e6204ea887ac1bcda096047cc3017cd5d990cd073",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 9, 'ffn', 'w_bias')": {
+      "sha256": "e8c5b8fc6b77ab49fd223e0a316e1e0995a3ce038233f17d27316dd6797dc7d6",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 9, 'ln1', 'scale')": {
+      "sha256": "26e1484865ef56e571974be70a445e72fcc8f278569e8bd1fe06822d98a4e989",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 9, 'ln2', 'scale')": {
+      "sha256": "284cfae7e07f62d84ca9843b3e0bc5d335493e7a70e3b211e2d9e5aa0fc5b7d2",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 10, 'attn', 'out_proj_params')": {
+      "sha256": "79e31e5a034ce12400df4d162546bd41a7ed6b3b043c60707c2cadcd050e0563",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 10, 'attn', 'qkv_proj_params')": {
+      "sha256": "9e97584b74a30eafc4d6651a14abe545a03e319f598cbd86975654904293ed51",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 10, 'ffn', 'v')": {
+      "sha256": "febb713a6d0406949844d2323babf3ecca62d4d5cf9cee4fcf76f269396ee054",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 10, 'ffn', 'v_bias')": {
+      "sha256": "8b250e27a5890369f1ab3478d8d0e7db9df629e3d4688c81c12e7a950f0d9896",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 10, 'ffn', 'w')": {
+      "sha256": "b83793edd192f86841e419ad31ef960af6d3e0cd23a8f218da012090c8f27ffb",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 10, 'ffn', 'w2')": {
+      "sha256": "12c892cb2b6522dc7cb16e5f04e1998c29afb70acb9f71377fe964c5f05d958b",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 10, 'ffn', 'w2_bias')": {
+      "sha256": "763ca967551399f7f7d1c9b59251f4524250a4e1bb14caa47da26ba7d15bc357",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 10, 'ffn', 'w_bias')": {
+      "sha256": "34a1a6438a22667cdf61b0c554bcc86b74d7b91c5d52f5fdcdcf9de34c571f78",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 10, 'ln1', 'scale')": {
+      "sha256": "434aa6f2820df1c0addd93691335003950df1adc206ad215cf222dec9255fa14",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 10, 'ln2', 'scale')": {
+      "sha256": "3951922c379aad04b5eb63fc1298ff6c7a3b2d736ebec9c9d1af36e00daff92b",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 11, 'attn', 'out_proj_params')": {
+      "sha256": "3f3b9be756fe97aab268acc389ba9ed5bcae63b17b11f83645f61e7b7ada882f",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 11, 'attn', 'qkv_proj_params')": {
+      "sha256": "a52707c5f729a287c0a8574cad015ee495bb04b40d81fc11ef00e7d484b0cc70",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 11, 'ffn', 'v')": {
+      "sha256": "6f4fbaf5bc6f3a1554c00952b3ba00a42301d961be6f16870db97701f547c727",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 11, 'ffn', 'v_bias')": {
+      "sha256": "fb144b54b80662b5b6d3814655f3f53aec82b4839729a5ae35ab12da6df0ec66",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 11, 'ffn', 'w')": {
+      "sha256": "26921dc38c7eee503dcaececd15069e752f2f63f7d2114ba61096880fa924e35",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 11, 'ffn', 'w2')": {
+      "sha256": "5ad311ec92e203b1b8e95689b490546b3d3f007509c547157b6a880a235c3899",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 11, 'ffn', 'w2_bias')": {
+      "sha256": "0672ff0e86d616786c04407f1e60482b62397df11d1578cc8d80ed307dc4a038",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 11, 'ffn', 'w_bias')": {
+      "sha256": "1c15a9e3eec6c47fa46f0196a04333a1177046405c9c47fb5be27921086dbfc2",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 11, 'ln1', 'scale')": {
+      "sha256": "6ca0e20b24e1e344ba6197429103f57b25e9430a5b2cb914f4fe758ab47b65da",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 11, 'ln2', 'scale')": {
+      "sha256": "0ad170c33429fd514a05245242a21d9fa9570cd9ab6efea1ccf048fea29e3a1d",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 12, 'attn', 'out_proj_params')": {
+      "sha256": "3712260641e02c2809834ab8e7d8248a3c4bb30d79432d45234920f8279f317c",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 12, 'attn', 'qkv_proj_params')": {
+      "sha256": "7a8f44ef4f25907a0e5ada343d9b8631b30179746d25e10dd7af3273162a661f",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 12, 'ffn', 'v')": {
+      "sha256": "970a6c9fec108279e15f1627baeff7c1e5401a6e90fbb8cb962413d895240c11",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 12, 'ffn', 'v_bias')": {
+      "sha256": "47ba303ee80d39e5e840b59b91be7d73b3be622cb2a3f6d30eccb5cde78ef955",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 12, 'ffn', 'w')": {
+      "sha256": "9f0fff3f8191fc9df5074519e60aefbb29d603837e5b3ba383b41c9f26a66067",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 12, 'ffn', 'w2')": {
+      "sha256": "505c53dd999525b9d5ef41988346cb8c9a031d9aa8b25b9fd7d566b58a9f9965",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 12, 'ffn', 'w2_bias')": {
+      "sha256": "a19313d6410dcd983a54f1631a3e2d4900c913d84b774ba230047a04aef379bf",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 12, 'ffn', 'w_bias')": {
+      "sha256": "a27b55ebebd1b41faa000628203cecd63591df8c022f055a45b0319f9b10fab6",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 12, 'ln1', 'scale')": {
+      "sha256": "ccf2072d5daad44abe31dc583efb200e10adf27ec92a95ad1cb8dbc6c11bb627",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 12, 'ln2', 'scale')": {
+      "sha256": "fef951e6c76ad6a01b208af650ca6d95769bec840e009981c5ae1316a42c90b1",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 13, 'attn', 'out_proj_params')": {
+      "sha256": "9d85461d1f6da7ea4bcee09390fe95a6c9c681d6d3fa177ecfd7113ee2510011",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 13, 'attn', 'qkv_proj_params')": {
+      "sha256": "95d02afb4c238b1e52318544620faef236aa41b0db9effdb9cb50de53d6361ee",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 13, 'ffn', 'v')": {
+      "sha256": "933f34b87cc489acffa95ca8ae7a91e22b0a4e6451b3ea09893e688215171a8f",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 13, 'ffn', 'v_bias')": {
+      "sha256": "33971694a24017f44037e947ab1d455387fbed005a8a32070d43dcef879445bb",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 13, 'ffn', 'w')": {
+      "sha256": "77e13f07a4df3a4a25ca15015e1d52aea15e0692df5b6ad32c9203c2812ca8a5",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 13, 'ffn', 'w2')": {
+      "sha256": "d7697481d0f63a707a650ab3b9421c31570c36a1eee26e6c47447735edb5d5b8",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 13, 'ffn', 'w2_bias')": {
+      "sha256": "fd3c5a09fff2d4c8333831ceb59d731d4a5d755bbf6eac3ce89b0788883c4d59",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 13, 'ffn', 'w_bias')": {
+      "sha256": "fe090f3a8414e4e96988392cd7c371abfea33c824750f39cfa188e4ea708f5c1",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 13, 'ln1', 'scale')": {
+      "sha256": "40a992076f484be3a7c9b541c1cc1bd8a323c684ba20b4dfbe885d7010d56bc0",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 13, 'ln2', 'scale')": {
+      "sha256": "b29e6b08eada228d7fbac830647076d46ada277a4a6170ae6a7c65b55b64c997",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 14, 'attn', 'out_proj_params')": {
+      "sha256": "4aa0ed004366e75d6890a5072f9aef45c274bbae725c7e35a5925dbd6b114283",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 14, 'attn', 'qkv_proj_params')": {
+      "sha256": "d052e5ba16394972eec6493c7b0157f6242e894872b656d75b021bc8a580ab9f",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 14, 'ffn', 'v')": {
+      "sha256": "8fe811fc0ddbcdd480a924143f45e136e587de151f5879840036417840c34ae6",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 14, 'ffn', 'v_bias')": {
+      "sha256": "225019f096c493fa735350fffab0e7fb1c664adba72faa493668cf381610cf71",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 14, 'ffn', 'w')": {
+      "sha256": "a5d2618670754b3b2289a8397b265de3151fd6770a883bd38f6a158442f8123c",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 14, 'ffn', 'w2')": {
+      "sha256": "aab20c7e6e1f0cde2df3317def499900adc71f39c347d76c49a8ebb2a507ba7d",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 14, 'ffn', 'w2_bias')": {
+      "sha256": "ee0c668fbfc50d404d2b37d70b34c4a1d4a72f36f70d9553a67cc913756ef101",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 14, 'ffn', 'w_bias')": {
+      "sha256": "2e921ac9ccccadb11cb65c82e63dcbf27f099a60c60576ada3f93eba35e63116",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 14, 'ln1', 'scale')": {
+      "sha256": "3d11b49941de11a7e56406d530bacab95c9b82948624f1417447dc3557ef9a25",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 14, 'ln2', 'scale')": {
+      "sha256": "bf68bf795c408f7954567cae881ac9e26795ccd25e1b666ae23fb4d2607168a5",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 15, 'attn', 'out_proj_params')": {
+      "sha256": "05ef6c3998613f1660f8ba27055cf5b10147c00c47adfccb64b80f0ff2f06886",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 15, 'attn', 'qkv_proj_params')": {
+      "sha256": "edd192845ee1851eeeb5e7ceebff585a8ffbe31925a5db5306b7e12e7df4d0cd",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 15, 'ffn', 'v')": {
+      "sha256": "17ba0ae672a108b94835d05c7f6dfec7481e0938ea0f4d71b4e3a453ab6d28eb",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 15, 'ffn', 'v_bias')": {
+      "sha256": "89fb31044da988cf9439af1cbecf36d363a1991028a9e59a71e4f3fb3f882cf4",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 15, 'ffn', 'w')": {
+      "sha256": "4add34e9d1b67e48cb3aeb9f70d44feb5bc1e648310e645539ad5839b88ebfef",
+      "shape": [
+        512,
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 15, 'ffn', 'w2')": {
+      "sha256": "2972eefb5a8fc3a427439ea57dd15d7ed77583eaa55a1e8657522d2da857c277",
+      "shape": [
+        1536,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 15, 'ffn', 'w2_bias')": {
+      "sha256": "c050ed4a01b4279a951eff16cb2c8c7201e471d01ae3ac0c5053beea91ab916f",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 15, 'ffn', 'w_bias')": {
+      "sha256": "a5f705e8e57447e7166f5c5be36e1b24e2902ede97e4b7b13aaf8638c2802261",
+      "shape": [
+        1536
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 15, 'ln1', 'scale')": {
+      "sha256": "426edf6f0e683e582dd940655dc8d45c7d4e65ed5e3912bde21d0398b9ced31a",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('encoder', 'layers', 15, 'ln2', 'scale')": {
+      "sha256": "fef951e6c76ad6a01b208af650ca6d95769bec840e009981c5ae1316a42c90b1",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('final_norm', 'scale')": {
+      "sha256": "882a1223ca5b30aed92ad4ba8d29d493abd74787baec26b7011f8f5c990d4f49",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('final_proj', 'inner', 'layers', 0, 'bias')": {
+      "sha256": "beb050a4e60b495d3ef4d7751ac7114ce9bec9a688efa6450517a0408f35344e",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('final_proj', 'inner', 'layers', 0, 'kernel')": {
+      "sha256": "dad0acb51a7f38724a6a3dff58740ac3214d4054cb402d30a0d7fe37832da2fe",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('final_proj', 'inner', 'layers', 2, 'bias')": {
+      "sha256": "80b59f83e798f6a8016ed5861e7310aa9c27da1c5fecace9b4d4f749472d41e2",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('final_proj', 'inner', 'layers', 2, 'kernel')": {
+      "sha256": "1b634200a1a0834f602f6b7d588b3d2cf7f41ac52636266bf8b940efc737106e",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('init_proj', 'bias')": {
+      "sha256": "e2c30c0af0dbe2b54f45f8cb9f7815b5c468ef17482436aa2cd4f681045b5d54",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('init_proj', 'kernel')": {
+      "sha256": "53a7bd3af4d5a141bc30d8867cd52c2d3c955db9bd365255821199e65a222991",
+      "shape": [
+        10,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('mid_proj', 'bias')": {
+      "sha256": "5f5752c2ec5bbc7fbd383fb91b24cebfa9b80eb0b038916d73639843f8bafec0",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('mid_proj', 'kernel')": {
+      "sha256": "8ff4d36dc12a0cef9a6e194e12e0d9e28b7d9274618c026419d0db00e3dca690",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('timestep_embedder', 'mlp', 'layers', 0, 'bias')": {
+      "sha256": "24845435be992e50029506f55e9cd510c2502543d3f0561260ee9be40f747314",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('timestep_embedder', 'mlp', 'layers', 0, 'kernel')": {
+      "sha256": "49c0a97b1b423094f5a95ea506f1fffc7cecf8d740f1c635175e8b97b78e4021",
+      "shape": [
+        256,
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('timestep_embedder', 'mlp', 'layers', 2, 'bias')": {
+      "sha256": "df7eae569909123732b389f467019f65f051a7bd860429a297b55c661848db18",
+      "shape": [
+        512
+      ],
+      "dtype": "float32"
+    },
+    "('timestep_embedder', 'mlp', 'layers', 2, 'kernel')": {
+      "sha256": "9b214f527a6b09967caf52c92577b6fd95c3cf092544aa25a31217c7ead119b0",
+      "shape": [
+        512,
+        512
+      ],
+      "dtype": "float32"
+    }
+  },
+  "changed_leaves": 229,
+  "steps_sha256": "1de85472e753fc8097c9dfab918b32de2f7e8c2320f9c6cf9a6ae752ff2ca77a",
+  "checkpoint_sha256": "099869a4a5e072cf92391f1812bb6904c793f44fb3cb476ccb00484e0672b25d",
+  "checkpoint_bytes": 305073011,
+  "post_reload_first_batch_objective": 3.305006265640259,
+  "research_model_eligible": false
+}

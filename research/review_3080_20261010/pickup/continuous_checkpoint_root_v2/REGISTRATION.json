@@ -1,0 +1,37 @@
+{
+  "created_utc": "2026-10-11T21:26:41.727645+00:00",
+  "sources": {
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\recover_pickup_continuous_checkpoint_v2.py": "a8f9519d5265628fb076f89030718315782491952824b44620fc7d93e9571bce",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\continuous_checkpoint_root_v1\\REGISTRATION.json": "15eafd4272dcf625d112a9dda44928b07a4a56e44404017a025805393db4537e",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\continuous_checkpoint_root_v1\\WORKER_FAILURE.json": "60e9bfdea2c9b695c4fefc9745db590f21cf428944fd3793ff9f0d630d391e4a",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\event27_settlement_diagnosis_root_v1\\REGISTRATION.json": "8ec18277c6f6c7fd19ed096f8533669cc45dc77d2e79642ab448d2e358fdc8c2",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\event27_settlement_diagnosis_root_v1\\RESULT.json": "2057d1332d5be0f15809b3d046007bc87e69fc197598a2b0feb4e0c0beba4b76",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\qualify_pickup_continuous_checkpoint_v2.py": "9e60353ec3930bc5cbef230932efb173f59ee24d5725233089ad9da4d6a374af",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\audit_pickup_continuous_checkpoint_v2.py": "0964c8e7c91d3afa23eb900aa1a4c788c3ec221dd7ad5e7fc683c3d34ce918da",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\pickup_pending_transaction_v1.py": "bafe24aabb3f4120c095a217bd95c191f6f77d00089b987b327beebd7bedd4b8",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\pickup_loaded_closure_v1.py": "9254b6e7ce537f54312f717d05b431258726803358751978230176fba4d1bf78",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\checkpoint_bytes_retention_root_v1\\ACTUAL_SHARED_PAYLOAD.bin": "155dbdc9cd06d52ac04deddf14f1b6accbf52f89ba64e5fead6f3dad0b2afef9",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\shared_history_qualification_root_v1\\COMMON_HISTORY.pkl": "44064ff788b7e322294a23e6ac6de39da9f399dec326b70af7a0f7439895d3c6",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\complete_history_energy_qa_root_v1\\complete_ledger\\cond_hist_trace.jsonl": "d6075391ffd65acdf4a4fa8655fa1f233d6de354c7bca54a24f351ced0c5aca0",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\undecided_public_input_root_v2\\RESULT.json": "e2eb35fd06d2b3de94972d4988de989f3ca0ebda0e7de202cf22c115232ddb74",
+    "D:\\AA_Py\\A_Anaconda\\python.exe": "6965927a96b81d1717c1d2186de7feb9b29ebf8775464020ebc2f25de6ef8ee0"
+  },
+  "scope": "Engineering recovery: complete original event27 plan_and_commit once inside first request window (source was after physical advance only); preserve v1 failure. Same input/method/K10/budget; only next two actual new reveals callback18/19 from sealed event27, original private run_loop/admission/common K10/C0/compile/guard/plan; same resident before lost ACK after second committed checkpoint publication. Archive actual raw bytes. Restore selected second shared checkpoint in separate10s recovery; recognize duplicate seq2 with zero events/admissions. No old event27/callback15-17 or previous QA replay.",
+  "K": 10,
+  "common_seed": 202610111301,
+  "cap_s": 10.0,
+  "execution_s": 8.0,
+  "reserve_s": 2.0,
+  "fault_delay_s": 12.0,
+  "initialization_outside_clock": true,
+  "recovery_initial_runtime_outside_clock": true,
+  "cpu": [
+    7
+  ],
+  "numpy": "1.26.4",
+  "full_live_request_qualified": false,
+  "full_loaded_dependency_closure_qualified": false,
+  "physical_ack_loss_qualified": false,
+  "new_scientific_data": false,
+  "stable_online_gain": false
+}

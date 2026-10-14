@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\zh\project\MASKCO-Main\research\review_3080_20261010\score_split_timed_execution_root_v1\delivery_score_split_worker_v1.py", line 77, in <module>
+    if __name__=='__main__':main()
+  File "C:\Users\zh\project\MASKCO-Main\research\review_3080_20261010\score_split_timed_execution_root_v1\delivery_score_split_worker_v1.py", line 52, in main
+    report=engine.request(bytes(inp[:size]),root/'request',stage,cancelled,trace)
+  File "C:\Users\zh\project\MASKCO-Main\research\review_3080_20261010\score_split_timed_execution_root_v1\delivery_score_split_engine_v1.py", line 97, in request
+    if cancelled():raise TimeoutError('Cancelled before next action')
+TimeoutError: Cancelled before next action

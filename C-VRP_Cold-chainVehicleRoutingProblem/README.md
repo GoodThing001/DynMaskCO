@@ -1,5 +1,7 @@
 # DynMaskCO
 
+> **2026-10-08 当前入口**：项目已按[取货线、配送线、负结果线](00_项目导航.md)整理。两性能线独立协议与数据，负结果机制论文包单独追溯；实时状态见[项目当前状态](项目当前状态.md)。下文较早阶段为历史背景。
+
 **Causal and Feasibility-Preserving Masked Generation for Dynamic Cold-Chain Vehicle Routing**
 
 DynMaskCO extends the [MaskCO](https://github.com/ai4co/maskco) (ICLR 2026) masked-generation paradigm for neural combinatorial optimization from *static* routing to *causal, feasibility-preserving online optimization* for the **dynamic cold-chain vehicle routing problem (DCC-VRP)** — capacitated vehicle routing with time windows, temperature classes, and progressively revealed (online) orders.
@@ -10,7 +12,7 @@ Root-level remote helper scripts are organized in [`tools_remote/`](tools_remote
 
 > **Current status (2026-09-03):** The paper line is fixed as a MaskCO-based method for dynamic cold-chain logistics. P0-M and the C0 implementation gate are complete: C0 contract/state/trace/snapshot/evaluator/teacher and legacy-isolation checks pass 20/20, with 7/7 pilot sensitivity checks. O0-D is next. The pilot parameters are not yet real-world calibrated and are not paper-level performance evidence. See [`项目当前状态.md`](项目当前状态.md).
 
-> **Execution warning:** upstream MaskCO has moved to `../MASKCO_code/`, while existing extension entry points still contain the old root-level import assumption. Do not run training/decoding as a valid experiment until P0-M is complete.
+> **Layout status:** P0-M is complete. Current finite experiments use their registered frozen source trees; upstream `../MASKCO_code/` remains read-only. Historical reproduction commands below are not current I3 or delivery launchers.
 
 > **Operational protocol:** the main benchmark is dynamic cold-chain **pickup-to-depot**, not depot-to-customer delivery. Vehicles leave the depot empty; an order enters the cargo manifest at `service_finish`; quality is tracked until `return_arrival`; each vehicle then unloads and closes. The main setting uses homogeneous multi-compartment, shared-capacity, single-trip vehicles with no reload.
 
@@ -28,7 +30,7 @@ The causal routing infrastructure and authoritative trace-level C0 state/objecti
 
 ---
 
-## Current Research Status
+## Historical Research Status (before the current dual-line study)
 
 The old Phase-3c numbers (`14.77`, `15.45`, `14.08`, and the associated feasibility claims) were produced before the strict-online P0 audit and are retained only as historical results.
 

@@ -1,0 +1,52 @@
+{
+  "rows": [
+    {
+      "source_completion": false,
+      "order": 53,
+      "clock": 4.731592178344727,
+      "event_id": 28,
+      "source_replan_before": 24,
+      "source_replan_after": 24,
+      "base_qualified": false,
+      "hard": false,
+      "failures": [
+        "customer_tw_violation"
+      ],
+      "wall_s": 0.09642240009270608,
+      "source_digest": "4f15a5340b505ca50d6a416b624584734a429aab08eb6b225585e4cdc6157d4b",
+      "packet_digest": "b87d0b45fd036e63ac29965f137136deb7a0be276caa588bfc901fbb3e842aa6"
+    },
+    {
+      "source_completion": true,
+      "order": 53,
+      "clock": 4.731592178344727,
+      "event_id": 31,
+      "source_replan_before": 24,
+      "source_replan_after": 25,
+      "base_qualified": true,
+      "hard": true,
+      "failures": [],
+      "wall_s": 0.11091249994933605,
+      "source_digest": "4f15a5340b505ca50d6a416b624584734a429aab08eb6b225585e4cdc6157d4b",
+      "packet_digest": "492ca21fa30100f3c6abd21a496ee4e815d06ff2961247774add938ec8baf13c"
+    }
+  ],
+  "original_loop_calls": [
+    {
+      "method": "_advance_fleet",
+      "line": 519
+    },
+    {
+      "method": "_plan_and_commit",
+      "line": 545
+    },
+    {
+      "method": "on_reveal",
+      "line": 539
+    }
+  ],
+  "source_inputs_unchanged": true,
+  "interpretation": "Candidate omitted old boundary completion: paired original full C0 reports and states retain evidence. No conclusion of whole algorithm correctness or stable gain.",
+  "full_live_request_qualified": false,
+  "stable_online_gain": false
+}

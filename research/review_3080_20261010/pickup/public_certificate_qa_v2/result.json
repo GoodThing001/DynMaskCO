@@ -1,0 +1,510 @@
+{
+  "registration": {
+    "protocol_id": "P-PUBLIC-FLEET-CERTIFICATE-ENGINEERING-v1",
+    "registered": "2026-10-10T11:05:52.426060+00:00",
+    "archive_source_sha256": {
+      "research\\pickup_midcourse_probe\\engineering_qa_v5\\private_capture.pkl": "610e1d127170486303a9917ace4befb130d762e8b3c253ddd1d5ec216168684a",
+      "research\\pickup_midcourse_probe\\engineering_qa_v5\\baseline_trace.jsonl": "63aedad04d43b91b9545a15efdab50deaa60c2d885b7bad3aac2c9b9357271fc",
+      "research\\pickup_midcourse_probe\\engineering_qa_v5\\QA_RESULT.json": "bbc268e04d7e3ab6ee1fe08e794e4f1223df6922dfbdcac31895e699bb43ccb0"
+    },
+    "source_start": {
+      "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\pickup\\research\\review_3080_20261010\\pickup\\public_fleet.py": "52c6ffd454e3735e5eea12ae90e9961547329edcfb5359f923ce0caf857207cd",
+      "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\pickup\\research\\review_3080_20261010\\pickup\\run_certificate_qa.py": "dc38ebf5121b5cacbd3d7a2f2064ab3737dbaceb6064763eb3fcffca8c33d642",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_state.py": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\correction_engineering\\audit_io.py": "01f338d5269ada3c9b6b91d3e039becf7e41d43a954eb20d7fb0371d4bb421b6",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\coldchain_evaluator_a1.py": "15510fa70f69e8ec80c5a89104068115a54189e91e089e2974626b41d0db3c7c",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_exp_energy_c0.py": "9f0e9dd321abebe05a549dc98c14778251eb2583b71749adb9b39ba13a877bbf",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_exp_reserve.py": "60d032f772738ca953d62956e46f5d1fb8d171a939df716c94ed039e2b8e5d55",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\scenario_saa.py": "4e47b99f14be03351506ccccf92f1d414d12b063020805aca07ba6ef56874188",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\recourse_snapshot.py": "0af3535acaf6a84956104c0f1c8788c04e02499a087b6faa3d264239a19f27f8",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+    },
+    "fixed_archive_seed": 202610101801,
+    "scope": "one already observed engineer state; no new online gain inference",
+    "actor_scope": "known-only <=5 order two-vehicle ordered partitions plus own incumbent; ten-second submission cap",
+    "forbidden_final": [
+      20260927,
+      20260928
+    ]
+  },
+  "public_packet_sha": "834c8d55bc55370d57ffbf33ac8a16bc4f6b96badb557755750dbc87322dd074",
+  "future_mutation_packet_invariant": true,
+  "future_mutation_choice_invariant": true,
+  "baseline_certificate": {
+    "qualified": true,
+    "evaluation": {
+      "utility": 75.48180642724037,
+      "revenue": 80.0,
+      "fuel_cost": 4.518193572759628,
+      "reject_loss": 0.0,
+      "energy_kwh": 28.98216639860907,
+      "distance_km": 45.18193572759628,
+      "budget_violated": false,
+      "hard_feasible": true,
+      "failures": [],
+      "n_served": 4,
+      "n_rejected": 0,
+      "n_fish_unsalable": 0,
+      "service_rate": {
+        "0": 1.0,
+        "1": 1.0,
+        "2": 1.0
+      },
+      "reject_rate": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0
+      },
+      "salable_rate": {
+        "0": null,
+        "1": 1.0,
+        "2": 1.0
+      },
+      "tomato_mean_quality": 0.9985697600269178
+    },
+    "all_fleet_energy_accounted": true,
+    "accepted_unchanged": true,
+    "committed_unchanged": true
+  },
+  "selected_certificate": {
+    "qualified": true,
+    "evaluation": {
+      "utility": 75.48180642724037,
+      "revenue": 80.0,
+      "fuel_cost": 4.518193572759628,
+      "reject_loss": 0.0,
+      "energy_kwh": 28.98216639860907,
+      "distance_km": 45.18193572759628,
+      "budget_violated": false,
+      "hard_feasible": true,
+      "failures": [],
+      "n_served": 4,
+      "n_rejected": 0,
+      "n_fish_unsalable": 0,
+      "service_rate": {
+        "0": 1.0,
+        "1": 1.0,
+        "2": 1.0
+      },
+      "reject_rate": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0
+      },
+      "salable_rate": {
+        "0": null,
+        "1": 1.0,
+        "2": 1.0
+      },
+      "tomato_mean_quality": 0.9985697600269178
+    },
+    "all_fleet_energy_accounted": true,
+    "accepted_unchanged": true,
+    "committed_unchanged": true
+  },
+  "selection": {
+    "qualified": true,
+    "packet_sha": "834c8d55bc55370d57ffbf33ac8a16bc4f6b96badb557755750dbc87322dd074",
+    "vehicle_ids": [
+      0,
+      1
+    ],
+    "pool": [
+      20,
+      17
+    ],
+    "selected_plan": {
+      "0": [
+        43,
+        20,
+        17
+      ],
+      "1": [],
+      "2": []
+    },
+    "baseline_known": {
+      "utility": 75.48180642724037,
+      "revenue": 80.0,
+      "fuel_cost": 4.518193572759628,
+      "reject_loss": 0.0,
+      "energy_kwh": 28.98216639860907,
+      "distance_km": 45.18193572759628,
+      "budget_violated": false,
+      "hard_feasible": true,
+      "failures": [],
+      "n_served": 4,
+      "n_rejected": 0,
+      "n_fish_unsalable": 0,
+      "service_rate": {
+        "0": 1.0,
+        "1": 1.0,
+        "2": 1.0
+      },
+      "reject_rate": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0
+      },
+      "salable_rate": {
+        "0": null,
+        "1": 1.0,
+        "2": 1.0
+      },
+      "tomato_mean_quality": 0.9985697600269178
+    },
+    "selected_known": {
+      "utility": 75.48180642724037,
+      "revenue": 80.0,
+      "fuel_cost": 4.518193572759628,
+      "reject_loss": 0.0,
+      "energy_kwh": 28.98216639860907,
+      "distance_km": 45.18193572759628,
+      "budget_violated": false,
+      "hard_feasible": true,
+      "failures": [],
+      "n_served": 4,
+      "n_rejected": 0,
+      "n_fish_unsalable": 0,
+      "service_rate": {
+        "0": 1.0,
+        "1": 1.0,
+        "2": 1.0
+      },
+      "reject_rate": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0
+      },
+      "salable_rate": {
+        "0": null,
+        "1": 1.0,
+        "2": 1.0
+      },
+      "tomato_mean_quality": 0.9985697600269178
+    },
+    "candidates": [
+      {
+        "plan": {
+          "0": [
+            43
+          ],
+          "1": [
+            20,
+            17
+          ],
+          "2": []
+        },
+        "certificate": {
+          "qualified": true,
+          "evaluation": {
+            "utility": 75.07313829660416,
+            "revenue": 80.0,
+            "fuel_cost": 4.9268617033958435,
+            "reject_loss": 0.0,
+            "energy_kwh": 30.029200017677823,
+            "distance_km": 49.268617033958435,
+            "budget_violated": false,
+            "hard_feasible": true,
+            "failures": [],
+            "n_served": 4,
+            "n_rejected": 0,
+            "n_fish_unsalable": 0,
+            "service_rate": {
+              "0": 1.0,
+              "1": 1.0,
+              "2": 1.0
+            },
+            "reject_rate": {
+              "0": 0.0,
+              "1": 0.0,
+              "2": 0.0
+            },
+            "salable_rate": {
+              "0": null,
+              "1": 1.0,
+              "2": 1.0
+            },
+            "tomato_mean_quality": 0.9985697600269177
+          },
+          "all_fleet_energy_accounted": true,
+          "accepted_unchanged": true,
+          "committed_unchanged": true
+        }
+      },
+      {
+        "plan": {
+          "0": [
+            43,
+            20
+          ],
+          "1": [
+            17
+          ],
+          "2": []
+        },
+        "certificate": {
+          "qualified": true,
+          "evaluation": {
+            "utility": 75.25672659277916,
+            "revenue": 80.0,
+            "fuel_cost": 4.7432734072208405,
+            "reject_loss": 0.0,
+            "energy_kwh": 29.77743320506129,
+            "distance_km": 47.432734072208405,
+            "budget_violated": false,
+            "hard_feasible": true,
+            "failures": [],
+            "n_served": 4,
+            "n_rejected": 0,
+            "n_fish_unsalable": 0,
+            "service_rate": {
+              "0": 1.0,
+              "1": 1.0,
+              "2": 1.0
+            },
+            "reject_rate": {
+              "0": 0.0,
+              "1": 0.0,
+              "2": 0.0
+            },
+            "salable_rate": {
+              "0": null,
+              "1": 1.0,
+              "2": 1.0
+            },
+            "tomato_mean_quality": 0.9998477139012275
+          },
+          "all_fleet_energy_accounted": true,
+          "accepted_unchanged": true,
+          "committed_unchanged": true
+        }
+      },
+      {
+        "plan": {
+          "0": [
+            43,
+            20,
+            17
+          ],
+          "1": [],
+          "2": []
+        },
+        "certificate": {
+          "qualified": true,
+          "evaluation": {
+            "utility": 75.48180642724037,
+            "revenue": 80.0,
+            "fuel_cost": 4.518193572759628,
+            "reject_loss": 0.0,
+            "energy_kwh": 28.98216639860907,
+            "distance_km": 45.18193572759628,
+            "budget_violated": false,
+            "hard_feasible": true,
+            "failures": [],
+            "n_served": 4,
+            "n_rejected": 0,
+            "n_fish_unsalable": 0,
+            "service_rate": {
+              "0": 1.0,
+              "1": 1.0,
+              "2": 1.0
+            },
+            "reject_rate": {
+              "0": 0.0,
+              "1": 0.0,
+              "2": 0.0
+            },
+            "salable_rate": {
+              "0": null,
+              "1": 1.0,
+              "2": 1.0
+            },
+            "tomato_mean_quality": 0.9985697600269178
+          },
+          "all_fleet_energy_accounted": true,
+          "accepted_unchanged": true,
+          "committed_unchanged": true
+        }
+      },
+      {
+        "plan": {
+          "0": [
+            43
+          ],
+          "1": [
+            17,
+            20
+          ],
+          "2": []
+        },
+        "certificate": {
+          "qualified": true,
+          "evaluation": {
+            "utility": 75.07313829660416,
+            "revenue": 80.0,
+            "fuel_cost": 4.9268617033958435,
+            "reject_loss": 0.0,
+            "energy_kwh": 30.029200017677823,
+            "distance_km": 49.268617033958435,
+            "budget_violated": false,
+            "hard_feasible": true,
+            "failures": [],
+            "n_served": 4,
+            "n_rejected": 0,
+            "n_fish_unsalable": 0,
+            "service_rate": {
+              "0": 1.0,
+              "1": 1.0,
+              "2": 1.0
+            },
+            "reject_rate": {
+              "0": 0.0,
+              "1": 0.0,
+              "2": 0.0
+            },
+            "salable_rate": {
+              "0": null,
+              "1": 1.0,
+              "2": 1.0
+            },
+            "tomato_mean_quality": 0.9998477139012275
+          },
+          "all_fleet_energy_accounted": true,
+          "accepted_unchanged": true,
+          "committed_unchanged": true
+        }
+      },
+      {
+        "plan": {
+          "0": [
+            43,
+            17
+          ],
+          "1": [
+            20
+          ],
+          "2": []
+        },
+        "certificate": {
+          "qualified": true,
+          "evaluation": {
+            "utility": 74.99554401636124,
+            "revenue": 80.0,
+            "fuel_cost": 5.004455983638763,
+            "reject_loss": 0.0,
+            "energy_kwh": 30.141897020933456,
+            "distance_km": 50.044559836387634,
+            "budget_violated": false,
+            "hard_feasible": true,
+            "failures": [],
+            "n_served": 4,
+            "n_rejected": 0,
+            "n_fish_unsalable": 0,
+            "service_rate": {
+              "0": 1.0,
+              "1": 1.0,
+              "2": 1.0
+            },
+            "reject_rate": {
+              "0": 0.0,
+              "1": 0.0,
+              "2": 0.0
+            },
+            "salable_rate": {
+              "0": null,
+              "1": 1.0,
+              "2": 1.0
+            },
+            "tomato_mean_quality": 0.9998477139012275
+          },
+          "all_fleet_energy_accounted": true,
+          "accepted_unchanged": true,
+          "committed_unchanged": true
+        }
+      },
+      {
+        "plan": {
+          "0": [
+            43,
+            17,
+            20
+          ],
+          "1": [],
+          "2": []
+        },
+        "certificate": {
+          "qualified": true,
+          "evaluation": {
+            "utility": 75.22062385082245,
+            "revenue": 80.0,
+            "fuel_cost": 4.779376149177551,
+            "reject_loss": 0.0,
+            "energy_kwh": 29.341465724922173,
+            "distance_km": 47.79376149177551,
+            "budget_violated": false,
+            "hard_feasible": true,
+            "failures": [],
+            "n_served": 4,
+            "n_rejected": 0,
+            "n_fish_unsalable": 0,
+            "service_rate": {
+              "0": 1.0,
+              "1": 1.0,
+              "2": 1.0
+            },
+            "reject_rate": {
+              "0": 0.0,
+              "1": 0.0,
+              "2": 0.0
+            },
+            "salable_rate": {
+              "0": null,
+              "1": 1.0,
+              "2": 1.0
+            },
+            "tomato_mean_quality": 0.9998477139012275
+          },
+          "all_fleet_energy_accounted": true,
+          "accepted_unchanged": true,
+          "committed_unchanged": true
+        }
+      }
+    ],
+    "source_start": {
+      "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\pickup\\research\\review_3080_20261010\\pickup\\public_fleet.py": "52c6ffd454e3735e5eea12ae90e9961547329edcfb5359f923ce0caf857207cd",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_state.py": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\correction_engineering\\audit_io.py": "01f338d5269ada3c9b6b91d3e039becf7e41d43a954eb20d7fb0371d4bb421b6",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\coldchain_evaluator_a1.py": "15510fa70f69e8ec80c5a89104068115a54189e91e089e2974626b41d0db3c7c",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\recourse_snapshot.py": "0af3535acaf6a84956104c0f1c8788c04e02499a087b6faa3d264239a19f27f8",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+    },
+    "source_end": {
+      "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\pickup\\research\\review_3080_20261010\\pickup\\public_fleet.py": "52c6ffd454e3735e5eea12ae90e9961547329edcfb5359f923ce0caf857207cd",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_state.py": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\correction_engineering\\audit_io.py": "01f338d5269ada3c9b6b91d3e039becf7e41d43a954eb20d7fb0371d4bb421b6",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\coldchain_evaluator_a1.py": "15510fa70f69e8ec80c5a89104068115a54189e91e089e2974626b41d0db3c7c",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\recourse_snapshot.py": "0af3535acaf6a84956104c0f1c8788c04e02499a087b6faa3d264239a19f27f8",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+    },
+    "exact_scope": "declared two-vehicle pool ordered-partitions; incumbent included; fixed admissions/nonpool order",
+    "committed_next_frozen": true,
+    "formal_online_gain_established": false,
+    "fallback": false,
+    "timeout": false,
+    "wall_seconds": 0.40263180003967136,
+    "deadline_monotonic": 796797.7753871
+  },
+  "bare_contract_unit_mismatch_rejected": true,
+  "formal_online_gain_established": false,
+  "maskco_attribution": false,
+  "full_future_day_used_for_selection": false,
+  "qualification_gaps": [
+    "single archived engineering state; no fresh day/full online deployment",
+    "at most5 orders/2vehicles append family; not global assignment optimum",
+    "known immediate-close score lacks future opportunity costs",
+    "no MaskCO model or guide in actor; nonlearning control only"
+  ]
+}

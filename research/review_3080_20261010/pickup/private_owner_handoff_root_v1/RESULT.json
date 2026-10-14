@@ -1,0 +1,157 @@
+{
+  "records": [
+    {
+      "case": 0,
+      "fault": 0,
+      "pid": 2076,
+      "ready": {
+        "ready": true,
+        "pid": 2076,
+        "baseline": "9416f9377a0b2ee1d6a27bf72c209c1452c04781b132c18a2fd5f72f6e058755",
+        "clock": 3.8129217624664307,
+        "event_id": 23,
+        "loaded_files": 496
+      },
+      "baseline": "9416f9377a0b2ee1d6a27bf72c209c1452c04781b132c18a2fd5f72f6e058755",
+      "old_owner_after": "9416f9377a0b2ee1d6a27bf72c209c1452c04781b132c18a2fd5f72f6e058755",
+      "prepared": "644b5066cc8908b397747f3b0e2deaea93eff035b381960856faa6cd5bd10028",
+      "primary_advance": "b340d19cbc9e6f13e3ff4fdc32f2e7504f236f4994254f141432fad44e6f4b0f",
+      "actual_process_owner_selected": true,
+      "promotion": 906072.8629336,
+      "error": null,
+      "stage_reached": 2,
+      "started": 906072.8450946,
+      "finished": 906073.7568911,
+      "wall_s": 0.9117964999750257,
+      "cap_s": 10.0,
+      "reserve_s": 2.0,
+      "reaped": true,
+      "timed_parent_public_projection_or_pickle": false
+    },
+    {
+      "case": 1,
+      "fault": 1,
+      "pid": 23488,
+      "ready": {
+        "ready": true,
+        "pid": 23488,
+        "baseline": "9416f9377a0b2ee1d6a27bf72c209c1452c04781b132c18a2fd5f72f6e058755",
+        "clock": 3.8129217624664307,
+        "event_id": 23,
+        "loaded_files": 496
+      },
+      "baseline": "9416f9377a0b2ee1d6a27bf72c209c1452c04781b132c18a2fd5f72f6e058755",
+      "old_owner_after": "9416f9377a0b2ee1d6a27bf72c209c1452c04781b132c18a2fd5f72f6e058755",
+      "prepared": null,
+      "primary_advance": null,
+      "actual_process_owner_selected": false,
+      "promotion": null,
+      "error": "cancelled",
+      "stage_reached": 1,
+      "started": 906075.7916685,
+      "finished": 906076.0575917,
+      "wall_s": 0.2659231999423355,
+      "cap_s": 0.4,
+      "reserve_s": 0.15,
+      "reaped": true,
+      "timed_parent_public_projection_or_pickle": false
+    },
+    {
+      "case": 2,
+      "fault": 2,
+      "pid": 12060,
+      "ready": {
+        "ready": true,
+        "pid": 12060,
+        "baseline": "9416f9377a0b2ee1d6a27bf72c209c1452c04781b132c18a2fd5f72f6e058755",
+        "clock": 3.8129217624664307,
+        "event_id": 23,
+        "loaded_files": 496
+      },
+      "baseline": "9416f9377a0b2ee1d6a27bf72c209c1452c04781b132c18a2fd5f72f6e058755",
+      "old_owner_after": "9416f9377a0b2ee1d6a27bf72c209c1452c04781b132c18a2fd5f72f6e058755",
+      "prepared": null,
+      "primary_advance": null,
+      "actual_process_owner_selected": false,
+      "promotion": null,
+      "error": "cancelled",
+      "stage_reached": 2,
+      "started": 906078.0270894,
+      "finished": 906078.2932638,
+      "wall_s": 0.26617439999245107,
+      "cap_s": 0.4,
+      "reserve_s": 0.15,
+      "reaped": true,
+      "timed_parent_public_projection_or_pickle": false
+    }
+  ],
+  "checks": [
+    {
+      "name": "0:actual_old_owner_unchanged",
+      "pass_": true
+    },
+    {
+      "name": "0:total_with_cleanup_reserve",
+      "pass_": true
+    },
+    {
+      "name": "0:no_parent_public_encoding_or_decode",
+      "pass_": true
+    },
+    {
+      "name": "0:actual_owner_and_physical_progress",
+      "pass_": true
+    },
+    {
+      "name": "0:actual_compiled_pointer",
+      "pass_": true
+    },
+    {
+      "name": "0:actual_loaded_component_closure",
+      "pass_": true
+    },
+    {
+      "name": "1:actual_old_owner_unchanged",
+      "pass_": true
+    },
+    {
+      "name": "1:total_with_cleanup_reserve",
+      "pass_": true
+    },
+    {
+      "name": "1:no_parent_public_encoding_or_decode",
+      "pass_": true
+    },
+    {
+      "name": "1:actual_projection_encoding_cancel",
+      "pass_": true
+    },
+    {
+      "name": "2:actual_old_owner_unchanged",
+      "pass_": true
+    },
+    {
+      "name": "2:total_with_cleanup_reserve",
+      "pass_": true
+    },
+    {
+      "name": "2:no_parent_public_encoding_or_decode",
+      "pass_": true
+    },
+    {
+      "name": "2:actual_projection_encoding_cancel",
+      "pass_": true
+    },
+    {
+      "name": "registered_sources_unchanged",
+      "pass_": true
+    }
+  ],
+  "checks_count": 15,
+  "failed": 0,
+  "failure_names": [],
+  "prepared_private_owner_component_qualified": true,
+  "full_live_request_qualified": false,
+  "full_loaded_dependency_closure_qualified": false,
+  "stable_online_gain": false
+}

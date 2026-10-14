@@ -1,0 +1,27 @@
+{
+  "original_exception": {
+    "type": "RuntimeError",
+    "message": "Initialization exited: 1",
+    "notes": [],
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\PyCharm_\\MASKCO-Main\\tools\\run_delivery_early_launch_v1.py\", line 92, in run_case\n    parent.request(base,python,name,b'{}',[])\n  File \"D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\early_launch_lifecycle_root_v1\\delivery_phase_shared_parent_v3.py\", line 52, in request\n    if child.poll() is not None:raise RuntimeError('Initialization exited: %s'%child.returncode)\n                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Initialization exited: 1\n"
+  },
+  "acquired_mapping_count": 4,
+  "mapping_closed": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "launched_child_count": 1,
+  "child_returncodes": [
+    1
+  ],
+  "child_pids": [
+    7856
+  ],
+  "start_clock": 1019217.4300679,
+  "end_clock": 1019217.8760476,
+  "elapsed": 0.4459796999581158,
+  "model_executed": false,
+  "child_leaked_after_parent": false
+}

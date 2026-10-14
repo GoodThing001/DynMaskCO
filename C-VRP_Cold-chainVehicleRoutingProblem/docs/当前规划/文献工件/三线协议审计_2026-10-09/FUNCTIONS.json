@@ -1,0 +1,656 @@
+{
+  "pickup": [
+    {
+      "id": "P01",
+      "feature": "学习职责",
+      "path": "scripts/training/i3_training_engine.py",
+      "line": 83,
+      "sha256": "769323c763465059d03a3ac0022ab933215f994b49e5faf8b379a5e0b3aeaaf2",
+      "actual": "固定教师状态上的单步未来场景生成目标，不是全局在线policy gradient。",
+      "verdict": "定位须限定",
+      "sources": [
+        "S16",
+        "S23",
+        "S24"
+      ],
+      "action": "保留注册实验；当前文字使用决策对齐场景生成，单独说明未检验MaskCO迭代路由本体。",
+      "observed_before_documentary_corrections_sha256": "769323c763465059d03a3ac0022ab933215f994b49e5faf8b379a5e0b3aeaaf2"
+    },
+    {
+      "id": "P02",
+      "feature": "公开输入",
+      "path": "scripts/models/maskco_scenario.py",
+      "line": 375,
+      "sha256": "bf353ce86ec5afd53b7d48c85dc15775781b7cfd5983c3f8190f750bd76b2b51",
+      "actual": "模型输入为可见订单token与时钟；车队资源用于共用下游而非完整生成条件。",
+      "verdict": "机制有据，表达有限",
+      "sources": [
+        "S23",
+        "S24"
+      ],
+      "action": "不能称完整资源条件策略；下一假设若加输入须另注册。",
+      "observed_before_documentary_corrections_sha256": "bf353ce86ec5afd53b7d48c85dc15775781b7cfd5983c3f8190f750bd76b2b51"
+    },
+    {
+      "id": "P03",
+      "feature": "token离散化",
+      "path": "scripts/models/maskco_scenario.py",
+      "line": 26,
+      "sha256": "bf353ce86ec5afd53b7d48c85dc15775781b7cfd5983c3f8190f750bd76b2b51",
+      "actual": "半小时时间桶、3空间桶、2需求桶与历史池回填连续属性。",
+      "verdict": "工程近似",
+      "sources": [
+        "S22",
+        "S23"
+      ],
+      "action": "报告聚合失真；无文献给出本项目最优桶宽，不能临时改桶。",
+      "observed_before_documentary_corrections_sha256": "bf353ce86ec5afd53b7d48c85dc15775781b7cfd5983c3f8190f750bd76b2b51"
+    },
+    {
+      "id": "P04",
+      "feature": "原始采样似然",
+      "path": "scripts/training/i3_decision_objective.py",
+      "line": 45,
+      "sha256": "d35d495c7ee9fbea61291db5a607dd3101475899df471d9ce735149141cbe354",
+      "actual": "K场景count+活动slot联合log概率求和，unused槽边缘化；用原始抽样而非过滤后长度。",
+      "verdict": "形式一致",
+      "sources": [
+        "S20",
+        "S21"
+      ],
+      "action": "保留输入/抽样哈希；该分布是有序隐变量生成，不是假称无序集合精确边缘似然。",
+      "observed_before_documentary_corrections_sha256": "d35d495c7ee9fbea61291db5a607dd3101475899df471d9ce735149141cbe354"
+    },
+    {
+      "id": "P05",
+      "feature": "基线统计独立",
+      "path": "scripts/training/i3_training_engine.py",
+      "line": 129,
+      "sha256": "769323c763465059d03a3ac0022ab933215f994b49e5faf8b379a5e0b3aeaaf2",
+      "actual": "使用前一步EMA，合法actor步后更新，当前样本不进入当前基线。",
+      "verdict": "与梯度条件一致",
+      "sources": [
+        "S21"
+      ],
+      "action": "仍须报告方差/效用，不用形式正确替代训练收敛。",
+      "observed_before_documentary_corrections_sha256": "769323c763465059d03a3ac0022ab933215f994b49e5faf8b379a5e0b3aeaaf2"
+    },
+    {
+      "id": "P06",
+      "feature": "不可行/小差值状态",
+      "path": "scripts/training/i3_decision_objective.py",
+      "line": 125,
+      "sha256": "d35d495c7ee9fbea61291db5a607dd3101475899df471d9ce735149141cbe354",
+      "actual": "ineligible整个advantage置0；engine走重建更新，未删状态。",
+      "verdict": "实现与注册一致",
+      "sources": [
+        "S21",
+        "S18"
+      ],
+      "action": "标签覆盖与更新次数用已有验收记录交叉核。",
+      "observed_before_documentary_corrections_sha256": "d35d495c7ee9fbea61291db5a607dd3101475899df471d9ce735149141cbe354"
+    },
+    {
+      "id": "P07",
+      "feature": "目标符号与幅度",
+      "path": "scripts/training/i3_decision_objective.py",
+      "line": 92,
+      "sha256": "d35d495c7ee9fbea61291db5a607dd3101475899df471d9ce735149141cbe354",
+      "actual": "按教师差符号作softplus偏好损失，幅度截断，不直接优化真实日收益。",
+      "verdict": "代理目标边界",
+      "sources": [
+        "S23"
+      ],
+      "action": "tau20/cap100/gap5是预声明超参，不能据loss下降声称在线提升。",
+      "observed_before_documentary_corrections_sha256": "d35d495c7ee9fbea61291db5a607dd3101475899df471d9ce735149141cbe354"
+    },
+    {
+      "id": "P08",
+      "feature": "教师信息权限",
+      "path": "scripts/training/i3_counterfactual_teacher.py",
+      "line": 6,
+      "sha256": "ca3d21f7efe62bf62d8b7b7d677c6f4ff20a77acd881bad5c5f6429bfe03a364",
+      "actual": "真实未来/物理快照只用于离线teacher，公开visible为actor输入。",
+      "verdict": "权限合理",
+      "sources": [
+        "S24",
+        "S28"
+      ],
+      "action": "hindsight teacher不是在线可读取信息；终局教师不是全局最优oracle。",
+      "observed_before_documentary_corrections_sha256": "ca3d21f7efe62bf62d8b7b7d677c6f4ff20a77acd881bad5c5f6429bfe03a364"
+    },
+    {
+      "id": "P09",
+      "feature": "教师与部署预算",
+      "path": "scripts/training/i3_counterfactual_teacher.py",
+      "line": 120,
+      "sha256": "ca3d21f7efe62bf62d8b7b7d677c6f4ff20a77acd881bad5c5f6429bfe03a364",
+      "actual": "无限时保证快照续程对账；部署10秒。",
+      "verdict": "重要目标错位风险",
+      "sources": [
+        "S23",
+        "S26"
+      ],
+      "action": "保留本轮；分别报告无限教师和10秒策略，不移用policy improvement保证。",
+      "observed_before_documentary_corrections_sha256": "ca3d21f7efe62bf62d8b7b7d677c6f4ff20a77acd881bad5c5f6429bfe03a364"
+    },
+    {
+      "id": "P10",
+      "feature": "训练状态分布",
+      "path": "scripts/training/i3_training_engine.py",
+      "line": 170,
+      "sha256": "769323c763465059d03a3ac0022ab933215f994b49e5faf8b379a5e0b3aeaaf2",
+      "actual": "状态来自固定教师策略，没有 learner rollout数据聚合。",
+      "verdict": "重要分布偏移风险",
+      "sources": [
+        "S24"
+      ],
+      "action": "不能把固定状态梯度叫全局策略梯度，不能自动新增DAgger。",
+      "observed_before_documentary_corrections_sha256": "769323c763465059d03a3ac0022ab933215f994b49e5faf8b379a5e0b3aeaaf2"
+    },
+    {
+      "id": "P11",
+      "feature": "留出范围",
+      "path": "configs/i3_20261008_v2/protocol.json",
+      "line": 60,
+      "sha256": "4825392b56399719a9a0042d97986c4c683362af80d9925b35f74b65e4427f5c",
+      "actual": "24/8日仅隔离新增目标；200日暖启动与历史池包含这些日。",
+      "verdict": "须限定测试资格",
+      "sources": [
+        "S18",
+        "S27"
+      ],
+      "action": "工作稿只称教师目标留出风险诊断，不称完全未见泛化。",
+      "observed_before_documentary_corrections_sha256": "4825392b56399719a9a0042d97986c4c683362af80d9925b35f74b65e4427f5c"
+    },
+    {
+      "id": "P12",
+      "feature": "采集位置",
+      "path": "scripts/training/i3_capture_schedule.py",
+      "line": 35,
+      "sha256": "68e1b290595d8691c278311a4f8dedf2b9efd59915b726ba96bb5926dd15ab28",
+      "actual": "按实际N的四分位位置，非按效用挑样。",
+      "verdict": "已修复设计缺口",
+      "sources": [
+        "S18",
+        "S19"
+      ],
+      "action": "128状态只属32日；独立推断不能按128独立日计算。",
+      "observed_before_documentary_corrections_sha256": "68e1b290595d8691c278311a4f8dedf2b9efd59915b726ba96bb5926dd15ab28"
+    },
+    {
+      "id": "P13",
+      "feature": "固定训练控制",
+      "path": "scripts/training/i3_training_engine.py",
+      "line": 87,
+      "sha256": "769323c763465059d03a3ac0022ab933215f994b49e5faf8b379a5e0b3aeaaf2",
+      "actual": "两臂同初始/日程/192步/优化器；actor多教师shadow计算。",
+      "verdict": "归因控制合理但非等离线算力",
+      "sources": [
+        "S26"
+      ],
+      "action": "不能称同192步=同训练墙钟；记录额外教师/actor成本。",
+      "observed_before_documentary_corrections_sha256": "769323c763465059d03a3ac0022ab933215f994b49e5faf8b379a5e0b3aeaaf2"
+    },
+    {
+      "id": "P14",
+      "feature": "冻结与真更新",
+      "path": "scripts/evaluation/run_i3_online_compare.py",
+      "line": 80,
+      "sha256": "1e974accb6bb7c37878af5a28f0191acd026288e1c457c2a82bf9055bbd0616d",
+      "actual": "在线入口检查同初始化、原CVRP、真实保存重载、权重卡和池谱系。",
+      "verdict": "已有独立资格",
+      "sources": [
+        "S18",
+        "S27"
+      ],
+      "action": "源码/参数身份不是数值主门，保持最后一步权重。",
+      "observed_before_documentary_corrections_sha256": "1e974accb6bb7c37878af5a28f0191acd026288e1c457c2a82bf9055bbd0616d"
+    },
+    {
+      "id": "P15",
+      "feature": "时间单位",
+      "path": "docs\\当前规划\\文献工件\\三线协议审计_2026-10-09\\actual_runtime\\scenario_saa.py",
+      "line": 44,
+      "sha256": "36e08e06ce7b8e44eee2e6ff778904c1f26bd3145eb7d2072fb7360f33732318",
+      "actual": "工厂单位20km/unit、30km/h，避免裸V2默认速度1误用。",
+      "verdict": "当前工厂修正一致",
+      "sources": [
+        "S26"
+      ],
+      "action": "所有后续适配用实际工厂合同；裸默认不能作为已校准生产配置。",
+      "observed_before_documentary_corrections_sha256": "36e08e06ce7b8e44eee2e6ff778904c1f26bd3145eb7d2072fb7360f33732318",
+      "current_local_source_path_before_runtime_check": "scripts/evaluation/scenario_saa.py",
+      "current_local_source_sha256": "4e47b99f14be03351506ccccf92f1d414d12b063020805aca07ba6ef56874188"
+    },
+    {
+      "id": "P16",
+      "feature": "SAA样本量",
+      "path": "scripts/evaluation/run_i3_online_compare.py",
+      "line": 114,
+      "sha256": "1e974accb6bb7c37878af5a28f0191acd026288e1c457c2a82bf9055bbd0616d",
+      "actual": "固定K10，是计算预算选择而非SAA收敛证明。",
+      "verdict": "注册有限研究合理",
+      "sources": [
+        "S22"
+      ],
+      "action": "不改本轮K；后续精度研究须独立设计。",
+      "observed_before_documentary_corrections_sha256": "1e974accb6bb7c37878af5a28f0191acd026288e1c457c2a82bf9055bbd0616d"
+    },
+    {
+      "id": "P17",
+      "feature": "在线计时粒度",
+      "path": "docs\\当前规划\\文献工件\\三线协议审计_2026-10-09\\actual_runtime\\scenario_saa.py",
+      "line": 998,
+      "sha256": "36e08e06ce7b8e44eee2e6ff778904c1f26bd3145eb7d2072fb7360f33732318",
+      "actual": "多单同揭示采样一次计入首单，后续单独计时；不是每事件/整日总10秒。",
+      "verdict": "须精确描述",
+      "sources": [
+        "S26"
+      ],
+      "action": "注明每接单决策10秒，整日可远超；同事件后续共享生成，不能重复计为独立推理。",
+      "observed_before_documentary_corrections_sha256": "36e08e06ce7b8e44eee2e6ff778904c1f26bd3145eb7d2072fb7360f33732318",
+      "current_local_source_path_before_runtime_check": "scripts/evaluation/scenario_saa.py",
+      "current_local_source_sha256": "4e47b99f14be03351506ccccf92f1d414d12b063020805aca07ba6ef56874188"
+    },
+    {
+      "id": "P18",
+      "feature": "超时保守回退",
+      "path": "docs\\当前规划\\文献工件\\三线协议审计_2026-10-09\\actual_runtime\\scenario_saa.py",
+      "line": 977,
+      "sha256": "36e08e06ce7b8e44eee2e6ff778904c1f26bd3145eb7d2072fb7360f33732318",
+      "actual": "非anytime分支投票结束后检查deadline，超时保原计划拒单。",
+      "verdict": "注册路径一致，硬实时仍有边界",
+      "sources": [
+        "S26"
+      ],
+      "action": "同步仿真调用可能超过deadline后才发现；回退不等于OS硬终止，须报实际耗时。",
+      "observed_before_documentary_corrections_sha256": "36e08e06ce7b8e44eee2e6ff778904c1f26bd3145eb7d2072fb7360f33732318",
+      "current_local_source_path_before_runtime_check": "scripts/evaluation/scenario_saa.py",
+      "current_local_source_sha256": "4e47b99f14be03351506ccccf92f1d414d12b063020805aca07ba6ef56874188"
+    },
+    {
+      "id": "P19",
+      "feature": "真实效用",
+      "path": "docs\\当前规划\\文献工件\\三线协议审计_2026-10-09\\actual_runtime\\scenario_saa.py",
+      "line": 933,
+      "sha256": "36e08e06ce7b8e44eee2e6ff778904c1f26bd3145eb7d2072fb7360f33732318",
+      "actual": "影子效用为收入−燃油−拒绝损失；质量可售影响收入，能耗预算另判。",
+      "verdict": "不能混称所有物理项货币目标",
+      "sources": [
+        "S23",
+        "S29"
+      ],
+      "action": "解释实际目标与品质/绿色预算职责；不能跨线比较绝对效用。",
+      "observed_before_documentary_corrections_sha256": "36e08e06ce7b8e44eee2e6ff778904c1f26bd3145eb7d2072fb7360f33732318",
+      "current_local_source_path_before_runtime_check": "scripts/evaluation/scenario_saa.py",
+      "current_local_source_sha256": "4e47b99f14be03351506ccccf92f1d414d12b063020805aca07ba6ef56874188"
+    },
+    {
+      "id": "P20",
+      "feature": "品质与温度联动",
+      "path": "scripts/coldchain/coldchain_state.py",
+      "line": 472,
+      "sha256": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e",
+      "actual": "P工厂V2固定rate；品质随时间，未读实际舱温。",
+      "verdict": "物理外推缺口",
+      "sources": [
+        "S13",
+        "S14",
+        "S15",
+        "S31"
+      ],
+      "action": "不称温控改善食品品质；保留本轮合同，未来实物温度响应另注册校准。",
+      "observed_before_documentary_corrections_sha256": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e"
+    },
+    {
+      "id": "P21",
+      "feature": "新鲜四臂与CPU",
+      "path": "scripts/evaluation/run_i3_online_compare.py",
+      "line": 159,
+      "sha256": "1e974accb6bb7c37878af5a28f0191acd026288e1c457c2a82bf9055bbd0616d",
+      "actual": "I3/warmstart/reconstruction/cond均新鲜40日；均分不重叠2逻辑CPU。",
+      "verdict": "实验控制有据",
+      "sources": [
+        "S26"
+      ],
+      "action": "不是已证明独占物理核；报告实际亲和与争用。",
+      "observed_before_documentary_corrections_sha256": "1e974accb6bb7c37878af5a28f0191acd026288e1c457c2a82bf9055bbd0616d"
+    },
+    {
+      "id": "P22",
+      "feature": "主门与归因门",
+      "path": "scripts/evaluation/run_a1_step3_compare.py",
+      "line": 340,
+      "sha256": "324c87b61376acaf857616b743b60fd4657c8e0e12cd8c8d368f20e0322c1f4c",
+      "actual": "主门mean>=20且日配对CI下界>0与双方hard；对重建差另报。",
+      "verdict": "规则固定，实践阈值依据有限",
+      "sources": [
+        "S19",
+        "S25"
+      ],
+      "action": "20须作为项目最小实用增益，缺经营价值标定；归因门不能替代主门。",
+      "observed_before_documentary_corrections_sha256": "324c87b61376acaf857616b743b60fd4657c8e0e12cd8c8d368f20e0322c1f4c"
+    },
+    {
+      "id": "P23",
+      "feature": "batch进度可见性",
+      "path": "scripts/evaluation/run_a1_step3_compare.py",
+      "line": 313,
+      "sha256": "324c87b61376acaf857616b743b60fd4657c8e0e12cd8c8d368f20e0322c1f4c",
+      "actual": "pool.map返回后批量写结果，无当前逐日持久化进度。",
+      "verdict": "工程可观测性缺口",
+      "sources": [
+        "S18",
+        "S26"
+      ],
+      "action": "不能从高CPU推断已完成日数/ETA；只读父子进程检查，不改在跑树。",
+      "observed_before_documentary_corrections_sha256": "324c87b61376acaf857616b743b60fd4657c8e0e12cd8c8d368f20e0322c1f4c"
+    },
+    {
+      "id": "P24",
+      "feature": "主门解释范围",
+      "path": "scripts/evaluation/run_i3_online_compare.py",
+      "line": 118,
+      "sha256": "1e974accb6bb7c37878af5a28f0191acd026288e1c457c2a82bf9055bbd0616d",
+      "actual": "当前主门固定单步场景生成，强动态外部路由对照与等预算迭代尚未建立。",
+      "verdict": "核心结论需限域",
+      "sources": [
+        "S16",
+        "S17",
+        "S26"
+      ],
+      "action": "即使过门，也先称本合同中对cond的在线增益，不称全部动态SOTA/完整迭代MaskCO胜出。",
+      "observed_before_documentary_corrections_sha256": "1e974accb6bb7c37878af5a28f0191acd026288e1c457c2a82bf9055bbd0616d"
+    }
+  ],
+  "negative": [
+    {
+      "id": "B01",
+      "feature": "方法对象",
+      "path": "negative_result_paper/release/v1_modules/mtrained_replanner.py",
+      "line": 26,
+      "sha256": "3b414e4a9f64953ec759ee2d05ea529abbb8710bc94bbb909bd267e071830b48",
+      "actual": "取模型插边偏好作局部修复，与原生Masked CVRP全解迭代不同。",
+      "verdict": "结论对象须限定",
+      "sources": [
+        "S16"
+      ],
+      "action": "负结果针对该适配，不否定原生MaskCO或所有动态生成。",
+      "observed_before_documentary_corrections_sha256": "3b414e4a9f64953ec759ee2d05ea529abbb8710bc94bbb909bd267e071830b48"
+    },
+    {
+      "id": "B02",
+      "feature": "取货物理语义",
+      "path": "negative_result_paper/release/v1_modules/coldchain_contract.py",
+      "line": 28,
+      "sha256": "901d3957bc77543e55c2483328b1ab750e4e46d727b2b531ac09eb90bcf2c412",
+      "actual": "历史C0取货开始入舱、返仓卸货，不是D配送装货到客户。",
+      "verdict": "任务合同独立",
+      "sources": [
+        "S03",
+        "S30"
+      ],
+      "action": "原合同封存；不能拿D需求/成本混入B表。",
+      "observed_before_documentary_corrections_sha256": "901d3957bc77543e55c2483328b1ab750e4e46d727b2b531ac09eb90bcf2c412"
+    },
+    {
+      "id": "B03",
+      "feature": "Arrhenius历史目标",
+      "path": "negative_result_paper/release/v1_modules/coldchain_state.py",
+      "line": 126,
+      "sha256": "61f0d09f50b3f05574ed6dc5943c1c1be1a4068a6c2412127532e1947d90ed82",
+      "actual": "B历史v1含温度响应，与当前P/D固定rateV2不同。",
+      "verdict": "版本不可混用",
+      "sources": [
+        "S13",
+        "S31"
+      ],
+      "action": "不把当前V2物理局限倒写成B已用V2；六pin/physics-only身份分别报告。",
+      "observed_before_documentary_corrections_sha256": "61f0d09f50b3f05574ed6dc5943c1c1be1a4068a6c2412127532e1947d90ed82"
+    },
+    {
+      "id": "B04",
+      "feature": "三层评价",
+      "path": "03_负结果线/文档/论文与投稿/论文工作稿_收口修订_2026-10-09.md",
+      "line": 28,
+      "sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2",
+      "actual": "候选/接受后/闭环不同源与邻域，缺事件联接。",
+      "verdict": "描述成立，因果链不足",
+      "sources": [
+        "S27"
+      ],
+      "action": "标题/摘要/讨论不用确定性原因归因。",
+      "observed_before_documentary_corrections_sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2"
+    },
+    {
+      "id": "B05",
+      "feature": "固定状态搜索",
+      "path": "03_负结果线/文档/论文与投稿/论文工作稿_收口修订_2026-10-09.md",
+      "line": 101,
+      "sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2",
+      "actual": "32状态每状态19次、无时间预算，与闭环4秒任务不同。",
+      "verdict": "不能直接比较数值层级因果",
+      "sources": [
+        "S26"
+      ],
+      "action": "表中保留邻域/attempt/时间分别列，不能相减解释损失转移。",
+      "observed_before_documentary_corrections_sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2"
+    },
+    {
+      "id": "B06",
+      "feature": "闭环预算",
+      "path": "negative_result_paper/results/09_unified_v1/step5_heldout_s42.summary.json",
+      "line": 2,
+      "sha256": "5fabc60f0c418426643c48a80e61431ecd132610410dca6852f1da6ed1657973",
+      "actual": "每重规划4秒；单日累计M耗时远超4秒。",
+      "verdict": "计时范围清楚",
+      "sources": [
+        "S26"
+      ],
+      "action": "R/Mpre逐臂耗时未留档，不能声称实际耗时严格相等。",
+      "observed_before_documentary_corrections_sha256": "5fabc60f0c418426643c48a80e61431ecd132610410dca6852f1da6ed1657973"
+    },
+    {
+      "id": "B07",
+      "feature": "R1未检出优势",
+      "path": "negative_result_paper/results/09_unified_v1/step5_heldout_s42.summary.json",
+      "line": 565,
+      "sha256": "5fabc60f0c418426643c48a80e61431ecd132610410dca6852f1da6ed1657973",
+      "actual": "Mtrained−R配对CI跨0；不是等价。",
+      "verdict": "统计解释须克制",
+      "sources": [
+        "S25",
+        "S19"
+      ],
+      "action": "不补设TOST或择seed；报告CI与效应。",
+      "observed_before_documentary_corrections_sha256": "5fabc60f0c418426643c48a80e61431ecd132610410dca6852f1da6ed1657973"
+    },
+    {
+      "id": "B08",
+      "feature": "C1联合确认",
+      "path": "03_负结果线/文档/论文与投稿/论文工作稿_收口修订_2026-10-09.md",
+      "line": 8,
+      "sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2",
+      "actual": "原三项conjunction失败，(a)成立不等于整门通过。",
+      "verdict": "既有规则保留",
+      "sources": [
+        "S18",
+        "S25"
+      ],
+      "action": "C1探索项全部保留，包括不利s43闭环。",
+      "observed_before_documentary_corrections_sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2"
+    },
+    {
+      "id": "B09",
+      "feature": "C1反例",
+      "path": "negative_result_paper/results/10_confirm_c1/c1_step5_s43.summary.json",
+      "line": 565,
+      "sha256": "ef21a86d3f38b60ac3b5ed9c4a5605fb491db049b5238989e851dc6d00fa308e",
+      "actual": "C1s43 Mtrained−R均值正、CI正，更高复合成本。",
+      "verdict": "范围限制证据",
+      "sources": [
+        "S25"
+      ],
+      "action": "不能只写所有seed无差异，不能隐去这个不利例。",
+      "observed_before_documentary_corrections_sha256": "ef21a86d3f38b60ac3b5ed9c4a5605fb491db049b5238989e851dc6d00fa308e"
+    },
+    {
+      "id": "B10",
+      "feature": "局部穷举上界",
+      "path": "03_负结果线/文档/论文与投稿/论文工作稿_收口修订_2026-10-09.md",
+      "line": 217,
+      "sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2",
+      "actual": "只对局部邻域/生成候选穷举，不等于全路线空间。",
+      "verdict": "不支持全局无可学信号",
+      "sources": [
+        "S16",
+        "S26"
+      ],
+      "action": "限制为既定mask/neighborhood/状态，oracle诊断与部署分开。",
+      "observed_before_documentary_corrections_sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2"
+    },
+    {
+      "id": "B11",
+      "feature": "未来评分诊断",
+      "path": "03_负结果线/文档/论文与投稿/论文工作稿_收口修订_2026-10-09.md",
+      "line": 16,
+      "sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2",
+      "actual": "有限样本未来vs预知未来差只是该评分器机制线索。",
+      "verdict": "不能声称信息论结论",
+      "sources": [
+        "S22",
+        "S23"
+      ],
+      "action": "不称头腔100%未来或真实条件oracle。",
+      "observed_before_documentary_corrections_sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2"
+    },
+    {
+      "id": "B12",
+      "feature": "原训练源码",
+      "path": "03_负结果线/文档/论文与投稿/论文工作稿_收口修订_2026-10-09.md",
+      "line": 9,
+      "sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2",
+      "actual": "原训练模块缺失，s43/s44缺同等身份记录。",
+      "verdict": "完整训练复现阻断",
+      "sources": [
+        "S18",
+        "S27"
+      ],
+      "action": "不以当前文件逆造原源码；发布前需找原件或明确缺口。",
+      "observed_before_documentary_corrections_sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2"
+    },
+    {
+      "id": "B13",
+      "feature": "原始事件日志",
+      "path": "03_负结果线/文档/论文与投稿/论文工作稿_收口修订_2026-10-09.md",
+      "line": 9,
+      "sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2",
+      "actual": "闭环summary可复算，逐事件原件缺失。",
+      "verdict": "完整执行重放阻断",
+      "sources": [
+        "S27"
+      ],
+      "action": "summary重算不是完整轨迹认证，不造联接证据。",
+      "observed_before_documentary_corrections_sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2"
+    },
+    {
+      "id": "B14",
+      "feature": "旧复现入口",
+      "path": "negative_result_paper/release/run_repro.sh",
+      "line": 22,
+      "sha256": "8b1ad5a2dd1a1f959eacdb3857614a321b80eec1181e7c86dc3de68aa146a714",
+      "actual": "旧脚本要求人工替换运行树，仅smoke/绘图，缺独立闭包。",
+      "verdict": "旧入口不适合并行运行",
+      "sources": [
+        "S18",
+        "S27"
+      ],
+      "action": "保持旧包封存；使用已有隔离候选草案，未经完整功能验证不称全复现。",
+      "observed_before_documentary_corrections_sha256": "8b1ad5a2dd1a1f959eacdb3857614a321b80eec1181e7c86dc3de68aa146a714"
+    },
+    {
+      "id": "B15",
+      "feature": "warm-up与实际算力",
+      "path": "negative_result_paper/results/09_unified_v1/step5_heldout_s42.summary.json",
+      "line": 534,
+      "sha256": "5fabc60f0c418426643c48a80e61431ecd132610410dca6852f1da6ed1657973",
+      "actual": "编译另计，attempt/improve和M耗时汇总留存。",
+      "verdict": "日志部分可核",
+      "sources": [
+        "S26"
+      ],
+      "action": "相同budget上限不能证明同attempt或同耗时；其余臂原始计时缺失。",
+      "observed_before_documentary_corrections_sha256": "5fabc60f0c418426643c48a80e61431ecd132610410dca6852f1da6ed1657973"
+    },
+    {
+      "id": "B16",
+      "feature": "目标归一化",
+      "path": "03_负结果线/文档/论文与投稿/论文工作稿_收口修订_2026-10-09.md",
+      "line": 71,
+      "sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2",
+      "actual": "B用D/sD+Q/sQ+E/sE的devmean等权复合J，不是P收益/D工程成本。",
+      "verdict": "pilot研究指标",
+      "sources": [
+        "S29",
+        "S30"
+      ],
+      "action": "归一化不等于货币或实物标定，不跨方向排名。",
+      "observed_before_documentary_corrections_sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2"
+    },
+    {
+      "id": "B17",
+      "feature": "书目真实性",
+      "path": "03_负结果线/文档/论文与投稿/论文工作稿_收口修订_2026-10-09.md",
+      "line": 231,
+      "sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2",
+      "actual": "原[7]作者错误、[9]卷页错误；已按出版社元数据修订当前稿。",
+      "verdict": "可直接修正文档",
+      "sources": [
+        "S28",
+        "S29"
+      ],
+      "action": "原包不改；记录旧/新文本，不扩成实验修订。",
+      "observed_before_documentary_corrections_sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2"
+    },
+    {
+      "id": "B18",
+      "feature": "发布与外推",
+      "path": "03_负结果线/文档/论文与投稿/论文工作稿_收口修订_2026-10-09.md",
+      "line": 217,
+      "sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2",
+      "actual": "无强外部同合同动态对照、真实运营校准及完整发布资格。",
+      "verdict": "论文边界保留",
+      "sources": [
+        "S17",
+        "S26",
+        "S27"
+      ],
+      "action": "负结果可如实归档；不自动公开/DOI/投稿，不称真实食品安全或在线SOTA。",
+      "observed_before_documentary_corrections_sha256": "5c8d465695e6b6040929e427f6c33993d773ffd36458cd893384ac87a95629a2"
+    }
+  ],
+  "delivery_existing_packet": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\02_配送线\\文献工件\\2026-10-09\\evidence_matrix.json",
+  "delivery_existing_packet_sha256": "533e294be11dd34a56ba7326aec2221e0a6834485f7b20ea04c746749b011987",
+  "delivery_packet_keys": [
+    "schema",
+    "date",
+    "user_authorization",
+    "scope",
+    "predeclared_scientific_protocol",
+    "scientific_execution_performed",
+    "remote_document_upload_performed",
+    "D2_adjudication_changed",
+    "sources",
+    "requirements",
+    "parameter_groups",
+    "original_readonly_delivery_contract_defaults",
+    "original_readonly_thermal_defaults",
+    "original_readonly_quality_v2_defaults",
+    "original_readonly_D2_protocol",
+    "D2_protocol_sha256",
+    "quality_provenance_arithmetic",
+    "remaining_barriers"
+  ],
+  "interpretation": "Delivery 30-function/16-parameter packet is reused, not falsely counted as new independent implementation tests."
+}

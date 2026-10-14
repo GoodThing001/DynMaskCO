@@ -1,0 +1,41 @@
+{
+  "stage": "pickup_a1_budget_reserving_admission_audit_failure_diagnosis",
+  "audit_failed": 2,
+  "audit_failure_names": [
+    "audit_budget_matches",
+    "audit_loaded_files_and_maps_start_end"
+  ],
+  "classification": {
+    "audit_budget_matches": {
+      "class_": "documented upstream drift, independently reproduced by the audit",
+      "detail": "the audit recomputes the A-v1 budget from accept-all trajectories and obtains a different value from the recorded batch because scenario_saa.py changed after that batch; the audit value equals the producer value, so the audit reproduces the drift rather than contradicting the run. The producer already records this as a diagnostic instead of a gate, and both panel arms share the recomputed budget.",
+      "recorded": 710.6548152249378,
+      "recomputed": 710.6548328611384,
+      "delta": 1.7636200595916307e-05
+    },
+    "audit_loaded_files_and_maps_start_end": {
+      "class_": "audit harness ordering defect, no file content change",
+      "detail": "the audit takes its start closure before own_calibrate lazily imports reserving_admission, so the module map gains that one module afterwards. Zero files changed, zero added, zero removed, so no source identity was mutated during the audit.",
+      "files_start": 451,
+      "files_end": 451,
+      "changed_files": 0,
+      "added_files": 0,
+      "removed_files": 0,
+      "modules_added": [
+        "reserving_admission"
+      ]
+    }
+  },
+  "scientific_content_independently_verified": {
+    "calibration_table_max_abs_diff": 2.2737367544323206e-13,
+    "paired_deltas_reproduced": true,
+    "mean_delta_reproduced": true,
+    "decision_rule_reproduced": true
+  },
+  "preserved_not_rewritten": true,
+  "rerun_to_chase_pass": false,
+  "flags": {
+    "stable_online_gain": false,
+    "scientific_family3_started": false
+  }
+}

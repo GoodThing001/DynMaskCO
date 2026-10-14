@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "C:\Users\zh\project\MASKCO-Main\research\review_3080_20261010\multistep_insertable_family2_data_audit_root_v1\audit.py", line 105, in <module>
+    try:raise SystemExit(main())
+  File "C:\Users\zh\project\MASKCO-Main\research\review_3080_20261010\multistep_insertable_family2_data_audit_root_v1\audit.py", line 86, in main
+    d=row['deployment'];accept=not row['timed_out'] and d['report']['hard'] and d['report']['complete'] and d['report']['cost']<before['cost']
+TypeError: 'NoneType' object is not subscriptable

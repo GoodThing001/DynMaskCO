@@ -1,0 +1,128 @@
+{
+  "checks": [
+    {
+      "name": "timed_selected7_restore",
+      "pass_": true
+    },
+    {
+      "name": "restore_zero_prior_execution",
+      "pass_": true
+    },
+    {
+      "name": "normal_order27_next26_same_resident",
+      "pass_": true
+    },
+    {
+      "name": "second_starts_first_actual_commit",
+      "pass_": true
+    },
+    {
+      "name": "0:qualified_private_C0_install",
+      "pass_": true
+    },
+    {
+      "name": "0:all20_branches",
+      "pass_": true
+    },
+    {
+      "name": "0:no_model_route_gain",
+      "pass_": true
+    },
+    {
+      "name": "1:qualified_private_C0_install",
+      "pass_": true
+    },
+    {
+      "name": "1:all20_branches",
+      "pass_": true
+    },
+    {
+      "name": "1:no_model_route_gain",
+      "pass_": true
+    },
+    {
+      "name": "normal_new_slot_selected_ACK",
+      "pass_": true
+    },
+    {
+      "name": "normal_writer_exact",
+      "pass_": true
+    },
+    {
+      "name": "actual_complete_inactive_candidate",
+      "pass_": true
+    },
+    {
+      "name": "inactive_new9_header_exact",
+      "pass_": true
+    },
+    {
+      "name": "active8_byte_exact_retained",
+      "pass_": true
+    },
+    {
+      "name": "no_late_epoch9_select_ack",
+      "pass_": true
+    },
+    {
+      "name": "all_host_windows_under10",
+      "pass_": true
+    },
+    {
+      "name": "start_to_fault_closure",
+      "pass_": true
+    },
+    {
+      "name": "registered_bytes",
+      "pass_": true
+    }
+  ],
+  "checks_count": 19,
+  "failed": 0,
+  "failure_names": [],
+  "host": [
+    {
+      "sequence": 8,
+      "pid": 26596,
+      "started": 938371.2232547,
+      "cutoff": 938379.2232547,
+      "chosen_at": 938374.4161881,
+      "finished": 938374.4174036,
+      "wall_s": 3.19414889998734,
+      "ticket": {
+        "epoch": 8,
+        "size": 35310,
+        "slot": 1,
+        "base_digest": "7e44b3046776391af7c8bcadbb21277c3948ce9aec09c777c5b19c3607481e87",
+        "payload_sha256": "25ac18f030b209f0bc8de031d746b311174a48ade174661d6c9cbecf9f47dfd4",
+        "digest": "516d38bd8c1eb3e92c447e26ce6005233bd4ac6af9dfd349893477206e5e4b67"
+      },
+      "ack_present": true,
+      "final_reap_included": false,
+      "reaped": false,
+      "stage": 2,
+      "selected_slot": 1
+    },
+    {
+      "sequence": 9,
+      "pid": 26596,
+      "started": 938374.417897,
+      "cutoff": 938382.417897,
+      "chosen_at": null,
+      "finished": 938382.4427946,
+      "wall_s": 8.024897600058466,
+      "ticket": null,
+      "ack_present": false,
+      "final_reap_included": true,
+      "reaped": true,
+      "stage": 5,
+      "selected_slot": 1
+    }
+  ],
+  "actual_worker_exit": 1,
+  "actual_worker_terminated": true,
+  "physical_ack_loss_qualified": false,
+  "full_live_request_qualified": false,
+  "full_loaded_dependency_closure_qualified": false,
+  "stable_online_gain": false
+}

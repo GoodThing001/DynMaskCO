@@ -1,0 +1,164 @@
+{
+  "intermediate_rows": [
+    {
+      "name": "customer",
+      "shape": [
+        750,
+        512
+      ],
+      "dtype": "float32",
+      "elements": 384000,
+      "bitwise_mismatch_count": 0,
+      "exact_equal": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "name": "predecessor",
+      "shape": [
+        750,
+        512
+      ],
+      "dtype": "float32",
+      "elements": 384000,
+      "bitwise_mismatch_count": 0,
+      "exact_equal": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "name": "successor",
+      "shape": [
+        750,
+        512
+      ],
+      "dtype": "float32",
+      "elements": 384000,
+      "bitwise_mismatch_count": 0,
+      "exact_equal": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "name": "route_mean",
+      "shape": [
+        750,
+        512
+      ],
+      "dtype": "float32",
+      "elements": 384000,
+      "bitwise_mismatch_count": 0,
+      "exact_equal": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "name": "prefix_mean",
+      "shape": [
+        750,
+        512
+      ],
+      "dtype": "float32",
+      "elements": 384000,
+      "bitwise_mismatch_count": 0,
+      "exact_equal": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "name": "suffix_mean",
+      "shape": [
+        750,
+        512
+      ],
+      "dtype": "float32",
+      "elements": 384000,
+      "bitwise_mismatch_count": 0,
+      "exact_equal": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "name": "concat",
+      "shape": [
+        750,
+        3075
+      ],
+      "dtype": "float32",
+      "elements": 2306250,
+      "bitwise_mismatch_count": 0,
+      "exact_equal": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "name": "linear1_dot",
+      "shape": [
+        750,
+        64
+      ],
+      "dtype": "float32",
+      "elements": 48000,
+      "bitwise_mismatch_count": 0,
+      "exact_equal": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "name": "linear1_bias",
+      "shape": [
+        750,
+        64
+      ],
+      "dtype": "float32",
+      "elements": 48000,
+      "bitwise_mismatch_count": 0,
+      "exact_equal": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "name": "tanh",
+      "shape": [
+        750,
+        64
+      ],
+      "dtype": "float32",
+      "elements": 48000,
+      "bitwise_mismatch_count": 0,
+      "exact_equal": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "name": "linear2_dot",
+      "shape": [
+        750,
+        1
+      ],
+      "dtype": "float32",
+      "elements": 750,
+      "bitwise_mismatch_count": 0,
+      "exact_equal": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "name": "output",
+      "shape": [
+        750
+      ],
+      "dtype": "float32",
+      "elements": 750,
+      "bitwise_mismatch_count": 0,
+      "exact_equal": true,
+      "max_abs_error": 0.0
+    }
+  ],
+  "first_divergent_intermediate": null,
+  "eager_score_exact_saved_original": true,
+  "instrumented_score_exact_saved_old_compiled": false,
+  "source_qualified": true,
+  "source_new_files": [],
+  "module_maps_equal": true,
+  "eager_seconds": 0.2807314000092447,
+  "compiled_instrumented_seconds": 0.10602830024436116,
+  "operation_count": 1,
+  "fixed_arm": "pretrained_initial",
+  "fixed_step": 0,
+  "full_backbone_executed": false,
+  "old_34_QA_repeated": false,
+  "optimizer_steps": 0,
+  "scientific_family3_started": false,
+  "stable_online_gain": false,
+  "qualification": "Arithmetic observation only; returned intermediates may change compiler schedule. First divergence does not uniquely identify an XLA pass. Old strict0/34FAIL retained; no candidate installation or threshold relaxation."
+}

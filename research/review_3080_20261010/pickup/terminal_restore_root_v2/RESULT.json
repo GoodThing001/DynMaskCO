@@ -1,0 +1,77 @@
+{
+  "checks": [
+    {
+      "name": "restore63_all_fields_same_window",
+      "passed": true
+    },
+    {
+      "name": "zero_admission_scoring",
+      "passed": true
+    },
+    {
+      "name": "terminal10physical",
+      "passed": true
+    },
+    {
+      "name": "full80original_C0",
+      "passed": true
+    },
+    {
+      "name": "complete_decisions_service_return",
+      "passed": true
+    },
+    {
+      "name": "terminal_raw_writer_shared_retained",
+      "passed": true
+    },
+    {
+      "name": "actual_natural0_reap_under10",
+      "passed": true
+    },
+    {
+      "name": "loaded_workload_closed",
+      "passed": true
+    },
+    {
+      "name": "registered_bytes",
+      "passed": true
+    }
+  ],
+  "checks_count": 9,
+  "failed": 0,
+  "failure_names": [],
+  "host": {
+    "started": 946009.4248451,
+    "cutoff": 946017.4248451,
+    "finished": 946011.3934015,
+    "wall_s": 1.968556399922818,
+    "ticket": {
+      "epoch": 64,
+      "slot": 1,
+      "payload_sha256": "6730d6883ec6bc4ec60e4fdf30abae0202130e17a248c2673e97c46b3a047d92",
+      "digest": "018f2696dfdd0c09f19e2318504873a947b9de5ab5fc6768d5ac8e7e27cd5a43"
+    },
+    "validation": {
+      "started": 946011.3206061,
+      "finished": 946011.3207596,
+      "slot_before": 1,
+      "slot_after": 1,
+      "payload_sha256": "6730d6883ec6bc4ec60e4fdf30abae0202130e17a248c2673e97c46b3a047d92",
+      "base_digest": "9ab0d229ecb9fd2eab97dc4bffb5cafca55fecd4e61c16a084050d2c14922ce3"
+    },
+    "chosen_at": 946011.3207651,
+    "ack_present": true,
+    "event_present": true,
+    "actual_worker_exit": 0,
+    "reaped": true
+  },
+  "physics": 10,
+  "terminal_payload_sha256": "6730d6883ec6bc4ec60e4fdf30abae0202130e17a248c2673e97c46b3a047d92",
+  "terminal_payload_bytes": 123700,
+  "actual_worker_exit": 0,
+  "whole_previous_run_PASS": false,
+  "full_live_request_qualified": false,
+  "full_loaded_dependency_closure_qualified": false,
+  "physical_ack_loss_qualified": false,
+  "stable_online_gain": false
+}

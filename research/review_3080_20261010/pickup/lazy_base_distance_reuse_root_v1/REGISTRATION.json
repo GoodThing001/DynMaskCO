@@ -1,0 +1,52 @@
+{
+  "created_utc": "2026-10-13T06:52:13.672288+00:00",
+  "sources": {
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_reuse_root_v1\\lazy_base_distance.py": "70081955c98aeb87d0fdfe438d3f3a7389e27bff96baaf5be97467fadc286093",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_reuse_root_v1\\run.py": "ada5bd4686fed479430aed2ffa96f4d650e01475eaf58ac9e78829aa9dbe7e16",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_reuse_root_v1\\audit.py": "24552e5a69c87ec96886d6987fd8b27a8f90952ebabe4d938ed9a7305ada954c",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_reuse_root_v1\\prepare.py": "aba75f8a2ac4c9a9796d2fc126b2af14855a999e5179c7e4a74292244214470f",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_reuse_root_v1\\supervise.py": "6aa60c556a03aab06619574ec7c9e730fbc2a677f46cde5916e4674307700020",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\engineering_stage_closure_v1.py": "2e823979ef6fff9f133e158f2a2cc2e66a71ae7c43e65dc7edf71793f79adf4f",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\qualify_pickup_joint_policy_transaction_root_v3.py": "3bc4802b1853b9648bafa9612af25dfd6d4a23301fd6e661c07d5a9ff6ef4d69",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\scenario_saa.py": "4e47b99f14be03351506ccccf92f1d414d12b063020805aca07ba6ef56874188",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\shadow_energy_correction_root_v1\\energy_complete_saa.py": "37629d8dc5049edcb02b0a9a9243293d0505602150fea629a71129579a7b3f7d",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\independent_rolling_incremental_engineering_root_v1\\SIMULATION_CONTEXT.json": "b07932b2c359c135fb4e655ab12d0a52d6555c961f1b052198b7595062d44e36",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\shared_history_qualification_root_v1\\COMMON_HISTORY.pkl": "44064ff788b7e322294a23e6ac6de39da9f399dec326b70af7a0f7439895d3c6"
+  },
+  "goal": "Only loop-scoped lazy reuse of unchanged original _insert_u base route distance; first good trial remains first, then base; no delta reassociation or global route cache",
+  "scenario_index": 8,
+  "order_selection": "Fixed first four original reveal-sorted scenario8 IDs, original first eligible archived public packet and common K10 seed202610130901; no cost or label selection",
+  "independent_reference": "Fresh original EnergyCompleteSAA(incr_eval=False), original insert4/local_search4/complete_u; no new helper imported",
+  "exact_gates": "Feasible call sequence, choices/private route states, every scored candidate scorehex/type, original trial-before-base call order after deleting only same-loop repeated base, complete C0 physical transition outputs and terminal energy/distance; full loaded py/pyc/native/source identity",
+  "normal_runs": 1,
+  "reference_runs": 1,
+  "supervision_cap_seconds": 60,
+  "resource": {
+    "python": "3.12.7",
+    "numpy": "1.26.4",
+    "cpu_affinity": [
+      7
+    ],
+    "no_model_min_available_ram_gib": 0.5
+  },
+  "input_and_matrix_preparation_outside_local_component": true,
+  "final_matrix_and_parameters_guard_inside_operation_time": true,
+  "K": 10,
+  "seed": 202610130901,
+  "incr_eval": false,
+  "local_passes": 4,
+  "full_K10_request_or_online_day_executed": false,
+  "full_request_budget_qualified": false,
+  "worker_budget_retained_for_future_requests": 8,
+  "cleanup_reserve_retained": 2,
+  "scientific_data_generated": false,
+  "formal_strong_dynamic_qualified": false,
+  "stable_online_gain": false,
+  "paper": {
+    "title": "PyVRP: a high-performance VRP solver package",
+    "doi": "10.1287/ijoc.2023.0055",
+    "url": "https://arxiv.org/html/2403.13795v2",
+    "read_scope": "Parent read4.3.2 and5.3",
+    "use": "Unchanged route-evaluation reuse inspiration only, not PyVRP implementation or coldchain equivalence"
+  }
+}

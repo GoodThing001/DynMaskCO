@@ -1,0 +1,66 @@
+{
+  "created_utc": "2026-10-13T05:39:21.078970+00:00",
+  "registration_sha256": "ac4244562b1507b1f14f5c84c38cabb3f33ff085c30718bb80db732f5ef1ff39",
+  "resource_observation": {
+    "available_ram_gib": 20.235015869140625,
+    "allowed_cpu": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "cpu15_busy_percent": 8.5,
+    "processes": [
+      {
+        "pid": 15536,
+        "ppid": 7884,
+        "cmdline": [
+          "D:\\anaconda\\envs\\pytorch\\python.exe",
+          "a1_accept_v1\\eval_mapt_a1.py",
+          "--mode",
+          "dev",
+          "--ckpt",
+          "a1_accept_v1\\mapt_a1_final.pt",
+          "--out",
+          "a1_accept_v1\\eval_dev_final_det.json"
+        ],
+        "create_time": 1791869958.7319067,
+        "username": "DESKTOP-9V1OPDI\\ZH",
+        "name": "python.exe",
+        "owned": false,
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "rss": 784355328
+      }
+    ]
+  },
+  "remote_directory": "research/review_3080_20261010/loaded_identity_guard_boundary_root_v1"
+}

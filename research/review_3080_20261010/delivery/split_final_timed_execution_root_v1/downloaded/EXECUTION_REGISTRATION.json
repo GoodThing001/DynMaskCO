@@ -1,0 +1,156 @@
+{
+  "created_utc": "2026-10-13T21:48:18.399015+00:00",
+  "status": "NEW_SPLIT_FINAL_HEAD_COMPLETE_TIMED_REQUEST_TWO_FIXED_INITIAL_ARMS",
+  "execution_authorized": true,
+  "independent_timed_request_checker_sealed": true,
+  "source_preparation_sha256": "ffe65084b94ccd913a0cd198cd6e6aa9b524851f68b4fc507a83048b5c9f307a",
+  "prior_completed_component_registration_sha256": "86959e8c62018023cc812337b2c801cf66e794491ec2138c642e602d35b5b948",
+  "input_digest": "fe24357c1d012ec4e0c07ce40cc52fdec0f46c10e4853e4122babbafd456a21a",
+  "input_sha256": "1fc5a3c4216b2d28659052c65a632e548003baaf62f8ef3f6ebcbc5616c5db76",
+  "key": [
+    12,
+    3
+  ],
+  "masked_count": 25,
+  "requests": [
+    {
+      "arm": "pretrained_initial",
+      "fault_stage": 0
+    },
+    {
+      "arm": "random888_initial",
+      "fault_stage": 0
+    }
+  ],
+  "total_request_seconds": 10,
+  "child_seconds": 8,
+  "reap_reserve_seconds": 2,
+  "cpu_affinity": [
+    15
+  ],
+  "minimum_available_ram_gib": 8,
+  "head_seed": 20261012,
+  "random_seed": 888,
+  "optimizer_steps": 0,
+  "old_remote_root": "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\remote_finite_research_root_v2",
+  "checkpoint": "C:\\Users\\zh\\project\\MASKCO-Main\\MASKCO_code\\ckpts\\cvrp100.ckpt",
+  "checkpoint_sha256": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+  "contract_hash": "ba40cd0d08fc21ef09d418c7df2bff940294ee2cfecebd2a4ba9ddde35a8268a",
+  "normalization_sources": {
+    "modules/functional/coord_transform.py": "09de9bf90d6b21991759511bf2905700791e76cfd2f3b3986c7a7f1cff193da7",
+    "modules/functional/__init__.py": "ddccb363c3131b28c460b767231757e84c7fa963e19c06b1b8ce52cf6855e303"
+  },
+  "numpy_head_max_abs_error": 2e-05,
+  "selection_rule": "One new split-before-final head candidate; fixed key12,3 and initial arms; original 8+2 and all C0/source/parameter gates unchanged; no old request replay or benefit selection.",
+  "old_initial_scores_reused": false,
+  "maximum_proposed_encodes": 2,
+  "maximum_proposed_decodes": 50,
+  "initialization_outside_request": [
+    "interpreter/libraries/checkpoint parameters and fixed head",
+    "shared allocation",
+    "prepared public input raw",
+    "original incumbent fallback certificate already exists"
+  ],
+  "initialization_no_inference_warmup": true,
+  "timed_scope": "Caller bounded input copy; worker JSON/full10D/incumbentC0/encode/all current decode/head/local eligibility/choices/transitions evidence/candidateC0/actual file and full parameter check/serialize/publish; caller bounded SHA/JSON/C0 source selection/selected archive/SHA/kill-reap/handle cleanup. Receipt creation outside measured elapsed. Public snapshot only, no live installation.",
+  "registered_qualification": "Separate raw replay/timing/fault reach/missing closure. Deadline8/total10 never extended to finish chain/fault. No qualified response returns original plan. Unreached fault means unexercised; missing or torn artifacts retained and cannot prove completion. Selected before deadline output survives later postpublish kill. No benefit criterion.",
+  "stage_execution": [
+    "run_delivery_score_split_v1.py",
+    "audit_delivery_score_split_v1.py"
+  ],
+  "stage_timeout_seconds": 900,
+  "reap_timeout_seconds": 10,
+  "remote_directory": "research/review_3080_20261010/split_final_timed_execution_root_v1",
+  "allowed_upload_types": [
+    ".py",
+    ".json"
+  ],
+  "local_transport_helpers": {
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\_srv.py": "24b12dc4117295bc9844416948f6328443119ca615cf5d84affc3c2c418933ee",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\_srv_exec_v2.py": "130d0f0ec6ad8481ede3ca88192d526037a04f006234adc8e8ac7a597aa9cdc0"
+  },
+  "download_max_file_bytes": 67108864,
+  "download_max_total_bytes": 536870912,
+  "download_chunk_bytes": 262144,
+  "resource_policy": {
+    "minimum_available_ram_gib": 8,
+    "affinity": [
+      15
+    ],
+    "maximum_preflight_cpu15_busy_percent": 20,
+    "refuse_observed_owned_research_tree": true,
+    "gpu_used": false
+  },
+  "independent_scope": "Independent original parameter/head/features/anchors/full encode/decode exact JAX scores; NumPy2e-5 only head arithmetic. Independent local geometry/regret/retained/customer competition and actual new partial/full evidence. Original JAX/Transformer/C0 physics shared, not another model/physics implementation.",
+  "full_request_budget_qualified": false,
+  "full_scientific_loaded_closure_qualified": false,
+  "formal_controls_qualified": false,
+  "learned_output_qualified": false,
+  "scientific_family3_started": false,
+  "stable_online_gain": false,
+  "old_QA_repeated": false,
+  "limitations": [
+    "Only AST/bytes prepared, not an exercised audit or timed budget qualification.",
+    "Original shared Transformer/JAX and C0 physics remain shared reference implementations.",
+    "Fault label without actual delay entrance is unexercised; preserve unreached fault/partial writes/timeout without retry or extra warmup.",
+    "A process killed during NPZ/JSON write may leave an incomplete artifact; preserve raw bytes and audit failure, do not fabricate completion.",
+    "Source-end and fault-entry snapshots differ; killed worker has no natural postfailure closure.",
+    "Parent prepared public input/model startup outside window; no live private event projection/vehicle installation.",
+    "Caller synchronous copy/SHA/JSON/archive/cleanup do not prove arbitrary-load/slow-disk/native instruction preemption.",
+    "Fault evidence capture consumes the registered time; no time is added to reach later stages.",
+    "Formal trained CE/task-random/other controls/equal-time iteration/independent strong dynamic/full scientific chain still absent."
+  ],
+  "failures": "Keep every raw failure/exit/.part/source/input. Never retry production or oldQA; any engineering recovery new exclusive directory after actual owned tree exit with prospective same scientific parameters.",
+  "model_execution_authorized": true,
+  "early_launch_component_only": false,
+  "prior_registration_sha256": "3302143258b013b7fdb22f31346c802738455b4396e2bd7bdf9240b386fd0dd4",
+  "new_startup_registration_sha256": "16f63599a292482cedf90ba4590dac8fc3efaa82bb1efe03757a3b2259c1216d",
+  "preparation_tool_sha256": "a9456fa557c9aa690ba0a48a809077b7fcaf861246840fde51dfe9e641df2d78",
+  "actual_phase_design_sha256": "bdc7127eac21153fed3b1ffae53c990d7f5ca55391f9bea9a2842ef334eee0f3",
+  "new_telemetry_observation": true,
+  "old_ten_requests_not_replayed": true,
+  "independent_trace_scope": "Saved new worker/caller bytes only; independent parser and exact binary64 rational unions. Open/torn/exception records retained; malformed buffers fail without rerun.",
+  "numeric_contract_unchanged": true,
+  "stage_faults_not_retested": true,
+  "prior_adjudication_sha256": "80048166a816b033fe66d563c60449ce9d3cb3d65b592db547bf8b5a7ffdb173",
+  "package_files": {
+    "delivery_score_split_engine_v1.py": "e5e2739810fe1f0e987e3ed47f871d993138f7424a7eb6934e01725682a20e57",
+    "delivery_score_split_worker_v1.py": "219594c511391f63cd1c9603659c199fe24cb40deed2761ba4422464950b6625",
+    "delivery_score_split_parent_v1.py": "5282171b4dde5b43c246883227ba220b3b99d71c246af70324403e9178530a29",
+    "phase_failure_cleanup_v2.py": "a5765e250052d72d303f79dd0ca340f6253245415e99d78750ca4f5efce89590",
+    "startup_native_identity_v1.py": "526d704ed7f4f7fd94b1b8908cf684477e2e3e75eb955f4ca49d07520e9f6173",
+    "bounded_phase_trace_v1.py": "61e8cd6a93f9832d9b57b02fe8ccf66453432dac65da65ba4c4f03b4a14cee61",
+    "independent_score_split_trace_parser_v1.py": "4d92167999d458b8b4d9b74ecc17ad65da572cec471c09b47ade1e44bf45a6be",
+    "delivery_actual_action_head_v1.py": "d9664585a8a6ab2d169ac8b9920669b8b04bfddefc56d7c84e425a138fbd409f",
+    "delivery_actual_score_chain_v1.py": "23381c5dc36fcf9ba240c58e90697334f90cc38ed2d372cd10a498ab7ffa5678",
+    "delivery_feasible_action_options_v1.py": "35d97dcdb8ec2d872deb3fe565bcd7cd5529aa230e0ef5536c73b597feb184f2",
+    "delivery_retained_edge_action_guard_v1.py": "22a05a75cf430c51944f9bf2c751e57c9d430d6fd1a3a6824496e4e57e4b45db",
+    "features_objective.py": "2b1049f3c6bd665b4d78d6882680f0571f583fb23a6e5191f05482d9c6ba8481",
+    "action_head_runtime_v1.py": "492a14effd3e7966bacc6e21149387f8754c0ea34c7b0ebd03ff017c464ead23",
+    "timed_evidence_io_v1.py": "633fad5d05006ae7c182db7e41fdc19e0e49eb5b365fa19bc5e0d4ed1dc14761",
+    "CHAIN_INPUT.json": "1fc5a3c4216b2d28659052c65a632e548003baaf62f8ef3f6ebcbc5616c5db76",
+    "PHASE_DESIGN.json": "bdc7127eac21153fed3b1ffae53c990d7f5ca55391f9bea9a2842ef334eee0f3",
+    "run_delivery_score_split_v1.py": "c247522a1e007a0724b0970e0d3fcfe4b1de1949fc9014bea65e4d2330c8febe",
+    "audit_delivery_score_split_v1.py": "e76ada40b9a5a5601ac79bdeabb752136456ae73f6a35f989d9368870782518f",
+    "supervise_delivery_score_split_v1.py": "b017bdc7705b1056c3db40c62760c020f33e4b1081672d8b5cbb797f28235399",
+    "score_split_remote_launcher_v1.py": "f87d251694bc2e5cd1d6f3246bd9504a2040e5f24cf3d777b6c5711d5a51c760",
+    "score_split_remote_status_v1.py": "2f1f8a6bca12f558e22f08b6c68e1e86f36ffd167ddc32047392210e5b2cad57"
+  },
+  "transport_tool_sha256": "08b3645e43ad8a8dabdab00ebdb9f9c6d0aa93d92581f745f5a2634a878e854e",
+  "additional_synchronization_barriers": true,
+  "arithmetic_expression_order_unchanged": true,
+  "original_phase7_timing_not_counterfactual_equivalent": true,
+  "phase_range": [
+    1,
+    23
+  ],
+  "no_whole_request_qualification_from_raw_trace": true,
+  "inference_goal": "Measure decode/final_norm/head/host segments under explicit barriers. Diagnose observed scheduling cost; no utility, training, architecture selection or speed improvement assertion.",
+  "prior_timed_request_result_sha256": "401d59c041c5dc2b20d61ef9fccfc2bc73b816032752bdb51e0514d8bf633d67",
+  "prospective_split_head_registration_sha256": "ce09857d88eceef1e3a67ecc64d5869d59d9d9948d232ada3e1735a8e73e9cff",
+  "saved_input_strict_result_sha256": "037699e0dca9b64cf442fd863793c4b2c69d34dc6b2b8503447ae78ce6f3f2ad",
+  "candidate_method": "first layer at fixed 750 rows, slice n rows before final output layer",
+  "saved_input_gate": "34/34 exact float32 bit patterns, 21148 actions",
+  "registration_revision": "R2: actual _srv.py helper bytes rebound after local static failure; candidate and science parameters unchanged",
+  "prior_static_failure_sha256": "d6aaea56e4b7c480819ef5a46104c86557ba747e8838f2d2b99e56ac81ce3065"
+}

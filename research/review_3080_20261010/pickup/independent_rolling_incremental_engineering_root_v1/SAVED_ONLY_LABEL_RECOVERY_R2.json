@@ -1,0 +1,62 @@
+{
+  "checks_count": 11,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "only_old_label_expectation_failure",
+      "pass_": true
+    },
+    {
+      "name": "actual_uppercase_labels_bound_source",
+      "pass_": true
+    },
+    {
+      "name": "seven_reject_ended_exact_indices",
+      "pass_": true
+    },
+    {
+      "name": "next_eighth_started_not_ended",
+      "pass_": true
+    },
+    {
+      "name": "prior_119_successes_retained",
+      "pass_": true
+    },
+    {
+      "name": "original_unchanged:seal_stage.py",
+      "pass_": true
+    },
+    {
+      "name": "original_unchanged:SAVED_ONLY_STAGE_IDENTITY_AUDIT.json",
+      "pass_": true
+    },
+    {
+      "name": "original_unchanged:STAGE_ADJUDICATION.json",
+      "pass_": true
+    },
+    {
+      "name": "original_unchanged:controller.py",
+      "pass_": true
+    },
+    {
+      "name": "original_unchanged:PHASE_TRACE.bin",
+      "pass_": true
+    },
+    {
+      "name": "original_unchanged:FINAL_ARTIFACT_IDENTITY.json",
+      "pass_": true
+    }
+  ],
+  "old120_one_FAIL_preserved": true,
+  "prior_successful_items": 119,
+  "last_actual_stage": {
+    "sequence": 62,
+    "clock_ns": 1026250155820500,
+    "stage": "SAA_begin",
+    "index": 7,
+    "decision": 0,
+    "value0": 0,
+    "value1": 0
+  },
+  "meaning": "Eighth reject branch entry telemetry was written before internal deadline guard; _sim_scenario call for index7 did not occur. No accept score branch or result serialization/source-end reached."
+}

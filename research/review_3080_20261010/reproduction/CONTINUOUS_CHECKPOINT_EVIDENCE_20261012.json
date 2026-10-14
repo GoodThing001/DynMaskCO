@@ -1,0 +1,54 @@
+{
+  "created_utc": "2026-10-11T21:30:21.469975+00:00",
+  "directory": "research\\review_3080_20261010\\pickup\\continuous_checkpoint_root_v2",
+  "metrics": {
+    "runtime_checks": 17,
+    "runtime_failed": 0,
+    "independent_checks": 2314,
+    "independent_failed": 0,
+    "walls_s": [
+      3.7715846999781206,
+      8.018785399966873
+    ],
+    "recovery_wall_s": 0.6302323000272736,
+    "physical_events": 7,
+    "records": [
+      {
+        "callback": 18,
+        "order": 53,
+        "decision": "accepted",
+        "clock": 4.731592178344727,
+        "event_id": 31,
+        "replan_count": 26,
+        "services": 13,
+        "payload_bytes": 18884,
+        "payload_sha256": "a934e58380085f5158d2fee27a37d001c6896be3b241dd1cb7b67dc76bf7c21a"
+      },
+      {
+        "callback": 19,
+        "order": 26,
+        "decision": "rejected",
+        "clock": 5.317551136016846,
+        "event_id": 34,
+        "replan_count": 28,
+        "services": 15,
+        "payload_bytes": 21456,
+        "payload_sha256": "6b73b5d0e8eb0b7bdf0e24c5edde54bbbaf70c4ee9a3d9f31f90aa0528e389fd"
+      }
+    ],
+    "writer_files": 514,
+    "writer_modules": 263,
+    "audit_files": 522,
+    "audit_modules": 251
+  },
+  "scoped_two_endogenous_checkpoint_component_qualified": true,
+  "preserved_producer_v1_exit1_sha256": "35443ad014cac2ec22a99ea710858ecf52fadd00e78f37f9cec776979d3b2e61",
+  "preserved_audit_v2_startup_failure": true,
+  "producer_registration_sha256": "26b16deeef8f4c5e7c272c6816ac4458539f3c3aef977661e292a6995bfb1965",
+  "independent_sha256": "f4b80b91831d73de7380705bb427f120d8a89c4f0c8640f8f48f93f912fdb517",
+  "physical_ack_loss_qualified": false,
+  "full_live_request_qualified": false,
+  "full_loaded_dependency_closure_qualified": false,
+  "new_scientific_data": false,
+  "stable_online_gain": false
+}

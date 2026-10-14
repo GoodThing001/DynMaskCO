@@ -14,7 +14,7 @@ from pathlib import Path
 
 import numpy as np
 
-from i3_counterfactual_teacher import TeacherRecord, TRAIN_SEED, record_identity
+from i3_counterfactual_teacher import TeacherRecord, TRAIN_SEED, record_identity, teacher_preference
 from scenario_saa import ScenarioOrder, VisibleSnapshot, VisibleVehicle
 from run_identity import dataset_identity, dataset_meta_sha256
 
@@ -128,6 +128,17 @@ def _validate(context, dataset, entries, expected_keys):
                 int(record.snapshot['instance_id']) != entry['day_id'] or
                 record.snapshot.get('coldchain_contract_hash') != context['contract_hash']):
             raise ValueError('Teacher record/context identity mismatch')
+        branches = entry.get('branches')
+        minimum_gap = context['collection_config'].get('minimum_gap')
+        if not isinstance(branches, (list, tuple)) or len(branches) != 2 or minimum_gap is None:
+            raise ValueError('Archive requires both branches and an explicit teacher threshold')
+        if teacher_preference(*branches, minimum_gap=minimum_gap) != entry.get('preference'):
+            raise ValueError('Archived teacher preference does not match branch outcomes')
+        for accept, branch in zip((True, False), branches):
+            if branch.get('action_feasible'):
+                chosen, other = ('accepted', 'rejected') if accept else ('rejected', 'accepted')
+                if record.candidate not in branch.get(chosen, ()) or record.candidate in branch.get(other, ()):
+                    raise ValueError('Archived branch does not reflect the forced action')
 
 
 def write_archive(path, *, context, dataset, entries, expected_keys):

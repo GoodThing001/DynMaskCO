@@ -1,0 +1,7318 @@
+{
+  "arm": "gls",
+  "instance_id": 1,
+  "order_position": 3,
+  "started": 2922719.0405447,
+  "deadline": 2922729.0405447,
+  "submitted": 2922729.0297829,
+  "wall_s": 9.989238200243562,
+  "timeout": false,
+  "parent_deadline_missed": false,
+  "own_incumbent_fallback": false,
+  "worker_pid": 15332,
+  "ready": {
+    "kind": "ready",
+    "pid": 15332,
+    "mode": "gls",
+    "contract_hash": "ba40cd0d08fc21ef09d418c7df2bff940294ee2cfecebd2a4ba9ddde35a8268a",
+    "provider": null,
+    "actual_cpu_affinity": [
+      15
+    ]
+  },
+  "actual_result": {
+    "routes": [
+      [
+        9,
+        11,
+        40,
+        12,
+        1,
+        38,
+        7,
+        49,
+        28,
+        31,
+        35,
+        34
+      ],
+      [
+        48,
+        21,
+        42,
+        3,
+        36,
+        8,
+        26,
+        4,
+        18,
+        5,
+        20,
+        25,
+        33,
+        45
+      ],
+      [
+        32,
+        22,
+        47,
+        16,
+        50,
+        37,
+        24,
+        44,
+        6,
+        43,
+        39,
+        23
+      ],
+      [
+        41,
+        10,
+        2,
+        13,
+        30,
+        15,
+        29,
+        46,
+        14,
+        27,
+        17,
+        19
+      ]
+    ],
+    "report": {
+      "hard": true,
+      "complete": true,
+      "errors": [],
+      "cost": 68.25439250607772,
+      "distance_km": 66.67746527174202,
+      "energy_kwh": 14.444716617839298,
+      "quality_loss_value": 0.13245557255176826,
+      "delivered": [
+        {
+          "order_id": 9,
+          "vehicle": 0,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.1671821492670511,
+          "quantity": 1.0,
+          "quality": 8.999967423362502,
+          "quality_loss_value": 7.239252777235805e-06
+        },
+        {
+          "order_id": 11,
+          "vehicle": 0,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.24893429708870082,
+          "quantity": 1.0,
+          "quality": 0.9996340278774974,
+          "quality_loss_value": 0.00036597212250255584
+        },
+        {
+          "order_id": 40,
+          "vehicle": 0,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.30000536305427217,
+          "quantity": 3.0,
+          "quality": 8.995292399013687,
+          "quality_loss_value": 0.002353800493156588
+        },
+        {
+          "order_id": 12,
+          "vehicle": 0,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.355496283967042,
+          "quantity": 3.0,
+          "quality": 8.994247504972899,
+          "quality_loss_value": 0.0028762475135508114
+        },
+        {
+          "order_id": 1,
+          "vehicle": 0,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.40910832535643893,
+          "quantity": 1.0,
+          "quality": 8.993237990233537,
+          "quality_loss_value": 0.0011270016277439288
+        },
+        {
+          "order_id": 38,
+          "vehicle": 0,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.48406894102499776,
+          "quantity": 3.0,
+          "quality": 8.991826481840498,
+          "quality_loss_value": 0.0040867590797511455
+        },
+        {
+          "order_id": 7,
+          "vehicle": 0,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.5646706889037761,
+          "quantity": 5.0,
+          "quality": 8.999856921548478,
+          "quality_loss_value": 0.00015897605724735087
+        },
+        {
+          "order_id": 49,
+          "vehicle": 0,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.6037989391259847,
+          "quantity": 3.0,
+          "quality": 8.999846043894916,
+          "quality_loss_value": 0.00010263740338967153
+        },
+        {
+          "order_id": 28,
+          "vehicle": 0,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.6692133698159389,
+          "quantity": 2.0,
+          "quality": 8.999827858683183,
+          "quality_loss_value": 7.650725191865604e-05
+        },
+        {
+          "order_id": 31,
+          "vehicle": 0,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.7011492689409434,
+          "quantity": 3.0,
+          "quality": 0.998802602797953,
+          "quality_loss_value": 0.003592191606141104
+        },
+        {
+          "order_id": 35,
+          "vehicle": 0,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.8050359236309528,
+          "quantity": 5.0,
+          "quality": 0.9986116984839273,
+          "quality_loss_value": 0.006941507580363604
+        },
+        {
+          "order_id": 34,
+          "vehicle": 0,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.8376813237112132,
+          "quantity": 4.0,
+          "quality": 0.9985517161411449,
+          "quality_loss_value": 0.005793135435420371
+        },
+        {
+          "order_id": 48,
+          "vehicle": 1,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.1666307559838988,
+          "quantity": 3.0,
+          "quality": 8.999967576649835,
+          "quality_loss_value": 2.161556677648946e-05
+        },
+        {
+          "order_id": 21,
+          "vehicle": 1,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.21857708392296257,
+          "quantity": 3.0,
+          "quality": 8.996825693509729,
+          "quality_loss_value": 0.0015871532451355863
+        },
+        {
+          "order_id": 42,
+          "vehicle": 1,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.2662692065789366,
+          "quantity": 2.0,
+          "quality": 8.999939877160568,
+          "quality_loss_value": 2.6721261969786525e-05
+        },
+        {
+          "order_id": 3,
+          "vehicle": 1,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.33831190912530895,
+          "quantity": 3.0,
+          "quality": 8.994571086751167,
+          "quality_loss_value": 0.0027144566244167723
+        },
+        {
+          "order_id": 36,
+          "vehicle": 1,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.4159292830770933,
+          "quantity": 4.0,
+          "quality": 8.993109551599654,
+          "quality_loss_value": 0.004593632266897352
+        },
+        {
+          "order_id": 8,
+          "vehicle": 1,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.4475743653161912,
+          "quantity": 1.0,
+          "quality": 8.99251367470109,
+          "quality_loss_value": 0.0012477208831516151
+        },
+        {
+          "order_id": 26,
+          "vehicle": 1,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.48960472275443956,
+          "quantity": 2.0,
+          "quality": 8.991722243070528,
+          "quality_loss_value": 0.0027592523098239896
+        },
+        {
+          "order_id": 4,
+          "vehicle": 1,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.5652510111243526,
+          "quantity": 4.0,
+          "quality": 8.9998567602189,
+          "quality_loss_value": 0.0001273242498660565
+        },
+        {
+          "order_id": 18,
+          "vehicle": 1,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.6406640379340739,
+          "quantity": 5.0,
+          "quality": 8.999835795397447,
+          "quality_loss_value": 0.00018244955839241683
+        },
+        {
+          "order_id": 5,
+          "vehicle": 1,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.6973811810333405,
+          "quantity": 1.0,
+          "quality": 0.9988095278018173,
+          "quality_loss_value": 0.0011904721981826905
+        },
+        {
+          "order_id": 20,
+          "vehicle": 1,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.7758797519047514,
+          "quantity": 2.0,
+          "quality": 8.986331684271626,
+          "quality_loss_value": 0.004556105242791486
+        },
+        {
+          "order_id": 25,
+          "vehicle": 1,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.8662185073367071,
+          "quantity": 3.0,
+          "quality": 8.984630605506842,
+          "quality_loss_value": 0.007684697246579053
+        },
+        {
+          "order_id": 33,
+          "vehicle": 1,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.9192173343094033,
+          "quantity": 5.0,
+          "quality": 0.9984019183993327,
+          "quality_loss_value": 0.007990408003336613
+        },
+        {
+          "order_id": 45,
+          "vehicle": 1,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.9885535209606248,
+          "quantity": 1.0,
+          "quality": 0.9982745518216778,
+          "quality_loss_value": 0.0017254481783222086
+        },
+        {
+          "order_id": 32,
+          "vehicle": 2,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.12615596843868782,
+          "quantity": 3.0,
+          "quality": 8.998565983114299,
+          "quality_loss_value": 0.0007170084428507195
+        },
+        {
+          "order_id": 22,
+          "vehicle": 2,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.1742064716923388,
+          "quantity": 4.0,
+          "quality": 8.999965470600866,
+          "quality_loss_value": 3.069279923018087e-05
+        },
+        {
+          "order_id": 47,
+          "vehicle": 2,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.23438587777151404,
+          "quantity": 4.0,
+          "quality": 8.99652801392156,
+          "quality_loss_value": 0.0023146573856263064
+        },
+        {
+          "order_id": 16,
+          "vehicle": 2,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.293344997777107,
+          "quantity": 4.0,
+          "quality": 8.995417813691855,
+          "quality_loss_value": 0.003054790872096369
+        },
+        {
+          "order_id": 50,
+          "vehicle": 2,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.34419813762687734,
+          "quantity": 3.0,
+          "quality": 0.9994588219164792,
+          "quality_loss_value": 0.0016235342505624972
+        },
+        {
+          "order_id": 37,
+          "vehicle": 2,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.4027002452595737,
+          "quantity": 3.0,
+          "quality": 8.993358654381758,
+          "quality_loss_value": 0.003320672809120684
+        },
+        {
+          "order_id": 24,
+          "vehicle": 2,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.45969461428491665,
+          "quantity": 5.0,
+          "quality": 0.9992464459742646,
+          "quality_loss_value": 0.003767770128677017
+        },
+        {
+          "order_id": 44,
+          "vehicle": 2,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.5529919568282314,
+          "quantity": 3.0,
+          "quality": 0.9990749229472794,
+          "quality_loss_value": 0.002775231158161806
+        },
+        {
+          "order_id": 6,
+          "vehicle": 2,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.640003583831347,
+          "quantity": 3.0,
+          "quality": 0.9989149824634079,
+          "quality_loss_value": 0.00325505260977621
+        },
+        {
+          "order_id": 43,
+          "vehicle": 2,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.6831699798363278,
+          "quantity": 2.0,
+          "quality": 8.999823978745594,
+          "quality_loss_value": 7.823166862497288e-05
+        },
+        {
+          "order_id": 39,
+          "vehicle": 2,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.7543263460718078,
+          "quantity": 4.0,
+          "quality": 8.986737534903463,
+          "quality_loss_value": 0.008841643397691223
+        },
+        {
+          "order_id": 23,
+          "vehicle": 2,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.816504181021686,
+          "quantity": 2.0,
+          "quality": 8.985566726271356,
+          "quality_loss_value": 0.00481109124288126
+        },
+        {
+          "order_id": 41,
+          "vehicle": 3,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.12522446715605756,
+          "quantity": 2.0,
+          "quality": 8.99858352328345,
+          "quality_loss_value": 0.0004721589055164399
+        },
+        {
+          "order_id": 10,
+          "vehicle": 3,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.20654730577006586,
+          "quantity": 2.0,
+          "quality": 8.999956479848993,
+          "quality_loss_value": 1.934228933642146e-05
+        },
+        {
+          "order_id": 2,
+          "vehicle": 3,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.28083440255805436,
+          "quantity": 5.0,
+          "quality": 0.9995753548865621,
+          "quality_loss_value": 0.0021232255671893574
+        },
+        {
+          "order_id": 13,
+          "vehicle": 3,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.32026251537076533,
+          "quantity": 2.0,
+          "quality": 8.994910956835565,
+          "quality_loss_value": 0.0016963477214785305
+        },
+        {
+          "order_id": 30,
+          "vehicle": 3,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.44991662725267767,
+          "quantity": 5.0,
+          "quality": 0.9992644240745658,
+          "quality_loss_value": 0.0036778796271708103
+        },
+        {
+          "order_id": 15,
+          "vehicle": 3,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.5533354415151392,
+          "quantity": 3.0,
+          "quality": 0.9990742915203148,
+          "quality_loss_value": 0.0027771254390556166
+        },
+        {
+          "order_id": 29,
+          "vehicle": 3,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.6408374066604978,
+          "quantity": 4.0,
+          "quality": 8.988874531632577,
+          "quality_loss_value": 0.007416978911615191
+        },
+        {
+          "order_id": 46,
+          "vehicle": 3,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.7081249723266109,
+          "quantity": 4.0,
+          "quality": 0.998789782954942,
+          "quality_loss_value": 0.004840868180231883
+        },
+        {
+          "order_id": 14,
+          "vehicle": 3,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.7557282459328611,
+          "quantity": 3.0,
+          "quality": 8.986711137129078,
+          "quality_loss_value": 0.006644431435461118
+        },
+        {
+          "order_id": 27,
+          "vehicle": 3,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.8133742772622784,
+          "quantity": 1.0,
+          "quality": 0.9985963773308928,
+          "quality_loss_value": 0.0014036226691072073
+        },
+        {
+          "order_id": 17,
+          "vehicle": 3,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.9122920700378064,
+          "quantity": 1.0,
+          "quality": 8.999760282804516,
+          "quality_loss_value": 5.327048788528188e-05
+        },
+        {
+          "order_id": 19,
+          "vehicle": 3,
+          "loading_finish": 0.05,
+          "delivery_finish": 0.9582885691390886,
+          "quantity": 1.0,
+          "quality": 8.982896926243104,
+          "quality_loss_value": 0.002850512292816021
+        }
+      ],
+      "traces": [
+        {
+          "vehicle": 0,
+          "return_time": 0.9306078141625821,
+          "events": [
+            {
+              "kind": "load",
+              "time": 0.05,
+              "orders": [
+                9,
+                11,
+                40,
+                12,
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ],
+              "load_after": 34.0,
+              "preconditioning_energy_kwh": 0.5
+            },
+            {
+              "kind": "travel",
+              "start": 0.05,
+              "end": 0.1371821492670511,
+              "distance_km": 2.6154644780115333,
+              "energy_kwh": 0.36883743127930474,
+              "load": 34.0,
+              "manifest": [
+                9,
+                11,
+                40,
+                12,
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.1371821492670511,
+              "end": 0.1371821492670511,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 34.0,
+              "manifest": [
+                9,
+                11,
+                40,
+                12,
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.1371821492670511,
+              "end": 0.1671821492670511,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12665450870746872,
+              "load": 34.0,
+              "manifest": [
+                9,
+                11,
+                40,
+                12,
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 9,
+              "time": 0.1671821492670511,
+              "load_before": 34.0,
+              "load_after": 33.0,
+              "door_heat_kwh": 0.06,
+              "door_recovery_kwh": 0.03508771929824561
+            },
+            {
+              "kind": "travel",
+              "start": 0.1671821492670511,
+              "end": 0.21893429708870082,
+              "distance_km": 1.5525644346494911,
+              "energy_kwh": 0.2181778586137021,
+              "load": 33.0,
+              "manifest": [
+                11,
+                40,
+                12,
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.21893429708870082,
+              "end": 0.21893429708870082,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 33.0,
+              "manifest": [
+                11,
+                40,
+                12,
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.21893429708870082,
+              "end": 0.24893429708870082,
+              "distance_km": 0.0,
+              "energy_kwh": 0.1262982233876611,
+              "load": 33.0,
+              "manifest": [
+                11,
+                40,
+                12,
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 11,
+              "time": 0.24893429708870082,
+              "load_before": 33.0,
+              "load_after": 32.0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "travel",
+              "start": 0.24893429708870082,
+              "end": 0.27000536305427214,
+              "distance_km": 0.6321319789671391,
+              "energy_kwh": 0.08863189658796143,
+              "load": 32.0,
+              "manifest": [
+                40,
+                12,
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.27000536305427214,
+              "end": 0.27000536305427214,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 32.0,
+              "manifest": [
+                40,
+                12,
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.27000536305427214,
+              "end": 0.30000536305427217,
+              "distance_km": 0.0,
+              "energy_kwh": 0.1260832414006637,
+              "load": 32.0,
+              "manifest": [
+                40,
+                12,
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 40,
+              "time": 0.30000536305427217,
+              "load_before": 32.0,
+              "load_after": 29.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.30000536305427217,
+              "end": 0.325496283967042,
+              "distance_km": 0.7647276273830947,
+              "energy_kwh": 0.10703543250627065,
+              "load": 29.0,
+              "manifest": [
+                12,
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.325496283967042,
+              "end": 0.325496283967042,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 29.0,
+              "manifest": [
+                12,
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.325496283967042,
+              "end": 0.355496283967042,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12585632565828764,
+              "load": 29.0,
+              "manifest": [
+                12,
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 12,
+              "time": 0.355496283967042,
+              "load_before": 29.0,
+              "load_after": 26.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.355496283967042,
+              "end": 0.3791083253564389,
+              "distance_km": 0.708361241681906,
+              "energy_kwh": 0.09897316110488005,
+              "load": 26.0,
+              "manifest": [
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.3791083253564389,
+              "end": 0.3791083253564389,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 26.0,
+              "manifest": [
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.3791083253564389,
+              "end": 0.40910832535643893,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12564373613919533,
+              "load": 26.0,
+              "manifest": [
+                1,
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 1,
+              "time": 0.40910832535643893,
+              "load_before": 26.0,
+              "load_after": 25.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.40910832535643893,
+              "end": 0.4540689410249978,
+              "distance_km": 1.3488184700567656,
+              "energy_kwh": 0.1880839260930251,
+              "load": 25.0,
+              "manifest": [
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.4540689410249978,
+              "end": 0.4540689410249978,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 25.0,
+              "manifest": [
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.4540689410249978,
+              "end": 0.48406894102499776,
+              "distance_km": 0.0,
+              "energy_kwh": 0.1253575184173905,
+              "load": 25.0,
+              "manifest": [
+                38,
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 38,
+              "time": 0.48406894102499776,
+              "load_before": 25.0,
+              "load_after": 22.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.48406894102499776,
+              "end": 0.5346706889037761,
+              "distance_km": 1.5180524363633499,
+              "energy_kwh": 0.1441772426156296,
+              "load": 22.0,
+              "manifest": [
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.5346706889037761,
+              "end": 0.5346706889037761,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 22.0,
+              "manifest": [
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.5346706889037761,
+              "end": 0.5646706889037761,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0853938946258762,
+              "load": 22.0,
+              "manifest": [
+                7,
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 7,
+              "time": 0.5646706889037761,
+              "load_before": 22.0,
+              "load_after": 17.0,
+              "door_heat_kwh": 0.06,
+              "door_recovery_kwh": 0.03508771929824561
+            },
+            {
+              "kind": "travel",
+              "start": 0.5646706889037761,
+              "end": 0.5737989391259847,
+              "distance_km": 0.2738475066662564,
+              "energy_kwh": 0.025971098895856227,
+              "load": 17.0,
+              "manifest": [
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.5737989391259847,
+              "end": 0.5737989391259847,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 17.0,
+              "manifest": [
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.5737989391259847,
+              "end": 0.6037989391259847,
+              "distance_km": 0.0,
+              "energy_kwh": 0.08531477755749967,
+              "load": 17.0,
+              "manifest": [
+                49,
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 49,
+              "time": 0.6037989391259847,
+              "load_before": 17.0,
+              "load_after": 14.0,
+              "door_heat_kwh": 0.06,
+              "door_recovery_kwh": 0.03508273193079717
+            },
+            {
+              "kind": "travel",
+              "start": 0.6037989391259847,
+              "end": 0.6392133698159389,
+              "distance_km": 1.0624329206986245,
+              "energy_kwh": 0.1006363004460779,
+              "load": 14.0,
+              "manifest": [
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.6392133698159389,
+              "end": 0.6392133698159389,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 14.0,
+              "manifest": [
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.6392133698159389,
+              "end": 0.6692133698159389,
+              "distance_km": 0.0,
+              "energy_kwh": 0.08518712734752236,
+              "load": 14.0,
+              "manifest": [
+                28,
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 28,
+              "time": 0.6692133698159389,
+              "load_before": 14.0,
+              "load_after": 12.0,
+              "door_heat_kwh": 0.06,
+              "door_recovery_kwh": 0.03508771929824561
+            },
+            {
+              "kind": "travel",
+              "start": 0.6692133698159389,
+              "end": 0.6711492689409434,
+              "distance_km": 0.05807697375013521,
+              "energy_kwh": 0.00011283181987293108,
+              "load": 12.0,
+              "manifest": [
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.6711492689409434,
+              "end": 0.6711492689409434,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 12.0,
+              "manifest": [
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.6711492689409434,
+              "end": 0.7011492689409434,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0017375982005884037,
+              "load": 12.0,
+              "manifest": [
+                31,
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 31,
+              "time": 0.7011492689409434,
+              "load_before": 12.0,
+              "load_after": 9.0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "travel",
+              "start": 0.7011492689409434,
+              "end": 0.7750359236309527,
+              "distance_km": 2.21659964070028,
+              "energy_kwh": 0.004194273720045777,
+              "load": 9.0,
+              "manifest": [
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.7750359236309527,
+              "end": 0.7750359236309527,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 9.0,
+              "manifest": [
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.7750359236309527,
+              "end": 0.8050359236309528,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0016695405719522542,
+              "load": 9.0,
+              "manifest": [
+                35,
+                34
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 35,
+              "time": 0.8050359236309528,
+              "load_before": 9.0,
+              "load_after": 4.0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "travel",
+              "start": 0.8050359236309528,
+              "end": 0.8076813237112132,
+              "distance_km": 0.07936200240781231,
+              "energy_kwh": 0.00014631886569860798,
+              "load": 4.0,
+              "manifest": [
+                34
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.8076813237112132,
+              "end": 0.8076813237112132,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 4.0,
+              "manifest": [
+                34
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.8076813237112132,
+              "end": 0.8376813237112132,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0016492714519725886,
+              "load": 4.0,
+              "manifest": [
+                34
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 34,
+              "time": 0.8376813237112132,
+              "load_before": 4.0,
+              "load_after": 0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035837125643900384
+            },
+            {
+              "kind": "return",
+              "start": 0.8376813237112132,
+              "end": 0.9306078141625821,
+              "distance_km": 2.787794713541068,
+              "energy_kwh": 0.0,
+              "load": 0,
+              "manifest": []
+            }
+          ],
+          "terminal_manifest": []
+        },
+        {
+          "vehicle": 1,
+          "return_time": 1.0614678652160745,
+          "events": [
+            {
+              "kind": "load",
+              "time": 0.05,
+              "orders": [
+                48,
+                21,
+                42,
+                3,
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ],
+              "load_after": 39.0,
+              "preconditioning_energy_kwh": 0.5
+            },
+            {
+              "kind": "travel",
+              "start": 0.05,
+              "end": 0.1366307559838988,
+              "distance_km": 2.598922679516964,
+              "energy_kwh": 0.3665082974016327,
+              "load": 39.0,
+              "manifest": [
+                48,
+                21,
+                42,
+                3,
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.1366307559838988,
+              "end": 0.1366307559838988,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 39.0,
+              "manifest": [
+                48,
+                21,
+                42,
+                3,
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.1366307559838988,
+              "end": 0.1666307559838988,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12665696223239306,
+              "load": 39.0,
+              "manifest": [
+                48,
+                21,
+                42,
+                3,
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 48,
+              "time": 0.1666307559838988,
+              "load_before": 39.0,
+              "load_after": 36.0,
+              "door_heat_kwh": 0.06,
+              "door_recovery_kwh": 0.03508771929824561
+            },
+            {
+              "kind": "travel",
+              "start": 0.1666307559838988,
+              "end": 0.18857708392296257,
+              "distance_km": 0.6583898381719135,
+              "energy_kwh": 0.0925711356810961,
+              "load": 36.0,
+              "manifest": [
+                21,
+                42,
+                3,
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.18857708392296257,
+              "end": 0.18857708392296257,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 36.0,
+              "manifest": [
+                21,
+                42,
+                3,
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.18857708392296257,
+              "end": 0.21857708392296257,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12642878378058778,
+              "load": 36.0,
+              "manifest": [
+                21,
+                42,
+                3,
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 21,
+              "time": 0.21857708392296257,
+              "load_before": 36.0,
+              "load_after": 33.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.21857708392296257,
+              "end": 0.23626920657893663,
+              "distance_km": 0.5307636796792214,
+              "energy_kwh": 0.07449916841972379,
+              "load": 33.0,
+              "manifest": [
+                42,
+                3,
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.23626920657893663,
+              "end": 0.23626920657893663,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 33.0,
+              "manifest": [
+                42,
+                3,
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.23626920657893663,
+              "end": 0.2662692065789366,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12622459533180944,
+              "load": 33.0,
+              "manifest": [
+                42,
+                3,
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 42,
+              "time": 0.2662692065789366,
+              "load_before": 33.0,
+              "load_after": 31.0,
+              "door_heat_kwh": 0.06,
+              "door_recovery_kwh": 0.03508771929824561
+            },
+            {
+              "kind": "travel",
+              "start": 0.2662692065789366,
+              "end": 0.3083119091253089,
+              "distance_km": 1.2612810763911697,
+              "energy_kwh": 0.17668283289945308,
+              "load": 31.0,
+              "manifest": [
+                3,
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.3083119091253089,
+              "end": 0.3083119091253089,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 31.0,
+              "manifest": [
+                3,
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.3083119091253089,
+              "end": 0.33831190912530895,
+              "distance_km": 0.0,
+              "energy_kwh": 0.125925851247157,
+              "load": 31.0,
+              "manifest": [
+                3,
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 3,
+              "time": 0.33831190912530895,
+              "load_before": 31.0,
+              "load_after": 28.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.33831190912530895,
+              "end": 0.3859292830770933,
+              "distance_km": 1.4285212185535303,
+              "energy_kwh": 0.1996277768066117,
+              "load": 28.0,
+              "manifest": [
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.3859292830770933,
+              "end": 0.3859292830770933,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 28.0,
+              "manifest": [
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.3859292830770933,
+              "end": 0.4159292830770933,
+              "distance_km": 0.0,
+              "energy_kwh": 0.1256171591120768,
+              "load": 28.0,
+              "manifest": [
+                36,
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 36,
+              "time": 0.4159292830770933,
+              "load_before": 28.0,
+              "load_after": 24.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.4159292830770933,
+              "end": 0.4175743653161912,
+              "distance_km": 0.049352467172936655,
+              "energy_kwh": 0.006884989020318461,
+              "load": 24.0,
+              "manifest": [
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.4175743653161912,
+              "end": 0.4175743653161912,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 24.0,
+              "manifest": [
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.4175743653161912,
+              "end": 0.4475743653161912,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12549525181807591,
+              "load": 24.0,
+              "manifest": [
+                8,
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 8,
+              "time": 0.4475743653161912,
+              "load_before": 24.0,
+              "load_after": 23.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014761405536893873
+            },
+            {
+              "kind": "travel",
+              "start": 0.4475743653161912,
+              "end": 0.4596047227544396,
+              "distance_km": 0.360910723147451,
+              "energy_kwh": 0.05029310661772162,
+              "load": 23.0,
+              "manifest": [
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.4596047227544396,
+              "end": 0.4596047227544396,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 23.0,
+              "manifest": [
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.4596047227544396,
+              "end": 0.48960472275443956,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12533689388115146,
+              "load": 23.0,
+              "manifest": [
+                26,
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 26,
+              "time": 0.48960472275443956,
+              "load_before": 23.0,
+              "load_after": 21.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014758125768100212
+            },
+            {
+              "kind": "travel",
+              "start": 0.48960472275443956,
+              "end": 0.5352510111243526,
+              "distance_km": 1.3693886510973918,
+              "energy_kwh": 0.19049411155597148,
+              "load": 21.0,
+              "manifest": [
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.5352510111243526,
+              "end": 0.5352510111243526,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 21.0,
+              "manifest": [
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.5352510111243526,
+              "end": 0.5652510111243526,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12506216279916918,
+              "load": 21.0,
+              "manifest": [
+                4,
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 4,
+              "time": 0.5652510111243526,
+              "load_before": 21.0,
+              "load_after": 17.0,
+              "door_heat_kwh": 0.06,
+              "door_recovery_kwh": 0.03508771929824561
+            },
+            {
+              "kind": "travel",
+              "start": 0.5652510111243526,
+              "end": 0.6106640379340739,
+              "distance_km": 1.3623908042916384,
+              "energy_kwh": 0.18911543271471432,
+              "load": 17.0,
+              "manifest": [
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.6106640379340739,
+              "end": 0.6106640379340739,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 17.0,
+              "manifest": [
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.6106640379340739,
+              "end": 0.6406640379340739,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12480152740105085,
+              "load": 17.0,
+              "manifest": [
+                18,
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 18,
+              "time": 0.6406640379340739,
+              "load_before": 17.0,
+              "load_after": 12.0,
+              "door_heat_kwh": 0.06,
+              "door_recovery_kwh": 0.03508771929824561
+            },
+            {
+              "kind": "travel",
+              "start": 0.6406640379340739,
+              "end": 0.6673811810333404,
+              "distance_km": 0.8015142929779961,
+              "energy_kwh": 0.03676206990133562,
+              "load": 12.0,
+              "manifest": [
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.6673811810333404,
+              "end": 0.6673811810333404,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 12.0,
+              "manifest": [
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.6673811810333404,
+              "end": 0.6973811810333405,
+              "distance_km": 0.0,
+              "energy_kwh": 0.04122050399061906,
+              "load": 12.0,
+              "manifest": [
+                5,
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 5,
+              "time": 0.6973811810333405,
+              "load_before": 12.0,
+              "load_after": 11.0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "travel",
+              "start": 0.6973811810333405,
+              "end": 0.7458797519047514,
+              "distance_km": 1.4549571261423297,
+              "energy_kwh": 0.06650986122034365,
+              "load": 11.0,
+              "manifest": [
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.7458797519047514,
+              "end": 0.7458797519047514,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 11.0,
+              "manifest": [
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.7458797519047514,
+              "end": 0.7758797519047514,
+              "distance_km": 0.0,
+              "energy_kwh": 0.041064287917929904,
+              "load": 11.0,
+              "manifest": [
+                20,
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 20,
+              "time": 0.7758797519047514,
+              "load_before": 11.0,
+              "load_after": 9.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.7758797519047514,
+              "end": 0.8362185073367071,
+              "distance_km": 1.8101626629586685,
+              "energy_kwh": 0.08242025775524929,
+              "load": 9.0,
+              "manifest": [
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.8362185073367071,
+              "end": 0.8362185073367071,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 9.0,
+              "manifest": [
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.8362185073367071,
+              "end": 0.8662185073367071,
+              "distance_km": 0.0,
+              "energy_kwh": 0.040895978523470135,
+              "load": 9.0,
+              "manifest": [
+                25,
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 25,
+              "time": 0.8662185073367071,
+              "load_before": 9.0,
+              "load_after": 6.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.8662185073367071,
+              "end": 0.8892173343094033,
+              "distance_km": 0.6899648091808865,
+              "energy_kwh": 0.0012391066197665285,
+              "load": 6.0,
+              "manifest": [
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.8892173343094033,
+              "end": 0.8892173343094033,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 6.0,
+              "manifest": [
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.8892173343094033,
+              "end": 0.9192173343094033,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0016009950962855176,
+              "load": 6.0,
+              "manifest": [
+                33,
+                45
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 33,
+              "time": 0.9192173343094033,
+              "load_before": 6.0,
+              "load_after": 1.0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "travel",
+              "start": 0.9192173343094033,
+              "end": 0.9585535209606247,
+              "distance_km": 1.1800855995366426,
+              "energy_kwh": 0.0020736759573551393,
+              "load": 1.0,
+              "manifest": [
+                45
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.9585535209606247,
+              "end": 0.9585535209606247,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 1.0,
+              "manifest": [
+                45
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.9585535209606247,
+              "end": 0.9885535209606248,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0015625936338703433,
+              "load": 1.0,
+              "manifest": [
+                45
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 45,
+              "time": 0.9885535209606248,
+              "load_before": 1.0,
+              "load_after": 0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "return",
+              "start": 0.9885535209606248,
+              "end": 1.0614678652160745,
+              "distance_km": 2.1874303276634914,
+              "energy_kwh": 0.0,
+              "load": 0,
+              "manifest": []
+            }
+          ],
+          "terminal_manifest": []
+        },
+        {
+          "vehicle": 2,
+          "return_time": 0.9102486026981904,
+          "events": [
+            {
+              "kind": "load",
+              "time": 0.05,
+              "orders": [
+                32,
+                22,
+                47,
+                16,
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ],
+              "load_after": 40.0,
+              "preconditioning_energy_kwh": 0.5
+            },
+            {
+              "kind": "travel",
+              "start": 0.05,
+              "end": 0.09615596843868782,
+              "distance_km": 1.3846790531606343,
+              "energy_kwh": 0.19541432670595038,
+              "load": 40.0,
+              "manifest": [
+                32,
+                22,
+                47,
+                16,
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.09615596843868782,
+              "end": 0.09615596843868782,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 40.0,
+              "manifest": [
+                32,
+                22,
+                47,
+                16,
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.09615596843868782,
+              "end": 0.12615596843868782,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12683889928157982,
+              "load": 40.0,
+              "manifest": [
+                32,
+                22,
+                47,
+                16,
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 32,
+              "time": 0.12615596843868782,
+              "load_before": 40.0,
+              "load_after": 37.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.12615596843868782,
+              "end": 0.1442064716923388,
+              "distance_km": 0.5415150976095291,
+              "energy_kwh": 0.07625159183553308,
+              "load": 37.0,
+              "manifest": [
+                22,
+                47,
+                16,
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.1442064716923388,
+              "end": 0.1442064716923388,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 37.0,
+              "manifest": [
+                22,
+                47,
+                16,
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.1442064716923388,
+              "end": 0.1742064716923388,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12662331170792057,
+              "load": 37.0,
+              "manifest": [
+                22,
+                47,
+                16,
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 22,
+              "time": 0.1742064716923388,
+              "load_before": 37.0,
+              "load_after": 33.0,
+              "door_heat_kwh": 0.06,
+              "door_recovery_kwh": 0.03508771929824561
+            },
+            {
+              "kind": "travel",
+              "start": 0.1742064716923388,
+              "end": 0.20438587777151404,
+              "distance_km": 0.9053821823752575,
+              "energy_kwh": 0.1272473575214076,
+              "load": 33.0,
+              "manifest": [
+                47,
+                16,
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.20438587777151404,
+              "end": 0.20438587777151404,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 33.0,
+              "manifest": [
+                47,
+                16,
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.20438587777151404,
+              "end": 0.23438587777151404,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12636053603183714,
+              "load": 33.0,
+              "manifest": [
+                47,
+                16,
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 47,
+              "time": 0.23438587777151404,
+              "load_before": 33.0,
+              "load_after": 29.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.23438587777151404,
+              "end": 0.26334499777710696,
+              "distance_km": 0.8687736001677875,
+              "energy_kwh": 0.12185491786931911,
+              "load": 29.0,
+              "manifest": [
+                16,
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.26334499777710696,
+              "end": 0.26334499777710696,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 29.0,
+              "manifest": [
+                16,
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.26334499777710696,
+              "end": 0.293344997777107,
+              "distance_km": 0.0,
+              "energy_kwh": 0.1261109451422531,
+              "load": 29.0,
+              "manifest": [
+                16,
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 16,
+              "time": 0.293344997777107,
+              "load_before": 29.0,
+              "load_after": 25.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.293344997777107,
+              "end": 0.31419813762687737,
+              "distance_km": 0.6255941954931108,
+              "energy_kwh": 0.08758713431748985,
+              "load": 25.0,
+              "manifest": [
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.31419813762687737,
+              "end": 0.31419813762687737,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 25.0,
+              "manifest": [
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.31419813762687737,
+              "end": 0.34419813762687734,
+              "distance_km": 0.0,
+              "energy_kwh": 0.1259019609375875,
+              "load": 25.0,
+              "manifest": [
+                50,
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 50,
+              "time": 0.34419813762687734,
+              "load_before": 25.0,
+              "load_after": 22.0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "travel",
+              "start": 0.34419813762687734,
+              "end": 0.37270024525957374,
+              "distance_km": 0.8550632289808924,
+              "energy_kwh": 0.11950401585903367,
+              "load": 22.0,
+              "manifest": [
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.37270024525957374,
+              "end": 0.37270024525957374,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 22.0,
+              "manifest": [
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.37270024525957374,
+              "end": 0.4027002452595737,
+              "distance_km": 0.0,
+              "energy_kwh": 0.1256688013445214,
+              "load": 22.0,
+              "manifest": [
+                37,
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 37,
+              "time": 0.4027002452595737,
+              "load_before": 22.0,
+              "load_after": 19.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.4027002452595737,
+              "end": 0.4296946142849166,
+              "distance_km": 0.8098310707602874,
+              "energy_kwh": 0.11297866728002129,
+              "load": 19.0,
+              "manifest": [
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.4296946142849166,
+              "end": 0.4296946142849166,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 19.0,
+              "manifest": [
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.4296946142849166,
+              "end": 0.45969461428491665,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12544916922081106,
+              "load": 19.0,
+              "manifest": [
+                24,
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 24,
+              "time": 0.45969461428491665,
+              "load_before": 19.0,
+              "load_after": 14.0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "travel",
+              "start": 0.45969461428491665,
+              "end": 0.5229919568282314,
+              "distance_km": 1.8989202762994433,
+              "energy_kwh": 0.264319703350971,
+              "load": 14.0,
+              "manifest": [
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.5229919568282314,
+              "end": 0.5229919568282314,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 14.0,
+              "manifest": [
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.5229919568282314,
+              "end": 0.5529919568282314,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12510578409952117,
+              "load": 14.0,
+              "manifest": [
+                44,
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 44,
+              "time": 0.5529919568282314,
+              "load_before": 14.0,
+              "load_after": 11.0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "travel",
+              "start": 0.5529919568282314,
+              "end": 0.610003583831347,
+              "distance_km": 1.7103488100934687,
+              "energy_kwh": 0.23745872531937467,
+              "load": 11.0,
+              "manifest": [
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.610003583831347,
+              "end": 0.610003583831347,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 11.0,
+              "manifest": [
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.610003583831347,
+              "end": 0.640003583831347,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12480375228610946,
+              "load": 11.0,
+              "manifest": [
+                6,
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 6,
+              "time": 0.640003583831347,
+              "load_before": 11.0,
+              "load_after": 8.0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "travel",
+              "start": 0.640003583831347,
+              "end": 0.6531699798363277,
+              "distance_km": 0.3949918801494196,
+              "energy_kwh": 0.0539675591776335,
+              "load": 8.0,
+              "manifest": [
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.6531699798363277,
+              "end": 0.6531699798363277,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 8.0,
+              "manifest": [
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.6531699798363277,
+              "end": 0.6831699798363278,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12291056662713011,
+              "load": 8.0,
+              "manifest": [
+                43,
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 43,
+              "time": 0.6831699798363278,
+              "load_before": 8.0,
+              "load_after": 6.0,
+              "door_heat_kwh": 0.06,
+              "door_recovery_kwh": 0.03508771929824561
+            },
+            {
+              "kind": "travel",
+              "start": 0.6831699798363278,
+              "end": 0.7243263460718078,
+              "distance_km": 1.2346909870644018,
+              "energy_kwh": 0.05412255885415688,
+              "load": 6.0,
+              "manifest": [
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.7243263460718078,
+              "end": 0.7243263460718078,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 6.0,
+              "manifest": [
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.7243263460718078,
+              "end": 0.7543263460718078,
+              "distance_km": 0.0,
+              "energy_kwh": 0.03940417358986971,
+              "load": 6.0,
+              "manifest": [
+                39,
+                23
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 39,
+              "time": 0.7543263460718078,
+              "load_before": 6.0,
+              "load_after": 2.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.7543263460718078,
+              "end": 0.786504181021686,
+              "distance_km": 0.9653350484963428,
+              "energy_kwh": 0.04222157408090536,
+              "load": 2.0,
+              "manifest": [
+                23
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.786504181021686,
+              "end": 0.786504181021686,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 2.0,
+              "manifest": [
+                23
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.786504181021686,
+              "end": 0.816504181021686,
+              "distance_km": 0.0,
+              "energy_kwh": 0.039324717975678526,
+              "load": 2.0,
+              "manifest": [
+                23
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 23,
+              "time": 0.816504181021686,
+              "load_before": 2.0,
+              "load_after": 0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "return",
+              "start": 0.816504181021686,
+              "end": 0.9102486026981904,
+              "distance_km": 2.812332650295133,
+              "energy_kwh": 0.0,
+              "load": 0,
+              "manifest": []
+            }
+          ],
+          "terminal_manifest": []
+        },
+        {
+          "vehicle": 3,
+          "return_time": 1.0202578936478879,
+          "events": [
+            {
+              "kind": "load",
+              "time": 0.05,
+              "orders": [
+                41,
+                10,
+                2,
+                13,
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ],
+              "load_after": 33.0,
+              "preconditioning_energy_kwh": 0.5
+            },
+            {
+              "kind": "travel",
+              "start": 0.05,
+              "end": 0.09522446715605756,
+              "distance_km": 1.3567340146817266,
+              "energy_kwh": 0.19147378778891852,
+              "load": 33.0,
+              "manifest": [
+                41,
+                10,
+                2,
+                13,
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.09522446715605756,
+              "end": 0.09522446715605756,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 33.0,
+              "manifest": [
+                41,
+                10,
+                2,
+                13,
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.09522446715605756,
+              "end": 0.12522446715605756,
+              "distance_km": 0.0,
+              "energy_kwh": 0.1268431290345026,
+              "load": 33.0,
+              "manifest": [
+                41,
+                10,
+                2,
+                13,
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 41,
+              "time": 0.12522446715605756,
+              "load_before": 33.0,
+              "load_after": 31.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.12522446715605756,
+              "end": 0.17654730577006586,
+              "distance_km": 1.5396851584202487,
+              "energy_kwh": 0.21668577374093573,
+              "load": 31.0,
+              "manifest": [
+                10,
+                2,
+                13,
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.17654730577006586,
+              "end": 0.17654730577006586,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 31.0,
+              "manifest": [
+                10,
+                2,
+                13,
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.17654730577006586,
+              "end": 0.20654730577006586,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12648109110297096,
+              "load": 31.0,
+              "manifest": [
+                10,
+                2,
+                13,
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 10,
+              "time": 0.20654730577006586,
+              "load_before": 31.0,
+              "load_after": 29.0,
+              "door_heat_kwh": 0.06,
+              "door_recovery_kwh": 0.03508771929824561
+            },
+            {
+              "kind": "travel",
+              "start": 0.20654730577006586,
+              "end": 0.25083440255805434,
+              "distance_km": 1.3286129036396541,
+              "energy_kwh": 0.18647927411817966,
+              "load": 29.0,
+              "manifest": [
+                2,
+                13,
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.25083440255805434,
+              "end": 0.25083440255805434,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 29.0,
+              "manifest": [
+                2,
+                13,
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.25083440255805434,
+              "end": 0.28083440255805436,
+              "distance_km": 0.0,
+              "energy_kwh": 0.1261632531277863,
+              "load": 29.0,
+              "manifest": [
+                2,
+                13,
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 2,
+              "time": 0.28083440255805436,
+              "load_before": 29.0,
+              "load_after": 24.0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "travel",
+              "start": 0.28083440255805436,
+              "end": 0.29026251537076536,
+              "distance_km": 0.28284338438133033,
+              "energy_kwh": 0.039623501608578214,
+              "load": 24.0,
+              "manifest": [
+                13,
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.29026251537076536,
+              "end": 0.29026251537076536,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 24.0,
+              "manifest": [
+                13,
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.29026251537076536,
+              "end": 0.32026251537076533,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12599959736009353,
+              "load": 24.0,
+              "manifest": [
+                13,
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 13,
+              "time": 0.32026251537076533,
+              "load_before": 24.0,
+              "load_after": 22.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.32026251537076533,
+              "end": 0.4199166272526777,
+              "distance_km": 2.9896233564573715,
+              "energy_kwh": 0.4176803663879625,
+              "load": 22.0,
+              "manifest": [
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.4199166272526777,
+              "end": 0.4199166272526777,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 22.0,
+              "manifest": [
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.4199166272526777,
+              "end": 0.44991662725267767,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12548631995462675,
+              "load": 22.0,
+              "manifest": [
+                30,
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 30,
+              "time": 0.44991662725267767,
+              "load_before": 22.0,
+              "load_after": 17.0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "travel",
+              "start": 0.44991662725267767,
+              "end": 0.5233354415151392,
+              "distance_km": 2.202564427873845,
+              "energy_kwh": 0.3066282500090951,
+              "load": 17.0,
+              "manifest": [
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.5233354415151392,
+              "end": 0.5233354415151392,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 17.0,
+              "manifest": [
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.5233354415151392,
+              "end": 0.5533354415151392,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12510455712449553,
+              "load": 17.0,
+              "manifest": [
+                15,
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 15,
+              "time": 0.5533354415151392,
+              "load_before": 17.0,
+              "load_after": 14.0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "travel",
+              "start": 0.5533354415151392,
+              "end": 0.6108374066604978,
+              "distance_km": 1.725058954360757,
+              "energy_kwh": 0.23949712394971284,
+              "load": 14.0,
+              "manifest": [
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.6108374066604978,
+              "end": 0.6108374066604978,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 14.0,
+              "manifest": [
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.6108374066604978,
+              "end": 0.6408374066604978,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12480094353974061,
+              "load": 14.0,
+              "manifest": [
+                29,
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 29,
+              "time": 0.6408374066604978,
+              "load_before": 14.0,
+              "load_after": 10.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.6408374066604978,
+              "end": 0.6781249723266108,
+              "distance_km": 1.1186269699833915,
+              "energy_kwh": 0.15497833756570764,
+              "load": 10.0,
+              "manifest": [
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.6781249723266108,
+              "end": 0.6781249723266108,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 10.0,
+              "manifest": [
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.6781249723266108,
+              "end": 0.7081249723266109,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12457966785729221,
+              "load": 10.0,
+              "manifest": [
+                46,
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 46,
+              "time": 0.7081249723266109,
+              "load_before": 10.0,
+              "load_after": 6.0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "travel",
+              "start": 0.7081249723266109,
+              "end": 0.7257282459328611,
+              "distance_km": 0.5280982081875082,
+              "energy_kwh": 0.0730558690398621,
+              "load": 6.0,
+              "manifest": [
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.7257282459328611,
+              "end": 0.7257282459328611,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 6.0,
+              "manifest": [
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.7257282459328611,
+              "end": 0.7557282459328611,
+              "distance_km": 0.0,
+              "energy_kwh": 0.12442957130311477,
+              "load": 6.0,
+              "manifest": [
+                14,
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 14,
+              "time": 0.7557282459328611,
+              "load_before": 6.0,
+              "load_after": 3.0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "travel",
+              "start": 0.7557282459328611,
+              "end": 0.7833742772622784,
+              "distance_km": 0.8293809398825156,
+              "energy_kwh": 0.11458476874182785,
+              "load": 3.0,
+              "manifest": [
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.7833742772622784,
+              "end": 0.7833742772622784,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 3.0,
+              "manifest": [
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.7833742772622784,
+              "end": 0.8133742772622784,
+              "distance_km": 0.0,
+              "energy_kwh": 0.1242549991258778,
+              "load": 3.0,
+              "manifest": [
+                27,
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 27,
+              "time": 0.8133742772622784,
+              "load_before": 3.0,
+              "load_after": 2.0,
+              "door_heat_kwh": 0.01,
+              "door_recovery_kwh": 0.0035842293906810036
+            },
+            {
+              "kind": "travel",
+              "start": 0.8133742772622784,
+              "end": 0.8822920700378064,
+              "distance_km": 2.067533783265839,
+              "energy_kwh": 0.2813633392075865,
+              "load": 2.0,
+              "manifest": [
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.8822920700378064,
+              "end": 0.8822920700378064,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 2.0,
+              "manifest": [
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.8822920700378064,
+              "end": 0.9122920700378064,
+              "distance_km": 0.0,
+              "energy_kwh": 0.1223689380210565,
+              "load": 2.0,
+              "manifest": [
+                17,
+                19
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 17,
+              "time": 0.9122920700378064,
+              "load_before": 2.0,
+              "load_after": 1.0,
+              "door_heat_kwh": 0.06,
+              "door_recovery_kwh": 0.03508771929824561
+            },
+            {
+              "kind": "travel",
+              "start": 0.9122920700378064,
+              "end": 0.9282885691390885,
+              "distance_km": 0.4798949730384636,
+              "energy_kwh": 0.02089341351834474,
+              "load": 1.0,
+              "manifest": [
+                19
+              ]
+            },
+            {
+              "kind": "wait",
+              "start": 0.9282885691390885,
+              "end": 0.9282885691390885,
+              "distance_km": 0.0,
+              "energy_kwh": 0.0,
+              "load": 1.0,
+              "manifest": [
+                19
+              ]
+            },
+            {
+              "kind": "service",
+              "start": 0.9282885691390885,
+              "end": 0.9582885691390886,
+              "distance_km": 0.0,
+              "energy_kwh": 0.039158110112943824,
+              "load": 1.0,
+              "manifest": [
+                19
+              ]
+            },
+            {
+              "kind": "deliver",
+              "order": 19,
+              "time": 0.9582885691390886,
+              "load_before": 1.0,
+              "load_after": 0,
+              "door_heat_kwh": 0.035,
+              "door_recovery_kwh": 0.014767932489451477
+            },
+            {
+              "kind": "return",
+              "start": 0.9582885691390886,
+              "end": 1.0202578936478879,
+              "distance_km": 1.8590797352639774,
+              "energy_kwh": 0.0,
+              "load": 0,
+              "manifest": []
+            }
+          ],
+          "terminal_manifest": []
+        }
+      ],
+      "contract_hash": "ba40cd0d08fc21ef09d418c7df2bff940294ee2cfecebd2a4ba9ddde35a8268a",
+      "qualification": "delivery_engineering_snapshot_only",
+      "online_gain_established": false
+    },
+    "wall_s": 9.985754599794745,
+    "timeout": false,
+    "method": "ortools_gls",
+    "status": "candidate_certified",
+    "proposal_objective": "travel_distance",
+    "selection_objective": "delivery_contract_cost",
+    "same_initial_assignment": true,
+    "online_gain_established": false,
+    "worker_start": 2922719.0412272,
+    "worker_end": 2922729.0278715,
+    "request_deadline": 2922729.0405447,
+    "arm": "gls"
+  },
+  "final_routes": [
+    [
+      9,
+      11,
+      40,
+      12,
+      1,
+      38,
+      7,
+      49,
+      28,
+      31,
+      35,
+      34
+    ],
+    [
+      48,
+      21,
+      42,
+      3,
+      36,
+      8,
+      26,
+      4,
+      18,
+      5,
+      20,
+      25,
+      33,
+      45
+    ],
+    [
+      32,
+      22,
+      47,
+      16,
+      50,
+      37,
+      24,
+      44,
+      6,
+      43,
+      39,
+      23
+    ],
+    [
+      41,
+      10,
+      2,
+      13,
+      30,
+      15,
+      29,
+      46,
+      14,
+      27,
+      17,
+      19
+    ]
+  ],
+  "final_report": {
+    "hard": true,
+    "complete": true,
+    "errors": [],
+    "cost": 68.25439250607772,
+    "distance_km": 66.67746527174202,
+    "energy_kwh": 14.444716617839298,
+    "quality_loss_value": 0.13245557255176826,
+    "delivered": [
+      {
+        "order_id": 9,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.1671821492670511,
+        "quantity": 1.0,
+        "quality": 8.999967423362502,
+        "quality_loss_value": 7.239252777235805e-06
+      },
+      {
+        "order_id": 11,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.24893429708870082,
+        "quantity": 1.0,
+        "quality": 0.9996340278774974,
+        "quality_loss_value": 0.00036597212250255584
+      },
+      {
+        "order_id": 40,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.30000536305427217,
+        "quantity": 3.0,
+        "quality": 8.995292399013687,
+        "quality_loss_value": 0.002353800493156588
+      },
+      {
+        "order_id": 12,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.355496283967042,
+        "quantity": 3.0,
+        "quality": 8.994247504972899,
+        "quality_loss_value": 0.0028762475135508114
+      },
+      {
+        "order_id": 1,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.40910832535643893,
+        "quantity": 1.0,
+        "quality": 8.993237990233537,
+        "quality_loss_value": 0.0011270016277439288
+      },
+      {
+        "order_id": 38,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.48406894102499776,
+        "quantity": 3.0,
+        "quality": 8.991826481840498,
+        "quality_loss_value": 0.0040867590797511455
+      },
+      {
+        "order_id": 7,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.5646706889037761,
+        "quantity": 5.0,
+        "quality": 8.999856921548478,
+        "quality_loss_value": 0.00015897605724735087
+      },
+      {
+        "order_id": 49,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.6037989391259847,
+        "quantity": 3.0,
+        "quality": 8.999846043894916,
+        "quality_loss_value": 0.00010263740338967153
+      },
+      {
+        "order_id": 28,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.6692133698159389,
+        "quantity": 2.0,
+        "quality": 8.999827858683183,
+        "quality_loss_value": 7.650725191865604e-05
+      },
+      {
+        "order_id": 31,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.7011492689409434,
+        "quantity": 3.0,
+        "quality": 0.998802602797953,
+        "quality_loss_value": 0.003592191606141104
+      },
+      {
+        "order_id": 35,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.8050359236309528,
+        "quantity": 5.0,
+        "quality": 0.9986116984839273,
+        "quality_loss_value": 0.006941507580363604
+      },
+      {
+        "order_id": 34,
+        "vehicle": 0,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.8376813237112132,
+        "quantity": 4.0,
+        "quality": 0.9985517161411449,
+        "quality_loss_value": 0.005793135435420371
+      },
+      {
+        "order_id": 48,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.1666307559838988,
+        "quantity": 3.0,
+        "quality": 8.999967576649835,
+        "quality_loss_value": 2.161556677648946e-05
+      },
+      {
+        "order_id": 21,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.21857708392296257,
+        "quantity": 3.0,
+        "quality": 8.996825693509729,
+        "quality_loss_value": 0.0015871532451355863
+      },
+      {
+        "order_id": 42,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.2662692065789366,
+        "quantity": 2.0,
+        "quality": 8.999939877160568,
+        "quality_loss_value": 2.6721261969786525e-05
+      },
+      {
+        "order_id": 3,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.33831190912530895,
+        "quantity": 3.0,
+        "quality": 8.994571086751167,
+        "quality_loss_value": 0.0027144566244167723
+      },
+      {
+        "order_id": 36,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.4159292830770933,
+        "quantity": 4.0,
+        "quality": 8.993109551599654,
+        "quality_loss_value": 0.004593632266897352
+      },
+      {
+        "order_id": 8,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.4475743653161912,
+        "quantity": 1.0,
+        "quality": 8.99251367470109,
+        "quality_loss_value": 0.0012477208831516151
+      },
+      {
+        "order_id": 26,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.48960472275443956,
+        "quantity": 2.0,
+        "quality": 8.991722243070528,
+        "quality_loss_value": 0.0027592523098239896
+      },
+      {
+        "order_id": 4,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.5652510111243526,
+        "quantity": 4.0,
+        "quality": 8.9998567602189,
+        "quality_loss_value": 0.0001273242498660565
+      },
+      {
+        "order_id": 18,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.6406640379340739,
+        "quantity": 5.0,
+        "quality": 8.999835795397447,
+        "quality_loss_value": 0.00018244955839241683
+      },
+      {
+        "order_id": 5,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.6973811810333405,
+        "quantity": 1.0,
+        "quality": 0.9988095278018173,
+        "quality_loss_value": 0.0011904721981826905
+      },
+      {
+        "order_id": 20,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.7758797519047514,
+        "quantity": 2.0,
+        "quality": 8.986331684271626,
+        "quality_loss_value": 0.004556105242791486
+      },
+      {
+        "order_id": 25,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.8662185073367071,
+        "quantity": 3.0,
+        "quality": 8.984630605506842,
+        "quality_loss_value": 0.007684697246579053
+      },
+      {
+        "order_id": 33,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.9192173343094033,
+        "quantity": 5.0,
+        "quality": 0.9984019183993327,
+        "quality_loss_value": 0.007990408003336613
+      },
+      {
+        "order_id": 45,
+        "vehicle": 1,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.9885535209606248,
+        "quantity": 1.0,
+        "quality": 0.9982745518216778,
+        "quality_loss_value": 0.0017254481783222086
+      },
+      {
+        "order_id": 32,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.12615596843868782,
+        "quantity": 3.0,
+        "quality": 8.998565983114299,
+        "quality_loss_value": 0.0007170084428507195
+      },
+      {
+        "order_id": 22,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.1742064716923388,
+        "quantity": 4.0,
+        "quality": 8.999965470600866,
+        "quality_loss_value": 3.069279923018087e-05
+      },
+      {
+        "order_id": 47,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.23438587777151404,
+        "quantity": 4.0,
+        "quality": 8.99652801392156,
+        "quality_loss_value": 0.0023146573856263064
+      },
+      {
+        "order_id": 16,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.293344997777107,
+        "quantity": 4.0,
+        "quality": 8.995417813691855,
+        "quality_loss_value": 0.003054790872096369
+      },
+      {
+        "order_id": 50,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.34419813762687734,
+        "quantity": 3.0,
+        "quality": 0.9994588219164792,
+        "quality_loss_value": 0.0016235342505624972
+      },
+      {
+        "order_id": 37,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.4027002452595737,
+        "quantity": 3.0,
+        "quality": 8.993358654381758,
+        "quality_loss_value": 0.003320672809120684
+      },
+      {
+        "order_id": 24,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.45969461428491665,
+        "quantity": 5.0,
+        "quality": 0.9992464459742646,
+        "quality_loss_value": 0.003767770128677017
+      },
+      {
+        "order_id": 44,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.5529919568282314,
+        "quantity": 3.0,
+        "quality": 0.9990749229472794,
+        "quality_loss_value": 0.002775231158161806
+      },
+      {
+        "order_id": 6,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.640003583831347,
+        "quantity": 3.0,
+        "quality": 0.9989149824634079,
+        "quality_loss_value": 0.00325505260977621
+      },
+      {
+        "order_id": 43,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.6831699798363278,
+        "quantity": 2.0,
+        "quality": 8.999823978745594,
+        "quality_loss_value": 7.823166862497288e-05
+      },
+      {
+        "order_id": 39,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.7543263460718078,
+        "quantity": 4.0,
+        "quality": 8.986737534903463,
+        "quality_loss_value": 0.008841643397691223
+      },
+      {
+        "order_id": 23,
+        "vehicle": 2,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.816504181021686,
+        "quantity": 2.0,
+        "quality": 8.985566726271356,
+        "quality_loss_value": 0.00481109124288126
+      },
+      {
+        "order_id": 41,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.12522446715605756,
+        "quantity": 2.0,
+        "quality": 8.99858352328345,
+        "quality_loss_value": 0.0004721589055164399
+      },
+      {
+        "order_id": 10,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.20654730577006586,
+        "quantity": 2.0,
+        "quality": 8.999956479848993,
+        "quality_loss_value": 1.934228933642146e-05
+      },
+      {
+        "order_id": 2,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.28083440255805436,
+        "quantity": 5.0,
+        "quality": 0.9995753548865621,
+        "quality_loss_value": 0.0021232255671893574
+      },
+      {
+        "order_id": 13,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.32026251537076533,
+        "quantity": 2.0,
+        "quality": 8.994910956835565,
+        "quality_loss_value": 0.0016963477214785305
+      },
+      {
+        "order_id": 30,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.44991662725267767,
+        "quantity": 5.0,
+        "quality": 0.9992644240745658,
+        "quality_loss_value": 0.0036778796271708103
+      },
+      {
+        "order_id": 15,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.5533354415151392,
+        "quantity": 3.0,
+        "quality": 0.9990742915203148,
+        "quality_loss_value": 0.0027771254390556166
+      },
+      {
+        "order_id": 29,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.6408374066604978,
+        "quantity": 4.0,
+        "quality": 8.988874531632577,
+        "quality_loss_value": 0.007416978911615191
+      },
+      {
+        "order_id": 46,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.7081249723266109,
+        "quantity": 4.0,
+        "quality": 0.998789782954942,
+        "quality_loss_value": 0.004840868180231883
+      },
+      {
+        "order_id": 14,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.7557282459328611,
+        "quantity": 3.0,
+        "quality": 8.986711137129078,
+        "quality_loss_value": 0.006644431435461118
+      },
+      {
+        "order_id": 27,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.8133742772622784,
+        "quantity": 1.0,
+        "quality": 0.9985963773308928,
+        "quality_loss_value": 0.0014036226691072073
+      },
+      {
+        "order_id": 17,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.9122920700378064,
+        "quantity": 1.0,
+        "quality": 8.999760282804516,
+        "quality_loss_value": 5.327048788528188e-05
+      },
+      {
+        "order_id": 19,
+        "vehicle": 3,
+        "loading_finish": 0.05,
+        "delivery_finish": 0.9582885691390886,
+        "quantity": 1.0,
+        "quality": 8.982896926243104,
+        "quality_loss_value": 0.002850512292816021
+      }
+    ],
+    "traces": [
+      {
+        "vehicle": 0,
+        "return_time": 0.9306078141625821,
+        "events": [
+          {
+            "kind": "load",
+            "time": 0.05,
+            "orders": [
+              9,
+              11,
+              40,
+              12,
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ],
+            "load_after": 34.0,
+            "preconditioning_energy_kwh": 0.5
+          },
+          {
+            "kind": "travel",
+            "start": 0.05,
+            "end": 0.1371821492670511,
+            "distance_km": 2.6154644780115333,
+            "energy_kwh": 0.36883743127930474,
+            "load": 34.0,
+            "manifest": [
+              9,
+              11,
+              40,
+              12,
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.1371821492670511,
+            "end": 0.1371821492670511,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 34.0,
+            "manifest": [
+              9,
+              11,
+              40,
+              12,
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.1371821492670511,
+            "end": 0.1671821492670511,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12665450870746872,
+            "load": 34.0,
+            "manifest": [
+              9,
+              11,
+              40,
+              12,
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 9,
+            "time": 0.1671821492670511,
+            "load_before": 34.0,
+            "load_after": 33.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.1671821492670511,
+            "end": 0.21893429708870082,
+            "distance_km": 1.5525644346494911,
+            "energy_kwh": 0.2181778586137021,
+            "load": 33.0,
+            "manifest": [
+              11,
+              40,
+              12,
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.21893429708870082,
+            "end": 0.21893429708870082,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 33.0,
+            "manifest": [
+              11,
+              40,
+              12,
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.21893429708870082,
+            "end": 0.24893429708870082,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1262982233876611,
+            "load": 33.0,
+            "manifest": [
+              11,
+              40,
+              12,
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 11,
+            "time": 0.24893429708870082,
+            "load_before": 33.0,
+            "load_after": 32.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.24893429708870082,
+            "end": 0.27000536305427214,
+            "distance_km": 0.6321319789671391,
+            "energy_kwh": 0.08863189658796143,
+            "load": 32.0,
+            "manifest": [
+              40,
+              12,
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.27000536305427214,
+            "end": 0.27000536305427214,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 32.0,
+            "manifest": [
+              40,
+              12,
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.27000536305427214,
+            "end": 0.30000536305427217,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1260832414006637,
+            "load": 32.0,
+            "manifest": [
+              40,
+              12,
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 40,
+            "time": 0.30000536305427217,
+            "load_before": 32.0,
+            "load_after": 29.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.30000536305427217,
+            "end": 0.325496283967042,
+            "distance_km": 0.7647276273830947,
+            "energy_kwh": 0.10703543250627065,
+            "load": 29.0,
+            "manifest": [
+              12,
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.325496283967042,
+            "end": 0.325496283967042,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 29.0,
+            "manifest": [
+              12,
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.325496283967042,
+            "end": 0.355496283967042,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12585632565828764,
+            "load": 29.0,
+            "manifest": [
+              12,
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 12,
+            "time": 0.355496283967042,
+            "load_before": 29.0,
+            "load_after": 26.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.355496283967042,
+            "end": 0.3791083253564389,
+            "distance_km": 0.708361241681906,
+            "energy_kwh": 0.09897316110488005,
+            "load": 26.0,
+            "manifest": [
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.3791083253564389,
+            "end": 0.3791083253564389,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 26.0,
+            "manifest": [
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.3791083253564389,
+            "end": 0.40910832535643893,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12564373613919533,
+            "load": 26.0,
+            "manifest": [
+              1,
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 1,
+            "time": 0.40910832535643893,
+            "load_before": 26.0,
+            "load_after": 25.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.40910832535643893,
+            "end": 0.4540689410249978,
+            "distance_km": 1.3488184700567656,
+            "energy_kwh": 0.1880839260930251,
+            "load": 25.0,
+            "manifest": [
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.4540689410249978,
+            "end": 0.4540689410249978,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 25.0,
+            "manifest": [
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.4540689410249978,
+            "end": 0.48406894102499776,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1253575184173905,
+            "load": 25.0,
+            "manifest": [
+              38,
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 38,
+            "time": 0.48406894102499776,
+            "load_before": 25.0,
+            "load_after": 22.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.48406894102499776,
+            "end": 0.5346706889037761,
+            "distance_km": 1.5180524363633499,
+            "energy_kwh": 0.1441772426156296,
+            "load": 22.0,
+            "manifest": [
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.5346706889037761,
+            "end": 0.5346706889037761,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 22.0,
+            "manifest": [
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.5346706889037761,
+            "end": 0.5646706889037761,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0853938946258762,
+            "load": 22.0,
+            "manifest": [
+              7,
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 7,
+            "time": 0.5646706889037761,
+            "load_before": 22.0,
+            "load_after": 17.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.5646706889037761,
+            "end": 0.5737989391259847,
+            "distance_km": 0.2738475066662564,
+            "energy_kwh": 0.025971098895856227,
+            "load": 17.0,
+            "manifest": [
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.5737989391259847,
+            "end": 0.5737989391259847,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 17.0,
+            "manifest": [
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.5737989391259847,
+            "end": 0.6037989391259847,
+            "distance_km": 0.0,
+            "energy_kwh": 0.08531477755749967,
+            "load": 17.0,
+            "manifest": [
+              49,
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 49,
+            "time": 0.6037989391259847,
+            "load_before": 17.0,
+            "load_after": 14.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508273193079717
+          },
+          {
+            "kind": "travel",
+            "start": 0.6037989391259847,
+            "end": 0.6392133698159389,
+            "distance_km": 1.0624329206986245,
+            "energy_kwh": 0.1006363004460779,
+            "load": 14.0,
+            "manifest": [
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.6392133698159389,
+            "end": 0.6392133698159389,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 14.0,
+            "manifest": [
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.6392133698159389,
+            "end": 0.6692133698159389,
+            "distance_km": 0.0,
+            "energy_kwh": 0.08518712734752236,
+            "load": 14.0,
+            "manifest": [
+              28,
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 28,
+            "time": 0.6692133698159389,
+            "load_before": 14.0,
+            "load_after": 12.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.6692133698159389,
+            "end": 0.6711492689409434,
+            "distance_km": 0.05807697375013521,
+            "energy_kwh": 0.00011283181987293108,
+            "load": 12.0,
+            "manifest": [
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.6711492689409434,
+            "end": 0.6711492689409434,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 12.0,
+            "manifest": [
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.6711492689409434,
+            "end": 0.7011492689409434,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0017375982005884037,
+            "load": 12.0,
+            "manifest": [
+              31,
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 31,
+            "time": 0.7011492689409434,
+            "load_before": 12.0,
+            "load_after": 9.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.7011492689409434,
+            "end": 0.7750359236309527,
+            "distance_km": 2.21659964070028,
+            "energy_kwh": 0.004194273720045777,
+            "load": 9.0,
+            "manifest": [
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.7750359236309527,
+            "end": 0.7750359236309527,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 9.0,
+            "manifest": [
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.7750359236309527,
+            "end": 0.8050359236309528,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0016695405719522542,
+            "load": 9.0,
+            "manifest": [
+              35,
+              34
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 35,
+            "time": 0.8050359236309528,
+            "load_before": 9.0,
+            "load_after": 4.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.8050359236309528,
+            "end": 0.8076813237112132,
+            "distance_km": 0.07936200240781231,
+            "energy_kwh": 0.00014631886569860798,
+            "load": 4.0,
+            "manifest": [
+              34
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.8076813237112132,
+            "end": 0.8076813237112132,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 4.0,
+            "manifest": [
+              34
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.8076813237112132,
+            "end": 0.8376813237112132,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0016492714519725886,
+            "load": 4.0,
+            "manifest": [
+              34
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 34,
+            "time": 0.8376813237112132,
+            "load_before": 4.0,
+            "load_after": 0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035837125643900384
+          },
+          {
+            "kind": "return",
+            "start": 0.8376813237112132,
+            "end": 0.9306078141625821,
+            "distance_km": 2.787794713541068,
+            "energy_kwh": 0.0,
+            "load": 0,
+            "manifest": []
+          }
+        ],
+        "terminal_manifest": []
+      },
+      {
+        "vehicle": 1,
+        "return_time": 1.0614678652160745,
+        "events": [
+          {
+            "kind": "load",
+            "time": 0.05,
+            "orders": [
+              48,
+              21,
+              42,
+              3,
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ],
+            "load_after": 39.0,
+            "preconditioning_energy_kwh": 0.5
+          },
+          {
+            "kind": "travel",
+            "start": 0.05,
+            "end": 0.1366307559838988,
+            "distance_km": 2.598922679516964,
+            "energy_kwh": 0.3665082974016327,
+            "load": 39.0,
+            "manifest": [
+              48,
+              21,
+              42,
+              3,
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.1366307559838988,
+            "end": 0.1366307559838988,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 39.0,
+            "manifest": [
+              48,
+              21,
+              42,
+              3,
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.1366307559838988,
+            "end": 0.1666307559838988,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12665696223239306,
+            "load": 39.0,
+            "manifest": [
+              48,
+              21,
+              42,
+              3,
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 48,
+            "time": 0.1666307559838988,
+            "load_before": 39.0,
+            "load_after": 36.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.1666307559838988,
+            "end": 0.18857708392296257,
+            "distance_km": 0.6583898381719135,
+            "energy_kwh": 0.0925711356810961,
+            "load": 36.0,
+            "manifest": [
+              21,
+              42,
+              3,
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.18857708392296257,
+            "end": 0.18857708392296257,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 36.0,
+            "manifest": [
+              21,
+              42,
+              3,
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.18857708392296257,
+            "end": 0.21857708392296257,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12642878378058778,
+            "load": 36.0,
+            "manifest": [
+              21,
+              42,
+              3,
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 21,
+            "time": 0.21857708392296257,
+            "load_before": 36.0,
+            "load_after": 33.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.21857708392296257,
+            "end": 0.23626920657893663,
+            "distance_km": 0.5307636796792214,
+            "energy_kwh": 0.07449916841972379,
+            "load": 33.0,
+            "manifest": [
+              42,
+              3,
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.23626920657893663,
+            "end": 0.23626920657893663,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 33.0,
+            "manifest": [
+              42,
+              3,
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.23626920657893663,
+            "end": 0.2662692065789366,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12622459533180944,
+            "load": 33.0,
+            "manifest": [
+              42,
+              3,
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 42,
+            "time": 0.2662692065789366,
+            "load_before": 33.0,
+            "load_after": 31.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.2662692065789366,
+            "end": 0.3083119091253089,
+            "distance_km": 1.2612810763911697,
+            "energy_kwh": 0.17668283289945308,
+            "load": 31.0,
+            "manifest": [
+              3,
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.3083119091253089,
+            "end": 0.3083119091253089,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 31.0,
+            "manifest": [
+              3,
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.3083119091253089,
+            "end": 0.33831190912530895,
+            "distance_km": 0.0,
+            "energy_kwh": 0.125925851247157,
+            "load": 31.0,
+            "manifest": [
+              3,
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 3,
+            "time": 0.33831190912530895,
+            "load_before": 31.0,
+            "load_after": 28.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.33831190912530895,
+            "end": 0.3859292830770933,
+            "distance_km": 1.4285212185535303,
+            "energy_kwh": 0.1996277768066117,
+            "load": 28.0,
+            "manifest": [
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.3859292830770933,
+            "end": 0.3859292830770933,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 28.0,
+            "manifest": [
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.3859292830770933,
+            "end": 0.4159292830770933,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1256171591120768,
+            "load": 28.0,
+            "manifest": [
+              36,
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 36,
+            "time": 0.4159292830770933,
+            "load_before": 28.0,
+            "load_after": 24.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.4159292830770933,
+            "end": 0.4175743653161912,
+            "distance_km": 0.049352467172936655,
+            "energy_kwh": 0.006884989020318461,
+            "load": 24.0,
+            "manifest": [
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.4175743653161912,
+            "end": 0.4175743653161912,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 24.0,
+            "manifest": [
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.4175743653161912,
+            "end": 0.4475743653161912,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12549525181807591,
+            "load": 24.0,
+            "manifest": [
+              8,
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 8,
+            "time": 0.4475743653161912,
+            "load_before": 24.0,
+            "load_after": 23.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014761405536893873
+          },
+          {
+            "kind": "travel",
+            "start": 0.4475743653161912,
+            "end": 0.4596047227544396,
+            "distance_km": 0.360910723147451,
+            "energy_kwh": 0.05029310661772162,
+            "load": 23.0,
+            "manifest": [
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.4596047227544396,
+            "end": 0.4596047227544396,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 23.0,
+            "manifest": [
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.4596047227544396,
+            "end": 0.48960472275443956,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12533689388115146,
+            "load": 23.0,
+            "manifest": [
+              26,
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 26,
+            "time": 0.48960472275443956,
+            "load_before": 23.0,
+            "load_after": 21.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014758125768100212
+          },
+          {
+            "kind": "travel",
+            "start": 0.48960472275443956,
+            "end": 0.5352510111243526,
+            "distance_km": 1.3693886510973918,
+            "energy_kwh": 0.19049411155597148,
+            "load": 21.0,
+            "manifest": [
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.5352510111243526,
+            "end": 0.5352510111243526,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 21.0,
+            "manifest": [
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.5352510111243526,
+            "end": 0.5652510111243526,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12506216279916918,
+            "load": 21.0,
+            "manifest": [
+              4,
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 4,
+            "time": 0.5652510111243526,
+            "load_before": 21.0,
+            "load_after": 17.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.5652510111243526,
+            "end": 0.6106640379340739,
+            "distance_km": 1.3623908042916384,
+            "energy_kwh": 0.18911543271471432,
+            "load": 17.0,
+            "manifest": [
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.6106640379340739,
+            "end": 0.6106640379340739,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 17.0,
+            "manifest": [
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.6106640379340739,
+            "end": 0.6406640379340739,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12480152740105085,
+            "load": 17.0,
+            "manifest": [
+              18,
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 18,
+            "time": 0.6406640379340739,
+            "load_before": 17.0,
+            "load_after": 12.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.6406640379340739,
+            "end": 0.6673811810333404,
+            "distance_km": 0.8015142929779961,
+            "energy_kwh": 0.03676206990133562,
+            "load": 12.0,
+            "manifest": [
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.6673811810333404,
+            "end": 0.6673811810333404,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 12.0,
+            "manifest": [
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.6673811810333404,
+            "end": 0.6973811810333405,
+            "distance_km": 0.0,
+            "energy_kwh": 0.04122050399061906,
+            "load": 12.0,
+            "manifest": [
+              5,
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 5,
+            "time": 0.6973811810333405,
+            "load_before": 12.0,
+            "load_after": 11.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.6973811810333405,
+            "end": 0.7458797519047514,
+            "distance_km": 1.4549571261423297,
+            "energy_kwh": 0.06650986122034365,
+            "load": 11.0,
+            "manifest": [
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.7458797519047514,
+            "end": 0.7458797519047514,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 11.0,
+            "manifest": [
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.7458797519047514,
+            "end": 0.7758797519047514,
+            "distance_km": 0.0,
+            "energy_kwh": 0.041064287917929904,
+            "load": 11.0,
+            "manifest": [
+              20,
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 20,
+            "time": 0.7758797519047514,
+            "load_before": 11.0,
+            "load_after": 9.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.7758797519047514,
+            "end": 0.8362185073367071,
+            "distance_km": 1.8101626629586685,
+            "energy_kwh": 0.08242025775524929,
+            "load": 9.0,
+            "manifest": [
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.8362185073367071,
+            "end": 0.8362185073367071,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 9.0,
+            "manifest": [
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.8362185073367071,
+            "end": 0.8662185073367071,
+            "distance_km": 0.0,
+            "energy_kwh": 0.040895978523470135,
+            "load": 9.0,
+            "manifest": [
+              25,
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 25,
+            "time": 0.8662185073367071,
+            "load_before": 9.0,
+            "load_after": 6.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.8662185073367071,
+            "end": 0.8892173343094033,
+            "distance_km": 0.6899648091808865,
+            "energy_kwh": 0.0012391066197665285,
+            "load": 6.0,
+            "manifest": [
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.8892173343094033,
+            "end": 0.8892173343094033,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 6.0,
+            "manifest": [
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.8892173343094033,
+            "end": 0.9192173343094033,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0016009950962855176,
+            "load": 6.0,
+            "manifest": [
+              33,
+              45
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 33,
+            "time": 0.9192173343094033,
+            "load_before": 6.0,
+            "load_after": 1.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.9192173343094033,
+            "end": 0.9585535209606247,
+            "distance_km": 1.1800855995366426,
+            "energy_kwh": 0.0020736759573551393,
+            "load": 1.0,
+            "manifest": [
+              45
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.9585535209606247,
+            "end": 0.9585535209606247,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 1.0,
+            "manifest": [
+              45
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.9585535209606247,
+            "end": 0.9885535209606248,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0015625936338703433,
+            "load": 1.0,
+            "manifest": [
+              45
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 45,
+            "time": 0.9885535209606248,
+            "load_before": 1.0,
+            "load_after": 0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "return",
+            "start": 0.9885535209606248,
+            "end": 1.0614678652160745,
+            "distance_km": 2.1874303276634914,
+            "energy_kwh": 0.0,
+            "load": 0,
+            "manifest": []
+          }
+        ],
+        "terminal_manifest": []
+      },
+      {
+        "vehicle": 2,
+        "return_time": 0.9102486026981904,
+        "events": [
+          {
+            "kind": "load",
+            "time": 0.05,
+            "orders": [
+              32,
+              22,
+              47,
+              16,
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ],
+            "load_after": 40.0,
+            "preconditioning_energy_kwh": 0.5
+          },
+          {
+            "kind": "travel",
+            "start": 0.05,
+            "end": 0.09615596843868782,
+            "distance_km": 1.3846790531606343,
+            "energy_kwh": 0.19541432670595038,
+            "load": 40.0,
+            "manifest": [
+              32,
+              22,
+              47,
+              16,
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.09615596843868782,
+            "end": 0.09615596843868782,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 40.0,
+            "manifest": [
+              32,
+              22,
+              47,
+              16,
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.09615596843868782,
+            "end": 0.12615596843868782,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12683889928157982,
+            "load": 40.0,
+            "manifest": [
+              32,
+              22,
+              47,
+              16,
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 32,
+            "time": 0.12615596843868782,
+            "load_before": 40.0,
+            "load_after": 37.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.12615596843868782,
+            "end": 0.1442064716923388,
+            "distance_km": 0.5415150976095291,
+            "energy_kwh": 0.07625159183553308,
+            "load": 37.0,
+            "manifest": [
+              22,
+              47,
+              16,
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.1442064716923388,
+            "end": 0.1442064716923388,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 37.0,
+            "manifest": [
+              22,
+              47,
+              16,
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.1442064716923388,
+            "end": 0.1742064716923388,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12662331170792057,
+            "load": 37.0,
+            "manifest": [
+              22,
+              47,
+              16,
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 22,
+            "time": 0.1742064716923388,
+            "load_before": 37.0,
+            "load_after": 33.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.1742064716923388,
+            "end": 0.20438587777151404,
+            "distance_km": 0.9053821823752575,
+            "energy_kwh": 0.1272473575214076,
+            "load": 33.0,
+            "manifest": [
+              47,
+              16,
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.20438587777151404,
+            "end": 0.20438587777151404,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 33.0,
+            "manifest": [
+              47,
+              16,
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.20438587777151404,
+            "end": 0.23438587777151404,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12636053603183714,
+            "load": 33.0,
+            "manifest": [
+              47,
+              16,
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 47,
+            "time": 0.23438587777151404,
+            "load_before": 33.0,
+            "load_after": 29.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.23438587777151404,
+            "end": 0.26334499777710696,
+            "distance_km": 0.8687736001677875,
+            "energy_kwh": 0.12185491786931911,
+            "load": 29.0,
+            "manifest": [
+              16,
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.26334499777710696,
+            "end": 0.26334499777710696,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 29.0,
+            "manifest": [
+              16,
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.26334499777710696,
+            "end": 0.293344997777107,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1261109451422531,
+            "load": 29.0,
+            "manifest": [
+              16,
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 16,
+            "time": 0.293344997777107,
+            "load_before": 29.0,
+            "load_after": 25.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.293344997777107,
+            "end": 0.31419813762687737,
+            "distance_km": 0.6255941954931108,
+            "energy_kwh": 0.08758713431748985,
+            "load": 25.0,
+            "manifest": [
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.31419813762687737,
+            "end": 0.31419813762687737,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 25.0,
+            "manifest": [
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.31419813762687737,
+            "end": 0.34419813762687734,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1259019609375875,
+            "load": 25.0,
+            "manifest": [
+              50,
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 50,
+            "time": 0.34419813762687734,
+            "load_before": 25.0,
+            "load_after": 22.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.34419813762687734,
+            "end": 0.37270024525957374,
+            "distance_km": 0.8550632289808924,
+            "energy_kwh": 0.11950401585903367,
+            "load": 22.0,
+            "manifest": [
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.37270024525957374,
+            "end": 0.37270024525957374,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 22.0,
+            "manifest": [
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.37270024525957374,
+            "end": 0.4027002452595737,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1256688013445214,
+            "load": 22.0,
+            "manifest": [
+              37,
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 37,
+            "time": 0.4027002452595737,
+            "load_before": 22.0,
+            "load_after": 19.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.4027002452595737,
+            "end": 0.4296946142849166,
+            "distance_km": 0.8098310707602874,
+            "energy_kwh": 0.11297866728002129,
+            "load": 19.0,
+            "manifest": [
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.4296946142849166,
+            "end": 0.4296946142849166,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 19.0,
+            "manifest": [
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.4296946142849166,
+            "end": 0.45969461428491665,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12544916922081106,
+            "load": 19.0,
+            "manifest": [
+              24,
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 24,
+            "time": 0.45969461428491665,
+            "load_before": 19.0,
+            "load_after": 14.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.45969461428491665,
+            "end": 0.5229919568282314,
+            "distance_km": 1.8989202762994433,
+            "energy_kwh": 0.264319703350971,
+            "load": 14.0,
+            "manifest": [
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.5229919568282314,
+            "end": 0.5229919568282314,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 14.0,
+            "manifest": [
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.5229919568282314,
+            "end": 0.5529919568282314,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12510578409952117,
+            "load": 14.0,
+            "manifest": [
+              44,
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 44,
+            "time": 0.5529919568282314,
+            "load_before": 14.0,
+            "load_after": 11.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.5529919568282314,
+            "end": 0.610003583831347,
+            "distance_km": 1.7103488100934687,
+            "energy_kwh": 0.23745872531937467,
+            "load": 11.0,
+            "manifest": [
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.610003583831347,
+            "end": 0.610003583831347,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 11.0,
+            "manifest": [
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.610003583831347,
+            "end": 0.640003583831347,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12480375228610946,
+            "load": 11.0,
+            "manifest": [
+              6,
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 6,
+            "time": 0.640003583831347,
+            "load_before": 11.0,
+            "load_after": 8.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.640003583831347,
+            "end": 0.6531699798363277,
+            "distance_km": 0.3949918801494196,
+            "energy_kwh": 0.0539675591776335,
+            "load": 8.0,
+            "manifest": [
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.6531699798363277,
+            "end": 0.6531699798363277,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 8.0,
+            "manifest": [
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.6531699798363277,
+            "end": 0.6831699798363278,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12291056662713011,
+            "load": 8.0,
+            "manifest": [
+              43,
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 43,
+            "time": 0.6831699798363278,
+            "load_before": 8.0,
+            "load_after": 6.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.6831699798363278,
+            "end": 0.7243263460718078,
+            "distance_km": 1.2346909870644018,
+            "energy_kwh": 0.05412255885415688,
+            "load": 6.0,
+            "manifest": [
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.7243263460718078,
+            "end": 0.7243263460718078,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 6.0,
+            "manifest": [
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.7243263460718078,
+            "end": 0.7543263460718078,
+            "distance_km": 0.0,
+            "energy_kwh": 0.03940417358986971,
+            "load": 6.0,
+            "manifest": [
+              39,
+              23
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 39,
+            "time": 0.7543263460718078,
+            "load_before": 6.0,
+            "load_after": 2.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.7543263460718078,
+            "end": 0.786504181021686,
+            "distance_km": 0.9653350484963428,
+            "energy_kwh": 0.04222157408090536,
+            "load": 2.0,
+            "manifest": [
+              23
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.786504181021686,
+            "end": 0.786504181021686,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 2.0,
+            "manifest": [
+              23
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.786504181021686,
+            "end": 0.816504181021686,
+            "distance_km": 0.0,
+            "energy_kwh": 0.039324717975678526,
+            "load": 2.0,
+            "manifest": [
+              23
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 23,
+            "time": 0.816504181021686,
+            "load_before": 2.0,
+            "load_after": 0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "return",
+            "start": 0.816504181021686,
+            "end": 0.9102486026981904,
+            "distance_km": 2.812332650295133,
+            "energy_kwh": 0.0,
+            "load": 0,
+            "manifest": []
+          }
+        ],
+        "terminal_manifest": []
+      },
+      {
+        "vehicle": 3,
+        "return_time": 1.0202578936478879,
+        "events": [
+          {
+            "kind": "load",
+            "time": 0.05,
+            "orders": [
+              41,
+              10,
+              2,
+              13,
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ],
+            "load_after": 33.0,
+            "preconditioning_energy_kwh": 0.5
+          },
+          {
+            "kind": "travel",
+            "start": 0.05,
+            "end": 0.09522446715605756,
+            "distance_km": 1.3567340146817266,
+            "energy_kwh": 0.19147378778891852,
+            "load": 33.0,
+            "manifest": [
+              41,
+              10,
+              2,
+              13,
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.09522446715605756,
+            "end": 0.09522446715605756,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 33.0,
+            "manifest": [
+              41,
+              10,
+              2,
+              13,
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.09522446715605756,
+            "end": 0.12522446715605756,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1268431290345026,
+            "load": 33.0,
+            "manifest": [
+              41,
+              10,
+              2,
+              13,
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 41,
+            "time": 0.12522446715605756,
+            "load_before": 33.0,
+            "load_after": 31.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.12522446715605756,
+            "end": 0.17654730577006586,
+            "distance_km": 1.5396851584202487,
+            "energy_kwh": 0.21668577374093573,
+            "load": 31.0,
+            "manifest": [
+              10,
+              2,
+              13,
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.17654730577006586,
+            "end": 0.17654730577006586,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 31.0,
+            "manifest": [
+              10,
+              2,
+              13,
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.17654730577006586,
+            "end": 0.20654730577006586,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12648109110297096,
+            "load": 31.0,
+            "manifest": [
+              10,
+              2,
+              13,
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 10,
+            "time": 0.20654730577006586,
+            "load_before": 31.0,
+            "load_after": 29.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.20654730577006586,
+            "end": 0.25083440255805434,
+            "distance_km": 1.3286129036396541,
+            "energy_kwh": 0.18647927411817966,
+            "load": 29.0,
+            "manifest": [
+              2,
+              13,
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.25083440255805434,
+            "end": 0.25083440255805434,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 29.0,
+            "manifest": [
+              2,
+              13,
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.25083440255805434,
+            "end": 0.28083440255805436,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1261632531277863,
+            "load": 29.0,
+            "manifest": [
+              2,
+              13,
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 2,
+            "time": 0.28083440255805436,
+            "load_before": 29.0,
+            "load_after": 24.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.28083440255805436,
+            "end": 0.29026251537076536,
+            "distance_km": 0.28284338438133033,
+            "energy_kwh": 0.039623501608578214,
+            "load": 24.0,
+            "manifest": [
+              13,
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.29026251537076536,
+            "end": 0.29026251537076536,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 24.0,
+            "manifest": [
+              13,
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.29026251537076536,
+            "end": 0.32026251537076533,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12599959736009353,
+            "load": 24.0,
+            "manifest": [
+              13,
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 13,
+            "time": 0.32026251537076533,
+            "load_before": 24.0,
+            "load_after": 22.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.32026251537076533,
+            "end": 0.4199166272526777,
+            "distance_km": 2.9896233564573715,
+            "energy_kwh": 0.4176803663879625,
+            "load": 22.0,
+            "manifest": [
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.4199166272526777,
+            "end": 0.4199166272526777,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 22.0,
+            "manifest": [
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.4199166272526777,
+            "end": 0.44991662725267767,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12548631995462675,
+            "load": 22.0,
+            "manifest": [
+              30,
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 30,
+            "time": 0.44991662725267767,
+            "load_before": 22.0,
+            "load_after": 17.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.44991662725267767,
+            "end": 0.5233354415151392,
+            "distance_km": 2.202564427873845,
+            "energy_kwh": 0.3066282500090951,
+            "load": 17.0,
+            "manifest": [
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.5233354415151392,
+            "end": 0.5233354415151392,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 17.0,
+            "manifest": [
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.5233354415151392,
+            "end": 0.5533354415151392,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12510455712449553,
+            "load": 17.0,
+            "manifest": [
+              15,
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 15,
+            "time": 0.5533354415151392,
+            "load_before": 17.0,
+            "load_after": 14.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.5533354415151392,
+            "end": 0.6108374066604978,
+            "distance_km": 1.725058954360757,
+            "energy_kwh": 0.23949712394971284,
+            "load": 14.0,
+            "manifest": [
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.6108374066604978,
+            "end": 0.6108374066604978,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 14.0,
+            "manifest": [
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.6108374066604978,
+            "end": 0.6408374066604978,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12480094353974061,
+            "load": 14.0,
+            "manifest": [
+              29,
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 29,
+            "time": 0.6408374066604978,
+            "load_before": 14.0,
+            "load_after": 10.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.6408374066604978,
+            "end": 0.6781249723266108,
+            "distance_km": 1.1186269699833915,
+            "energy_kwh": 0.15497833756570764,
+            "load": 10.0,
+            "manifest": [
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.6781249723266108,
+            "end": 0.6781249723266108,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 10.0,
+            "manifest": [
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.6781249723266108,
+            "end": 0.7081249723266109,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12457966785729221,
+            "load": 10.0,
+            "manifest": [
+              46,
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 46,
+            "time": 0.7081249723266109,
+            "load_before": 10.0,
+            "load_after": 6.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.7081249723266109,
+            "end": 0.7257282459328611,
+            "distance_km": 0.5280982081875082,
+            "energy_kwh": 0.0730558690398621,
+            "load": 6.0,
+            "manifest": [
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.7257282459328611,
+            "end": 0.7257282459328611,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 6.0,
+            "manifest": [
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.7257282459328611,
+            "end": 0.7557282459328611,
+            "distance_km": 0.0,
+            "energy_kwh": 0.12442957130311477,
+            "load": 6.0,
+            "manifest": [
+              14,
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 14,
+            "time": 0.7557282459328611,
+            "load_before": 6.0,
+            "load_after": 3.0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "travel",
+            "start": 0.7557282459328611,
+            "end": 0.7833742772622784,
+            "distance_km": 0.8293809398825156,
+            "energy_kwh": 0.11458476874182785,
+            "load": 3.0,
+            "manifest": [
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.7833742772622784,
+            "end": 0.7833742772622784,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 3.0,
+            "manifest": [
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.7833742772622784,
+            "end": 0.8133742772622784,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1242549991258778,
+            "load": 3.0,
+            "manifest": [
+              27,
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 27,
+            "time": 0.8133742772622784,
+            "load_before": 3.0,
+            "load_after": 2.0,
+            "door_heat_kwh": 0.01,
+            "door_recovery_kwh": 0.0035842293906810036
+          },
+          {
+            "kind": "travel",
+            "start": 0.8133742772622784,
+            "end": 0.8822920700378064,
+            "distance_km": 2.067533783265839,
+            "energy_kwh": 0.2813633392075865,
+            "load": 2.0,
+            "manifest": [
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.8822920700378064,
+            "end": 0.8822920700378064,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 2.0,
+            "manifest": [
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.8822920700378064,
+            "end": 0.9122920700378064,
+            "distance_km": 0.0,
+            "energy_kwh": 0.1223689380210565,
+            "load": 2.0,
+            "manifest": [
+              17,
+              19
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 17,
+            "time": 0.9122920700378064,
+            "load_before": 2.0,
+            "load_after": 1.0,
+            "door_heat_kwh": 0.06,
+            "door_recovery_kwh": 0.03508771929824561
+          },
+          {
+            "kind": "travel",
+            "start": 0.9122920700378064,
+            "end": 0.9282885691390885,
+            "distance_km": 0.4798949730384636,
+            "energy_kwh": 0.02089341351834474,
+            "load": 1.0,
+            "manifest": [
+              19
+            ]
+          },
+          {
+            "kind": "wait",
+            "start": 0.9282885691390885,
+            "end": 0.9282885691390885,
+            "distance_km": 0.0,
+            "energy_kwh": 0.0,
+            "load": 1.0,
+            "manifest": [
+              19
+            ]
+          },
+          {
+            "kind": "service",
+            "start": 0.9282885691390885,
+            "end": 0.9582885691390886,
+            "distance_km": 0.0,
+            "energy_kwh": 0.039158110112943824,
+            "load": 1.0,
+            "manifest": [
+              19
+            ]
+          },
+          {
+            "kind": "deliver",
+            "order": 19,
+            "time": 0.9582885691390886,
+            "load_before": 1.0,
+            "load_after": 0,
+            "door_heat_kwh": 0.035,
+            "door_recovery_kwh": 0.014767932489451477
+          },
+          {
+            "kind": "return",
+            "start": 0.9582885691390886,
+            "end": 1.0202578936478879,
+            "distance_km": 1.8590797352639774,
+            "energy_kwh": 0.0,
+            "load": 0,
+            "manifest": []
+          }
+        ],
+        "terminal_manifest": []
+      }
+    ],
+    "contract_hash": "ba40cd0d08fc21ef09d418c7df2bff940294ee2cfecebd2a4ba9ddde35a8268a",
+    "qualification": "delivery_engineering_snapshot_only",
+    "online_gain_established": false
+  },
+  "actual_charged_parent_cpu_affinity": [
+    15
+  ]
+}

@@ -33,3 +33,23 @@ n≥500 分布）；直接搬用等于把其回归模型当作通用排序打分
 - 状态：**可评估、暂不适配**（子求解器缺失 + 规模方向相反 + 无 reveal 决策层）；
   与 MAPT、CO-enriched-ML 同属"评估完成、实施排后"记录。
 - 论文引用时按"大尺度委托学习"文献锚点处理，不冒充同口径对比。
+
+## 4. 复核更正与可执行验证（2026-10-13）
+
+本节结论以 [`a1_accept_v1/RESULTS.md`](a1_accept_v1/RESULTS.md) 为准（含全部命令与原始数字）：
+
+1. **上文「`generations/`、`lkh3/`、`hgs/` 未下载」的记录不准确**：LKH-3 与 HGS-CVRP 的
+   **完整源码本地即存在**；官方 `Omni-VRP/L2D/code/util.py` 在 **import 时**就自动
+   下载并编译两者（`get_lkh_executable()` / `get_hgs_executable()`），已在服务器
+   `a1_accept_v1/` 下成功产出 `lkh3/LKH-3.0.8/LKH`（1.60 MB）与 `hgs/HGS-CVRP/build/hgs`（143 KB）。
+   → **子求解器可得、可编译**，「缺件」不再成立。
+2. **3 个回归权重已实测真实加载 + 推理**：官方 `SubproblemNetwork` 逐键 strict 加载，
+   `missing=0 / unexpected=0 / shape_mismatch=0`（`All keys matched successfully`）；
+   在官方 55,223 条子问题记录上 MAE 0.0715–0.1379（`prev_dists` 基线 0.1831，常数均值 2.9179）、
+   Spearman 0.991–0.999、确定性 max|Δ|=0。
+3. **判定维持「实施排后 / 不进 40 天正式臂」，但理由更正**：不是资产缺失，而是
+   (a) 回归头语义 = 「估 LKH/HGS 子问题里程」（`solver: HGS`、`fit_subproblem: true`、
+   以 `mean_lkh_dist` 为常数基线），只在「大实例分解→逐子问题委托」闭环中有意义；
+   (b) 规模方向相反（官方 `generations/` 全部 n≥500，A-v1 决策池 ≤90）；
+   (c) 无 reveal→接受/拒绝决策层，硬接等于发明新决策策略。
+   若将来要该锚点，需按 RESULTS.md §4 的三条预声明执行。

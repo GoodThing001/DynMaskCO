@@ -1,0 +1,27 @@
+{
+  "created_utc": "2026-10-11T11:15:02.416282+00:00",
+  "registration_sha256": "562fc0304cb0202238e6618c0a20cf1602ac38d6763261d7d407743e02d21176",
+  "independent_audit_sha256": "f245065040771ebe06f318e00c82183d30c08086ebf8c9de0bc61832db5dfbf0",
+  "checks": 96248,
+  "registered_barrier_failures": 36,
+  "raw_replay_failures": 0,
+  "independent_source_files": 8790,
+  "original_producer_failures": 35,
+  "original_run_exit": 1,
+  "data_qualified_under_registered_rule": false,
+  "target_adjacency_alias_pairs": 4,
+  "posthoc_mismatch_counts": {
+    "exact_route_false": 34,
+    "same_adjacency_different_route": 4,
+    "different_adjacency": 30,
+    "oracle_better_fullC0_than_teacher": 3,
+    "oracle_equal_fullC0_to_teacher": 0,
+    "oracle_worse_fullC0_than_teacher": 30,
+    "oracle_incomplete": 1,
+    "H_incomplete": 1
+  },
+  "not_global_impossibility": true,
+  "no_scientific_training_or_DEV": true,
+  "stable_online_gain": false,
+  "shared_MD_uploaded": false
+}

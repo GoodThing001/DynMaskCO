@@ -1,0 +1,56 @@
+{
+  "created_utc": "2026-10-11T20:23:24.399483+00:00",
+  "failure_names": [
+    "0:payload_identity",
+    "1:payload_identity",
+    "2:payload_identity",
+    "audit_loaded_closure"
+  ],
+  "original_audit_checks": 10890,
+  "original_audit_failed": 4,
+  "successful_other_checks": 10886,
+  "source_changed": [],
+  "new_loaded_files": [
+    "C:\\Windows\\System32\\SHCore.dll"
+  ],
+  "new_module_files": [],
+  "demonstration": [
+    {
+      "case": 0,
+      "original_logged_size": 13800,
+      "original_logged_sha256": "352c5fc40d5f52d78ed152f50c428f4595bdc42d9e4657f1c7cf9a88f5fd2c65",
+      "tree_rebuilt_size": 15459,
+      "tree_rebuilt_sha256": "155dbdc9cd06d52ac04deddf14f1b6accbf52f89ba64e5fead6f3dad0b2afef9",
+      "second_tree_sha256": "155dbdc9cd06d52ac04deddf14f1b6accbf52f89ba64e5fead6f3dad0b2afef9",
+      "semantic_digest_before": "974bcc84dd5c2a6b5e175d892d6b601b37fd331b5710e7d65b574bb57f92029d",
+      "semantic_digest_after": "974bcc84dd5c2a6b5e175d892d6b601b37fd331b5710e7d65b574bb57f92029d",
+      "semantic_tree_equal": true
+    },
+    {
+      "case": 1,
+      "original_logged_size": 13800,
+      "original_logged_sha256": "352c5fc40d5f52d78ed152f50c428f4595bdc42d9e4657f1c7cf9a88f5fd2c65",
+      "tree_rebuilt_size": 15459,
+      "tree_rebuilt_sha256": "155dbdc9cd06d52ac04deddf14f1b6accbf52f89ba64e5fead6f3dad0b2afef9",
+      "second_tree_sha256": "155dbdc9cd06d52ac04deddf14f1b6accbf52f89ba64e5fead6f3dad0b2afef9",
+      "semantic_digest_before": "974bcc84dd5c2a6b5e175d892d6b601b37fd331b5710e7d65b574bb57f92029d",
+      "semantic_digest_after": "974bcc84dd5c2a6b5e175d892d6b601b37fd331b5710e7d65b574bb57f92029d",
+      "semantic_tree_equal": true
+    },
+    {
+      "case": 2,
+      "original_logged_size": 13800,
+      "original_logged_sha256": "352c5fc40d5f52d78ed152f50c428f4595bdc42d9e4657f1c7cf9a88f5fd2c65",
+      "tree_rebuilt_size": 15459,
+      "tree_rebuilt_sha256": "155dbdc9cd06d52ac04deddf14f1b6accbf52f89ba64e5fead6f3dad0b2afef9",
+      "second_tree_sha256": "155dbdc9cd06d52ac04deddf14f1b6accbf52f89ba64e5fead6f3dad0b2afef9",
+      "semantic_digest_before": "974bcc84dd5c2a6b5e175d892d6b601b37fd331b5710e7d65b574bb57f92029d",
+      "semantic_digest_after": "974bcc84dd5c2a6b5e175d892d6b601b37fd331b5710e7d65b574bb57f92029d",
+      "semantic_tree_equal": true
+    }
+  ],
+  "interpretation": "Original shared pickle bytes were not archived. An audit JSON tree is value lossless but does not carry Python object alias/memo identity, so a rebuilt pickle is not an independently recovered original byte stream. Specific cause of original size/hash difference has not been uniquely isolated. New SHCore.dll appeared in audit loaded maps, existing source files unchanged; its first-load cause not uniquely located. Both original barriers remain FAIL.",
+  "raw_payload_identity_qualified": false,
+  "independent_audit_qualified": false,
+  "full_live_request_qualified": false
+}

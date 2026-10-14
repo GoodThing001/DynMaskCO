@@ -1,0 +1,120 @@
+{
+  "checks_count": 18647,
+  "failed": 24,
+  "failure_names": [
+    "pretrained_initial_fault0:required_stage_evidence:STAGE_2",
+    "pretrained_initial_fault0:required_stage_evidence:STAGE_3",
+    "pretrained_initial_fault0:required_stage_evidence:STAGE_4",
+    "random888_initial_fault0:required_stage_evidence:STAGE_2",
+    "random888_initial_fault0:required_stage_evidence:STAGE_3",
+    "random888_initial_fault0:required_stage_evidence:STAGE_4",
+    "pretrained_initial_fault2:required_stage_evidence:STAGE_2",
+    "pretrained_initial_fault3:required_stage_evidence:STAGE_2",
+    "pretrained_initial_fault3:required_stage_evidence:STAGE_3",
+    "pretrained_initial_fault4:required_stage_evidence:STAGE_2",
+    "pretrained_initial_fault4:required_stage_evidence:STAGE_3",
+    "pretrained_initial_fault4:required_stage_evidence:STAGE_4",
+    "pretrained_initial_fault5:required_stage_evidence:STAGE_2",
+    "pretrained_initial_fault5:required_stage_evidence:STAGE_3",
+    "pretrained_initial_fault5:required_stage_evidence:STAGE_4",
+    "pretrained_initial_fault6:required_stage_evidence:STAGE_2",
+    "pretrained_initial_fault6:required_stage_evidence:STAGE_3",
+    "pretrained_initial_fault6:required_stage_evidence:STAGE_4",
+    "pretrained_initial_fault7:required_stage_evidence:STAGE_2",
+    "pretrained_initial_fault7:required_stage_evidence:STAGE_3",
+    "pretrained_initial_fault7:required_stage_evidence:STAGE_4",
+    "pretrained_initial_fault8:required_stage_evidence:STAGE_2",
+    "pretrained_initial_fault8:required_stage_evidence:STAGE_3",
+    "pretrained_initial_fault8:required_stage_evidence:STAGE_4"
+  ],
+  "unexercised_faults": [
+    {
+      "tag": "pretrained_initial_fault3",
+      "requested_stage": 3,
+      "actual_stage": 3
+    },
+    {
+      "tag": "pretrained_initial_fault4",
+      "requested_stage": 4,
+      "actual_stage": 4
+    },
+    {
+      "tag": "pretrained_initial_fault5",
+      "requested_stage": 5,
+      "actual_stage": 4
+    },
+    {
+      "tag": "pretrained_initial_fault6",
+      "requested_stage": 6,
+      "actual_stage": 4
+    },
+    {
+      "tag": "pretrained_initial_fault7",
+      "requested_stage": 7,
+      "actual_stage": 4
+    },
+    {
+      "tag": "pretrained_initial_fault8",
+      "requested_stage": 8,
+      "actual_stage": 4
+    }
+  ],
+  "partial_score_records": [
+    {
+      "tag": "pretrained_initial_fault4",
+      "step": 0,
+      "scored_but_transition_not_committed": true
+    },
+    {
+      "tag": "pretrained_initial_fault5",
+      "step": 16,
+      "scored_but_transition_not_committed": true
+    }
+  ],
+  "missing_completed_source_end": [
+    {
+      "tag": "pretrained_initial_fault0",
+      "scope": "Killed request has no completed source-end or registered fault-entry snapshot; begin-only qualification cannot close full scientific workload."
+    },
+    {
+      "tag": "random888_initial_fault0",
+      "scope": "Killed request has no completed source-end or registered fault-entry snapshot; begin-only qualification cannot close full scientific workload."
+    },
+    {
+      "tag": "pretrained_initial_fault3",
+      "scope": "Killed request has no completed source-end or registered fault-entry snapshot; begin-only qualification cannot close full scientific workload."
+    },
+    {
+      "tag": "pretrained_initial_fault4",
+      "scope": "Killed request has no completed source-end or registered fault-entry snapshot; begin-only qualification cannot close full scientific workload."
+    },
+    {
+      "tag": "pretrained_initial_fault5",
+      "scope": "Killed request has no completed source-end or registered fault-entry snapshot; begin-only qualification cannot close full scientific workload."
+    },
+    {
+      "tag": "pretrained_initial_fault6",
+      "scope": "Killed request has no completed source-end or registered fault-entry snapshot; begin-only qualification cannot close full scientific workload."
+    },
+    {
+      "tag": "pretrained_initial_fault7",
+      "scope": "Killed request has no completed source-end or registered fault-entry snapshot; begin-only qualification cannot close full scientific workload."
+    },
+    {
+      "tag": "pretrained_initial_fault8",
+      "scope": "Killed request has no completed source-end or registered fault-entry snapshot; begin-only qualification cannot close full scientific workload."
+    }
+  ],
+  "complete_all_request_dependency_closure": false,
+  "new_timed_evidence_forward_replays": 100,
+  "max_abs_numpy_head_error": 1.0132789611816406e-06,
+  "old_QA_repeated": false,
+  "all_registered_faults_exercised": false,
+  "raw_replay_qualified": false,
+  "full_request_budget_qualified": false,
+  "formal_controls_qualified": false,
+  "full_scientific_loaded_closure_qualified": false,
+  "scientific_family3_started": false,
+  "stable_online_gain": false,
+  "scope": "Original shared Transformer/JAX/C0; independent current10D/parameters/head/anchors/local geometry/choices and actual persisted timed partial/full evidence. Timing/source markers do not prove native internal preemption, arbitrary caller/disk load, live installation or scientific controls."
+}

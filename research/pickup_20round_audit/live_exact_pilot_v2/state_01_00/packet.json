@@ -1,0 +1,842 @@
+{
+  "schema_version": "recourse_snapshot_v3_cc",
+  "instance_id": 1,
+  "event_id": 18,
+  "replan_count": 18,
+  "clock": 2.0051539291938147,
+  "reveal_idx": 13,
+  "num_vehicles": 15,
+  "num_nodes": 201,
+  "served_mask": "[ True False False False False False False False False False False False\n False False False False False False False False False False False False\n  True False False False False False False False False  True False False\n False False False False False False False False False False False False\n False False False False False False False False False False False False\n False False False False False False False False False False False False\n False False False False False False False False False False False False\n False False False False False False False False False  True False False\n False False False False False False False False False False False False\n False False False False False False False False False False False False\n False False False False False False False False False False False False\n False False False False False False False False False False False False\n False False False False False False False  True False False False False\n False False False False False False False False False False False False\n False False False  True False False False False False False False False\n False False False False False False False False False False False False\n False False False False False False False False False]",
+  "visible_mask": "[ True False False False False False False False False False False False\n False False False False False False False False False False False False\n  True False False False False False False False False  True False False\n False False False False False False False False False False False False\n False  True False False False False False False False False False False\n False False False False False False False False False False False  True\n False False False False False False False False False False False False\n False False False False  True False False False False  True False False\n False False False False  True False False False False False False False\n False False False  True False False False False False False False False\n False False False False False False False False False False False False\n False False False False False False False  True False False False False\n False False False False False False False  True False False False False\n False False False False False False False False False False False  True\n False False False  True False False False False False  True False False\n False False False False False False False False False False False False\n False False False False False False False False False]",
+  "customer_universe": "[  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18\n  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36\n  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54\n  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72\n  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90\n  91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 106 107 108\n 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126\n 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144\n 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162\n 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180\n 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198\n 199 200]",
+  "vehicle_status": [
+    "ready",
+    "idle",
+    "idle",
+    "idle",
+    "idle",
+    "idle",
+    "idle",
+    "idle",
+    "idle",
+    "idle",
+    "idle",
+    "idle",
+    "idle",
+    "idle",
+    "idle"
+  ],
+  "vehicle_node": "[93  0  0  0  0  0  0  0  0  0  0  0  0  0  0]",
+  "vehicle_ready": "[2.00515393 1.76619268 1.76619268 1.76619268 1.76619268 1.76619268\n 1.76619268 1.76619268 1.76619268 1.76619268 1.76619268 1.76619268\n 1.76619268 1.76619268 1.76619268]",
+  "vehicle_load": "[8.43605959 0.         0.         0.         0.         0.\n 0.         0.         0.         0.         0.         0.\n 0.         0.         0.        ]",
+  "committed_next": "[-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1]",
+  "committed_arrive": "[nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan]",
+  "committed_finish": "[nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan]",
+  "needs_replan": "[False False False False False False False False False False False False\n False False False]",
+  "replan_reason": [
+    "reveal",
+    "reveal",
+    "reveal",
+    "reveal",
+    "reveal",
+    "reveal",
+    "reveal",
+    "reveal",
+    "reveal",
+    "reveal",
+    "reveal",
+    "reveal",
+    "reveal",
+    "reveal",
+    "reveal"
+  ],
+  "mutable_suffix": "[[ 49 167 139]\n [ -1  -1  -1]\n [ -1  -1  -1]\n [ -1  -1  -1]\n [ -1  -1  -1]\n [ -1  -1  -1]\n [ -1  -1  -1]\n [ -1  -1  -1]\n [ -1  -1  -1]\n [ -1  -1  -1]\n [ -1  -1  -1]\n [ -1  -1  -1]\n [ -1  -1  -1]\n [ -1  -1  -1]\n [ -1  -1  -1]]",
+  "mutable_suffix_len": "[3 0 0 0 0 0 0 0 0 0 0 0 0 0 0]",
+  "served_route": "[[151  24 171  33  93]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]]",
+  "served_route_len": "[5 0 0 0 0 0 0 0 0 0 0 0 0 0 0]",
+  "dispatch_time": "[0.10428781        nan        nan        nan        nan        nan\n        nan        nan        nan        nan        nan        nan\n        nan        nan        nan]",
+  "return_finish": "[0.         1.67834103 1.67834103 1.67834103 1.67834103 1.67834103\n 1.67834103 1.67834103 1.67834103 1.67834103 1.67834103 1.67834103\n 1.67834103 1.67834103 1.67834103]",
+  "trace_dispatch_time": "[0.10428781        nan        nan        nan        nan        nan\n        nan        nan        nan        nan        nan        nan\n        nan        nan        nan]",
+  "trace_return_depart": "[nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan]",
+  "trace_return_arrival": "[nan nan nan nan nan nan nan nan nan nan nan nan nan nan nan]",
+  "services_prev_node": "[[  0 151  24 171  33]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]]",
+  "services_node": "[[151  24 171  33  93]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]\n [ -1  -1  -1  -1  -1]]",
+  "services_depart": "[[0.10428781 0.83835107 1.02019798 1.50455073 1.76619268]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]]",
+  "services_arrival": "[[0.32818131 0.97019798 1.45455073 1.71619268 1.95515393]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]]",
+  "services_start": "[[0.32818131 0.97019798 1.45455073 1.71619268 1.95515393]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]]",
+  "services_finish": "[[0.37818131 1.02019798 1.50455073 1.76619268 2.00515393]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]\n [       nan        nan        nan        nan        nan]]",
+  "services_len": "[5 0 0 0 0 0 0 0 0 0 0 0 0 0 0]",
+  "force_suffix": [],
+  "replanner_state": {
+    "version": "c0-reserve-v1",
+    "budget": 710.6548152249378,
+    "mode": "knn",
+    "accepted": [
+      24,
+      33,
+      49,
+      93,
+      139,
+      151,
+      167,
+      171
+    ],
+    "rejected": [
+      71,
+      88,
+      100,
+      111,
+      177
+    ],
+    "plan": {
+      "0": [
+        93,
+        49,
+        167,
+        139
+      ]
+    },
+    "status_inst": 1
+  },
+  "coldchain_contract_hash": "f70c91632f782188d07950832ec03a3bb94a7c561572cbd56edf7b8d76d53fc0",
+  "coldchain_updated_time": "[2.00515393        nan        nan        nan        nan        nan\n        nan        nan        nan        nan        nan        nan\n        nan        nan        nan]",
+  "vehicle_coldchain_state": [
+    {
+      "compartment_temperature_c": [
+        18.0,
+        4.0875,
+        -18.0
+      ],
+      "zone_load": [
+        0.0,
+        6.7423847913742065,
+        1.6936748027801514
+      ],
+      "cargo_manifest": [
+        {
+          "order_id": 151,
+          "quantity": 1.6936748027801514,
+          "temp_class": 2,
+          "pickup_finish_time": 0.37818131471673644,
+          "initial_quality": 9.0,
+          "quality_remaining": 8.999547701613176,
+          "precooled": true
+        },
+        {
+          "order_id": 24,
+          "quantity": 1.446312427520752,
+          "temp_class": 1,
+          "pickup_finish_time": 1.0201979763805866,
+          "initial_quality": 9.0,
+          "quality_remaining": 8.981453279408527,
+          "precooled": true
+        },
+        {
+          "order_id": 171,
+          "quantity": 1.2713346481323242,
+          "temp_class": 1,
+          "pickup_finish_time": 1.5045507326722145,
+          "initial_quality": 9.0,
+          "quality_remaining": 8.990573641809497,
+          "precooled": true
+        },
+        {
+          "order_id": 33,
+          "quantity": 1.9620352983474731,
+          "temp_class": 1,
+          "pickup_finish_time": 1.766192680845658,
+          "initial_quality": 9.0,
+          "quality_remaining": 8.995500359693605,
+          "precooled": true
+        },
+        {
+          "order_id": 93,
+          "quantity": 2.0627024173736572,
+          "temp_class": 1,
+          "pickup_finish_time": 2.0051539291938147,
+          "initial_quality": 9.0,
+          "quality_remaining": 9.0,
+          "precooled": true
+        }
+      ],
+      "delivered_to_depot": [],
+      "cumulative_energy_kwh": 40.60994543838279,
+      "cumulative_distance_km": 1.7860445380210876,
+      "finalized_quality_loss": 0.0,
+      "thermal_violation_count": 0,
+      "thermal_violation_duration_h": 0.0,
+      "door_open_count": 5,
+      "dispatched": true,
+      "closed": false
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "committed_coldchain_before": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "coldchain_accounting_anchor": [
+    {
+      "compartment_temperature_c": [
+        18.0,
+        4.0875,
+        -18.0
+      ],
+      "zone_load": [
+        0.0,
+        6.7423847913742065,
+        1.6936748027801514
+      ],
+      "cargo_manifest": [
+        {
+          "order_id": 151,
+          "quantity": 1.6936748027801514,
+          "temp_class": 2,
+          "pickup_finish_time": 0.37818131471673644,
+          "initial_quality": 9.0,
+          "quality_remaining": 8.999547701613176,
+          "precooled": true
+        },
+        {
+          "order_id": 24,
+          "quantity": 1.446312427520752,
+          "temp_class": 1,
+          "pickup_finish_time": 1.0201979763805866,
+          "initial_quality": 9.0,
+          "quality_remaining": 8.981453279408527,
+          "precooled": true
+        },
+        {
+          "order_id": 171,
+          "quantity": 1.2713346481323242,
+          "temp_class": 1,
+          "pickup_finish_time": 1.5045507326722145,
+          "initial_quality": 9.0,
+          "quality_remaining": 8.990573641809497,
+          "precooled": true
+        },
+        {
+          "order_id": 33,
+          "quantity": 1.9620352983474731,
+          "temp_class": 1,
+          "pickup_finish_time": 1.766192680845658,
+          "initial_quality": 9.0,
+          "quality_remaining": 8.995500359693605,
+          "precooled": true
+        },
+        {
+          "order_id": 93,
+          "quantity": 2.0627024173736572,
+          "temp_class": 1,
+          "pickup_finish_time": 2.0051539291938147,
+          "initial_quality": 9.0,
+          "quality_remaining": 9.0,
+          "precooled": true
+        }
+      ],
+      "delivered_to_depot": [],
+      "cumulative_energy_kwh": 40.60994543838279,
+      "cumulative_distance_km": 1.7860445380210876,
+      "finalized_quality_loss": 0.0,
+      "thermal_violation_count": 0,
+      "thermal_violation_duration_h": 0.0,
+      "door_open_count": 5,
+      "dispatched": true,
+      "closed": false
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "trace_final_coldchain_state": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "trace_depot_unload_records": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "trace_dispatch_preconditioning_energy_kwh": "[0.5 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0. ]",
+  "trace_return_segment_energy_kwh": "[0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]",
+  "trace_return_segment_quality_loss": "[0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]",
+  "trace_return_segment_distance_km": "[0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]",
+  "trace_return_segment_thermal_violation_count": "[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]",
+  "trace_return_segment_thermal_violation_duration_h": "[0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]",
+  "services_coldchain": [
+    [
+      {
+        "before": {
+          "compartment_temperature_c": [
+            18.0,
+            4.0,
+            -18.0
+          ],
+          "zone_load": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "cargo_manifest": [],
+          "delivered_to_depot": [],
+          "cumulative_energy_kwh": 0.5,
+          "cumulative_distance_km": 0.0,
+          "finalized_quality_loss": 0.0,
+          "thermal_violation_count": 0,
+          "thermal_violation_duration_h": 0.0,
+          "door_open_count": 0,
+          "dispatched": true,
+          "closed": false
+        },
+        "after": {
+          "compartment_temperature_c": [
+            18.0,
+            4.0,
+            -17.88
+          ],
+          "zone_load": [
+            0.0,
+            0.0,
+            1.6936748027801514
+          ],
+          "cargo_manifest": [
+            {
+              "order_id": 151,
+              "quantity": 1.6936748027801514,
+              "temp_class": 2,
+              "pickup_finish_time": 0.37818131471673644,
+              "initial_quality": 9.0,
+              "quality_remaining": 9.0,
+              "precooled": true
+            }
+          ],
+          "delivered_to_depot": [],
+          "cumulative_energy_kwh": 12.61214504208822,
+          "cumulative_distance_km": 0.33584025502204895,
+          "finalized_quality_loss": 0.0,
+          "thermal_violation_count": 0,
+          "thermal_violation_duration_h": 0.0,
+          "door_open_count": 1,
+          "dispatched": true,
+          "closed": false
+        },
+        "picked_order_id": 151,
+        "segment_energy_kwh": 12.11214504208822,
+        "segment_quality_loss": 0.0,
+        "segment_distance_km": 0.33584025502204895,
+        "segment_thermal_violation_count": 0,
+        "segment_thermal_violation_duration_h": 0.0
+      },
+      {
+        "before": {
+          "compartment_temperature_c": [
+            18.0,
+            4.0,
+            -17.88
+          ],
+          "zone_load": [
+            0.0,
+            0.0,
+            1.6936748027801514
+          ],
+          "cargo_manifest": [
+            {
+              "order_id": 151,
+              "quantity": 1.6936748027801514,
+              "temp_class": 2,
+              "pickup_finish_time": 0.37818131471673644,
+              "initial_quality": 9.0,
+              "quality_remaining": 9.0,
+              "precooled": true
+            }
+          ],
+          "delivered_to_depot": [],
+          "cumulative_energy_kwh": 12.61214504208822,
+          "cumulative_distance_km": 0.33584025502204895,
+          "finalized_quality_loss": 0.0,
+          "thermal_violation_count": 0,
+          "thermal_violation_duration_h": 0.0,
+          "door_open_count": 1,
+          "dispatched": true,
+          "closed": false
+        },
+        "after": {
+          "compartment_temperature_c": [
+            18.0,
+            4.0875,
+            -18.0
+          ],
+          "zone_load": [
+            0.0,
+            1.446312427520752,
+            1.6936748027801514
+          ],
+          "cargo_manifest": [
+            {
+              "order_id": 151,
+              "quantity": 1.6936748027801514,
+              "temp_class": 2,
+              "pickup_finish_time": 0.37818131471673644,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.999821519368059,
+              "precooled": true
+            },
+            {
+              "order_id": 24,
+              "quantity": 1.446312427520752,
+              "temp_class": 1,
+              "pickup_finish_time": 1.0201979763805866,
+              "initial_quality": 9.0,
+              "quality_remaining": 9.0,
+              "precooled": true
+            }
+          ],
+          "delivered_to_depot": [],
+          "cumulative_energy_kwh": 19.849320974720257,
+          "cumulative_distance_km": 0.533610612154007,
+          "finalized_quality_loss": 0.0,
+          "thermal_violation_count": 0,
+          "thermal_violation_duration_h": 0.0,
+          "door_open_count": 2,
+          "dispatched": true,
+          "closed": false
+        },
+        "picked_order_id": 24,
+        "segment_energy_kwh": 7.237175932632036,
+        "segment_quality_loss": 0.0,
+        "segment_distance_km": 0.197770357131958,
+        "segment_thermal_violation_count": 0,
+        "segment_thermal_violation_duration_h": 0.0
+      },
+      {
+        "before": {
+          "compartment_temperature_c": [
+            18.0,
+            4.0875,
+            -18.0
+          ],
+          "zone_load": [
+            0.0,
+            1.446312427520752,
+            1.6936748027801514
+          ],
+          "cargo_manifest": [
+            {
+              "order_id": 151,
+              "quantity": 1.6936748027801514,
+              "temp_class": 2,
+              "pickup_finish_time": 0.37818131471673644,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.999821519368059,
+              "precooled": true
+            },
+            {
+              "order_id": 24,
+              "quantity": 1.446312427520752,
+              "temp_class": 1,
+              "pickup_finish_time": 1.0201979763805866,
+              "initial_quality": 9.0,
+              "quality_remaining": 9.0,
+              "precooled": true
+            }
+          ],
+          "delivered_to_depot": [],
+          "cumulative_energy_kwh": 19.849320974720257,
+          "cumulative_distance_km": 0.533610612154007,
+          "finalized_quality_loss": 0.0,
+          "thermal_violation_count": 0,
+          "thermal_violation_duration_h": 0.0,
+          "door_open_count": 2,
+          "dispatched": true,
+          "closed": false
+        },
+        "after": {
+          "compartment_temperature_c": [
+            18.0,
+            4.0875,
+            -18.0
+          ],
+          "zone_load": [
+            0.0,
+            2.717647075653076,
+            1.6936748027801514
+          ],
+          "cargo_manifest": [
+            {
+              "order_id": 151,
+              "quantity": 1.6936748027801514,
+              "temp_class": 2,
+              "pickup_finish_time": 0.37818131471673644,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.99968686930181,
+              "precooled": true
+            },
+            {
+              "order_id": 24,
+              "quantity": 1.446312427520752,
+              "temp_class": 1,
+              "pickup_finish_time": 1.0201979763805866,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.99087963759903,
+              "precooled": true
+            },
+            {
+              "order_id": 171,
+              "quantity": 1.2713346481323242,
+              "temp_class": 1,
+              "pickup_finish_time": 1.5045507326722145,
+              "initial_quality": 9.0,
+              "quality_remaining": 9.0,
+              "precooled": true
+            }
+          ],
+          "delivered_to_depot": [],
+          "cumulative_energy_kwh": 25.85730296939559,
+          "cumulative_distance_km": 1.1851397454738617,
+          "finalized_quality_loss": 0.0,
+          "thermal_violation_count": 0,
+          "thermal_violation_duration_h": 0.0,
+          "door_open_count": 3,
+          "dispatched": true,
+          "closed": false
+        },
+        "picked_order_id": 171,
+        "segment_energy_kwh": 6.007981994675333,
+        "segment_quality_loss": 0.0,
+        "segment_distance_km": 0.6515291333198547,
+        "segment_thermal_violation_count": 0,
+        "segment_thermal_violation_duration_h": 0.0
+      },
+      {
+        "before": {
+          "compartment_temperature_c": [
+            18.0,
+            4.0875,
+            -18.0
+          ],
+          "zone_load": [
+            0.0,
+            2.717647075653076,
+            1.6936748027801514
+          ],
+          "cargo_manifest": [
+            {
+              "order_id": 151,
+              "quantity": 1.6936748027801514,
+              "temp_class": 2,
+              "pickup_finish_time": 0.37818131471673644,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.99968686930181,
+              "precooled": true
+            },
+            {
+              "order_id": 24,
+              "quantity": 1.446312427520752,
+              "temp_class": 1,
+              "pickup_finish_time": 1.0201979763805866,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.99087963759903,
+              "precooled": true
+            },
+            {
+              "order_id": 171,
+              "quantity": 1.2713346481323242,
+              "temp_class": 1,
+              "pickup_finish_time": 1.5045507326722145,
+              "initial_quality": 9.0,
+              "quality_remaining": 9.0,
+              "precooled": true
+            }
+          ],
+          "delivered_to_depot": [],
+          "cumulative_energy_kwh": 25.85730296939559,
+          "cumulative_distance_km": 1.1851397454738617,
+          "finalized_quality_loss": 0.0,
+          "thermal_violation_count": 0,
+          "thermal_violation_duration_h": 0.0,
+          "door_open_count": 3,
+          "dispatched": true,
+          "closed": false
+        },
+        "after": {
+          "compartment_temperature_c": [
+            18.0,
+            4.0875,
+            -18.0
+          ],
+          "zone_load": [
+            0.0,
+            4.679682374000549,
+            1.6936748027801514
+          ],
+          "cargo_manifest": [
+            {
+              "order_id": 151,
+              "quantity": 1.6936748027801514,
+              "temp_class": 2,
+              "pickup_finish_time": 0.37818131471673644,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.999614132840216,
+              "precooled": true
+            },
+            {
+              "order_id": 24,
+              "quantity": 1.446312427520752,
+              "temp_class": 1,
+              "pickup_finish_time": 1.0201979763805866,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.985952919714922,
+              "precooled": true
+            },
+            {
+              "order_id": 171,
+              "quantity": 1.2713346481323242,
+              "temp_class": 1,
+              "pickup_finish_time": 1.5045507326722145,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.995073282115893,
+              "precooled": true
+            },
+            {
+              "order_id": 33,
+              "quantity": 1.9620352983474731,
+              "temp_class": 1,
+              "pickup_finish_time": 1.766192680845658,
+              "initial_quality": 9.0,
+              "quality_remaining": 9.0,
+              "precooled": true
+            }
+          ],
+          "delivered_to_depot": [],
+          "cumulative_energy_kwh": 33.122032994451615,
+          "cumulative_distance_km": 1.5026026666164398,
+          "finalized_quality_loss": 0.0,
+          "thermal_violation_count": 0,
+          "thermal_violation_duration_h": 0.0,
+          "door_open_count": 4,
+          "dispatched": true,
+          "closed": false
+        },
+        "picked_order_id": 33,
+        "segment_energy_kwh": 7.264730025056025,
+        "segment_quality_loss": 0.0,
+        "segment_distance_km": 0.3174629211425781,
+        "segment_thermal_violation_count": 0,
+        "segment_thermal_violation_duration_h": 0.0
+      },
+      {
+        "before": {
+          "compartment_temperature_c": [
+            18.0,
+            4.0875,
+            -18.0
+          ],
+          "zone_load": [
+            0.0,
+            4.679682374000549,
+            1.6936748027801514
+          ],
+          "cargo_manifest": [
+            {
+              "order_id": 151,
+              "quantity": 1.6936748027801514,
+              "temp_class": 2,
+              "pickup_finish_time": 0.37818131471673644,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.999614132840216,
+              "precooled": true
+            },
+            {
+              "order_id": 24,
+              "quantity": 1.446312427520752,
+              "temp_class": 1,
+              "pickup_finish_time": 1.0201979763805866,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.985952919714922,
+              "precooled": true
+            },
+            {
+              "order_id": 171,
+              "quantity": 1.2713346481323242,
+              "temp_class": 1,
+              "pickup_finish_time": 1.5045507326722145,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.995073282115893,
+              "precooled": true
+            },
+            {
+              "order_id": 33,
+              "quantity": 1.9620352983474731,
+              "temp_class": 1,
+              "pickup_finish_time": 1.766192680845658,
+              "initial_quality": 9.0,
+              "quality_remaining": 9.0,
+              "precooled": true
+            }
+          ],
+          "delivered_to_depot": [],
+          "cumulative_energy_kwh": 33.122032994451615,
+          "cumulative_distance_km": 1.5026026666164398,
+          "finalized_quality_loss": 0.0,
+          "thermal_violation_count": 0,
+          "thermal_violation_duration_h": 0.0,
+          "door_open_count": 4,
+          "dispatched": true,
+          "closed": false
+        },
+        "after": {
+          "compartment_temperature_c": [
+            18.0,
+            4.0875,
+            -18.0
+          ],
+          "zone_load": [
+            0.0,
+            6.7423847913742065,
+            1.6936748027801514
+          ],
+          "cargo_manifest": [
+            {
+              "order_id": 151,
+              "quantity": 1.6936748027801514,
+              "temp_class": 2,
+              "pickup_finish_time": 0.37818131471673644,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.999547701613176,
+              "precooled": true
+            },
+            {
+              "order_id": 24,
+              "quantity": 1.446312427520752,
+              "temp_class": 1,
+              "pickup_finish_time": 1.0201979763805866,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.981453279408527,
+              "precooled": true
+            },
+            {
+              "order_id": 171,
+              "quantity": 1.2713346481323242,
+              "temp_class": 1,
+              "pickup_finish_time": 1.5045507326722145,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.990573641809497,
+              "precooled": true
+            },
+            {
+              "order_id": 33,
+              "quantity": 1.9620352983474731,
+              "temp_class": 1,
+              "pickup_finish_time": 1.766192680845658,
+              "initial_quality": 9.0,
+              "quality_remaining": 8.995500359693605,
+              "precooled": true
+            },
+            {
+              "order_id": 93,
+              "quantity": 2.0627024173736572,
+              "temp_class": 1,
+              "pickup_finish_time": 2.0051539291938147,
+              "initial_quality": 9.0,
+              "quality_remaining": 9.0,
+              "precooled": true
+            }
+          ],
+          "delivered_to_depot": [],
+          "cumulative_energy_kwh": 40.60994543838279,
+          "cumulative_distance_km": 1.7860445380210876,
+          "finalized_quality_loss": 0.0,
+          "thermal_violation_count": 0,
+          "thermal_violation_duration_h": 0.0,
+          "door_open_count": 5,
+          "dispatched": true,
+          "closed": false
+        },
+        "picked_order_id": 93,
+        "segment_energy_kwh": 7.487912443931172,
+        "segment_quality_loss": 0.0,
+        "segment_distance_km": 0.2834418714046478,
+        "segment_thermal_violation_count": 0,
+        "segment_thermal_violation_duration_h": 0.0
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "state_hash": "4c9dc6a32c78d43c38e8d470c38d1da47953b3358078c979bc9cdcd87ac44043"
+}

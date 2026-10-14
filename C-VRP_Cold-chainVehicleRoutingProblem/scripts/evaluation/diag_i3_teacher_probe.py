@@ -4,6 +4,7 @@ The fixed small configuration below is ONLY an engineering diagnostic. It is
 not the formal I3 configuration and must not be selected by development gain.
 """
 import argparse
+from dataclasses import asdict
 import hashlib
 import json
 from pathlib import Path
@@ -37,7 +38,7 @@ SCALE200_CONFIG = {**CONFIG, 'version': 'engineering_200_order_train_probe_v1',
     'K': 2, 'continuation_time_limit': 'infinity'}
 
 
-def probe():
+def probe(archive_path=None):
     start = time.perf_counter()
     contract = make_c0_contract_v2()
     full = generate_dataset(CONFIG['history_days'], CONFIG['orders'], TRAIN_SEED)
@@ -45,7 +46,7 @@ def probe():
     ds = add_v2_initial_quality({k: v[:CONFIG['probe_days']].copy()
                                 for k, v in full.items()}, contract)
     data_hash, data_meta = dataset_identity(ds), dataset_meta_sha256(ds)
-    rows, days = [], []
+    rows, days, private_entries = [], [], []
     for day in range(CONFIG['probe_days']):
         # Exclude the replayed day from its teacher's historical scenario pool.
         # Full real future remains available only through private replay data.
@@ -106,6 +107,15 @@ def probe():
                        'utility', 'revenue', 'fuel_cost', 'reject_loss', 'failures', 'timeouts')}
                        for b in branches]}
             rows.append(row)
+            if archive_path is not None:
+                saved_branches = []
+                for branch in branches:
+                    saved = dict(branch)
+                    if 'traces' in saved:
+                        saved['traces'] = [asdict(trace) for trace in saved['traces']]
+                    saved_branches.append(saved)
+                private_entries.append({'day_id': day, 'ordinal': ordinal,
+                    'record': record, 'branches': saved_branches, 'preference': preference})
         if len(records) != len(CONFIG['capture_ordinals']):
             raise RuntimeError('Expected capture ordinals incomplete; no silent trimming')
     gaps = [row['teacher_delta'] for row in rows if row['teacher_valid']]
@@ -119,14 +129,40 @@ def probe():
              ROOT / 'evaluation/scenario_saa.py', ROOT / 'evaluation/run_exp_energy_c0.py',
              ROOT / 'simulation/strict_online_env.py', ROOT / 'simulation/recourse_snapshot.py',
              ROOT / 'evaluation/coldchain_evaluator_a1.py']
+    source_hashes = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+                    for p in files}
+    archive = None
+    if archive_path is not None:
+        from i3_teacher_archive import write_archive, load_archive
+        archive_module = ROOT / 'training/i3_teacher_archive.py'
+        source_hashes[str(archive_module.relative_to(ROOT))] = hashlib.sha256(archive_module.read_bytes()).hexdigest()
+        context = {'train_seed': TRAIN_SEED, 'dataset_sha256': data_hash,
+            'dataset_meta_sha256': data_meta, 'contract_hash': contract.contract_hash,
+            'source_sha256': source_hashes,
+            'generator_config': {'history_days': CONFIG['history_days'],
+                                 'orders': CONFIG['orders'], 'seed': TRAIN_SEED,
+                                 'probe_days': CONFIG['probe_days'], 'initial_quality': 'v2'},
+            'collection_config': dict(CONFIG),
+            'history_dataset_sha256': dataset_identity(full),
+            'history_dataset_meta_sha256': dataset_meta_sha256(full)}
+        expected = [(day, ordinal) for day in range(CONFIG['probe_days'])
+                    for ordinal in CONFIG['capture_ordinals']]
+        digest = write_archive(archive_path, context=context, dataset=ds,
+                               entries=private_entries, expected_keys=expected)
+        # Verify the just-created archive, never promote it to a formal dataset.
+        restored = load_archive(archive_path, archive_sha256=digest,
+                                expected_context=context, expected_keys=expected)
+        archive = {'path': str(archive_path), 'sha256': digest,
+                   'records': len(restored['entries']), 'not_formal_teacher_dataset': True,
+                   'contains_private_snapshots_data_and_full_branch_traces': True}
     return {'purpose': 'engineering diagnostic, no MaskCO training or online gain claim',
             'config': CONFIG, 'dataset_sha256': data_hash, 'dataset_meta_sha256': data_meta,
             'history_dataset_sha256': dataset_identity(full),
             'history_dataset_meta_sha256': dataset_meta_sha256(full),
             'elapsed_s': time.perf_counter() - start,
             'contract_hash': contract.contract_hash,
-            'source_sha256': {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
-                              for p in files}, 'days': days, 'summary': summary, 'records': rows}
+            'source_sha256': source_hashes, 'private_archive': archive,
+            'days': days, 'summary': summary, 'records': rows}
 
 
 if __name__ == '__main__':
@@ -134,10 +170,12 @@ if __name__ == '__main__':
     parser.add_argument('--out', required=True)
     parser.add_argument('--scale200', action='store_true',
                         help='Fixed 1 real 200-order training day/3 predeclared ordinals, K=2/infinite budget diagnostic')
+    parser.add_argument('--archive-out',
+                        help='Optional new typed PRIVATE engineering archive (no overwrite), not a formal collection plan')
     args = parser.parse_args()
     if args.scale200:
         CONFIG = SCALE200_CONFIG
-    result = probe()
+    result = probe(args.archive_out)
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False), encoding='utf-8')

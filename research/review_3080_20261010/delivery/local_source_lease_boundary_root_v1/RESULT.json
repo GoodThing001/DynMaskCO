@@ -1,0 +1,157 @@
+{
+  "checks": [
+    {
+      "name": "copied_exactly_before_and_after_lease",
+      "pass": true
+    },
+    {
+      "name": "six_mutations_blocked_by_sharing",
+      "pass": false
+    },
+    {
+      "name": "directory_addition_really_allowed",
+      "pass": true
+    },
+    {
+      "name": "directory_manifest_rejects",
+      "pass": true
+    },
+    {
+      "name": "released_write_succeeds",
+      "pass": true
+    },
+    {
+      "name": "separate_owner_blocks_write",
+      "pass": false
+    },
+    {
+      "name": "abnormal_owner_exit17",
+      "pass": true
+    },
+    {
+      "name": "OS_teardown_releases_handle",
+      "pass": true
+    },
+    {
+      "name": "original_source_unchanged",
+      "pass": true
+    },
+    {
+      "name": "parent_source_closed",
+      "pass": false
+    }
+  ],
+  "checks_count": 10,
+  "failed": 3,
+  "before": [
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\local_source_lease_boundary_root_v1\\owned\\copy_0.py",
+      "sha256": "ba0cac060269583523ca9506473a755203037c57d466a11aa89a30a5f6756f3d",
+      "info": {
+        "volume": 3030214475,
+        "file_index": 1970324837378480,
+        "size": 1005,
+        "links": 1
+      }
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\local_source_lease_boundary_root_v1\\owned\\copy_1.pyc",
+      "sha256": "93d29091adb1768ed45596ffe23bd0cb271f41f18dd9df98669695d06d7bedca",
+      "info": {
+        "volume": 3030214475,
+        "file_index": 1970324837378483,
+        "size": 2131,
+        "links": 1
+      }
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\local_source_lease_boundary_root_v1\\owned\\copy_2.py",
+      "sha256": "5c2a5015cd36cf7f561269f33dec4c323093d3d88b0673969accdabdcb9ce2cb",
+      "info": {
+        "volume": 3030214475,
+        "file_index": 1970324837378486,
+        "size": 34564,
+        "links": 1
+      }
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\local_source_lease_boundary_root_v1\\owned\\copy_3.pyc",
+      "sha256": "37b9330948347187b5ba148c0a9b145c9efea6f48f918b4d1ba86db52dfce42f",
+      "info": {
+        "volume": 3030214475,
+        "file_index": 1970324837378488,
+        "size": 13268,
+        "links": 1
+      }
+    }
+  ],
+  "after": [
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\local_source_lease_boundary_root_v1\\owned\\copy_0.py",
+      "sha256": "ba0cac060269583523ca9506473a755203037c57d466a11aa89a30a5f6756f3d",
+      "info": {
+        "volume": 3030214475,
+        "file_index": 1970324837378480,
+        "size": 1005,
+        "links": 1
+      }
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\local_source_lease_boundary_root_v1\\owned\\copy_1.pyc",
+      "sha256": "93d29091adb1768ed45596ffe23bd0cb271f41f18dd9df98669695d06d7bedca",
+      "info": {
+        "volume": 3030214475,
+        "file_index": 1970324837378483,
+        "size": 2131,
+        "links": 1
+      }
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\local_source_lease_boundary_root_v1\\owned\\copy_2.py",
+      "sha256": "5c2a5015cd36cf7f561269f33dec4c323093d3d88b0673969accdabdcb9ce2cb",
+      "info": {
+        "volume": 3030214475,
+        "file_index": 1970324837378486,
+        "size": 34564,
+        "links": 1
+      }
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\local_source_lease_boundary_root_v1\\owned\\copy_3.pyc",
+      "sha256": "37b9330948347187b5ba148c0a9b145c9efea6f48f918b4d1ba86db52dfce42f",
+      "info": {
+        "volume": 3030214475,
+        "file_index": 1970324837378488,
+        "size": 13268,
+        "links": 1
+      }
+    }
+  ],
+  "directory_additions": [
+    "unleased_extra.py"
+  ],
+  "directory_manifest_accepts": false,
+  "owner_exit": {
+    "returncode": 17,
+    "reaped": true,
+    "deliberate_abnormal_exit": true,
+    "python_CloseHandle_not_called": true
+  },
+  "elapsed_component": 2.1728451000526547,
+  "environment": "local Python3.12.7 CPU7 NTFS file copies only",
+  "full_runtime_guard_qualified": false,
+  "full_request_budget_qualified": false,
+  "stable_online_gain": false,
+  "parent_identity": {
+    "pid": 20516,
+    "create_time": 1791872252.9272497,
+    "cmdline": [
+      "D:\\AA_Py\\A_Anaconda\\python.exe",
+      "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\local_source_lease_boundary_root_v1\\run.py"
+    ],
+    "owner": "QY\\CodexSandboxOffline",
+    "cpu_affinity": [
+      7
+    ]
+  }
+}

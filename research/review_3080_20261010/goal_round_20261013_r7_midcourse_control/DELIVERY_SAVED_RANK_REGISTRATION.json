@@ -1,0 +1,11 @@
+{
+  "stage": "saved_original_vs_compiled_action_rank_identity_v1",
+  "inputs": "all original 34 saved request NPZ with eager scores and action identities; all 34 saved compiled output NPZ, each checked against original manifests",
+  "selection": "all 34 fixed records in original order, no model/checkpoint/action/snapshot selection",
+  "methods": ["exact float32 vector identity", "stable descending full ranking", "top index", "per-customer top action", "actual pairwise inversions among previously bound-vulnerable adjacent pairs"],
+  "no_jax_model_solver_C0_or_original_audit_rerun": true,
+  "strict_bitwise_scientific_gate_unchanged": true,
+  "not_complete_action_chain_or_online_request": true,
+  "scientific_family3_started": false,
+  "stable_online_gain": false
+}

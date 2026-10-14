@@ -1,0 +1,75 @@
+{
+  "stage": "independent_rolling_incremental_partial_semantics_engineering",
+  "registration_sha256": "38990b664c573b4f482c3aecbd5b9a87ebdae505895f55cbe045472b254eff04",
+  "recovery_registration_sha256": "fdad7d9a6ec120f3382f47c7aebb966acd69182d5499e3201cc1b8f5f753e8d7",
+  "original_production": {
+    "qualified": false,
+    "elapsed": 8.02212950005196,
+    "worker_returncode": 1,
+    "worker_reaped": true,
+    "failure_nature": "Worker emitted failure after its own cooperative deadline TimeoutError; parent subsequently calls kill/wait, actual code1 cannot identify kill as cause",
+    "output_selected": false,
+    "SOURCE_END_present": false,
+    "completed_counts": {
+      "reject": 7,
+      "accept": 0
+    },
+    "K10_both_decisions_complete": false
+  },
+  "original_audit": {
+    "persisted_successful_checks": 67,
+    "exception": "KeyError:index because __mapping__ witness was not decoded",
+    "actual_returncode": 1,
+    "original_files_preserved": true,
+    "completed_immediate_C0_checks_carried_by_sha": true
+  },
+  "recovery_audit": {
+    "checks_count": 92,
+    "failed": 0,
+    "strict_semantics_failure_names": [],
+    "actual_returncode": 0,
+    "elapsed": 18.93538559996523,
+    "actual_loaded_files": 274,
+    "start_end_exact": true,
+    "repeated_production": false,
+    "repeated_completed_immediate_C0": false
+  },
+  "saved_only_identity_checks_count": 120,
+  "saved_only_identity_failures": 1,
+  "scope": "Seven completed reject witnesses: exact branch utility float.hex, recorded per-insertion and local-search entry/exit route state, terminal C0 energy/distance. Individual local-search candidate deltas/internal ranking were not separately saved; no universal flag equivalence.",
+  "strict_saved_prefix_semantics_qualified": true,
+  "candidate_eligible_for_install": false,
+  "registered_barrier_failures": [
+    "incomplete reject K10",
+    "all accept K10 absent",
+    "original production failure/source end absent/no selection"
+  ],
+  "timing_scope": "Candidate and original reference run in separate windows with different observation implementation; saved timings are descriptive, not fair online speedup estimate. Old phase3/new7 prefixes likewise not a controlled speedup comparison.",
+  "next": "Prospectively implement conservative infeasibility screening or exact route-summary reuse while retaining original arithmetic ranking; then fresh bounded engineering control-chain tests. Do not rerun this candidate or prefix to seek all20.",
+  "formal_strong_dynamic_qualified": false,
+  "full_request_budget_qualified": false,
+  "full_scientific_loaded_closure": false,
+  "learned_output_qualified": false,
+  "stable_online_gain": false,
+  "scientific_data_generated": false,
+  "literature": [
+    {
+      "title": "Scenario-Based Planning for Partially Dynamic Vehicle Routing with Stochastic Customers",
+      "authors": "Bent and Van Hentenryck",
+      "year": 2004,
+      "doi": "10.1287/opre.1040.0124",
+      "url": "https://pubsonline.informs.org/doi/10.1287/opre.1040.0124",
+      "read_scope": "Parent read publisher abstract only",
+      "use": "Scenario planning inspiration; paired C0 SAA adaptation, not consensus MSA replication"
+    },
+    {
+      "title": "PyVRP: A High-Performance VRP Solver Package",
+      "authors": "Wouda, Lan and Kool",
+      "year": 2024,
+      "doi": "10.1287/ijoc.2023.0055",
+      "url": "https://arxiv.org/html/2403.13795v2",
+      "read_scope": "Parent read sections4.3.2 and5.3",
+      "use": "Move-cache, conservative filtering and route-summary inspiration only; existingincr_eval is not PyVRP replication or coldchain equivalence"
+    }
+  ]
+}

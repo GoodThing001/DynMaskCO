@@ -1,0 +1,22 @@
+{
+  "schema": "saved-cache-boundary-diagnosis-v1",
+  "request_root": "research/review_3080_20261010/pickup/exact_route_distance_cache_request_root_v2",
+  "local_root": "research/review_3080_20261010/pickup/exact_route_distance_cache_engineering_root_v1",
+  "inputs": {
+    "research/review_3080_20261010/pickup/exact_route_distance_cache_request_root_v2/PHASE_TRACE.bin": "c17bc815ef0be2328145cf586d5bed6ca4e2fe692749d0ce65681edccfb32c94",
+    "research/review_3080_20261010/pickup/exact_route_distance_cache_request_root_v2/exact_distance_cache.py": "ce3e1b873306b431c55f680af237075640f56ca9bf22c8ace2e240792d629f4d",
+    "research/review_3080_20261010/pickup/exact_route_distance_cache_request_root_v2/controller.py": "7476dcab7171fe9897d6fdfcdd27e9e1bb92ea3b7f152ccd20418c5fb0d006c7",
+    "research/review_3080_20261010/pickup/exact_route_distance_cache_engineering_root_v1/RESULT.json": "ba920f82796c3a2a9c195589b3704c2aff9846a48f622f9d0b73d2fdacd1fe18",
+    "research/review_3080_20261010/pickup/exact_route_distance_cache_request_root_v2/ROLLOUT_reject_00.json": "19836bfb58cdb9f749db3666a9318990ab3cb05302442ecfd3a3d538d41e9a27",
+    "research/review_3080_20261010/pickup/exact_route_distance_cache_request_root_v2/ROLLOUT_reject_01.json": "181fbd85ecdc7e43640f9bffdf9e7dd39a442e863a0fc15b9cffb688ca207310",
+    "research/review_3080_20261010/pickup/exact_route_distance_cache_request_root_v2/ROLLOUT_reject_02.json": "8fa2ccb7c07036331a2560d2f252bbc487eb51c78cfa46bcca8ccd718dc8b23c"
+  },
+  "programs": {
+    "audit.py": "f947bafdc3fc55dc1c03494e341d22ba95a7771a8476f7db34d1bd74fe3b5762",
+    "run.py": "cb2437c87ff5e70af027ebb6166004662eb5ab77d7b54296807a01797e59dbea"
+  },
+  "helper_sha256": "2e823979ef6fff9f133e158f2a2cc2e66a71ae7c43e65dc7edf71793f79adf4f",
+  "scope": "new byte parser/exact rational phase arithmetic and duplicate-key distribution, no model/route/C0/old parser executions",
+  "inner_cache_time_attribution_enabled": false,
+  "science_enabled": false
+}

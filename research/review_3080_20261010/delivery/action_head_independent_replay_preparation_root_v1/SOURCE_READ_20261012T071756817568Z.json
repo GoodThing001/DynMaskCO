@@ -1,0 +1,16 @@
+{
+  "created_utc": "2026-10-12T07:17:56.817568+00:00",
+  "readonly": true,
+  "model_executed": false,
+  "uploaded": false,
+  "transport": {
+    "stdout": "{\"path\": \"C:\\\\Users\\\\zh\\\\project\\\\MASKCO-Main\\\\research\\\\review_3080_20261010\\\\remote_finite_research_root_v2\\\\upstream\\\\modules\\\\functional\\\\coord_transform.py\", \"sha256\": \"09de9bf90d6b21991759511bf2905700791e76cfd2f3b3986c7a7f1cff193da7\", \"source\": \"import jax\\nimport jax.numpy as jnp\\nfrom typing import Literal\\n\\n\\ndef reflect_x(inputs: jax.Array) -> jax.Array:\\n    return inputs.at[..., 0].set(- inputs[..., 0])\\n\\n\\ndef reflect_y(inputs: jax.Array) -> jax.Array:\\n    return inputs.at[..., 1].set(- inputs[..., 1])\\n\\n\\ndef median(xs: jax.Array) -> jax.Array:\\n    ''' Calculate the median along the last axis.\\n    :param xs: shape (..., d)\\n    :return: median of xs, with shape (...)\\n    '''\\n    xs = xs.sort(axis=-1)\\n    d = xs.shape[-1]\\n    return xs[..., d // 2]\\n\\n\\ndef normalize(inputs: jax.Array, centering_method: Literal['mean', 'median'] = 'mean') -> jax.Array:\\n    # center: for every input feature, subtract the mean of all nodes\\n    if centering_method == 'mean':\\n        inputs = inputs - inputs.mean(axis=-2, keepdims=True)\\n    elif centering_method == 'median':\\n        inputs = inputs - jax.vmap(median, in_axes=-1, out_axes=-1)(inputs)[:, None]\\n    else:\\n        raise\\n\\n    # scale by the mean L2-norm of all nodes\\n    inputs_norm = jnp.linalg.norm(inputs, axis=-1, keepdims=True, ord=2)\\n    inputs_norm_mean = inputs_norm.mean(axis=-2, keepdims=True)\\n    inputs = inputs / inputs_norm_mean\\n\\n    return inputs\", \"model_imported\": false}\r\n",
+    "stderr": "",
+    "exit_code": 0
+  },
+  "observation": {
+    "path": "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\remote_finite_research_root_v2\\upstream\\modules\\functional\\coord_transform.py",
+    "sha256": "09de9bf90d6b21991759511bf2905700791e76cfd2f3b3986c7a7f1cff193da7",
+    "model_imported": false
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "source_model": "/home/hzeng/project/MASKCO-Main/CC_Compare/CO-enriched-ML/training/models/NeuralNetwork_samples-50_instances-15_runtime-3600_featureset-dynamicstatic_iteration-29",
+  "tf_version": "2.15.1",
+  "loader": "saved_model.load",
+  "input_shape": [
+    null,
+    20
+  ],
+  "layers": [
+    {
+      "class": "Dense",
+      "name": "dense",
+      "units": 10,
+      "activation": "relu",
+      "use_bias": true
+    },
+    {
+      "class": "Dense",
+      "name": "dense_1",
+      "units": 10,
+      "activation": "relu",
+      "use_bias": true
+    },
+    {
+      "class": "Dense",
+      "name": "dense_2",
+      "units": 10,
+      "activation": "relu",
+      "use_bias": true
+    },
+    {
+      "class": "Dense",
+      "name": "dense_3",
+      "units": 10,
+      "activation": "relu",
+      "use_bias": true
+    },
+    {
+      "class": "Dense",
+      "name": "dense_4",
+      "units": 1,
+      "activation": "linear",
+      "use_bias": false
+    }
+  ],
+  "weight_keys": [
+    "dense/bias",
+    "dense/kernel",
+    "dense_1/bias",
+    "dense_1/kernel",
+    "dense_2/bias",
+    "dense_2/kernel",
+    "dense_3/bias",
+    "dense_3/kernel",
+    "dense_4/kernel"
+  ]
+}

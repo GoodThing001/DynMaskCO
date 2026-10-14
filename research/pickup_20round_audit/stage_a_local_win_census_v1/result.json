@@ -1,0 +1,366 @@
+{
+  "kind": "pickup_guide_local_win_census_readonly",
+  "what_this_is": "read-only re-reading of archived exploratory pilot rows",
+  "eps": 1e-10,
+  "artifacts": {
+    "pickup_arm_pilot_v1": {
+      "status": "ok",
+      "protocol_version": "P-MASKCO-ARM-PILOT-v1",
+      "mask_fraction": 0.5,
+      "n_rows": 36,
+      "guide_local_win_census": {
+        "mode_a": "maskco",
+        "mode_b": "recon_only",
+        "n_pairs": 12,
+        "a_better": 4,
+        "a_worse": 2,
+        "tied": 6,
+        "mean_delta_a_minus_b": -1.2430819769544617,
+        "permutation_identical_pairs": 0
+      },
+      "null_control_recon_only_vs_discard": {
+        "mode_a": "recon_only",
+        "mode_b": "discard",
+        "n_pairs": 12,
+        "a_better": 0,
+        "a_worse": 0,
+        "tied": 12,
+        "mean_delta_a_minus_b": 0.0,
+        "permutation_identical_pairs": 12
+      },
+      "versus_doing_nothing": {
+        "discard": {
+          "n": 12,
+          "n_better_than_doing_nothing": 2,
+          "n_equal_to_doing_nothing": 9,
+          "n_worse_than_doing_nothing": 1,
+          "mean_raw_delta_utility": -0.002473193344978123
+        },
+        "maskco": {
+          "n": 12,
+          "n_better_than_doing_nothing": 4,
+          "n_equal_to_doing_nothing": 6,
+          "n_worse_than_doing_nothing": 2,
+          "mean_raw_delta_utility": -1.2455551702994399
+        },
+        "recon_only": {
+          "n": 12,
+          "n_better_than_doing_nothing": 2,
+          "n_equal_to_doing_nothing": 9,
+          "n_worse_than_doing_nothing": 1,
+          "mean_raw_delta_utility": -0.002473193344978123
+        }
+      }
+    },
+    "pickup_arm_pilot_n45_v1": {
+      "status": "ok",
+      "protocol_version": "P-MASKCO-ARM-PILOT-v1",
+      "mask_fraction": 0.5,
+      "n_rows": 84,
+      "guide_local_win_census": {
+        "mode_a": "maskco",
+        "mode_b": "recon_only",
+        "n_pairs": 28,
+        "a_better": 4,
+        "a_worse": 10,
+        "tied": 14,
+        "mean_delta_a_minus_b": -6.438263220629365,
+        "permutation_identical_pairs": 8
+      },
+      "null_control_recon_only_vs_discard": {
+        "mode_a": "recon_only",
+        "mode_b": "discard",
+        "n_pairs": 28,
+        "a_better": 0,
+        "a_worse": 0,
+        "tied": 28,
+        "mean_delta_a_minus_b": 0.0,
+        "permutation_identical_pairs": 28
+      },
+      "versus_doing_nothing": {
+        "discard": {
+          "n": 28,
+          "n_better_than_doing_nothing": 0,
+          "n_equal_to_doing_nothing": 25,
+          "n_worse_than_doing_nothing": 3,
+          "mean_raw_delta_utility": -0.007221729581098251
+        },
+        "maskco": {
+          "n": 28,
+          "n_better_than_doing_nothing": 3,
+          "n_equal_to_doing_nothing": 12,
+          "n_worse_than_doing_nothing": 13,
+          "mean_raw_delta_utility": -6.445484950210463
+        },
+        "recon_only": {
+          "n": 28,
+          "n_better_than_doing_nothing": 0,
+          "n_equal_to_doing_nothing": 25,
+          "n_worse_than_doing_nothing": 3,
+          "mean_raw_delta_utility": -0.007221729581098251
+        }
+      }
+    },
+    "pickup_arm_pilot_mf50_v1": {
+      "status": "ok",
+      "protocol_version": "P-MASKCO-ARM-PILOT-v1",
+      "mask_fraction": 0.5,
+      "n_rows": 96,
+      "guide_local_win_census": {
+        "mode_a": "maskco",
+        "mode_b": "recon_only",
+        "n_pairs": 32,
+        "a_better": 6,
+        "a_worse": 10,
+        "tied": 16,
+        "mean_delta_a_minus_b": -5.163023941602987,
+        "permutation_identical_pairs": 5
+      },
+      "null_control_recon_only_vs_discard": {
+        "mode_a": "recon_only",
+        "mode_b": "discard",
+        "n_pairs": 32,
+        "a_better": 0,
+        "a_worse": 0,
+        "tied": 32,
+        "mean_delta_a_minus_b": 0.0,
+        "permutation_identical_pairs": 32
+      },
+      "versus_doing_nothing": {
+        "discard": {
+          "n": 32,
+          "n_better_than_doing_nothing": 3,
+          "n_equal_to_doing_nothing": 28,
+          "n_worse_than_doing_nothing": 1,
+          "mean_raw_delta_utility": 0.00221949235420027
+        },
+        "maskco": {
+          "n": 32,
+          "n_better_than_doing_nothing": 7,
+          "n_equal_to_doing_nothing": 16,
+          "n_worse_than_doing_nothing": 9,
+          "mean_raw_delta_utility": -5.160804449248786
+        },
+        "recon_only": {
+          "n": 32,
+          "n_better_than_doing_nothing": 3,
+          "n_equal_to_doing_nothing": 28,
+          "n_worse_than_doing_nothing": 1,
+          "mean_raw_delta_utility": 0.00221949235420027
+        }
+      }
+    },
+    "pickup_arm_pilot_mf70_v1": {
+      "status": "ok",
+      "protocol_version": "P-MASKCO-ARM-PILOT-v1",
+      "mask_fraction": 0.7,
+      "n_rows": 96,
+      "guide_local_win_census": {
+        "mode_a": "maskco",
+        "mode_b": "recon_only",
+        "n_pairs": 32,
+        "a_better": 4,
+        "a_worse": 24,
+        "tied": 4,
+        "mean_delta_a_minus_b": -8.913955254352182,
+        "permutation_identical_pairs": 0
+      },
+      "null_control_recon_only_vs_discard": {
+        "mode_a": "recon_only",
+        "mode_b": "discard",
+        "n_pairs": 32,
+        "a_better": 0,
+        "a_worse": 0,
+        "tied": 32,
+        "mean_delta_a_minus_b": 0.0,
+        "permutation_identical_pairs": 32
+      },
+      "versus_doing_nothing": {
+        "discard": {
+          "n": 32,
+          "n_better_than_doing_nothing": 12,
+          "n_equal_to_doing_nothing": 16,
+          "n_worse_than_doing_nothing": 4,
+          "mean_raw_delta_utility": 0.00887796941680108
+        },
+        "maskco": {
+          "n": 32,
+          "n_better_than_doing_nothing": 8,
+          "n_equal_to_doing_nothing": 4,
+          "n_worse_than_doing_nothing": 20,
+          "mean_raw_delta_utility": -8.90507728493538
+        },
+        "recon_only": {
+          "n": 32,
+          "n_better_than_doing_nothing": 12,
+          "n_equal_to_doing_nothing": 16,
+          "n_worse_than_doing_nothing": 4,
+          "mean_raw_delta_utility": 0.00887796941680108
+        }
+      }
+    },
+    "pickup_arm_pilot_mf80_v1": {
+      "status": "ok",
+      "protocol_version": "P-MASKCO-ARM-PILOT-v1",
+      "mask_fraction": 0.8,
+      "n_rows": 96,
+      "guide_local_win_census": {
+        "mode_a": "maskco",
+        "mode_b": "recon_only",
+        "n_pairs": 32,
+        "a_better": 16,
+        "a_worse": 16,
+        "tied": 0,
+        "mean_delta_a_minus_b": -1.887388069275758,
+        "permutation_identical_pairs": 0
+      },
+      "null_control_recon_only_vs_discard": {
+        "mode_a": "recon_only",
+        "mode_b": "discard",
+        "n_pairs": 32,
+        "a_better": 0,
+        "a_worse": 0,
+        "tied": 32,
+        "mean_delta_a_minus_b": 0.0,
+        "permutation_identical_pairs": 32
+      },
+      "versus_doing_nothing": {
+        "discard": {
+          "n": 32,
+          "n_better_than_doing_nothing": 12,
+          "n_equal_to_doing_nothing": 4,
+          "n_worse_than_doing_nothing": 16,
+          "mean_raw_delta_utility": -3.7391566920326795
+        },
+        "maskco": {
+          "n": 32,
+          "n_better_than_doing_nothing": 12,
+          "n_equal_to_doing_nothing": 0,
+          "n_worse_than_doing_nothing": 20,
+          "mean_raw_delta_utility": -5.626544761308438
+        },
+        "recon_only": {
+          "n": 32,
+          "n_better_than_doing_nothing": 12,
+          "n_equal_to_doing_nothing": 4,
+          "n_worse_than_doing_nothing": 16,
+          "mean_raw_delta_utility": -3.7391566920326795
+        }
+      }
+    },
+    "pickup_arm_pilot_mf90_v1": {
+      "status": "ok",
+      "protocol_version": "P-MASKCO-ARM-PILOT-v1",
+      "mask_fraction": 0.9,
+      "n_rows": 96,
+      "guide_local_win_census": {
+        "mode_a": "maskco",
+        "mode_b": "recon_only",
+        "n_pairs": 32,
+        "a_better": 20,
+        "a_worse": 12,
+        "tied": 0,
+        "mean_delta_a_minus_b": 1.8716746672988052,
+        "permutation_identical_pairs": 0
+      },
+      "null_control_recon_only_vs_discard": {
+        "mode_a": "recon_only",
+        "mode_b": "discard",
+        "n_pairs": 32,
+        "a_better": 0,
+        "a_worse": 0,
+        "tied": 32,
+        "mean_delta_a_minus_b": 0.0,
+        "permutation_identical_pairs": 32
+      },
+      "versus_doing_nothing": {
+        "discard": {
+          "n": 32,
+          "n_better_than_doing_nothing": 12,
+          "n_equal_to_doing_nothing": 0,
+          "n_worse_than_doing_nothing": 20,
+          "mean_raw_delta_utility": -7.4931192394578545
+        },
+        "maskco": {
+          "n": 32,
+          "n_better_than_doing_nothing": 12,
+          "n_equal_to_doing_nothing": 0,
+          "n_worse_than_doing_nothing": 20,
+          "mean_raw_delta_utility": -5.621444572159049
+        },
+        "recon_only": {
+          "n": 32,
+          "n_better_than_doing_nothing": 12,
+          "n_equal_to_doing_nothing": 0,
+          "n_worse_than_doing_nothing": 20,
+          "mean_raw_delta_utility": -7.4931192394578545
+        }
+      }
+    },
+    "pickup_arm_pilot_mf100_v1": {
+      "status": "ok",
+      "protocol_version": "P-MASKCO-ARM-PILOT-v1",
+      "mask_fraction": 1.0,
+      "n_rows": 96,
+      "guide_local_win_census": {
+        "mode_a": "maskco",
+        "mode_b": "recon_only",
+        "n_pairs": 32,
+        "a_better": 20,
+        "a_worse": 12,
+        "tied": 0,
+        "mean_delta_a_minus_b": 1.8716746672988052,
+        "permutation_identical_pairs": 0
+      },
+      "null_control_recon_only_vs_discard": {
+        "mode_a": "recon_only",
+        "mode_b": "discard",
+        "n_pairs": 32,
+        "a_better": 0,
+        "a_worse": 0,
+        "tied": 32,
+        "mean_delta_a_minus_b": 0.0,
+        "permutation_identical_pairs": 32
+      },
+      "versus_doing_nothing": {
+        "discard": {
+          "n": 32,
+          "n_better_than_doing_nothing": 12,
+          "n_equal_to_doing_nothing": 0,
+          "n_worse_than_doing_nothing": 20,
+          "mean_raw_delta_utility": -7.4931192394578545
+        },
+        "maskco": {
+          "n": 32,
+          "n_better_than_doing_nothing": 12,
+          "n_equal_to_doing_nothing": 0,
+          "n_worse_than_doing_nothing": 20,
+          "mean_raw_delta_utility": -5.621444572159049
+        },
+        "recon_only": {
+          "n": 32,
+          "n_better_than_doing_nothing": 12,
+          "n_equal_to_doing_nothing": 0,
+          "n_worse_than_doing_nothing": 20,
+          "mean_raw_delta_utility": -7.4931192394578545
+        }
+      }
+    }
+  },
+  "aggregate": {
+    "total_paired_observations": 200,
+    "guide_strictly_better": 74,
+    "guide_strictly_worse": 86,
+    "guide_tied": 40,
+    "null_control_non_ties": 0,
+    "stage_a_stop_rule_triggered": false,
+    "stage_a_stop_rule_text": "zero guide local wins across all archived pilots => the guide term is a perturbation by construction; STOP and do not run the panel"
+  },
+  "explicit_non_claims": {
+    "stable_online_gain": false,
+    "maskco_attribution": false,
+    "pickup_impossibility": false,
+    "equivalence": false,
+    "note": "these pilots ran n=3 and n=4-5 subproblems only and no online iterative policy; a zero local-win count closes THIS guide at THESE configurations, it does not close learned reconstruction in general"
+  }
+}

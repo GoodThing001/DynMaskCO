@@ -1,0 +1,132 @@
+{
+  "created_utc": "2026-10-13T09:43:43.387023+00:00",
+  "sources": {
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v3\\reserving_admission.py": "5b6c37cfd6428706fc1c9564a393da465b566899bc9952c3ae2320e6b0b31ccb",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v3\\run.py": "ba11840dad0c9210974e4954697b2fbd3a56957a2c7f53f0733faf5673e5066d",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v3\\audit.py": "ef0eea168bf4e78a34e699cf3d2c7f44aafa2ffa395a1af631e4d0e19313288a",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v3\\prepare.py": "4ca7b631640a53d4dc7783b70242fe6bd52e3f5e15010a5a3c9275a79081a33c",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v3\\supervise.py": "b5bed8fbeefde64a500615911c2114d694269e3bfe111e55d33452ce503f910a",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\engineering_stage_closure_v1.py": "2e823979ef6fff9f133e158f2a2cc2e66a71ae7c43e65dc7edf71793f79adf4f",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\A1_BUDGET_RESERVING_ADMISSION_PREREGISTRATION.json": "7fef22a0f33763571fe51be9975c05f15de509c963d7e1348d3429e4e5327974",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_exp_reserve.py": "60d032f772738ca953d62956e46f5d1fb8d171a939df716c94ed039e2b8e5d55",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_identity.py": "ce56bc7718d7cc84abda97fc0a2ed021a1820acf7a209f04cac39291c815e28d",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_exp_encoder_v3.py": "06c9961f5660aa2a460b9ae1fface1801d21e0d68b74334609d9e2b51e55682f",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_exp_energy_c0.py": "9f0e9dd321abebe05a549dc98c14778251eb2583b71749adb9b39ba13a877bbf",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\coldchain_evaluator_a1.py": "15510fa70f69e8ec80c5a89104068115a54189e91e089e2974626b41d0db3c7c",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\scenario_saa.py": "4e47b99f14be03351506ccccf92f1d414d12b063020805aca07ba6ef56874188",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_a1_step2_gate.py": "883172315a7bc1167eee2d4cdf257b605b250693b18ef967aa654e57ff47488b",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_state.py": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+  },
+  "stage": "pickup_a1_budget_reserving_admission",
+  "preregistration": "research\\review_3080_20261010\\pickup\\A1_BUDGET_RESERVING_ADMISSION_PREREGISTRATION.json",
+  "preregistration_sha256": "7fef22a0f33763571fe51be9975c05f15de509c963d7e1348d3429e4e5327974",
+  "goal": "Test the pre-registered clock-dependent shadow-price admission rule against the unmodified frozen SAA on the same five frozen days with the same sampler, seed, K, time limit and contract, so the paired difference isolates the reservation filter.",
+  "mechanism": "with p_c=0 the base SAA has no reason to refuse an order, so the served set is decided by arrival order against the hard energy budget; the rule admits an order only when revenue exceeds lambda(clock)*est, with lambda the smallest grid price whose expected accepted energy over the remaining horizon still fits the remaining budget, calibrated on the frozen TRAIN split only",
+  "controlled_ab": "both arms use ExplicitFeatureSampler, arm_seed 7003, K=10, time_limit 10 s, the same 5 days and the same contract; only replanner_cls differs (frozen SaaReplanner versus the reserving subclass). The rule can only add rejections, never admit what the base would refuse.",
+  "panel": {
+    "days": 5,
+    "fixed_before_execution": true,
+    "day_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "no_day_selection_by_outcome": true
+  },
+  "decision_rule": "primary = paired per-day difference candidate - control on utility over the 5 panel days; a positive mean is a lead only and requires a separately registered 40-day stage; otherwise the rule is recorded as dominated and the next step is the joint time-window/fleet coupling relaxation named in the bound addendum",
+  "objective": {
+    "ambient_c": 25.0,
+    "target_c": [
+      18.0,
+      4.0,
+      -18.0
+    ],
+    "precool_energy_per_unit_per_c": 0.15,
+    "note": "the registered per-order cost is the pre-cooling energy e_lower, not the cooling-share marginal estimator, which would invert the class ordering"
+  },
+  "arm_order": [
+    "candidate_reserving",
+    "control_frozen_saa"
+  ],
+  "arm_order_reason": "the candidate arm runs first so a defect in the new code path is detected before the control arm consumes the panel budget; both arms are pure Python, the order effect is not expected, and this order is declared before execution",
+  "arm_seed": 7003,
+  "penalties": {
+    "0": 0.0,
+    "1": 0.0,
+    "2": 0.0
+  },
+  "shadow_mode": "greedy",
+  "energy_pricing": "marginal",
+  "future_policy": "reveal",
+  "frozen": {
+    "train_seed": 20260925,
+    "train_instances": 200,
+    "gate_seed": 20260926,
+    "gate_instances": 40,
+    "n_orders": 200,
+    "num_vehicles": 15,
+    "capacity": 50.0,
+    "booking_horizon": 16.0,
+    "speed_kmh": 30.0,
+    "km_per_unit": 20.0,
+    "service_time_h": 0.05,
+    "K": 10,
+    "time_limit": 10.0,
+    "rho": 0.6,
+    "k_neighbors": 10,
+    "expected_budget_B": 710.6548152249378,
+    "expected_cooling_share": 3.7208946347769882,
+    "expected_data_sha256": "8767a03d787c0e0fcad112b4888edf46db44c55e9b50b9705bfc5830f4fb378d",
+    "expected_meta_sha256": "72a805fd5bc0b2b7a94b0daa712cb11112bcc3e4a5daf7817ca8ca53e28322ba",
+    "expected_contract_sha256": "e25a12104b20c3ea99cb4033f6d3bf32adecf2974de6b5168dbfa0d5a058a41b",
+    "recorded_controls": "C-VRP_Cold-chainVehicleRoutingProblem/results/a1_c1rr2_reveal_40/gate.json",
+    "recorded_controls_sha256": "71b4153f59e1e68ce78a6ad8caf5a66ab1fbf9659396109ff95d224e87ef71ab"
+  },
+  "preserved_prior_attempts": [
+    {
+      "directory": "research/review_3080_20261010/pickup/a1_budget_reserving_admission_root_v1",
+      "outcome": "producer raised TypeError constructing UnitScale and exited 1 before any day was run",
+      "detail": "the contract factory passed speed_kmh instead of the UnitScale keyword speed_kmph",
+      "artifacts_written": [
+        "SOURCE_START.json",
+        "run.stdout.txt",
+        "run.stderr.txt",
+        "RUN_SUPERVISION_RECEIPT.json"
+      ]
+    },
+    {
+      "directory": "research/review_3080_20261010/pickup/a1_budget_reserving_admission_root_v2",
+      "outcome": "producer raised KeyError objective and exited 1 before any day was run",
+      "detail": "the registration omitted the objective block that the pre-registration fixes as the cost model",
+      "artifacts_written": [
+        "SOURCE_START.json",
+        "run.stdout.txt",
+        "run.stderr.txt",
+        "RUN_SUPERVISION_RECEIPT.json",
+        "REGISTRATION.json"
+      ]
+    }
+  ],
+  "lesson": "the exact entry point must be dry-run before a long panel is launched",
+  "known_confound": "the recorded control rows were produced by a batch whose scenario_saa.py and run_a1_step2_gate.py differ from the current files, so the recorded rows are reported for reference only; the binding comparison is the contemporaneous controlled A/B run in this stage",
+  "supervision_cap_seconds": 7200,
+  "resource": {
+    "python": "3.12.7",
+    "numpy": "1.26.4",
+    "cpu_affinity": [
+      7
+    ],
+    "no_model_min_available_ram_gib": 0.5
+  },
+  "formal_strong_dynamic_qualified": false,
+  "full_request_budget_qualified": false,
+  "scientific_data_generated": false,
+  "new_science_family": false,
+  "scientific_family3_started": false,
+  "stable_online_gain": false,
+  "final_seeds_used": false
+}

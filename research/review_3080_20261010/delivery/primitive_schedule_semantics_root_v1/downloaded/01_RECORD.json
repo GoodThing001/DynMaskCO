@@ -1,0 +1,152 @@
+{
+  "case": {
+    "index": 1,
+    "nodes": 33,
+    "latent_seed": 2026101302
+  },
+  "before": [
+    [],
+    [
+      1,
+      4,
+      7,
+      10,
+      13,
+      16,
+      19,
+      22,
+      25,
+      28,
+      31
+    ],
+    [
+      2,
+      5,
+      8,
+      11,
+      14,
+      17,
+      20,
+      23,
+      26,
+      29,
+      32
+    ]
+  ],
+  "remaining": [
+    3,
+    6,
+    9,
+    12,
+    15,
+    18,
+    21,
+    24,
+    27,
+    30
+  ],
+  "actions_count": 250,
+  "artifact": "01_CASE.npz",
+  "artifact_sha256": "2d3a3724763c1677fdf09b036f7fa9c4bfd2eb1f9fc2fb1985e23321b4afb9e1",
+  "bitwise_mismatch_count": 0,
+  "exact_equal": true,
+  "max_abs_error": 0.0,
+  "input_preparation_seconds": 0.0034447996877133846,
+  "original": {
+    "dispatch_and_possible_compile_seconds": 0.2412648000754416,
+    "sync_seconds": 8.800067007541656e-06,
+    "host_seconds": 8.399598300457e-06,
+    "total_seconds": 0.2412819997407496
+  },
+  "candidate": {
+    "preparation_seconds": 0.0008801002986729145,
+    "operation_rows": [
+      {
+        "name": "gather_0",
+        "dispatch_and_possible_compile_seconds": 0.020951100159436464,
+        "sync_seconds": 8.299946784973145e-06,
+        "start_hex": "0x1.7a3fb8f1a543fp+21",
+        "dispatch_end_hex": "0x1.7a3fb91c8dad0p+21",
+        "sync_end_hex": "0x1.7a3fb91c92070p+21"
+      },
+      {
+        "name": "gather_3",
+        "dispatch_and_possible_compile_seconds": 0.00014449981972575188,
+        "sync_seconds": 6.00004568696022e-06,
+        "start_hex": "0x1.7a3fb91d16c6fp+21",
+        "dispatch_end_hex": "0x1.7a3fb91d62896p+21",
+        "sync_end_hex": "0x1.7a3fb91d65aebp+21"
+      },
+      {
+        "name": "gather_4",
+        "dispatch_and_possible_compile_seconds": 0.0001622997224330902,
+        "sync_seconds": 5.499925464391708e-06,
+        "start_hex": "0x1.7a3fb91db4becp+21",
+        "dispatch_end_hex": "0x1.7a3fb91e09d64p+21",
+        "sync_end_hex": "0x1.7a3fb91e0cb87p+21"
+      },
+      {
+        "name": "weighted_mean_0",
+        "dispatch_and_possible_compile_seconds": 0.007546599954366684,
+        "sync_seconds": 5.09992241859436e-06,
+        "start_hex": "0x1.7a3fb91e11c0fp+21",
+        "dispatch_end_hex": "0x1.7a3fb92d86587p+21",
+        "sync_end_hex": "0x1.7a3fb92d8904fp+21"
+      },
+      {
+        "name": "weighted_mean_1",
+        "dispatch_and_possible_compile_seconds": 0.0004861997440457344,
+        "sync_seconds": 5.400273948907852e-06,
+        "start_hex": "0x1.7a3fb92d8d1bep+21",
+        "dispatch_end_hex": "0x1.7a3fb92e8c048p+21",
+        "sync_end_hex": "0x1.7a3fb92e8ed95p+21"
+      },
+      {
+        "name": "weighted_mean_2",
+        "dispatch_and_possible_compile_seconds": 0.0004361998289823532,
+        "sync_seconds": 4.500150680541992e-06,
+        "start_hex": "0x1.7a3fb92e91bb8p+21",
+        "dispatch_end_hex": "0x1.7a3fb92f766d4p+21",
+        "sync_end_hex": "0x1.7a3fb92f78c94p+21"
+      },
+      {
+        "name": "concat",
+        "dispatch_and_possible_compile_seconds": 0.018385699950158596,
+        "sync_seconds": 7.200054824352264e-06,
+        "start_hex": "0x1.7a3fb92f7bc65p+21",
+        "dispatch_end_hex": "0x1.7a3fb955232d3p+21",
+        "sync_end_hex": "0x1.7a3fb95526f39p+21"
+      },
+      {
+        "name": "original_nnx_input",
+        "dispatch_and_possible_compile_seconds": 0.002184899989515543,
+        "sync_seconds": 6.200280040502548e-06,
+        "start_hex": "0x1.7a3fb9552bfc0p+21",
+        "dispatch_end_hex": "0x1.7a3fb959a5805p+21",
+        "sync_end_hex": "0x1.7a3fb959a8c08p+21"
+      },
+      {
+        "name": "tanh",
+        "dispatch_and_possible_compile_seconds": 0.016733800061047077,
+        "sync_seconds": 7.6000578701496124e-06,
+        "start_hex": "0x1.7a3fb959abcafp+21",
+        "dispatch_end_hex": "0x1.7a3fb97bf11f9p+21",
+        "sync_end_hex": "0x1.7a3fb97bf51bap+21"
+      },
+      {
+        "name": "original_nnx_output",
+        "dispatch_and_possible_compile_seconds": 0.00030820025131106377,
+        "sync_seconds": 0.00010999990627169609,
+        "start_hex": "0x1.7a3fb97bf99dep+21",
+        "dispatch_end_hex": "0x1.7a3fb97c9b33dp+21",
+        "sync_end_hex": "0x1.7a3fb97cd4dfcp+21"
+      }
+    ],
+    "total_before_host_seconds": 0.06919750012457371,
+    "start_hex": "0x1.7a3fb8ef831d5p+21",
+    "prepared_hex": "0x1.7a3fb8f1508a6p+21",
+    "end_hex": "0x1.7a3fb97d3a889p+21",
+    "host_seconds": 7.80029222369194e-06
+  },
+  "no_sample_warmup": true
+}

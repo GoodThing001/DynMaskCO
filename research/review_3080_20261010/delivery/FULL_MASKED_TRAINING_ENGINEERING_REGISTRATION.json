@@ -1,0 +1,20 @@
+{
+  "version": "D-FULL-MASKED-ENGINEERING-v1",
+  "stage": "synthetic_engineering_only",
+  "registered_before_this_review_qa": true,
+  "research_data_generation_enabled": false,
+  "research_training_enabled": false,
+  "formal_gain_claim_enabled": false,
+  "old_final_holdout_seeds_prohibited": [20260927, 20260928],
+  "synthetic_data": {"customers": 4, "capacity": 3, "demands": [0, 1, 1, 1, 1], "fixture_id": "explicit_geometry_not_research_data"},
+  "model": {"encoder_layers": 1, "decoder_layers": 1, "embedding": 16, "heads": 2, "input_dim": 10, "dtype": "float32"},
+  "optimizer": {"name": "adam", "learning_rate": 0.001, "fixed_steps": 3, "selection": "last_step_only"},
+  "masks": {"seed": 20261010, "keep": "uniform_0_1_bernoulli_route_edges", "schedule_shared": true},
+  "arms": [
+    {"name": "full_reconstruction_plus_preference", "initialization": "synthetic_seed73", "preference_weight": 0.2},
+    {"name": "reconstruction_only", "initialization": "same_synthetic_seed73", "preference_weight": 0.0},
+    {"name": "random_initial_same_objective", "initialization": "synthetic_seed42", "preference_weight": 0.2}
+  ],
+  "qualification": ["full_parameter_optimizer", "actual_encoder_update", "actual_decoder_update", "same_initialization_two_primary_arms", "all_three_same_schedule", "actual_mask_adjacency_changes_logits", "fixed_final_save_reload_identity"],
+  "limitations": ["tiny_architecture_not_actual_checkpoint", "synthetic_geometry_teacher_not_coldchain_teacher", "no_fullscale_or_online_or_stability_qualification"]
+}

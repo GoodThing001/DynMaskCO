@@ -1,0 +1,173 @@
+{
+  "checks": [
+    {
+      "name": "0:physical_once",
+      "pass_": true
+    },
+    {
+      "name": "0:loaded_closure",
+      "pass_": true
+    },
+    {
+      "name": "0:cancel_reap_total",
+      "pass_": true
+    },
+    {
+      "name": "0:old_checkpoint_identity",
+      "pass_": true
+    },
+    {
+      "name": "0:published_lineage",
+      "pass_": true
+    },
+    {
+      "name": "0:exact_restored_private_identity",
+      "pass_": true
+    },
+    {
+      "name": "0:duplicate_ticket_no_physical_reexecution",
+      "pass_": true
+    },
+    {
+      "name": "0:recovery_closure_and_budget",
+      "pass_": true
+    },
+    {
+      "name": "0:expected_ack_state",
+      "pass_": true
+    },
+    {
+      "name": "1:physical_once",
+      "pass_": true
+    },
+    {
+      "name": "1:loaded_closure",
+      "pass_": true
+    },
+    {
+      "name": "1:cancel_reap_total",
+      "pass_": true
+    },
+    {
+      "name": "1:old_checkpoint_identity",
+      "pass_": true
+    },
+    {
+      "name": "1:completed_private_step_discarded_without_publication",
+      "pass_": true
+    },
+    {
+      "name": "2:physical_once",
+      "pass_": true
+    },
+    {
+      "name": "2:loaded_closure",
+      "pass_": true
+    },
+    {
+      "name": "2:cancel_reap_total",
+      "pass_": true
+    },
+    {
+      "name": "2:old_checkpoint_identity",
+      "pass_": true
+    },
+    {
+      "name": "2:published_lineage",
+      "pass_": true
+    },
+    {
+      "name": "2:exact_restored_private_identity",
+      "pass_": true
+    },
+    {
+      "name": "2:duplicate_ticket_no_physical_reexecution",
+      "pass_": true
+    },
+    {
+      "name": "2:recovery_closure_and_budget",
+      "pass_": true
+    },
+    {
+      "name": "2:expected_ack_state",
+      "pass_": true
+    },
+    {
+      "name": "registration_input_source_bytes_exact",
+      "pass_": true
+    }
+  ],
+  "checks_count": 24,
+  "failed": 0,
+  "failure_names": [],
+  "records": [
+    {
+      "case": 0,
+      "fault": 0,
+      "pid": 8080,
+      "started": 911399.4526297,
+      "cutoff": 911407.4526297,
+      "finished": 911400.0311326,
+      "wall_s": 0.5785029000835493,
+      "stage": 2,
+      "ticket": {
+        "epoch": 1,
+        "size": 13800,
+        "base": "3d2dcd52fe7b6b0c134308855df07a29d3daf5bc937dc71558ed1c17d26532a7",
+        "payload_sha256": "352c5fc40d5f52d78ed152f50c428f4595bdc42d9e4657f1c7cf9a88f5fd2c65",
+        "digest": "4f15a5340b505ca50d6a416b624584734a429aab08eb6b225585e4cdc6157d4b"
+      },
+      "chosen": "4f15a5340b505ca50d6a416b624584734a429aab08eb6b225585e4cdc6157d4b",
+      "chosen_at": 911400.0147772,
+      "ack": "4f15a5340b505ca50d6a416b624584734a429aab08eb6b225585e4cdc6157d4b",
+      "ack_present": true,
+      "old_checkpoint_retained": true,
+      "reaped": true
+    },
+    {
+      "case": 1,
+      "fault": 1,
+      "pid": 9400,
+      "started": 911403.4308285,
+      "cutoff": 911411.4308285,
+      "finished": 911411.4449645,
+      "wall_s": 8.014136000070721,
+      "stage": 1,
+      "ticket": null,
+      "chosen": "3d2dcd52fe7b6b0c134308855df07a29d3daf5bc937dc71558ed1c17d26532a7",
+      "chosen_at": null,
+      "ack": "0000000000000000000000000000000000000000000000000000000000000000",
+      "ack_present": false,
+      "old_checkpoint_retained": true,
+      "reaped": true
+    },
+    {
+      "case": 2,
+      "fault": 2,
+      "pid": 35244,
+      "started": 911412.8011596,
+      "cutoff": 911420.8011596,
+      "finished": 911420.8187435,
+      "wall_s": 8.01758390001487,
+      "stage": 2,
+      "ticket": {
+        "epoch": 1,
+        "size": 13800,
+        "base": "3d2dcd52fe7b6b0c134308855df07a29d3daf5bc937dc71558ed1c17d26532a7",
+        "payload_sha256": "352c5fc40d5f52d78ed152f50c428f4595bdc42d9e4657f1c7cf9a88f5fd2c65",
+        "digest": "4f15a5340b505ca50d6a416b624584734a429aab08eb6b225585e4cdc6157d4b"
+      },
+      "chosen": "4f15a5340b505ca50d6a416b624584734a429aab08eb6b225585e4cdc6157d4b",
+      "chosen_at": 911413.3775634,
+      "ack": "0000000000000000000000000000000000000000000000000000000000000000",
+      "ack_present": false,
+      "old_checkpoint_retained": true,
+      "reaped": true
+    }
+  ],
+  "checkpoint_ack_component_qualified": true,
+  "full_live_request_qualified": false,
+  "external_irreversible_effects_qualified": false,
+  "full_loaded_dependency_closure_qualified": false,
+  "stable_online_gain": false
+}

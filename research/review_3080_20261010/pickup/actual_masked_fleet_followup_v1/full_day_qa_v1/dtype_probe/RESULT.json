@@ -1,0 +1,46 @@
+{
+  "registration": {
+    "id": "P-ACTUAL-ORIGINAL-DTYPE-VS-CPU32-ENGINEERING-v1",
+    "registered": "2026-10-10T16:28:43.422361+00:00",
+    "checkpoint_sha256": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+    "packet_pickle_sha256": "7dd3b648f3ecec1f2054269d397f933fc0438b44744ee8dac7b94f52d9e60f84",
+    "source_sha256": "6d2edf560a9597c86c4d5c3802cd6776c966004b92cc59026c4d884fe98bfada",
+    "same_known_packet": true,
+    "new_days": 0,
+    "no_equivalence_threshold_predeclared": true,
+    "formal_gain": false
+  },
+  "original_config_dtype": "bfloat16",
+  "adapter_dtype": "float32",
+  "softcap": null,
+  "final_softcap": null,
+  "qk_norm": true,
+  "raw_input_sha256": "10fbf29a03a801d50c418d2e1cab7548af6f02d61f1c8b32155b4f845732dbff",
+  "adjacency_sha256": "9e18dd4a6761cf38cfe895f2ce0688b01806d1ee0a17387fdfbde483b051ec21",
+  "encoder_difference": {
+    "shape": [
+      1,
+      4,
+      512
+    ],
+    "both_finite": true,
+    "max_abs": 0.0018740668892860413,
+    "relative_l2": 0.016682495215455645,
+    "bitwise_equal": false
+  },
+  "logits_difference": {
+    "shape": [
+      4,
+      4
+    ],
+    "both_finite": true,
+    "max_abs": 0.051883697509765625,
+    "relative_l2": 0.0,
+    "bitwise_equal": false
+  },
+  "original_logits_sha256": "7e292fd8d850556ef692e4ad720325d0d36e96649ae248a1a3490917fbe3306e",
+  "adapter_logits_sha256": "060ebaaf038384bfd681ff02afd6f4e3a3a6b9e5f9b40dc9bdf22c1c9b5d2b01",
+  "checkpoint_end_sha256": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+  "numerical_equivalence_claim": false,
+  "formal_online_gain": false
+}

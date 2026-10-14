@@ -1,0 +1,306 @@
+{
+  "registration": {
+    "id": "P-HARD-BASE-ACTUAL-FULLDAY-ENGINEERING-v1",
+    "registered": "2026-10-10T16:28:42.985342+00:00",
+    "archive_trace_sha256": "63aedad04d43b91b9545a15efdab50deaa60c2d885b7bad3aac2c9b9357271fc",
+    "already_observed_seed": 202610101801,
+    "new_days": 0,
+    "orders": 80,
+    "vehicles": 3,
+    "synthetic_history_sha256": "5586df8fd3d2f999508ec6f917a6da23cc155a94ea9c54c5fc82b7b150f09ee7",
+    "hist_days": 3,
+    "K_history": 10,
+    "no_formal_I3_history_pool_claim": true,
+    "arms": [
+      "own_uncond_dynamic",
+      "strong_rolling",
+      "cond_report",
+      "own_pretrained"
+    ],
+    "contract_hash": "e25a12104b20c3ea99cb4033f6d3bf32adecf2974de6b5168dbfa0d5a058a41b",
+    "budget": 710.6548152249378,
+    "cooling_share": 0.0,
+    "registered_model_shapes": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "fixed_model_checkpoint_sha256": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+    "maskseed": 202610101903,
+    "per_admission_hard_worker_seconds": 10.0,
+    "overall_subprocess_limit": 900,
+    "clock0_full_A1_certificate": true,
+    "future_mutation": "one worker admission repeated at same public packet; hidden dataset values replaced before projection",
+    "no_terminal_future_J_selection": true,
+    "protected_final": [
+      20260927,
+      20260928
+    ],
+    "formal_gain_established": false,
+    "original_base_scope": "actual original UncondDynamic per admission with identical history; only public env handoff+hard cap+actual full A1 commit gate",
+    "conditional_report": "public demand>0 reveal prefix counts adapter; diagnostic report arm only",
+    "source_start": {
+      "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\pickup\\research\\review_3080_20261010\\pickup\\actual_masked_fleet_engineering_v1\\fair_wiring.py": "a9021954ae3b235d49553079451001773ca125403f713b2d52f331b53b5876d0",
+      "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\pickup\\research\\review_3080_20261010\\pickup\\actual_masked_fleet_engineering_v1\\masked_fleet.py": "7b9926a9862aa0c92c8cc7c9fdc3afcbb2bb4da781ead573c52364d8c73a0f88",
+      "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\pickup\\research\\review_3080_20261010\\pickup\\actual_masked_fleet_engineering_v1\\resident_actor.py": "80a28f55ea6fb97571a3ec6b570f551160598d4ade5877a30f399c635ed7cdda",
+      "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\pickup\\research\\review_3080_20261010\\pickup\\actual_masked_fleet_followup_v1\\hard_admission.py": "abc07827f08cda09ec0cea5ca02c931cbb93ddbb78140ab73246bece1eab5c74",
+      "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\pickup\\research\\review_3080_20261010\\pickup\\actual_masked_fleet_followup_v1\\public_state.py": "9e0d014ea3123b8dc8b6a7cc56531667446d870fbfcbaa0a3603fd90302a0291",
+      "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\pickup\\research\\review_3080_20261010\\pickup\\actual_masked_fleet_followup_v1\\run_followup.py": "aef3da04bc605cec124848e521eed5c2289aceab14d5c974cee8218593620242",
+      "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\pickup\\research\\review_3080_20261010\\pickup\\public_fleet.py": "52c6ffd454e3735e5eea12ae90e9961547329edcfb5359f923ce0caf857207cd",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_state.py": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\correction_engineering\\audit_io.py": "01f338d5269ada3c9b6b91d3e039becf7e41d43a954eb20d7fb0371d4bb421b6",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\correction_engineering\\pickup_trace_runner.py": "1e3dca350aefd9494e23a26941fcb89525019cb834ee79b2b12d87d053a7e71d",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\coldchain_evaluator_a1.py": "15510fa70f69e8ec80c5a89104068115a54189e91e089e2974626b41d0db3c7c",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_exp_energy_c0.py": "9f0e9dd321abebe05a549dc98c14778251eb2583b71749adb9b39ba13a877bbf",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_exp_reserve.py": "60d032f772738ca953d62956e46f5d1fb8d171a939df716c94ed039e2b8e5d55",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\scenario_saa.py": "4e47b99f14be03351506ccccf92f1d414d12b063020805aca07ba6ef56874188",
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+    }
+  },
+  "rows": [
+    {
+      "arm": "own_uncond_dynamic",
+      "evaluation": {
+        "utility": 1362.674700036645,
+        "revenue": 1480.0,
+        "fuel_cost": 42.325299963355064,
+        "reject_loss": 75.0,
+        "energy_kwh": 706.7249731553945,
+        "distance_km": 423.25299963355064,
+        "budget_violated": false,
+        "hard_feasible": true,
+        "failures": [],
+        "n_served": 73,
+        "n_rejected": 7,
+        "n_fish_unsalable": 0,
+        "service_rate": {
+          "0": 0.96,
+          "1": 0.8518518518518519,
+          "2": 0.9285714285714286
+        },
+        "reject_rate": {
+          "0": 0.04,
+          "1": 0.14814814814814814,
+          "2": 0.07142857142857142
+        },
+        "salable_rate": {
+          "0": null,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "tomato_mean_quality": 0.988835054463478
+      },
+      "admissions": 80,
+      "events": 158,
+      "clock0_certified": true,
+      "fullraw_sha256": "311702037ff7d290b8821b8f5d87579097b7a4ab01ed19d98289dff3d3fbcc01",
+      "replay": {
+        "days_replayed": [
+          0
+        ],
+        "all_evaluations_equal": true,
+        "formal_eligible": false
+      },
+      "future_mutation": [
+        {
+          "hidden_orders_mutated": 79,
+          "packet_invariant": true,
+          "admission_choice_invariant": true,
+          "both_qualified": true,
+          "note": "selection repeats same resulting public packet; no fullfuture rollout in actor"
+        }
+      ],
+      "model_proposals": 0,
+      "model_installed": 0,
+      "admission_timeouts": 0
+    },
+    {
+      "arm": "strong_rolling",
+      "evaluation": {
+        "utility": 1363.6915046423674,
+        "revenue": 1480.0,
+        "fuel_cost": 41.30849535763264,
+        "reject_loss": 75.0,
+        "energy_kwh": 708.9252339602792,
+        "distance_km": 413.08495357632637,
+        "budget_violated": false,
+        "hard_feasible": true,
+        "failures": [],
+        "n_served": 73,
+        "n_rejected": 7,
+        "n_fish_unsalable": 0,
+        "service_rate": {
+          "0": 0.96,
+          "1": 0.8518518518518519,
+          "2": 0.9285714285714286
+        },
+        "reject_rate": {
+          "0": 0.04,
+          "1": 0.14814814814814814,
+          "2": 0.07142857142857142
+        },
+        "salable_rate": {
+          "0": null,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "tomato_mean_quality": 0.9887118092808995
+      },
+      "admissions": 80,
+      "events": 158,
+      "clock0_certified": true,
+      "fullraw_sha256": "f32acf6fca1841c785f4788b782c8d509a32ef952081493540614d9e0fccf638",
+      "replay": {
+        "days_replayed": [
+          0
+        ],
+        "all_evaluations_equal": true,
+        "formal_eligible": false
+      },
+      "future_mutation": [
+        {
+          "hidden_orders_mutated": 79,
+          "packet_invariant": true,
+          "admission_choice_invariant": true,
+          "both_qualified": true,
+          "note": "selection repeats same resulting public packet; no fullfuture rollout in actor"
+        }
+      ],
+      "model_proposals": 0,
+      "model_installed": 0,
+      "admission_timeouts": 0
+    },
+    {
+      "arm": "cond_report",
+      "evaluation": {
+        "utility": 1377.8565574139357,
+        "revenue": 1490.0,
+        "fuel_cost": 42.14344258606434,
+        "reject_loss": 70.0,
+        "energy_kwh": 715.75098343706,
+        "distance_km": 421.4344258606434,
+        "budget_violated": true,
+        "hard_feasible": false,
+        "failures": [
+          "budget_violation"
+        ],
+        "n_served": 73,
+        "n_rejected": 7,
+        "n_fish_unsalable": 0,
+        "service_rate": {
+          "0": 0.92,
+          "1": 0.8888888888888888,
+          "2": 0.9285714285714286
+        },
+        "reject_rate": {
+          "0": 0.08,
+          "1": 0.1111111111111111,
+          "2": 0.07142857142857142
+        },
+        "salable_rate": {
+          "0": null,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "tomato_mean_quality": 0.9883446028163765
+      },
+      "admissions": 80,
+      "events": 158,
+      "clock0_certified": true,
+      "fullraw_sha256": "563261656abb00009eae4f57e79cdfe1e9f7b651e61bccbcf3a432db65f66396",
+      "replay": {
+        "days_replayed": [
+          0
+        ],
+        "all_evaluations_equal": true,
+        "formal_eligible": false
+      },
+      "future_mutation": [
+        {
+          "hidden_orders_mutated": 79,
+          "packet_invariant": true,
+          "admission_choice_invariant": true,
+          "both_qualified": true,
+          "note": "selection repeats same resulting public packet; no fullfuture rollout in actor"
+        }
+      ],
+      "model_proposals": 0,
+      "model_installed": 0,
+      "admission_timeouts": 0
+    },
+    {
+      "arm": "own_pretrained",
+      "evaluation": {
+        "utility": 1361.1844298765063,
+        "revenue": 1480.0,
+        "fuel_cost": 43.81557012349367,
+        "reject_loss": 75.0,
+        "energy_kwh": 709.6585941680075,
+        "distance_km": 438.1557012349367,
+        "budget_violated": false,
+        "hard_feasible": true,
+        "failures": [],
+        "n_served": 73,
+        "n_rejected": 7,
+        "n_fish_unsalable": 0,
+        "service_rate": {
+          "0": 0.96,
+          "1": 0.8518518518518519,
+          "2": 0.9285714285714286
+        },
+        "reject_rate": {
+          "0": 0.04,
+          "1": 0.14814814814814814,
+          "2": 0.07142857142857142
+        },
+        "salable_rate": {
+          "0": null,
+          "1": 1.0,
+          "2": 1.0
+        },
+        "tomato_mean_quality": 0.9887419125161162
+      },
+      "admissions": 80,
+      "events": 158,
+      "clock0_certified": true,
+      "fullraw_sha256": "9ca8ef053810d6bec170cebbca19506dd270c7c37631c8ef09d118a8aa6044cf",
+      "replay": {
+        "days_replayed": [
+          0
+        ],
+        "all_evaluations_equal": true,
+        "formal_eligible": false
+      },
+      "future_mutation": [
+        {
+          "hidden_orders_mutated": 79,
+          "packet_invariant": true,
+          "admission_choice_invariant": true,
+          "both_qualified": true,
+          "note": "selection repeats same resulting public packet; no fullfuture rollout in actor"
+        }
+      ],
+      "model_proposals": 62,
+      "model_installed": 58,
+      "admission_timeouts": 0
+    }
+  ],
+  "hard_base_timeout_regression": {
+    "qualified": false,
+    "fallback": true,
+    "timeout": true,
+    "deadline_monotonic": 816491.3970207,
+    "worker_reaped": true
+  },
+  "formal_gain_established": false,
+  "engineering_only": true
+}

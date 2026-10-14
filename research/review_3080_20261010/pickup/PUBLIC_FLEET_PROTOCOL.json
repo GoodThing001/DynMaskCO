@@ -1,0 +1,73 @@
+{
+  "protocol_id": "P-PUBLIC-FLEET-CAUSAL-PROSPECTIVE-v1",
+  "written_after_engineering_qa": true,
+  "written_actual": "2026-10-10T11:08:43.991311+00:00",
+  "status": "engineering integration candidate; formal fresh-day registration not performed",
+  "hypothesis": "known-state cross-vehicle suffix reallocation may improve deployed full utility; no numerical effect assumed",
+  "parent_operating_contract": "parent v3 corrected C0 units, budget and history identities required before formal generation",
+  "protected_final_seeds": [
+    20260927,
+    20260928
+  ],
+  "information": {
+    "actor": "observed revealed orders, vehicle position/time/thermal cargo state, owned plans, all energy; no private future",
+    "evaluation": "same-seed legal full-day continuation only after frozen choice; must never feed back to actor",
+    "future_law": "unchanged common sampler distribution across arms; matched samples if prospective lookahead added"
+  },
+  "action": {
+    "scope": "at most5 known outstanding noncommitted orders across2 declared open vehicles; fixed nonpool owner/order; frozen committed destination",
+    "preserve": "accepted service exactly once; unavailable vehicles unchanged; all-fleet known-state C0 physical certificate",
+    "incumbent": "own uncond_dynamic exact live route; retained on failure/timeout/no strict known improvement"
+  },
+  "arms_required": [
+    "own uncond_dynamic with exact shared history/K/C0/timing",
+    "same own base plus public nonlearning two-vehicle actor",
+    "fair strong rolling with identical explicit history/K/data/C0/budget",
+    "subsequent actual full encoder+decoder masked arm and random/discard guides over identical action family"
+  ],
+  "budget": {
+    "max_submission_seconds": 10,
+    "components": [
+      "packet projection",
+      "sampling/inference if used",
+      "subprocess startup",
+      "search/scoring",
+      "source hash verification",
+      "physical certification",
+      "final commit check"
+    ],
+    "scope_unresolved": "parent v3 must fix event-total vs original per-order budget identically across all arms before deploying this wrapper",
+    "all_failures_and_timeouts_count": true,
+    "late_submission": "forbidden; own incumbent fallback",
+    "k_required": 10,
+    "partial_K": "cannot qualify as complete K10"
+  },
+  "production_identity": {
+    "orders": 200,
+    "vehicles": 15,
+    "history_days": 200,
+    "history": "all arms exact same approved pool and sampler identity; current4-day census history1 not reused as original I3",
+    "physics": "make_c0_contract_v2 units consistent with env speed; bare default mismatch rejected",
+    "fresh_seeds": "parent fresh ledger required; no automatic choice of already inspected cohort"
+  },
+  "formal_primary": {
+    "outcome": "full A1/C0 day utility revenue-fuel-reject_loss, hard and timeouts; no service-count proxy",
+    "pairing": "unique day identity; diagnostic states day/event_id/vehicle_id",
+    "main_gate": "parent prospective v3 registration governs numerical thresholds, primary comparator, CI bootstrap and replication; none changed here",
+    "attribution": "own-base incremental benefit and learned-guide effect separately; weak-comparator gain alone insufficient"
+  },
+  "raw_outputs": [
+    "registered protocol before fresh generation",
+    "source/data/weights/history/contract hashes start/end",
+    "all day outcomes and complete raw physical journals",
+    "public packets, every candidate/timeout/fallback/commit timing",
+    "independent hard replay and full utility decomposition"
+  ],
+  "not_established": [
+    "fresh full online gain",
+    "stable positive gain",
+    "MaskCO core attribution",
+    "global fleet optimum",
+    "physical parameter calibration"
+  ]
+}

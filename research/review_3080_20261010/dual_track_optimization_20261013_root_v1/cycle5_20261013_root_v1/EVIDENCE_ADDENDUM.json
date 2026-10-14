@@ -1,0 +1,57 @@
+{
+  "scope": "append-only addendum; the already written ITERATION_RECEIPT.json and evidence hashes are unchanged",
+  "execution_provenance": {
+    "pickup_n11": {
+      "executed_by": "QY\\CodexSandboxOffline",
+      "run_pid": 5572,
+      "run_started_perf_counter": 1040787.6098746,
+      "audit_pid": 9456,
+      "note": "The pickup n11 component was executed and independently audited earlier inside cycle 5 by the preceding cycle execution (artifacts timestamped 2026-10-13 before this continuation). This continuation re-read and reconciled its recorded evidence (producer/audit exits, check counts, terminal hexes, registration and evidence hashes) and deliberately did not re-run it, per the no-repeat rule. It is not re-executed or upgraded here."
+    },
+    "delivery_n12": {
+      "v1_owner": "recorded in RESULT.json",
+      "v1_attempt": "research/review_3080_20261010/delivery/action_matching_head_update_root_v1",
+      "v1_failed_checks": 2,
+      "v1_exit_code": 1,
+      "v1_note": "v1 was executed inside cycle 5 by the preceding cycle execution and is preserved unchanged; its two FAILs and exit 1 are not rewritten.",
+      "v2_executed_by": "QY\\zenghan",
+      "v2_pid": 30256,
+      "v2_audit_pid": 14524,
+      "v2_note": "v2 was registered before execution by this continuation, then run, then independently audited in a separate process; its two audit FAILs are preserved and were not converted to PASS."
+    }
+  },
+  "preserved_originals_unchanged_now": {
+    "research/review_3080_20261010/delivery/action_matching_head_update_root_v1/RESULT.json": "e4e98756eb30f1b32dac619aeb54b2057c1ab87c7606d2148e4dcf6c8dd02d6b",
+    "research/review_3080_20261010/delivery/action_matching_head_update_root_v1/RUN_EXIT.json": "56296949d3a02e635b050fd6b4762f0f0b52c23d05b925203095f7daf8e19027",
+    "v1_source_end_absent": true,
+    "v1_failed_checks_now": 2,
+    "v1_exit_code_now": 1,
+    "v2_failed_checks_now": 0,
+    "v2_audit_failed_now": 2,
+    "v2_audit_failure_names_now": [
+      "audit_epoch_ce_trajectory_within_bound",
+      "audit_final_parameters_within_bound"
+    ]
+  },
+  "source_identity_not_in_the_main_evidence_block": {
+    "research/review_3080_20261010/delivery/action_matching_head_update_root_v2/optimizer_reproducibility_diagnosis.py": "36e3a9678ad1b00d753251610f7cc8534a8fba201f68eac1935eb7708908fa58",
+    "research/review_3080_20261010/delivery/action_matching_head_update_root_v1/probe_inputs.py": "98b365482fdc7e8b770f68c353c8b651dcd8f1126c65df4e987bea0c927e18aa",
+    "research/review_3080_20261010/delivery/action_matching_head_update_root_v2/prepare.py": "cfb945b5d28b96fde82f6044b8ca5a6416f83a0a5873c18b08c7da71d517ec93",
+    "research/review_3080_20261010/delivery/action_matching_head_update_root_v2/supervise.py": "d79ff7a310d4448928c0523c66f8027c253817fe15ae4fc8513e9539dab3640e"
+  },
+  "read_only_preparation": [
+    "research/review_3080_20261010/delivery/action_matching_head_update_root_v1/probe_inputs.py (read-only probe of the sealed head inputs; produced no stage artifact)"
+  ],
+  "shared_resource": {
+    "cpu_affinity": [
+      7
+    ],
+    "serial": true,
+    "pickup_first": true,
+    "gpu_used": false,
+    "server_used": false,
+    "shared_MD_uploaded": false
+  },
+  "stable_online_gain": false,
+  "scientific_family3_started": false
+}

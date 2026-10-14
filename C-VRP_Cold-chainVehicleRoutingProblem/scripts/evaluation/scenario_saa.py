@@ -253,79 +253,6 @@ class ExplicitFeatureSampler:
         return out
 
 
-class SoftKNNHistoricalSampler:
-    """S3-6a（2026-10-03 注册，规格《S3-6a软k-NN_正式规格预声明_2026-10-03.md》）：软 k-NN
-    高斯核权重（不收缩）。w_i ∝ exp(−d_i/σ²)，d = 7 维 z 标准化平方距离（与
-    CondHistoricalSampler 同特征口径）；对**全部**历史日软加权采样（无硬 top-k 截断，
-    有放回），取 reveal>clock 未来段。σ² = sigma2_mult × h_med，h_med = 训练日两两
-    （7 维 z 标准化、clock=0 参考）平方距离中位数（**训练日选定**，gate 日不调）。
-    n_eff=(Σw)²/Σw² 逐决策记录。不改 Uncond/Cond/Explicit 采样器行为。"""
-
-    name = "soft_knn"
-
-    def __init__(self, history, sigma2_mult=1.0, n_neighbors=10):
-        self.history = history
-        self.sigma2_mult = float(sigma2_mult)
-        self.n_neighbors = int(n_neighbors)
-        self._calibrate_bandwidth()
-        self.last_n_eff = None
-        self.n_eff_sum = 0.0
-        self.n_samples = 0
-
-    @staticmethod
-    def _feat(orders, clock):
-        f = np.zeros(7)
-        for o in orders:
-            if o.reveal > clock + 1e-6:
-                continue
-            f[o.temp_class] += 1.0
-            b = int(np.argmin(((SPOT_CENTERS - [o.x, o.y]) ** 2).sum(1)))
-            f[3 + b] += 1.0
-        f[6] = float(clock)
-        return f
-
-    def _calibrate_bandwidth(self):
-        """h_med：训练日两两（clock=0 参考）z 标准化平方距离的中位数（正距离口径，
-        重复计数向量日距 0 不使带宽塌缩）；σ² = mult × h_med。"""
-        H = np.array([self._feat(d, 0.0) for d in self.history])
-        mu, sd = H.mean(0), H.std(0) + 1e-6
-        Hn = (H - mu) / sd
-        d = ((Hn[:, None, :] - Hn[None, :, :]) ** 2).sum(-1)
-        n = d.shape[0]
-        if n < 2:
-            self.sigma2 = 1.0
-            self.h_med = 1.0
-            return
-        off = np.triu_indices(n, 1)
-        vals = d[off]
-        pos = vals[vals > 1e-9]
-        self.h_med = float(np.median(pos)) if len(pos) else 1.0
-        self.sigma2 = self.sigma2_mult * max(self.h_med, 1e-12)
-
-    def _weights(self, snapshot):
-        x = self._feat(snapshot.orders, snapshot.clock)
-        H = np.array([self._feat(d, snapshot.clock) for d in self.history])
-        mu, sd = H.mean(0), H.std(0) + 1e-6
-        Hn = (H - mu) / sd
-        xn = (x - mu) / sd
-        d = ((Hn - xn) ** 2).sum(1)
-        # log 域稳定化：σ→0 时最大权重仍为 1，无下溢/除零
-        log_w = -d / max(self.sigma2, 1e-300)
-        log_w = log_w - log_w.max()
-        w = np.exp(log_w)
-        w = w / w.sum()
-        return w
-
-    def sample(self, snapshot, rng, k):
-        w = self._weights(snapshot)
-        n_eff = float((w.sum() ** 2) / (w ** 2).sum())
-        self.last_n_eff = n_eff
-        self.n_eff_sum += n_eff
-        self.n_samples += 1
-        idx = rng.choice(len(self.history), size=k, p=w, replace=True)
-        return [_scenario_from_day(self.history[int(i)], snapshot.clock) for i in idx]
-
-
 # --------------------------------------------------------------------------- #
 # 共用下游决策器：SAA 接/拒（真实 C0 硬认证 + A-v1 效用），三臂只换 sampler
 # --------------------------------------------------------------------------- #
@@ -339,7 +266,7 @@ class SaaReplanner(C0ReserveReplanner):
                  sampler, reject_penalty, K=10, time_limit=10.0, arm_seed=7001,
                  hist=None, k=10, shadow_mode='greedy', energy_pricing='amortized',
                  standby_orders=None, future_policy='reveal', overage_price=None,
-                 incr_eval=False, anytime_vote=False, anytime_early_stop=True):
+                 incr_eval=False):
         super().__init__(budget, capacity, booking_horizon, contract, cooling_share,
                          mode='myopic', hist=hist, k=k)
         self.sampler = sampler
@@ -364,19 +291,9 @@ class SaaReplanner(C0ReserveReplanner):
         # _route_feasible_u 终检——预筛只跳过「可证明不可行」候选（保守 +1e-9 余量），
         # 故接受集合与原实现完全一致（等价加速，不改变数值与选择）。默认 False=旧行为。
         self.incr_eval = bool(incr_eval)
-        # 战役 S3-4-D3（2026-10-03，注册件 S3-4-D3_anytime部分投票_正式规格预声明）：
-        # anytime 部分投票——超时语义变更（默认 False=旧行为：保计划+拒单+计次）。
-        # True=场景顺序随机化（固定种子、臂无关 → CRN）+ 逐场景累进累计统计量 +
-        # 可选先验早停 + 时限到时按已完成场景子集提交（S_m>0 接单）。计数口径：
-        # timeouts 保留原义（0 场景完成才计）；partial_commits=部分投票提交事件数；
-        # early_stops=先验早停事件数。deadline=∞ 且早停关闭时与旧路径逐位一致。
-        self.anytime_vote = bool(anytime_vote)
-        self.anytime_early_stop = bool(anytime_early_stop)
         self._id_map = {}
         self._next_oid = 0
         self.timeouts = 0
-        self.partial_commits = 0
-        self.early_stops = 0
 
     # ---- 临时编号映射（每实例重置） ----
     def _reset_if_new(self, inst_idx):
@@ -385,8 +302,6 @@ class SaaReplanner(C0ReserveReplanner):
             self._id_map = {}
             self._next_oid = 0
             self.timeouts = 0
-            self.partial_commits = 0
-            self.early_stops = 0
 
     def _sync_id_map(self, env, inst_idx, clock):
         revealed = [i for i in range(1, env.num_nodes)
@@ -1025,29 +940,8 @@ class SaaReplanner(C0ReserveReplanner):
         return u
 
     # ---- 在线决策 ----
-    def _anytime_perm(self, inst_idx, o, n):
-        """D3：场景访问顺序的固定乱序。种子只依赖 (inst_idx, 订单映射 id)——臂无关，
-        故三臂同事件同顺序（CRN）；不同订单不同顺序（避免固定序的系统偏向）。"""
-        return list(np.random.default_rng(
-            [0xA771, int(inst_idx), int(self._id_map.get(o, o))]).permutation(n))
-
-    @staticmethod
-    def _partial_vote_accept(acc_vals, rej_vals, done):
-        """D3：部分投票提交规则 = 旧 SAA 统计量在已完成子集上的原序累加（acc_u > rej_u）。
-        显式左到右 +=（不用 sum()），保证 done 全 True 时与旧路径浮点逐位一致。"""
-        acc_u = 0.0
-        rej_u = 0.0
-        for a, r, d in zip(acc_vals, rej_vals, done):
-            if d:
-                acc_u += a
-                rej_u += r
-        return acc_u > rej_u
-
     def _saa_decide(self, env, inst_idx, clock, vehicles, served_mask, o, scenarios, t0):
-        """A-02：单调时钟 + 绝对 deadline；采样/构造/插入/认证/投票全读剩余预算；提交前复查。
-        D3（anytime_vote=True）：场景乱序访问；时限到时按已完成子集提交（S_m>0 接单，
-        0 场景完成才退回旧语义：保计划+拒单+计 timeouts）；可选先验早停（m≥4 且
-        |mean|>2×SE）。anytime_vote=False 路径与旧实现逐位不变。"""
+        """A-02：单调时钟 + 绝对 deadline；采样/构造/插入/认证/投票全读剩余预算；提交前复查。"""
         deadline = t0 + self.time_limit
         if time.perf_counter() > deadline:
             self._rejected.add(o)
@@ -1070,59 +964,22 @@ class SaaReplanner(C0ReserveReplanner):
         self._plan = saved_plan
         rej_states = self._sim_states(env, inst_idx, clock, vehicles, served_mask, saved_plan)
         pc_o = self.reject_penalty[self._class_of(env, inst_idx, o)]
-        if not self.anytime_vote:
-            acc_u = 0.0
-            rej_u = 0.0
-            for scen_idx in scen_indices:
-                if time.perf_counter() > deadline:
-                    self._plan = saved_plan
-                    self._rejected.add(o)
-                    self.timeouts += 1
-                    return
-                acc_u += self._sim_scenario(env, inst_idx, clock, acc_states, scen_idx, space)
-                rej_u += self._sim_scenario(env, inst_idx, clock, rej_states, scen_idx, space) - pc_o
-            if time.perf_counter() > deadline:   # A-02：最后提交前复查（最后一轮超时不得接单）
+        acc_u = 0.0
+        rej_u = 0.0
+        for scen_idx in scen_indices:
+            if time.perf_counter() > deadline:
                 self._plan = saved_plan
                 self._rejected.add(o)
                 self.timeouts += 1
                 return
-            if acc_u > rej_u:
-                self._plan = acc_plan
-                self._accepted.add(o)
-            else:
-                self._plan = saved_plan
-                self._rejected.add(o)
-            return
-        # ---- D3 anytime 分支 ----
-        n = len(scen_indices)
-        perm = self._anytime_perm(inst_idx, o, n)
-        acc = [0.0] * n
-        rej = [0.0] * n
-        done = [False] * n
-        m = 0
-        for j in perm:
-            if time.perf_counter() > deadline:
-                break   # 部分投票提交，不回退丢弃
-            scen_idx = scen_indices[j]
-            acc[j] = self._sim_scenario(env, inst_idx, clock, acc_states, scen_idx, space)
-            rej[j] = self._sim_scenario(env, inst_idx, clock, rej_states, scen_idx, space) - pc_o
-            done[j] = True
-            m += 1
-            if self.anytime_early_stop and m >= 4:
-                dvals = [acc[i] - rej[i] for i in range(n) if done[i]]
-                mean = sum(dvals) / m
-                se = (np.var(dvals) / m) ** 0.5
-                if abs(mean) > 2.0 * se:
-                    self.early_stops += 1
-                    break
-        if m == 0:
+            acc_u += self._sim_scenario(env, inst_idx, clock, acc_states, scen_idx, space)
+            rej_u += self._sim_scenario(env, inst_idx, clock, rej_states, scen_idx, space) - pc_o
+        if time.perf_counter() > deadline:   # A-02：最后提交前复查（最后一轮超时不得接单）
             self._plan = saved_plan
             self._rejected.add(o)
             self.timeouts += 1
             return
-        if m < n:
-            self.partial_commits += 1
-        if self._partial_vote_accept(acc, rej, done):
+        if acc_u > rej_u:
             self._plan = acc_plan
             self._accepted.add(o)
         else:

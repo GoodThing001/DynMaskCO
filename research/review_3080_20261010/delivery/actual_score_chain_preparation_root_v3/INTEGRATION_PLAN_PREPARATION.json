@@ -1,0 +1,106 @@
+{
+  "created_utc": "2026-10-12T08:27:19.024387+00:00",
+  "status": "ACTUAL_SCORE_CHAIN_SOURCE_PREPARATION_ONLY",
+  "execution_authorized": false,
+  "independent_full_chain_checker_sealed": false,
+  "package_files": {
+    "delivery_actual_score_chain_v1.py": "9c801b2b4316dc99139bd977c949afa7d0567364e5ffe2e8d27870599d856e8e",
+    "run_delivery_actual_score_chain_v1.py": "ac984d1ccc529d9c8f06d89eeb2f8b57d64765fe5eb1cd4aa5d72ca295e31d56",
+    "delivery_feasible_action_options_v1.py": "35d97dcdb8ec2d872deb3fe565bcd7cd5529aa230e0ef5536c73b597feb184f2",
+    "delivery_retained_edge_action_guard_v1.py": "22a05a75cf430c51944f9bf2c751e57c9d430d6fd1a3a6824496e4e57e4b45db",
+    "delivery_actual_action_head_v1.py": "d9664585a8a6ab2d169ac8b9920669b8b04bfddefc56d7c84e425a138fbd409f",
+    "action_head_runtime_v1.py": "492a14effd3e7966bacc6e21149387f8754c0ea34c7b0ebd03ff017c464ead23",
+    "features_objective.py": "2b1049f3c6bd665b4d78d6882680f0571f583fb23a6e5191f05482d9c6ba8481",
+    "CHAIN_INPUT.json": "1fc5a3c4216b2d28659052c65a632e548003baaf62f8ef3f6ebcbc5616c5db76"
+  },
+  "input_digest": "fe24357c1d012ec4e0c07ce40cc52fdec0f46c10e4853e4122babbafd456a21a",
+  "key": [
+    12,
+    3
+  ],
+  "selection_rule": "First of the original30 observed records in immutable order, two initial arms; no teacher label/cost/result selection.",
+  "source_preparation_recovery": {
+    "original_failure_directory": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\actual_score_chain_preparation_failure_v1",
+    "reason": "Builder assumed all post-deletion skeleton bridges were protected. Original partial has34 directed retained entries, skeleton has58; exact original initial-edge masking independently matches savedpartial.",
+    "additional_AST_failure_directory": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\actual_score_chain_preparation_failure_v2",
+    "syntax_repair_only": true,
+    "scientific_parameters_changed": false,
+    "model_execution_repeated": false
+  },
+  "source_inputs": {
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\family2_remaining_action_diagnosis_root_v1\\OBSERVED_ACTION_RECORDS.json": "a8db10dd2134f032fadf99059ca96b636349f12f6b4df99dc0169721a8aad886",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\actual_action_head_execution_root_v1\\downloaded\\INPUTS.json": "2803e212d6210b8a5dbdfc978aedf01f6eb8db58d04fe8c96bda99b9ef1fa826",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\actual_action_head_execution_root_v1\\ACTUAL_EXECUTION_SCOPE.json": "264711970bdf4fec8a3c5217feaa4d7ea549e5b5c39f9314027a4943336e1421"
+  },
+  "initial_component_registration_sha256": "cf2fcb53ffcd25eaf9ed922748ec69cc73f2581fe292e97933c9aefd70ebd4a0",
+  "initial_component_remote_root": "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\actual_action_head_execution_root_v1",
+  "initial_artifacts": {
+    "pretrained_initial_00.npz": "754854b5db55981a988f26220dbf84921f2445f0c333d79d0a59de16a6d0131d",
+    "pretrained_initial_00.json": "335a01bfd94606cfe057f0ca0fde379a787387401dc2e4f216a3e6c4bb660d35",
+    "pretrained_initial_PARAMETER_IDENTITY.json": "f5ab426a095c1957c0d983f00636cb5cc23d58af4137bcbfa32ce1eda7e970fd",
+    "random888_initial_00.npz": "e70686a38eb9b1c49fdf2fc97c64d066e19fb74dcc2a8ed54bfc67fb934f49d9",
+    "random888_initial_00.json": "53bb7d4dafa94f55aa3e23d7db833573750da6d0435b6e54bf05109f7a89cc92",
+    "random888_initial_PARAMETER_IDENTITY.json": "6800d93f1c6d4635a6e792f45a10d6409dcb307d15290703ec8f08f467fe1f75",
+    "EXECUTION_REGISTRATION.json": "cf2fcb53ffcd25eaf9ed922748ec69cc73f2581fe292e97933c9aefd70ebd4a0",
+    "RESULT.json": "3edb79e40d621559e6108a21e1992bb56773370dbec13d07fcc57e02f4723128",
+    "INDEPENDENT_ACTION_HEAD_AUDIT.json": "8a811be339c04f7790d9bb309e614b0d1cb7e7db73bf2af886295b7a77d719e2",
+    "RUN_EXIT.json": "9d524195e24ed90369bf6d038b4eca700e881b4c22a335859ce0ce4cb36d09bf",
+    "AUDIT_RUN_EXIT.json": "2171f86318ca4be761e110b369fcd94ea4cc710836d13882a4ecac91af8b913b"
+  },
+  "old_remote_root": "C:\\Users\\zh\\project\\MASKCO-Main\\research\\review_3080_20261010\\remote_finite_research_root_v2",
+  "checkpoint": "C:\\Users\\zh\\project\\MASKCO-Main\\MASKCO_code\\ckpts\\cvrp100.ckpt",
+  "checkpoint_sha256": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+  "contract_hash": "ba40cd0d08fc21ef09d418c7df2bff940294ee2cfecebd2a4ba9ddde35a8268a",
+  "normalization_sources": {
+    "modules/functional/coord_transform.py": "09de9bf90d6b21991759511bf2905700791e76cfd2f3b3986c7a7f1cff193da7",
+    "modules/functional/__init__.py": "ddccb363c3131b28c460b767231757e84c7fa963e19c06b1b8ce52cf6855e303"
+  },
+  "head_seed": 20261012,
+  "random_seed": 888,
+  "optimizer_steps": 0,
+  "minimum_available_ram_gib": 8,
+  "cpu_affinity": [
+    15
+  ],
+  "gpu_used": false,
+  "proposed_stage_timeout_seconds": 900,
+  "proposed_reap_seconds": 10,
+  "proposed_workload": {
+    "chains": 2,
+    "masked_customers": 25,
+    "encodes": 2,
+    "new_decodes_maximum": 48,
+    "first_step": "Reuse immutable original00 NPZ scores only with exact features/actions/context/weights identity; no repeated initial forward.",
+    "encoder_cache": "One new encode per arm inside engineering timer. Fixed10Dfeatures throughout. Fresh decode/embed/final_norm for each changed temporary context; cache equivalence not executed or qualified.",
+    "action_order": "All remaining customerIDs ascending; all original slots/positions ascending. Single full ordered batch for current context.",
+    "choice": "Eligible joint retained-edge/route_ok; highest actual action score, original normalized distance delta secondary, slot/position ties. Regret primary score gap, singleton first, customerID tie.",
+    "early_stop": "No feasible current action stops; preserve all rows/partial chain and fall back to unchanged fullC0 incumbent. No resampling/retry or target fixture.",
+    "final_C0": "Original shared implementation incumbent once/arm, complete candidate once if covered; keep candidate only hard and strict lower contract cost. All candidate reports preserved regardless selection; no scientific gain claim."
+  },
+  "exact_checks_required": [
+    "Independent source/parameters/headseed/features/current anchors/ordered actions",
+    "Fresh fullencode plus changed-context decode/latent exact replay from original checkpoint and seededrandom; no duplicate old firstforward",
+    "Independent local route/retained union/all customer regrets/competing transitions and coverage",
+    "Original fullC0 incumbent/candidate exact replay and fallback decision, shared original physics limitation explicit",
+    "Production/audit full loaded file/native begin/end and module map differences",
+    "Actual bounded supervision, new exclusive transport, download SHA/actual process exit"
+  ],
+  "numpy_head_max_abs_error": 2e-05,
+  "model_executed": false,
+  "chain_executed": false,
+  "C0_executed": false,
+  "full_C0_qualified": false,
+  "cache_equivalence_qualified": false,
+  "learned_output_qualified": false,
+  "formal_controls_qualified": false,
+  "full_request_budget_qualified": false,
+  "full_scientific_loaded_closure_qualified": false,
+  "scientific_family3_started": false,
+  "stable_online_gain": false,
+  "outstanding": [
+    "Independent complete-chain audit source, exact supervision and dispatch/download package before execution registration.",
+    "Resource/CPU15/actual owned tree fresh check before any execution; no GPU/team process termination.",
+    "Whole-request10s abortability, complete controls/equal-time iteration not implemented by this900s stage.",
+    "Formal trained same-initializationCE/task-trainedrandom, independent strong dynamic admission and all science barriers remain."
+  ]
+}

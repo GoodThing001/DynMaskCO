@@ -1,0 +1,71 @@
+{
+  "created_utc": "2026-10-12T04:47:43.206267+00:00",
+  "status": "SOURCE_PREPARED_EXECUTION_CLOSED",
+  "inputs": {
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\prepare_delivery_actual_action_head_v1.py": "b2be353679cb29f72288a94bc137eba9f85f79aed112f0b65d39f75975ce60e9",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\delivery_actual_action_head_v1.py": "d9664585a8a6ab2d169ac8b9920669b8b04bfddefc56d7c84e425a138fbd409f",
+    "D:\\PyCharm_\\MASKCO-Main\\MASKCO_code\\models\\CVRPModel.py": "26ba33a85058bab5180e62d47655a8745980978ecd00671bbd7f1b96d395b208",
+    "D:\\PyCharm_\\MASKCO-Main\\MASKCO_code\\models\\TSPModel.py": "d31378d672c7a74f5beade14913305b98da5ef064fc897322af5774b851552fa",
+    "D:\\PyCharm_\\MASKCO-Main\\MASKCO_code\\ckpts\\cvrp100.ckpt": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\actual_checkpoint_engineering_v1\\inspect_checkpoint.py": "a6d6eae12f987316e258b1dfa178bb5490881f2a2f5e8ac4d6fa32a2ddb8ff9c",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\features_objective_qa_v1\\features_objective.py": "2b1049f3c6bd665b4d78d6882680f0571f583fb23a6e5191f05482d9c6ba8481",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_tensor_binding_root_v2\\REGISTRATION.json": "38d507f5953d4c71ce67c8a70920ce2b2427ca08b4a9810958969266573e6f40",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_tensor_binding_root_v2\\RESULT.json": "a42d97b94e6354d244d73fee72f0c17eb16e2e98c86a171254996eea5bcb05e6",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\directed_action_chain_root_v1\\ACTION_CHAINS.jsonl": "e7bfcba1c7eb5e9ec43ecccfe06bc8103961ddb11e9469d2086b09c82cb515f3",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\family2_remaining_action_diagnosis_root_v1\\OBSERVED_ACTION_RECORDS.json": "a8db10dd2134f032fadf99059ca96b636349f12f6b4df99dc0169721a8aad886"
+  },
+  "new_scientific_family": false,
+  "family3_started": false,
+  "training_started": false,
+  "optimizer_steps": 0,
+  "model_executed": false,
+  "learned_output_qualified": false,
+  "scope": "Prospective full original CVRP model10D -> decoder target=embed -> original final_norm -> ordered insertion action head. Fixed first temporary state of each of all30 old observed records, in saved order, one forward per initialization; not all750 replay and not old solver/probe/chain QA. Before any execution seal exact runtime/runner/independent auditor/closure and bounded supervisor in a NEW registration; this preparation is not execution authorization by itself.",
+  "architecture": {
+    "full_backbone": "original234-leaf CVRP100 extended3-to10 init projection",
+    "embedding": 512,
+    "head_hidden": 64,
+    "head_seed": 20261012,
+    "head_parameter_elements": 196929,
+    "head_parameter_leaves": 4,
+    "nonlinearity": "tanh",
+    "ordered_inputs": [
+      "customer_embedding",
+      "current_predecessor_embedding",
+      "current_successor_embedding",
+      "current_route_mean",
+      "current_prefix_mean",
+      "current_suffix_mean",
+      "current_slot_over_max_slot",
+      "position_over_customer_count",
+      "route_length_over_customer_count"
+    ],
+    "teacher_inputs": false,
+    "vehicle_permutation_equivariance_qualified": false,
+    "current_context": "undirected edges of temporary skeleton only",
+    "timestep": "current customer degree sum / twice customer count",
+    "raw9_not_accepted_as10D": true,
+    "old_fixture_consumer_accepts_actual_model": false
+  },
+  "engineering_initializations": [
+    "original_pretrained_plus_new_head_seed20261012",
+    "fresh_random_backbone888_plus_same_head_seed20261012"
+  ],
+  "formal_controls_qualified": false,
+  "same_initialized_trained_CE_qualified": false,
+  "task_trained_random_qualified": false,
+  "required_controls_future": [
+    "same_initialized_trained_CE",
+    "matched_task_trained_random",
+    "nonlearning",
+    "independentstrongdynamic"
+  ],
+  "minimum_available_ram_gib": 8,
+  "cpu_only": true,
+  "no_GPU_or_server_execution": true,
+  "scientific_training_qualified": false,
+  "full_C0_qualified": false,
+  "full_request_budget_qualified": false,
+  "full_scientific_dependency_closure_qualified": false,
+  "stable_online_gain": false
+}

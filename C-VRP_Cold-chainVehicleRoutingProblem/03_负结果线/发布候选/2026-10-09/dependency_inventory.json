@@ -1,0 +1,711 @@
+{
+  "method": "AST only; no project module imports or scientific calls",
+  "files": [
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/negative_result_paper/release/scripts/run_fixed_state_quality.py",
+      "sha256": "4cdf9b74755782aca1d816e5c70be0e8c4184c818ec91ca06d2755a77a58674c",
+      "identity_evidence": "archived entry snapshot; complete original run identity not established",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "action_contract",
+          "argparse",
+          "cc_lns_replanner",
+          "coldchain_contract",
+          "collections",
+          "dynmaskco_cc_context",
+          "dynmaskco_cc_graph",
+          "jax.numpy",
+          "jf1h_repair",
+          "json",
+          "mpre",
+          "mpre_policy",
+          "mpre_replanner",
+          "mtrained_replanner",
+          "numpy",
+          "os",
+          "project_paths",
+          "repair_state",
+          "strict_online_env",
+          "sys",
+          "time",
+          "visible_state"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/negative_result_paper/release/scripts/run_headroom_census.py",
+      "sha256": "cb5319b0f9ae660adeb2d7729c6ed0bd10a03ead87da3bd257d647ebf6b2c4d1",
+      "identity_evidence": "archived entry snapshot; complete original run identity not established",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "action_contract",
+          "argparse",
+          "cc_lns_replanner",
+          "coldchain_contract",
+          "collections",
+          "copy",
+          "dynmaskco_cc_context",
+          "jf1h_repair",
+          "json",
+          "mpre_policy",
+          "numpy",
+          "os",
+          "project_paths",
+          "strict_online_env",
+          "sys",
+          "visible_state"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/negative_result_paper/release/scripts/run_step5_gate.py",
+      "sha256": "20b8679b8cdce797a3de89931c1583e8599417097e93cb73929b0a726b20598a",
+      "identity_evidence": "archived entry snapshot; complete original run identity not established",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "argparse",
+          "cc_lns_replanner",
+          "coldchain_contract",
+          "counterfactual_teacher",
+          "csv",
+          "hard_gate",
+          "jf1h_repair",
+          "json",
+          "mpre",
+          "mtrained_replanner",
+          "numpy",
+          "os",
+          "project_paths",
+          "service_first",
+          "strict_online_env",
+          "sys",
+          "time"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/negative_result_paper/release/scripts/run_future_sampling_oracle.py",
+      "sha256": "6214389cde5c234fc5300644eda97f69f9ca273bcabe5c621aaf3788f7c25638",
+      "identity_evidence": "archived entry snapshot; complete original run identity not established",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "action_contract",
+          "argparse",
+          "coldchain_contract",
+          "counterfactual_teacher",
+          "jf1h_repair",
+          "json",
+          "numpy",
+          "os",
+          "project_paths",
+          "recourse_snapshot",
+          "run_causal_headroom",
+          "sequential_oracle",
+          "strict_online_env",
+          "sys"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/negative_result_paper/release/scripts/make_figures.py",
+      "sha256": "c5beea7dfedc3aca648ddd91c3ac117d3d0057aca3141c41ec14a552179b8cf5",
+      "identity_evidence": "archived entry snapshot; complete original run identity not established",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/negative_result_paper/release/v1_modules/cc_lns_replanner.py",
+      "sha256": "7ea14c07e13943ea41bf9123f8c4f47d40546970b09d0e70777f8d4f8d9437c3",
+      "identity_evidence": "six-module archived pin",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "__future__",
+          "action_contract",
+          "collections",
+          "dynmaskco_cc_context",
+          "jf1h_repair",
+          "numpy",
+          "time",
+          "visible_state"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/negative_result_paper/release/v1_modules/coldchain_contract.py",
+      "sha256": "901d3957bc77543e55c2483328b1ab750e4e46d727b2b531ac09eb90bcf2c412",
+      "identity_evidence": "six-module archived pin",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "__future__",
+          "dataclasses",
+          "hashlib",
+          "json",
+          "typing"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/negative_result_paper/release/v1_modules/coldchain_state.py",
+      "sha256": "61f0d09f50b3f05574ed6dc5943c1c1be1a4068a6c2412127532e1947d90ed82",
+      "identity_evidence": "six-module archived pin",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "__future__",
+          "coldchain_contract",
+          "dataclasses",
+          "math"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/negative_result_paper/release/v1_modules/dynmaskco_cc_context.py",
+      "sha256": "9de8ceb54d088b8afa087948d6469f8cbd6f503678715bbf39e9971f5a91be54",
+      "identity_evidence": "six-module archived pin",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "action_contract",
+          "collections",
+          "numpy",
+          "recourse_snapshot",
+          "strict_online_env"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/negative_result_paper/release/v1_modules/mtrained_replanner.py",
+      "sha256": "3b414e4a9f64953ec759ee2d05ea529abbb8710bc94bbb909bd267e071830b48",
+      "identity_evidence": "six-module archived pin",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "__future__",
+          "action_contract",
+          "cc_lns_replanner",
+          "collections",
+          "dynmaskco_cc_context",
+          "dynmaskco_cc_graph",
+          "flax",
+          "jax",
+          "jax.numpy",
+          "jf1h_repair",
+          "mpre",
+          "mpre_policy",
+          "mpre_replanner",
+          "mpre_trained",
+          "numpy",
+          "pickle",
+          "repair_state",
+          "time",
+          "visible_state"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/negative_result_paper/release/v1_modules/strict_online_env.py",
+      "sha256": "60f9063442236e934b5a27bdbad0b7677388f6a63e7cd000f18ac30c3a00b9de",
+      "identity_evidence": "six-module archived pin",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "coldchain_state",
+          "dataclasses",
+          "numpy",
+          "os",
+          "recourse_snapshot",
+          "sys"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/analyze_fixed_state.py",
+      "sha256": "1a6df051fc016f0b6958958fb810016a6334af751e2a2fa9ed7b86d2df30f42f",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "argparse",
+          "json",
+          "numpy",
+          "os"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/action_contract.py",
+      "sha256": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b",
+      "identity_evidence": "s42 training identity SHA matched",
+      "registered_sha256": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b",
+      "registered_sha_match": true,
+      "ast": {
+        "modules": [
+          "collections",
+          "dataclasses",
+          "hashlib",
+          "numpy",
+          "strict_online_env",
+          "typing"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/models/dynmaskco_cc_graph.py",
+      "sha256": "0101e7c31ab8c95eefbc0daa9dd41e5a7df5ec4552a69744a8847f4f9bfba93d",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "action_contract",
+          "numpy"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/jf1h_repair.py",
+      "sha256": "233f8439536a2af676fe389b012b74c4fa8cf458fde7aef226b084342ca089ee",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "action_contract",
+          "collections",
+          "joint_fleet",
+          "strict_online_env"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/models/mpre.py",
+      "sha256": "585f0296e31fc98060f393cad023a6c028c70bbbdb8bcc0c6d27f46f03b3e57c",
+      "identity_evidence": "s42 training identity SHA matched",
+      "registered_sha256": "585f0296e31fc98060f393cad023a6c028c70bbbdb8bcc0c6d27f46f03b3e57c",
+      "registered_sha_match": true,
+      "ast": {
+        "modules": [
+          "cvrptw_utils",
+          "flax",
+          "jax.numpy",
+          "numpy",
+          "os",
+          "project_paths",
+          "sys",
+          "tensorboardX",
+          "training",
+          "types"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/mpre_policy.py",
+      "sha256": "5b03e4cae812fa20785e68ce837be3a615aadb44ab29b7dbdc4b95f104a4a191",
+      "identity_evidence": "s42 training identity SHA matched",
+      "registered_sha256": "5b03e4cae812fa20785e68ce837be3a615aadb44ab29b7dbdc4b95f104a4a191",
+      "registered_sha_match": true,
+      "ast": {
+        "modules": [
+          "action_contract",
+          "jax",
+          "jax.numpy",
+          "numpy"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/mpre_replanner.py",
+      "sha256": "0f879d85e9ed3e6ce55dfa40b5582e427a4f05e8215670115d50a2c5d9163ea0",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "__future__",
+          "action_contract",
+          "cc_lns_replanner",
+          "collections",
+          "dynmaskco_cc_context",
+          "dynmaskco_cc_graph",
+          "jf1h_repair",
+          "mpre",
+          "numpy",
+          "time",
+          "visible_state"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/project_paths.py",
+      "sha256": "3afd25befe673c05318489b83ae259971b0da8b894a8efe7b88e1c8ad84f6658",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "__future__",
+          "os",
+          "pathlib",
+          "sys",
+          "typing"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/data/repair_state.py",
+      "sha256": "daf1d8ea6b5b7ace865fc130c8be85879567fa6fc7d7642bc8a1241b28511148",
+      "identity_evidence": "s42 training identity SHA matched",
+      "registered_sha256": "daf1d8ea6b5b7ace865fc130c8be85879567fa6fc7d7642bc8a1241b28511148",
+      "registered_sha_match": true,
+      "ast": {
+        "modules": [
+          "coldchain_visible_features",
+          "copy",
+          "cvrptw_utils",
+          "dynmaskco_cc_graph",
+          "jax.numpy",
+          "numpy"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/visible_state.py",
+      "sha256": "710fe75ca1fc08aedf59bf46e263c6de62ae24315e873aa41b2547d42e57e046",
+      "identity_evidence": "s42 training identity SHA matched",
+      "registered_sha256": "710fe75ca1fc08aedf59bf46e263c6de62ae24315e873aa41b2547d42e57e046",
+      "registered_sha_match": true,
+      "ast": {
+        "modules": [
+          "__future__",
+          "coldchain_contract",
+          "coldchain_state",
+          "dataclasses",
+          "numpy"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/counterfactual_teacher.py",
+      "sha256": "b87b604e693101ba5c00dcd36921d9a7e3a5e7c58501716cc5d831514a683d2f",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "action_contract",
+          "authoritative_evaluator",
+          "collections",
+          "recourse_snapshot",
+          "strict_online_env"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/hard_gate.py",
+      "sha256": "aae966a8225437787257d892829bb4535cf2d18914b1ed0989954b498fc72acd",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "__future__",
+          "math",
+          "numpy"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/service_first.py",
+      "sha256": "0e69cffd5f674b9e918cd4a0c76c2880be8f5f3f37fecb73719c3ae819c21908",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "csv",
+          "hashlib",
+          "numpy",
+          "os"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/recourse_snapshot.py",
+      "sha256": "0af3535acaf6a84956104c0f1c8788c04e02499a087b6faa3d264239a19f27f8",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "coldchain_state",
+          "dataclasses",
+          "hashlib",
+          "numpy",
+          "strict_online_env"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/run_causal_headroom.py",
+      "sha256": "329e94e2c629e2c96519d97663a4fa0b8a1e2f32f6503f0b37b1e0e2fb79c780",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "action_contract",
+          "argparse",
+          "cc_lns_replanner",
+          "coldchain_contract",
+          "counterfactual_teacher",
+          "hard_gate",
+          "jf1h_repair",
+          "json",
+          "numpy",
+          "os",
+          "project_paths",
+          "recourse_snapshot",
+          "sequential_oracle",
+          "service_first",
+          "strict_online_env",
+          "sys",
+          "visible_state"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/sequential_oracle.py",
+      "sha256": "03efee12dd9a4a0c7217a6548df1bf438c458624d9582379183c519cb3f42fe0",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "__future__",
+          "action_contract",
+          "counterfactual_teacher",
+          "hard_gate",
+          "recourse_snapshot"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/models/mpre_trained.py",
+      "sha256": "c19352745e6e246dc855a3ac2b0f7827b188edb829e2104b428ed0a1c0d545f2",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": "e88c7d0d0d21c73b6335880a20111ee4d02b0a6693071872c74d217d34beb300",
+      "registered_sha_match": false,
+      "ast": {
+        "modules": [
+          "flax",
+          "jax",
+          "jax.numpy",
+          "mpre",
+          "os",
+          "sys",
+          "types"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/joint_fleet.py",
+      "sha256": "7dafcd6d82bc7cc602d5353b8fd3afdd790c1fec6b8aefd449988652be707935",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "cvrptw_utils",
+          "dataclasses",
+          "jax",
+          "jax.numpy",
+          "numpy",
+          "strict_online_env",
+          "typing"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/models/cvrptw_utils.py",
+      "sha256": "1fd6aa427bd242227963972c9a439dd94c5b6ca3cb5dbcef37bda3f2f315a73f",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "helpers",
+          "jax.numpy"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/data/coldchain_visible_features.py",
+      "sha256": "76f1d1e13a9432153554298565e7ed53e60f5667515a5dd9466505372cb227b0",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "action_contract",
+          "numpy"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/authoritative_evaluator.py",
+      "sha256": "505f7a718a14ee64d85974f08d6f2bd66dddbcbb321929b98133384949b0db05",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "coldchain_evaluator",
+          "collections",
+          "numpy"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/coldchain_evaluator.py",
+      "sha256": "3e02ea05df6f9176a826495422309a0f9709f242ebbd649f3c2318a2b3a21ff5",
+      "identity_evidence": "current available source only; no matched historical SHA evidence",
+      "registered_sha256": null,
+      "registered_sha_match": null,
+      "ast": {
+        "modules": [
+          "__future__",
+          "coldchain_contract",
+          "coldchain_state",
+          "collections",
+          "numpy",
+          "os",
+          "sys"
+        ],
+        "relative_imports": [],
+        "dynamic_import_lines": []
+      }
+    }
+  ],
+  "external_or_unresolved_import_names": [
+    "__future__",
+    "argparse",
+    "collections",
+    "copy",
+    "csv",
+    "dataclasses",
+    "flax",
+    "hashlib",
+    "helpers",
+    "jax",
+    "jax.numpy",
+    "json",
+    "math",
+    "matplotlib",
+    "matplotlib.pyplot",
+    "numpy",
+    "os",
+    "pathlib",
+    "pickle",
+    "sys",
+    "tensorboardX",
+    "time",
+    "training",
+    "types",
+    "typing"
+  ],
+  "ambiguous_imports": [],
+  "additional_gaps": [],
+  "fixed_state_full_closure_supported": false,
+  "historical_closed_loop_supported": false,
+  "boundary": "Inventory is not an import resolver: runtime sys.path edits and historical full module identities remain unverified. Current source is never substituted for an unrecorded historical dependency."
+}

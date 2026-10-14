@@ -1,0 +1,69 @@
+{
+  "created_utc": "2026-10-13T09:25:03.123423+00:00",
+  "sources": {
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_full_scenario_root_v2\\lazy_base_distance.py": "70081955c98aeb87d0fdfe438d3f3a7389e27bff96baaf5be97467fadc286093",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_full_scenario_root_v2\\run.py": "161bd564ebf75b92406885063c0bc2cf0fcc1de6641fb98c565c37539307d3ee",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_full_scenario_root_v2\\audit.py": "afeaaa6ff020866bdf114677d669d70fc21b424340c6eab2ec5248805ec904c6",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_full_scenario_root_v2\\prepare.py": "de6040e265c168e612643f0f09871b01761d924c18f835f1e71ed953c0b6b3e3",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_full_scenario_root_v2\\supervise.py": "1b9a7a7c2cd93628ee17a2985b51bde8156ae61aaae7a313b69bdcdb04166723",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\engineering_stage_closure_v1.py": "2e823979ef6fff9f133e158f2a2cc2e66a71ae7c43e65dc7edf71793f79adf4f",
+    "D:\\PyCharm_\\MASKCO-Main\\tools\\qualify_pickup_joint_policy_transaction_root_v3.py": "3bc4802b1853b9648bafa9612af25dfd6d4a23301fd6e661c07d5a9ff6ef4d69",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\scenario_saa.py": "4e47b99f14be03351506ccccf92f1d414d12b063020805aca07ba6ef56874188",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\shadow_energy_correction_root_v1\\energy_complete_saa.py": "37629d8dc5049edcb02b0a9a9243293d0505602150fea629a71129579a7b3f7d",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\independent_rolling_incremental_engineering_root_v1\\SIMULATION_CONTEXT.json": "b07932b2c359c135fb4e655ab12d0a52d6555c961f1b052198b7595062d44e36",
+    "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\shared_history_qualification_root_v1\\COMMON_HISTORY.pkl": "44064ff788b7e322294a23e6ac6de39da9f399dec326b70af7a0f7439895d3c6"
+  },
+  "stage": "pickup_full_scenario_paired_lazy_base_reuse",
+  "goal": "Extend the registered loop-scoped lazy base-distance reuse from the first four orders to the whole reveal-sorted order list of the fixed archived scenario index 8, and measure the removed repeated base evaluations against the unmodified original insertion on the same fixed branch.",
+  "mechanism": "Only the repeated same-loop base route distance of the unchanged original _insert_u is reused",
+  "scenario_index": 8,
+  "order_selection": "the full original reveal-sorted order list of the fixed archived scenario index 8 under common K10 seed202610130901; the list is fixed by the archived scenario and is not chosen by cost, label or outcome",
+  "arms": {
+    "REF": "unmodified original EnergyCompleteSAA._insert_u",
+    "CAND": "registered LazyBaseDistanceSAA same-loop base reuse"
+  },
+  "design": "one untimed warm-up per arm, then interleaved REF,CAND repeated; only the insertion, local-search and completion section is timed; both arms run on the same fixed sealed inputs",
+  "exact_gates": "identical insertion choices, identical feasibility calls and values, identical scored candidates, identical C0 physical transitions, identical terminal energy and distance, and the candidate distance log must be the reference log with only repeated same-loop base calls deleted in order; every distance value recomputed by an independent ordered double sum",
+  "timing_policy": "descriptive only; no speed threshold is registered, because a reduced call count is not a speedup and the timed section is small relative to process noise",
+  "timed_repeats": 2,
+  "preserved_prior_attempt": {
+    "directory": "research/review_3080_20261010/pickup/lazy_base_distance_full_scenario_root_v1",
+    "outcome": "producer raised AttributeError and exited 1 before any result was written",
+    "detail": "a leftover list initialiser was used as a dict for the deletion relation: paired = [] then paired.setdefault(...)",
+    "artifacts_written": [
+      "SOURCE_START.json",
+      "run.stdout.txt",
+      "run.stderr.txt",
+      "RUN_SUPERVISION_RECEIPT.json"
+    ],
+    "fixed_in": "paired = {} and the supervision cap raised to the registered 600 seconds"
+  },
+  "K": 10,
+  "seed": 202610130901,
+  "incr_eval": false,
+  "local_passes": 4,
+  "supervision_cap_seconds": 600,
+  "resource": {
+    "python": "3.12.7",
+    "numpy": "1.26.4",
+    "cpu_affinity": [
+      7
+    ],
+    "no_model_min_available_ram_gib": 0.5
+  },
+  "full_request_budget_qualified": false,
+  "formal_strong_dynamic_qualified": false,
+  "scientific_data_generated": false,
+  "new_science_family": false,
+  "scientific_family3_started": false,
+  "stable_online_gain": false,
+  "papers": [
+    {
+      "title": "PyVRP: a high-performance VRP solver package",
+      "doi": "10.1287/ijoc.2023.0055",
+      "url": "https://arxiv.org/html/2403.13795v2",
+      "read_scope": "sections 4.3, 4.3.2 and 5.3 read in the previous cycle",
+      "use": "route-evaluation reuse inspiration only; no PyVRP code is installed or executed"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "source_only": true,
+  "created_utc": "2026-10-12T10:19:35.940188+00:00",
+  "preparation_sha256": "ffe65084b94ccd913a0cd198cd6e6aa9b524851f68b4fc507a83048b5c9f307a",
+  "prior_missing_reader_path": "tools/prepare_delivery_actual_score_chain_execution_v1.py",
+  "prior_missing_reader_did_not_start_model_or_server": true,
+  "static_review_changes": [
+    "Atomic completed artifact names, .part raw files retained on cancellation; no numeric/algorithm change.",
+    "Reject entry marker when already cancelled; reached marker and actual delay entry still separate.",
+    "Caller selected archive SHA moved before end clock; cleanup included, receipt creation outside explicitly.",
+    "Natural nonzero exit distinguished from own kill, actual returncodes retained.",
+    "Audit reports missing completed dependency closure separately; killed native computation cannot fabricate source-end.",
+    "Exact10 unique requests bound, no execution retry; observed owned-descendant cleanup on900s supervisor timeout.",
+    "Recursive exclusive archive uses relative path containment/file64MiB/total512MiB/readv256KiB bounds."
+  ],
+  "independent_audit_imports": [
+    "action_head_runtime_v1",
+    "copy",
+    "delivery_contract",
+    "delivery_evaluator",
+    "flax",
+    "gc",
+    "hashlib",
+    "inspect_checkpoint",
+    "io",
+    "jax",
+    "jax.numpy",
+    "json",
+    "numpy",
+    "os",
+    "pathlib",
+    "psutil",
+    "sys",
+    "time",
+    "traceback"
+  ],
+  "runtime_validation": false,
+  "no_old_QA_execution": true,
+  "fixed_scientific_parameters": true,
+  "source_preparation_original_files_not_changed": true,
+  "remaining_limits": [
+    "Only AST/bytes prepared, not an exercised audit or timed budget qualification.",
+    "Original shared Transformer/JAX and C0 physics remain shared reference implementations.",
+    "Fault label without actual delay entrance is unexercised; preserve unreached fault/partial writes/timeout without retry or extra warmup.",
+    "A process killed during NPZ/JSON write may leave an incomplete artifact; preserve raw bytes and audit failure, do not fabricate completion.",
+    "Source-end and fault-entry snapshots differ; killed worker has no natural postfailure closure.",
+    "Parent prepared public input/model startup outside window; no live private event projection/vehicle installation.",
+    "Caller synchronous copy/SHA/JSON/archive/cleanup do not prove arbitrary-load/slow-disk/native instruction preemption.",
+    "Fault evidence capture consumes the registered time; no time is added to reach later stages.",
+    "Formal trained CE/task-random/other controls/equal-time iteration/independent strong dynamic/full scientific chain still absent."
+  ]
+}

@@ -105,24 +105,30 @@ def validate_decision_inputs(teacher_margin, estimated_margin, eligible, prior_b
         raise ValueError('Nonfinite teacher/simulator/baseline input; no inf*zero masking')
 
 
-def score_function_loss(log_prob_sets, losses, prior_baseline):
+def score_function_loss(log_prob_sets, losses, prior_baseline, eligible=None):
     """Unbiased score-function surrogate with baseline independent of current draw.
 
     prior_baseline [B] must come from PREVIOUS training steps (e.g. lagged EMA),
     or leave-one-out independent sets. A mean containing the current set is not
     an independent baseline; with one set it makes the gradient identically zero.
     Stop-gradient alone does not remove that statistical dependence.
+    If a teacher is ineligible, mask its ENTIRE advantage, including baseline;
+    a zero loss with nonzero baseline would still give a noisy actor gradient.
     """
     if losses.shape != log_prob_sets.shape or \
             prior_baseline.shape != log_prob_sets.shape[:1]:
         raise ValueError('Expected log-prob/loss [B,G], prior baseline [B]')
     advantage = jax.lax.stop_gradient(losses - prior_baseline[:, None])
+    if eligible is not None:
+        if eligible.shape != log_prob_sets.shape[:1]:
+            raise ValueError('Teacher eligibility must be [B]')
+        advantage = jnp.where(eligible[:, None], advantage, 0.0)
     return jnp.mean(advantage * log_prob_sets)
 
 
 def combined_loss(log_prob_sets, losses, prior_baseline,
-                  reconstruction_loss, reconstruction_weight):
+                  reconstruction_loss, reconstruction_weight, eligible=None):
     if reconstruction_weight < 0:
         raise ValueError('Reconstruction weight must be nonnegative')
-    return score_function_loss(log_prob_sets, losses, prior_baseline) + \
+    return score_function_loss(log_prob_sets, losses, prior_baseline, eligible) + \
         reconstruction_weight * reconstruction_loss

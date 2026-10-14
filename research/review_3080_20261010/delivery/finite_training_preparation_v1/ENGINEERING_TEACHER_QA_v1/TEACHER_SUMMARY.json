@@ -1,0 +1,43 @@
+{
+  "stage": "teacher_generation_only",
+  "instances": [
+    {
+      "instance_id": 900000,
+      "data_sha256": "e1dc052affa88d7d01f42c6bf55f0372fb978ded4457b01bddc97ff07ea4710f",
+      "states": 4,
+      "wall_s": 0.897285099956207,
+      "categories": {
+        "positive": 4,
+        "negative": 0,
+        "small": 0,
+        "invalid": 0
+      }
+    },
+    {
+      "instance_id": 900001,
+      "data_sha256": "c1aa004f5e934c5032f7f2d31cd0d4e5f01a63965d55da020bf609a3be42c4cc",
+      "states": 4,
+      "wall_s": 0.8925146999536082,
+      "categories": {
+        "positive": 4,
+        "negative": 0,
+        "small": 0,
+        "invalid": 0
+      }
+    }
+  ],
+  "expected_ids": [
+    900000,
+    900001
+  ],
+  "actual_state_count": 8,
+  "all_states_retained": true,
+  "dataset_seed": 202610110071,
+  "mask_seed": 202610110072,
+  "teacher_archive_sha256": "67fa1b6854e62d6133f4a27f08be81474f86e790e3fe1ce0ace79488e0f4a302",
+  "registration_sha256": "1387fbb41ee5fbce2496eca133dddb89c03ddf1bc67b3485ccc3e8f15ee77ade",
+  "contract_hash": "ba40cd0d08fc21ef09d418c7df2bff940294ee2cfecebd2a4ba9ddde35a8268a",
+  "engineering_pass": true,
+  "teacher_optimality_claim": false,
+  "dynamic_online_claim": false
+}

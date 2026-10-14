@@ -1,0 +1,40 @@
+{
+  "report": "docs/当前规划/决策与审计/双线第十六轮_取货评分职责与配送截止余量_2026-10-14.md",
+  "report_sha256": "294536b61ff193150736ae5e9522d7b90ec329f10389bb3dc219cb68bb3939ee",
+  "inputs_sha256": {
+    "research/review_3080_20261010/goal_round_20261014_r14_boundary/PICKUP_RANK_REGISTRATION.json": "b14b3aa8cdb075f858e6da23a7134d6ee6d8f3db5d5cb1006fdcc0048257fc9d",
+    "research/review_3080_20261010/goal_round_20261014_r14_boundary/PICKUP_RANK_V1_FAILURE.json": "8f6a67d22ed59ac99e9b9712509273cdbc3f368940497b5b1d44c1fb5f974091",
+    "research/review_3080_20261010/goal_round_20261014_r14_boundary/PICKUP_RANK_RECOVERY_REGISTRATION.json": "093ff7a3b3af27b73697e4b85453775d005da3170cb42fad179bfe55505da05c",
+    "research/review_3080_20261010/goal_round_20261014_r14_boundary/PICKUP_RANK_V2_FAILURE.json": "c78100b8801027fa864f78a0e9973c18fcb68960342651e0333e39bdc691eea9",
+    "research/review_3080_20261010/goal_round_20261014_r14_boundary/PICKUP_RANK_RECOVERY_R3_REGISTRATION.json": "21e7e447b5435891a6919d50d8644746da12c51f87a4e4f5c7e29d96c1d04ac8",
+    "research/review_3080_20261010/goal_round_20261014_r14_boundary/PICKUP_RANK_DIAGNOSIS.json": "d33c6193b3a67d7caf867aafdbb0e3ab87bc6a856db5d1cf502770ac832f89ed",
+    "research/review_3080_20261010/goal_round_20261014_r14_boundary/DELIVERY_TIMING_REGISTRATION.json": "4ed52dbe11d173d1d59762caf9aaa034e0e03e532e7e3e2fab570592bbed6464",
+    "research/review_3080_20261010/goal_round_20261014_r14_boundary/DELIVERY_POST_SELECTION_TIMING.json": "f7b1bfb668b327acd26606c322d184f29cffde9410a832572d9c7490d62ef9c0",
+    "research/review_3080_20261010/goal_round_20261014_r14_boundary/INDEPENDENT_BOUNDARY_REGISTRATION.json": "cbae3aff4be8832528eb48adc6a540390a85beb014205995c1cffd7894fab0da",
+    "research/review_3080_20261010/goal_round_20261014_r14_boundary/INDEPENDENT_BOUNDARY_AUDIT.json": "93dfbb22d7b3f6ee9f2a8261f45434d86a4f70cbb8ae075180954b70782ff454",
+    "tools/register_dual_saved_boundary_r14.py": "5ccb7dc313fac7a2b02c7c0a331f985cc662d4043353b8ad5d1ccb4b9d09b017",
+    "tools/diagnose_pickup_saved_ranking_r14.py": "33dcc7ccb96c88fded44f5ac3ee027d08c1dcf35d893c7d606fe622e4a212d7e",
+    "tools/diagnose_pickup_saved_ranking_r14_v2.py": "cfcd028489b3ad5588230b6382cdcf3d2477cf2245768eda37d775fc8982bec8",
+    "tools/diagnose_pickup_saved_ranking_r14_v3.py": "b1d46f51f4e283e7d2045ecd566d98bfef048e7fa515f8e88db7fe923412311c",
+    "tools/diagnose_delivery_saved_post_selection_r14.py": "0fbbe41e23cb67600430660b56f9be885fd91b52b85b41a0c97baee21c5846fc",
+    "tools/audit_dual_saved_boundary_r14.py": "c74ccee8c7f92523b5f7ff1067b3f3301569e543b4b12ed7ed8cec0a9d59eb71"
+  },
+  "pickup_first_action_model_changes_distance_only": true,
+  "pickup_pretrained_random_top_action_equal": true,
+  "pickup_rank_discordant_pairs_by_step": [
+    1,
+    0
+  ],
+  "pickup_original_v1_v2_harness_failures_preserved": true,
+  "delivery_stage6_remaining_seconds": [
+    1.2212045001797378,
+    1.164393899962306
+  ],
+  "delivery_post_selection_closure_duration_measured": false,
+  "delivery_full_request_budget_qualified": false,
+  "independent_saved_checks": 15,
+  "independent_saved_failures": 0,
+  "model_or_C0_or_old_request_rerun": false,
+  "scientific_family3_started": false,
+  "stable_online_gain": false
+}

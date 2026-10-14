@@ -1,0 +1,36 @@
+{
+  "created_utc": "2026-10-11T05:14:43.867352+00:00",
+  "scope": "candidate-only worker preparation and real C0ReserveReplanner plan-pointer publication; fixed old packet/five already produced plans",
+  "input_sha256": "5dc4172fd6567aa7f2bb6c8add078b49db463f64c264f96ceff870e98b23ad35",
+  "source_sha256": "a07b4a3333380c30a35db4c5e6f4ef5615e1ab5d43894808e32fcb2bfcc411c2",
+  "installer_sha256": "20663fdf6a0b44ff9ca95336ebe8beaae1c8164c5403dfeaf1fabb21527470ed",
+  "normal_cap_s": 10.0,
+  "delayed_fault_cap_s": 0.01,
+  "actual_parent_worker_cpu": [
+    7
+  ],
+  "normal_modes": [
+    "own_incumbent",
+    "pretrained",
+    "random",
+    "discard",
+    "strong_rolling"
+  ],
+  "faults": [
+    "certification_delay",
+    "compile_delay",
+    "changed_plan_pointer",
+    "mutated_plan_in_place",
+    "changed_admissions",
+    "changed_fleet",
+    "changed_event",
+    "expired",
+    "replayed_token",
+    "wrong_request_identity",
+    "unqualified_worker",
+    "tampered_prepared_plan"
+  ],
+  "new_science_data": false,
+  "all_request_stages_covered": false,
+  "stable_online_gain": false
+}

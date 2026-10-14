@@ -1,0 +1,73 @@
+{
+  "schema": "support-numeric-difference-independent-check-v1",
+  "dimension_failure_counts_equal": true,
+  "headline_n_checks": 29,
+  "headline_n_failures": 0,
+  "numeric_dimension_failures": 1,
+  "same_partial_dimension": {
+    "verdict": "partially_reproduced",
+    "pass": false,
+    "reason": "cited numbers reproduce, but part of the numeric basis is document-internal rather than artifact-backed",
+    "evidence_paths": [
+      "results/research_20261010/pickup_tail_census_v1/result.json",
+      "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md"
+    ],
+    "checks": [
+      {
+        "label": "pickup tail distance headroom quoted in the round document",
+        "kind": "quoted_number_vs_artifact",
+        "document": "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md",
+        "literal": "0.997",
+        "artifact_path": "results/research_20261010/pickup_tail_census_v1/result.json",
+        "field": "distance_headroom.mean_relative_gain",
+        "artifact_value": 0.009970540505734128,
+        "document_implied_value": 0.9970540505734128,
+        "tolerance": 0.0005,
+        "literal_present_in_document": true,
+        "pass": true,
+        "reason": ""
+      },
+      {
+        "label": "single-instance distance share and the 0.095 percent ceiling product",
+        "kind": "document_internal_arithmetic_not_artifact_backed",
+        "document": "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md",
+        "inputs": {
+          "distance_km": 23.4229,
+          "energy_kwh": 2213.5795,
+          "quality_loss": 2.2939,
+          "composite_cost_quoted": 247.0747,
+          "distance_headroom_from_artifact": 0.009970540505734128
+        },
+        "weights": {
+          "distance": 1.0,
+          "energy": 0.1,
+          "quality": 1.0
+        },
+        "recomputed": [
+          9.4800864920434,
+          0.09452158636678168,
+          247.07475
+        ],
+        "literals": [
+          "9.48",
+          "0.095",
+          "247.0747"
+        ],
+        "tolerance": 0.001,
+        "literals_present_in_document": [
+          true,
+          true,
+          true
+        ],
+        "pass": true,
+        "reason": ""
+      }
+    ],
+    "not_artifact_backed": [
+      "single-instance distance share and the 0.095 percent ceiling product"
+    ]
+  },
+  "source_manifest_change_caused_difference": false,
+  "explanation": "No difference. The one numeric dimension is partial because the single-instance 0.095-percent product has no original artifact backing; the 29 headline checks are a different scope.",
+  "scientific_qualification_established": false
+}

@@ -1,0 +1,1256 @@
+{
+  "schema": "program-support-audit-v3",
+  "project_root": "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\reproduction\\research\\review_3080_20261010\\reproduction\\v3_selftest_fixtures\\unsupported_claim\\proj",
+  "repo_root": "C:\\Users\\mmc\\.codex\\worktrees\\ba63\\MASKCO-Main\\.arbor\\reproduction\\research\\review_3080_20261010\\reproduction\\v3_selftest_fixtures\\unsupported_claim",
+  "dimension_definitions": {
+    "numeric_consistency": {
+      "question": "do the numbers the claim reports reproduce from the archived artifacts/JSON those numbers cite?",
+      "pass_verdicts": [
+        "reproduced_from_cited_artifacts",
+        "no_cited_numeric_claim"
+      ],
+      "verdicts": [
+        "reproduced_from_cited_artifacts",
+        "partially_reproduced",
+        "not_reproduced",
+        "no_cited_numeric_claim",
+        "input_missing"
+      ]
+    },
+    "eligibility": {
+      "question": "are the source files AND the raw per-instance trajectories still present, so the claim is replayable from raw data?",
+      "pass_verdicts": [],
+      "verdicts": [
+        "file_inventory_present_identity_and_replay_unverified",
+        "not_eligible_per_instance_trajectories_absent",
+        "not_eligible_source_identity_absent",
+        "not_eligible_no_raw_records",
+        "input_missing"
+      ]
+    },
+    "statistical_support": {
+      "question": "is the claim backed by a paired instance-level interval excluding zero under the registered multiplicity/alpha discipline?",
+      "pass_verdicts": [
+        "established_under_registered_discipline"
+      ],
+      "verdicts": [
+        "established_under_registered_discipline",
+        "not_established_interval_spans_zero",
+        "not_established_descriptive_interval_only",
+        "not_established_insufficient_preregistered_cohorts",
+        "not_established_no_positive_paired_interval",
+        "not_established_no_interval_supports_a_universal_claim",
+        "input_missing"
+      ]
+    },
+    "generalization_scope": {
+      "question": "is the claim scoped to the configurations/cohorts actually measured, and does the text avoid universal wording (impossibility, equivalence, \"never\", \"proved\", \"唯一\")?",
+      "pass_verdicts": [
+        "scoped_to_measured_configurations"
+      ],
+      "verdicts": [
+        "scoped_to_measured_configurations",
+        "asserted_flag_exceeds_measured_scope",
+        "universal_wording_exceeds_measured_scope",
+        "input_missing"
+      ]
+    }
+  },
+  "overall_verdict_definitions": {
+    "claim_excess_upheld": "the documents assert the claim and at least one dimension fails",
+    "supported_within_measured_scope": "asserted and all four dimensions pass",
+    "not_asserted_in_audited_documents": "no audited document asserts the claim",
+    "indeterminate_input_missing": "a required input is missing, so support is indeterminate"
+  },
+  "claims": [
+    {
+      "claim_id": "stable_online_gain_supported",
+      "statement": "a stable online gain is established",
+      "asserted_in_audited_documents": false,
+      "assertion": {
+        "asserted_in_audited_documents": false,
+        "trigger_strings": [],
+        "detection_reasons": [],
+        "assertion_evidence": [],
+        "note": "",
+        "claim_as_asserted": "the ANY50 confirmation panel records a literal stable_gain_established=true although the PROGRAM requires three fresh 40-complete-day preregistered cohorts"
+      },
+      "dimensions": {
+        "numeric_consistency": {
+          "verdict": "reproduced_from_cited_artifacts",
+          "pass": true,
+          "reason": "every checked number reproduces from the artifact it cites",
+          "evidence_paths": [
+            "results/research_20261010/delivery/.arbor/tree.json",
+            "results/research_20261010/delivery_any50_confirm_v1/result.json"
+          ],
+          "checks": [
+            {
+              "label": "delivery tree n7 dev_score vs ANY50 confirmation artifact",
+              "kind": "quoted_number_vs_artifact",
+              "document": "results/research_20261010/delivery/.arbor/tree.json",
+              "literal": "2.09",
+              "artifact_path": "results/research_20261010/delivery_any50_confirm_v1/result.json",
+              "field": "primary_ANY50_over_LNS.mean_relative_gain",
+              "artifact_value": 0.020854778158967097,
+              "document_implied_value": 2.0854778158967098,
+              "tolerance": 0.02,
+              "literal_present_in_document": true,
+              "pass": true,
+              "reason": ""
+            },
+            {
+              "label": "artifact gate_passed agrees with its own registered gate rule",
+              "kind": "quoted_number_vs_artifact",
+              "document": "results/research_20261010/delivery_any50_confirm_v1/result.json",
+              "literal": "True",
+              "artifact_path": "results/research_20261010/delivery_any50_confirm_v1/result.json",
+              "field": "gate_passed",
+              "artifact_value": true,
+              "document_implied_value": true,
+              "tolerance": 0.0,
+              "literal_present_in_document": true,
+              "pass": true,
+              "reason": ""
+            }
+          ]
+        },
+        "eligibility": {
+          "verdict": "not_eligible_per_instance_trajectories_absent",
+          "pass": false,
+          "reason": "per-instance record filenames are found but no trajectory filename was found in the bounded scan; this is not proof of deletion or global absence; this checker cannot establish the claim as replayable from raw data",
+          "evidence_paths": [
+            "results/research_20261010/delivery_any50_confirm_v1/result.json",
+            "results/research_20261010/delivery_any50_confirm_v1/PROTOCOL.json",
+            "results/research_20261010/delivery_any50_confirm_v1/identity_start.json",
+            "scripts/research_20261010/delivery_anytime.py",
+            "scripts/research_20261010/delivery_any50_confirm.py",
+            "results/research_20261010/delivery_any50_confirm_v1"
+          ],
+          "trajectory_artifacts": [],
+          "per_instance_record_artifacts": [
+            "results/research_20261010/delivery_any50_confirm_v1/progress.jsonl"
+          ]
+        },
+        "statistical_support": {
+          "verdict": "not_established_descriptive_interval_only",
+          "pass": false,
+          "reason": "the interval is a descriptive 95% CI over a 32-instance snapshot cohort; the registered confirmation family (three fresh 40-complete-day preregistered cohorts with allocated alpha) was not executed",
+          "evidence_paths": [
+            "results/research_20261010/delivery_any50_confirm_v1/result.json"
+          ],
+          "interval_excludes_zero": true,
+          "descriptive_ci": [
+            0.0019622408950310693,
+            0.03912516272808401
+          ],
+          "mean_relative_gain": 0.020854778158967097,
+          "registered_family_alpha_applied": false,
+          "preregistered_cohorts_found": 3,
+          "preregistered_cohorts_required": 3,
+          "equivalence_established": false
+        },
+        "generalization_scope": {
+          "verdict": "asserted_flag_exceeds_measured_scope",
+          "pass": false,
+          "reason": "the asserted flag is worded as a stable gain while the measured unit is a 32-instance deterministic snapshot on one cohort",
+          "evidence_paths": [
+            "results/research_20261010/delivery_any50_confirm_v1/result.json",
+            "results/research_20261010/WORK_STATUS.json"
+          ],
+          "universal_wording_hits": [],
+          "scoped_to": "32-instance snapshot cohort, seed 2026101141, instance ids 2000-2031"
+        }
+      },
+      "dimension_verdicts": {
+        "numeric_consistency": "reproduced_from_cited_artifacts",
+        "eligibility": "not_eligible_per_instance_trajectories_absent",
+        "statistical_support": "not_established_descriptive_interval_only",
+        "generalization_scope": "asserted_flag_exceeds_measured_scope"
+      },
+      "failing_dimensions": [
+        "eligibility",
+        "statistical_support",
+        "generalization_scope"
+      ],
+      "evidence_paths": [
+        "results/research_20261010/WORK_STATUS.json",
+        "results/research_20261010/delivery/.arbor/tree.json",
+        "results/research_20261010/delivery_any50_confirm_v1",
+        "results/research_20261010/delivery_any50_confirm_v1/PROTOCOL.json",
+        "results/research_20261010/delivery_any50_confirm_v1/identity_start.json",
+        "results/research_20261010/delivery_any50_confirm_v1/result.json",
+        "scripts/research_20261010/delivery_any50_confirm.py",
+        "scripts/research_20261010/delivery_anytime.py"
+      ],
+      "overall_verdict": "not_asserted_in_audited_documents",
+      "overall_reason": "no audited document asserts the claim"
+    },
+    {
+      "claim_id": "MaskCO_attributable_gain_established",
+      "statement": "a MaskCO-attributable gain is established",
+      "asserted_in_audited_documents": false,
+      "assertion": {
+        "asserted_in_audited_documents": false,
+        "trigger_strings": [],
+        "detection_reasons": [],
+        "assertion_evidence": [],
+        "note": "",
+        "claim_as_asserted": "the round document states that the LNS literature never uses random removal, which is used to bound what a learned mask selector could find"
+      },
+      "dimensions": {
+        "numeric_consistency": {
+          "verdict": "reproduced_from_cited_artifacts",
+          "pass": true,
+          "reason": "each cited learning-reference interval was re-read from its archived artifact and its declared direction re-checked",
+          "evidence_paths": [
+            "research_20261010/INDEPENDENT_EQ8_PROGRESS_ADJUDICATION.json"
+          ],
+          "checks": [
+            {
+              "label": "direction consistency: SYNTH learned reference",
+              "kind": "artifact_interval_direction",
+              "document": "scripts/research_20261010/learning_attribution_adjudication.py",
+              "artifact_path": "results/research_20261010/INDEPENDENT_EQ8_PROGRESS_ADJUDICATION.json",
+              "field": "SYNTH learned reference",
+              "artifact_value": -0.09,
+              "document_implied_value": null,
+              "tolerance": 0.0,
+              "literal_present_in_document": true,
+              "pass": true,
+              "reason": ""
+            }
+          ]
+        },
+        "eligibility": {
+          "verdict": "not_eligible_per_instance_trajectories_absent",
+          "pass": false,
+          "reason": "per-instance record filenames are found but no trajectory filename was found in the bounded scan; this is not proof of deletion or global absence; this checker cannot establish the claim as replayable from raw data",
+          "evidence_paths": [
+            "research_20261010/INDEPENDENT_EQ8_PROGRESS_ADJUDICATION.json",
+            "results/three_line_corrections_20261009/FINAL_PROTECTED_ACCEPTANCE_20261010_v2.json",
+            "03_负结果线/恢复证据/B_REPRO_CLEAN_20261009/RECOVERY_MANIFEST.json",
+            "results/m0_scale/_bverify_pinned",
+            "negative_result_paper/results/09_unified_v1",
+            "negative_result_paper/results/10_confirm_c1",
+            "results/m0_scale/fsq_clean_train"
+          ],
+          "trajectory_artifacts": [],
+          "per_instance_record_artifacts": [
+            "results/m0_scale/_bverify_pinned/per_state.json",
+            "negative_result_paper/results/09_unified_v1/step5_heldout_s42.summary.json",
+            "negative_result_paper/results/10_confirm_c1/c1_step5_s42.summary.json",
+            "results/m0_scale/fsq_clean_train/per_state.json"
+          ]
+        },
+        "statistical_support": {
+          "verdict": "not_established_no_positive_paired_interval",
+          "pass": false,
+          "reason": "the cited paired intervals are harmful or fail a positive threshold; none excludes zero in favour of a learned gain",
+          "evidence_paths": [
+            "research_20261010/INDEPENDENT_EQ8_PROGRESS_ADJUDICATION.json"
+          ],
+          "n_cited_intervals": 1,
+          "n_harmful": 1,
+          "n_no_signal": 0
+        },
+        "generalization_scope": {
+          "verdict": "universal_wording_exceeds_measured_scope",
+          "pass": false,
+          "reason": "the text generalises over the literature rather than over the measured operator",
+          "evidence_paths": [
+            "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md"
+          ],
+          "universal_wording_hits": [],
+          "scoped_to": "uniform random destruction vs one single-seed Euclidean distance clustering removal on the delivery dev cohort"
+        }
+      },
+      "dimension_verdicts": {
+        "numeric_consistency": "reproduced_from_cited_artifacts",
+        "eligibility": "not_eligible_per_instance_trajectories_absent",
+        "statistical_support": "not_established_no_positive_paired_interval",
+        "generalization_scope": "universal_wording_exceeds_measured_scope"
+      },
+      "failing_dimensions": [
+        "eligibility",
+        "statistical_support",
+        "generalization_scope"
+      ],
+      "evidence_paths": [
+        "03_负结果线/恢复证据/B_REPRO_CLEAN_20261009/RECOVERY_MANIFEST.json",
+        "negative_result_paper/results/09_unified_v1",
+        "negative_result_paper/results/10_confirm_c1",
+        "research_20261010/INDEPENDENT_EQ8_PROGRESS_ADJUDICATION.json",
+        "results/m0_scale/_bverify_pinned",
+        "results/m0_scale/fsq_clean_train",
+        "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md",
+        "results/three_line_corrections_20261009/FINAL_PROTECTED_ACCEPTANCE_20261010_v2.json"
+      ],
+      "overall_verdict": "not_asserted_in_audited_documents",
+      "overall_reason": "no audited document asserts the claim"
+    },
+    {
+      "claim_id": "learning_side_closed",
+      "statement": "the learning side of the programme is closed",
+      "asserted_in_audited_documents": false,
+      "assertion": {
+        "asserted_in_audited_documents": false,
+        "trigger_strings": [],
+        "detection_reasons": [],
+        "assertion_evidence": [],
+        "note": "",
+        "claim_as_asserted": "the round document records the adjudicator verdict learning_side_closed and calls the remaining training route the unique untested path"
+      },
+      "dimensions": {
+        "numeric_consistency": {
+          "verdict": "no_cited_numeric_claim",
+          "pass": true,
+          "reason": "the assertion cites no number that can be re-read from an artifact",
+          "evidence_paths": [
+            "scripts/research_20261010/learning_attribution_adjudication.py"
+          ]
+        },
+        "eligibility": {
+          "verdict": "not_eligible_per_instance_trajectories_absent",
+          "pass": false,
+          "reason": "per-instance record filenames are found but no trajectory filename was found in the bounded scan; this is not proof of deletion or global absence; this checker cannot establish the claim as replayable from raw data",
+          "evidence_paths": [
+            "research_20261010/INDEPENDENT_EQ8_PROGRESS_ADJUDICATION.json",
+            "results/three_line_corrections_20261009/FINAL_PROTECTED_ACCEPTANCE_20261010_v2.json",
+            "03_负结果线/恢复证据/B_REPRO_CLEAN_20261009/RECOVERY_MANIFEST.json",
+            "results/m0_scale/_bverify_pinned",
+            "negative_result_paper/results/09_unified_v1",
+            "negative_result_paper/results/10_confirm_c1",
+            "results/m0_scale/fsq_clean_train"
+          ],
+          "trajectory_artifacts": [],
+          "per_instance_record_artifacts": [
+            "results/m0_scale/_bverify_pinned/per_state.json",
+            "negative_result_paper/results/09_unified_v1/step5_heldout_s42.summary.json",
+            "negative_result_paper/results/10_confirm_c1/c1_step5_s42.summary.json",
+            "results/m0_scale/fsq_clean_train/per_state.json"
+          ]
+        },
+        "statistical_support": {
+          "verdict": "not_established_no_interval_supports_a_universal_claim",
+          "pass": false,
+          "reason": "no paired interval can establish a universal closure; the cited intervals constrain five measured channels only",
+          "evidence_paths": [
+            "research_20261010/INDEPENDENT_EQ8_PROGRESS_ADJUDICATION.json"
+          ],
+          "channels_measured": 5
+        },
+        "generalization_scope": {
+          "verdict": "universal_wording_exceeds_measured_scope",
+          "pass": false,
+          "reason": "a limited negative result is written as a closed side and an exhaustive path list",
+          "evidence_paths": [
+            "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md",
+            "results/research_20261010/PROGRAM_CLOSEOUT.md"
+          ],
+          "universal_wording_hits": [],
+          "scoped_to": "zero-shot pretrained CVRP weights, current adapter, measured operators"
+        }
+      },
+      "dimension_verdicts": {
+        "numeric_consistency": "no_cited_numeric_claim",
+        "eligibility": "not_eligible_per_instance_trajectories_absent",
+        "statistical_support": "not_established_no_interval_supports_a_universal_claim",
+        "generalization_scope": "universal_wording_exceeds_measured_scope"
+      },
+      "failing_dimensions": [
+        "eligibility",
+        "statistical_support",
+        "generalization_scope"
+      ],
+      "evidence_paths": [
+        "03_负结果线/恢复证据/B_REPRO_CLEAN_20261009/RECOVERY_MANIFEST.json",
+        "negative_result_paper/results/09_unified_v1",
+        "negative_result_paper/results/10_confirm_c1",
+        "research_20261010/INDEPENDENT_EQ8_PROGRESS_ADJUDICATION.json",
+        "results/m0_scale/_bverify_pinned",
+        "results/m0_scale/fsq_clean_train",
+        "results/research_20261010/PROGRAM_CLOSEOUT.md",
+        "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md",
+        "results/three_line_corrections_20261009/FINAL_PROTECTED_ACCEPTANCE_20261010_v2.json",
+        "scripts/research_20261010/learning_attribution_adjudication.py"
+      ],
+      "overall_verdict": "not_asserted_in_audited_documents",
+      "overall_reason": "no audited document asserts the claim"
+    },
+    {
+      "claim_id": "pickup_impossibility_proven",
+      "statement": "pickup is proven to have no improvable strategy",
+      "asserted_in_audited_documents": false,
+      "assertion": {
+        "asserted_in_audited_documents": false,
+        "trigger_strings": [],
+        "detection_reasons": [],
+        "assertion_evidence": [],
+        "note": "",
+        "claim_as_asserted": "the round document converts a single-instance distance share into a utility ceiling of about 0.095 percent"
+      },
+      "dimensions": {
+        "numeric_consistency": {
+          "verdict": "no_cited_numeric_claim",
+          "pass": true,
+          "reason": "the assertion cites no number that can be re-read from an artifact",
+          "evidence_paths": [
+            "results/research_20261010/pickup_tail_census_v1/result.json",
+            "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md"
+          ]
+        },
+        "eligibility": {
+          "verdict": "not_eligible_no_raw_records",
+          "pass": false,
+          "reason": "no trajectory or record candidate filename found in the bounded scan; this does not prove global absence",
+          "evidence_paths": [
+            "results/research_20261010/pickup_tail_census_v1/result.json",
+            "results/research_20261010/pickup_rejection_attribution_v1/result.json",
+            "results/research_20261010/pickup_residual_census_v1/result.json",
+            "results/research_20261010/pickup_clairvoyant_gap_v1/result.json",
+            "research/pickup_20round_audit/known_batch_v1/BATCH_SUMMARY.json",
+            "results/research_20261010/pickup_tail_census_v1",
+            "results/research_20261010/pickup_budget_headroom_v1"
+          ],
+          "trajectory_artifacts": [],
+          "per_instance_record_artifacts": [],
+          "counter_witness_present": true,
+          "counter_witness_path": "research/pickup_20round_audit/known_batch_v1/BATCH_SUMMARY.json (resolved under repo_root)",
+          "counter_witness_note": "the round-20 closeout cites this 16-state exact-utility witness as contradicting the utility-ceiling reading; it is present on disk"
+        },
+        "statistical_support": {
+          "verdict": "not_established_no_interval_supports_a_universal_claim",
+          "pass": false,
+          "reason": "a distribution-free impossibility reading is not a paired interval; the distance census is a distance-only measurement on a different operating point",
+          "evidence_paths": [
+            "results/research_20261010/pickup_tail_census_v1/result.json"
+          ],
+          "measured_scope": "distance only; protocol.not_a_verdict_on = 'A-v1 utility headroom (energy and quality not re-simulated)'"
+        },
+        "generalization_scope": {
+          "verdict": "universal_wording_exceeds_measured_scope",
+          "pass": false,
+          "reason": "a distance share measured on one instance is multiplied by a cohort-average distance headroom and then read as a total-utility ceiling",
+          "evidence_paths": [
+            "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md",
+            "results/research_20261010/pickup_tail_census_v1/result.json"
+          ],
+          "universal_wording_hits": [],
+          "scoped_to": "same-vehicle tail reordering under the old composite cost on the pickup dev-check cohort"
+        }
+      },
+      "dimension_verdicts": {
+        "numeric_consistency": "no_cited_numeric_claim",
+        "eligibility": "not_eligible_no_raw_records",
+        "statistical_support": "not_established_no_interval_supports_a_universal_claim",
+        "generalization_scope": "universal_wording_exceeds_measured_scope"
+      },
+      "failing_dimensions": [
+        "eligibility",
+        "statistical_support",
+        "generalization_scope"
+      ],
+      "evidence_paths": [
+        "research/pickup_20round_audit/known_batch_v1/BATCH_SUMMARY.json",
+        "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md",
+        "results/research_20261010/pickup_budget_headroom_v1",
+        "results/research_20261010/pickup_clairvoyant_gap_v1/result.json",
+        "results/research_20261010/pickup_rejection_attribution_v1/result.json",
+        "results/research_20261010/pickup_residual_census_v1/result.json",
+        "results/research_20261010/pickup_tail_census_v1",
+        "results/research_20261010/pickup_tail_census_v1/result.json"
+      ],
+      "overall_verdict": "not_asserted_in_audited_documents",
+      "overall_reason": "no audited document asserts the claim"
+    },
+    {
+      "claim_id": "equivalence_established",
+      "statement": "equivalence of the duty-time mechanism is established",
+      "asserted_in_audited_documents": false,
+      "assertion": {
+        "asserted_in_audited_documents": false,
+        "trigger_strings": [],
+        "detection_reasons": [],
+        "assertion_evidence": [],
+        "note": "",
+        "claim_as_asserted": "the round document reads a duty-time interval that crosses zero as evidence that the runtime mechanism does not exist"
+      },
+      "dimensions": {
+        "numeric_consistency": {
+          "verdict": "no_cited_numeric_claim",
+          "pass": true,
+          "reason": "the assertion cites no number that can be re-read from an artifact",
+          "evidence_paths": [
+            "results/research_20261010/delivery_decomp_v1/result.json",
+            "results/research_20261010/WORK_STATUS.json"
+          ]
+        },
+        "eligibility": {
+          "verdict": "not_eligible_no_raw_records",
+          "pass": false,
+          "reason": "no trajectory or record candidate filename found in the bounded scan; this does not prove global absence",
+          "evidence_paths": [
+            "results/research_20261010/delivery_decomp_v1/result.json",
+            "results/research_20261010/delivery_decomp_v1/result.json",
+            "results/research_20261010/delivery_recheck_v1/result.json",
+            "results/research_20261010/delivery_decomp_v1",
+            "results/research_20261010/delivery_recheck_v1"
+          ],
+          "trajectory_artifacts": [],
+          "per_instance_record_artifacts": []
+        },
+        "statistical_support": {
+          "verdict": "not_established_interval_spans_zero",
+          "pass": false,
+          "reason": "the duty-time paired interval spans zero, which reports an unestablished difference and never equivalence",
+          "evidence_paths": [
+            "results/research_20261010/delivery_decomp_v1/result.json"
+          ],
+          "duty_time_mean": 0.043541592340333946,
+          "duty_time_descriptive_95_CI": [
+            -0.08094848768633144,
+            0.14719624624745034
+          ],
+          "zero_inside_interval": true,
+          "equivalence_established": false
+        },
+        "generalization_scope": {
+          "verdict": "universal_wording_exceeds_measured_scope",
+          "pass": false,
+          "reason": "an interval that spans zero is written as the mechanism not existing",
+          "evidence_paths": [
+            "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md"
+          ],
+          "universal_wording_hits": [],
+          "scoped_to": "12-instance delivery dev subset, duty time transcribed"
+        }
+      },
+      "dimension_verdicts": {
+        "numeric_consistency": "no_cited_numeric_claim",
+        "eligibility": "not_eligible_no_raw_records",
+        "statistical_support": "not_established_interval_spans_zero",
+        "generalization_scope": "universal_wording_exceeds_measured_scope"
+      },
+      "failing_dimensions": [
+        "eligibility",
+        "statistical_support",
+        "generalization_scope"
+      ],
+      "evidence_paths": [
+        "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md",
+        "results/research_20261010/WORK_STATUS.json",
+        "results/research_20261010/delivery_decomp_v1",
+        "results/research_20261010/delivery_decomp_v1/result.json",
+        "results/research_20261010/delivery_recheck_v1",
+        "results/research_20261010/delivery_recheck_v1/result.json"
+      ],
+      "overall_verdict": "not_asserted_in_audited_documents",
+      "overall_reason": "no audited document asserts the claim"
+    }
+  ],
+  "checks": {
+    "confirmation_family_preregistered_cohorts": {
+      "verdict": "three_declared_preregistration_markers_found_not_time_verified",
+      "blocks_clean_exit": false,
+      "cohorts_implied_by_documents": 3,
+      "cohorts_declared_preregistration_marker": 3,
+      "registration_timing_independently_verified": false,
+      "cohorts_required_by_the_registered_program": 3,
+      "cohorts": [
+        {
+          "cohort": "D-ANYTIME-v1 dev",
+          "dataset_seed": 2026101002,
+          "instance_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ],
+          "declared_preregistration_marker": true,
+          "evidence_path": "results/research_20261010/delivery_anytime_v1/PROTOCOL.json"
+        },
+        {
+          "cohort": "D-ANYTIME-v1 confirmation",
+          "dataset_seed": 2026101013,
+          "instance_ids": [
+            1000,
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010,
+            1011,
+            1012,
+            1013,
+            1014,
+            1015,
+            1016,
+            1017,
+            1018,
+            1019,
+            1020,
+            1021,
+            1022,
+            1023,
+            1024,
+            1025,
+            1026,
+            1027,
+            1028,
+            1029,
+            1030,
+            1031
+          ],
+          "declared_preregistration_marker": true,
+          "evidence_path": "results/research_20261010/delivery_anytime_v1/PROTOCOL.json"
+        },
+        {
+          "cohort": "D-ANY50-CONFIRM-v1",
+          "dataset_seed": 2026101141,
+          "instance_ids": [
+            2000,
+            2001,
+            2002,
+            2003,
+            2004,
+            2005,
+            2006,
+            2007,
+            2008,
+            2009,
+            2010,
+            2011,
+            2012,
+            2013,
+            2014,
+            2015,
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023,
+            2024,
+            2025,
+            2026,
+            2027,
+            2028,
+            2029,
+            2030,
+            2031
+          ],
+          "declared_preregistration_marker": true,
+          "evidence_path": "results/research_20261010/delivery_any50_confirm_v1/result.json"
+        }
+      ],
+      "non_preregistration_marker_present": false,
+      "marker_source": {
+        "artifact": "results/research_20261010/delivery_anytime_v1/posthoc_any50_comparison.json",
+        "field": "not_a_preregistered_test",
+        "value": false
+      },
+      "evidence_paths": [
+        "results/research_20261010/delivery_anytime_v1/PROTOCOL.json",
+        "results/research_20261010/delivery_anytime_v1/posthoc_any50_comparison.json",
+        "results/research_20261010/delivery_any50_confirm_v1/result.json",
+        "scripts/research_20261010/delivery_anytime_posthoc.py"
+      ],
+      "note": "the two D-ANYTIME-v1 cohorts are marked not_a_preregistered_test=true by the panel that produced the comparison; only the third cohort declares preregistered_primary=true. A preregistration marker is a stored literal, not proof of registration time.",
+      "posthoc_source_declares_non_preregistration": true
+    },
+    "pruned_and_clean_status_missing_input": {
+      "verdict": "all_pruned_statuses_have_evidence_on_disk",
+      "blocks_clean_exit": false,
+      "definition": "a pruned/clean status passes only when the documents searched for claim excesses are present AND every artifact the pruning cites is present and readable; a missing input is a failure, never a pass",
+      "pruned_nodes": [
+        {
+          "tree": "pickup",
+          "node": "n3",
+          "status": "pruned",
+          "branch_ref": "pruned_by_census_synthetic_gate",
+          "recorded_reason_present": true,
+          "referenced_evidence": [
+            {
+              "path": "results/research_20261010/pickup_tail_census_v1/result.json",
+              "exists": true,
+              "usable": true,
+              "sha256": "96a2e52c0993aa36a90fd009359f3bcbc4a576fb0d5012be6399951d0a05d86f",
+              "error": null
+            }
+          ]
+        },
+        {
+          "tree": "pickup",
+          "node": "n6",
+          "status": "pruned",
+          "branch_ref": "synthetic_residual_census",
+          "recorded_reason_present": true,
+          "referenced_evidence": [
+            {
+              "path": "results/research_20261010/pickup_residual_census_v1/result.json",
+              "exists": true,
+              "usable": true,
+              "sha256": "5c3cd39968289a05f9d33fab1d1a4701ed5e3f845d1769cf95c698e222c5fd2d",
+              "error": null
+            }
+          ]
+        },
+        {
+          "tree": "pickup",
+          "node": "n7",
+          "status": "pruned",
+          "branch_ref": "synthetic_rejection_attribution",
+          "recorded_reason_present": true,
+          "referenced_evidence": [
+            {
+              "path": "results/research_20261010/pickup_rejection_attribution_v1/result.json",
+              "exists": true,
+              "usable": true,
+              "sha256": "a57f35b99b292230f75151f9189eaaf92d2cce165c60e26d184dfe678530b0ee",
+              "error": null
+            }
+          ]
+        },
+        {
+          "tree": "delivery",
+          "node": "n4",
+          "status": "pruned",
+          "branch_ref": "synthetic_dose_gate",
+          "recorded_reason_present": true,
+          "referenced_evidence": [
+            {
+              "path": "results/research_20261010/delivery_dose_v1/result.json",
+              "exists": true,
+              "usable": true,
+              "sha256": "8eaa74466d7851f80222f122617ecb16f347055da2a5275507eed27896f60221",
+              "error": null
+            }
+          ]
+        }
+      ],
+      "searched_documents": {
+        "results/research_20261010/PROGRAM_CLOSEOUT.md": true,
+        "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md": true,
+        "results/research_20261010/WORK_STATUS.json": true
+      },
+      "failures": [],
+      "evidence_paths": [
+        "results/research_20261010/PROGRAM_CLOSEOUT.md",
+        "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md",
+        "results/research_20261010/WORK_STATUS.json",
+        "results/research_20261010/delivery_dose_v1/result.json",
+        "results/research_20261010/pickup_rejection_attribution_v1/result.json",
+        "results/research_20261010/pickup_residual_census_v1/result.json",
+        "results/research_20261010/pickup_tail_census_v1/result.json"
+      ]
+    },
+    "cross_cohort_percentage_comparisons": {
+      "verdict": "none_found",
+      "blocks_clean_exit": false,
+      "definition": "the programme's own adopted rule (WORK_STATUS delivery.n15 rule_within_cohort_comparison): percentage differences may be compared ONLY within the same cohort. A line is flagged when it carries >=2 percentage values, a comparison cue, and either two distinct named cohorts or a plural-cohort phrase; correction, withdrawal and 'confirmation not run' lines are excluded",
+      "n_flags": 0,
+      "flags": [],
+      "documents_scanned": [
+        "results/research_20261010/PROGRAM_CLOSEOUT.md",
+        "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md",
+        "results/research_20261010/WORK_STATUS.json"
+      ],
+      "evidence_paths": [
+        "results/research_20261010/PROGRAM_CLOSEOUT.md",
+        "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md",
+        "results/research_20261010/WORK_STATUS.json"
+      ],
+      "caveat": "this is a lexical scan over narrative documents; every flag is shown with its line so it can be judged, and a flag is a rule violation under the adopted within-cohort rule rather than a new scientific claim excess"
+    },
+    "documented_excess_locations": {
+      "verdict": "available",
+      "blocks_clean_exit": false,
+      "path": "results/research_20261010_continuation_v2/reproduction/CLAIM_EXCESS_LOCATIONS.md",
+      "documented_trigger_strings": [],
+      "detected_not_documented": [],
+      "all_detected_excesses_documented": true,
+      "evidence_paths": [
+        "results/research_20261010_continuation_v2/reproduction/CLAIM_EXCESS_LOCATIONS.md"
+      ],
+      "note": "presence of the disposition document is fail-closed; the specific trigger-to-reason mapping it records is advisory because the file is prose and its table is read lexically"
+    }
+  },
+  "additional_findings": [],
+  "required_documents": {
+    "results/research_20261010/PROGRAM.json": {
+      "exists": true,
+      "usable": true,
+      "sha256": "8edbc3cd5cbe4563992112bf55acadef0be4242b12d2e8139684c3f146cdbbd8",
+      "error": null
+    },
+    "results/research_20261010/PROGRAM_CLOSEOUT.md": {
+      "exists": true,
+      "usable": true,
+      "sha256": "6ca14f97c433105883a72c25db6bcc90d950cb0c5820ef928933f6381492df4d",
+      "error": null
+    },
+    "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md": {
+      "exists": true,
+      "usable": true,
+      "sha256": "706501bab4ac4b33fbc4620760741a28f202c7fd5762495e3f82c9a150df556b",
+      "error": null
+    },
+    "results/research_20261010/WORK_STATUS.json": {
+      "exists": true,
+      "usable": true,
+      "sha256": "d2bcbb9542ffa380308d3b143528e1b058f62cbb67f2502303ff6012f0d4a914",
+      "error": null
+    },
+    "scripts/research_20261010/program_evidence_audit.py": {
+      "exists": true,
+      "usable": true,
+      "sha256": "a871420df156c26383626e6723b5ab87584da6fedeea7606a3a1761cd1759887",
+      "error": null
+    },
+    "scripts/research_20261010/learning_attribution_adjudication.py": {
+      "exists": true,
+      "usable": true,
+      "sha256": "058c2f6ca93371b139c6c61eb658310f17118ff535c05cabc3c4ec89adc802df",
+      "error": null
+    },
+    "results/research_20261010/delivery_any50_confirm_v1/result.json": {
+      "exists": true,
+      "usable": true,
+      "sha256": "8cf629bbac524ae61d972c1e99f5f7a633fb5984ae8e9d2bc6730e7b6d882af5",
+      "error": null
+    },
+    "results/research_20261010/pickup_tail_census_v1/result.json": {
+      "exists": true,
+      "usable": true,
+      "sha256": "96a2e52c0993aa36a90fd009359f3bcbc4a576fb0d5012be6399951d0a05d86f",
+      "error": null
+    },
+    "results/research_20261010/pickup_clairvoyant_gap_v1/result.json": {
+      "exists": true,
+      "usable": true,
+      "sha256": "9df9864b0aacb4b42ad71106636db1ee97ead293dc494aca2b24ed8d5e18c2c2",
+      "error": null
+    },
+    "results/research_20261010/delivery_dynamic_suffix_v1/result.json": {
+      "exists": true,
+      "usable": true,
+      "sha256": "f5cb9cad4800c2f2b97dca5d28cc924dd2a8cd01071403715ccd5cb7a69a0768",
+      "error": null
+    },
+    "scripts/research_20261010/delivery_dynamic_suffix.py": {
+      "exists": true,
+      "usable": true,
+      "sha256": "3d7b4ff75a997cb94002776fb9b32c17e583ed5f6b21814c76b39867c41768fc",
+      "error": null
+    },
+    "results/research_20261010_continuation_v2/reproduction/CLAIM_EXCESS_LOCATIONS.md": {
+      "exists": true,
+      "usable": true,
+      "sha256": "9d441bcf296846cc8f9199e6c2b94e6f9e4ae39cf0ec0ff9e2db36a33f3efcc2",
+      "error": null
+    }
+  },
+  "missing_required_documents": [],
+  "input_records": {
+    "03_负结果线/恢复证据/B_REPRO_CLEAN_20261009/RECOVERY_MANIFEST.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "repo:research/pickup_20round_audit/known_batch_v1/BATCH_SUMMARY.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/INDEPENDENT_EQ8_PROGRESS_ADJUDICATION.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/PROGRAM.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/PROGRAM_CLOSEOUT.md": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/WORK_STATUS.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/delivery/.arbor/tree.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/delivery_any50_confirm_v1/PROTOCOL.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/delivery_any50_confirm_v1/identity_start.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/delivery_any50_confirm_v1/result.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/delivery_anytime_v1/PROTOCOL.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/delivery_anytime_v1/posthoc_any50_comparison.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/delivery_decomp_v1/result.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/delivery_dose_v1/result.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/delivery_dynamic_suffix_v1/result.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/delivery_recheck_v1/result.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/pickup/.arbor/tree.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/pickup_clairvoyant_gap_v1/result.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/pickup_rejection_attribution_v1/result.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/pickup_residual_census_v1/result.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/pickup_tail_census_v1/result.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010/reproduction/.arbor/tree.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/research_20261010_continuation_v2/reproduction/CLAIM_EXCESS_LOCATIONS.md": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "results/three_line_corrections_20261009/FINAL_PROTECTED_ACCEPTANCE_20261010_v2.json": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "scripts/research_20261010/delivery_any50_confirm.py": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "scripts/research_20261010/delivery_anytime.py": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "scripts/research_20261010/delivery_anytime_posthoc.py": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "scripts/research_20261010/delivery_dynamic_suffix.py": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "scripts/research_20261010/learning_attribution_adjudication.py": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    },
+    "scripts/research_20261010/program_evidence_audit.py": {
+      "exists": true,
+      "usable": true,
+      "error": null
+    }
+  },
+  "engineering_headline_consistency": {
+    "n_checks": 3,
+    "n_failures": 0,
+    "checks": [
+      {
+        "kind": "headline_number",
+        "line": "delivery",
+        "node": "n7",
+        "field": "primary_ANY50_over_LNS.mean_relative_gain",
+        "pass": true
+      },
+      {
+        "kind": "EXPECTED_FLAGS",
+        "line": "delivery",
+        "node": "n7",
+        "field": "online_gain_established",
+        "pass": true
+      },
+      {
+        "kind": "SCOPE_FLAGS",
+        "line": "delivery",
+        "node": "n7",
+        "field": "online_gain_established",
+        "pass": true
+      }
+    ],
+    "unaudited_executed_nodes": [
+      [
+        "pickup",
+        "n4"
+      ]
+    ],
+    "supports_scientific_sufficiency": false
+  },
+  "learning_reference_intervals": [
+    {
+      "mean": -0.09,
+      "descriptive_95_CI": [
+        -0.15,
+        -0.03
+      ],
+      "point_estimate_worse": true,
+      "descriptive_interval_entirely_worse": true,
+      "zero_inside_descriptive_interval": false,
+      "equivalence_established": false,
+      "family_adjusted_discovery": false,
+      "global_upper_bound_or_learning_exclusion": false,
+      "label": "SYNTH learned reference",
+      "original_declared_direction": "harmful",
+      "source": "research_20261010/INDEPENDENT_EQ8_PROGRESS_ADJUDICATION.json",
+      "direction_consistent": true
+    }
+  ],
+  "program_confirmation_protocols": {
+    "actual_ANY50_result_protocol": {
+      "checked_design_subset_pass": false,
+      "necessary_design_conditions_pass": false,
+      "deprecated_alias_note": "not an all-design qualification; use checked_design_subset_pass",
+      "all_design_qualification_established": false,
+      "unchecked_requirements": [
+        "immutable pre-data registration timing",
+        "fresh cohorts independent of development",
+        "actual data/source/weight/budget identity",
+        "complete trajectory semantic replay",
+        "main and attribution paired gates"
+      ],
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    },
+    "actual_dynamic_suffix_screen_protocol": {
+      "checked_design_subset_pass": false,
+      "necessary_design_conditions_pass": false,
+      "deprecated_alias_note": "not an all-design qualification; use checked_design_subset_pass",
+      "all_design_qualification_established": false,
+      "unchecked_requirements": [
+        "immutable pre-data registration timing",
+        "fresh cohorts independent of development",
+        "actual data/source/weight/budget identity",
+        "complete trajectory semantic replay",
+        "main and attribution paired gates"
+      ],
+      "missing_conditions": [
+        "no_exact_PROGRAM_binding",
+        "not_three_dynamic_complete_day_cohorts",
+        "confirmation_cohort_count_not_three",
+        "missing_valid_family_index_or_contrast_count",
+        "family_alpha_spending_missing_or_wrong",
+        "bootstrap_endpoints_not_family_adjusted",
+        "bootstrap_tail_MC_precision_under_25_expected_draws",
+        "missing_literal_required_design_candidate_frozen_before_confirmation",
+        "missing_literal_required_design_source_and_weight_ids_preregistered",
+        "missing_literal_required_design_complete_raw_trajectory_replay_required",
+        "missing_literal_required_design_qualified_strong_rolling_control_required",
+        "missing_literal_required_design_all_main_and_attribution_gates_required"
+      ],
+      "allocated_contrast_cohort_alpha": null,
+      "independent_semantic_raw_replay_implemented_here": false,
+      "stable_online_gain_supported": false,
+      "stable_maskco_attribution_supported": false
+    }
+  },
+  "scientific_support": {
+    "stable_online_gain_supported": false,
+    "MaskCO_attributable_gain_established": false,
+    "pickup_impossibility_proven": false,
+    "learning_side_closed": false,
+    "equivalence_established": false,
+    "reported_findings_level": "bounded_descriptive_snapshot_and_policy_diagnostics",
+    "claim_excesses": [],
+    "claim_excesses_note": "exactly the v1 detection set, in v1 order and wording; new findings are reported in additional_findings so this list stays comparable with earlier archived audits",
+    "claim_overall_verdicts": {
+      "stable_online_gain_supported": "not_asserted_in_audited_documents",
+      "MaskCO_attributable_gain_established": "not_asserted_in_audited_documents",
+      "learning_side_closed": "not_asserted_in_audited_documents",
+      "pickup_impossibility_proven": "not_asserted_in_audited_documents",
+      "equivalence_established": "not_asserted_in_audited_documents"
+    },
+    "dimension_failure_counts": {
+      "numeric_consistency": 0,
+      "eligibility": 5,
+      "statistical_support": 5,
+      "generalization_scope": 5
+    },
+    "pickup_tail_mean_distance_gain": 0.009970540505734128,
+    "pickup_tail_objective_scope": "A-v1 utility headroom (energy and quality not re-simulated)",
+    "clairvoyant_reference": "synthetic greedy clairvoyant",
+    "dynamic_suffix_screen": {
+      "n_instances": 8,
+      "reported_mean_relative_distance_gain": 0.0,
+      "raw_execution_replayed_here": false,
+      "source_contains_shared_NN_initialization": true,
+      "limited_to": "same loaded cargo, same ownership, deterministic nearest-neighbour suffix recomputation",
+      "does_not_exclude": [
+        "other suffix searches or MaskCO reconstructions",
+        "reassignment/admission/dispatch policies",
+        "different release and loading patterns"
+      ],
+      "logical_note": "A deterministic nearest-neighbour sequence retains the same successor choices after its executed prefix is removed, when no input geometry/cargo changes; its zero recourse effect is not an action-set upper bound."
+    },
+    "why_no_impossibility": "A feasible greedy full-information policy is a lower bound on an optimum; a null or worse result cannot close policies or action sets.",
+    "why_no_learning_bound": "Finite nonlearned masking heuristics do not upper-bound learned policies; worse downstream objective is not a measured representation correlation.",
+    "open_paths_nonexhaustive": [
+      "task-specific training",
+      "objective-aligned guide/critic and decoding",
+      "learned or adaptive mask with equal decoder overhead control",
+      "joint reassignment/admission and recourse",
+      "true dynamic delivery lifecycle and qualified strong rolling control"
+    ]
+  },
+  "read_only_input_sha256": {
+    "results/research_20261010/PROGRAM.json": "8edbc3cd5cbe4563992112bf55acadef0be4242b12d2e8139684c3f146cdbbd8",
+    "results/research_20261010/PROGRAM_CLOSEOUT.md": "6ca14f97c433105883a72c25db6bcc90d950cb0c5820ef928933f6381492df4d",
+    "results/research_20261010/ROUND_20261010_GUIDE_DOSE.md": "706501bab4ac4b33fbc4620760741a28f202c7fd5762495e3f82c9a150df556b",
+    "results/research_20261010/WORK_STATUS.json": "d2bcbb9542ffa380308d3b143528e1b058f62cbb67f2502303ff6012f0d4a914",
+    "scripts/research_20261010/program_evidence_audit.py": "a871420df156c26383626e6723b5ab87584da6fedeea7606a3a1761cd1759887",
+    "scripts/research_20261010/learning_attribution_adjudication.py": "058c2f6ca93371b139c6c61eb658310f17118ff535c05cabc3c4ec89adc802df",
+    "results/research_20261010/delivery_any50_confirm_v1/result.json": "8cf629bbac524ae61d972c1e99f5f7a633fb5984ae8e9d2bc6730e7b6d882af5",
+    "results/research_20261010/pickup_tail_census_v1/result.json": "96a2e52c0993aa36a90fd009359f3bcbc4a576fb0d5012be6399951d0a05d86f",
+    "results/research_20261010/pickup_clairvoyant_gap_v1/result.json": "9df9864b0aacb4b42ad71106636db1ee97ead293dc494aca2b24ed8d5e18c2c2",
+    "results/research_20261010/delivery_dynamic_suffix_v1/result.json": "f5cb9cad4800c2f2b97dca5d28cc924dd2a8cd01071403715ccd5cb7a69a0768",
+    "scripts/research_20261010/delivery_dynamic_suffix.py": "3d7b4ff75a997cb94002776fb9b32c17e583ed5f6b21814c76b39867c41768fc",
+    "results/research_20261010_continuation_v2/reproduction/CLAIM_EXCESS_LOCATIONS.md": "9d441bcf296846cc8f9199e6c2b94e6f9e4ae39cf0ec0ff9e2db36a33f3efcc2",
+    "results/research_20261010/pickup/.arbor/tree.json": "25ee552b9414281d4155274c938e48589188ff2be7f4f6fb0fe54b11066cfbd9",
+    "results/research_20261010/delivery/.arbor/tree.json": "310a7fd7ed74e505f203206d2aafc97653b271d86d9e75c6d19640c334b68f60",
+    "results/research_20261010/reproduction/.arbor/tree.json": "9bfef9967ceb15d7f51db638c90e6ac352d11fc89ab887eea85ff499274aad69",
+    "results/research_20261010/INDEPENDENT_EQ8_PROGRESS_ADJUDICATION.json": "64aecaa73916816acd229ae0c03d7837fa5b1f9361ff1c06aa6be318010e1bd5",
+    "results/research_20261010/delivery_any50_confirm_v1/PROTOCOL.json": "66a7d0ff067c7cd8ee591ebef79cf1c4b3551fafe692d08a71bfaa9258531a4e",
+    "results/research_20261010/delivery_any50_confirm_v1/identity_start.json": "0cdb5b06d527819e578932926f519cc3a0f8fa60d6268c0958f2d62aa95ddd68",
+    "scripts/research_20261010/delivery_anytime.py": "6d5e714235f36d12d7de828434dc122bdb823bf3e04e92e257207a20631611eb",
+    "scripts/research_20261010/delivery_any50_confirm.py": "6d5e714235f36d12d7de828434dc122bdb823bf3e04e92e257207a20631611eb",
+    "results/three_line_corrections_20261009/FINAL_PROTECTED_ACCEPTANCE_20261010_v2.json": "df19bea17c382e98ef05fc59b1e2153679f09a4d3c2a89f0207a33ee89b9f0c5",
+    "03_负结果线/恢复证据/B_REPRO_CLEAN_20261009/RECOVERY_MANIFEST.json": "32d90c4f53f78febcf8ab6888cd52f2b098104fcdef5cbd223955ef16b526722",
+    "results/research_20261010/pickup_rejection_attribution_v1/result.json": "a57f35b99b292230f75151f9189eaaf92d2cce165c60e26d184dfe678530b0ee",
+    "results/research_20261010/pickup_residual_census_v1/result.json": "5c3cd39968289a05f9d33fab1d1a4701ed5e3f845d1769cf95c698e222c5fd2d",
+    "repo:research/pickup_20round_audit/known_batch_v1/BATCH_SUMMARY.json": "19e406b6b0fd45e7fca813ceca92c72ae89a6e829bb06392884aeed78059ea1a",
+    "results/research_20261010/delivery_decomp_v1/result.json": "4e00a245052ddcaa1deaae7def113c7e9fc77fb972c5540e5e719bf86ba403c6",
+    "results/research_20261010/delivery_recheck_v1/result.json": "b2d2e1c1c0c1eef801e06dc59a0ef9213579e8d2e50784e2b816cb5dad345677",
+    "results/research_20261010/delivery_anytime_v1/PROTOCOL.json": "8a99168436bd3fc926f973c443680c549c011de2bbee063fb5e169de2e048f04",
+    "results/research_20261010/delivery_anytime_v1/posthoc_any50_comparison.json": "623c88d74bfe7bf7bbab50c16fbcb33cd320c4528ba2444bf8c9565e14c3240b",
+    "scripts/research_20261010/delivery_anytime_posthoc.py": "849bb907b1c40322ec68624cc5c650b1a96eaf52a11ddb2e8727c4b632f8259a",
+    "results/research_20261010/delivery_dose_v1/result.json": "8eaa74466d7851f80222f122617ecb16f347055da2a5275507eed27896f60221"
+  },
+  "limitations": [
+    "No new numerical experiment or original audit script executed.",
+    "Headline values and CIs were read, not reconstructed here from raw trajectories.",
+    "Literal registered_before_data flags do not prove registration time or immutable pre-data closure.",
+    "Eligibility is a bounded filename inventory only; content, coverage, exact identity and replay remain unverified.",
+    "The cross-cohort and universal-wording scans are lexical over narrative documents and show every hit with its line for judgement.",
+    "Even four passing dimensions cannot substitute for independent executed-cohort replay and main/attribution tests.",
+    "A missing input is always reported as a failure and never as a clean result."
+  ],
+  "current_documents_context_review": [],
+  "review_base_source_sha256": "2871e5b9971c79b3703252b33eb7ec567269786c0f0c1374accec7de9776cfc1"
+}

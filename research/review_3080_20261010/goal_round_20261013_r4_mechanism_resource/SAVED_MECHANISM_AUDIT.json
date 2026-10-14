@@ -1,0 +1,197 @@
+{
+  "stage": "saved_five_day_utility_decomposition",
+  "input_sha256": {
+    "research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v4\\RESULT.json": "088a49e1dd94150e3f1bd3dcc643641c3034d97fa832ac86edd3229168c99948",
+    "research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v4\\run.py": "8076472023d6d902ee324dbc848c83243c3c2ed60c7ae17785b0e07c31f7e524",
+    "C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_a1_step2_gate.py": "883172315a7bc1167eee2d4cdf257b605b250693b18ef967aa654e57ff47488b"
+  },
+  "checks_count": 22,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "five_fixed_days",
+      "pass": true
+    },
+    {
+      "name": "utility_decomposition_day_0",
+      "pass": true
+    },
+    {
+      "name": "frozen_pair_day_0",
+      "pass": true
+    },
+    {
+      "name": "hard_and_budget_day_0",
+      "pass": true
+    },
+    {
+      "name": "utility_decomposition_day_1",
+      "pass": true
+    },
+    {
+      "name": "frozen_pair_day_1",
+      "pass": true
+    },
+    {
+      "name": "hard_and_budget_day_1",
+      "pass": true
+    },
+    {
+      "name": "utility_decomposition_day_2",
+      "pass": true
+    },
+    {
+      "name": "frozen_pair_day_2",
+      "pass": true
+    },
+    {
+      "name": "hard_and_budget_day_2",
+      "pass": true
+    },
+    {
+      "name": "utility_decomposition_day_3",
+      "pass": true
+    },
+    {
+      "name": "frozen_pair_day_3",
+      "pass": true
+    },
+    {
+      "name": "hard_and_budget_day_3",
+      "pass": true
+    },
+    {
+      "name": "utility_decomposition_day_4",
+      "pass": true
+    },
+    {
+      "name": "frozen_pair_day_4",
+      "pass": true
+    },
+    {
+      "name": "hard_and_budget_day_4",
+      "pass": true
+    },
+    {
+      "name": "day_order",
+      "pass": true
+    },
+    {
+      "name": "mean_delta",
+      "pass": true
+    },
+    {
+      "name": "in_memory_reservation_log_exists",
+      "pass": true
+    },
+    {
+      "name": "row_decision_counter_is_base_n_decisions",
+      "pass": true
+    },
+    {
+      "name": "per_order_reservation_log_not_in_result",
+      "pass": true
+    },
+    {
+      "name": "saved_candidate_n_decisions_zero",
+      "pass": true
+    }
+  ],
+  "rows": [
+    {
+      "day": 0,
+      "delta_utility": 0.0,
+      "delta_revenue": 0.0,
+      "delta_fuel_cost": 0.0,
+      "delta_reject_loss": 0.0,
+      "delta_served": 0,
+      "delta_distance_km": 0.0,
+      "delta_energy_kwh": 0.0,
+      "delta_service_rate": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0
+      }
+    },
+    {
+      "day": 1,
+      "delta_utility": 102.92300423234701,
+      "delta_revenue": 110.0,
+      "delta_fuel_cost": 7.076995767652988,
+      "delta_reject_loss": 0.0,
+      "delta_served": 16,
+      "delta_distance_km": 70.76995767652988,
+      "delta_energy_kwh": 0.44356853523186146,
+      "delta_service_rate": {
+        "0": 0.21000000000000008,
+        "1": -0.07352941176470595,
+        "2": 0.0
+      }
+    },
+    {
+      "day": 2,
+      "delta_utility": 24.755533065646887,
+      "delta_revenue": 30.0,
+      "delta_fuel_cost": 5.244466934353113,
+      "delta_reject_loss": 0.0,
+      "delta_served": -1,
+      "delta_distance_km": 52.44466934353113,
+      "delta_energy_kwh": 0.9315306734131354,
+      "delta_service_rate": {
+        "0": -0.05999999999999994,
+        "1": 0.0,
+        "2": 0.026315789473684237
+      }
+    },
+    {
+      "day": 3,
+      "delta_utility": 0.0,
+      "delta_revenue": 0.0,
+      "delta_fuel_cost": 0.0,
+      "delta_reject_loss": 0.0,
+      "delta_served": 0,
+      "delta_distance_km": 0.0,
+      "delta_energy_kwh": 0.0,
+      "delta_service_rate": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0
+      }
+    },
+    {
+      "day": 4,
+      "delta_utility": 0.0,
+      "delta_revenue": 0.0,
+      "delta_fuel_cost": 0.0,
+      "delta_reject_loss": 0.0,
+      "delta_served": 0,
+      "delta_distance_km": 0.0,
+      "delta_energy_kwh": 0.0,
+      "delta_service_rate": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0
+      }
+    }
+  ],
+  "sum_delta": {
+    "delta_utility": 127.6785372979939,
+    "delta_revenue": 140.0,
+    "delta_fuel_cost": 12.321462702006102,
+    "delta_reject_loss": 0.0
+  },
+  "days_positive": [
+    1,
+    2
+  ],
+  "days_zero": [
+    0,
+    3,
+    4
+  ],
+  "direct_reservation_rejection_count_identified": false,
+  "causal_mediation_by_temperature_class_identified": false,
+  "interpretation": "The A/B treatment is the added admission filter and all downstream state changes. Saved rows identify paired utility components and class service rates, not direct per-order filter decisions or class-mediated causal effect. Day 2 improves revenue despite fewer served orders and lower class-0 service rate.",
+  "old_audit_failed_preserved": 2,
+  "stable_online_gain": false
+}

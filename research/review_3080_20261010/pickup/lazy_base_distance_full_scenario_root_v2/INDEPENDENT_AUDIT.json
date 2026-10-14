@@ -1,0 +1,235 @@
+{
+  "checks_count": 48,
+  "failed": 4,
+  "failure_names": [
+    "producer_reported_no_failure",
+    "producer_exit_zero",
+    "identical_scored_candidates_digest",
+    "at_least_one_trial_kept_per_removed_base"
+  ],
+  "checks": [
+    {
+      "name": "registered_source:D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_full_scenario_root_v2\\lazy_base_distance.py",
+      "pass_": true
+    },
+    {
+      "name": "registered_source:D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_full_scenario_root_v2\\run.py",
+      "pass_": true
+    },
+    {
+      "name": "registered_source:D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_full_scenario_root_v2\\audit.py",
+      "pass_": true
+    },
+    {
+      "name": "registered_source:D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_full_scenario_root_v2\\prepare.py",
+      "pass_": true
+    },
+    {
+      "name": "registered_source:D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\lazy_base_distance_full_scenario_root_v2\\supervise.py",
+      "pass_": true
+    },
+    {
+      "name": "registered_source:D:\\PyCharm_\\MASKCO-Main\\tools\\engineering_stage_closure_v1.py",
+      "pass_": true
+    },
+    {
+      "name": "registered_source:D:\\PyCharm_\\MASKCO-Main\\tools\\qualify_pickup_joint_policy_transaction_root_v3.py",
+      "pass_": true
+    },
+    {
+      "name": "registered_source:D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\scenario_saa.py",
+      "pass_": true
+    },
+    {
+      "name": "registered_source:D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\shadow_energy_correction_root_v1\\energy_complete_saa.py",
+      "pass_": true
+    },
+    {
+      "name": "registered_source:D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\independent_rolling_incremental_engineering_root_v1\\SIMULATION_CONTEXT.json",
+      "pass_": true
+    },
+    {
+      "name": "registered_source:D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\shared_history_qualification_root_v1\\COMMON_HISTORY.pkl",
+      "pass_": true
+    },
+    {
+      "name": "producer_reported_no_failure",
+      "pass_": false
+    },
+    {
+      "name": "producer_exit_zero",
+      "pass_": false
+    },
+    {
+      "name": "sequence_is_the_full_recorded_scenario",
+      "pass_": true
+    },
+    {
+      "name": "sequence_is_reveal_sorted",
+      "pass_": true
+    },
+    {
+      "name": "no_order_dropped_or_duplicated",
+      "pass_": true
+    },
+    {
+      "name": "run_count:REF",
+      "pass_": true
+    },
+    {
+      "name": "cross_repeat_identical_events:REF",
+      "pass_": true
+    },
+    {
+      "name": "cross_repeat_identical_feasible:REF",
+      "pass_": true
+    },
+    {
+      "name": "cross_repeat_identical_distance:REF",
+      "pass_": true
+    },
+    {
+      "name": "cross_repeat_identical_score:REF",
+      "pass_": true
+    },
+    {
+      "name": "cross_repeat_identical_terminal:REF",
+      "pass_": true
+    },
+    {
+      "name": "declared_timing_values_match_runs:REF",
+      "pass_": true
+    },
+    {
+      "name": "run_count:CAND",
+      "pass_": true
+    },
+    {
+      "name": "cross_repeat_identical_events:CAND",
+      "pass_": true
+    },
+    {
+      "name": "cross_repeat_identical_feasible:CAND",
+      "pass_": true
+    },
+    {
+      "name": "cross_repeat_identical_distance:CAND",
+      "pass_": true
+    },
+    {
+      "name": "cross_repeat_identical_score:CAND",
+      "pass_": true
+    },
+    {
+      "name": "cross_repeat_identical_terminal:CAND",
+      "pass_": true
+    },
+    {
+      "name": "declared_timing_values_match_runs:CAND",
+      "pass_": true
+    },
+    {
+      "name": "identical_events_digest",
+      "pass_": true
+    },
+    {
+      "name": "identical_feasibility_digest",
+      "pass_": true
+    },
+    {
+      "name": "identical_scored_candidates_digest",
+      "pass_": false
+    },
+    {
+      "name": "distance_log_differs_as_expected",
+      "pass_": true
+    },
+    {
+      "name": "identical_terminal_energy",
+      "pass_": true
+    },
+    {
+      "name": "identical_terminal_distance",
+      "pass_": true
+    },
+    {
+      "name": "recorded_top_level_logs_match_reference_digests",
+      "pass_": true
+    },
+    {
+      "name": "candidate_log_is_reference_log_with_in_order_deletions",
+      "pass_": true
+    },
+    {
+      "name": "every_deleted_entry_is_a_base_call",
+      "pass_": true
+    },
+    {
+      "name": "saving_count_matches_log_difference_and_declaration",
+      "pass_": true
+    },
+    {
+      "name": "at_least_one_trial_kept_per_removed_base",
+      "pass_": false
+    },
+    {
+      "name": "base_calls_strictly_reduced",
+      "pass_": true
+    },
+    {
+      "name": "independent_ordered_double_sum_all_reference_calls",
+      "pass_": true
+    },
+    {
+      "name": "independent_ordered_double_sum_all_candidate_calls",
+      "pass_": true
+    },
+    {
+      "name": "matrix_identity_recorded",
+      "pass_": true
+    },
+    {
+      "name": "transitions_non_empty",
+      "pass_": true
+    },
+    {
+      "name": "every_transition_is_a_state_metrics_pair",
+      "pass_": true
+    },
+    {
+      "name": "actual_loaded_files_and_maps_start_end",
+      "pass_": true
+    }
+  ],
+  "inserted": 166,
+  "accepted": 71,
+  "original_reference_distance_calls": 1042,
+  "candidate_distance_calls": 733,
+  "proved_removed_base_calls": 309,
+  "scored_feasible_candidates": 0,
+  "complete_original_C0_transitions": 80,
+  "terminal_energy_hex": "0x1.69ad239e711a2p+9",
+  "terminal_distance_hex": "0x1.ed8c78f26579ep+3",
+  "timing": {
+    "reference_seconds": [
+      0.26348130009137094,
+      0.24179660016670823
+    ],
+    "candidate_seconds": [
+      0.27039560000412166,
+      0.3976122001186013
+    ],
+    "paired_seconds": [
+      0.006914299912750721,
+      0.1558155999518931
+    ],
+    "note": "reported descriptively; no speed threshold is registered because a reduced call count is not a speedup and the timed section is small relative to process noise"
+  },
+  "actual_source_files": 428,
+  "actual_source_maps": 209,
+  "audit_seconds": 0.3098468000534922,
+  "full_request_budget_qualified": false,
+  "full_scientific_loaded_closure": false,
+  "formal_strong_dynamic_qualified": false,
+  "stable_online_gain": false
+}
