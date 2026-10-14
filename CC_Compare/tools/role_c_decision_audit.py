@@ -220,67 +220,91 @@ def compare_ablations(log_base, log_ablated, label=''):
     }
 
 
-def check_ablation_engagement(cases, activation=None):
+def check_ablation_engagement(cases, activation=None, score_changed=None):
     """对三个开关各给一对日志，返回 `(ok, rows, problems)`。
 
     `cases` = `{开关名: (log_base, log_ablated)}`，开关名对应
     `role_c_opportunity_cost.ABLATIONS`（`opportunity_cost` / `lookahead` / `scenarios`）。
 
-    ⚠️ **判据已按审计 D3.3 收紧（2026-10-14）**：`engaged=False`（消融前后**完全相同**）
-    **只在"机制在本集合内确实被触发过"时才判 FAIL**。
-    否则报 **`not_applicable`**，因为"完全相同"无法区分两种情形：
+    ⚠️ **判据已按 2026-10-14 用户裁定分层**（见
+    `CC_Compare/P1A_T2判据分层裁定_2026-10-14.md`）：
+    **旧 T2 句子"动作序列完全相同 ⇒ 实现 FAIL"已废止其独立否决权** ——
+    它把"价格没进评分"（实现缺陷）与"价格进了评分但没跨过动作边界"
+    （**合法的零行为效应**）判成同一结果。现在按 T2a/T2b 分层：
 
-      1. 机制**没接进**决策路径（应 FAIL）；
-      2. 机制**接好了**，但在被检验的状态集合上**资源根本不稀缺** ⇒ 正确实现下 `λ_B ≈ 0`
-         ⇒ 决策序列**理应相同**（**不应** FAIL）。
+    | 条件 | 裁定 |
+    |---|---|
+    | T2a 数值/边界/消融评分算错 | FAIL（由 `check_t2a_shadow_price_correctness` 承担） |
+    | 有效影子价格 > 0，但**评分未变化** | **FAIL**（`wiring_defect`） |
+    | 无有效影子价格 | `not_applicable` |
+    | **评分变了，但动作完全相同** | **不判实现 FAIL** ⇒ `mechanism_activated_no_behavioural_effect` |
+    | 评分与动作都变 | 机制**可识别**（仍推不出正效用） |
 
-    `activation` = `{开关名: 该集合内"机制被触发"的决策数}`（例如 `λ_B` 的
-    `raw > 0` 计数），由 runner 从其诊断里统计后传入。**未提供或为 0 ⇒ not_applicable**。
+    `activation` = `{开关名: 有效影子价格 > 0 的决策数}`（由 runner 从诊断统计后传入）；
+    `score_changed` = `{开关名: 决策**评分**发生变化的决策数}`。
+    **未提供 `score_changed` ⇒ 既不判 FAIL 也不判通过**，记
+    `inconclusive_score_detail_missing`（把缺口写进 `note`，避免"缺证据"被读成"没问题"）。
 
-    ⚠️ **2026-10-14 用户裁定③纠正了本函数原先的措辞（我原来的推论过头了）**：
-    仓库实据（登记规则 v4 的 1000 条决策）**只能**支持一件事——
-    **下界记账下的硬前置检查是松的**（`b_rem` 最小 197.27、`reject_budget` 触发 0 次、
-    每日 `spent_before` 峰值 ≤72.2% B）。它**不能**推出"其余 709 次决策的资源价格接近零"：
-
-      * **291/1000 触及网格下限 ≠ 另外 709 次 λ≈0** —— 触及下限只说明该次不受网格约束，
-        不给出其余决策的价格大小；两者不能互相推断。
-      * **`reject_budget = 0` 不证明不存在前瞻性机会成本** —— 一个**已经**在高耗能订单上
-        持续拒单的策略，本就会把预算维持在充足水平，于是硬前置检查**永远不会**触发。
-        "检查没响"因此可能是**机制在起作用的结果**，而不是"机制没有必要"的证据。
-      * `spent_before` 用的是 `Σ e_lower`（**下界**），而权威检查是 `certify_plan` 的
-        完整续行能量；且**旧规则日志未记录 `certify_energy`** ⇒ "资源是否真的稀缺"
-        在本轮**尚未闭合**，须由独立的资源可识别性诊断回答，不得由本函数假定。
-
-    ⇒ **"机制是否接进代码"的正证仍由 T2a 承担**（预设压力夹具上的数值行为 + T9③ 纯函数反证），
-    真实开发日上的**效果可识别性**由 T2b 承担；两者都**不**用"结果序列是否不同"当唯一判据。
+    ⚠️ **旧措辞的其余部分仍然有效**（2026-10-14 用户裁定③）：仓库实据只支持
+    "下界记账下的硬前置检查是松的"，**不能**推出"其余决策的资源价格接近零"；
+    `reject_budget = 0` 也可能是机制在起作用的结果。
+    ⇒ **"机制是否接进代码"的正证仍由 T2a 承担**，"效果可识别性"由 T2b 承担。
     """
     rows, problems = [], []
     if not cases:
         problems.append('未提供任何消融对照（cases 为空）⇒ 无法判定接入，fail-closed')
         return False, rows, problems
+
+    def _get(mapping, key):
+        if mapping is None:
+            return None
+        v = mapping.get(key, 0)
+        return None if v is None else int(v)
+
     for name, pair in (cases or {}).items():
         if not (isinstance(pair, (tuple, list)) and len(pair) == 2):
             problems.append('开关 %s 需要 (基准日志, 消融日志) 一对' % name)
             continue
         r = compare_ablations(pair[0], pair[1], label=name)
         r['switch'] = name
-        act = None if activation is None else int(activation.get(name, 0))
+        act = _get(activation, name)
+        sc = _get(score_changed, name)
         r['activation_count'] = act
-        if r['engaged'] is False and (act is None or act <= 0):
-            # 未证明机制被触发过 ⇒ **不判 FAIL**，改判 not_applicable
-            r['engaged'] = None
-            r['note'] = ('not_applicable：本集合内未观测到该机制被触发'
-                         '（activation=%s）⇒ "完全相同"无法区分「未接线」与'
-                         '「接线但资源不稀缺」。接入的正证请用 T9③（纯函数）。'
-                         % ('未提供' if act is None else act))
+        r['score_changed_count'] = sc
+        if r['engaged'] is True:
+            # 动作序列有差异 ⇒ 机制可识别（**不判 FAIL**；差异多大/方向均不判）
+            r['verdict'] = 'mechanism_identifiable'
+        elif r['engaged'] is False:
+            # 动作序列完全相同 ⇒ 按分层判据区分四种情形
+            if act is None or act <= 0:
+                r['engaged'] = None
+                r['verdict'] = 'not_applicable'
+                r['note'] = ('not_applicable：本集合内未观测到**有效**影子价格被触发'
+                             '（activation=%s）⇒ "完全相同"无法区分「未接线」与'
+                             '「接线但资源不稀缺」。接入的正证请用 T2a / T9③。'
+                             % ('未提供' if act is None else act))
+            elif sc is None:
+                r['verdict'] = 'inconclusive_score_detail_missing'
+                r['note'] = ('有效影子价格 > 0（%d 次）但调用方**未提供"评分是否变化"**'
+                             '⇒ 无法用分层判据裁决：**不判 FAIL、也不判通过**。'
+                             '请按要求提供 score_changed（见 P1A_T2判据分层裁定 §2）。' % act)
+            elif sc > 0:
+                # ★ 本次裁定要保护的情形：价格进了评分，只是没跨过动作边界
+                r['verdict'] = 'mechanism_activated_no_behavioural_effect'
+                r['note'] = ('机制**已激活**（有效价格 %d 次、评分变化 %d 次），'
+                             '但动作完全相同 ⇒ **不是接线失败，也不是效果通过**'
+                             '（旧 T2 的"完全相同 ⇒ FAIL"已废止其独立否决权）。'
+                             % (act, sc))
+            else:
+                r['verdict'] = 'wiring_defect'
+                r['note'] = ('**wiring_defect**：有效影子价格 > 0（%d 次）却**评分未变化**'
+                             '⇒ 价格没有进入评分，属实现缺陷。'
+                             '（⚠️ 正确实现下两者恒等价 ⇒ 本分支是**回归哨兵**，'
+                             '需由注入缺陷的测试激活，正常运行不应触发。）' % act)
+        else:
+            r['verdict'] = 'inconclusive_log_schema'
         rows.append(r)
-        # ⚠️ **2026-10-14 修复（缺陷已由用户裁定）**：原为 `is not True`，于是上面刚把
-        # `engaged` 置 `None`（= **not_applicable**、本意"不判 FAIL"）的那一支**也**命中，
-        # 降级被自己的 `problems` 抵消 ⇒ `t234_ok=False`、`audit['passed']=False` ——
-        # 与本节 docstring 及 `audit()` 的"结构性不适用被当成失败"警告直接矛盾，
-        # 也与规格 §5 T2 条"报 not_applicable，**不报 FAIL**"矛盾。
-        # 只有**明确判定为未接入**（`engaged is False`）才计入 problems。
-        if r['engaged'] is False:
+        if r['verdict'] == 'wiring_defect':
             problems.append('开关 %s 未接入决策路径：%s' % (name, r.get('note')))
         problems.extend(r.get('problems') or [])
     return (not problems), rows, problems
@@ -408,7 +432,7 @@ def check_t2b_effect_identifiability(stats):
 
 
 def audit(records, log_repeat=None, ablations=None, ablation_activation=None, tol=TOL,
-          t2a_fixtures=None, t2b_stats=None):
+          t2a_fixtures=None, t2b_stats=None, ablation_score_changed=None):
     """跑全部可用检查，返回结构化报告（**不读任何效用**）。
 
     ⚠️ **`problems` 只放"真的违反了"**；「未提供对照 ⇒ 不适用」进 `not_applicable`。
@@ -428,7 +452,8 @@ def audit(records, log_repeat=None, ablations=None, ablation_activation=None, to
         na.append('T2/T3/T4 消融接入：未提供消融对照（`ablations`）⇒ 不适用')
     else:
         t234_ok, t234_rows, t234 = check_ablation_engagement(
-            ablations, activation=ablation_activation)
+            ablations, activation=ablation_activation,
+            score_changed=ablation_score_changed)
     # ---- T2a 实现正确性（预设压力夹具；不要求动作不同）----
     t2a_ok, t2a_rows = None, []
     if t2a_fixtures is None:

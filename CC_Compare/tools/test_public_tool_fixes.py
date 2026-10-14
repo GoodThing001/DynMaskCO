@@ -164,13 +164,18 @@ def test_audit_downgrade_not_counted_as_failure():
     cases.append(('★F2b 完全相同 + activation=0 ⇒ not_applicable ∧ problems 为空 ∧ ok=True',
                   rows_b[0]['engaged'] is None and probs_b == [] and ok_b is True,
                   (rows_b[0].get('engaged'), probs_b, ok_b)))
-    # (c) 完全相同 + activation > 0 ⇒ **真 FAIL**（机制触发过却毫无差别）
+    # (c) 完全相同 + 有效价格 > 0 **且评分未变化** ⇒ **真 FAIL**（wiring_defect）
+    #     ⚠️ **判据修正（2026-10-14 用户裁定分层）**：必须**显式**给出 `score_changed=0`
+    #     才构成"价格没进评分"；若评分变了则**不判 FAIL**（见 test_role_c_decision_audit (c2)）。
     ok_c, rows_c, probs_c = da.check_ablation_engagement(
-        {'opportunity_cost': (base, same)}, activation={'opportunity_cost': 7})
-    cases.append(('★F2c 完全相同 + activation>0 ⇒ engaged=False ∧ problems 非空 ∧ ok=False'
-                  '（真 FAIL 仍必须判失败 —— 修复不能把该失败的也放过）',
-                  rows_c[0]['engaged'] is False and bool(probs_c) and ok_c is False,
-                  (rows_c[0].get('engaged'), probs_c, ok_c)))
+        {'opportunity_cost': (base, same)}, activation={'opportunity_cost': 7},
+        score_changed={'opportunity_cost': 0})
+    cases.append(('★F2c 完全相同 + 有效价格>0 且**评分未变化** ⇒ wiring_defect ∧ '
+                  'problems 非空 ∧ ok=False（真 FAIL 仍必须判失败 —— '
+                  '修复/分层不能把该失败的也放过）',
+                  rows_c[0]['engaged'] is False and bool(probs_c) and ok_c is False
+                  and rows_c[0]['verdict'] == 'wiring_defect',
+                  (rows_c[0].get('engaged'), rows_c[0].get('verdict'), probs_c, ok_c)))
     # (d) 有差异 + activation=0 ⇒ 仍判已接入
     other = _base_log()
     other[0] = _rec(0, action='reject', h='DIFFERENT')
@@ -189,8 +194,10 @@ def test_audit_downgrade_not_counted_as_failure():
                   and not any('opportunity_cost' in p for p in au_na['problems']),
                   (au_na['checks']['T2_T3_T4_ablation_engagement'], au_na['problems'])))
     au_fail = da.audit(base, ablations={'opportunity_cost': (base, same)},
-                       ablation_activation={'opportunity_cost': 7})
-    cases.append(('★F2f 端到端 audit：真 FAIL 情形仍必须 `passed=False` 且 problems 点名该开关',
+                       ablation_activation={'opportunity_cost': 7},
+                       ablation_score_changed={'opportunity_cost': 0})
+    cases.append(('★F2f 端到端 audit：真 FAIL（wiring_defect）情形仍必须 `passed=False` '
+                  '且 problems 点名该开关',
                   au_fail['passed'] is False
                   and any('opportunity_cost' in p for p in au_fail['problems']),
                   (au_fail['passed'], au_fail['problems'])))

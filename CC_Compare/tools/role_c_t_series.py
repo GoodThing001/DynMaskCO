@@ -230,6 +230,28 @@ def activation_counts(diags):
             'scenarios': n_price_entered}
 
 
+def score_changed_counts(diags):
+    """**决策评分**发生变化的决策数（分层判据的第二个统计量）。
+
+    评分 = `myopic_net − λ_B·e_o`；`score_changed` ⇔ `|λ_B·e_o| > 0`。
+    ⚠️ 在本实现里它与"有效影子价格 > 0"在**正确实现**下恒等价 ⇒
+    `wiring_defect`（有效价格>0 却评分没变）**正常不会触发**，它是**回归哨兵**。
+    这里仍独立计算并列进报告，使分层判据有可核对的输入（不靠"两者应该相等"的假定）。
+    """
+    n = 0
+    for d in diags or []:
+        d = d or {}
+        ld = d.get('lambda_diag') or {}
+        lam, e_o = ld.get('lambda_B'), d.get('e_o')
+        try:
+            if lam is not None and e_o is not None \
+                    and abs(float(lam) * float(e_o)) > 1e-12:
+                n += 1
+        except (TypeError, ValueError):
+            pass
+    return {'opportunity_cost': n, 'lookahead': n, 'scenarios': n}
+
+
 def t2b_stats(diags_main, actions_ablated=None):
     """T2b 的逐决策统计（**raw>0 与截断后的有效 `λ_B` 必须分开**）。
 
@@ -392,6 +414,10 @@ def run_t_series(*, ds, contract, budget, capacity, num_vehicles, booking_horizo
     act['scenarios'] = max(act['scenarios'],
                            activation_counts(abl['scenarios_k1']['diags'])['scenarios'],
                            activation_counts(abl['scenarios_shuffle']['diags'])['scenarios'])
+    # 分层判据要求的第二个统计量：**决策评分**是否变化（P1A_T2判据分层裁定 §2）。
+    # ⚠️ 诚实记录：正确实现下它与 `|λ_B·e_o| > 0` 恒等价 ⇒ `wiring_defect` 分支
+    # 正常运行**不会**触发，它是**回归哨兵**（由注入缺陷的测试激活）。
+    sc = score_changed_counts(base['diags'])
     t2b = t2b_stats(base['diags'],
                     actions_ablated=[(d or {}).get('log_fields', {}).get('action')
                                      for d in abl['opportunity_cost']['diags']])
@@ -401,9 +427,11 @@ def run_t_series(*, ds, contract, budget, capacity, num_vehicles, booking_horizo
                                         abl['opportunity_cost']['records']),
                    'lookahead': (base['records'], abl['lookahead']['records']),
                    'scenarios': (base['records'], abl['scenarios_k1']['records'])},
-        ablation_activation=act, t2a_fixtures=t2a_preset_fixtures(), t2b_stats=t2b)
+        ablation_activation=act, ablation_score_changed=sc,
+        t2a_fixtures=t2a_preset_fixtures(), t2b_stats=t2b)
     report = {'inner_gate': gate, 'n_records': len(base['records']),
-              'n_served': base['n_served'], 'activation': act, 't2b_stats': t2b,
+              'n_served': base['n_served'], 'activation': act, 'score_changed': sc,
+              't2b_stats': t2b,
               'audit': audit, 't8': t8_shared_config_check(),
               'runs': {'base': len(base['records']),
                        **{k: len(v['records']) for k, v in abl.items()}}}
@@ -460,28 +488,25 @@ def _audit_findings(audit):
             'suggested_fix': "确保只有 `engaged is False` 才追加 problems"
                              "（2026-10-14 用户裁定后已修）。",
             'status': 'REGRESSED —— 该缺陷此前已修复，此处再次出现，须立即排查'})
-    # ⚠️ **规格内部张力（2026-10-14 实测发现，本模块只并报、不代裁）**：
-    #   规格 §5 的 **T2 判据**说"`λ_B≡0` 与不消融的决策序列**不得完全相同**（完全相同 ⇒ FAIL）"；
-    #   而同一份规格的 **T2b** 把"价格进了评分、动作没变"明确标为
-    #   `mechanism_activated_no_behavioural_effect`，并写明那是"**不是**接线失败，
-    #   也不是效果通过"。两者在"score 变了但动作没变"这一情形上给出**相反**结论。
-    #   本函数不选边：把两边的**事实**都摆出来（activation>0 ∧ 动作序列完全相同 ∧
-    #   T2b 的判定），供用户裁定该以哪一条为准。
-    verdict = audit.get('t2b_verdict')
-    same_action = sorted(r.get('switch') for r in (audit.get('ablation_rows') or [])
-                         if r.get('engaged') is False and int(r.get('activation_count') or 0) > 0)
-    if same_action and verdict == 'mechanism_activated_no_behavioural_effect':
+    # ⚠️ **2026-10-14 用户裁定已解决此前的"规格内部张力"**（见
+    # `CC_Compare/P1A_T2判据分层裁定_2026-10-14.md`）：旧 T2 的"动作序列完全相同 ⇒ FAIL"
+    # **已废止其独立否决权** ⇒ "评分变了但动作没变"由 `check_ablation_engagement` 判为
+    # `mechanism_activated_no_behavioural_effect` 并**不进 `problems`**，与 T2b 一致。
+    # ⇒ 本函数**不再报告**该张力；作为**回归哨兵**，只在"分层判据被退回旧语义"
+    # （即同一情形又重新进了 problems）时才报告。
+    tension = [r.get('switch') for r in (audit.get('ablation_rows') or [])
+               if r.get('engaged') is False
+               and int(r.get('activation_count') or 0) > 0
+               and int(r.get('score_changed_count') or 0) > 0]
+    regressed = sorted(x for x in tension if x and ('开关 %s ' % x) in probs)
+    if regressed:
         out.append({
-            'finding': 'T2_criterion_vs_T2b_verdict_tension',
-            'switches': same_action,
-            'facts': {'activation_count > 0': True,
-                      'action_sequences_identical': True,
-                      't2b_verdict': verdict},
-            'detail': '规格 T2 判据（"完全相同 ⇒ FAIL"）与 T2b 的四级判定在此情形上冲突：'
-                      'T2b 明说 `mechanism_activated_no_behavioural_effect` **不是**接线失败，'
-                      '而 T2 的判据会把"动作序列完全相同"直接判 FAIL。'
-                      '关键事实：`n_score_changed > 0`（价格**确实进了评分**），'
-                      '只是在本夹具的状态集合上没有翻转任何动作。',
-            'not_decided_by': 'role_c_t_series —— 两套判据都写在规格里，取哪一条需用户裁定',
+            'finding': 'T2_layering_regressed_to_old_fail_semantics',
+            'switches': regressed,
+            'detail': '这些开关"评分变了但动作完全相同"，按 2026-10-14 分层裁定应记 '
+                      '`mechanism_activated_no_behavioural_effect` 且**不进 problems**；'
+                      '它们出现在 problems 里说明分层判据被退回旧语义（旧 T2 句子的'
+                      '独立否决权已废止）。',
+            'status': 'REGRESSED —— 须立即排查',
         })
     return out

@@ -184,7 +184,8 @@ def main():
     #    进 problems ⇒ `ok=False`。已改为 `is False`。因此本用例必须**证明机制被触发过**
     #    （`activation>0`）才构成"真未接入"；未提供 activation 的情形见下面新增的对照用例
     #    （应按 `not_applicable` 处理，**不**判失败）。
-    ok, rows, pr = aud.check_ablation_engagement(onepairs, activation={'scenarios': 5})
+    ok, rows, pr = aud.check_ablation_engagement(onepairs, activation={'scenarios': 5},
+                                              score_changed={'scenarios': 0})
     ck('T2/T3/T4：其中 scenarios **未接入**（且已证明被触发过）⇒ FAIL 且点名该开关',
        ok is False and any('scenarios' in p for p in pr), pr)
     ok_na, rows_na, pr_na = aud.check_ablation_engagement(onepairs)
@@ -197,7 +198,13 @@ def main():
     ok, rows, pr = aud.check_ablation_engagement({'scenarios': base})
     ck('fail-closed：对照不是一对日志 ⇒ FAIL', ok is False, pr)
 
-    # ---------- ★ 2026-10-14（审计 D3.3）：「完全相同」只在**机制确实被触发过**时判 FAIL ----------
+    # ---------- ★ 2026-10-14（审计 D3.3 / 用户裁定分层）：见 P1A_T2判据分层裁定 ----------
+    # ⚠️ **判据修正（2026-10-14 用户裁定）**：旧 T2 的"动作序列完全相同 ⇒ 实现 FAIL"
+    # 已废止其独立否决权。现在"完全相同"要按**评分是否变化**再分：
+    #   有效价格>0 且评分未变 ⇒ wiring_defect（FAIL）；评分变了 ⇒ 不判 FAIL（合法零行为效应）；
+    #   未提供"评分是否变化" ⇒ inconclusive（既不 FAIL 也不通过）。
+    # 因此下面 (c) 必须**显式给出 score_changed=0** 才构成"真没接线"；
+    # 新增 (c2) 覆盖裁定的核心情形（评分变、动作不变 ⇒ **不判 FAIL**）。
     pair_same = (base, copy.deepcopy(base))
     # (a) 完全相同 + 未提供 activation ⇒ **not_applicable**（不是 FAIL）
     ok, rows, pr = aud.check_ablation_engagement({'opportunity_cost': pair_same})
@@ -208,23 +215,47 @@ def main():
         {'opportunity_cost': pair_same}, activation={'opportunity_cost': 0})
     ck('★ (b) 完全相同 + activation=0 ⇒ not_applicable（资源不稀缺时正确实现也会相同）',
        rows[0]['engaged'] is None and rows[0]['activation_count'] == 0, rows[0])
-    # (c) 完全相同 + activation > 0（机制被触发过却毫无差别）⇒ **FAIL**
+    # (c) 完全相同 + 有效价格>0 **且评分未变化** ⇒ wiring_defect（真没接线）⇒ **FAIL**
     ok, rows, pr = aud.check_ablation_engagement(
+        {'opportunity_cost': pair_same}, activation={'opportunity_cost': 7},
+        score_changed={'opportunity_cost': 0})
+    ck('★ (c) 完全相同 + 有效价格>0 且**评分未变化** ⇒ wiring_defect ⇒ **FAIL**'
+       '（原意保留：真没接线仍必须判失败）',
+       ok is False and rows[0]['verdict'] == 'wiring_defect'
+       and any('opportunity_cost' in p for p in pr), (rows[0].get('verdict'), pr))
+    # (c2) ★ 裁定核心：完全相同 + 有效价格>0 且**评分变了** ⇒ **不判实现 FAIL**
+    ok2, rows2, pr2 = aud.check_ablation_engagement(
+        {'opportunity_cost': pair_same}, activation={'opportunity_cost': 7},
+        score_changed={'opportunity_cost': 5})
+    ck('★★ (c2) 完全相同 + 有效价格>0 且**评分变了** ⇒ '
+       'mechanism_activated_no_behavioural_effect，**不判实现 FAIL**'
+       '（旧 T2 句子已废止其独立否决权）',
+       ok2 is True and pr2 == []
+       and rows2[0]['verdict'] == 'mechanism_activated_no_behavioural_effect'
+       and rows2[0]['score_changed_count'] == 5,
+       (rows2[0].get('verdict'), pr2))
+    # (c3) 完全相同 + 有效价格>0 但**未提供**评分信息 ⇒ 既不 FAIL 也不通过（缺口留痕）
+    ok3, rows3, pr3 = aud.check_ablation_engagement(
         {'opportunity_cost': pair_same}, activation={'opportunity_cost': 7})
-    ck('★ (c) 完全相同 + activation>0 ⇒ **FAIL**（机制触发过却无差别 = 真没接线）',
-       ok is False and rows[0]['engaged'] is False
-       and any('opportunity_cost' in p for p in pr), pr)
+    ck('★ (c3) 完全相同 + 有效价格>0 但**未提供 score_changed** ⇒ '
+       'inconclusive_score_detail_missing（不判 FAIL、也不判通过，缺口写进 note）',
+       ok3 is True and pr3 == []
+       and rows3[0]['verdict'] == 'inconclusive_score_detail_missing'
+       and '未提供' in rows3[0]['note'], (rows3[0].get('verdict'), pr3))
     # (d) 有差异 + activation=0 ⇒ 仍判 engaged（有差异即说明机制起了作用）
     ok, rows, pr = aud.check_ablation_engagement(
         {'opportunity_cost': (base, tiny)}, activation={'opportunity_cost': 0})
     ck('★ (d) 有差异 + activation=0 ⇒ 仍判已接入（差异本身就是证据）',
-       rows[0]['engaged'] is True, rows[0])
-    # (e) activation 经 audit() 透传
+       rows[0]['engaged'] is True and rows[0]['verdict'] == 'mechanism_identifiable',
+       rows[0])
+    # (e) activation + score_changed 经 audit() 透传（wiring_defect ⇒ 记为失败）
     r = aud.audit(base, ablations={'opportunity_cost': pair_same},
-                  ablation_activation={'opportunity_cost': 9})
-    ck('★ (e) audit() 透传 ablation_activation ⇒ 记为失败',
+                  ablation_activation={'opportunity_cost': 9},
+                  ablation_score_changed={'opportunity_cost': 0})
+    ck('★ (e) audit() 透传 ablation_activation + ablation_score_changed ⇒ 记为失败',
        r['checks']['T2_T3_T4_ablation_engagement'] is False
-       and r['ablation_rows'][0]['activation_count'] == 9, r['problems'])
+       and r['ablation_rows'][0]['activation_count'] == 9
+       and r['ablation_rows'][0]['score_changed_count'] == 0, r['problems'])
 
     # audit() 的整合与"不适用 ≠ 失败"
     r = aud.audit(base, log_repeat=copy.deepcopy(base), ablations=allpairs)
@@ -246,7 +277,8 @@ def main():
        'problems=%s na=%s' % (r['problems'], r['not_applicable']))
     # ⚠️ 2026-10-14 修复后：`audit()` 也必须**只在机制被证明触发过**时判失败；
     #    未提供 activation 的同一份消融对照应进 `not_applicable` 而**不**使 passed=False。
-    r = aud.audit(base, ablations=onepairs, ablation_activation={'scenarios': 5})
+    r = aud.audit(base, ablations=onepairs, ablation_activation={'scenarios': 5},
+                 ablation_score_changed={'scenarios': 0})
     ck('audit()：有开关未接入（且已证明被触发过）⇒ passed=False', r['passed'] is False)
     r_na = aud.audit(base, ablations=onepairs)
     ck('★ audit()：未证明被触发 ⇒ 不判失败（passed=True），且 problems 为空',

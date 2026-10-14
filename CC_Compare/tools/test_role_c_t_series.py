@@ -221,18 +221,29 @@ def main():
        rep_t['audit']['t2b_verdict'])
     ck('★11d tight 夹具**不得**出现 wiring_defect（价格必须真的进了评分）',
        rep_t['audit']['t2b_verdict'] != 'wiring_defect', rep_t['audit']['t2b_row'])
-    # ★ tight 夹具上暴露的**规格内部张力**：T2 判据（完全相同⇒FAIL）与 T2b 的四级判定
-    #   （`mechanism_activated_no_behavioural_effect` **不是**接线失败）互相冲突。
-    #   本模块**不选边**，只把事实并报出来交用户裁定。
-    find_t = [f for f in rep_t['findings']
-              if f.get('finding') == 'T2_criterion_vs_T2b_verdict_tension']
-    ck('★11e tight 夹具上把"T2 判据 vs T2b 判定"的张力**并报**出来（不代裁）：'
-       'activation>0 ∧ 动作序列完全相同 ∧ T2b = mechanism_activated_no_behavioural_effect',
-       bool(find_t) and find_t[0]['facts']['activation_count > 0'] is True
-       and find_t[0]['facts']['action_sequences_identical'] is True
-       and find_t[0]['facts']['t2b_verdict']
-       == 'mechanism_activated_no_behavioural_effect',
-       rep_t['findings'])
+    # ★ 2026-10-14 用户裁定**已解决**此前的"T2 判据 vs T2b 判定"张力：
+    #   旧 T2 的"动作序列完全相同 ⇒ FAIL"**废止其独立否决权**，
+    #   该情形现由分层判据记为 `mechanism_activated_no_behavioural_effect` 且**不进 problems**。
+    rows_t = rep_t['audit']['ablation_rows']
+    nae = [r for r in rows_t
+           if r.get('engaged') is False and (r.get('verdict')
+                                             == 'mechanism_activated_no_behavioural_effect')]
+    ck('★11e 裁定生效：tight 夹具上"有效价格>0 ∧ 动作完全相同 ∧ 评分已变"的记录为 '
+       '`mechanism_activated_no_behavioural_effect`，且**不再**进 problems、'
+       '`_audit_findings` 也不再报告张力（旧 T2 句子已废止独立否决权）',
+       len(nae) >= 1
+       and not any(r['switch'] in ' '.join(rep_t['audit']['problems']) for r in nae)
+       and not any(f.get('finding') in ('T2_criterion_vs_T2b_verdict_tension',
+                                        'T2_layering_regressed_to_old_fail_semantics')
+                   for f in rep_t['findings']),
+       ([(r['switch'], r.get('verdict')) for r in rows_t],
+        rep_t['audit']['problems'], rep_t['findings']))
+    ck('★11f 分层判据的两个统计量都在报告里（activation=有效价格；score_changed=评分变化）',
+       all(r.get('activation_count') is not None
+           and r.get('score_changed_count') is not None for r in rows_t)
+       and set(rep_t['score_changed']) == set(ts.ABLATION_SWITCHES),
+       (rows_t[0].get('activation_count'), rows_t[0].get('score_changed_count'),
+        rep_t.get('score_changed')))
     ck('12. tight 夹具仍满足 T5/T6（激活机制不破坏认证顺序与承诺）',
        rep_t['audit']['checks']['T5_order_and_causality'] is True
        and rep_t['audit']['checks']['T6_commitments_and_budget'] is True,
