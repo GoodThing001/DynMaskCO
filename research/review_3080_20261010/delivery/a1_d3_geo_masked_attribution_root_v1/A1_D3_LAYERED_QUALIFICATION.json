@@ -1,0 +1,131 @@
+{
+  "matrix": "A1_D3_LAYERED_QUALIFICATION",
+  "date": "2026-10-14",
+  "read_only": true,
+  "runs_executed": "T-G regression only (engine qualification); no F-D-Geo comparison executed",
+  "correction_to_P1": {
+    "original_statement": "P1 矩阵曾写\"唯一硬阻断是预登记尚未签字冻结\"",
+    "why_too_strong": "签字是\"开始执行已准备好的工程设计\"的程序性阻断，但它不能自动解除技术与科学资格门",
+    "corrected_reading": {
+      "procedural_blocker_to_start_engineering": "REV2/REV3 未签字冻结",
+      "still_open_for_formal_D3_Science": [
+        "冻结源码树（本批已建立候选树，等独立复核）",
+        "新鲜、可恢复的状态集合尚未准备",
+        "等时与等工作量预算尚未冻结",
+        "E2 缺失，无法支持学习或预训练贡献主张",
+        "D8 与真实安装回执缺失，无法支持完整在线效用主张"
+      ]
+    },
+    "original_text_preserved": true
+  },
+  "measured_this_batch": {
+    "freeze_tree": "freeze_tree_7b79ac57",
+    "n_files": 22,
+    "all_worktree_bytes_equal_tree_copies": true,
+    "T-G_regression": {
+      "test_d3_geo_adapter.py": {
+        "exit": 0,
+        "pass": 36,
+        "fail": 0
+      },
+      "test_d3_adapter_risks.py": {
+        "exit": 0,
+        "pass": 10,
+        "fail": 0
+      },
+      "test_d3_assembly_invariants.py": {
+        "exit": 1,
+        "pass": 20,
+        "fail": 3,
+        "failing_checks": [
+          "FAIL A2 end-to-end: on an exact logits tie the new assembly layer matches the ORIGINAL stepwise_sample step for step (projected onto the historical fields)   <- {'orig': [{'customer': 5, 'vehicle_id': 2, 'slot_kind': 'new_route', 'slot_anchor': -1, 'position': 0, 'predecessor': -1, 'successor': -1}], 'new_projected': []}",
+          "FAIL A2 the only added step field is the pinned evidence field (incremental_distance), nothing else   <- set()",
+          "FAIL A3 the success path installs exactly once   <- {'installs': 0}"
+        ]
+      }
+    },
+    "assembly_invariant_failures_recorded_not_hidden": true,
+    "F_identity": {
+      "primary": "mpre_reinforce_s42_clean/model.ckpt (f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5)",
+      "corrected": "NON_PRIMARY / PROVENANCE_PENDING (60f6360e8b4256e9...)",
+      "model_selection_performed": false
+    }
+  },
+  "layers": {
+    "L1_mechanism_diagnostic": {
+      "satisfied": [
+        "D-Geo 工程实现与 T-G1..T-G9 记录 PASS（D3_ENGINEERING_RESULT.md）",
+        "eps=0 与 legal_order_first 已成为实现默认值（本批只读核对符号）",
+        "历史固定状态与 v2 状态可用于诊断"
+      ],
+      "blockers": [
+        "装配不变量回归存在失败项（见 measured_this_batch）——诊断可以继续，但不可宣称可比性已建立"
+      ],
+      "readonly_verifiable_now": [
+        "掩码作用域与空池保留",
+        "tie-break 不变性",
+        "pool_B 构造与保序",
+        "D-Geo 评分与 incremental_distance 的 bit-equal"
+      ],
+      "needs_new_preregistration": [
+        "任何跨状态聚合或“分歧→优势”的解释"
+      ]
+    },
+    "L2_fixed_state_quality": {
+      "satisfied": [
+        "预登记仪器（REV2/REV3）已具备",
+        "唯一主对照与可比性门已定义"
+      ],
+      "blockers": [
+        "REV3 未签字",
+        "新鲜可恢复状态集未准备",
+        "阈值与统计单元 PENDING",
+        "装配回归失败项未澄清",
+        "源码冻结树待独立复核"
+      ],
+      "readonly_verifiable_now": [
+        "状态清单缺失率与身份一致性（在既有状态上）"
+      ],
+      "needs_new_preregistration": [
+        "状态抽样方案、聚类单位、指标与阈值、成本上限"
+      ]
+    },
+    "L3_online_utility": {
+      "satisfied": [
+        "A-v1 效用口径已定义（品质不货币化、鱼可售硬约束、C0 由 certify_plan 认证）"
+      ],
+      "blockers": [
+        "G0 未通过",
+        "G1/G2 未开始",
+        "E2 缺失",
+        "P_after_install 全仓缺失",
+        "D8 CAPABILITY_GAP_BLOCKING",
+        "等时预算未冻结",
+        "生产接入未授权（AT2B-3 未授权）"
+      ],
+      "readonly_verifiable_now": [
+        "既有探针记录的完整性（不含效用推断）"
+      ],
+      "needs_new_preregistration": [
+        "整层（逐日配对、缺失/超时披露、均值门与 CI 下界）"
+      ]
+    }
+  },
+  "no_auto_upgrade": {
+    "weights_exist_means": "identity only, not learning gain",
+    "tests_green_means": "engineering qualification only",
+    "frozen_means": "identity closure only",
+    "none_of_the_three_implies_online_advantage": true
+  },
+  "preserved": {
+    "I3": "−144.680（95% CI [−191.109, −100.125]）不改写",
+    "D2": "not_qualified 不升级",
+    "D3_G0": "未通过",
+    "D8": "CAPABILITY_GAP_BLOCKING",
+    "G1_G2": "未启动",
+    "stable_online_gain": false,
+    "E2": "无合格训练结果",
+    "F_vs_DGeo": "科学效果未验证"
+  },
+  "algorithmic_gain_claim": "none"
+}

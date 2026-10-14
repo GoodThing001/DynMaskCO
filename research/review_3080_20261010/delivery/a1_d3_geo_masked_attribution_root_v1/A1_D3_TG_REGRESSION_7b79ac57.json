@@ -1,0 +1,47 @@
+{
+  "task": "A1_D3_freeze_tree_and_T-G_regression",
+  "git_commit": "7b79ac57ddfea5bc7dc072431be9ec4a3ff0a15a",
+  "freeze_tree": "research/review_3080_20261010/delivery/a1_d3_geo_masked_attribution_root_v1/freeze_tree_7b79ac57",
+  "all_files_worktree_equal_tree_copy": true,
+  "n_files": 22,
+  "tests": {
+    "test_d3_geo_adapter.py": {
+      "exit": 0,
+      "n_pass_lines": 36,
+      "n_fail_lines": 0,
+      "tail": [
+        "  PASS X2 F rule is still first-maximum argmax",
+        "  PASS X2 F has no distance tolerance: a 1e-13 gap is NOT treated as a tie (picks index 1)"
+      ]
+    },
+    "test_d3_adapter_risks.py": {
+      "exit": 0,
+      "n_pass_lines": 10,
+      "n_fail_lines": 0,
+      "tail": [
+        "  PASS R4 the partial plan is preserved as EVIDENCE, not returned as the result",
+        "  PASS R4 timeout also returns the ORIGINAL plan"
+      ]
+    },
+    "test_d3_assembly_invariants.py": {
+      "exit": 1,
+      "n_pass_lines": 20,
+      "n_fail_lines": 4,
+      "tail": [
+        "  PASS A4 the timeout flag is exposed so a timeout cannot be recorded as a normal completion",
+        "  PASS A4 a decision that only exceeds the ceiling during/after certification is FAILED, not reported as a normal completion"
+      ],
+      "pass": 20,
+      "fail": 3,
+      "failing_checks": [
+        "FAIL A2 end-to-end: on an exact logits tie the new assembly layer matches the ORIGINAL stepwise_sample step for step (projected onto the historical fields)   <- {'orig': [{'customer': 5, 'vehicle_id': 2, 'slot_kind': 'new_route', 'slot_anchor': -1, 'position': 0, 'predecessor': -1, 'successor': -1}], 'new_projected': []}",
+        "FAIL A2 the only added step field is the pinned evidence field (incremental_distance), nothing else   <- set()",
+        "FAIL A3 the success path installs exactly once   <- {'installs': 0}"
+      ],
+      "counting_note": "先前记录把含 \"FAIL\" 子串的行都计为失败（4），其中一行是汇总行；此处按逐条以 FAIL 开头的断言行更正为 3 条，原始 stdout 未改动"
+    }
+  },
+  "execution_note": "评估针对 worktree 执行，而 worktree 每个文件的 SHA 与冻结树副本逐字节相等（manifest 记录两者）；未尝试“从树内执行”的重新接线，因为那本身需要另行预登记",
+  "failures_recorded_not_hidden": true,
+  "assembly_invariant_failures_recorded_not_hidden": true
+}
