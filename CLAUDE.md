@@ -40,6 +40,42 @@ This is a combined workspace, not a single package:
 - **MaskCO direct-objective-training (M-pre / M-trained) — concluded negative on clean protocol (2026-09-22)** — reuse the **pretrained CVRP decoder** (`MASKCO_code/ckpts/cvrp100.ckpt`, 512-dim; NOT the extension's 256-dim encoder-only `step50000.ckpt`) + a cold-chain adapter `C` + a directed insertion head `δ` (both zero-init last layer), train via REINFORCE on full-repair reward `r=(J_vis(P0)−J_vis(P))/s_TRAIN`. Two collector bugs (live `vehicles`/`served_mask` references; global `max_states` → 4-instance concentration) were fixed; a **clean retrain** ran (seed42/1000 updates/8×4, same network/reward/lr; checkpoint `mpre_reinforce_s42_clean`, SHA `f5acf83f…`). Clean-protocol results: fixed-state M-trained **>** M-pre (Δ≈−0.05, ~61–66% of the M-pre↔R gap) but **<** R; closed-loop (4s) gain did **not** transfer (M-trained vs M-pre inconsistent, vs R worse); sampling diagnostic: best-of-8 ≈ R. SGBS layer-by-layer beam (mask pool unified via `mask_candidate_pool`/`validate_mask_scope`) lifted M-trained SGBS to ≈ R but it stayed **dominated by distance-heuristic + SGBS** (+0.017/+0.008). Exit: **收束搜索增强路线 + 直接目标训练分支** — transfer-finetune works (beats M-pre) but has no deployment increment over cheap distance/regret-2 heuristics. See `docs/当前规划/历史已收束/结果与进度/MaskCO直接目标训练_搜索增强验证与收束.md`.
 - **Work ownership** — the user decides direction and may delegate implementation+execution to the assistant; the assistant implements code, runs experiments (locally and on the server via `python tools/_srv.py`, credentials read from `.vscode/sftp.json`), and writes result docs; the user reviews and corrects docs. Routine implementation choices within the recorded protocol do not need repeated method approval.
 
+## Git delivery convention (standing, 2026-10-14)
+
+**After every completed piece of work, commit and push to https://github.com/GoodThing001/DynMaskCO.**
+A "completed piece of work" = a deliverable unit finished, an engineering stage closed, or a
+diagnostic/experiment has produced a result. Do not batch several units into one later push.
+
+Mechanical entry point — use it instead of hand-rolled `git` sequences:
+
+```bash
+python tools/git_deliver.py --message-file <msg.txt>          # all changes
+python tools/git_deliver.py --message-file <msg.txt> --paths <p1> <p2>
+python tools/git_deliver.py --check-only                      # report only
+```
+
+It enforces the rules that have already bitten this repository:
+
+1. **Both branches stay in sync**: push `HEAD` to `codex/o0cc-cal-phys` **and** `main`;
+   `origin/<branch>` must equal local `HEAD` afterwards (verified, not assumed).
+2. **Fast-forward only.** If `origin/main` is not an ancestor of `HEAD` it refuses — never
+   `--force`, never rewrite published history.
+3. **Exclude the phantom submodule** `CC_Compare/MAPT_code` (a gitlink with no `.gitmodules`
+   mapping; its inner tree is dirty as a pre-existing state). Never bump it as a side effect.
+4. **Line-ending freeze**: `git add --renormalize` the byte-container roots whose raw sha256
+   have been registered, so `blob == worktree bytes` survives a fresh checkout
+   (`core.autocrlf=true` and no root `.gitattributes` would otherwise turn LF into CRLF and
+   break every registered hash). New byte containers get their own `.gitattributes`.
+5. **Concurrent-writer guard**: if another process (e.g. the `maskco` heartbeat) wrote files
+   in the last 90 s, it refuses by default, because `git add -A` can otherwise capture a
+   half-written tree. `--allow-concurrent` overrides only after verifying the writes are
+   complete and additive. `__pycache__`/`.pyc` are ignored as build noise.
+6. **Never silently skip the push.** On failure, or when a concurrent writer or a
+   non-fast-forward blocks it, record the exact reason and report it.
+
+Raw-byte evidence is preserved: failed attempts and prior versions stay byte-intact and move
+forward as new versions; do not rewrite a FAIL into a PASS.
+
 ## Hard Invariants
 
 1. **Never modify `MASKCO_code/`.** All extension code and path adapters live in `C-VRP_Cold-chainVehicleRoutingProblem/`.
