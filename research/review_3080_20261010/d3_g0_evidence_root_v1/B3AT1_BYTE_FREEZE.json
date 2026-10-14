@@ -1,8 +1,8 @@
 {
   "record": "D3_G0_Evidence_B3AT1_byte_freeze",
   "date": "2026-10-14",
-  "revision": 1,
-  "base_commit": "100018e",
+  "revision": 2,
+  "base_commit": "150ced6",
   "why": "B3AT1_TRANSACTION_MATRIX.json registers the raw sha256 of the transaction module, its acceptance suite and the gate primitives; a fresh checkout must reproduce them byte-for-byte",
   "self_reference_note": "this record does not register its own sha256; it is covered by the directory pin",
   "pin_set": {
@@ -17,8 +17,8 @@
   },
   "registered_byte_containers_b3at1": {
     "scripts": {
-      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_commit_transaction.py": "43d2ce76ee3b98e656f2d33f2a66d5fe28c3019841962496ff0db4d1fb085298",
-      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at1_transaction.py": "757c93153957114082a87a2a5df1d86cca63ee607c9cc95a9946440011ccb34d",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_commit_transaction.py": "3bc73a9803cd8e169bc72bee7ae51fbcc3f5bbbf45c5076fab5a4b10f633f276",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at1_transaction.py": "3f6d393291509664262071689399552309420e7e583da83b5351dcab89c0e5c4",
       "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_composed_certifier.py": "b65ddf6545a84b656cd2e9dd541cea266d2d6bdbc1cd56abd76f7780104aea01",
       "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_install_gate.py": "adc8df289be1babcf8d6907ff57ab30ab3d66d58fcb47a6c9539bc8591634483",
       "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_credential.py": "85f32d67ad38f1a88be6aa5a8c4c4af3f48797df6a1ca088d05c672453834c7f",
@@ -28,9 +28,9 @@
     },
     "evidence": {
       "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT1_COUNTEREXAMPLE_SPEC.json": "01803fd5428a83a8b262b49c6dfa4710b60c2f15e8c8d8bc52283b19bfe476a4",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT1_DESIGN.md": "b2450100abddd1c74fe5b99726e5e8e523350a74135b5dda217fc9ed8e8c41bb",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT1_REPORT.md": "b3c2a3b382096187bc02f7ab29b9b2daa12d531bfdbd630f3f1a922dc9708c69",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT1_TRANSACTION_MATRIX.json": "3a011bb8e682bcf54d7f986b93a5097d913b81b6da59342fc37c7cf39803c012"
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT1_DESIGN.md": "5d5a14424817328ada95d450810815bb305906a69836ca9308aa79dfa0446b37",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT1_REPORT.md": "785fbaef9ef129f13a60aeaffc1b27acd75e7e8d4e753567b6ede072135d8e19",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT1_TRANSACTION_MATRIX.json": "015fd4cb23a72281aa9b3f4a7448dfc7610481feb3fb44d8b65fbe74bd58d97b"
     },
     "raw": {
       "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_instance0.txt": "ec1d30e77d2c235b3bb898044d73989eb2f110414d0933eb822f955aecee44ec",
@@ -41,12 +41,12 @@
       "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_instance5.txt": "ec1d30e77d2c235b3bb898044d73989eb2f110414d0933eb822f955aecee44ec",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_stdout.txt": "ec1d30e77d2c235b3bb898044d73989eb2f110414d0933eb822f955aecee44ec",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance0.json": "34698a54ab6df48414eeacc71f95e07b8d3c2cb6831ff65ed91599255f5caf1a",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance1.json": "e192a8020a0e9869ccb71d5fb9a7ec0039e44c51dc471121f0aaadaae7e40223",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance2.json": "1ad8322229ac4a30372b1f4c2d004cbcafa5078552b0975e472fd3d2bfb373f2",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance3.json": "544729a6fed70357f201e01900a3983f5db2873b6a2137513a1d9990bd9ce363",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance4.json": "45acf5caac0513c485dcbd7c5ca99707cdd8dfbfc2fd1715b87a1cf655b37da7",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance5.json": "ded6d52d80dd545eb1cb436b2727e090f2ae8ba4d567dc5a6db5d9bce8c7f50e"
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance0.json": "015fd4cb23a72281aa9b3f4a7448dfc7610481feb3fb44d8b65fbe74bd58d97b",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance1.json": "d6ae5ede4bd18b4daf0c9f3b77d0592877adf79310958213e5b92543dc698a82",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance2.json": "88bede1a83f96893013acbd706ce92c6af89cea10358b7761fb2f884ed90cae2",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance3.json": "e51a5c79374221b1e35d05d96e9ef0cab712197a2ddaf135614562e087bc4062",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance4.json": "9fc597228fd91e8fccc145524c616f9c3041ee1ac18acff75215d03e78952739",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance5.json": "773bb48ccfa73c7cb43d3033ea2dfe2ef9ef12572fe27d42abd790f681aaa029"
     }
   },
   "three_separate_acceptances": {
@@ -60,5 +60,6 @@
     "P2": "NOT_ESTABLISHED"
   },
   "not_reported_as_passing": "AT-F10 is DETECTED_NOT_PREVENTED; AT-PARTIAL reports PARTIAL_COMMIT for the non-atomic path and never calls it a rollback; AT-POS is a mechanics-only control with real_qualification_claimed=false; AT-D8 and AT-POS-REAL are BLOCKED_BY_D8.  No row establishes P2, G-L, G-C or install qualification.",
-  "verification_required_after_commit": "git archive HEAD <each pinned path> must reproduce the registered sha256"
+  "verification_required_after_commit": "git archive HEAD <each pinned path> must reproduce the registered sha256",
+  "revision_note": "v1 (c3320ed) registered the AT1 module, its acceptance suite, the design/report and the matrices.  v2 refreshes them because the user ruling for B3-AT2A required a TERMINOLOGY CORRECTION inside AT1: the default publish mode was renamed from `atomic` to `staged_then_single_pass` (the old string is kept only as a deprecated alias), the publish-state vocabulary STAGED_VALIDATED / PUBLISHING / COMMITTED / COMMITTED_VERIFIED / PARTIAL_COMMIT / OUTCOME_UNKNOWN was added and recorded per publish, and AT1 now reports explicitly committed_verified=false because it performs no independent post-commit re-read.  B3AT1_DESIGN.md and B3AT1_REPORT.md gained errata sections instead of having their conclusions rewritten.  The AT1 suite was re-run after the change and all 13 verdicts are unchanged; the per-instance evidence was refreshed.  No pin changed and v1 stays byte-intact."
 }
