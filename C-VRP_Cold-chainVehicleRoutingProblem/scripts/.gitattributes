@@ -56,3 +56,29 @@ tests/test_d3_b3qc_lower_bound.py -text
 #   scripts/tests/test_d3_b3qp_closure.py                  879d8f3a6a053b9421ba465fc01ee9858c5699f55547f89089a921dbb19fa4b3
 simulation/d3_quality_lower_bound.py -text
 tests/test_d3_b3qp_closure.py -text
+
+# Added by D3-G0 Evidence B3-CF (2026-10-14).  Found by the POST-COMMIT verification step
+# (`git archive HEAD <path>` must reproduce the registered sha256): three files whose raw sha256
+# this batch registers were NOT pinned, so `git archive` / a fresh checkout injected CRLF and the
+# registered value was NOT reproducible.  Measured archived-vs-registered:
+#   tests/test_d3_b3cf_submit_failures.py   251e07dc... != 0303cb20...
+#   simulation/strict_online_env.py         b6db355a... != fd17fe77...
+#   coldchain/coldchain_state.py            d65ebb20... != a2ee98dc...
+# The last two are PRE-EXISTING: their sha256 (fd17fe77... / a2ee98dc...) is registered by older
+# records too (02_配送线/文档组件/2026-10-09/IMMUTABLE_BASELINE.json,
+# docs/当前规划/决策与审计/a1_audit_source_fingerprints_2026-09-28.json,
+# .../三线协议审计_2026-10-09/PROTECTED_BEFORE.json), which were therefore also not
+# archive-reproducible.  Pinning them now fixes those records as well.
+# The pin is ADDITIVE for all three: measured `git hash-object --no-filters` == index blob before
+# the pin, so no existing blob is rewritten.
+#
+# NOT done deliberately: a blanket `*.py -text` under scripts/.  11 of the 438 tracked `*.py` files
+# here currently hold CRLF in the worktree (e.g. tests/test_aggregate_cross_cell.py,
+# training/auto_train.py), so a blanket pin would rewrite their blobs.  The narrow,
+# explicitly-registered pin set stays.
+#   scripts/tests/test_d3_b3cf_submit_failures.py  0303cb20b35bda9ff3791e15ddb9df934369a05e93f9c5c52d68f03adcb83a8d
+#   scripts/simulation/strict_online_env.py        fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6
+#   scripts/coldchain/coldchain_state.py           a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e
+tests/test_d3_b3cf_submit_failures.py -text
+simulation/strict_online_env.py -text
+coldchain/coldchain_state.py -text

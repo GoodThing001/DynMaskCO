@@ -1,30 +1,64 @@
 {
   "record": "D3_G0_Evidence_B3CF_byte_freeze",
   "date": "2026-10-14",
-  "base_commit": "22f26b8",
+  "revision": 2,
+  "revision_note": "v1 (commit 9710081) pinned only the evidence directory and MISSED three unpinned scripts/ files this batch registers; the post-commit `git archive` check caught it (3/24 registered paths not reproducible).  v2 extends the pin set and records the finding.  v1 is not rewritten (it stays in history); no registered hash changed, because all three files already had blob == worktree bytes, so the pin is additive.",
+  "base_commit": "9710081",
   "why": "the B3-CF matrix registers the raw sha256 of its own pre-registration spec and of the source files on the submission path, and the report registers the matrix itself, so a fresh checkout must reproduce them byte-for-byte; with core.autocrlf=true a checkout injects CRLF unless the container is pinned",
   "self_reference_note": "this record does NOT register its own sha256 (a self-referential hash is meaningless); its bytes are pinned by the container .gitattributes and its own commit",
-  "pin_set": {
-    "file": "research/review_3080_20261010/d3_g0_evidence_root_v1/.gitattributes",
-    "content": "* -text",
-    "added_by_this_record": true,
-    "n_files_in_container": 36,
-    "measured_before_pin": {
-      "blob_eq_worktree_raw_bytes": 30,
-      "blob_ne_worktree_raw_bytes": 5,
-      "mismatched_files": [
-        "raw/B1_state_level_stdout.txt",
-        "raw/B2_certification_after_b3q_stdout.txt",
-        "raw/B2_certification_stdout.txt",
-        "raw/B3QC_lower_bound_stdout.txt",
-        "raw/B3Q_projection_stdout.txt"
-      ],
-      "cause": "PowerShell `>` redirection writes CRLF; `text` was unspecified so git stored LF",
-      "action": "one `git add --renormalize` on the container makes blob == worktree bytes for all files",
-      "no_registered_value_changed": "`git grep -l -F <sha256>` over both the LF and the CRLF variant of all five returned 0 hits for both variants"
+  "pin_sets": [
+    {
+      "file": "research/review_3080_20261010/d3_g0_evidence_root_v1/.gitattributes",
+      "content": "* -text",
+      "added_by_this_record": true,
+      "n_files_in_container": 36,
+      "measured_before_pin": {
+        "blob_eq_worktree_raw_bytes": 30,
+        "blob_ne_worktree_raw_bytes": 5,
+        "mismatched_files": [
+          "raw/B1_state_level_stdout.txt",
+          "raw/B2_certification_after_b3q_stdout.txt",
+          "raw/B2_certification_stdout.txt",
+          "raw/B3QC_lower_bound_stdout.txt",
+          "raw/B3Q_projection_stdout.txt"
+        ],
+        "cause": "PowerShell `>` redirection writes CRLF; `text` was unspecified so git stored LF",
+        "action": "one `git add --renormalize` on the container makes blob == worktree bytes for all files",
+        "no_registered_value_changed": "`git grep -l -F <sha256>` over both the LF and the CRLF variant of all five returned 0 hits for both variants"
+      },
+      "scoping_note": "directory-scoped pin; the sibling byte-container roots already follow this convention (pickup/.gitattributes, p0_next_stage_audit_root_v1/.gitattributes)"
     },
-    "scoping_note": "directory-scoped pin; the sibling byte-container roots already follow this convention (pickup/.gitattributes, p0_next_stage_audit_root_v1/.gitattributes)"
-  },
+    {
+      "file": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/.gitattributes",
+      "content": "three added lines, one per file (no blanket pattern)",
+      "added_by_this_record": [
+        "tests/test_d3_b3cf_submit_failures.py -text",
+        "simulation/strict_online_env.py -text",
+        "coldchain/coldchain_state.py -text"
+      ],
+      "n_pinned_before": 18,
+      "n_pinned_after": 21,
+      "measured_before_pin": {
+        "git_archive_vs_registered": {
+          "scripts/tests/test_d3_b3cf_submit_failures.py": {
+            "archived": "251e07dc0f52822c98dfaa3928150619d75f774aa8cbbfd909b5e7d3a5f14406",
+            "registered": "0303cb20b35bda9ff3791e15ddb9df934369a05e93f9c5c52d68f03adcb83a8d"
+          },
+          "scripts/simulation/strict_online_env.py": {
+            "archived": "b6db355ad8a4e6dfb4c7e0a252d9917cb7c437c5413df49ec1eca92a42825b89",
+            "registered": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+          },
+          "scripts/coldchain/coldchain_state.py": {
+            "archived": "d65ebb2030d54e08459768136ad7e799fd46ede9d6481bd7d31647a88b351290",
+            "registered": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e"
+          }
+        },
+        "blob_eq_worktree_raw_bytes": "all three (checked with `git hash-object --no-filters`), so the pin rewrites no existing blob",
+        "pre_existing_gap": "strict_online_env.py and coldchain_state.py were registered by OLDER records as well (02_配送线/文档组件/2026-10-09/IMMUTABLE_BASELINE.json, docs/当前规划/决策与审计/a1_audit_source_fingerprints_2026-09-28.json, docs/当前规划/文献组件/三线协议审计_2026-10-09/PROTECTED_BEFORE.json), which were therefore not archive-reproducible either; this pin fixes them too, without changing any blob"
+      },
+      "not_done_deliberately": "a blanket `*.py -text` under scripts/: 11 of the 438 tracked `*.py` files there currently hold CRLF in the worktree, so a blanket pin would rewrite their blobs (and 34 CRLF `*.sh` files are the reason the first pin set was narrow)"
+    }
+  ],
   "registered_byte_containers_b3cf": {
     "scripts": {
       "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3cf_submit_failures.py": "0303cb20b35bda9ff3791e15ddb9df934369a05e93f9c5c52d68f03adcb83a8d",
