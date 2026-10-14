@@ -94,7 +94,8 @@ def main():
     r['training_state_manifest'] = {
         'path': rel(sm), 'sha256': sha(sm), 'keys': sorted(j),
         'n_indices': len(j.get('inst_event', [])), 'carries_state_content': False,
-        'note': 'inst_event is a list of [inst,event] pairs only; no state content'}
+        'note': 'inst_event is a list of [inst,event] pairs only; no clock/served_mask/suffix/'
+                'vehicle fields'}
     r['data_identity'] = {rel(q): {'bytes': q.stat().st_size, 'sha256': sha(q)}
                           for q in sorted((EXT / 'data/m0_scale').glob('*')) if q.is_file()}
 
@@ -151,9 +152,10 @@ def main():
                 'scalar per-arm outcomes only',
                 'none of the %d checked registered snapshot fields is stored for any state'
                 % len(STATE_FIELDS),
-                'the 256 training-state indices in state_manifest.json carry no state content',
+                'the 256 training-state indices in state_manifest.json carry no state content '
+                'either',
                 'the sealed asset alone therefore cannot supply a state to F and D-Geo',
-                'the registered recoverability judgement already says: '
+                'the registered recoverability judgement already says '
                 'index_only_recovery_requires_a_new_execution, is_that_route_read_only=false, '
                 'authorised_this_round=false'],
         'not_done_deliberately': ['no state was replayed or re-derived',
