@@ -1,0 +1,198 @@
+{
+  "stage": "D3_G0_Evidence_B3QP_reviewer_closure",
+  "read_only": true,
+  "production_state_written": false,
+  "commit_modified": false,
+  "d8_relaxed": false,
+  "reviewer_verdicts": {
+    "conditional_implication_on_omega": "PROVEN",
+    "omega_enforced_at_submission": "NOT_ESTABLISHED",
+    "unconditional_question": "NOT_ESTABLISHED",
+    "as_a_property_of_the_env": "FALSIFIED"
+  },
+  "identities": {
+    "data_npz_sha256": "c35fa6834b8007922160f7979680c1fb8c6dda4d93309cd5ef509b57d83f20f1",
+    "profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
+    "effective_contract_hash": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+    "code": {
+      "scripts/simulation/d3_quality_lower_bound.py": "d525b0a1659acce6de767a93d4a04fb3a0eea528ab5a462c81fc9a2b7069a200",
+      "scripts/tests/test_d3_b3qp_closure.py": "879d8f3a6a053b9421ba465fc01ee9858c5699f55547f89089a921dbb19fa4b3",
+      "scripts/coldchain/coldchain_state.py": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e"
+    }
+  },
+  "results": [
+    {
+      "cid": "A1X",
+      "name": "A1X every write site of quality_remaining is enumerated and matches the expected set (v1 decay = 404/405/409 only; 489 is the v2 path)",
+      "ok": true,
+      "detail": {
+        "enumerated_lines": [
+          276,
+          404,
+          405,
+          409,
+          489
+        ],
+        "expected_lines": [
+          276,
+          404,
+          405,
+          409,
+          489
+        ],
+        "sites": [
+          {
+            "line": 276,
+            "expr": "float(initial_quality),"
+          },
+          {
+            "line": 404,
+            "expr": "lot.quality_remaining * math.exp(-rate * duration_h)"
+          },
+          {
+            "line": 405,
+            "expr": "min(lot.quality_remaining, max(0.0, quality_remaining))"
+          },
+          {
+            "line": 409,
+            "expr": "replace(..., quality_remaining=quality_remaining)"
+          },
+          {
+            "line": 489,
+            "expr": "replace(..., quality_remaining=float(new_val)"
+          }
+        ]
+      }
+    },
+    {
+      "cid": "RATE",
+      "name": "RATE the A2 evidence is taken from the PRODUCTION rate function (not a re-derivation): every rate temperature <= hard_upper for its class",
+      "ok": true,
+      "detail": {
+        "n_rate_calls": 2134,
+        "n_violations": 0,
+        "max_rate_temperature_c": 18.033300933043094,
+        "classes_seen": [
+          0,
+          1,
+          2
+        ],
+        "violations": []
+      }
+    },
+    {
+      "cid": "SIDE",
+      "name": "SIDE the tightened bound's side conditions are stated AND checked (ambient branch unreachable; ambient > hard_upper for some classes here)",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "ambient_branch_reachable": false,
+        "classes_where_ambient_exceeds_hard_upper": [
+          {
+            "temp_class": 1,
+            "hard_upper": 8.0,
+            "ambient": 25.0
+          },
+          {
+            "temp_class": 2,
+            "hard_upper": -12.0,
+            "ambient": 25.0
+          }
+        ],
+        "why": "ambient branch unreachable: the tightened bound is sound for every present class",
+        "note": "because ambient (25 C) exceeds the hard upper bound of classes 1 (8 C) and 2 (-12 C), the tightened bound is sound ONLY while those classes stay precooled"
+      }
+    },
+    {
+      "cid": "FORCE",
+      "name": "FORCE `_force_return_all` is instrumented: calls and the recorded return-arrival distribution are reported (the truncation is a known optimism, not a silent one)",
+      "ok": true,
+      "detail": {
+        "n_force_return_all_calls": 0,
+        "max_recorded_return_arrival_h": 15.969487830996513,
+        "depot_tw_end_h": 24.0,
+        "n_deliveries_after_depot_tw_end": 0,
+        "truncation_note": "_force_return_all advances the cold chain only to `depart` (strict_online_env.py:272) while recording the unload at `depart + travel` (:273), so the RECORDED delivered quality is more optimistic than the physics -- which WEAKENS (does not strengthen) the BND check that compares against recorded deliveries"
+      }
+    },
+    {
+      "cid": "COV",
+      "name": "COV coverage is stated in BOTH directions: bound rows cover N%% of delivered orders, and the unmatched counts are reported explicitly",
+      "ok": true,
+      "detail": {
+        "n_decision_points_captured": 14,
+        "n_delivered_orders": 50,
+        "n_bound_rows": 256,
+        "n_bound_orders": 32,
+        "n_matched": 32,
+        "coverage_fraction_of_delivered": 0.64,
+        "n_delivered_orders_never_bounded": 18,
+        "delivered_orders_never_bounded": [
+          4,
+          8,
+          10,
+          18,
+          19,
+          20,
+          24,
+          27,
+          28,
+          34,
+          35,
+          36,
+          37,
+          39,
+          41,
+          42,
+          44,
+          46
+        ],
+        "n_bounded_orders_never_delivered": 0,
+        "bounded_orders_never_delivered": [],
+        "n_bound_violations": 0,
+        "violations": [],
+        "why_incomplete": "the capture covers only the FIRST 14 decision points of the run, so later-revealed orders can never appear in a bound row"
+      }
+    },
+    {
+      "cid": "BIND",
+      "name": "BIND the bound is reported against the thresholds: does it ever classify an order unsalable? (if never, more search cannot help -- the payoff needs a tighter tau_max)",
+      "ok": true,
+      "detail": {
+        "per_class": {
+          "0": {
+            "min_ratio_lower_bound": 0.9315626811290251,
+            "threshold": 0.8
+          },
+          "1": {
+            "min_ratio_lower_bound": 0.941318726352177,
+            "threshold": 0.85
+          },
+          "2": {
+            "min_ratio_lower_bound": 0.9754048910856679,
+            "threshold": 0.9
+          }
+        },
+        "binds_any_threshold": false,
+        "per_class_binds": {
+          "0": false,
+          "1": false,
+          "2": false
+        },
+        "strategic_point": "k(T_max)*tau_max is ~0.07/0.06/0.02 for classes 0/1/2 at tau_max=24 h, so the ratios stay far above 0.8/0.85/0.9: the bound currently NEVER binds, and its certification payoff must come from a tighter tau_max (a separate, pre-declared derivation), not from more search"
+      }
+    },
+    {
+      "cid": "IQ",
+      "name": "IQ the not-yet-loaded start quality comes from the DATASET, not a hardcoded 1.0",
+      "ok": true,
+      "detail": {
+        "iq_sources": [
+          "env.initial_quality"
+        ],
+        "note": "hardcoding 1.0 was correct only because this dataset is 1.0 everywhere; on a dataset with initial_quality < 1 it would silently produce a bound above the true delivered quality"
+      }
+    }
+  ],
+  "all_pass": true
+}

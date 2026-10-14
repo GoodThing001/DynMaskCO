@@ -120,9 +120,13 @@ def omega_definition():
                                 'drift branch is out of Omega',
             'quality_model': 'v1 QualityConfig (first-order, per-class Arrhenius rate, ratio '
                              'thresholds)',
-            'precool_branch': 'lot.precooled = thermal.precooled and temp_class >= '
-                              'precool_min_temp_class (coldchain_state.py:261-262); both branches '
-                              'are IN Omega and A2 covers both via the ambient widening',
+            'precool_branch': ('lot.precooled = thermal.precooled and temp_class >= '
+                              'precool_min_temp_class (coldchain_state.py:261-262). CORRECTED '
+                              'after independent review: the ambient branch is NOT reachable under '
+                              'this configuration (precooled=True, floor=0, no class below the '
+                              'floor), so NO ambient widening is applied and T^max is the hard '
+                              'upper bound. The tightened form is sound only while that stays '
+                              'true -- see tightened_bound_side_conditions().'),
         },
         'membership_conditions': {
             'thermal': 'temperature_hard_feasible == True (no segment temperature outside '
@@ -219,6 +223,39 @@ def temperature_upper_bound(contract, temp_class, ambient_reachable=True):
                               else 'ambient branch unreachable: every lot is precooled')}
 
 
+def tightened_bound_side_conditions(contract, dataset=None):
+    """The UNSTATED conditions the tightened (no-ambient-widening) bound rests on.
+
+    The reviewer showed the tightened form is sound only because the present classes are all
+    precooled: here ambient (25 C) is ABOVE the hard upper bound of class 1 (8 C) and class 2
+    (-12 C), so any class that actually took the ambient branch would have a rate above
+    k(hard_upper) and the bound would be FALSIFIED for it.  Flipping `precool_min_temp_class`
+    to 1, or setting `precooled=False`, would silently break the bound while the code still
+    reported one.  These conditions are therefore checked explicitly, not assumed.
+    """
+    th = contract.thermal
+    ambient = float(th.ambient_temperature_c)
+    reachable, detail = ambient_branch_reachable(contract, dataset)
+    classes = (sorted({int(x) for x in np.asarray(dataset['temp_class']).ravel() if int(x) >= 0})
+               if dataset is not None and 'temp_class' in dataset
+               else [int(c) for c in th.supported_temp_classes])
+    risky = [{'temp_class': c,
+              'hard_upper': float(th.hard_temperature_bounds_c[c][1]),
+              'ambient': ambient}
+             for c in classes if ambient > float(th.hard_temperature_bounds_c[c][1])]
+    ok = (not reachable)
+    return {'ok': bool(ok), 'ambient_branch_reachable': reachable,
+            'ambient_branch_detail': detail,
+            'classes_where_ambient_exceeds_hard_upper': risky,
+            'why': ('the tightened bound is sound because the ambient branch is UNREACHABLE; if it '
+                    'became reachable for any class whose ambient exceeds its hard upper bound, the '
+                    'bound would be FALSIFIED for that class'
+                    if not ok else
+                    'ambient branch unreachable: the tightened bound is sound for every present class'),
+            'guard': ('re-check whenever thermal.precooled / precool_min_temp_class / '
+                      'ambient_temperature_c / the dataset temp classes change')}
+
+
 def remaining_time_upper_bound(env, inst_idx, clock):
     """`tw_end[0] - clock` (depot closing time), clamped at 0."""
     depot_tw_end = float(env.tw_end[inst_idx, 0])
@@ -231,10 +268,18 @@ def rate_upper_bound(contract, temp_class, t_max):
     return float(quality_rate_per_hour(int(temp_class), float(t_max), contract))
 
 
-def quality_lower_bound(contract, temp_class, q_start, tau_max, t_max=None):
-    """`q_start * exp(-k(T^max) * tau^max)`, with the v1 per-class Arrhenius rate."""
+def quality_lower_bound(contract, temp_class, q_start, tau_max, t_max=None,
+                        ambient_reachable=False):
+    """`q_start * exp(-k(T^max) * tau^max)`, with the v1 per-class Arrhenius rate.
+
+    `ambient_reachable` DEFAULTS TO FALSE on purpose.  The reviewer found that a default of True
+    silently applied the ambient widening the tightened design says is unnecessary, so a direct
+    call contradicted the design while still reporting a 'bound'.  Callers must state the
+    reachability decision explicitly (see `ambient_branch_reachable` + `tightened_bound_side_conditions`).
+    """
     if t_max is None:
-        t_max, _ = temperature_upper_bound(contract, temp_class)
+        t_max, _ = temperature_upper_bound(contract, temp_class,
+                                           ambient_reachable=ambient_reachable)
     k = rate_upper_bound(contract, temp_class, t_max)
     q_lb = float(q_start) * math.exp(-k * float(tau_max))
     thr = float(contract.quality.unsalable_quality_threshold[int(temp_class)])
@@ -275,12 +320,21 @@ def bound_for_state(env, inst_idx, clock, vehicles, plan, contract):
         if o in per_lot:
             continue
         c = int(env.dataset['temp_class'][inst_idx, o])
-        iq = 1.0
+        # reviewer finding: hardcoding 1.0 is correct ONLY because this dataset's initial_quality is
+        # 1.0 everywhere; on a dataset with initial_quality < 1 it would silently produce a bound
+        # ABOVE the true delivered quality.  Use the dataset value and record where it came from.
+        if 'initial_quality' in env.dataset:
+            iq = float(env.initial_quality[inst_idx, o])
+            iq_source = 'env.initial_quality'
+        else:
+            iq = 1.0
+            iq_source = 'default_1.0_initial_quality_absent'
         t_max, t_detail = temperature_upper_bound(contract, c,
                                                  ambient_reachable=amb_reachable)
         lb = quality_lower_bound(contract, c, iq, tau_max, t_max)
         lb.update({'order_id': int(o), 'source': 'not_yet_loaded', 'q_start': iq,
-                   'temp_class': c, 'initial_quality': iq, 'temperature_detail': t_detail,
+                   'temp_class': c, 'initial_quality': iq, 'iq_source': iq_source,
+                   'temperature_detail': t_detail,
                    'tau_detail': tau_detail, 'vehicle_id': None})
         rows.append(lb)
         per_lot[int(o)] = lb

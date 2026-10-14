@@ -18,7 +18,7 @@
 
 | 层次 | 裁定 |
 |---|---|
-| **条件性蕴含**（若轨迹 ω ∈ Ω，则下界成立） | ✅ **PROVEN**（A1/A2/A3 已由源码闭合；A4 由 Ω 的成员条件给出；F-a 已闭合，F-c 已闭合） |
+| **条件性蕴含**（若轨迹 ω ∈ Ω，则下界成立） | ✅ **PROVEN**，但**附四条显式副条件**（见 §2/A4 与 §6）。独立复核确认此条并指出它**不是所问的问题** |
 | **Ω 成员性在生产提交入口被强制执行** | ❌ **NOT_ESTABLISHED**——**没有任何生产提交入口执行这些硬门**；它们只在**事后评估层**被计算（见 §3.4）。这正是你特别提醒的那一点 |
 | **总体问题（"对所有允许轨迹"）** | **`NOT_ESTABLISHED`** —— 因为"某次真实执行属于 Ω"目前只是**事后分类**，不是提交时的**保证** |
 
@@ -76,10 +76,12 @@
 - **证明**：`d(exponent)/dT = activation_over_R / T² > 0`（`activation_over_R=(3500,4500,5500) > 0`，`T>0` 由 `:137-138` 保证），`exp` 单调 ⇒ `k` 对 T 严格递增。
 - **数值核对**：三类温区在 `[hard_low, hard_high] ∪ {ambient}` 上取 11 点，全部非减（`A3` PASS）。
 
-### A4 —— Ω 上的在舱时长 ≤ `τ^max` ⚠️ 条件成立，**生产保证未建立**
-- **锚点**：返仓上限 `tw_end[0]` 被两处使用：`certify_route:198-202`（计划期 `return_slack`）与终端评估器的 `depot_return_violation`（`coldchain_evaluator_a1`）。
+### A4 —— Ω 上的在舱时长 ≤ `τ^max` ⚠️ 条件成立，**生产保证未建立**（表述与锚点已按独立复核更正）
+- **锚点更正**：`certify_plan` **根本没有引用 `tw_end[0]`**（此前被误引为 A4 的锚点）。返仓上限 `tw_end[0]` 的实际使用点是 `certify_route:198-202`（计划期 `return_slack`）与终端评估器的 `depot_return_violation`。
+- **表述更正**：交付记录在**返仓到达参数**处生成（`coldchain_state.py:286-291`，`_delivery_record` 用 `end_time`）。故对**已在舱** lot，正确说法是"装货→交付时长 ≤ `tw_end[0] − now`（对任意 `now ≤ t_load`）"，即**被 `τ^max` 界定且严格小于它**，而**不是**"从 now 到交付的在舱时长"。
 - **证明（条件性）**：`τ^max = tw_end[0] − now`。对**已在舱** lot：`t_load ≤ now`，交付 = 返仓到达 ≤ `tw_end[0]`（Ω 成员条件）⇒ 在舱时长 ≤ `τ^max` ✓。对**尚未取货**订单：`t_load ≥ now` ⇒ 在舱时长 = `t_delivery − t_load ≤ tw_end[0] − now = τ^max` ✓。
 - **未建立的部分**：见 §3.4——**没有任何生产提交入口强制"返仓 ≤ tw_end[0]"**，因此"提交的计划会属于 Ω"不是保证，而是事后分类。**这是 A4 唯一未闭合处。**
+- ⚠️ **独立复核新增发现（作者原未报告）**：`_force_return_all`（`strict_online_env.py:658-664`）把 `v.return_finish` 设为 `depart + travel`（`:273`），却只把冷链推进到 `depart`（`:272`），随后 `_advance_fleet(..., finish, ...)` 以 `depart_time=arrival_time=service_finish=finish` 关闭货物（`:391-402`）⇒ **记录到的卸载发生在出发时刻，比物理早一个返仓行驶时间**。对界**保守**，但它**静默截断了记录物理中的货物衰减**：**记录**品质因此比物理**更乐观**，这会**削弱**（而非加强）拿交付记录做交叉检验的 `BND`。实测本实例 `_force_return_all` **0 次调用**，最大返仓到达 15.97 h vs `tw_end[0]=24 h`，0 次迟返。
 
 ### A5 —— Ω 由硬门定义 ⇒ 下界以硬门为条件 ⚠️ **生产端强制缺失**
 - **锚点**：`hard_gate.py:104-129`（`hard_vector_from_outcome` / `hard_pass`）、`:20-101`（`outcome_protocol_error`）；`coldchain_evaluator.py:358`（`temperature_hard_feasible`）。

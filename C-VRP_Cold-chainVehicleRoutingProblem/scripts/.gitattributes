@@ -49,3 +49,10 @@ tests/test_d3_b3q_quality_projection.py -text
 #   scripts/tests/test_d3_b3qc_lower_bound.py              3e246342f6d69c5611d8566139a539897187d0b88a5d19bff80a5bdf48a20d67
 simulation/d3_quality_lower_bound.py -text
 tests/test_d3_b3qc_lower_bound.py -text
+
+# Added by D3-G0 Evidence B3-QP (2026-10-14): re-pin of the fixed lower-bound module and the
+# reviewer-closure suite, whose registered sha256 appear in B3QP_CLOSURE_MATRIX.json.
+#   scripts/simulation/d3_quality_lower_bound.py           d525b0a1659acce6de767a93d4a04fb3a0eea528ab5a462c81fc9a2b7069a200
+#   scripts/tests/test_d3_b3qp_closure.py                  879d8f3a6a053b9421ba465fc01ee9858c5699f55547f89089a921dbb19fa4b3
+simulation/d3_quality_lower_bound.py -text
+tests/test_d3_b3qp_closure.py -text
