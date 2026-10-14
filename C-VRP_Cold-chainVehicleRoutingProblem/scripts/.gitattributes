@@ -16,3 +16,11 @@ tests/test_d3_g0_green_phase.py -text
 tests/test_d3_geo_adapter.py -text
 tests/test_d3_adapter_risks.py -text
 tests/test_d3_assembly_invariants.py -text
+# Added by D3-G0 Evidence B1 (2026-10-14).  Without a pin, a fresh checkout injects CRLF
+# (core.autocrlf=true) and the registered sha256 are NOT reproducible: measured for
+# d3_state_assembly.py, git archive produced 20098 bytes vs 19707 in the worktree (391 CR).
+# The pinned d3_geo_adapter.py exported byte-identically (41770 == 41770), so the pin works.
+#   scripts/simulation/d3_state_assembly.py   03fa7c164b269910cd33011de2a0f6017a97ce5bf1832a788ebbd81032545874
+#   scripts/tests/test_d3_b1_state_level.py   8720109b621d6f39b847e356f6a4364edfb1c5dd003c2a8188757e7b8c07ef34
+simulation/d3_state_assembly.py -text
+tests/test_d3_b1_state_level.py -text
