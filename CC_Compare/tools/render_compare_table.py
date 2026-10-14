@@ -8,9 +8,52 @@
     python CC_Compare/tools/render_compare_table.py --data <json> --outdir <dir>
 """
 import argparse
+import glob
 import json
 import os
 import sys
+
+HERE_R = os.path.dirname(os.path.abspath(__file__))
+CC_ROOT = os.path.dirname(HERE_R)
+
+
+def _gate_key(p):
+    """gate 路径 → 稳定键 `a1_ext_formal2/mapt_0` 形式（供与审计矩阵对齐）。
+
+    与 `audit_qualification_matrix.py` 用**同一规则**（取 `gate.json` 所在目录的最后两级），
+    否则两边对不上、资格列会静默变 `—`。
+    """
+    parts = str(p or '').replace('\\', '/').rstrip('/').split('/')
+    if parts and parts[-1] == 'gate.json':
+        parts = parts[:-1]
+    return '/'.join(parts[-2:])
+
+
+def load_audit_matrix():
+    """读 P0 独立资格矩阵（若存在）→ {(gate_key, p_c): row}。
+
+    **单一事实来源**：资格列一律来自这份只读审计产物，不在渲染器里重算，
+    也不采信运行器自报的 `formal_adjudication`。矩阵缺失时资格列渲染为 `—`
+    （宁可显示"未知"，也不假装合格）。
+    """
+    cands = sorted(glob.glob(os.path.join(CC_ROOT, 'audit',
+                                          'BASELINE_QUALIFICATION_MATRIX_*.json')))
+    if not cands:
+        return {}, None
+    try:
+        d = json.load(open(cands[-1], encoding='utf-8'))
+    except Exception:                                        # noqa: BLE001
+        return {}, None
+    out = {}
+    for r in d.get('arms') or []:
+        # ⚠️ 只索引**方法臂 / Ours 行**：矩阵里同一个 gate 还含 3 个内部基线臂
+        # （cond_hist / uncond_hist / explicit_feat）。若按 (gate, p_c) 无差别索引，
+        # 后写入的基线行会覆盖方法行 ⇒ 表里会出现"方法臂 Q_core=否"的**假失败**
+        # （2026-10-14 实测踩到：SGBS/I3 都被渲染成 DIAGNOSTIC）。
+        if r.get('role') not in ('method', 'ours'):
+            continue
+        out[(_gate_key(r.get('gate_path')), r.get('p_c'))] = r
+    return out, os.path.basename(cands[-1])
 
 MAIN_ARM_DIRS = ('cada_0_f', 'cada_51015_f')
 BASELINE_ORDER = ['cond_hist', 'uncond_hist', 'explicit_feat']
@@ -25,18 +68,26 @@ BASELINE_ORDER = ['cond_hist', 'uncond_hist', 'explicit_feat']
 MAIN_MODEL_ARMS = ('maskco', 'warmstart', 'reconstruction_control', 'a1_rollout',
                    'cond_hist', 'explicit_feat', 'uncond_hist')
 
-# ⚠️ **两个开关，别只改一个**（2026-10-13 明确，此前只有 `MAIN_MODEL_ARMS` 被文档提到）：
-#   - `MAIN_MODEL_ARMS`   → 控制**哪些臂出现在 §0 Ours 摘要 / §3 主模型与内部臂 / Excel
-#                           「主模型与内部臂」sheet**（过滤函数 `filter_main_model`）；
-#   - `OURS_BLOCK_ARMS`   → 控制**Excel「性能总表」末尾那几行 `Ours: …`**（`build_ours_rows`）。
-# 两者是**不同的展示位**：前者含内部基线（cond_hist 等）与对照臂，后者只放代表本工作的臂
-# （标签写成 `Ours: <arm> [tag]`），因此不能混为一谈、也不要求集合相同。
-# 若你把新臂加进 `MAIN_MODEL_ARMS` 却发现 Excel 的 `Ours:` 行没变 —— 那是**预期**，
-# 需要在 `OURS_BLOCK_ARMS` 里再登记一次。
-OURS_BLOCK_ARMS = ('maskco', 'warmstart', 'reconstruction_control')
+# ⚠️ **控制点只有一个**（2026-10-14 重构后）：
+#   - `MAIN_MODEL_ARMS`    → 控制**哪些臂进 §0 Ours 摘要 / §3 主模型与内部臂 / Excel
+#                            「主模型与内部臂」sheet**（过滤函数 `filter_main_model`）；
+#   - `OURS_TABLE_SPECS`（见下方）→ 控制**交付主表（§1 / Excel 性能总表）里出现哪 1–2 行 Ours**。
+# 旧版还有第三个开关 `OURS_BLOCK_ARMS`（把主模型记录铺成「表尾 Ours 块」）——
+# 那正是用户 2026-10-14 指出的问题（30 行堆在表尾、不像「一个最终结果」），**已删除**。
+# 现在主表里 Ours 与基线**同表**：仅 A3 / I3 两行，档位并成列。
 
 
 DEV_SEED = 20260926
+DEV_SEED_STR = str(DEV_SEED)
+
+# 交付主表里允许出现的 Ours 行（**只有这两个配置**）：
+#   (显示名, 用于在 main_model 里筛选 gate 的子串, 是否钉在冻结开发集那一次运行上)
+# 其余主模型记录一律进「主模型与内部臂」附录 sheet。2026-10-14 用户明确要求：
+# 「我们的模型应该有**一个**最终结果，而不是那么多行」。
+OURS_TABLE_SPECS = (
+    ('Ours: MaskCO A3（掩码重构 · 预训练权重）', 'a1_a3_online_density_', True),
+    ('Ours: MaskCO I3（决策感知）', 'i3_online_recovery', False),
+)
 
 
 def _is_dev_gate(r):
@@ -107,37 +158,241 @@ def pct_fallback(rec):
 
 
 def build_ours_rows(data):
-    """主模型（Ours）行，放进性能总表末尾（对齐参考表的「Ours 占最后一行」格式）。
+    """【已废弃，2026-10-14】旧版把主模型记录铺成「表尾 Ours 块」，现由 `canonical_ours` 取代。
 
-    口径提醒：这些行来自**主模型侧自己的 gate**（不同 driver/standby 设置），
-    `Δ` 列给的是**该 gate 内的配对差**（maskco − cond_hist），不是对 c1rr2 的配对差。
+    保留函数体只为让历史调用点报错时看得懂来源；**新代码不要用**：
+    它会为**每一条** (gate, 档位) 记录产出一行（3 配置 × 3 次运行 × 档位 = 27 行 + 内部三臂），
+    正是用户反馈的「我们模型怎么有那么多行」。
     """
-    ours = []
-    for r in filter_main_model(data):
-        if r['arm'] not in OURS_BLOCK_ARMS:
+    raise RuntimeError('build_ours_rows 已废弃：请用 canonical_ours / delivered_rows '
+                       '（2026-10-14 起交付主表只出 1–2 行 Ours）')
+
+
+def _row_from_records(recs, label, cls, native, venue='本工作'):
+    """把**同一个 gate 的多个档位记录**压成**一行**（档位作列）。
+
+    这是「每个方法一行」的关键：主模型的 gate 里 `p_c=0` / 主档 / `p_c=(10,20,30)`
+    是三条独立记录，必须合并成一行，否则就会出现「一个配置铺三行、每行只填一档」的空洞。
+    """
+    by_pc = {}
+    for r in recs:
+        by_pc.setdefault(r['p_c'], r)
+
+    def U(pc):
+        v = ((by_pc.get(pc) or {}).get('reported_utility') or {})
+        return v if v.get('mean') is not None else None
+
+    def D(pc):
+        rec = by_pc.get(pc) or {}
+        d = (rec.get('main_comparison') or {}).get('%s_minus_cond_hist' % rec.get('arm'))
+        return d if (d or {}).get('mean') is not None else None
+
+    def R(pc, k):
+        return ((by_pc.get(pc) or {}).get('reported') or {}).get(k)
+
+    def M(pc):
+        return ((by_pc.get(pc) or {}).get('solver_meta') or {}).get('max_decide_s')
+
+    gate = str((recs[0] or {}).get('gate') or '')
+    return dict(
+        key=label, label=label, cls=cls, venue=venue,
+        gate=gate, arm=(recs[0] or {}).get('arm'),
+        # 交付 Ours 行的**资格事实**（2026-10-14 独立复核发现其必须随表披露）：
+        # 主模型 gate 自身也有 mean_timeouts 与 _pairing_identity 裁决。
+        pairing_identity=(recs[0] or {}).get('pairing_identity') or {},
+        source_stable=(recs[0] or {}).get('identity_source_stable'),
+        backbone=gate.replace('results/', '').split('/')[0] or '—',
+        native=native, note='gate `%s`' % gate,
+        ckpt_mb=None, params_m=None,
+        util0=U('p_c=0'), utilm=U('p_c=(5,10,15)'), util3=U('p_c=(10,20,30)'),
+        diff0=D('p_c=0'), diffm=D('p_c=(5,10,15)'), diff3=D('p_c=(10,20,30)'),
+        hfr0=R('p_c=0', 'hard_feasible_rate'), hfrm=R('p_c=(5,10,15)', 'hard_feasible_rate'),
+        fb0=None, fbm=None,
+        to0=R('p_c=0', 'mean_timeouts'), tom=R('p_c=(5,10,15)', 'mean_timeouts'),
+        md0=M('p_c=0'), mdm=M('p_c=(5,10,15)'),
+        served0=R('p_c=0', 'mean_served'), servedm=R('p_c=(5,10,15)', 'mean_served'),
+        energy0=R('p_c=0', 'mean_energy_kwh'),
+        is_ours=True,
+    )
+
+
+def canonical_ours(data):
+    """交付主表里**只留两行 Ours**：A3（掩码重构 · 预训练权重）与 I3（决策感知）。
+
+    2026-10-14 用户明确要求后重构。此前 `build_ours_rows()` 把**每一条主模型 gate 记录**
+    都渲染成一行 ⇒ 3 个配置 × 3 次重复运行 × 3 个档位 = 27 行，再加内部三臂 = **30 行**
+    铺在表尾。「我们的模型有那么多行」不是因为有 30 个结果，而是**渲染粒度错了**：
+    那是消融配置与重复运行，不是「最终结果」。
+
+    ⇒ 现在：主表只出**最终结果**（两个并列配置各一行、档位并成列），
+    其余记录进「主模型与内部臂」附录 sheet（见 `md_main_model` 与 Excel 同名 sheet）。
+    """
+    mm = [r for r in data.get('main_model', [])
+          if _is_dev_gate(r) and r.get('arm') == 'maskco']
+    out = []
+    for label, sub, pin_dev in OURS_TABLE_SPECS:
+        cand = [r for r in mm if sub in str(r.get('gate'))]
+        if pin_dev and cand:
+            # 钉在**冻结开发集**（seed 20260926）那一次运行上：同名配置在 0930/10001 还有
+            # 重复运行（数值略不同，如 B 组 1582.0 vs 1577.9）。交付数字必须来自冻结开发集，
+            # 否则同一次交付里会混进不同日期的运行。
+            pinned = [r for r in cand if DEV_SEED_STR in str(r.get('gate'))]
+            cand = pinned or cand
+        if not cand:
             continue
-        cfg = r['config'] or {}
-        gate_short = r['gate'].replace('results/', '').split('/')[0]
-        cfg2 = (r['config'] or {}).get('arm')
-        model = (cfg.get('model_bin') or '').split('/')[-2] if cfg.get('model_bin') else ''
-        tag = 'A3-%s' % (model or 'a3') if 'a3_' in str(cfg.get('model_bin')) else (
-            'I3-%s' % (model or 'i3'))
-        ours.append(dict(
-            label='Ours: %s [%s]' % (r['arm'], tag),
-            cls='主模型/内部臂', venue='本工作', backbone=gate_short,
-            native='接/拒 + 掩码重构',
-            p_c=r['p_c'],
-            util=r.get('reported_utility'),
-            paired=(r.get('main_comparison') or {}).get('%s_minus_cond_hist' % r['arm']),
-            timeouts=(r.get('reported') or {}).get('mean_timeouts'),
-            source_stable=r.get('identity_source_stable'),
-            gate=r['gate'],
-        ))
-    # 按档位、再按 utility 降序
-    order = {'p_c=0': 0, 'p_c=(5,10,15)': 1}
-    ours.sort(key=lambda x: (order.get(x['p_c'], 9),
-                             -(x['util'] or {}).get('mean', -1e18)))
-    return ours
+        gates = {}
+        for r in cand:
+            gates.setdefault(str(r['gate']), []).append(r)
+
+        def score(recs):
+            u0 = ((next((x for x in recs if x['p_c'] == 'p_c=0'), None) or {})
+                  .get('reported_utility') or {}).get('mean')
+            um = ((next((x for x in recs if x['p_c'] == 'p_c=(5,10,15)'), None) or {})
+                  .get('reported_utility') or {}).get('mean')
+            return (u0 if u0 is not None else -1e18,
+                    um if um is not None else -1e18)
+
+        # A3 组按 p_c=0 选最强配置（B/C/D 三个训练配置里选 B）；
+        # I3 组只有一个 gate，按主档选即可。
+        best = max(gates, key=lambda g: score(gates[g])[0] if pin_dev else score(gates[g])[1])
+        out.append(_row_from_records(gates[best], label, '主模型/内部臂',
+                                     '接/拒 + 掩码重构'))
+    return out
+
+
+def canonical_c1(data):
+    """C1 基线（cond_hist）也占**同一张主表的一行**，让表自洽可读（不必去翻别处找基线）。"""
+    b = data.get('baseline_arms') or {}
+
+    def U(pc):
+        v = ((b.get('%s|cond_hist' % pc) or {}).get('utility') or {})
+        return v if v.get('mean') is not None else None
+
+    if U('p_c=0') is None and U('p_c=(5,10,15)') is None:
+        return None
+    base = str((data.get('generated_from') or {}).get('baseline') or '')
+    zero = {'mean': 0.0, 'ci_lo': 0.0, 'ci_hi': 0.0}
+    return dict(
+        key='cond_hist', label='C1 cond_hist（SAA 强基线）', cls='内部基线',
+        venue='本工作', backbone=os.path.basename(os.path.dirname(base.replace('\\', '/'))) or '—',
+        native='场景采样 SAA', note='Δ 相对自身 ⇒ 0',
+        ckpt_mb=None, params_m=None,
+        util0=U('p_c=0'), utilm=U('p_c=(5,10,15)'), util3=U('p_c=(10,20,30)'),
+        diff0=zero, diffm=zero, diff3=None,
+        hfr0=None, hfrm=None, fb0=None, fbm=None, to0=None, tom=None,
+        md0=None, mdm=None, served0=None, servedm=None, energy0=None,
+        is_baseline=True,
+    )
+
+
+def delivered_rows(data):
+    """交付主表的**唯一**行序列：C1 基线 + 19 个对比方法 + 恰好 2 行 Ours，全部同表按 p_c=0 排序。
+
+    ⇒ 主模型与基线**在同一张表里**（用户要求），而不是单独成块铺在表尾；
+    ⇒ 每个方法恰好一行（档位作列），大幅消除空格。
+    """
+    out = []
+    c1 = canonical_c1(data)
+    if c1:
+        out.append(c1)
+    methods = build_rows(data)
+    ours = canonical_ours(data)
+
+    def u0(r):
+        return (r.get('util0') or {}).get('mean')
+
+    methods.sort(key=lambda r: -(u0(r) if u0(r) is not None else -1e18))
+    # Ours 行内部：有 p_c=0 的排在前（A3），没有的（I3 只有主档）紧随其后。
+    ours.sort(key=lambda r: -(u0(r) if u0(r) is not None else -1e18))
+    out.extend(methods)
+
+    # 把**整块 Ours** 插到「首行 Ours 按其 p_c=0 应在的位置」，而不是让它散落在表尾：
+    # 之前 I3 因为**没有 p_c=0 档**被排到全表最后一行，看起来像被孤立 —— 那正是用户抱怨的
+    # 「Ours 不和基线放在一起」。现在 A3 紧跟在 C1 之下，I3 紧贴 A3。
+    anchor = u0(ours[0]) if ours else None
+    idx = len(out)
+    if anchor is not None:
+        idx = sum(1 for r in out if u0(r) is not None and u0(r) > anchor)
+    ordered = out[:idx] + ours + out[idx:]
+    audit, audit_name = load_audit_matrix()
+    for r in ordered:
+        annotate_qualification(r, audit, audit_name)
+    return ordered
+
+
+def annotate_qualification(r, audit, audit_name=None):
+    """给每一行贴上**资格分层**字段（2026-10-14 用户要求：资格必须写在行上，不能只藏脚注）。
+
+    字段语义（`comparison_status` 的构词法）：
+        <资格层> / <相对 C1 的方向>
+    资格层 ∈ {QUALIFIED, QUALIFIED-TIMEOUT, DEGENERATE, DIAGNOSTIC, UNKNOWN}
+    方向   ∈ {NEGATIVE, ...}（本表中全部对比方法都低于 C1 基线；Ours I3 亦为 NEGATIVE）
+
+    ⚠️ 取**主档** `p_c=(5,10,15)` 优先（正式论文的主结论口径），无主档才回落到 `p_c=0`。
+    """
+    r['protocol_id'] = '—'
+    r['Q_core'] = None
+    r['paired_source_identity'] = '—'
+    r['comparison_status'] = '—'
+    r['audit_source'] = audit_name
+    if not audit:
+        return r
+
+    src = r.get('gate') or ''
+    if r.get('a0') is not None:
+        src = (r['a0'] or {}).get('gate_path') or src
+    elif r.get('am') is not None:
+        src = (r['am'] or {}).get('gate_path') or src
+    gk = _gate_key(src)
+    hit = audit.get((gk, 'p_c=(5,10,15)')) or audit.get((gk, 'p_c=0'))
+    if not hit:
+        return r
+
+    q = hit.get('Q') or {}
+    core = q.get('Q_formal_core')
+    r['Q_core'] = core
+    ident = hit.get('identity_verified')
+    probs = hit.get('identity_problems') or []
+    if q.get('Q_identity') is None:
+        r['paired_source_identity'] = '不适用（纯规则臂）'
+    elif ident is True:
+        r['paired_source_identity'] = '同源'
+    elif ident is False:
+        r['paired_source_identity'] = '跨源（%s）' % ('、'.join(probs) or 'identity_failed')
+    else:
+        r['paired_source_identity'] = '—'
+
+    if r.get('is_ours'):
+        r['protocol_id'] = gk.replace('results/', '')
+    else:
+        _bf = ''
+        for _rec in (r.get('a0'), r.get('am')):
+            if _rec and _rec.get('baseline_from'):
+                _bf = str(_rec['baseline_from'])
+                break
+        r['protocol_id'] = (os.path.basename(os.path.dirname(_bf.replace('\\', '/')))
+                            if _bf else '—')
+
+    to = r.get('tom') if r.get('tom') is not None else r.get('to0')
+    nd = (hit.get('independent') or {}).get('sum_n_served')
+    if nd == 0:
+        layer = 'DEGENERATE'
+    elif core is True:
+        layer = 'QUALIFIED-TIMEOUT' if (to or 0) > 0 else 'QUALIFIED'
+    elif core is False:
+        # 身份未过（跨源）⇒ 诊断层；用户指定写法见 goal (B)
+        layer = 'DIAGNOSTIC' if ident is False else 'DIAGNOSTIC'
+    else:
+        layer = 'UNKNOWN'
+    if r.get('is_ours') and ident is False:
+        r['comparison_status'] = 'DIAGNOSTIC / CROSS-SOURCE'
+    elif r.get('is_ours'):
+        r['comparison_status'] = '%s / NEGATIVE' % (
+            'QUALIFIED DEVELOPMENT' if core is True else layer)
+    else:
+        r['comparison_status'] = '%s / NEGATIVE' % layer
+    return r
+
 
 
 def build_rows(data):
@@ -202,43 +457,56 @@ def build_rows(data):
 
 
 def md_main_table(data, rows):
+    """§1 主表：**C1 基线 + 19 个对比方法 + 2 行 Ours，同一张表**（按 p_c=0 降序）。
+
+    2026-10-14 重构（用户反馈三点：Ours 不该单独成块铺 30 行、主模型该只有一个结果、
+    空格太多）：列也一并精简 —— 去掉填充率极低的 `fallback%` / `最大单决策(s)` /
+    `权重(MB)`，只留每次比对都要读的字段。
+    """
     L = []
-    L.append('| # | 方法 | 类别 | 来源 | Backbone / 权重 | 参数量(M) | 权重(MB) | 原生约束 | Utility p_c=0 ↑ | Utility 主档 p_c=(5,10,15) | '
-             'Utility p_c=(10,20,30) | Δ vs cond_hist (p_c=0) | Δ vs cond_hist (主档) | '
-             '硬可行率 | fallback% | 超时/天 | 最大单决策(s) |')
-    L.append('|---|---|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|')
+    L.append('| # | 方法 | 比较状态 | Q_core | 配对来源身份 | protocol_id | 类别 | 期刊/会议 | '
+             'Backbone / 权重 | 参数量(M) | 原生约束 | '
+             'Utility p_c=0 ↑ | Utility 主档 p_c=(5,10,15) | Utility p_c=(10,20,30) | '
+             'Δ vs cond_hist (p_c=0) | Δ vs cond_hist (主档) | '
+             '超时/天 p_c=0 | 超时/天 主档 | 硬可行率 p_c=0 | 服务单/天 p_c=0 | 能耗 kWh/天 p_c=0 | 备注 |')
+    L.append('|---|---|---|---|---|---|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|')
     for i, r in enumerate(rows, 1):
-        L.append('| %d | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |' % (
-            i, r['label'], r['cls'], r['venue'], r['backbone'],
-            fnum(r.get('params_m'), 3), fnum(r.get('ckpt_mb'), 2), r['native'],
+        tag = '★ ' if r.get('is_ours') else ('◆ ' if r.get('is_baseline') else '')
+        _qc = r.get('Q_core')
+        L.append('| %d | %s%s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |' % (
+            i, tag, r['label'],
+            r.get('comparison_status') or '—',
+            '—' if _qc is None else ('是' if _qc else '**否**'),
+            r.get('paired_source_identity') or '—',
+            r.get('protocol_id') or '—',
+            r['cls'], r['venue'], r['backbone'],
+            fnum(r.get('params_m'), 3), r['native'],
             fci(r['util0']), fci(r['utilm']), fci(r['util3']),
             fci(r['diff0']), fci(r['diffm']),
+            fnum(r['to0'], 2), fnum(r['tom'], 2),
             fnum(r['hfr0'], 3),
-            fpc(r['fb0']),
-            fnum(r['to0'], 2),
-            fnum(r['md0'], 2)))
-    ours = build_ours_rows(data)
-    if ours:
-        L.append('| | **—— Ours / 主模型侧（来自主模型自己的 gate；Δ 为该 gate 内配对差）——** | | | | | | | | | | | | | | | |')
-        for r in ours:
-            u = r['util'] or {}
-            pr = r['paired'] or {}
-            L.append('| ★ | %s | %s | %s | %s | — | — | %s | %s | — | — | %s | — | — | — | %s | — |' % (
-                r['label'], r['cls'], r['venue'], r['backbone'], r['native'],
-                fci(u), fci(pr) if pr.get('mean') is not None else '—',
-                fnum(r['timeouts'], 2)))
+            fnum(r['served0'], 1), fnum(r['energy0'], 1),
+            r.get('note') or ''))
     return '\n'.join(L)
 
 
 def md_main_model(data):
+    """附录：**全部**主模型 / 内部臂记录（含消融与重复运行）。
+
+    ⚠️ 这里与 §1 主表的分工（2026-10-14 用户要求后明确）：§1 每个方法**只出一行**最终结果
+    （主模型只出 A3 / I3 两行）；本附录保留其余记录，并在第一列标出哪些是交付行、
+    哪些是**消融 / 重复运行 / 内部臂** —— 证据不丢，但不再混进主表。
+    """
+    delivered = {(r.get('gate'), r.get('arm')) for r in canonical_ours(data)}
     L = []
-    L.append('| gate | 档位 | 臂 | utility | 超时/天 | 身份块 | source_stable | future_policy | standby | workers | 配对身份 |')
-    L.append('|---|---|---|---:|---:|---|---|---|---|---|---|')
+    L.append('| 交付行？ | gate | 档位 | 臂 | utility | 超时/天 | 身份块 | source_stable | future_policy | standby | workers | 配对身份 |')
+    L.append('|---|---|---|---|---:|---:|---|---|---|---|---|---|')
     for r in filter_main_model(data):
         u = r.get('reported_utility') or {}
         sm = r.get('reported') or {}
-        L.append('| `%s` | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |' % (
-            r['gate'], r['p_c'], r['arm'],
+        mark = '★ 是' if (r['gate'], r['arm']) in delivered else '否（消融/重复/内部臂）'
+        L.append('| %s | `%s` | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |' % (
+            mark, r['gate'], r['p_c'], r['arm'],
             fci(u) if u.get('mean') is not None else '—',
             fnum(sm.get('mean_timeouts'), 2),
             '有' if r['identity_present'] else '无',
@@ -275,6 +543,48 @@ def md_table_notes(rows):
                      '解码/搜索用法，**不是三个独立训练的模型**。见 §2.4。')
     notes.append('- ※ 引用任何数字时**必须同时报告** `mean_timeouts`、`hard_feasible_rate` 与'
                  '设备/解释器（同一方法在 cpu/cuda 下速度差异可达数量级，直接影响超时）。')
+    # ---- 2026-10-14 独立审计新增的两条**关键限定**（见 CC_Compare/audit/）----
+    # 1) p_c 不进入决策规则：源码实测 run_a1_external_accept.py:143-167 每天只跑一次 env.run(i)，
+    #    再用同一组 acc/rej 对每个罚分档重新评分；OrderingAcceptReplanner.__init__ 根本没有 p_c 形参。
+    notes.append('- ※ **主档列是「同一策略的惩罚重评分」，不是「策略对惩罚的响应」**：'
+                 '接拒 replanner 的构造**不接收 `p_c`**（`run_a1_external_accept.py:127-130`、'
+                 '`rrnco_accept_replanner.py:48-49`），故档间差异**不可能**来自策略调整，'
+                 '只能来自评分函数。（本批各档是**分别运行**的两次，因此 `LIH`/`DeepACO` 这类'
+                 '跨次不可复现的方法还可能混入运行噪声。）'
+                 '若要真正的惩罚敏感性，需让决策规则使用 `p_c` 并逐档重跑（属新协议，不得追认）。'
+                 '依据：`CC_Compare/audit/INDEPENDENT_READONLY_ADJUDICATION_2026-10-14.md` §二-问题 2。')
+    # 3) **Ours 行自身的资格事实**（2026-10-14 独立复核新增，**数据驱动**、每次渲染自证）：
+    #    主模型 gate 也有 mean_timeouts 与 _pairing_identity；此前表里只给外部臂打 †，
+    #    会让读者以为 Ours 行干净 —— 实测恰恰相反。
+    _ours = [r for r in rows if r.get('is_ours')]
+    if _ours:
+        _bits = []
+        for r in _ours:
+            _pi = (r.get('pairing_identity') or {})
+            _pb = ('，问题=%s' % '、'.join(_pi.get('problems') or [])) if _pi.get('problems') else ''
+            _bits.append('**%s**（超时/天 = %s，配对身份 = %s%s）'
+                         % (r['label'],
+                            fnum(r.get('to0') if r.get('to0') is not None else r.get('tom'), 2),
+                            _pi.get('identity_verified'), _pb))
+        notes.append('- ※ **Ours 行同样受 CPU 争用影响，且其中一行配对身份未通过 —— '
+                     '引用主模型结果时必须与外部臂一样带限定**：' + '；'.join(_bits)
+                     + '。作为对比，对比方法臂的正式批次中**除上表 † 标出的 6 个之外'
+                     '全部 `超时/天 = 0.0`**。（注意「方法数」与「臂数」不同：'
+                     '方法按行计，臂按 (方法 × 档位) 计。）'
+                     '依据：`CC_Compare/audit/BASELINE_QUALIFICATION_MATRIX_2026-10-14.json`。')
+    # 5) **结论口径**：正式论文的主结论以**主档**为准（2026-10-14 用户要求）
+    notes.append('- ※ **结论口径：正式论文的主结论以主档 `p_c=(5,10,15)` 为准**；'
+                 '`p_c=0` 是**敏感性结果**，不得因为它的绝对效用更高就充当头条贡献证据。'
+                 '本表按 p_c=0 排序仅为呈现习惯，不代表主结论口径。'
+                 '主档下 Ours(I3) = **456.3**，而 C1 cond_hist = **631.4** ⇒ '
+                 '**主档上主模型未超过 C1 基线**（I3−cond_hist = −144.7，95% CI 不含 0）。')
+    # 4) future_policy 不同 ⇒ 本表不是同协议方法归因
+    notes.append('- ※ **本表各行的 `future_policy` 并不一致**：Ours 两行取自 `density` 配置'
+                 '（gate 名含 `density` / `i3_online_recovery`），而 19 个对比方法的配对基线由'
+                 '`--future-policy reveal` 生成（`scenario_saa.py:268` 的默认值）。'
+                 '**A2 证据已表明该杠杆会显著改变 `cond_hist−uncond_hist` 的相对差** ⇒ '
+                 '本表的效用排序只可读作**开发集能力对照**，**不构成**同协议下的方法归因。'
+                 '依据：同上 §二-问题 7。')
     return '\n\n' + '\n'.join(notes)
 
 
@@ -396,7 +706,8 @@ def main():
     args = ap.parse_args()
 
     data = json.load(open(args.data, encoding='utf-8'))
-    rows = build_rows(data)
+    rows = build_rows(data)                 # 只含 19 个对比方法（§0 的「最强外部」用它）
+    delivered = delivered_rows(data)        # §1 主表与 Excel 性能总表用这张：基线 + 方法 + 2 行 Ours
     os.makedirs(args.outdir, exist_ok=True)
 
     gen = data['generated_from']
@@ -484,7 +795,7 @@ def main():
     head += ['']
     md = '\n'.join(head)
     md += '\n## 0. Ours（主模型）摘要\n\n' + md_ours_summary(data, rows)
-    md += '\n\n## 1. 主表（对比方法，按 p_c=0 效用降序）\n\n' + md_main_table(data, rows) + md_table_notes(rows)
+    md += '\n\n## 1. 主表（C1 基线 + 全部对比方法 + Ours，同一张表按 p_c=0 效用降序）\n\n' + md_main_table(data, delivered) + md_table_notes(delivered)
     md += '\n\n## 2. 身份合格的 C1 基线臂（配对参照）\n\n' + md_baseline_table(data)
     md += '\n\n## 3. 主模型 / 内部臂（**不同 future_policy / standby / 基线，不与上表同尺度比较**）\n\n' + md_main_model(data)
     md += '\n\n## 4. 臂明细与身份\n\n' + md_arm_detail(data)
@@ -532,61 +843,97 @@ def main():
     # Sheet 1
     ws = wb.active
     ws.title = '性能总表'
-    cols = ['#', '方法', '类别', '来源/年份', 'Backbone/权重', '参数量(M)', '权重(MB)', '原生约束支持',
-            'Utility p_c=0', 'CI下界', 'CI上界',
-            'Utility 主档', 'CI下界 ', 'CI上界 ',
-            'Utility p_c=10/20/30', 'CI下界  ', 'CI上界  ',
-            'Δ vs cond p_c=0', 'Δ CI下界', 'Δ CI上界',
-            'Δ vs cond 主档', 'Δ主档 CI下界', 'Δ主档 CI上界',
-            '硬可行率 p_c=0', 'fallback% p_c=0',
-            '超时/天 p_c=0', '超时/天 主档', '最大单决策s p_c=0', '最大单决策s 主档',
+    cols = ['#', '方法', '比较状态', 'Q_core', '配对来源身份', 'protocol_id',
+            '类别', '期刊/会议', 'Backbone/权重', '参数量(M)', '原生约束支持',
+            'Utility p_c=0', 'CI下界(p_c=0)', 'CI上界(p_c=0)',
+            'Utility 主档', 'CI下界(主档)', 'CI上界(主档)',
+            'Utility p_c=10/20/30', 'CI下界(p=10/20/30)', 'CI上界(p=10/20/30)',
+            'Δ vs cond p_c=0', 'ΔCI下界', 'ΔCI上界',
+            'Δ vs cond 主档', 'Δ主档CI下界', 'Δ主档CI上界',
+            '超时/天 p_c=0', '超时/天 主档', '硬可行率 p_c=0',
             '服务单/天 p_c=0', '能耗kWh/天 p_c=0', '备注']
+    # 2026-10-14：按用户要求把**资格分层**提到行首（`比较状态 / Q_core / 配对来源身份 /
+    # protocol_id`）—— 读者不必翻到表下脚注就能看到 Ours 行的资格缺口。取值来自
+    # `CC_Compare/audit/BASELINE_QUALIFICATION_MATRIX_*.json`（单一事实来源）。
+    # 2026-10-14 精简（用户反馈「空了那么多空没填」）：删掉填充率极低的
+    # `权重(MB)`(27%) / `fallback%`(90% 但语义弱) / `最大单决策s`(31%)，
+    # 并把三处重名的 `CI下界/CI上界` 改成带档位的名字 —— 重名会让读者不知道该列属于哪一档。
+    # ⚠️ 四个**被 check_table_consistency.py 按表头名定位**的列必须原样保留：
+    # `Utility p_c=0` / `Utility 主档` / `Utility p_c=10/20/30` / `Δ vs cond p_c=0`。
     ws.append(cols)
-    for i, r in enumerate(rows, 1):
+    # ⚠️ 这里必须用 `delivered`（= C1 基线 + 19 方法 + 2 行 Ours），**不是** `rows`（只有 19 个方法）。
+    # 2026-10-14 重构：主模型不再是「表尾单独的 Ours 块」，而是与基线同表的一行。
+    for i, r in enumerate(delivered, 1):
         u0, um, u3 = r['util0'] or {}, r['utilm'] or {}, r['util3'] or {}
         d0, dm = r['diff0'] or {}, r['diffm'] or {}
-        ws.append([i, r['label'], r['cls'], r['venue'], r['backbone'],
-                   r.get('params_m'), r.get('ckpt_mb'), r['native'],
+        tag = '★ ' if r.get('is_ours') else ('◆ ' if r.get('is_baseline') else '')
+        _qc = r.get('Q_core')
+        ws.append([i, tag + r['label'],
+                   r.get('comparison_status') or '—',
+                   '—' if _qc is None else ('是' if _qc else '否'),
+                   r.get('paired_source_identity') or '—',
+                   r.get('protocol_id') or '—',
+                   r['cls'], r['venue'], r['backbone'],
+                   r.get('params_m'), r['native'],
                    u0.get('mean'), u0.get('ci_lo'), u0.get('ci_hi'),
                    um.get('mean'), um.get('ci_lo'), um.get('ci_hi'),
                    u3.get('mean'), u3.get('ci_lo'), u3.get('ci_hi'),
                    d0.get('mean'), d0.get('ci_lo'), d0.get('ci_hi'),
                    dm.get('mean'), dm.get('ci_lo'), dm.get('ci_hi'),
-                   r['hfr0'], r['fb0'],
-                   r['to0'], r['tom'], r['md0'], r['mdm'],
-                   r['served0'], r['energy0'], r['note']])
+                   r['to0'], r['tom'], r['hfr0'],
+                   r['served0'], r['energy0'], r.get('note') or ''])
     style_header(ws)
-    # ---- Ours（主模型）块：与参考表一致，占表末 ----
-    ours = build_ours_rows(data)
-    if ours:
-        sep = ws.max_row + 2
-        ws.cell(row=sep, column=1,
-                value='—— Ours / 主模型侧（来自主模型自己的 gate，Δ 为该 gate 内配对差）——')
-        ws.cell(row=sep, column=1).font = Font(bold=True, color='7F6000')
-        for r in ours:
-            u = r['util'] or {}
-            pr = r['paired'] or {}
-            ws.append(['★', r['label'], r['cls'], '%s @ %s' % (r['venue'], r['p_c']),
-                       r['backbone'], None, None, r['native'],
-                       u.get('mean'), u.get('ci_lo'), u.get('ci_hi'),
-                       None, None, None, None, None, None,
-                       pr.get('mean'), pr.get('ci_lo'), pr.get('ci_hi'),
-                       None, None, None, None,
-                       r['timeouts'], None, None, None,
-                       None, None, r['gate']])
-            for c in ws[ws.max_row]:
+    # ---- Ours / C1 行的视觉强调 ----
+    # 2026-10-14 起 Ours **不再单独成块铺在表尾**，而是与基线同表（按 p_c=0 排序）；
+    # 这里只把 `★ Ours` / `◆ C1` 行加底色，便于一眼找到主模型。
+    for ri, r in enumerate(delivered, 2):
+        if r.get('is_ours') or r.get('is_baseline'):
+            for c in ws[ri]:
                 c.fill = ours_fill
-                c.border = border
-                if 8 <= c.column <= 21:
-                    c.number_format = '0.00'
-            ws.cell(row=ws.max_row, column=2).alignment = wrap
+            ws.cell(row=ri, column=2).font = Font(bold=True)
     for row in ws.iter_rows(min_row=2, max_row=ws.max_row):
         for c in row:
             c.border = border
-            if 6 <= c.column <= 30:
+            if 12 <= c.column <= 31:          # 数值列（前 11 列是文字/资格列）
                 c.number_format = '0.00'
         row[0].alignment = ctr
         row[1].alignment = wrap
+    # ---- 表下**关键限定**（与 MD 的读表注记同源，2026-10-14 独立审计新增）----
+    _o = [r for r in delivered if r.get('is_ours')]
+    _o_note = ''
+    if _o:
+        _bits = []
+        for r in _o:
+            _pi = (r.get('pairing_identity') or {})
+            _pb = ('，问题=%s' % '、'.join(_pi.get('problems') or [])) if _pi.get('problems') else ''
+            _bits.append('%s [超时/天=%s, 配对身份=%s%s]'
+                         % (r['label'],
+                            fnum(r.get('to0') if r.get('to0') is not None else r.get('tom'), 2),
+                            _pi.get('identity_verified'), _pb))
+        _o_note = ('※ Ours 行同样受 CPU 争用影响，且其中一行配对身份未通过 ⇒ 引用主模型结果'
+                   '必须与外部臂一样带限定（外部 19 个正式臂超时/天=0.0）：' + '；'.join(_bits))
+    for _t in (
+        _o_note,
+        '※ 主档列 = 同一策略的惩罚「重新评分」，不是策略对惩罚的「响应」：'
+        'run_a1_external_accept.py 每天只跑一次 env.run(i)，再用同一组接/拒决定在各罚分档重算；'
+        '接拒 replanner 的构造不接收 p_c。两档差异全部来自评分函数。',
+        '※ 本表各行 future_policy 不一致：Ours 两行为 density，19 个对比方法的配对基线为 reveal；'
+        '该杠杆会显著改变 cond_hist−uncond_hist 的相对差 ⇒ 本表效用排序只可读作开发集能力对照，'
+        '不构成同协议方法归因。详见 CC_Compare/audit/INDEPENDENT_READONLY_ADJUDICATION_2026-10-14.md',
+        '※ 结论口径：正式论文主结论以【主档 p_c=(5,10,15)】为准；p_c=0 是敏感性结果。'
+        '主档下 Ours(I3)=456.3 vs C1 cond_hist=631.4 ⇒ 主档上主模型未超过 C1（−144.7，CI 不含 0）。',
+    ):
+        if not _t:
+            continue
+        # ⚠️ 不要用 `ws.append([])` 来"换行" —— openpyxl 里空列表是 **no-op**，`max_row` 不前进，
+        # 于是紧接的 `ws.cell(row=ws.max_row, ...)` 会**覆盖最后一条数据行**（本处曾把
+        # `rule: value/energy λ=3` 那一行的方法名冲掉，被 `check_table_consistency.py` 抓出
+        # 「MD 22 行 vs Excel 21 行，仅在 MD: rule: value/energy λ=3」）。显式取 max_row+1。
+        _r = ws.max_row + 1
+        ws.cell(row=_r, column=1, value='')
+        ws.cell(row=_r, column=2, value=_t).font = Font(italic=True, color='9C0006')
+        ws.cell(row=_r, column=2).alignment = wrap
+    ws.column_dimensions['B'].width = 58
     ws.freeze_panes = 'C2'
     widths = [4, 34, 16, 18, 24, 9, 24] + [11] * 21 + [10, 12, 26]
     for i, w in enumerate(widths, 1):
@@ -631,15 +978,20 @@ def main():
     for i, w in enumerate([20, 24, 16, 12, 8, 9, 8, 14, 15, 60], 1):
         ws3.column_dimensions[get_column_letter(i)].width = w
 
-    # Sheet 4: main model / internal arms
+    # Sheet 4: main model / internal arms —— 这里**故意收录全部**主模型记录：
+    # 交付主表（Sheet 1）只留 1–2 行最终结果，其余（3 配置 × 多次重复运行 × 档位 + 内部三臂）
+    # 属于**消融/重复运行**，用户要求「移入附录 sheet 并标明」，故用第 1 列显式标注。
     ws5 = wb.create_sheet('主模型与内部臂')
-    ws5.append(['gate', '档位', '臂', 'Utility', 'CI下界', 'CI上界', '超时/天',
+    _delivered = {(r.get('gate'), r.get('arm')) for r in canonical_ours(data)}
+    ws5.append(['交付主表？', 'gate', '档位', '臂', 'Utility', 'CI下界', 'CI上界', '超时/天',
                 '身份块', 'source_stable', 'future_policy', 'standby_orders',
                 'workers', '配对身份'])
     for r in filter_main_model(data):
         u = r.get('reported_utility') or {}
         sm = r.get('reported') or {}
-        ws5.append([r['gate'], r['p_c'], r['arm'], u.get('mean'), u.get('ci_lo'),
+        _in = '★ 是（主表 Ours 行）' if (r['gate'], r['arm']) in _delivered \
+            else '否（消融 / 重复运行 / 内部臂）'
+        ws5.append([_in, r['gate'], r['p_c'], r['arm'], u.get('mean'), u.get('ci_lo'),
                     u.get('ci_hi'), sm.get('mean_timeouts'),
                     '有' if r['identity_present'] else '无',
                     r['identity_source_stable'],
@@ -651,7 +1003,13 @@ def main():
     for row in ws5.iter_rows(min_row=2, max_row=ws5.max_row):
         for c in row:
             c.border = border
-    for i, w in enumerate([46, 16, 24, 12, 12, 12, 10, 8, 14, 14, 14, 9, 12], 1):
+    # 高亮真正的交付行
+    for ri in range(2, ws5.max_row + 1):
+        if str(ws5.cell(row=ri, column=1).value or '').startswith('★'):
+            for c in ws5[ri]:
+                c.fill = ours_fill
+                c.font = Font(bold=True)
+    for i, w in enumerate([24, 46, 16, 24, 12, 12, 12, 10, 8, 14, 14, 14, 9, 12], 1):
         ws5.column_dimensions[get_column_letter(i)].width = w
 
     # Sheet 5: unadapted

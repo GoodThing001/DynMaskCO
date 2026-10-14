@@ -35,14 +35,28 @@ def _find_cols(header_cells, keys):
 
 
 def parse_md(path):
-    """返回 {方法: (util0, utilm, util3, diff0)}（浮点或 None）。"""
+    """返回 {方法: (util0, utilm, util3, diff0)}（浮点或 None）。
+
+    2026-10-14 收紧：**只解析 §1 主表**。此前它会用 §1 的列下标继续解析后面所有表格
+    （§2 基线臂 / §3 主模型与内部臂 / §4 臂明细），于是那些表的第 2 列被当成「方法名」塞进来，
+    报出一串假的「仅在 MD: ['gate', '`results/…`', …]」，把结论从 OK 降级成 CHECK。
+    表格的边界就是「下一个 `## ` 小节」。
+    """
     cols = None
     out = {}
+    in_table = False
     for line in open(path, encoding='utf-8'):
+        if line.startswith('## '):
+            if in_table:
+                break                      # §1 主表结束
+            continue
         if line.startswith('| # |'):
             cols = _find_cols([c.strip() for c in line.strip().strip('|').split('|')], MD_KEYS)
+            in_table = True
             continue
-        if not line.startswith('| ') or line.startswith('|---') or line.startswith('| # '):
+        if not in_table:
+            continue
+        if not line.startswith('| ') or line.startswith('|---'):
             continue
         cells = [c.strip() for c in line.strip().strip('|').split('|')]
         if len(cells) < 12 or cols is None or any(c is None for c in cols):
@@ -68,6 +82,9 @@ def parse_xlsx(path):
     for r in range(2, ws.max_row + 1):
         name = ws.cell(r, 2).value
         if not name:
+            continue
+        # 跳过表下脚注行（2026-10-14：性能总表末尾新增两条 `※ …` 限定，它们不是方法行）
+        if str(name).lstrip().startswith(('※', '——')):
             continue
         out[name] = tuple(
             (ws.cell(r, c + 1).value if c is not None else None) for c in cols)
