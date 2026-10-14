@@ -1,0 +1,77 @@
+{
+  "spec": "D3_G0_Evidence_B3AT2B2A_counterexample_preregistration",
+  "version": 1,
+  "date": "2026-10-14",
+  "base_commit": "bbd4544bc647af3efe57404fd103207e548e3c7c",
+  "registration_class": "LATE_PREREGISTRATION_BEFORE_FIRST_EXECUTION",
+  "registration_class_meaning": "实现草稿在本文件之前已经存在，因此本批资格【不等同于】严格『先预声明后实现』的批次；不得声称预声明先于实现。判定词与门槛在本文件冻结，首次运行后不得修改。",
+  "required_provenance_record": {
+    "draft_source_identities_at_freeze_time": {
+      "scripts/simulation/d3_authoritative_state.py": "871650f31c0c8786f6a5863ee00fa6e453eb4ce5bf7e1dc0454f2ea5ac4d72e3",
+      "scripts/simulation/d3_write_exclusion.py": "3b82240b205d40437d4a0d13187ba2c42e031fe58d76c228f5dd11c52c809e50",
+      "scripts/tests/test_d3_b3at2b2a_write_exclusion.py": "6ae4b9d5066337f764d07592c79b9568bc3abb4b42c5ecaeb06e677f3593eb83"
+    },
+    "unmodified_identities": {
+      "scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6",
+      "scripts/simulation/d3_execution_authority.py": "50ab7d834fb5fcd3c3ce3e18569a95668098c2b62e0c45015158db647c654102"
+    },
+    "no_harness_execution_before_this_file": true,
+    "evidence_limit_of_that_claim": "该声明由『本文件形成时不存在任何 B3AT2B2A 运行输出、矩阵或 raw 记录』支持；它不能证明执行过程中绝无其他副作用，只能证明没有留下验收运行产物",
+    "subsequent_source_identity_changes_must_be_recorded": "每次修改源码必须登记新 SHA-256 与原因，并保留失败证据"
+  },
+  "authorised_scope_verbatim": "继续授权完成既有 B3-AT2B-2a 的验证、回归和证据冻结，不授权转入 AT2B-2b。本轮的优先事项不是增加模块，而是证明当前对象级守卫能同时做到：未经授权的决策写入被阻止，合法执行推进和 reveal 清尾不被错误阻止。如果这两个条件不能同时满足，就应保留 NOT_ESTABLISHED，而不是通过扩大 execution scope 来消除测试失败。",
+  "forbidden_this_batch": [
+    "AT2B-2b（certified 模式验证）",
+    "AT2B-3（生产真实写回）",
+    "放宽 D8",
+    "新的 F−D 科学效果实验",
+    "修改历史基线或已有冻结树",
+    "触碰 MASKCO_code/"
+  ],
+  "two_structural_risks_to_close": {
+    "risk_A_scope_too_broad": {
+      "problem": "不能只按调用函数名授权：若 execution scope 能写 mutable_suffix/committed_next，就等于给整个决策过程开放了写权限",
+      "required_per_write_check": ["owner 身份", "操作权限", "当前状态版本", "目标字段", "调用阶段"],
+      "required_phase_split": ["准备（只改锚点一致性字段）", "候选生成（候选后缀，必须校验）", "认证后提交（头部提交）"],
+      "enforcement_rule": "execution/prepare/commit 阶段对 mutable_suffix 只允许【单调收缩】（新值是旧值的尾部收缩，或旧值为空）；任意新后缀必须走独立的 decision-candidate scope"
+    },
+    "risk_B_whitelist_insufficient": {
+      "problem": "允许写 mutable_suffix 不等于 reveal 合法",
+      "rule": "对象级白名单是【第一道门】，REVEAL_INVALIDATION 契约（V1–V5）是【第二道门】，两者不得互相替代",
+      "still_enforced": ["V1 不得改变冻结承诺", "V2 只能单调收缩", "V3 needs_replan 必须保留正确触发",
+                         "V4 served_mask 不变", "V5 epoch 必须失效", "拒绝前不得留下部分修改"]
+    }
+  },
+  "rows": [
+    {"id": "B2A-ATTR", "must": "直接修改 mutable_suffix（scope 之外）", "expected_verdict": "REFUSED_AND_STATE_UNCHANGED"},
+    {"id": "B2A-NESTED", "must": "修改嵌套对象或原地修改列表", "expected_verdict": "REFUSED_AND_STATE_UNCHANGED"},
+    {"id": "B2A-STALE", "must": "使用移交所有权前的旧引用", "expected_verdict": "STALE_REFERENCE_INEFFECTIVE"},
+    {"id": "B2A-COMMIT", "must": "非授权调用 _commit", "expected_verdict": "REFUSED"},
+    {"id": "B2A-REVEAL", "must": "reveal 合法清尾：允许、承诺冻结、epoch 变化", "expected_verdict": "REVEAL_ALLOWED_WITH_COMMITMENT_FROZEN"},
+    {"id": "B2A-ADVANCE", "must": "合法执行推进不被错误阻断", "expected_verdict": "LEGITIMATE_ADVANCE_NOT_BLOCKED"},
+    {"id": "B2A-POS", "must": "合法非空提交的机制控制能在隔离副本中完成", "expected_verdict": "COMMIT_ALLOWED_INSIDE_SCOPE"},
+    {"id": "B2A-DEFAULTOFF", "must": "默认关闭模式与历史执行轨迹一致", "expected_verdict": "IDENTICAL_HISTORY_BEHAVIOUR"},
+    {"id": "B2A-CAND", "late_addition": true,
+     "must": "在合法 execution scope 内尝试写入未经认证的 mutable_suffix（新增针对性反例）",
+     "expected_verdict": "REFUSED_SUFFIX_GROWTH_REQUIRES_DECISION_SCOPE",
+     "why": "若它能成功，即使八项原验收全部达成，也只能说明对象守卫阻止了部分越权操作，不能证明决策写入权限已经隔离",
+     "labelling_rule": "必须作为迟到的补充检查单独标识，不得伪装成原始预登记项目"}
+  ],
+  "supporting_rows": ["FROZEN", "PREREG", "AUDIT", "B2A-REGRESSION-B1"],
+  "B2A-REGRESSION-B1": {
+    "requirement": "AT2B-1 harness 在本批后仍全绿（不得破坏既有兼容性）",
+    "command": "python -B scripts/tests/test_d3_b3at2b1_wiring.py --instances 0 --heavy-cap 6"
+  },
+  "stop_rule": "八行 + 迟到补充行全部取得确定判定；AT2B-1 与本批默认关闭路径回归通过；证据冻结并提交。失败项按失败原样保留，不得通过扩大 execution scope 消除失败。",
+  "preserved": {
+    "P2": "未建立", "G-L_G-C": "未建立", "D8": "CAPABILITY_GAP_BLOCKING", "D3_G0": "未通过",
+    "G1_G2": "未启动", "MaskCO_attributable_FD_gain": "未建立", "I3": "负结果不变",
+    "D2": "not_qualified 不变", "stable_online_gain": false, "algorithmic_gain_claim": "none"
+  },
+  "process_incident_record": {
+    "what": "本轮有两个草稿文件曾被误写到 DSH checkout（C:\\Users\\mmc\\AppData\\Roaming\\npm\\node_modules\\@deepseek-ai\\dsh\\scripts\\...）",
+    "action": "两次均已立即移出到项目路径并核验",
+    "verified": ["DSH checkout 内递归查找 d3_* 为空", "DSH checkout git status 为空"],
+    "claim_limit": "以上只陈述实际完成的目录检查与 Git 状态检查，不扩大为『整个执行过程中绝无其他副作用』"
+  }
+}

@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\tests\test_d3_b3at2b2a_write_exclusion.py", line 263, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\tests\test_d3_b3at2b2a_write_exclusion.py", line 189, in main
+    det = copy.deepcopy(authoritative[0])                 # a plain, freely mutable DETACHED candidate
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AA_Py\A_Anaconda\Lib\copy.py", line 143, in deepcopy
+    y = copier(memo)
+        ^^^^^^^^^^^^
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\simulation\d3_authoritative_state.py", line 233, in __deepcopy__
+    object.__setattr__(plain, f, copy.deepcopy(getattr(self, f), memo))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AA_Py\A_Anaconda\Lib\copy.py", line 162, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AA_Py\A_Anaconda\Lib\copy.py", line 277, in _reconstruct
+    y.append(item)
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\simulation\d3_authoritative_state.py", line 167, in append
+    self._check('append'); return list.append(self, x)
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\simulation\d3_authoritative_state.py", line 163, in _check
+    raise UnauthorizedWrite('in-place %s on %r refused: %s' % (op, self._field, why))
+d3_authoritative_state.UnauthorizedWrite: in-place append on 'served_route' refused: no_write_scope

@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\tests\test_d3_b3at2b2a_write_exclusion.py", line 222, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\tests\test_d3_b3at2b2a_write_exclusion.py", line 114, in main
+    tr3, sm3 = env.run(inst)
+               ^^^^^^^^^^^^^
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\simulation\strict_online_env.py", line 470, in run
+    return self._run_loop(inst_idx, clock, reveal_idx, vehicles, traces, served_mask,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\simulation\strict_online_env.py", line 526, in _run_loop
+    v.needs_replan = True
+    ^^^^^^^^^^^^^^
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\simulation\d3_authoritative_state.py", line 198, in __setattr__
+    raise UnauthorizedWrite('write to %r refused: %s' % (name, why))
+d3_authoritative_state.UnauthorizedWrite: write to 'needs_replan' refused: reveal_scope_may_not_write_needs_replan

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\tests\test_d3_b3at2b2a_write_exclusion.py", line 254, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\tests\test_d3_b3at2b2a_write_exclusion.py", line 170, in main
+    posv.mutable_suffix = [7, 0]
+    ^^^^^^^^^^^^^^^^^^^
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\simulation\d3_authoritative_state.py", line 255, in __setattr__
+    raise UnauthorizedWrite('write to %r refused: %s' % (name, why))
+d3_authoritative_state.UnauthorizedWrite: write to 'mutable_suffix' refused: suffix_growth_requires_decision_scope
