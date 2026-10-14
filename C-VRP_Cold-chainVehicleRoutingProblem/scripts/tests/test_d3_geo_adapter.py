@@ -184,11 +184,24 @@ def main():
              (6, _cand(6, 'new_route', -1, 0, 7.0)[1], 2))]
     idx_a, sel_a = G.select_geo([7.0, 7.0, 7.0], keys)
     perm = [2, 0, 1]
-    idx_b, _ = G.select_geo([7.0, 7.0, 7.0], [keys[i] for i in perm])
-    ck('T-G5 all-equal ties resolve to the smallest canonical key (customer 4)',
-       keys[idx_a] == min(keys) and keys[idx_a][0] == 4)
-    ck('T-G5 tie outcome is invariant to permuting the candidate order',
-       keys[perm[idx_b]] == keys[idx_a])
+    idx_b, sel_b = G.select_geo([7.0, 7.0, 7.0], [keys[i] for i in perm])
+    # PRIMARY contract (user ruling): tie resolves by LEGAL ORDER, exactly like F's first-max.
+    # It is therefore order-DEPENDENT by design -- that is the point, not a defect.
+    ck('T-G5 primary tie resolves by legal order (first index in T), matching F',
+       idx_a == 0 and sel_a['tie_break'] == G.TIE_BREAK_LEGAL_ORDER, sel_a)
+    ck('T-G5 primary tie equals F first-maximum on the same ordered list',
+       idx_a == G.select_historical_argmax([-7.0, -7.0, -7.0]))
+    # The canonical-key mode is the AUDIT/VARIANT: only there is the outcome order-independent.
+    idx_c, sel_c = G.select_geo([7.0, 7.0, 7.0], keys, tie_break=G.TIE_BREAK_CANONICAL)
+    idx_d, _sel_d = G.select_geo([7.0, 7.0, 7.0], [keys[i] for i in perm],
+                                 tie_break=G.TIE_BREAK_CANONICAL)
+    ck('T-G5 canonical-key variant picks the smallest key (customer 4)',
+       keys[idx_c] == min(keys) and keys[idx_c][0] == 4, {'idx': idx_c, 'key': keys[idx_c]})
+    ck('T-G5 canonical-key variant IS invariant to permuting the candidate order',
+       keys[perm[idx_d]] == keys[idx_c])
+    ck('T-G5 the two tie modes are distinguishable in the record',
+       sel_a['tie_break'] != sel_c['tie_break'] and sel_a['single_factor_with_F'] is True
+       and sel_c['single_factor_with_F'] is False)
     # Contract after the P0 fix: the DEFAULT is eps == 0, which makes the tie rule
     # structurally identical to F (single-factor primary comparison) and therefore is NOT
     # flagged provisional; a positive tolerance is the robustness variant and IS flagged.

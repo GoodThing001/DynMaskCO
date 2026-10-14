@@ -1,0 +1,24 @@
+  FAIL A1 stepwise_sample_d3 defaults to eps_rel == 0 (primary comparison)   <- 1e-09
+  FAIL A1 stepwise_sample_d3 defaults to eps_abs == 0   <- 1e-12
+  PASS A1 select_geo also defaults to eps == 0
+  FAIL A1 the primary tie-break is legal-order-first (NOT canonical key)   <- None
+  PASS A1 provisional positive tolerance still exists for the non-primary variant
+  FAIL A1 the install transaction API exists   <- {'InstallLedger': None, 'run_repair_transaction': None}
+  FAIL A1 GEO selector with deterministic=False is REFUSED (no silent degradation to the historical sampler)   <- None
+  PASS A2 on an exact tie with reversed canonical order D-Geo picks the FIRST action in legal order, exactly like F
+  FAIL A2 canonical keys are still RECORDED even though they do not drive the primary tie   <- None
+  FAIL A2 the selection is flagged single-factor with F   <- {'d_min': 5.0, 'eps_used': 5e-09, 'tie_set': [0, 1], 'selected': 0, 'n_candidates': 2, 'eps_is_provisional': True, 'single_factor_with_F': False, 'rule': 'unified minimum reference; tie decided by canonical action key'}
+  FAIL A2 end-to-end: on an exact logits tie the new assembly layer matches the ORIGINAL stepwise_sample step for step   <- {'orig': [{'customer': 5, 'vehicle_id': 2, 'slot_kind': 'new_route', 'slot_anchor': -1, 'position': 0, 'predecessor': -1, 'successor': -1}], 'new': [{'customer': 5, 'vehicle_id': 2, 'slot_kind': 'new_route', 'slot_anchor': -1, 'position': 0, 'predecessor': -1, 'successor': -1, 'incremental_distance': 3.0}]}
+  FAIL A3 no_legal installs ZERO times and rolls back   <- install transaction API missing in the adapter
+  FAIL A3 an injected exception installs ZERO times and does not escape the transaction   <- install transaction API missing in the adapter
+  FAIL A3 the success path installs exactly once   <- install transaction API missing in the adapter
+  FAIL A3 NaN score installs ZERO times   <- install transaction API missing in the adapter
+  FAIL A3 timeout installs ZERO times   <- install transaction API missing in the adapter
+  FAIL A3 the original plan is unchanged on failure   <- install transaction API missing in the adapter
+  FAIL A4 records the raw legal order, canonical keys, distance tie set and final action   <- ['chosen', 'customer', 'incremental_distance', 'selection', 'state_keys', 'vehicle_id']
+  FAIL A4 records exact score ties separately from distance ties   <- ['chosen', 'customer', 'incremental_distance', 'selection', 'state_keys', 'vehicle_id']
+  PASS A4 workload and wall clock are reported with separate units
+  PASS A4 the timeout flag is exposed so a timeout cannot be recorded as a normal completion
+  FAIL A4 a decision that only exceeds the ceiling during/after certification is FAILED, not reported as a normal completion   <- {'fr': None, 'diag': {'selector': 'geo_unified_minimum', 'mask_order': [4, 5], 'divergence': None, 'n_steps': 2}}
+
+结果：5 通过 / 17 失败
