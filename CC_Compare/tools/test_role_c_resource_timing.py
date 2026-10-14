@@ -446,11 +446,101 @@ def test_capture_real_contexts():
     return cases
 
 
+def test_registration_builder_and_cli():
+    """登记**构建 + CLI**：校验不过就不落盘；登记自带机器事实 ⇒ 换机也可复验。"""
+    cases = []
+    ncpu = os.cpu_count() or 8
+    # ---- 换机校验（关键正确性）：登记描述的是**服务器 96 核**，写登记的本机可能只有 8 核
+    srv = ceil.build_registration(
+        workers=8, cpu_affinity=list(range(8)), total_wall_clock_limit_s=43200.0,
+        registered_by='user',
+        hardware={'machine': 'server', 'cpu_count': 96, 'mem_gb': 265.3})
+    ok_srv, prob_srv = ceil.validate_ceiling(srv)
+    cases.append(('★X1 登记服务器 96 核 + workers=8/affinity 0-7 ⇒ 在**只有 %d 核的本机**上'
+                  '也通过（核数取登记里的事实，不取 os.cpu_count()）' % ncpu,
+                  ok_srv is True, prob_srv))
+    cases.append(('X1b occupancy 用登记核数（96），不是本机核数',
+                  ceil.occupancy(srv)['cpu_count'] == 96
+                  and ceil.occupancy(srv)['cores_requested'] == 8,
+                  ceil.occupancy(srv)))
+    bad_srv = ceil.build_registration(
+        workers=8, cpu_affinity=list(range(8)), total_wall_clock_limit_s=1.0,
+        registered_by='user', hardware={'machine': 'tiny', 'cpu_count': 4})
+    ok_bad, prob_bad = ceil.validate_ceiling(bad_srv)
+    cases.append(('★X1c 反向：登记核数 4 + workers=8 ⇒ 判过度订阅（不因本机核数而放行）',
+                  ok_bad is False and any('过度订阅' in x for x in prob_bad), prob_bad))
+    # ---- 构建器缺省值
+    cases.append(('X2 构建器把四项线程上限缺省为 1（不留空 ⇒ 不漏配）',
+                  set(srv['thread_caps']) == set(ceil.THREAD_CAP_FIELDS)
+                  and all(v == 1 for v in srv['thread_caps'].values()),
+                  srv['thread_caps']))
+    cases.append(('X3 构建器把单决策时限取**冻结** time_limit（10.0），不让人随手填',
+                  abs(srv['single_decision_time_limit_s']
+                      - ceil.load_frozen_time_limit()) < 1e-12,
+                  srv['single_decision_time_limit_s']))
+    # ---- affinity 解析
+    cases.append(("X4 affinity 解析 '0-7' / '0,1,2' / '0-3,8'",
+                  ceil._parse_affinity('0-7') == list(range(8))
+                  and ceil._parse_affinity('0,1,2') == [0, 1, 2]
+                  and ceil._parse_affinity('0-3,8') == [0, 1, 2, 3, 8],
+                  [ceil._parse_affinity(s) for s in ('0-7', '0,1,2', '0-3,8')]))
+    # ---- 不合法 ⇒ **不落盘**
+    with tempfile.TemporaryDirectory() as tmp:
+        p = os.path.join(tmp, 'reg.json')
+        invalid = dict(srv, workers=0)
+        try:
+            ceil.write_registration(invalid, p)
+            cases.append(('★X5 未通过校验 ⇒ 抛错**且不落盘**', False, '未抛错'))
+        except ceil.CeilingError as exc:
+            cases.append(('★X5 未通过校验 ⇒ 抛错**且不落盘**',
+                          not os.path.isfile(p) and '不落盘' in str(exc), str(exc)[:70]))
+        # ---- 合法 ⇒ 落盘且可被 load_ceiling 读回
+        out = ceil.write_registration(srv, p)
+        cases.append(('X6 合法登记落盘，且 load_ceiling 能读回、状态为已登记',
+                      os.path.isfile(out)
+                      and ceil.load_ceiling(p)['ceiling_id'] == srv['ceiling_id']
+                      and ceil.registration_status(p)['registered'] is True, out))
+        try:
+            ceil.write_registration(srv, p)
+            cases.append(('★X7 已存在 ⇒ 拒绝覆盖（重新登记属资源门变更）', False, '未抛错'))
+        except ceil.CeilingError as exc:
+            cases.append(('★X7 已存在 ⇒ 拒绝覆盖（重新登记属资源门变更）',
+                          '拒绝覆盖' in str(exc), str(exc)[:70]))
+        cases.append(('X7b --force 才允许覆盖',
+                      os.path.isfile(ceil.write_registration(srv, p, force=True)), None))
+    # ---- CLI：dry-run 不落盘；不合法返回 3
+    with tempfile.TemporaryDirectory() as tmp:
+        p = os.path.join(tmp, 'cli.json')
+        rc = ceil.main(['--workers', '8', '--affinity', '0-7', '--total-wall', '43200',
+                        '--cpu-count', '96', '--registered-by', 'user',
+                        '--path', p, '--dry-run'])
+        cases.append(('X8 CLI --dry-run 返回 0 且**不落盘**',
+                      rc == 0 and not os.path.isfile(p), rc))
+        rc2 = ceil.main(['--workers', '8', '--affinity', '0-7', '--total-wall', '43200',
+                         '--cpu-count', '96', '--registered-by', 'user', '--path', p])
+        cases.append(('X9 CLI 正常路径落盘（返回 0）',
+                      rc2 == 0 and os.path.isfile(p), rc2))
+        p3 = os.path.join(tmp, 'bad.json')
+        rc3 = ceil.main(['--workers', '99', '--affinity', '0-7', '--total-wall',
+                         '43200', '--cpu-count', '96', '--registered-by', 'user',
+                         '--path', p3])
+        cases.append(('★X10 CLI 在过度订阅时返回 3 且不落盘',
+                      rc3 == 3 and not os.path.isfile(p3), rc3))
+    # ---- CLI **不提供**默认上限值（上限是登记决策，不能被我默认掉）
+    try:
+        ceil.main([])
+        cases.append(('★X11 CLI 不给上限参数 ⇒ 报错（**不提供默认值**）', False, '未抛错'))
+    except SystemExit as exc:
+        cases.append(('★X11 CLI 不给上限参数 ⇒ 报错（**不提供默认值**）',
+                      exc.code != 0, exc.code))
+    return cases
+
+
 def main():
     cases = []
     for fn in (test_gate_validation, test_unregistered_refuses, test_timing_harness,
                test_ceiling_template_roundtrip, test_decision_work_fn,
-               test_capture_real_contexts):
+               test_capture_real_contexts, test_registration_builder_and_cli):
         try:
             cases.extend(fn())
         except Exception as exc:                            # noqa: BLE001

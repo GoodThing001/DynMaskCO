@@ -80,15 +80,40 @@ def load_frozen_time_limit():
     return _frozen_time_limit()
 
 
+def _cpu_count(ceiling=None):
+    """判过度订阅用的核数：**优先取登记里写明的 `hardware.cpu_count`**。
+
+    ⚠️ 为什么不能直接用 `os.cpu_count()`：登记描述的是**跑批的那台机器**（服务器 96 核），
+    而校验可能在另一台机器上做（开发机 8 核）。用本机核数会把一台合法登记在换机后判成
+    非法（或反之放行真过度订阅）。登记自带事实 ⇒ 在任何机器上都可复验。
+    """
+    hw = (ceiling or {}).get('hardware') or {}
+    n = hw.get('cpu_count')
+    if isinstance(n, int) and not isinstance(n, bool) and n > 0:
+        return n
+    try:
+        import json
+        import io
+        p = os.path.join(_repo_root(), CEILING_REL.replace('/', os.sep))
+        if os.path.isfile(p):
+            with io.open(p, encoding='utf-8') as f:
+                n2 = (json.load(f).get('hardware') or {}).get('cpu_count')
+            if isinstance(n2, int) and not isinstance(n2, bool) and n2 > 0:
+                return n2
+    except Exception:                                         # noqa: BLE001
+        pass
+    return os.cpu_count() or 0
+
+
 def occupancy(ceiling):
-    """`workers × max(thread_caps)` 与 `cpu_count` —— 过度订阅的判据。"""
+    """`workers × max(thread_caps)` 与核数 —— 过度订阅的判据。"""
     caps = (ceiling or {}).get('thread_caps') or {}
     vals = [int(v) for v in caps.values() if isinstance(v, int)
             and not isinstance(v, bool)] or [1]
     w = int((ceiling or {}).get('workers') or 0)
     return {'workers': w, 'max_thread_cap': max(vals),
             'cores_requested': w * max(vals),
-            'cpu_count': os.cpu_count()}
+            'cpu_count': _cpu_count(ceiling)}
 
 
 def validate_ceiling(ceiling):
@@ -132,6 +157,7 @@ def validate_ceiling(ceiling):
         p.append('workers 必须是 >=1 的 int，得到 %r' % (w,))
         w = 0
     aff = ceiling.get('cpu_affinity')
+    ncpu = _cpu_count(ceiling)
     if not isinstance(aff, (list, tuple)) or not aff:
         p.append('cpu_affinity 必须是非空 list（实际要用的 CPU 集）')
         aff = []
@@ -141,15 +167,14 @@ def validate_ceiling(ceiling):
         if len(aff) < w:
             p.append('cpu_affinity 有 %d 个核，少于 workers=%d ⇒ 必然互相抢核'
                      % (len(aff), w))
-        ncpu = os.cpu_count() or 0
         if ncpu and any(c >= ncpu for c in aff if isinstance(c, int)):
-            p.append('cpu_affinity 含 >= cpu_count(%d) 的核号' % ncpu)
-    # ⑤ 过度订阅的**定义性**不等式（不含魔数）
+            p.append('cpu_affinity 含 >= 登记 hardware.cpu_count(%d) 的核号' % ncpu)
+    # ⑤ 过度订阅的**定义性**不等式（不含魔数；核数取**登记里的事实**）
     occ = occupancy(ceiling)
-    if w and occ['cores_requested'] > (os.cpu_count() or 0) > 0:
-        p.append('workers(%d) × max(thread_caps)(%d) = %d > cpu_count(%d) '
+    if w and ncpu > 0 and occ['cores_requested'] > ncpu:
+        p.append('workers(%d) × max(thread_caps)(%d) = %d > 登记核数(%d) '
                  '⇒ **过度订阅**（资格矩阵 6 个受争用臂的根因）'
-                 % (w, occ['max_thread_cap'], occ['cores_requested'], occ['cpu_count']))
+                 % (w, occ['max_thread_cap'], occ['cores_requested'], ncpu))
     # ⑥ 单决策时限必须与冻结协议一致
     tl = ceiling.get('single_decision_time_limit_s')
     frozen = _frozen_time_limit()
@@ -205,6 +230,131 @@ def registration_status(path=None):
     ok, problems = validate_ceiling(obj)
     return {'registered': bool(ok), 'path': p, 'problems': problems,
             'occupancy': occupancy(obj), 'ceiling_id': obj.get('ceiling_id')}
+
+
+def build_registration(*, workers, cpu_affinity, total_wall_clock_limit_s,
+                       registered_by, registered_at=None, ceiling_id='p1a-rolec-v1',
+                       thread_caps=None, hardware=None, source_policy=None,
+                       single_decision_time_limit_s=None):
+    """**纯函数**：把用户裁定的上限组装成登记 dict（不写盘、不校验通过与否）。
+
+    只做"组装 + 事实填写"：`hardware` 必须由调用方给（登记描述的是**跑批那台机器**，
+    不是写登记那台）；`thread_caps` 缺省 = 四项全 1（规格点名 OMP=1；另三项漏配即过度
+    订阅风险，故缺省就把它们设成 1，而不是留空）。
+    """
+    caps = dict(thread_caps or {})
+    for k in THREAD_CAP_FIELDS:
+        caps.setdefault(k, 1)
+    if not isinstance(cpu_affinity, (list, tuple)):
+        cpu_affinity = list(cpu_affinity or [])
+    return {
+        'ceiling_id': ceiling_id,
+        'registered_by': registered_by,
+        'registered_at': registered_at or __import__('datetime').date.today().isoformat(),
+        'source_policy': source_policy or (
+            'P1A_RoleC_设计规格_2026-10-14.md §6 + P1A_资源门登记建议_2026-10-14.md §3'
+            '（用户裁定）'),
+        'hardware': dict(hardware or {}),
+        'workers': int(workers),
+        'cpu_affinity': [int(c) for c in cpu_affinity],
+        'thread_caps': {k: int(caps[k]) for k in THREAD_CAP_FIELDS},
+        'single_decision_time_limit_s': float(
+            _frozen_time_limit() if single_decision_time_limit_s is None
+            else single_decision_time_limit_s),
+        'total_wall_clock_limit_s': float(total_wall_clock_limit_s),
+    }
+
+
+def write_registration(reg, path=None, *, force=False):
+    """校验**通过才**写登记文件；不通过 ⇒ 抛 `CeilingError` 并**不落盘**。
+
+    `force=True` 只允许覆盖**已存在**的登记（重新登记 = 换 `ceiling_id` + 明确覆盖），
+    不允许绕过校验。
+    """
+    ok, problems = validate_ceiling(reg)
+    if not ok:
+        raise CeilingError('登记未通过校验 ⇒ **不落盘**：\n  - ' + '\n  - '.join(problems))
+    p = path or os.path.join(_repo_root(), CEILING_REL.replace('/', os.sep))
+    if os.path.isfile(p) and not force:
+        raise CeilingError(
+            '登记文件已存在（%s）⇒ 拒绝覆盖。重新登记属**资源门变更**：请换 ceiling_id '
+            '并用 --force 明确覆盖，或先归档旧登记。' % p)
+    with io.open(p, 'w', encoding='utf-8') as f:
+        json.dump(reg, f, ensure_ascii=False, indent=2, sort_keys=True)
+        f.write('\n')
+    return p
+
+
+def _parse_affinity(s):
+    """`'0-7'` / `'0,1,2'` / `'0-3,8'` → `[0..7]`。"""
+    out = []
+    for part in str(s).split(','):
+        part = part.strip()
+        if not part:
+            continue
+        if '-' in part:
+            a, b = part.split('-', 1)
+            out.extend(range(int(a), int(b) + 1))
+        else:
+            out.append(int(part))
+    return sorted(set(out))
+
+
+def main(argv=None):
+    """CLI：把用户裁定的上限写成登记文件（**校验不过就不落盘**）。
+
+        python CC_Compare/tools/role_c_resource_ceiling.py \\
+            --workers 8 --affinity 0-7 --total-wall 43200 \\
+            --cpu-count 96 --mem-gb 265.3 --registered-by <你的名字> [--dry-run]
+
+    `--dry-run` 只校验并打印，不写盘。**不提供任何默认上限值** —— 上限是登记决策。
+    """
+    import argparse
+    ap = argparse.ArgumentParser(description='P1-A Role C 资源门登记（校验不过不落盘）')
+    ap.add_argument('--workers', type=int, required=True)
+    ap.add_argument('--affinity', required=True, help="如 '0-7' 或 '0,1,2'")
+    ap.add_argument('--total-wall', type=float, required=True,
+                    help='总墙钟上限（秒）')
+    ap.add_argument('--registered-by', required=True)
+    ap.add_argument('--ceiling-id', default='p1a-rolec-v1')
+    ap.add_argument('--cpu-count', type=int, required=True,
+                    help='**跑批那台机器**的核数（本机核数可能不同）')
+    ap.add_argument('--mem-gb', type=float, default=None)
+    ap.add_argument('--machine', default=None)
+    ap.add_argument('--omp', type=int, default=1)
+    ap.add_argument('--mkl', type=int, default=1)
+    ap.add_argument('--openblas', type=int, default=1)
+    ap.add_argument('--numexpr', type=int, default=1)
+    ap.add_argument('--path', default=None)
+    ap.add_argument('--dry-run', action='store_true')
+    ap.add_argument('--force', action='store_true')
+    a = ap.parse_args(argv)
+    reg = build_registration(
+        workers=a.workers, cpu_affinity=_parse_affinity(a.affinity),
+        total_wall_clock_limit_s=a.total_wall, registered_by=a.registered_by,
+        ceiling_id=a.ceiling_id,
+        thread_caps={'OMP_NUM_THREADS': a.omp, 'MKL_NUM_THREADS': a.mkl,
+                     'OPENBLAS_NUM_THREADS': a.openblas,
+                     'NUMEXPR_NUM_THREADS': a.numexpr},
+        hardware={'machine': a.machine or '(由登记人填写)', 'cpu_count': a.cpu_count,
+                  'mem_gb': a.mem_gb})
+    ok, problems = validate_ceiling(reg)
+    print(json.dumps({'occupancy': occupancy(reg), 'valid': ok,
+                      'problems': problems}, ensure_ascii=False, indent=2))
+    if not ok:
+        print('REFUSED: 登记未通过校验 ⇒ 不落盘')
+        return 3
+    if a.dry_run:
+        print('DRY-RUN: 校验通过，未落盘')
+        return 0
+    p = write_registration(reg, a.path, force=a.force)
+    print('WROTE: %s' % p)
+    return 0
+
+
+if __name__ == '__main__':
+    import sys
+    sys.exit(main())
 
 
 def live_environment_problems(ceiling, *, env=None, affinity=None):
