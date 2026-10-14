@@ -1,0 +1,96 @@
+{
+  "archive_extraction_explanation": "MEASURED: `git archive HEAD` + tar extraction yields CRLF bytes for the scripts/ path (text attribute unspecified, so git archive applies core.autocrlf=true on export) and LF bytes for the freeze_tree path (text attribute unset via its own `* -text` pin). That is why the tar route reported a mismatch for the two new scripts/ files while blob-vs-worktree is SAME. It also means a FRESH CHECKOUT of scripts/tests/*.py under core.autocrlf=true materialises CRLF, so the registered sha256 of those source paths is reproducible only from the pinned freeze_tree copy; this is the pre-existing repo-wide condition for scripts/ (identical for the earlier frozen D3 test files) and is unchanged by this round. The authoritative executable copy is freeze_tree_5273739d/.",
+  "archive_extraction_measured": {
+    "freeze_tree_path": {
+      "archive_bytes": 24841,
+      "archive_crlf": 0,
+      "archive_lf_only": 488,
+      "archive_sha256": "741d7c91d132ae6d5b4326a184fc98f0302c7229fa1bcc489f9961b6ea6f99c0",
+      "worktree_bytes": 24841
+    },
+    "scripts_path": {
+      "archive_bytes": 25329,
+      "archive_crlf": 488,
+      "archive_lf_only": 0,
+      "archive_sha256": "10f47d751fc71b761992d689886a3c9480dd76af944205cffd692bab1dfd4836",
+      "worktree_bytes": 24841
+    }
+  },
+  "authoritative_check": "git cat-file blob HEAD:<path> vs worktree bytes: 6/6 SAME",
+  "checked_at_commit": "722f0f9af349a12eb9959495cdbc074248a7a61d",
+  "core_autocrlf": "true",
+  "correction_of_first_check": "The FIRST byte-reproduction attempt reported a mismatch for the two new scripts/tests files. That was a defect in the CHECK, not in the repository: it compared the worktree against a tar extracted from `git archive`, and extraction applies gitattribute-driven eol conversion for paths under scripts/. The authoritative check is blob-vs-worktree (`git cat-file blob HEAD:<path>`), which now shows SAME for all six sampled files (the 2 new files, the 3 frozen D3 test files, and d3_geo_adapter.py). freeze_tree_5273739d/ is pinned `* -text`, which is why its 24 files reproduced byte-exactly through the same tar route.",
+  "files": {
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_geo_adapter.py": {
+      "blob_crlf": 0,
+      "blob_lf_only": 759,
+      "blob_sha256": "099c3517472d886ece4ea3e929df2ec54d0e459b2a2e2e07da5b658acc07adc5",
+      "identical": true,
+      "worktree_crlf": 0,
+      "worktree_lf_only": 759,
+      "worktree_sha256": "099c3517472d886ece4ea3e929df2ec54d0e459b2a2e2e07da5b658acc07adc5"
+    },
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/d3_fixvalid_import_proof.py": {
+      "blob_crlf": 0,
+      "blob_lf_only": 125,
+      "blob_sha256": "a8ed693a6a2d12277db166cff183af240deab2455d8b04b2a432c90747b915cb",
+      "identical": true,
+      "worktree_crlf": 0,
+      "worktree_lf_only": 125,
+      "worktree_sha256": "a8ed693a6a2d12277db166cff183af240deab2455d8b04b2a432c90747b915cb"
+    },
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_adapter_risks.py": {
+      "blob_crlf": 0,
+      "blob_lf_only": 143,
+      "blob_sha256": "916a7f80e573878f60ccddc920d0fdc0e31fdb7172da2ce08ad95d0495d7fe71",
+      "identical": true,
+      "worktree_crlf": 0,
+      "worktree_lf_only": 143,
+      "worktree_sha256": "916a7f80e573878f60ccddc920d0fdc0e31fdb7172da2ce08ad95d0495d7fe71"
+    },
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_assembly_fixture_validity.py": {
+      "blob_crlf": 0,
+      "blob_lf_only": 488,
+      "blob_sha256": "741d7c91d132ae6d5b4326a184fc98f0302c7229fa1bcc489f9961b6ea6f99c0",
+      "identical": true,
+      "worktree_crlf": 0,
+      "worktree_lf_only": 488,
+      "worktree_sha256": "741d7c91d132ae6d5b4326a184fc98f0302c7229fa1bcc489f9961b6ea6f99c0"
+    },
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_assembly_invariants.py": {
+      "blob_crlf": 0,
+      "blob_lf_only": 256,
+      "blob_sha256": "384fb023b1f27cfc5c6dc25875a11c568cc11d7fbb6844fdeb635bb8750d1326",
+      "identical": true,
+      "worktree_crlf": 0,
+      "worktree_lf_only": 256,
+      "worktree_sha256": "384fb023b1f27cfc5c6dc25875a11c568cc11d7fbb6844fdeb635bb8750d1326"
+    },
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_geo_adapter.py": {
+      "blob_crlf": 0,
+      "blob_lf_only": 356,
+      "blob_sha256": "80ab32e96e20c4de19baca09f9324031a154cf65c272123117927c0b9b4962a6",
+      "identical": true,
+      "worktree_crlf": 0,
+      "worktree_lf_only": 356,
+      "worktree_sha256": "80ab32e96e20c4de19baca09f9324031a154cf65c272123117927c0b9b4962a6"
+    }
+  },
+  "freeze_tree": "freeze_tree_5273739d",
+  "freeze_tree_archive_check": "24 files checked from git archive HEAD, 0 mismatches",
+  "git_attributes": {
+    "freeze_tree_path": [
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_fixture_validity_root_v1/freeze_tree_5273739d/scripts/tests/test_d3_assembly_fixture_validity.py: text: unset",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_fixture_validity_root_v1/freeze_tree_5273739d/scripts/tests/test_d3_assembly_fixture_validity.py: eol: unspecified"
+    ],
+    "scripts_tests_path": [
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_assembly_fixture_validity.py: text: unspecified",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_assembly_fixture_validity.py: eol: unspecified"
+    ]
+  },
+  "interpretation": "The registered sha256 of the two new files equals their WORKTREE (CRLF) bytes and the freeze-tree copy bytes; the committed blob is LF because core.autocrlf=true and scripts/tests/ has no * -text pin. The SAME worktree-vs-blob difference is measured on the pre-existing frozen D3 test files and on d3_geo_adapter.py, so it is a pre-existing repo-wide line-ending state, not introduced by this round. The reproducible artifact is freeze_tree_5273739d/ (pinned * -text, 24/24 reproduced from git archive HEAD).",
+  "registered_identity_matches_worktree_bytes": {
+    "d3_fixvalid_import_proof.py": true,
+    "test_d3_assembly_fixture_validity.py": true
+  }
+}

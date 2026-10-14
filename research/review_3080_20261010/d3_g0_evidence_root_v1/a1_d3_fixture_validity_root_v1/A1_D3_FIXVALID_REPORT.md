@@ -84,6 +84,18 @@
   `EPS_D_PRIMARY_REL=0.0`、`EPS_D_PRIMARY_ABS=0.0`、`TIE_BREAK_LEGAL_ORDER='legal_order_first'`、`TIE_BREAK_CANONICAL='canonical_key'`、`INSTALL_REQUIRES_CERTIFICATION=true`。
 - 辅助对照：`raw/A1_D3_FIXVALID_import_proof_worktree_*.txt` 是对**整个** `scripts/{simulation,tests}`（147 模块）的无范围扫描，其中 9 个与本轮身份无关的旧模块导入失败（缺 `tensorboardX`、或引用已移除 API），因此其 exit=1；24 个登记模块在该扫描中同样 `FROM_TREE`。**权威导入证明是树内那一次**。
 
+## 5b. 字节复现检查（`git archive HEAD`）与一处**检查工具**缺陷的更正
+
+提交号：`722f0f9`（`codex/o0cc-cal-phys` 与 `main` 同步，`ahead/behind 0 0`）。
+
+- **冻结树复现**：`git archive HEAD` 取出 `freeze_tree_5273739d/` 后逐文件比对 → **24/24 与登记的 sha256 一致（0 mismatch）**。该目录自带 `* -text` 钉死（实测 `git check-attr text` = `unset`），因此不受行尾转换影响。
+- **更正（保留原始失败，不改写为通过）**：我的第一次字节复现检查用"解包 `git archive` 结果"来比对两个新增的 `scripts/tests/*.py`，报出 2 处 mismatch。**这是检查工具缺陷，不是仓库缺陷**。实测原因：这两个路径的 `text` 属性为 `unspecified`，`git archive` 导出时应用了 `core.autocrlf=true`，于是解包结果为 CRLF：
+  - `scripts/tests/test_d3_assembly_fixture_validity.py`：解包 488 CRLF / 0 LF，25329 字节，sha `10f47d75…`；而 worktree 与 **blob** 均为 488 LF / 0 CRLF，24841 字节，sha `741d7c91…`
+  - 同一文件在冻结树内的副本：解包 0 CRLF / 488 LF，24841 字节，sha `741d7c91…` = worktree
+- **权威检查**：`git cat-file blob HEAD:<path>` 与 worktree 逐字节比对 → 6/6 `SAME`（2 个新文件、3 个历史 D3 测试文件、`d3_geo_adapter.py`）；两个新文件的**登记 sha256 与 worktree/blob 完全一致**（`registered_identity_matches_worktree_bytes: {both: True}`）。
+- 记录的限制：在 `core.autocrlf=true` 且 `scripts/` 无 `* -text` 钉死的情况下，`scripts/tests/*.py` 的**全新检出**会物化为 CRLF，因此这两个源路径的登记 sha 只能由**钉死的冻结树副本**复现；这与既有历史 D3 测试文件的情况完全相同（`text: unspecified`），是本轮之前就存在的仓库级状态，本轮未改变。本轮**未**新增 `scripts/**` 的行尾钉死，因为那会改变既有冻结文件的检出字节，超出本轮授权。
+- 原始记录：`raw/A1_D3_FIXVALID_GIT_ARCHIVE_BYTE_CHECK.json`
+
 ## 6. 保留的失败尝试（未改写为通过）
 
 | 尝试 | 保留位置 | 失败原因（工具/流程，非实现） |
