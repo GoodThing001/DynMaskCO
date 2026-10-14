@@ -153,22 +153,123 @@ def check_determinism(log_a, log_b):
     return True, []
 
 
-def audit(records, log_repeat=None, tol=TOL):
-    """跑全部可用检查，返回结构化报告（**不读任何效用**）。"""
+def _sig(log):
+    """决策序列指纹：`(inst_idx, day_id, decision_hash)`。缺字段 ⇒ 返回 `(None, 问题)`。"""
+    out = []
+    for i, r in enumerate(log or []):
+        bad = _missing(r, i)
+        if bad:
+            return None, bad
+        out.append((r['inst_idx'], r['day_id'], r['decision_hash']))
+    return out, None
+
+
+def _accept_rate(log):
+    n = len(log or [])
+    if not n:
+        return None
+    return sum(1 for r in (log or []) if r.get('action') == 'accept') / float(n)
+
+
+def compare_ablations(log_base, log_ablated, label=''):
+    """**T2 / T3 / T4**：该消融开关是否**真的接进了决策路径**。
+
+    判据**只有一条**（2026-10-14 用户纠错后的措辞）：两个决策序列**不得完全相同**。
+
+      * **完全相同 ⇒ `engaged=False` ⇒ FAIL** —— 说明这个开关根本没接进决策路径
+        （不是"效应小"，是"没接线"）；
+      * **只要有一处不同 ⇒ `engaged=True`**，**无论差异多小** ——
+        「差异多大 / 是否显著 / 方向对不对」**属科学结论**，本函数**一律不判**
+        （绝不因为"变化不显著"判失败）。
+
+    同时**如实报告**行为指标（接单率、动作一致率、差异条数）供人阅读。
+    """
+    sb, pb = _sig(log_base)
+    sa, pa = _sig(log_ablated)
+    if pb or pa:
+        return {'label': label, 'engaged': None, 'problems': [x for x in (pb, pa) if x],
+                'note': '记录不完整 ⇒ 无法判定是否接入（fail-closed，不算通过）'}
+    n_diff = (None if len(sb) != len(sa) else
+              sum(1 for x, y in zip(sb, sa) if x != y))
+    key_b = {(i, d): h for i, d, h in sb}
+    key_a = {(i, d): h for i, d, h in sa}
+    common = set(key_b) & set(key_a)
+    agree = (sum(1 for k in common if key_b[k] == key_a[k]) / float(len(common))
+             if common else None)
+    rb, ra = _accept_rate(log_base), _accept_rate(log_ablated)
+    return {
+        'label': label,
+        'engaged': (sb != sa),
+        'n_decisions_base': len(sb),
+        'n_decisions_ablated': len(sa),
+        'n_differing': n_diff,
+        'action_agreement': agree,
+        'accept_rate_base': rb,
+        'accept_rate_ablated': ra,
+        'delta_accept_rate': (None if (rb is None or ra is None) else ra - rb),
+        'problems': [],
+        'note': ('engaged=True ⇒ 开关已接入（**差异大小不作判据**）'
+                 if sb != sa else
+                 'engaged=False ⇒ **FAIL**：消融前后决策序列完全相同，开关没有接进决策路径'),
+    }
+
+
+def check_ablation_engagement(cases):
+    """对三个开关各给一对日志，返回 `(ok, rows, problems)`。
+
+    `cases` = `{开关名: (log_base, log_ablated)}`，开关名对应
+    `role_c_opportunity_cost.ABLATIONS`（`opportunity_cost` / `lookahead` / `scenarios`）。
+    ⚠️ **三个开关都必须 engaged**（都不得"完全相同"）；任一未接入 ⇒ 判 FAIL。
+    """
+    rows, problems = [], []
+    for name, pair in (cases or {}).items():
+        if not (isinstance(pair, (tuple, list)) and len(pair) == 2):
+            problems.append('开关 %s 需要 (基准日志, 消融日志) 一对' % name)
+            continue
+        r = compare_ablations(pair[0], pair[1], label=name)
+        r['switch'] = name
+        rows.append(r)
+        if r['engaged'] is not True:
+            problems.append('开关 %s 未接入决策路径：%s' % (name, r.get('note')))
+        problems.extend(r.get('problems') or [])
+    if not cases:
+        problems.append('未提供任何消融对照（cases 为空）⇒ 无法判定接入，fail-closed')
+    return (not problems), rows, problems
+
+
+def audit(records, log_repeat=None, ablations=None, tol=TOL):
+    """跑全部可用检查，返回结构化报告（**不读任何效用**）。
+
+    ⚠️ **`problems` 只放"真的违反了"**；「未提供对照 ⇒ 不适用」进 `not_applicable`。
+    把"不适用"混进 `problems` 会重演本项目反复出现的错误：
+    **结构性不适用被当成失败**（本轮实测踩到：干净日志因"未提供消融对照"被判有 problem）。
+    """
     t5_ok, t5 = check_order_and_causality(records, tol)
     t6_ok, t6 = check_commitments_and_budget(records, tol)
-    t7_ok, t7 = (None, ['未提供重复运行日志（`log_repeat`）⇒ T7 不适用'])
-    if log_repeat is not None:
+    na = []
+    t7_ok, t7 = None, []
+    if log_repeat is None:
+        na.append('T7 确定性：未提供重复运行日志（`log_repeat`）⇒ 不适用')
+    else:
         t7_ok, t7 = check_determinism(records, log_repeat)
-    checks = {'T5_order_and_causality': t5_ok,
+    t234_ok, t234_rows, t234 = None, [], []
+    if ablations is None:
+        na.append('T2/T3/T4 消融接入：未提供消融对照（`ablations`）⇒ 不适用')
+    else:
+        t234_ok, t234_rows, t234 = check_ablation_engagement(ablations)
+    checks = {'T2_T3_T4_ablation_engagement': t234_ok,
+              'T5_order_and_causality': t5_ok,
               'T6_commitments_and_budget': t6_ok,
               'T7_determinism': t7_ok}
-    problems = list(t5) + list(t6) + list(t7)
+    problems = list(t234) + list(t5) + list(t6) + list(t7)
     return {'schema_version': SCHEMA_VERSION,
             'n_records': len(records or []),
             'checks': checks,
+            'ablation_rows': t234_rows,
             'problems': problems,
-            # 只有**已执行**的检查才参与判定；T7 不适用不算失败
+            'not_applicable': na,
+            # 只有**已执行**的检查才参与判定；未提供对照不算失败
             'passed': all(v is not False for v in checks.values()),
-            'note': '只判"机制是否被违反"，**不判有没有用**（不读效用）。'
-                    '缺字段一律 FAIL（没记录 ≠ 没违反）。'}
+            'note': '只判"机制是否被违反 / 开关是否接入"，**不判有没有用**（不读效用）。'
+                    '缺字段一律 FAIL（没记录 ≠ 没违反）；消融**有差异即算接入，不判显著性**；'
+                    '「不适用」进 `not_applicable`，**不**计入 `problems`。'}

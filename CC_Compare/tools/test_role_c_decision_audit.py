@@ -134,6 +134,67 @@ def main():
     ck('未提供重复日志 ⇒ T7 记 None（不适用），整体仍 passed',
        r['checks']['T7_determinism'] is None and r['passed'] is True)
 
+    # ---------- T2/T3/T4：消融开关是否**真的接进决策路径** ----------
+    # 判据只有一条：两个决策序列**不得完全相同**；差异大小**不作判据**。
+    same = copy.deepcopy(base)
+    r = aud.compare_ablations(base, same, label='opportunity_cost')
+    ck('T2：消融前后**完全相同** ⇒ engaged=False（开关没接进去）',
+       r['engaged'] is False, r['note'])
+
+    tiny = copy.deepcopy(base)
+    tiny[1]['decision_hash'] = 'h1-ablated'          # 3 条里只改 1 条
+    r = aud.compare_ablations(base, tiny, label='opportunity_cost')
+    ck('T2：**只改 1 条**（3 条中）也判 engaged=True —— 证明**不判显著性**',
+       r['engaged'] is True and r['n_differing'] == 1
+       and r['action_agreement'] is not None,
+       'n_diff=%r agree=%r' % (r['n_differing'], r['action_agreement']))
+
+    # accept 率变化要被如实**报告**（但报告不等于判据）
+    flipped = copy.deepcopy(base)
+    flipped[2] = dict(flipped[2], action='accept', certified=True,
+                      certify_energy=50.0, order_id=9, decision_hash='h2x')
+    r = aud.compare_ablations(base, flipped, label='opportunity_cost')
+    ck('T2：接单率变化被**报告**（base=1/3 → ablated=2/3，Δ=+1/3）',
+       abs(r['accept_rate_base'] - 1 / 3) < 1e-9
+       and abs(r['accept_rate_ablated'] - 2 / 3) < 1e-9
+       and abs(r['delta_accept_rate'] - 1 / 3) < 1e-9, r)
+
+    # fail-closed：日志不完整 ⇒ engaged=None（不算通过）
+    broken = copy.deepcopy(base)
+    del broken[1]['decision_hash']
+    r = aud.compare_ablations(base, broken, label='lookahead')
+    ck('T3：消融日志缺字段 ⇒ engaged=None（fail-closed，不算接入）',
+       r['engaged'] is None and r['problems'], r['problems'])
+
+    # 三开关汇总：全接入 ⇒ PASS；任一未接入 ⇒ FAIL
+    allpairs = {'opportunity_cost': (base, tiny),
+                'lookahead': (base, flipped),
+                'scenarios': (base, copy.deepcopy(base[:2]))}
+    ok, rows, pr = aud.check_ablation_engagement(allpairs)
+    ck('T2/T3/T4：三开关全部接入 ⇒ PASS', ok is True and len(rows) == 3, pr)
+    onepairs = dict(allpairs, scenarios=(base, copy.deepcopy(base)))
+    ok, rows, pr = aud.check_ablation_engagement(onepairs)
+    ck('T2/T3/T4：其中 scenarios **未接入** ⇒ FAIL 且点名该开关',
+       ok is False and any('scenarios' in p for p in pr), pr)
+    ok, rows, pr = aud.check_ablation_engagement({})
+    ck('fail-closed：未提供任何消融对照 ⇒ FAIL（不能默认通过）',
+       ok is False and any('cases 为空' in p for p in pr), pr)
+    ok, rows, pr = aud.check_ablation_engagement({'scenarios': base})
+    ck('fail-closed：对照不是一对日志 ⇒ FAIL', ok is False, pr)
+
+    # audit() 的整合与"不适用 ≠ 失败"
+    r = aud.audit(base, log_repeat=copy.deepcopy(base), ablations=allpairs)
+    ck('audit() 整合：T2–T7 全过', r['passed'] is True and r['problems'] == [],
+       r['problems'])
+    r = aud.audit(base)
+    ck('audit()：未提供重复日志/消融 ⇒ 记 None（不适用）且**不进 problems**，整体 passed',
+       r['checks']['T7_determinism'] is None
+       and r['checks']['T2_T3_T4_ablation_engagement'] is None
+       and r['problems'] == [] and len(r['not_applicable']) == 2 and r['passed'] is True,
+       'problems=%s na=%s' % (r['problems'], r['not_applicable']))
+    r = aud.audit(base, ablations=onepairs)
+    ck('audit()：有开关未接入 ⇒ passed=False', r['passed'] is False)
+
     # ---------- 结构性：schema 常量化（必填 ∪ 条件必填 == 完整字段集）----------
     all_cond = set()
     for _a, fs in aud.CONDITIONAL_FIELDS.items():
