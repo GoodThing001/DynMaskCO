@@ -1,8 +1,8 @@
 {
   "record": "D3_G0_Evidence_B3AC_byte_freeze",
   "date": "2026-10-14",
-  "revision": 2,
-  "base_commit": "881c693",
+  "revision": 3,
+  "base_commit": "13a56af",
   "why": "both B3-AC deliverables register raw sha256 as evidence (the path classifier registers its own hash, the refusal matrix registers its own source plus the gate primitives), so a fresh checkout must reproduce them byte-for-byte; with core.autocrlf=true a checkout injects CRLF unless the container is pinned",
   "self_reference_note": "this record does not register its own sha256 (self-reference is meaningless); it is covered by the directory pin",
   "pin_sets": [
@@ -38,7 +38,7 @@
   ],
   "registered_byte_containers_b3ac": {
     "scripts": {
-      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3ac_path_classification.py": "48f2515e6f42994ce4a359d7faf6ac923c343ffbf0ac97a0c8dbd0aa6244d5d9",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3ac_path_classification.py": "32a8a41543a86a34c7a10b496fffe3597d2cee059a145e1b6106dca49b0acd09",
       "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3ac_gate_refusal.py": "5125e05edef67ac1a5c546cb1b9601834e27385f91cf6a115f8f75d97a6c87fb",
       "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_composed_certifier.py": "b65ddf6545a84b656cd2e9dd541cea266d2d6bdbc1cd56abd76f7780104aea01",
       "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_install_gate.py": "adc8df289be1babcf8d6907ff57ab30ab3d66d58fcb47a6c9539bc8591634483",
@@ -51,13 +51,13 @@
     "evidence": {
       "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AC_COUNTEREXAMPLE_SPEC.json": "217ca641691c2ada22e85d82388fdeedab3ffd6ed5f32879493721591c0b2b33",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AC_DESIGN.md": "51882059b4eda2a16eb17d5fc086d58bd5f103dd736f1266148030c4e017395b",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AC_PATH_CLASSIFICATION.json": "a23ee7caa7760a6c9f08cef227040fc8a65b5f5c0272ada8a70408a1ffb6c447",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AC_PATH_CLASSIFICATION.json": "c5d7b186026aa14c62bce961bde001bfc5f9a2971e69bc7a61a6ee815383999c",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AC_REFUSAL_MATRIX.json": "ec82d0edd23f2bfd21aedee5792494361d3562f1c2bf2a5c6eca96d24a68abe6",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AC_REPORT.md": "2961e46ad685f976b87f08a704697bd2cef3aca0e2030fd8f64e83069610035e"
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AC_REPORT.md": "cc8ce53477b7e0f271254f1bfee30f9341daf6087785851c9aee34b68a762c4c"
     },
     "raw": {
       "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_paths_stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_paths_stdout.txt": "fe09309c60afd52576d413eb0d18fa9c0564415c96b53cdd0c307256dd138f6a",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_paths_stdout.txt": "4957cdac337f4a0d749e80bf59d276a0bbd30be990228142f347a932d0715015",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_refusal_instance0.txt": "875e532f0212c9b72d845e8470d0b6f17884a36c8b9b2b17589d7cbad2966315",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_refusal_instance1.txt": "875e532f0212c9b72d845e8470d0b6f17884a36c8b9b2b17589d7cbad2966315",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_refusal_instance2.txt": "875e532f0212c9b72d845e8470d0b6f17884a36c8b9b2b17589d7cbad2966315",
@@ -84,5 +84,5 @@
   },
   "not_reported_as_passing": "AC-R1/AC-R7/AC-R8 reproduce DEFECTS and are COUNTEREXAMPLE_REPRODUCED; AC-R9 is FAILURE_ATOMICITY_ABSENT; AC-R5 is a WAIT and is never counted as refusal capability; AC-R3 counts on the quality dimension only.  This batch does not report G-L or G-C as passing, and does not claim atomicity.",
   "verification_required_after_commit": "git archive HEAD <each pinned path> must reproduce the registered sha256 exactly",
-  "revision_note": "v1 (commit 881c693) pinned only the two B3-AC deliverables; the post-commit `git archive HEAD` verification then found two MORE registered files still unpinned (simulation/action_contract.py, evaluation/run_exp_energy_c0.py), because the matrices also register the gate primitives and the path-classification anchors.  v2 adds those two pins (both additive, no registered value changed) and refreshes the hashes.  v1 stays byte-intact in history."
+  "revision_note": "v1 (881c693) pinned the two B3-AC deliverables; the post-commit `git archive HEAD` check caught two more registered-but-unpinned files (fixed in v2, 13a56af).  v3 adds NO pin: it refreshes the hashes after the path classifier gained the `completeness_of_the_seven` / `category_tally` / `decide_primitive_call_sites_non_test` blocks, which make \"seven bypass sites\" mechanically checkable (measured: 8 non-test certify_plan call sites = 1 inside the composed gate + the 7 pre-registered bypass sites; compose_certification and pre_install_reverify have 0 non-test callers), and after B3AC_REPORT.md gained section 1.2 reporting them.  No counterexample verdict and no pin changed; earlier revisions stay byte-intact in history."
 }

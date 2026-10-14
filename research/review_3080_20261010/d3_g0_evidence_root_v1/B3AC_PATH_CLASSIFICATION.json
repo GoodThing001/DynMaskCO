@@ -676,9 +676,145 @@
     "n_d3_gate_primitive_non_test_call_sites": 0,
     "NOTE": "\"capable of writing live state\" is a CAPABILITY of the enclosing replanner class, NOT a statement that the D3 production path is wired to it; the two are reported separately and must never be merged"
   },
+  "completeness_of_the_seven": {
+    "n_certify_plan_non_test_call_sites": 8,
+    "n_inside_the_composed_gate_itself": 1,
+    "n_bypass_sites": 7,
+    "preregistered_seven_are_exactly_the_bypass_sites": true,
+    "unregistered_certify_plan_sites": [
+      [
+        "scripts/simulation/d3_composed_certifier.py",
+        233
+      ]
+    ],
+    "preregistered_sites_not_found": [],
+    "gate_own_sites": [
+      {
+        "file": "scripts/simulation/d3_composed_certifier.py",
+        "line": 233,
+        "class": null,
+        "function": "compose_certification",
+        "call_text": "got = _guard('energy_budget', lambda: certify_plan(env, inst_idx, clock, vehicles,"
+      }
+    ],
+    "note": "this block EXISTS so a reader can verify mechanically that the pre-registered seven are all the non-test `certify_plan` call sites apart from the composed gate's own energy check -- an eighth, unregistered bypass site would show up in `unregistered_certify_plan_sites` instead of being invisible"
+  },
+  "category_tally": {
+    "by_governing_category": {
+      "D3_REAL_COMMIT_ENTRY": 0,
+      "INDIRECT_WRITER_CAN_WRITE_D3_STATE": 7,
+      "HISTORICAL_BASELINE_INDEPENDENT_ENTRY": 0,
+      "CANDIDATE_EVAL_ONLY_NO_REAL_WRITE": 0
+    },
+    "by_satisfied_label": {
+      "D3_REAL_COMMIT_ENTRY": 0,
+      "INDIRECT_WRITER_CAN_WRITE_D3_STATE": 7,
+      "HISTORICAL_BASELINE_INDEPENDENT_ENTRY": 7,
+      "CANDIDATE_EVAL_ONLY_NO_REAL_WRITE": 0
+    },
+    "categories_declared": [
+      "D3_REAL_COMMIT_ENTRY",
+      "INDIRECT_WRITER_CAN_WRITE_D3_STATE",
+      "HISTORICAL_BASELINE_INDEPENDENT_ENTRY",
+      "CANDIDATE_EVAL_ONLY_NO_REAL_WRITE"
+    ],
+    "note": "R1 = 0 and R2 = 0 are RESULTS, not omissions: no site reaches a D3 gate primitive, and none of the seven is write-incapable.  Reported so nobody reads the existence of an empty category as an unfinished classification"
+  },
+  "decide_primitive_call_sites_non_test": {
+    "certify_plan": [
+      {
+        "file": "scripts/evaluation/rolling_optimizer.py",
+        "line": 197,
+        "class": "RollingOptimizeReplanner",
+        "function": "evaluate",
+        "call_text": "ok, _ = certify_plan(env, inst_idx, clock, vehicles, served_mask, plan,"
+      },
+      {
+        "file": "scripts/evaluation/rrnco_accept_replanner.py",
+        "line": 150,
+        "class": "OrderingAcceptReplanner",
+        "function": "_decide",
+        "call_text": "ok, _ = certify_plan(env, inst_idx, clock, vehicles, served_mask, plan,"
+      },
+      {
+        "file": "scripts/evaluation/run_a1_downstream_ablation.py",
+        "line": 88,
+        "class": "AblSaaReplanner",
+        "function": "_try_insert_certified",
+        "call_text": "ok, _ = certify_plan(env, inst_idx, clock, vehicles, served_mask, plan,"
+      },
+      {
+        "file": "scripts/evaluation/run_exp_energy_c0.py",
+        "line": 302,
+        "class": "C0ReserveReplanner",
+        "function": "_try_insert_certified",
+        "call_text": "ok, _ = certify_plan(env, inst_idx, clock, vehicles, served_mask, self._plan,"
+      },
+      {
+        "file": "scripts/evaluation/solver_accept_replanner.py",
+        "line": 424,
+        "class": "SolverAcceptReplanner",
+        "function": "on_reveal",
+        "call_text": "ok, _energy = certify_plan(env, inst_idx, clock, vehicles, served_mask,"
+      },
+      {
+        "file": "scripts/research_20261010/pickup_budget_sweep.py",
+        "line": 96,
+        "class": "AttributionReplanner",
+        "function": "on_reveal",
+        "call_text": "ok, _ = certify_plan(env, inst_idx, clock, vehicles, served_mask,"
+      },
+      {
+        "file": "scripts/research_20261010/pickup_rejection_attribution.py",
+        "line": 97,
+        "class": "AttributionReplanner",
+        "function": "on_reveal",
+        "call_text": "ok, _ = certify_plan(env, inst_idx, clock, vehicles, served_mask,"
+      },
+      {
+        "file": "scripts/simulation/d3_composed_certifier.py",
+        "line": 233,
+        "class": null,
+        "function": "compose_certification",
+        "call_text": "got = _guard('energy_budget', lambda: certify_plan(env, inst_idx, clock, vehicles,"
+      }
+    ],
+    "certify_route": [
+      {
+        "file": "scripts/evaluation/run_perishability_oracle.py",
+        "line": 65,
+        "class": null,
+        "function": "_commit_least_perishable",
+        "call_text": "cert = certify_route(env, inst_idx, p.anchor_node, p.anchor_time, p.anchor_load,"
+      },
+      {
+        "file": "scripts/simulation/action_contract.py",
+        "line": 399,
+        "class": null,
+        "function": "_enumerate_from_plans",
+        "call_text": "cert = certify_route(env, inst_idx, p.anchor_node, p.anchor_time, p.anchor_load, trial)"
+      },
+      {
+        "file": "scripts/simulation/action_contract.py",
+        "line": 417,
+        "class": null,
+        "function": "_enumerate_from_plans",
+        "call_text": "cert = certify_route(env, inst_idx, 0, plans[vid].anchor_time, 0.0, trial)"
+      },
+      {
+        "file": "scripts/simulation/d3_composed_certifier.py",
+        "line": 210,
+        "class": null,
+        "function": "_routes",
+        "call_text": "r = certify_route(env, inst_idx, p.anchor_node, p.anchor_time, p.anchor_load,"
+      }
+    ],
+    "compose_certification": [],
+    "pre_install_reverify": []
+  },
   "d3_gate_primitive_call_sites_non_test": [],
   "identities": {
-    "this_file_sha256": "48f2515e6f42994ce4a359d7faf6ac923c343ffbf0ac97a0c8dbd0aa6244d5d9",
+    "this_file_sha256": "32a8a41543a86a34c7a10b496fffe3597d2cee059a145e1b6106dca49b0acd09",
     "code": {
       "scripts/evaluation/rolling_optimizer.py": "229d4b371b34bcc039ab5dc4df857f9d012adfa78ba6fb741106c76e9bf45366",
       "scripts/evaluation/rrnco_accept_replanner.py": "774dfaf42341d6ba31e51b8da92a245ad30345902d593c3f94f54bda53b27ab8",

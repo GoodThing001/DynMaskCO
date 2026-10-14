@@ -445,6 +445,38 @@ def main():
         uniq[(s['file'], s['line'], s['primitive'])] = s
     gate_sites = sorted(uniq.values(), key=lambda s: (s['file'], s['line']))
 
+    # ---- COMPLETENESS of "seven sites": a reader must be able to check mechanically that the
+    # pre-registered seven are ALL the non-test `certify_plan` call sites, i.e. that no eighth
+    # bypass site is invisible.  The composed certifier's OWN energy call is expected to be the one
+    # extra site (B3-CG: "8 non-test call sites of which ONE is the composed gate itself"), and it
+    # is reported separately rather than hidden.
+    def _decide_inventory(prim):
+        out, seen = [], set()
+        for d in deciders:
+            if d['site']['primitive'] != prim:
+                continue
+            rel = d['file']['path'].relative_to(EXT).as_posix()
+            k = (rel, d['site']['line'])
+            if k in seen:
+                continue
+            seen.add(k)
+            out.append({'file': rel, 'line': d['site']['line'], 'class': d['site']['class'],
+                        'function': d['site']['function'], 'call_text': d['site']['text']})
+        return sorted(out, key=lambda s: (s['file'], s['line']))
+
+    certify_plan_sites = _decide_inventory('certify_plan')
+    prereg_set = {(f, l) for f, l in PREREGISTERED_SITES}
+    found_set = {(s['file'], s['line']) for s in certify_plan_sites}
+    gate_own = [s for s in certify_plan_sites if s['file'].endswith('d3_composed_certifier.py')]
+    bypass_sites = [s for s in certify_plan_sites if s not in gate_own]
+    category_tally = {c: 0 for c in CATEGORIES}
+    for r in rows:
+        category_tally[r['classification']['governing_category']] += 1
+    label_tally = {c: 0 for c in CATEGORIES}
+    for r in rows:
+        for lab in r['classification']['labels_all_satisfied']:
+            label_tally[lab] += 1
+
     n_writers = sum(1 for r in rows if r['classification']['capable_of_writing_live_state'])
     n_d3_entry = sum(1 for r in rows if r['classification']['governing_category']
                      == 'D3_REAL_COMMIT_ENTRY')
@@ -487,6 +519,34 @@ def main():
                      'class, NOT a statement that the D3 production path is wired to it; the two '
                      'are reported separately and must never be merged'),
         },
+        'completeness_of_the_seven': {
+            'n_certify_plan_non_test_call_sites': len(certify_plan_sites),
+            'n_inside_the_composed_gate_itself': len(gate_own),
+            'n_bypass_sites': len(bypass_sites),
+            'preregistered_seven_are_exactly_the_bypass_sites': (
+                {(s['file'], s['line']) for s in bypass_sites} == prereg_set),
+            'unregistered_certify_plan_sites': sorted(found_set - prereg_set),
+            'preregistered_sites_not_found': sorted(prereg_set - found_set),
+            'gate_own_sites': gate_own,
+            'note': ('this block EXISTS so a reader can verify mechanically that the pre-registered '
+                     'seven are all the non-test `certify_plan` call sites apart from the composed '
+                     'gate\'s own energy check -- an eighth, unregistered bypass site would show up '
+                     'in `unregistered_certify_plan_sites` instead of being invisible'),
+        },
+        'category_tally': {
+            'by_governing_category': category_tally,
+            'by_satisfied_label': label_tally,
+            'categories_declared': list(CATEGORIES),
+            'note': ('R1 = 0 and R2 = 0 are RESULTS, not omissions: no site reaches a D3 gate '
+                     'primitive, and none of the seven is write-incapable.  Reported so nobody '
+                     'reads the existence of an empty category as an unfinished classification'),
+        },
+        'decide_primitive_call_sites_non_test': {
+            'certify_plan': certify_plan_sites,
+            'certify_route': _decide_inventory('certify_route'),
+            'compose_certification': _decide_inventory('compose_certification'),
+            'pre_install_reverify': _decide_inventory('pre_install_reverify'),
+        },
         'd3_gate_primitive_call_sites_non_test': gate_sites,
         'identities': {
             'this_file_sha256': sha256_file(Path(__file__)),
@@ -511,6 +571,11 @@ def main():
     print('  D3 gate primitive non-test call sites: %d' % len(gate_sites))
     for s in gate_sites:
         print('      %s:%d  %s  (%s)' % (s['file'], s['line'], s['primitive'], s['class']))
+    print('  certify_plan non-test call sites: %d  (inside the gate itself: %d ; bypass: %d ; '
+          'pre-registered seven == bypass set: %s)'
+          % (len(certify_plan_sites), len(gate_own), len(bypass_sites),
+             {(s['file'], s['line']) for s in bypass_sites} == prereg_set))
+    print('  category tally (governing):', json.dumps(category_tally, ensure_ascii=False))
     print('\nsummary:', json.dumps(out['summary'], ensure_ascii=False))
     if missing:
         print('\nMISSING pre-registered anchors: %d -> the classification cannot be reported'

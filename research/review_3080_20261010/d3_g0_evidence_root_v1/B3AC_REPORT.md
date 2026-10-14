@@ -40,7 +40,34 @@
 - **假阴性（严重方向）**：第一版只读站点自身类体，7 个中 6 个被判 `write=False`——因为写入在**继承来的** `plan()` 里。这会把"有能力写入"误报成"没有能力"，正是用户警告的合并错误的镜像。已改为集合内继承解析并记录每一跳证据。
 - **同文件局限**：`referenced_by_runner_as_replanner` 第一版只在定义文件内查找，对库式 replanner 报 `used_by=0`。已改为跨文件（`rolling`/`rrnco`/`solver` 因此分别显示出 1/1/3 个接线文件）。
 
+### 1.2 "七处"本身也被机械核对过（完整性块）
+
+分类器不只分类预登记的七处，还输出 `completeness_of_the_seven`，**目的是让"七"这个数字可被机器验证**：如果存在第八个未被登记的旁路站点，它会出现在 `unregistered_certify_plan_sites` 里，而不是隐形。
+
+| 量 | 实测 |
+|---|---|
+| `certify_plan` 非测试调用点总数 | **8** |
+| 其中位于组合认证器自身内部 | **1**（`d3_composed_certifier.py:233`，函数 `compose_certification`，即门自己的能耗检查） |
+| 真正的旁路站点 | **7** |
+| 预登记七处 == 旁路集合 | **`true`** |
+| `preregistered_sites_not_found` | `[]`（无失效锚点） |
+| 未登记的 `certify_plan` 站点 | 仅门自身那一处 |
+
+这与 B3-CG 阶段的静态结论（"8 个非测试调用点，其中 1 个是组合门自身 ⇒ 7 个真正的旁路"）**独立一致**。
+
+四类分类的**机械计数**（`category_tally`）：
+
+| 类别 | governing 计数 | 满足该标签的站点数 |
+|---|---|---|
+| `D3_REAL_COMMIT_ENTRY` | **0** | 0 |
+| `INDIRECT_WRITER_CAN_WRITE_D3_STATE` | **7** | 7 |
+| `HISTORICAL_BASELINE_INDEPENDENT_ENTRY` | 0 | **7** |
+| `CANDIDATE_EVAL_ONLY_NO_REAL_WRITE` | **0** | 0 |
+
+`R1 = 0` 与 `R2 = 0` 是**结果**而非遗漏，矩阵里显式写明，以免"空类别"被读成"分类没做完"。此外 `decide_primitive_call_sites_non_test` 记录：`compose_certification` = **0**、`pre_install_reverify` = **0** 个非测试调用点——这正是 P2（所有真实提交都经过门）不属于本批的直接原因。
+
 ## 2. 第二部分：拒绝能力验收（10 行 + 3 个控制行）
+
 
 `--instances 0 --heavy-cap 8`（规范矩阵）。全部行均为预登记项，无新增、无删除（`PREREG=OK`）。
 

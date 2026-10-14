@@ -7,6 +7,8 @@
   scripts/research_20261010/pickup_budget_sweep.py    :96   INDIRECT_WRITER_CAN_WRITE_D3_STATE       filter=True  canwrite=True  d3wired=False used_by=2
   scripts/research_20261010/pickup_rejection_attribution.py:97   INDIRECT_WRITER_CAN_WRITE_D3_STATE       filter=True  canwrite=True  d3wired=False used_by=2
   D3 gate primitive non-test call sites: 0
+  certify_plan non-test call sites: 8  (inside the gate itself: 1 ; bypass: 7 ; pre-registered seven == bypass set: True)
+  category tally (governing): {"D3_REAL_COMMIT_ENTRY": 0, "INDIRECT_WRITER_CAN_WRITE_D3_STATE": 7, "HISTORICAL_BASELINE_INDEPENDENT_ENTRY": 0, "CANDIDATE_EVAL_ONLY_NO_REAL_WRITE": 0}
 
 summary: {"n_preregistered_sites": 7, "n_classified": 7, "n_governing_D3_REAL_COMMIT_ENTRY": 0, "n_capable_of_writing_live_state": 7, "n_wired_to_a_d3_module": 0, "n_d3_gate_primitive_non_test_call_sites": 0, "NOTE": "\"capable of writing live state\" is a CAPABILITY of the enclosing replanner class, NOT a statement that the D3 production path is wired to it; the two are reported separately and must never be merged"}
 wrote D:\PyCharm_\MASKCO-Main\research\review_3080_20261010\d3_g0_evidence_root_v1\B3AC_PATH_CLASSIFICATION.json
