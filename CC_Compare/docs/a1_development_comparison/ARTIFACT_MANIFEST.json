@@ -1,9 +1,12 @@
 {
   "kind": "development-evidence-package",
   "note": "**development 证据包，不是最终测试结果，也不声称 SOTA。** Markdown 文档入 Git；Excel 与完整 dataset.json 仅作 Release 附件，`CC_Compare/results/**` 的忽略规则保持不变。",
-  "source_commit": "2f43d386ef18e090caf582b793abc85f3c6dad8b",
-  "source_commit_dirty_n": 0,
-  "source_commit_dirty_files": [],
+  "source_commit": "c33085c0077496ed50e8f4d93b235c5fd9b75661",
+  "source_commit_dirty_n": 2,
+  "source_commit_dirty_files": [
+    "M \"CC_Compare/docs/a1_development_comparison/A-v1\\345\\257\\271\\346\\257\\224\\346\\226\\271\\346\\263\\225\\346\\200\\273\\350\\241\\250.md\"",
+    " M \"CC_Compare/docs/a1_development_comparison/\\350\\257\\273\\350\\241\\250\\346\\263\\250\\346\\204\\217\\344\\270\\216\\345\\267\\262\\347\\237\\245\\351\\231\\220\\345\\256\\232.md\""
+  ],
   "source_commit_dirty_scope": "CC_Compare/docs/a1_development_comparison",
   "source_commit_dirty_meaning": "入库快照目录下**未提交**的已跟踪文件数（**已排除清单自身**）。`=0` ⇒ 快照内容恰等于 `source_commit` 的树；`>0` ⇒ 快照内容 = `source_commit` **加上**这些改动，此时**不得**把 `source_commit` 当作快照内容的定位。⚠️ 该判据**不覆盖** `results/**`（被 .gitignore 忽略 ⇒ 对其做 git status 恒为空，会假报干净）；Release 附件的完整性由 `release_only` 的 size+sha256 保证。",
   "self_reference_note": "`source_commit` 是**快照来源**（归档时刻 HEAD）。包含本清单的那次提交是它的**子**提交 ⇒ `--verify` 时 `source_commit != HEAD` 是**预期**的，不是漂移；真正要判的是 `source_commit` 是否为 HEAD 的祖先。快照**内容**的定位：看 `source_commit_dirty_n` —— 为 0 时内容 = `source_commit` 的树，否则再加上所列改动；无论哪种，最终判据都是本清单记录的 `sha256`。",
@@ -21,29 +24,29 @@
     {
       "path": "CC_Compare/docs/a1_development_comparison/A-v1对比方法总表.md",
       "source": "CC_Compare/results/a1_compare_table/A-v1对比方法总表.md",
-      "size": 77563,
-      "sha256": "f53cc9ac38c26fde2d5fbb98a73148f33b3cf69d26acf79efde23d8893abbeba"
+      "size": 78970,
+      "sha256": "7d94a4d783f60a21365522fd564be462a0f2f2b15eba0843456fae0469056a38"
     },
     {
       "path": "CC_Compare/docs/a1_development_comparison/读表注意与已知限定.md",
       "source": "CC_Compare/results/a1_compare_table/读表注意与已知限定.md",
-      "size": 25548,
-      "sha256": "bdd9b9d4ac42a10116f2bf81f84cb34ec217532c7b2894d6bca87ab69a7f162e"
+      "size": 28745,
+      "sha256": "33a4ed2beebe2e409811847b6f99030191ecb70011493a98591b46b3497a17c0"
     }
   ],
   "release_only": [
     {
       "name": "A-v1对比方法总表.xlsx",
       "in_repo": false,
-      "size": 40616,
-      "sha256": "e32b325e64a4e0b41d86db35fdb04c40f1edc997baa255884f9ef23cc1f14ddc",
+      "size": 40903,
+      "sha256": "65d215a95f8da6737b3d0efde982afdc55e1a5046ca65ad706f305d576d58205",
       "note": "Release 附件；不入 Git；**发布前必须逐个校验 size+sha256**"
     },
     {
       "name": "dataset.json",
       "in_repo": false,
-      "size": 762598,
-      "sha256": "27adb3f9fe16668f85330eaf4b4be2cfc94a0f2ed7426c0bdf04897a187278f7",
+      "size": 765313,
+      "sha256": "6458b31cb59ccccca3d694ed377ed6c97241c3cf80ba62cd06d0cbf4a9af2e93",
       "note": "Release 附件；不入 Git；**发布前必须逐个校验 size+sha256**"
     },
     {
