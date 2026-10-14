@@ -1,0 +1,22 @@
+{
+  "stage": "D2_field_gap_registration",
+  "supersedes": null,
+  "registry": "CC_Compare/P1A_D2_同掩码MaskCO归因筛查_登记_2026-10-14.md",
+  "verdict": "not_qualified",
+  "gaps": [
+    "F arm: no trained MaskCO repair checkpoint found on disk (the pinned tree only holds upstream pretrained ckpts)",
+    "E2 arm: no trained random-init control run artifact found; E1 alone cannot support any pretraining-attribution claim (registration §3)",
+    "no sealed fixed-state record carrying per-candidate executable actions and/or true committed differences was found",
+    "D arm: cc_lns_swap.py not present at the documented path",
+    "required field not evidenced in any located asset: per_candidate_executable_actions",
+    "required field not evidenced in any located asset: true_committed_differences"
+  ],
+  "prohibited_shortcuts": [
+    "substituting candidate scores for executable actions",
+    "using E1 (untrained random weights) as a pretraining control",
+    "reusing stored scores and calling the result an equal-time online comparison",
+    "back-filling missing fields after the fact"
+  ],
+  "comparison_performed": false,
+  "publication_performed": false
+}

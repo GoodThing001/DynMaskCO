@@ -1,0 +1,37 @@
+{
+  "stage": "D1_resource_identifiability",
+  "cpu_only": true,
+  "model_loaded": false,
+  "planner_run": false,
+  "utility_read_as_criterion": false,
+  "alpha_ladder_declared_before_computation": [
+    1.0,
+    0.75,
+    0.5,
+    0.25
+  ],
+  "alpha_ladder_rule": "coarse ladder anchored at the registered budget (alpha=1.0), spanning one order of magnitude, derived from the registered budget unit alone",
+  "publication_performed": false,
+  "identity": {
+    "decision_log": {
+      "path": "research\\review_3080_20261010\\pickup\\a1_deployment_rule_identity_root_v3\\DECISION_LOG.jsonl",
+      "sha256": "485f60735e54faa2e0bd28cd379772afe99cbd24985250212a258f619eb1a44e",
+      "registered_sha256": "485f60735e54faa2e0bd28cd379772afe99cbd24985250212a258f619eb1a44e",
+      "match": true
+    },
+    "rule_module": {
+      "path": "research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v4\\reserving_admission.py",
+      "sha256": "5b6c37cfd6428706fc1c9564a393da465b566899bc9952c3ae2320e6b0b31ccb",
+      "registered_in_v4_registration": "5b6c37cfd6428706fc1c9564a393da465b566899bc9952c3ae2320e6b0b31ccb",
+      "match": true
+    },
+    "v4_registration": {
+      "sha256": "032243a232195ff88a61d2d4631a5d50b6254add1b86f19fbb9c30063f32a7ce"
+    },
+    "contract_sha256_expected": "e25a12104b20c3ea99cb4033f6d3bf32adecf2974de6b5168dbfa0d5a058a41b",
+    "data_sha256_expected": "8767a03d787c0e0fcad112b4888edf46db44c55e9b50b9705bfc5830f4fb378d",
+    "data_meta_sha256_expected": "72a805fd5bc0b2b7a94b0daa712cb11112bcc3e4a5daf7817ca8ca53e28322ba",
+    "data_files_present_locally": null
+  },
+  "n_decisions": 1000
+}
