@@ -118,41 +118,64 @@ def main():
     if a.check_only:
         for l in entries[:30]:
             print('   ', l)
+        run(['fetch', 'origin', '--quiet'])
+        for b in BRANCHES:
+            local = run(['rev-parse', 'HEAD']).stdout.strip()
+            remote = run(['rev-parse', 'origin/%s' % b], check=False).stdout.strip()
+            print('   origin/%-20s %s  %s' % (b, remote[:9],
+                                              'MATCH' if remote == local else 'BEHIND -> push needed'))
         return 0
 
+    # NOTE: "nothing to commit" must NOT short-circuit the push.  Committing and pushing are
+    # routinely separated (an earlier call commits, this one pushes), and returning early here
+    # would silently leave the work unpushed -- the exact failure the convention forbids.
+    committed = False
     if not entries:
-        return 2
-    if not a.message_file:
-        print('REFUSED: --message-file is required when there is something to commit')
-        return 3
-
-    if a.paths:
-        run(['add', '--'] + a.paths)
-        # only renormalize what was explicitly staged: a global renormalize would sweep in
-        # another writer's half-finished files under the byte-container roots
-        run(['add', '--renormalize', '--'] + a.paths)
+        print('nothing to commit; proceeding to the push check')
     else:
-        run(['add', '-A', '--', '.'] + [':(exclude)%s' % e for e in EXCLUDE])
-        for r in FROZEN_ROOTS:
-            if (root / r).is_dir():
-                run(['add', '--renormalize', '--', r])
-
-    staged = run(['diff', '--cached', '--name-only']).stdout.strip().splitlines()
-    for e in EXCLUDE:
-        if any(s == e or s.startswith(e) for s in staged):
-            print('REFUSED: %s is staged; it must stay excluded' % e)
+        if not a.message_file:
+            print('REFUSED: --message-file is required when there is something to commit')
             return 3
-    print('staged :', len(staged), 'file(s)')
-    if not staged:
-        return 2
+        if a.paths:
+            run(['add', '--'] + a.paths)
+            # only renormalize what was explicitly staged: a global renormalize would sweep in
+            # another writer's half-finished files under the byte-container roots
+            run(['add', '--renormalize', '--'] + a.paths)
+        else:
+            run(['add', '-A', '--', '.'] + [':(exclude)%s' % e for e in EXCLUDE])
+            for r in FROZEN_ROOTS:
+                if (root / r).is_dir():
+                    run(['add', '--renormalize', '--', r])
 
-    run(['commit', '-F', a.message_file], capture=False)
-    new_head = run(['rev-parse', '--short', 'HEAD']).stdout.strip()
-    if new_head == head:
-        print('REFUSED: commit produced no new HEAD')
-        return 3
+        staged = run(['diff', '--cached', '--name-only']).stdout.strip().splitlines()
+        for e in EXCLUDE:
+            if any(s == e or s.startswith(e) for s in staged):
+                print('REFUSED: %s is staged; it must stay excluded' % e)
+                return 3
+        print('staged :', len(staged), 'file(s)')
+        if not staged:
+            print('nothing staged after add; proceeding to the push check')
+        else:
+            run(['commit', '-F', a.message_file], capture=False)
+            committed = True
 
     run(['fetch', 'origin', '--quiet'])
+    if committed:
+        new_head = run(['rev-parse', '--short', 'HEAD']).stdout.strip()
+        if new_head == head:
+            print('REFUSED: commit produced no new HEAD')
+            return 3
+
+    head_sha = run(['rev-parse', 'HEAD']).stdout.strip()
+    to_push = []
+    for b in BRANCHES:
+        remote = run(['rev-parse', 'origin/%s' % b], check=False).stdout.strip()
+        if remote != head_sha:
+            to_push.append(b)
+    if not to_push:
+        print('push    : both branches already at HEAD; nothing to push')
+        return 0 if committed else 2
+
     for b in BRANCHES:
         anc = subprocess.run(['git', 'merge-base', '--is-ancestor', 'origin/%s' % b, 'HEAD'],
                              capture_output=True).returncode
@@ -160,7 +183,7 @@ def main():
             print('REFUSED: origin/%s is not an ancestor of HEAD -> would need a non-fast-forward '
                   'push; refusing to rewrite published history' % b)
             return 4
-    for b in BRANCHES:
+    for b in to_push:
         p = run(['push', 'origin', 'HEAD:%s' % b], check=False)
         if p.returncode != 0:
             print('PUSH FAILED for %s:\n%s\n%s' % (b, p.stdout, p.stderr))
