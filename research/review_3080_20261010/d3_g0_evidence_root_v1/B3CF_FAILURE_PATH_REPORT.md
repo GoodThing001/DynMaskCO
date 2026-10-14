@@ -198,7 +198,25 @@ code:
   scripts/coldchain/coldchain_state.py            a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e
 ```
 
-**字节容器修正（本批附带）**：`d3_g0_evidence_root_v1/` 此前**没有**自己的 `.gitattributes`（同级根目录都有）。加入 `* -text` 后实测：该目录 35 个受控文件中 30 个本来满足 `blob == worktree 原始字节`，5 个不满足（都是 PowerShell 重定向的 `raw/*_stdout.txt`，工作区 CRLF、索引 LF）。一次 `git add --renormalize` 后 35/35 满足。这 5 个文件的 LF/CRLF 两种 sha256 在仓库中**均无任何引用**（`git grep -l -F` 皆 0 命中），所以重规范化不改变任何已登记数值，旧 blob 仍留在历史中。逐文件清单与全部登记字节见 `B3CF_BYTE_FREEZE.json`；该记录**不登记自身哈希**（自引用无意义）。
+**字节容器修正（本批附带，v2 追加）**：`d3_g0_evidence_root_v1/` 此前**没有**自己的 `.gitattributes`（同级根目录都有）。加入 `* -text` 后实测：该目录 35 个受控文件中 30 个本来满足 `blob == worktree 原始字节`，5 个不满足（都是 PowerShell 重定向的 `raw/*_stdout.txt`，工作区 CRLF、索引 LF）。一次 `git add --renormalize` 后 35/35 满足。这 5 个文件的 LF/CRLF 两种 sha256 在仓库中**均无任何引用**（`git grep -l -F` 皆 0 命中），所以重规范化不改变任何已登记数值，旧 blob 仍留在历史中。逐文件清单与全部登记字节见 `B3CF_BYTE_FREEZE.json`；该记录**不登记自身哈希**（自引用无意义）。
+
+### 5.1 提交后校验发现的 pin 缺口（v2；**先被发现、后才修好**）
+
+第一次交付（commit `9710081`）只 pin 了 `research/.../d3_g0_evidence_root_v1/`，**漏掉了 `scripts/` 下三个本批登记 hash 的文件**。按约定必须做的提交后校验 `git archive HEAD <path>` → sha256 直接把它抓了出来（24 条登记路径中 3 条不可复现）：
+
+| 路径 | `git archive` 得到 | 登记值 |
+|---|---|---|
+| `scripts/tests/test_d3_b3cf_submit_failures.py` | `251e07dc…` | `0303cb20…` |
+| `scripts/simulation/strict_online_env.py` | `b6db355a…` | `fd17fe77…` |
+| `scripts/coldchain/coldchain_state.py` | `d65ebb20…` | `a2ee98dc…` |
+
+后两条是**先于本批存在的缺口**，不是本批造成的：这两个文件的 sha256 同时被更早的记录登记（`02_配送线/文档组件/2026-10-09/IMMUTABLE_BASELINE.json`、`docs/当前规划/决策与审计/a1_audit_source_fingerprints_2026-09-28.json`、`docs/当前规划/文献组件/三线协议审计_2026-10-09/PROTECTED_BEFORE.json`），因此那些记录同样**不能**从 `git archive`/全新 checkout 复现。现在 pin 上它们，那些记录也一并被修好。
+
+**pin 是增量的**：三个文件在 pin 之前实测 `git hash-object --no-filters == index blob`，所以没有重写任何既有 blob、没有任何登记值被改变；pin 集合 18 → 21 个文件。
+
+**故意没做**：`scripts/` 下的 `*.py -text` 一揽子 pin——该目录 438 个受控 `*.py` 中有 **11 个**当前工作区就是 CRLF（如 `tests/test_aggregate_cross_cell.py`、`training/auto_train.py`），一揽子 pin 会重写它们的 blob。窄的、逐文件登记的 pin 集合继续保持（34 个 CRLF `*.sh` 是最初就必须窄的原因）。
+
+修好之后重跑全部 24 条登记路径的提交后校验：**24/24 从 `git archive HEAD` 逐字节复现**（commit `40b3cca`）。缺口、测量与修复证据同时写在 `C-VRP_Cold-chainVehicleRoutingProblem/scripts/.gitattributes` 的注释里和 `B3CF_BYTE_FREEZE.json` v2 的 `pin_sets[1].measured_before_pin` 中。
 
 ## 6. 登记项修正（不重写历史）
 

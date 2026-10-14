@@ -1,9 +1,9 @@
 {
   "record": "D3_G0_Evidence_B3CF_byte_freeze",
   "date": "2026-10-14",
-  "revision": 2,
-  "revision_note": "v1 (commit 9710081) pinned only the evidence directory and MISSED three unpinned scripts/ files this batch registers; the post-commit `git archive` check caught it (3/24 registered paths not reproducible).  v2 extends the pin set and records the finding.  v1 is not rewritten (it stays in history); no registered hash changed, because all three files already had blob == worktree bytes, so the pin is additive.",
-  "base_commit": "9710081",
+  "revision": 3,
+  "revision_note": "v1 (commit 9710081) pinned only the evidence directory and MISSED three unpinned scripts/ files this batch registers; the post-commit `git archive` check caught it (3/24 registered paths not reproducible).  v2 (commit 40b3cca) added the three pins -- all additive, so no registered hash changed -- and recorded the finding, which for strict_online_env.py and coldchain_state.py is a PRE-EXISTING gap that also affected older records.  v3 (this revision) only refreshes the B3CF_FAILURE_PATH_REPORT.md hash after section 5.1 was appended to narrate that finding for a human reader; no pin, no verdict and no other registered byte changed.  Earlier revisions stay byte-intact in history (version-forward, never rewritten).",
+  "base_commit": "40b3cca",
   "why": "the B3-CF matrix registers the raw sha256 of its own pre-registration spec and of the source files on the submission path, and the report registers the matrix itself, so a fresh checkout must reproduce them byte-for-byte; with core.autocrlf=true a checkout injects CRLF unless the container is pinned",
   "self_reference_note": "this record does NOT register its own sha256 (a self-referential hash is meaningless); its bytes are pinned by the container .gitattributes and its own commit",
   "pin_sets": [
@@ -71,7 +71,7 @@
     "evidence": {
       "research/review_3080_20261010/d3_g0_evidence_root_v1/B3CF_COUNTEREXAMPLE_SPEC.json": "567726481b3b0e47f7dd85a925bd6c85eb20e82ccec17e41d0dda4e96e257749",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/B3CF_FAILURE_PATH_MATRIX.json": "2b679bfcfbd6872a8b203e59b790b1ac3108ef731017af5abbdc5b2e8b9c82ae",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3CF_FAILURE_PATH_REPORT.md": "b8520cae8b95782c35f37571f7c1955fb25c9917d057412bedf8f3598f67ef40",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3CF_FAILURE_PATH_REPORT.md": "fa2d5d82f2bc37567b357be49dfce58b1ceaca433651b5f3b0cf298d519ccee2",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/B3CG_SPEC_ADDENDUM.md": "73f2fc3544d090773c3ddefa669ee16f7e1aad4a4264ccfe09fe49f525a7f96a"
     },
     "raw": {
