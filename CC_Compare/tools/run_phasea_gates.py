@@ -138,11 +138,44 @@ def _gate1_regression():
     except Exception as exc:                                      # noqa: BLE001
         drv_results['import'] = 'fail'
         extra = extra + ['driver suite import failed: %s' % exc]
+    # 超时语义专项审计回归（源码事实 + 轻量反例 + 可恢复性 + 诚实性）
+    to_results = {}
+    try:
+        import test_role_c_timeout_semantics as treg
+        treg.FAILS[:] = []
+        tcases = [
+            ('source_facts', treg.test_source_facts),
+            ('decision_timeout_is_exception',
+             treg.test_decision_timeout_is_runtime_error),
+            ('counterexample_inside_forward',
+             treg.test_counterexample_inside_forward),
+            ('counterexample_outside_control',
+             treg.test_counterexample_outside_forward_control),
+            ('swallow_specific_to_forward',
+             treg.test_swallow_is_specific_to_forward_window),
+            ('recoverability_channels', treg.test_recoverability_channels),
+            ('field_separation', treg.test_field_separation),
+            ('archive_signature_inference_only',
+             treg.test_archive_signature_is_inference_only),
+            ('audit_report_honest', treg.test_full_audit_report_is_honest),
+        ]
+        for name, fn in tcases:
+            before = len(treg.FAILS)
+            try:
+                fn()
+            except Exception as exc:                              # noqa: BLE001
+                treg.FAILS.append('%s raised %s' % (name, type(exc).__name__))
+            to_results[name] = 'pass' if len(treg.FAILS) == before else 'fail'
+        extra = extra + list(treg.FAILS)
+    except Exception as exc:                                      # noqa: BLE001
+        to_results['import'] = 'fail'
+        extra = extra + ['timeout-semantics suite import failed: %s' % exc]
     return {'passed': (all(v == 'pass' for v in results.values())
                        and all(v == 'pass' for v in inst_results.values())
-                       and all(v == 'pass' for v in drv_results.values())),
+                       and all(v == 'pass' for v in drv_results.values())
+                       and all(v == 'pass' for v in to_results.values())),
             'cases': results, 'instrument_cases': inst_results,
-            'driver_cases': drv_results,
+            'driver_cases': drv_results, 'timeout_semantics_cases': to_results,
             'failures': list(reg.FAILS) + extra}
 
 
@@ -316,6 +349,10 @@ INPUT_CONTAINERS = (
     'CC_Compare/tools/role_c_phasea_l1l2.py',
     'CC_Compare/tools/test_role_c_phasea_l1l2.py',
     'CC_Compare/tools/role_c_phasea_recheck.py',
+    'CC_Compare/tools/role_c_timeout_semantics_audit.py',
+    'CC_Compare/tools/test_role_c_timeout_semantics.py',
+    'CC_Compare/P1A_超时语义与归档规格_2026-10-14.md',
+    'CC_Compare/P1A_RoleC_PhaseA_L1L2_归因结果_2026-10-14.md',
     'CC_Compare/tools/run_phasea_gates.py',
     'CC_Compare/tools/role_c_timing.py',
     'CC_Compare/tools/role_c_harness.py',

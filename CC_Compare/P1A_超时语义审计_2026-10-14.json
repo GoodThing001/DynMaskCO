@@ -1,0 +1,347 @@
+{
+  "archive_signature": {
+    "all_consistent": true,
+    "consistent_with_swallowed_sigalrm": {
+      "all_boundary_B3": true,
+      "all_deadline_hit_false": true,
+      "all_partitions_closed_ok": true,
+      "all_wall_just_over_10s": true,
+      "exactly_one_forward_entry_each": true,
+      "exactly_one_scenario_entered_each": true,
+      "no_scenario_completed_each": true
+    },
+    "explicit_warning": "⚠️ 以上是**一致性推断**，**不是**证据链闭环；不得据此把本批 8 例写成\"已确认被硬超时打断\"。",
+    "inference_only": [
+      "`forward_value_calls == 1`（本应两次：`b` 与 `b − e_o`）—— 与\"第一次前瞻调用中抛错、第二次从未发生\"**一致**",
+      "`scenarios_entered == 1` 且 `P7c` 从未进入 —— 与\"在第一个场景内部被打断\"**一致**",
+      "`boundary=B3` 且 `deadline_hit=False` —— 与\"异常被吞成 λ 未定义、外层看到正常返回\"**一致**"
+    ],
+    "n_decision_points": 8,
+    "per_decision": [
+      {
+        "P7b_exclusive_s": 9.362404200714082,
+        "P7b_share_of_truncated_window": 0.9360675606945144,
+        "P7c_entered": false,
+        "boundary": "B3_lambda_undefined",
+        "certify_calls": 1,
+        "deadline_hit_recorded": false,
+        "decision_point": 0,
+        "forward_value_calls": 1,
+        "partition_verdict": "ok",
+        "scenarios_completed_counting_proxy": null,
+        "scenarios_entered": 1,
+        "t_decision": 10.001846654922701,
+        "wall_s": 10.001803333987482
+      },
+      {
+        "P7b_exclusive_s": 9.507358670118265,
+        "P7b_share_of_truncated_window": 0.9504313621187581,
+        "P7c_entered": false,
+        "boundary": "B3_lambda_undefined",
+        "certify_calls": 1,
+        "deadline_hit_recorded": false,
+        "decision_point": 1,
+        "forward_value_calls": 1,
+        "partition_verdict": "ok",
+        "scenarios_completed_counting_proxy": null,
+        "scenarios_entered": 1,
+        "t_decision": 10.003203859901987,
+        "wall_s": 10.003133601043373
+      },
+      {
+        "P7b_exclusive_s": 9.377057693549432,
+        "P7b_share_of_truncated_window": 0.9375561608074895,
+        "P7c_entered": false,
+        "boundary": "B3_lambda_undefined",
+        "certify_calls": 1,
+        "deadline_hit_recorded": false,
+        "decision_point": 2,
+        "forward_value_calls": 1,
+        "partition_verdict": "ok",
+        "scenarios_completed_counting_proxy": null,
+        "scenarios_entered": 1,
+        "t_decision": 10.001595728914253,
+        "wall_s": 10.001556109054945
+      },
+      {
+        "P7b_exclusive_s": 9.443156886612996,
+        "P7b_share_of_truncated_window": 0.9441736577567701,
+        "P7c_entered": false,
+        "boundary": "B3_lambda_undefined",
+        "certify_calls": 1,
+        "deadline_hit_recorded": false,
+        "decision_point": 3,
+        "forward_value_calls": 1,
+        "partition_verdict": "ok",
+        "scenarios_completed_counting_proxy": null,
+        "scenarios_entered": 1,
+        "t_decision": 10.001504287938587,
+        "wall_s": 10.001469800015911
+      },
+      {
+        "P7b_exclusive_s": 9.468885176931508,
+        "P7b_share_of_truncated_window": 0.9467286583992579,
+        "P7c_entered": false,
+        "boundary": "B3_lambda_undefined",
+        "certify_calls": 1,
+        "deadline_hit_recorded": false,
+        "decision_point": 4,
+        "forward_value_calls": 1,
+        "partition_verdict": "ok",
+        "scenarios_completed_counting_proxy": null,
+        "scenarios_entered": 1,
+        "t_decision": 10.001688543939963,
+        "wall_s": 10.001652139006183
+      },
+      {
+        "P7b_exclusive_s": 9.453507565078326,
+        "P7b_share_of_truncated_window": 0.9449781432112633,
+        "P7c_entered": false,
+        "boundary": "B3_lambda_undefined",
+        "certify_calls": 1,
+        "deadline_hit_recorded": false,
+        "decision_point": 5,
+        "forward_value_calls": 1,
+        "partition_verdict": "ok",
+        "scenarios_completed_counting_proxy": null,
+        "scenarios_entered": 1,
+        "t_decision": 10.003943089046516,
+        "wall_s": 10.003894521971233
+      },
+      {
+        "P7b_exclusive_s": 9.453749162959866,
+        "P7b_share_of_truncated_window": 0.9452029482392588,
+        "P7c_entered": false,
+        "boundary": "B3_lambda_undefined",
+        "certify_calls": 1,
+        "deadline_hit_recorded": false,
+        "decision_point": 6,
+        "forward_value_calls": 1,
+        "partition_verdict": "ok",
+        "scenarios_completed_counting_proxy": null,
+        "scenarios_entered": 1,
+        "t_decision": 10.001819377066568,
+        "wall_s": 10.001783492974937
+      },
+      {
+        "P7b_exclusive_s": 9.521355869597755,
+        "P7b_share_of_truncated_window": 0.9519293887737642,
+        "P7c_entered": false,
+        "boundary": "B3_lambda_undefined",
+        "certify_calls": 1,
+        "deadline_hit_recorded": false,
+        "decision_point": 7,
+        "forward_value_calls": 1,
+        "partition_verdict": "ok",
+        "scenarios_completed_counting_proxy": null,
+        "scenarios_entered": 1,
+        "t_decision": 10.002166107995436,
+        "wall_s": 10.002119773998857
+      }
+    ],
+    "requires_targeted_run": [
+      "本批**未归档**原始事件表与异常类型 ⇒ 无法区分\"SIGALRM 吞没\"与\"V̂ 真的非有限\"",
+      "要定案需：在吞没点按**类型**识别并原样重抛（或记 `type(exc).__name__`），并用事件归档复算通道 C"
+    ]
+  },
+  "counterexample_inside_forward": {
+    "deadline_s": 0.05,
+    "platform_hard_interrupt_available": false,
+    "raise_inside_forward": true,
+    "raised_count": 2,
+    "run_with_limit": {
+      "elapsed_s": 5.200039595365524e-06,
+      "hard_enforcement": false,
+      "lambda_B": null,
+      "propagated_out": false,
+      "reason": "V̂ 求值抛错：单决策超过 0.050s 硬时限 ⇒ 终止并回收",
+      "timed_out": false,
+      "undefined": true
+    },
+    "shadow_price": {
+      "lambda_B": null,
+      "reason": "V̂ 求值抛错：单决策超过 0.050s 硬时限 ⇒ 终止并回收",
+      "returned_normally": true,
+      "undefined": true
+    }
+  },
+  "counterexample_outside_forward_control": {
+    "deadline_s": 0.05,
+    "platform_hard_interrupt_available": false,
+    "raise_inside_forward": false,
+    "raised_count": 1,
+    "run_with_limit": {
+      "hard_enforcement": false,
+      "note": "非 POSIX：`_run_with_limit` 没有 `except DecisionTimeout` ⇒ 异常直接穿出；本平台无法观测\"对照组 timed_out=True\"",
+      "propagated_out": true,
+      "timed_out": null
+    },
+    "shadow_price": {
+      "lambda_B": 0.0,
+      "reason": "",
+      "returned_normally": true,
+      "undefined": false
+    }
+  },
+  "label": "P1A-RoleC-timeout-semantics-audit",
+  "proposed_field_separation": {
+    "evaluation_status": {
+      "meaning": "前瞻**有没有跑完**；`timed_out` 只表示\"没跑完\"",
+      "provable_by": "进度原件（进入/退出叶子、进入/完成场景数）",
+      "values": [
+        "not_entered",
+        "completed",
+        "timed_out"
+      ]
+    },
+    "honesty_rule": "`deadline_hit=false` 在本批**不得**作为\"未触发截止\"的证据；`timeout_cause` 在取得异常路径证据前一律 `unknown`",
+    "required_new_evidence": [
+      "在 `shadow_price_budget` 的 `except Exception` 里**按类型**识别 `DecisionTimeout` 并原样重抛（或至少把 `type(exc).__name__` 写进 diag）",
+      "归档原始事件表（`raw_events`/`events`）与 `leaf_counts`，使通道 C 可在真数据上二次独立重算",
+      "记录 `event_stream_complete`：异常或强制截断导致事件缺失时如实标注",
+      "A 类未闭合区间标 `CENSORED`，**不得**补写退出事件"
+    ],
+    "timeout_cause": {
+      "meaning": "**为什么**没跑完；未取得证据时**必须**写 `unknown`，不得默认成某一因（`None` 只表示\"这一栏还没填\"）",
+      "no_evidence_value": "unknown",
+      "provable_by": "异常路径证据（异常类型 + 抛出点），或用 `DecisionTimeout` 的**类型**（而不是文案）在吞没点之前截获",
+      "values": [
+        null,
+        "unknown",
+        "SIGALRM_decision_timeout",
+        "forward_internal_deadline",
+        "unknown_exception",
+        "budget_exhausted_inside_forward"
+      ]
+    }
+  },
+  "recoverability": [
+    {
+      "channel": "shadow_price_budget 自己的 diag",
+      "how": "`reason` 里保留了 `'V̂ 求值抛错：%s' % exc`，而 `DecisionTimeout` 的文案含「硬时限」⇒ 可做子串识别",
+      "limit": "**类型名没有被保留**（只拼了 `exc` 的字符串）⇒ 无法按异常类型判定；文案一旦改动即失效",
+      "recoverable": true
+    },
+    {
+      "channel": "decide_candidate 的决策记录",
+      "how": "源码事实 F6：B3 边界分支丢弃 `_d0`，`lambda_diag` 由 `rule` 重建",
+      "limit": "留下的 `boundary_reason` 是**通用**文案（\"λ_B 未定义（V̂ 非有限/差分未定义）\"），与\"V̂ 真的非有限\"**无法区分**",
+      "recoverable": false
+    },
+    {
+      "channel": "_run_with_limit 的返回值",
+      "how": "源码事实 F5：异常被吞 ⇒ 函数正常返回 ⇒ `timed_out=False`",
+      "limit": "外层的超时计数与拒单原因被混淆（正是用户指出的问题）",
+      "recoverable": false
+    },
+    {
+      "channel": "forward_value 的 last_diag.deadline_hit",
+      "how": "源码事实 F2+F3：内部截止只在场景开始前检查，且 `last_diag` 只在正常返回后更新",
+      "limit": "`deadline_hit=False` **不能**读成\"没有触发截止\"",
+      "recoverable": false
+    },
+    {
+      "channel": "进度原件（插桩的 leaf_enter/exit + 心跳）",
+      "how": "能看到\"进到哪片叶子、进了几个场景\"，⇒ 可证明 `timed_out`（**前瞻没跑完**）",
+      "limit": "**不能**证明\"是被 SIGALRM 打断的\" ⇒ `timeout_cause` 仍需异常路径证据",
+      "recoverable": "partial"
+    }
+  ],
+  "source_audit": {
+    "all_hold": true,
+    "facts": [
+      {
+        "evidence": {
+          "class_decl": "class DecisionTimeout(RuntimeError)",
+          "issubclass_Exception": true,
+          "message_has_hard_deadline_word": true
+        },
+        "fact": "F1_decision_timeout_is_exception",
+        "holds": true
+      },
+      {
+        "evidence": {
+          "check_is_before_order_loop": true,
+          "deadline_check_idx": 61,
+          "init_deadline_hit_false": true,
+          "order_loop_idx": 69,
+          "scenario_loop_idx": 60,
+          "span_lines": [
+            197,
+            296
+          ]
+        },
+        "fact": "F2_deadline_hit_not_independent",
+        "holds": true
+      },
+      {
+        "evidence": {
+          "assignment_after_forward_value": true,
+          "consequence": "中途异常 ⇒ `last_diag` 保持旧值；首次调用时是 `None` ⇒ 调用方读到的 \"forward 诊断\" 可能是**缺失**而不是\"观测为假\"",
+          "has_try_except_in_call": false,
+          "init_sets_none": true,
+          "n_assignments_in_call": 1
+        },
+        "fact": "F3_last_diag_only_on_normal_return",
+        "holds": true
+      },
+      {
+        "evidence": {
+          "except_pos": 1351,
+          "reason_template": "'reason': 'V̂ 求值抛错：%s' % exc}",
+          "returns_undefined_true": true,
+          "span_lines": [
+            126,
+            182
+          ],
+          "try_call_pos": 1265
+        },
+        "fact": "F4_shadow_price_swallows",
+        "holds": true
+      },
+      {
+        "evidence": {
+          "catches_decision_timeout": true,
+          "returns_timed_out_true": true,
+          "span_lines": [
+            145,
+            171
+          ]
+        },
+        "fact": "F5_run_with_limit_needs_propagation",
+        "holds": true
+      },
+      {
+        "evidence": {
+          "_d0_referenced_in_boundary_branch": false,
+          "boundary_branch_found": true,
+          "boundary_branch_lines": 19,
+          "consequence": "B3 记录里留下的 `boundary_reason` 是**通用**文案，与\"V̂ 真的非有限\"无法区分；原始抛错信息不进入决策记录",
+          "lambda_diag_from_rule": true,
+          "span_lines": [
+            275,
+            374
+          ]
+        },
+        "fact": "F6_decide_candidate_discards_reason",
+        "holds": true
+      },
+      {
+        "evidence": {
+          "consequence": "归档里 `deadline_hit=False` 有两种不可区分的来源：(a) `last_diag` 是 dict 且其 `deadline_hit` 为 false；(b) `forward` 键**根本不存在**（`last_diag is None`）⇒ 本批 `deadline_hit` 不作为\"未触发截止\"的证据",
+          "record_archives_forward_subdiag": false,
+          "record_reads_fw_get": true
+        },
+        "fact": "F7_record_drops_forward_subdiag",
+        "holds": true
+      }
+    ],
+    "files": {
+      "role_c_forward.py": "23e35d53aa51bab1af5e6b8671a8f5bef50204658bdb91b2cd5f04ed0acef1c0",
+      "role_c_harness.py": "ed7466cf6e1cdfce11b70c82279f715ffb2256b707bdeb8ce140015fd3b5c7df",
+      "role_c_opportunity_cost.py": "5f6480b083c9f8f9a817e711a9e63de59377007d087a13158fbbffeab58d4a35",
+      "role_c_timing.py": "1a2c8d7e59c23e289a8e00a25e986b234715615f03bfeacfcb18b8557871122d"
+    },
+    "note": "只读审计：机械核验源码事实，不修改任何被审计模块的字节"
+  }
+}
