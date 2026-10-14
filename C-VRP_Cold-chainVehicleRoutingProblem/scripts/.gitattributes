@@ -109,3 +109,12 @@ evaluation/run_exp_energy_c0.py -text
 # `git hash-object` == `git hash-object --no-filters` for both before the pin.
 simulation/d3_commit_transaction.py -text
 tests/test_d3_b3at1_transaction.py -text
+
+# Added by D3-G0 Evidence B3-AT2A (2026-10-14).  The D3 commit coordinator (unique writer + instance
+# guard) and its acceptance suite; both raw sha256 are registered by B3AT2A_COORDINATOR_MATRIX.json,
+# and the AT1 module it imports was re-registered after the terminology correction.  Additive:
+# git hash-object == git hash-object --no-filters for all three.
+simulation/d3_commit_coordinator.py -text
+tests/test_d3_b3at2a_coordinator.py -text
+simulation/d3_commit_transaction.py -text
+tests/test_d3_b3at1_transaction.py -text

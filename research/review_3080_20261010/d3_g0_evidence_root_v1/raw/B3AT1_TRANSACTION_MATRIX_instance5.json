@@ -76,8 +76,8 @@
     "effective_contract_hash": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
     "prereg_spec_sha256": "01803fd5428a83a8b262b49c6dfa4710b60c2f15e8c8d8bc52283b19bfe476a4",
     "code": {
-      "scripts/tests/test_d3_b3at1_transaction.py": "00eed742af7050109b05c946f6d564f8646bc470989c27552281d0857bc27918",
-      "scripts/simulation/d3_commit_transaction.py": "e6efffc40e15ea314fcc3564245a5f0ff949402499318d5db1228d89fef651c7",
+      "scripts/tests/test_d3_b3at1_transaction.py": "3f6d393291509664262071689399552309420e7e583da83b5351dcab89c0e5c4",
+      "scripts/simulation/d3_commit_transaction.py": "3bc73a9803cd8e169bc72bee7ae51fbcc3f5bbbf45c5076fab5a4b10f633f276",
       "scripts/simulation/d3_composed_certifier.py": "b65ddf6545a84b656cd2e9dd541cea266d2d6bdbc1cd56abd76f7780104aea01",
       "scripts/simulation/d3_install_gate.py": "adc8df289be1babcf8d6907ff57ab30ab3d66d58fcb47a6c9539bc8591634483",
       "scripts/simulation/d3_credential.py": "85f32d67ad38f1a88be6aa5a8c4c4af3f48797df6a1ca088d05c672453834c7f",
@@ -371,7 +371,7 @@
           "d3_write_primitive_calls": [
             {
               "file": "scripts/simulation/d3_commit_transaction.py",
-              "line": 477,
+              "line": 507,
               "call": "_commit"
             }
           ],
@@ -379,12 +379,12 @@
           "d3_live_state_assigns": [
             {
               "file": "scripts/simulation/d3_commit_transaction.py",
-              "line": 471,
+              "line": 501,
               "attr": "mutable_suffix"
             },
             {
               "file": "scripts/simulation/d3_commit_transaction.py",
-              "line": 476,
+              "line": 506,
               "attr": "mutable_suffix"
             }
           ],
@@ -445,7 +445,7 @@
         "prevented": false,
         "honesty": "DETECTION IS NOT PREVENTION: the monitor observed a write that bypassed the transaction and attributed it to its caller; nothing blocked it, because blocking requires owning the write capability, which is B3-AT2",
         "transaction_outcome_in_the_same_window": "COMMITTED",
-        "claim_allowed": "within the D3 module set, no live write primitive is referenced and no live state attribute is assigned, so an ungated write is UNREACHABLE from those modules; this is NOT proposition P2 (\"every real commit goes through the gate\") and does not claim the transaction took over the production path"
+        "claim_allowed": "within the D3 module set APART FROM THIS TRANSACTION MODULE ITSELF, no live write primitive is referenced and no live state attribute is assigned, so an ungated write is UNREACHABLE from those modules; this transaction module is the one authorised writer and is the only entry listed above.  This is NOT proposition P2 (\"every real commit goes through the gate\") and does not claim the transaction took over the production path"
       }
     },
     {
@@ -631,9 +631,10 @@
       "detail": {
         "atomic_path": {
           "exception_before_any_write": "RuntimeError: candidate construction failed before any write",
-          "state_hash_equals_the_fixture_state": false,
+          "n_write_primitives_inside_the_failed_attempt": 0,
           "n_published": 0,
-          "why": "the candidate is fully built and validated before the publish, so a failure in that phase writes nothing"
+          "partial_publish_possible": false,
+          "why": "the candidate is fully built and validated before the publish, so a failure in that phase runs no write primitive at all"
         },
         "non_atomic_path": {
           "outcome": "PARTIAL_COMMIT",
@@ -875,7 +876,7 @@
       "verdict": "COMMITTED_ON_ISOLATED_COPY",
       "detail": {
         "outcome": "COMMITTED",
-        "publish": "atomic",
+        "publish": "staged_then_single_pass",
         "ticket_state": "consumed_in_boundary",
         "commit_id": "2310a65e2d1921cc6c734e95516eb547",
         "evidence_source": "live_vehicle_fields",
@@ -1035,19 +1036,19 @@
         "d3_write_primitive_calls": [
           {
             "file": "scripts/simulation/d3_commit_transaction.py",
-            "line": 477,
+            "line": 507,
             "call": "_commit"
           }
         ],
         "d3_live_state_assigns": [
           {
             "file": "scripts/simulation/d3_commit_transaction.py",
-            "line": 471,
+            "line": 501,
             "attr": "mutable_suffix"
           },
           {
             "file": "scripts/simulation/d3_commit_transaction.py",
-            "line": 476,
+            "line": 506,
             "attr": "mutable_suffix"
           }
         ],
@@ -1058,7 +1059,7 @@
             "scripts/tests/test_d3_b3at1_transaction.py"
           ]
         },
-        "claim_allowed": "within the D3 module set, no live write primitive is referenced and no live state attribute is assigned, so an ungated write is UNREACHABLE from those modules; this is NOT proposition P2 (\"every real commit goes through the gate\") and does not claim the transaction took over the production path"
+        "claim_allowed": "within the D3 module set APART FROM THIS TRANSACTION MODULE ITSELF, no live write primitive is referenced and no live state attribute is assigned, so an ungated write is UNREACHABLE from those modules; this transaction module is the one authorised writer and is the only entry listed above.  This is NOT proposition P2 (\"every real commit goes through the gate\") and does not claim the transaction took over the production path"
       }
     },
     {

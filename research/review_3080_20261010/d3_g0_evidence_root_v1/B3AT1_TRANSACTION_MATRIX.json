@@ -76,8 +76,8 @@
     "effective_contract_hash": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
     "prereg_spec_sha256": "01803fd5428a83a8b262b49c6dfa4710b60c2f15e8c8d8bc52283b19bfe476a4",
     "code": {
-      "scripts/tests/test_d3_b3at1_transaction.py": "757c93153957114082a87a2a5df1d86cca63ee607c9cc95a9946440011ccb34d",
-      "scripts/simulation/d3_commit_transaction.py": "43d2ce76ee3b98e656f2d33f2a66d5fe28c3019841962496ff0db4d1fb085298",
+      "scripts/tests/test_d3_b3at1_transaction.py": "3f6d393291509664262071689399552309420e7e583da83b5351dcab89c0e5c4",
+      "scripts/simulation/d3_commit_transaction.py": "3bc73a9803cd8e169bc72bee7ae51fbcc3f5bbbf45c5076fab5a4b10f633f276",
       "scripts/simulation/d3_composed_certifier.py": "b65ddf6545a84b656cd2e9dd541cea266d2d6bdbc1cd56abd76f7780104aea01",
       "scripts/simulation/d3_install_gate.py": "adc8df289be1babcf8d6907ff57ab30ab3d66d58fcb47a6c9539bc8591634483",
       "scripts/simulation/d3_credential.py": "85f32d67ad38f1a88be6aa5a8c4c4af3f48797df6a1ca088d05c672453834c7f",
@@ -371,7 +371,7 @@
           "d3_write_primitive_calls": [
             {
               "file": "scripts/simulation/d3_commit_transaction.py",
-              "line": 477,
+              "line": 507,
               "call": "_commit"
             }
           ],
@@ -379,12 +379,12 @@
           "d3_live_state_assigns": [
             {
               "file": "scripts/simulation/d3_commit_transaction.py",
-              "line": 471,
+              "line": 501,
               "attr": "mutable_suffix"
             },
             {
               "file": "scripts/simulation/d3_commit_transaction.py",
-              "line": 476,
+              "line": 506,
               "attr": "mutable_suffix"
             }
           ],
@@ -876,7 +876,7 @@
       "verdict": "COMMITTED_ON_ISOLATED_COPY",
       "detail": {
         "outcome": "COMMITTED",
-        "publish": "atomic",
+        "publish": "staged_then_single_pass",
         "ticket_state": "consumed_in_boundary",
         "commit_id": "548a68be2712b8ab45bede9d02026731",
         "evidence_source": "live_vehicle_fields",
@@ -1036,19 +1036,19 @@
         "d3_write_primitive_calls": [
           {
             "file": "scripts/simulation/d3_commit_transaction.py",
-            "line": 477,
+            "line": 507,
             "call": "_commit"
           }
         ],
         "d3_live_state_assigns": [
           {
             "file": "scripts/simulation/d3_commit_transaction.py",
-            "line": 471,
+            "line": 501,
             "attr": "mutable_suffix"
           },
           {
             "file": "scripts/simulation/d3_commit_transaction.py",
-            "line": 476,
+            "line": 506,
             "attr": "mutable_suffix"
           }
         ],

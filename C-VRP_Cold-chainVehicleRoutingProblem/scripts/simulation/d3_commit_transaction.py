@@ -55,6 +55,31 @@ OUTCOME_UNKNOWN = 'OUTCOME_UNKNOWN'
 OUTCOMES = (OUTCOME_COMMITTED, OUTCOME_REFUSED, OUTCOME_WAIT, OUTCOME_BLOCKED_D8,
             OUTCOME_PARTIAL, OUTCOME_UNKNOWN)
 
+# Publish-state vocabulary (user ruling 2026-10-14, B3-AT2A section 2).  These are QUALIFICATIONS,
+# not decoration: `PUBLISHING` means real state modification has begun and overall consistency is
+# NOT yet confirmed, and `COMMITTED_VERIFIED` is reserved for a publish whose post-state was
+# independently re-read.  This module records the trace, and it stops at `COMMITTED`: it has no
+# independent post-commit re-read, so it must never claim `COMMITTED_VERIFIED`.
+PUBLISH_STAGED_VALIDATED = 'STAGED_VALIDATED'
+PUBLISH_PUBLISHING = 'PUBLISHING'
+PUBLISH_COMMITTED = 'COMMITTED'
+PUBLISH_COMMITTED_VERIFIED = 'COMMITTED_VERIFIED'
+PUBLISH_PARTIAL = 'PARTIAL_COMMIT'
+PUBLISH_UNKNOWN = 'OUTCOME_UNKNOWN'
+PUBLISH_STATES = (PUBLISH_STAGED_VALIDATED, PUBLISH_PUBLISHING, PUBLISH_COMMITTED,
+                  PUBLISH_COMMITTED_VERIFIED, PUBLISH_PARTIAL, PUBLISH_UNKNOWN)
+
+# IMPLEMENTATION MODE, NOT A SYSTEM PROPERTY.  The user ruling: "在拥有充分的发布线性化证据前，
+# `atomic` 只能作为实现模式名，不能作为已建立的系统性质."  The mode is therefore named after what
+# the code does (stage everything, validate, then one pass) and the old string is accepted only as a
+# deprecated alias so no caller silently loses the corrected wording.
+PUBLISH_MODE = 'staged_then_single_pass'
+PUBLISH_MODE_LEGACY_ALIAS = 'atomic'
+PUBLISH_MODE_NOTE = ('implementation mode name only: staging failures publish nothing and the '
+                     'tested failure injections left no partial publish, but this module does NOT '
+                     'claim that a multi-vehicle publish is unobservable in intermediate states, '
+                     'nor that an arbitrary mid-publish exception leaves no partial state')
+
 WRITE_ATTRS = ('mutable_suffix', 'committed_next')
 
 
@@ -327,7 +352,7 @@ class AuthorizedCommitTransaction(object):
     # ---- the commit -------------------------------------------------------------------------
     def commit(self, *, env, inst, clock, event, cv, ct, csm, plans, all_customers,
                cert_result, cred_cert, cred_install, gate_decision_fn, deadline_ok=True,
-               publish='atomic', publish_fn=None, pre_publish_hook=None,
+               publish=PUBLISH_MODE, publish_fn=None, pre_publish_hook=None,
                expected_commit_id=None, budget_role='FORMAL', expected_ticket=None,
                state_hash_before=None, reveal_idx=0):
         """Decide outside, write inside one boundary.  Never touches the live environment."""
@@ -464,8 +489,13 @@ class AuthorizedCommitTransaction(object):
                                        all_customers)
 
             by_id = {int(v.vehicle_id): v for v in cv}
-            if publish == 'atomic':
-                # R4: build the complete new state first, then a pure assignment that cannot fail
+            base['publish_mode'] = PUBLISH_MODE
+            base['publish_mode_note'] = PUBLISH_MODE_NOTE
+            if publish in (PUBLISH_MODE, PUBLISH_MODE_LEGACY_ALIAS):
+                # R4: build the complete new state first, then a single pass that performs no
+                # per-vehicle failure-prone work.  NOTE the vocabulary: this reaches `COMMITTED`,
+                # NOT `COMMITTED_VERIFIED` -- there is no independent post-commit re-read here.
+                base['publish_state_trace'] = [PUBLISH_STAGED_VALIDATED, PUBLISH_PUBLISHING]
                 new_suffix = {vid: list(sfx) for vid, sfx in staged_all.items()}
                 for vid, v in by_id.items():
                     v.mutable_suffix = list(new_suffix.get(vid, []))
@@ -477,11 +507,17 @@ class AuthorizedCommitTransaction(object):
                         env._commit(inst, clock, v, ct, nxt)
                     v.needs_replan = False
                 self.commits += 1
-                base.update({'outcome': OUTCOME_COMMITTED, 'publish': 'atomic',
+                base['publish_state_trace'].append(PUBLISH_COMMITTED)
+                base.update({'outcome': OUTCOME_COMMITTED, 'publish': PUBLISH_MODE,
+                             'committed_verified': False,
+                             'why_no_verified_state': ('`COMMITTED_VERIFIED` is reserved for a publish '
+                                                       'whose post-state was independently re-read; '
+                                                       'that is the B3-AT2A coordinator\'s job'),
                              'counts_as_refusal_capability': False})
             else:
                 if publish_fn is None:
-                    raise ValueError('publish="non_atomic" requires publish_fn')
+                    raise ValueError("publish mode %r requires publish_fn" % (publish,))
+                base['publish_state_trace'] = [PUBLISH_STAGED_VALIDATED, PUBLISH_PUBLISHING]
                 published = []
                 try:
                     for vid in sorted(staged_all):
@@ -489,13 +525,16 @@ class AuthorizedCommitTransaction(object):
                         published.append({'vehicle_id': int(vid),
                                           'after': self._field_evidence([by_id[vid]])[0]})
                     self.commits += 1
-                    base.update({'outcome': OUTCOME_COMMITTED, 'publish': 'non_atomic',
+                    base['publish_state_trace'].append(PUBLISH_COMMITTED)
+                    base.update({'outcome': OUTCOME_COMMITTED, 'publish': 'per_vehicle_injected',
+                                 'committed_verified': False,
                                  'published_vehicles': published,
                                  'counts_as_refusal_capability': False})
                 except BaseException as exc:                                   # noqa: BLE001
                     self.partial_commits += 1
+                    base['publish_state_trace'].append(PUBLISH_PARTIAL)
                     base.update({
-                        'outcome': OUTCOME_PARTIAL, 'publish': 'non_atomic',
+                        'outcome': OUTCOME_PARTIAL, 'publish': 'per_vehicle_injected',
                         'published_vehicles': published,
                         'n_published_before_failure': len(published),
                         'exception': '%s: %s' % (type(exc).__name__, str(exc)[:120]),

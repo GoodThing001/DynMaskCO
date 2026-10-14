@@ -468,7 +468,7 @@ def main():
 
         mon_partial.__enter__()
         r_partial = run_tx(gate=control_gate_allow, plans=plans0, cert=cert_formal,
-                          publish='non_atomic', publish_fn=flaky_publish,
+                          publish='per_vehicle_injected', publish_fn=flaky_publish,
                           registry=TX.CommitTicketRegistry(), monitor=mon_partial)
         mon_partial.__exit__(None, None, None)
         partial_ok = (escaped is not None and n_writes_in_failed_attempt == 0
