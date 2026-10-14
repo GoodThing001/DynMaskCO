@@ -1,0 +1,52 @@
+{
+  "spec": "D3_G0_Evidence_B3AT2G_counterexample_preregistration",
+  "version": 1,
+  "date": "2026-10-14",
+  "frozen_before_implementation": true,
+  "base_commit": "6653d3fa546d32dc5a339dec4bda375e50c3b751",
+  "authorised_scope_verbatim": "建议批准 B3-AT2G：状态所有权与直接属性写入旁路封闭的隔离实现。暂不批准 B3-AT2B：生产调用点接入、真实写回以及 P2 正式验收。这不是要求重复 AT2A。AT2A 已经把失败准确定位到 mutable_suffix 属性写入；下一阶段应只针对这个已经复现的结构缺陷提出并检验解决方案。",
+  "problem_statement_from_the_ruling": {
+    "measured_at_AT2A": "AT2-F10 = REFUSED_BUT_ONE_WRITE_PATH_ESCAPED：实例守卫覆盖 _commit 与 _plan_and_commit，但没有覆盖 vehicle.mutable_suffix = ...",
+    "diagnosis": "守卫保护的是部分函数入口，而不是状态对象本身",
+    "not_sufficient": "仅把更多方法包裹起来也不充分，因为旧代码仍可能持有 VehicleState 的可变引用",
+    "required_architecture": "由 D3 专用状态容器独占真实 VehicleState，外部模块只接收只读快照或脱离副本；授权提交事务负责将认证后的候选状态发布到该容器",
+    "must_verify_escapes": ["已经泄露出去的旧引用", "列表原地修改", "嵌套对象修改", "通过其他方法替换车辆对象"]
+  },
+  "rows": [
+    {"id": "G-F10-ATTR", "scenario": "外部直接赋值 mutable_suffix", "must_observe": "被阻止，真实状态不变", "expected_verdict": "BLOCKED_AND_STATE_UNCHANGED", "counts_as": "ownership"},
+    {"id": "G-F10-NESTED", "scenario": "外部原地修改嵌套计划或车辆状态（含 in-place list mutation 与 fleet plan suffix）", "must_observe": "被阻止", "expected_verdict": "BLOCKED_AND_STATE_UNCHANGED", "counts_as": "ownership"},
+    {"id": "G-F10-STALE", "scenario": "容器建立之前泄露出去的可变对象引用继续修改", "must_observe": "不能改变当前正式状态", "expected_verdict": "STALE_REFERENCE_INEFFECTIVE", "counts_as": "stale_reference_invalidation"},
+    {"id": "G-F10-REPLACE", "scenario": "通过替换列表元素（vehicles[i] = other）试图替换车辆对象", "must_observe": "被阻止或对正式状态无效", "expected_verdict": "BLOCKED_AND_STATE_UNCHANGED", "counts_as": "ownership"},
+    {"id": "G-F8-RACE", "scenario": "发布期间的直接属性写入与 _commit 调用", "must_observe": "都不能交错", "expected_verdict": "RACE_PREVENTED_OR_SERIALIZED", "counts_as": "publish_exclusivity"},
+    {"id": "G-ONCE", "scenario": "并发协调器对同一票据", "must_observe": "至多一次有效提交", "expected_verdict": "AT_MOST_ONE_COMMITTED", "counts_as": "publish_exclusivity"},
+    {"id": "G-PARTIAL", "scenario": "发布异常", "must_observe": "准确记录真实状态；未证实完整提交则不得报成功", "expected_verdict": "PARTIAL_COMMIT_REPORTED_WITH_TRUE_FIELDS", "counts_as": "failure_handling"},
+    {"id": "G-POST", "scenario": "独立重读", "must_observe": "与授权发布结果一致，且读回来自真实状态容器", "expected_verdict": "COMMITTED_VERIFIED_FROM_CONTAINER", "counts_as": "failure_handling_and_post_read"},
+    {"id": "G-D8", "scenario": "正式认证不完整", "must_observe": "拒绝，绝不进入真实发布", "expected_verdict": "REFUSED_BEFORE_PUBLISH", "counts_as": "not_a_refusal_capability_row"},
+    {"id": "G-POS", "scenario": "机制正向控制：合法非空计划经机制专用门", "must_observe": "能够完成隔离发布并验证", "expected_verdict": "COMMITTED_VERIFIED_FROM_CONTAINER", "counts_as": "control", "explicit_non_claims": ["这一行必须成功，否则『所有越权写入都失败』可能只是状态对象完全不可写，而不是权限控制正确", "不计作安装资格", "not_a_production_path=true"]}
+  ],
+  "three_separate_sub_proofs": {
+    "1_stale_reference_invalidation": ["G-F10-STALE", "G-F10-ATTR", "G-F10-NESTED", "G-F10-REPLACE"],
+    "2_publish_exclusivity": ["G-F8-RACE", "G-ONCE"],
+    "3_failure_handling": ["G-PARTIAL", "G-POST"],
+    "rule": "所有权不等于事务原子性：三项必须分别证明，一项通过不得推断另外两项"
+  },
+  "mandatory_non_claim": {
+    "about_max_concurrent_publish_windows": "max_concurrent_publish_windows=1 只证明指定受控发布窗口内没有重叠，不证明外部观察者永远无法看见中间状态；不得因此把多车辆发布称为整体原子操作",
+    "about_atomicity": "不声称原子性、不声称崩溃恢复、不声称跨进程排除",
+    "about_AT2B": "本轮通过不自动授权 AT2B",
+    "about_D8": "唯一写入者正确 != 可提交计划满足鱼可售硬约束；D8 仍为独立阻断",
+    "about_formal_budget": "AT2A/AT2G 的机制控制与 ISOLATION_ONLY 预算不能用于证明正式 B=300 预算下的安装资格；energy_budget_exceeded 必须保留为独立拒绝原因"
+  },
+  "hard_constraints": [
+    "只针对 D3 专用执行实例",
+    "不改变既有历史基线",
+    "不修改 MASKCO_code/",
+    "不得接入正式运行（守卫与容器都不注册到生产 env）"
+  ],
+  "stop_rule": "全部反例获得独立可复核结论；守卫未接入正式运行；生产数据与历史基线均未改变。失败项按失败记录，不靠重新运行或放宽 D8 翻盘。",
+  "preserved": {
+    "P2": "未建立", "G-L_G-C": "未建立", "D8": "阻断", "D3_G0": "未通过", "G1_G2": "未启动",
+    "MaskCO_attributable_FD_gain": "未建立", "I3": "正式负结果不变",
+    "D2": "not_qualified 不变", "stable_online_gain": false
+  }
+}

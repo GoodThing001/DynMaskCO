@@ -1,0 +1,72 @@
+{
+  "record": "D3_G0_Evidence_B3AT2G_byte_freeze",
+  "date": "2026-10-14",
+  "revision": 1,
+  "base_commit": "6653d3f",
+  "why": "the AT2G matrix registers the state container, its acceptance suite, the coordinator, the AT1 transaction and the gate primitives",
+  "self_reference_note": "this record does not register its own sha256; the directory pin covers it",
+  "pin_set": {
+    "file": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/.gitattributes",
+    "added_by_this_record": [
+      "simulation/d3_state_container.py -text",
+      "tests/test_d3_b3at2g_container.py -text"
+    ],
+    "n_pinned_before": 31,
+    "n_pinned_after": 33,
+    "additive_check": "both were blob==worktree before the pin"
+  },
+  "registered_byte_containers_b3at2g": {
+    "scripts": {
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_state_container.py": "fa10a41cda6546656fa180db4e71310e0cf2784b2532ab615a35fba939fc6625",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at2g_container.py": "854570d9a52d0dcee0ae0dea7d3229cd05a8505593444d3f2af7c6e7249adbac",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_commit_coordinator.py": "5104ce2caa52a91fcf7f588167cc975cdc31a105b9e4e66ed3d7fd275d76659c",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_commit_transaction.py": "3bc73a9803cd8e169bc72bee7ae51fbcc3f5bbbf45c5076fab5a4b10f633f276",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_composed_certifier.py": "b65ddf6545a84b656cd2e9dd541cea266d2d6bdbc1cd56abd76f7780104aea01",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+    },
+    "evidence": {
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2G_CONTAINER_MATRIX.json": "1add29ff6221e446ad78d89b95955ab1d6abe77454bd1b5347b6c68e86a8ba46",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2G_COUNTEREXAMPLE_SPEC.json": "c3f6d1f7fdefc2dab40caa2516ea43f23e9578df22756878dbf3d8f581efeff1",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2G_DESIGN.md": "453e7e0500c7e9992ce72ed9819d198c6f22f400839652d4915ccafcb844a24b",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2G_REPORT.md": "135f451a17d71a05bb9847233793dda1673bcfb786473fa77ab26ae2440ddcc4"
+    },
+    "raw": {
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance0.json": "ec7b4aa83ed5184d3fb8c6c21f6d6df4f2a6cec63849f1b68c56fa92c10c7269",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance1.json": "9cfdc2f18a78e623137d1936a9a7769ae5b6b1191cbe29390012f1e0c47a615a",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance2.json": "9942a4a6715ea80cd85e7ab5e3a3ad6c974ea6425059f4dc1a487df6f80865e4",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance3.json": "66c4414019a09ecddbbca3358747038af444f50160dcbbf524a59fd00e3b6d21",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance4.json": "74e47f71eaa9e6017319a0c21e2ce5ce91605fbf11a91f27b0940288716e93d4",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance5.json": "d0f484e2a29e2f14bd303f3498dacf696bdcc68c68acd0dca20c9353e58e581a",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_instance0.txt": "21194963e9bc831d4dbfa6942f5dedc613a4552e441e5d26b9247c39cf2c6598",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_instance1.txt": "21194963e9bc831d4dbfa6942f5dedc613a4552e441e5d26b9247c39cf2c6598",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_instance2.txt": "21194963e9bc831d4dbfa6942f5dedc613a4552e441e5d26b9247c39cf2c6598",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_instance3.txt": "21194963e9bc831d4dbfa6942f5dedc613a4552e441e5d26b9247c39cf2c6598",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_instance4.txt": "21194963e9bc831d4dbfa6942f5dedc613a4552e441e5d26b9247c39cf2c6598",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_instance5.txt": "21194963e9bc831d4dbfa6942f5dedc613a4552e441e5d26b9247c39cf2c6598",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_repeat1.txt": "21194963e9bc831d4dbfa6942f5dedc613a4552e441e5d26b9247c39cf2c6598",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_repeat2.txt": "21194963e9bc831d4dbfa6942f5dedc613a4552e441e5d26b9247c39cf2c6598",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_repeat3.txt": "21194963e9bc831d4dbfa6942f5dedc613a4552e441e5d26b9247c39cf2c6598",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_stdout.txt": "21194963e9bc831d4dbfa6942f5dedc613a4552e441e5d26b9247c39cf2c6598"
+    }
+  },
+  "sub_proofs": {
+    "1_stale_reference_invalidation": "ESTABLISHED",
+    "2_publish_exclusivity": "ESTABLISHED (controlled windows only)",
+    "3_failure_handling": "ESTABLISHED"
+  },
+  "non_claims": [
+    "max_concurrent_publish_windows==1 proves only that the controlled windows did not overlap; it does not prove an external observer can never see an intermediate state, and it is not atomicity",
+    "no atomicity / crash-recovery / cross-process claim",
+    "passing this batch does NOT authorise B3-AT2B",
+    "D8 remains an independent blocking item",
+    "mechanism controls and ISOLATION_ONLY budgets do not establish install qualification under the formal B=300 budget"
+  ],
+  "gates": {
+    "P1": "VERIFIED_ON_ISOLATED_COPIES_ONLY",
+    "P2": "NOT_ESTABLISHED",
+    "G-L": "NOT_ESTABLISHED",
+    "G-C": "NOT_ESTABLISHED"
+  },
+  "verification_required_after_commit": "git archive HEAD <each pinned path> must reproduce the registered sha256"
+}

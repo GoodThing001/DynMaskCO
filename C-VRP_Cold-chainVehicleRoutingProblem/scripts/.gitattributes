@@ -118,3 +118,8 @@ simulation/d3_commit_coordinator.py -text
 tests/test_d3_b3at2a_coordinator.py -text
 simulation/d3_commit_transaction.py -text
 tests/test_d3_b3at1_transaction.py -text
+# Added by D3-G0 Evidence B3-AT2G (2026-10-14).  The D3 state container (state ownership) and its
+# acceptance suite; both raw sha256 are registered by B3AT2G_CONTAINER_MATRIX.json.  Additive:
+# git hash-object == git hash-object --no-filters for both.
+simulation/d3_state_container.py -text
+tests/test_d3_b3at2g_container.py -text
