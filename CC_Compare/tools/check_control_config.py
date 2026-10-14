@@ -16,6 +16,7 @@
     python CC_Compare/tools/check_control_config.py --self-test
 """
 import argparse
+import hashlib
 import io
 import json
 import os
@@ -27,10 +28,20 @@ if hasattr(sys.stdout, 'buffer'):
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 SPEC = os.path.join(ROOT, 'CC_Compare', 'P1A_CONTROL_FROZEN.json')
-# 必须在两臂之间**逐字段相同**的共享字段（来自 spec 的 role_c_alignment_requirements）
+# 必须在两臂之间**逐字段相同**的共享字段（来自 spec 的 role_c_alignment_requirements
+# + CC_Compare/COMPARISON_PROTOCOL_2026-10-14.md §4.1 的协议字段）
 PAIR_FIELDS = ('n_orders', 'capacity', 'num_vehicles', 'rho', 'gate_instances', 'gate_seed',
-               'K', 'time_limit', 'future_policy', 'budget_B', 'cooling_share',
+               'K', 'time_limit', 'future_policy', 'shadow_mode', 'k_neighbors',
+               'budget_B', 'cooling_share',
                'contract_sha256', 'data_sha256', 'data_meta_sha256')
+# 两臂都必须为 **True**（不是"相等"）—— 各自"启动==结束"
+REQUIRE_TRUE = ('source_stable',)
+# **跨 gate 同源**字段：必须逐字段相同。⚠️ 这是 `source_stable=True` **不能**替代的那一层
+# （A3 被判 DIAGNOSTIC/CROSS-SOURCE 正是因为它自身 source_stable=True 但跨源不符）。
+CROSS_FIELDS = ('shared_source_sha256',)
+# 新协议**附加**要求：正式比较必须记录并相等。旧 gate 无此字段 ⇒ 只能作**历史比较**，
+# 不能作为新协议的正式比较（除非显式 `--legacy-pair`，此时降级为告警并明确标注）。
+NEW_PROTOCOL_FIELDS = ('protocol_id',)
 
 
 def load_spec(path=SPEC):
@@ -66,14 +77,34 @@ def compare_config(cfg, spec):
     return (not bad), rows, extra, bad
 
 
-def compare_pair(a, b, spec=None):
-    """两臂 gate 的配置/身份**配对性**核对：共享字段必须逐字段相同。
+def _digest(v):
+    """把 dict/list 归一成一个短摘要，便于比对与打印（避免刷屏）。"""
+    if isinstance(v, dict):
+        items = sorted((str(k), str(x)) for k, x in v.items())
+        h = hashlib.sha256(('\n'.join('%s %s' % kv for kv in items)).encode('utf-8'))
+        return 'dict(n=%d, sha=%s)' % (len(v), h.hexdigest()[:16])
+    if isinstance(v, list):
+        return 'list(n=%d)' % len(v)
+    return v
+
+
+def compare_pair(a, b, spec=None, legacy_pair=False):
+    """两臂 gate 的配置/身份/协议**配对性**核对。返回 `(ok, rows, bad)`。
+
+    判据分三层（`CC_Compare/COMPARISON_PROTOCOL_2026-10-14.md` §4）：
+
+      ① `PAIR_FIELDS` —— 必须**逐字段相同**（可见信息协议/合同/主档/旋钮/预算）；
+      ② `REQUIRE_TRUE` —— 两臂各自必须为 **True**（`source_stable`，只证"启动==结束"）；
+      ③ `CROSS_FIELDS` —— **跨 gate 同源**：必须逐字段相同。
+         ⚠️ ③ **不能**被 ② 替代 —— A3 正是 `source_stable=True` 却跨源不符（CROSS-SOURCE）。
+      ④ `NEW_PROTOCOL_FIELDS` —— 新协议附加：必须记录且相等；缺失 ⇒ 只能作**历史比较**
+         （除非 `legacy_pair=True`，此时降级为告警并在输出中明确标注）。
 
     ⚠️ **fail-closed**（2026-10-14 实测踩到并修正）：第一版 `pick()` 只看 gate 顶层与
     `results[*]._identity`，**没看 `config` / `identity` 子块** ⇒ 真实 baseline gate 的
     `K` / `time_limit` / `budget_B` / 合同哈希**全部取到 `'<缺>'`**，而"缺失 == 缺失"
     被 `_norm` 判为相等 ⇒ 输出 `PAIRABLE` —— 一个**假通过**。
-    现在：① 依次在 `顶层 → config → identity → results[*]._identity` 里找；
+    现在：① 依次在 `顶层 → config → identity → shared_config → results[*]._identity` 里找；
     ② **任一侧缺失即判失败**（拿不到值就**不能**证明"相同"）。
     """
     def pick(d, key):
@@ -98,12 +129,49 @@ def compare_pair(a, b, spec=None):
         return v is None
 
     rows, bad = [], []
+
     for k in PAIR_FIELDS:
         va, vb = pick(a, k), pick(b, k)
         if missing(va) or missing(vb):
             bad.append(k)
-            rows.append((k, '<缺>' if missing(va) else va,
-                         '<缺>' if missing(vb) else vb, '✗ 缺失（无法证明相同）'))
+            rows.append((k, '<缺>' if missing(va) else _digest(va),
+                         '<缺>' if missing(vb) else _digest(vb), '✗ 缺失（无法证明相同）'))
+        elif _norm(va) != _norm(vb):
+            bad.append(k)
+            rows.append((k, _digest(va), _digest(vb), '✗ 两臂不一致'))
+        else:
+            rows.append((k, _digest(va), _digest(vb), 'OK'))
+
+    for k in REQUIRE_TRUE:
+        va, vb = pick(a, k), pick(b, k)
+        if va is not True or vb is not True:
+            bad.append(k)
+            rows.append((k, va, vb, '✗ 必须两臂都为 True'))
+        else:
+            rows.append((k, True, True, 'OK（启动==结束；⚠️ 不等于跨源相符）'))
+
+    for k in CROSS_FIELDS:
+        va, vb = pick(a, k), pick(b, k)
+        if missing(va) or missing(vb):
+            bad.append(k)
+            rows.append((k, _digest(va) if not missing(va) else '<缺>',
+                         _digest(vb) if not missing(vb) else '<缺>',
+                         '✗ 缺失（无法证明跨源相符）'))
+        elif _norm(va) != _norm(vb):
+            bad.append(k)
+            rows.append((k, _digest(va), _digest(vb), '✗ **跨源不符**（各自 source_stable 不能替代）'))
+        else:
+            rows.append((k, _digest(va), _digest(vb), 'OK（跨 gate 共享源码逐文件相符）'))
+
+    for k in NEW_PROTOCOL_FIELDS:
+        va, vb = pick(a, k), pick(b, k)
+        if missing(va) or missing(vb):
+            tag = ('⚠️ 缺失（`--legacy-pair` 故仅告警：该对只能作**历史比较**）'
+                   if legacy_pair else '✗ 缺失（新协议要求记录且相等）')
+            rows.append((k, va if not missing(va) else '<缺>',
+                         vb if not missing(vb) else '<缺>', tag))
+            if not legacy_pair:
+                bad.append(k)
         elif _norm(va) != _norm(vb):
             bad.append(k)
             rows.append((k, va, vb, '✗ 两臂不一致'))
@@ -137,6 +205,8 @@ def main():
     ap.add_argument('--against-a', help='gate A json（配对核对）')
     ap.add_argument('--against-b', help='gate B json（配对核对）')
     ap.add_argument('--spec', default=SPEC)
+    ap.add_argument('--legacy-pair', action='store_true', dest='legacy_pair',
+                    help='旧 gate 无 protocol_id：降级为告警（该对只能作历史比较）')
     ap.add_argument('--self-test', action='store_true', dest='self_test')
     a = ap.parse_args()
     spec = load_spec(a.spec)
@@ -172,10 +242,13 @@ def main():
         print('   反例 K=20 ⇒ 被抓到 = %s（%s）' % (bad2 == ['K'], bad2))
         if bad2 != ['K']:
             rc = 1
-        # 配对：同一配置两臂 ⇒ OK；身份不一致 ⇒ 必须失败；**缺字段 ⇒ 必须失败**
+        # 配对：同一配置两臂 ⇒ OK；身份不一致 / 缺字段 ⇒ 必须失败
         g = {'config': dict(spec['frozen_config']), **spec['shared_identity_anchor']}
+        g['source_stable'] = True
+        g['shared_source_sha256'] = {'a.py': 'a' * 64}
+        g['protocol_id'] = 'p1a-v1'
         ok3, _r3, bad3 = compare_pair(g, g, spec)
-        print('   配对（同一 gate）⇒ OK=%s' % ok3)
+        print('   配对（同一 gate，含 protocol_id/跨源）⇒ OK=%s' % ok3)
         g2 = json.loads(json.dumps(g))
         g2['contract_sha256'] = 'f' * 64
         ok4, _r4, bad4 = compare_pair(g, g2, spec)
@@ -184,7 +257,22 @@ def main():
         ok5, _r5, bad5 = compare_pair({}, {}, spec)
         print('   配对（两个空 gate）⇒ OK=%s，检出缺失 %d 项（必须 >0）'
               % (ok5, len(bad5)))
-        if ok3 is not True or ok4 or bad4 != ['contract_sha256'] or ok5 or not bad5 or rc:
+        # 跨源不符：source_stable 都为 True 也不得通过（A3 的情形）
+        g3 = json.loads(json.dumps(g))
+        g3['shared_source_sha256'] = {'a.py': 'b' * 64}
+        ok6, _r6, bad6 = compare_pair(g, g3, spec)
+        print('   配对（跨源不符但双方 source_stable=True）⇒ OK=%s，检出 %s'
+              % (ok6, bad6))
+        # 新协议缺 protocol_id：默认 FAIL；--legacy-pair 降级为告警
+        g4 = json.loads(json.dumps(g))
+        g4.pop('protocol_id')
+        ok7, _r7, bad7 = compare_pair(g4, g4, spec)
+        ok8, _r8, bad8 = compare_pair(g4, g4, spec, legacy_pair=True)
+        print('   缺 protocol_id ⇒ 默认 OK=%s（检出 %s）；--legacy-pair ⇒ OK=%s'
+              % (ok7, bad7, ok8))
+        if (ok3 is not True or ok4 or bad4 != ['contract_sha256'] or ok5 or not bad5
+                or ok6 or bad6 != ['shared_source_sha256']
+                or ok7 or bad7 != ['protocol_id'] or not ok8 or rc):
             rc = 1
 
     if a.config:
@@ -204,10 +292,10 @@ def main():
     if a.against_a and a.against_b:
         A = json.load(io.open(a.against_a, encoding='utf-8'))
         B = json.load(io.open(a.against_b, encoding='utf-8'))
-        print('\n=== 两臂配对性核对（共享字段必须相同）===')
-        ok, rows, bad = compare_pair(A, B, spec)
+        print('\n=== 两臂配对性核对（共享字段 / 必须为真 / 跨源 / 新协议字段）===')
+        ok, rows, bad = compare_pair(A, B, spec, legacy_pair=a.legacy_pair)
         for k, va, vb, st in rows:
-            print('   %-20s A=%-16r B=%-16r %s' % (k, va, vb, st))
+            print('   %-20s A=%-30s B=%-30s %s' % (k, va, vb, st))
         print('   => %s%s' % ('PAIRABLE' if ok else 'NOT_PAIRABLE: ', '' if ok else ','.join(bad)))
         if not ok:
             rc = 1
