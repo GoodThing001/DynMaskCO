@@ -1,0 +1,10 @@
+  PASS A2    A2 the rate temperature never exceeds max(hard_upper, ambient) on a real run
+  PASS A3    A3 the Arrhenius rate is non-decreasing in T over the admissible range
+  PASS A1    A1 the v1 update is q <- min(q, q*exp(-k*dt)) with no other factor
+  PASS OM    OM the admissible set Omega is formally recorded
+  PASS BND   BND delivered_quality >= q_lower_bound on every delivered lot of a real run (a violation FALSIFIES the candidate bound)
+  PASS ADV   ADV 1-D admissible-departure sweep: only feasible schedules, realised service times and qualities recorded, monotonicity lemma tested (result: False)
+  PASS VER   VER tri-state adjudication: passing checks and 10000 searches stay NOT_ESTABLISHED; a counterexample is FALSIFIED; PROVEN is unreachable here
+
+verdict: NOT_ESTABLISHED  all_pass: True
+wrote D:\PyCharm_\MASKCO-Main\research\review_3080_20261010\d3_g0_evidence_root_v1\B3QC_LOWER_BOUND_MATRIX.json

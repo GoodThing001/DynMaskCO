@@ -1,0 +1,283 @@
+{
+  "stage": "D3_G0_Evidence_B3QC_lower_bound_falsification",
+  "read_only": true,
+  "production_state_written": false,
+  "commit_modified": false,
+  "d8_relaxed": false,
+  "installable_impact": "NONE",
+  "verdict": "NOT_ESTABLISHED",
+  "verdict_rule": "FALSIFIED if any counterexample; else NOT_ESTABLISHED; PROVEN only from a proof of Q_cert,i <= Q_i(omega) for all omega in Omega, which a bounded search cannot supply",
+  "applies_to": "QualityConfig (v1, first-order, ratio thresholds)",
+  "does_not_transfer_to": "v2 absolute-sensory / zero-order fish quality model",
+  "identities": {
+    "data_npz_sha256": "c35fa6834b8007922160f7979680c1fb8c6dda4d93309cd5ef509b57d83f20f1",
+    "profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
+    "effective_contract_hash": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+    "code": {
+      "scripts/simulation/d3_quality_lower_bound.py": "21857907064debbbfced51fb6d38c69e27c08f57652ccc3ac7ea5ddbaa0e7d12",
+      "scripts/tests/test_d3_b3qc_lower_bound.py": "a3a26239360095141165265290f093c4571c8b03cfc0e7653fdf26656723c77e"
+    }
+  },
+  "assumptions": [
+    {
+      "id": "A1",
+      "claim": "every v1 quality update is q <- min(q, q*exp(-k*dt)); no other factor or additive term",
+      "evidence_anchor": "coldchain_state.py:404-405",
+      "falsified_by": "an update path that multiplies/divides/adds something else"
+    },
+    {
+      "id": "A2",
+      "claim": "the temperature driving the rate never exceeds max(hard_upper[class], ambient) on Omega",
+      "evidence_anchor": "coldchain_state.py:398-402 (rate temperature), coldchain_evaluator.py:358 (hard feasibility)",
+      "falsified_by": "instrumenting the rate temperature on real runs and finding a value above the bound (see F-a door warming)"
+    },
+    {
+      "id": "A3",
+      "claim": "k(class, T) is non-decreasing in T",
+      "evidence_anchor": "coldchain_state.py:128-143 (Arrhenius, positive activation/R)",
+      "falsified_by": "a non-monotone rate over the admissible temperature range"
+    },
+    {
+      "id": "A4",
+      "claim": "the in-cargo time from now to delivery never exceeds tw_end[0] - now on Omega",
+      "evidence_anchor": "depot_return_violation in the terminal gate; certify_route return check",
+      "falsified_by": "an Omega-member trajectory delivering after tw_end[0] (see F-b/F-c)"
+    },
+    {
+      "id": "A5",
+      "claim": "Omega is DEFINED by the hard gates, so the bound is conditional on them",
+      "evidence_anchor": "hard_gate.hard_vector_from_outcome / outcome_protocol_error",
+      "falsified_by": "relaxing a hard gate without re-deriving T^max / tau^max -- a qualification change, not an empirical one"
+    }
+  ],
+  "falsified_lemmas": {
+    "L-departure-monotone": {
+      "claim": "a later admissible departure never yields HIGHER delivered quality, so the worst case over Omega-for-a-fixed-plan is the latest admissible departure",
+      "status": "FALSIFIED",
+      "measured": "1-D admissible-departure sweep on a real decision point: the last grid point (delay ~5.99 h) delivered quality 0.997234 while delays 0..~5.2 h all delivered 0.997133 -- quality INCREASED with the delay",
+      "why": "delaying the departure can remove a wait so the vehicle arrives exactly at `tw_start`; because service_start = max(arrive, tw_start), the downstream schedule stops moving while pre-departure idle time disappears, SHORTENING the in-cargo time of later-picked lots",
+      "consequence": "the tight \"worst case = latest feasible departure\" design MAY NOT be used; the static T/tau analytic bound is the surviving candidate"
+    }
+  },
+  "omega": {
+    "name": "Omega_admissible_d3m0_v1",
+    "fixed_by_production_configuration": {
+      "active_zone_mask": "(True,)*zones -- strict_online_env._coldchain_active_mask() never disables a zone in this configuration, so the uncooled drift branch is out of Omega",
+      "quality_model": "v1 QualityConfig (first-order, per-class Arrhenius rate, ratio thresholds)",
+      "precool_branch": "lot.precooled = thermal.precooled and temp_class >= precool_min_temp_class (coldchain_state.py:261-262); both branches are IN Omega and A2 covers both via the ambient widening"
+    },
+    "membership_conditions": {
+      "thermal": "temperature_hard_feasible == True (no segment temperature outside hard_temperature_bounds_c; coldchain_evaluator.py:358)",
+      "time_windows": "every arrival <= tw_end; time windows are only widened by waiting at tw_start, never by departing before the previous service finished",
+      "capacity": "cumulative load <= shared_vehicle_capacity at every pickup",
+      "depot_return": "return arrival <= tw_end[0] (else depot_return_violation)",
+      "commitment": "a committed leg is never revoked; an order is picked exactly once",
+      "ordering": "waiting is only \"do not dispatch\" (mutable_suffix == []) and may delay a later departure, but may not reorder the plan suffix; the plan suffix order is preserved in Omega",
+      "clock": "time never moves backwards (_advance_coldchain_to raises otherwise)",
+      "horizon": "the run stops at the instance horizon; a trajectory that needs _force_return_all to return after tw_end[0] is NOT in Omega (see F-b)"
+    },
+    "degrees_of_freedom_within_Omega": [
+      "the number and length of WAIT stretches before dispatch (bounded by booking_horizon)",
+      "the exact departure time per leg inside the gap left by the previous service finish and the next tw_end",
+      "the realised door events (one per pickup) and the number of remaining pickups",
+      "the realised cooling duty, hence the actual per-segment zone temperatures"
+    ],
+    "not_in_Omega": [
+      "thermal violations",
+      "arrivals after tw_end",
+      "capacity overflow",
+      "depot return after tw_end[0]",
+      "revoking a commitment",
+      "reordering the plan suffix",
+      "disabling an active zone"
+    ]
+  },
+  "rate_temperature_audit": {
+    "n_samples": 2134,
+    "n_violations": 0,
+    "max_rate_temperature_c": 18.033300933043094,
+    "ambient_branch_samples": 0,
+    "ambient_branch_reachable": false,
+    "ambient_branch_detail": {
+      "precooled_flag": true,
+      "precool_min_temp_class": 0,
+      "classes_below_floor": [],
+      "why": "no class falls below precool_min_temp_class, so every lot is precooled and the ambient branch is UNREACHABLE"
+    }
+  },
+  "bound_vs_delivered": {
+    "n_violations": 0,
+    "violations": []
+  },
+  "adversarial_search": {
+    "searched": true,
+    "vehicle_id": 0,
+    "order_id": 5,
+    "n_feasible": 9,
+    "n_infeasible": 0,
+    "min_delivered_quality": 0.9971325598389583,
+    "distinct_minima": [
+      0.997132559839,
+      0.997234078656
+    ],
+    "bound_still_holds_in_search": true
+  },
+  "results": [
+    {
+      "cid": "A2",
+      "name": "A2 the rate temperature never exceeds max(hard_upper, ambient) on a real run",
+      "ok": true,
+      "detail": {
+        "n_rate_samples": 2134,
+        "n_violations": 0,
+        "max_rate_temperature": 18.033300933043094,
+        "bound_range": [
+          -12.0,
+          30.0
+        ],
+        "precooled_branch_samples": 2134,
+        "ambient_branch_samples": 0,
+        "examples_of_violation": []
+      }
+    },
+    {
+      "cid": "A3",
+      "name": "A3 the Arrhenius rate is non-decreasing in T over the admissible range",
+      "ok": true,
+      "detail": [
+        {
+          "class": 0,
+          "hard_bounds": [
+            0.0,
+            30.0
+          ],
+          "k_min": 0.0008311608428379703,
+          "k_max": 0.0029538250280852396,
+          "monotone": true
+        },
+        {
+          "class": 1,
+          "hard_bounds": [
+            0.0,
+            8.0
+          ],
+          "k_min": 0.0015767685500055455,
+          "k_max": 0.00627622167330042,
+          "monotone": true
+        },
+        {
+          "class": 2,
+          "hard_bounds": [
+            -25.0,
+            -12.0
+          ],
+          "k_min": 0.0003442451006795496,
+          "k_max": 0.014161428094408636,
+          "monotone": true
+        }
+      ]
+    },
+    {
+      "cid": "A1",
+      "name": "A1 the v1 update is q <- min(q, q*exp(-k*dt)) with no other factor",
+      "ok": true,
+      "detail": {
+        "anchors_found": true
+      }
+    },
+    {
+      "cid": "OM",
+      "name": "OM the admissible set Omega is formally recorded",
+      "ok": true,
+      "detail": {
+        "n_membership_conditions": 8,
+        "n_degrees_of_freedom": 4,
+        "n_excluded": 7,
+        "name": "Omega_admissible_d3m0_v1"
+      }
+    },
+    {
+      "cid": "BND",
+      "name": "BND delivered_quality >= q_lower_bound on every delivered lot of a real run (a violation FALSIFIES the candidate bound)",
+      "ok": true,
+      "detail": {
+        "n_bound_rows": 25,
+        "n_delivered": 50,
+        "n_violations": 0,
+        "violations": [],
+        "tau_max_h": 24.0,
+        "n_unsalable_lower_bound": 0,
+        "ambient_branch_reachable": false,
+        "ambient_branch_detail": {
+          "precooled_flag": true,
+          "precool_min_temp_class": 0,
+          "classes_below_floor": [],
+          "why": "no class falls below precool_min_temp_class, so every lot is precooled and the ambient branch is UNREACHABLE"
+        },
+        "per_class_T_max": {
+          "1": 8.0,
+          "2": -12.0,
+          "0": 30.0
+        },
+        "tightest_ratio_lower_bound": 0.9315626811290251
+      }
+    },
+    {
+      "cid": "ADV",
+      "name": "ADV 1-D admissible-departure sweep: only feasible schedules, realised service times and qualities recorded, monotonicity lemma tested (result: False)",
+      "ok": true,
+      "detail": {
+        "searched": true,
+        "n_feasible": 9,
+        "n_infeasible": 0,
+        "distinct_minima": [
+          0.997132559839,
+          0.997234078656
+        ],
+        "min_delivered_quality": 0.9971325598389583,
+        "bound_still_holds_in_search": true,
+        "effectiveness": "VARIED_SEARCH",
+        "max_admissible_delay_h": 5.992176668471075,
+        "quality_monotone_nonincreasing_in_delay": false,
+        "realised_binding_service_times": [
+          8.450568079948425,
+          8.450568079948425,
+          8.450568079948425,
+          8.450568079948425,
+          8.450568079948425,
+          8.450568079948425,
+          8.450568079948425,
+          8.450568079948425,
+          8.610753522938467
+        ],
+        "realised_qualities": [
+          0.9971325598389583,
+          0.9971325598389583,
+          0.9971325598389583,
+          0.9971325598389583,
+          0.9971325598389583,
+          0.9971325598389583,
+          0.9971325598389583,
+          0.9971325598389583,
+          0.9972340786556247
+        ],
+        "why_infeasible_sample": []
+      }
+    },
+    {
+      "cid": "VER",
+      "name": "VER tri-state adjudication: passing checks and 10000 searches stay NOT_ESTABLISHED; a counterexample is FALSIFIED; PROVEN is unreachable here",
+      "ok": true,
+      "detail": {
+        "after_passing_check": "NOT_ESTABLISHED",
+        "after_10000_searches": "NOT_ESTABLISHED",
+        "with_counterexample": "FALSIFIED",
+        "counterexample_ids": [
+          "demo_fail"
+        ],
+        "bound_verdict": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "all_pass": true
+}

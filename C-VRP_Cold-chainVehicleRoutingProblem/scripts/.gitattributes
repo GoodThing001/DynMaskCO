@@ -42,3 +42,10 @@ tests/test_d3_b2_certification.py -text
 #   scripts/tests/test_d3_b3q_quality_projection.py    4702467aa5ef462dead0a2ac66b14c59676c0f9e46d56ec01fd41cc8bf7c68a5
 simulation/d3_quality_projection.py -text
 tests/test_d3_b3q_quality_projection.py -text
+
+# Added by D3-G0 Evidence B3-QC (2026-10-14).  Same reason as the B1/B2/B3-Q additions:
+# the B3-QC matrix registers these files' raw sha256, so a fresh checkout must reproduce them.
+#   scripts/simulation/d3_quality_lower_bound.py           21857907064debbbfced51fb6d38c69e27c08f57652ccc3ac7ea5ddbaa0e7d12
+#   scripts/tests/test_d3_b3qc_lower_bound.py              a3a26239360095141165265290f093c4571c8b03cfc0e7653fdf26656723c77e
+simulation/d3_quality_lower_bound.py -text
+tests/test_d3_b3qc_lower_bound.py -text
