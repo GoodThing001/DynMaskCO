@@ -1,0 +1,130 @@
+{
+  "record": "D3_G0_G0-Safety_batch1_acceptance_v2",
+  "date": "2026-10-14",
+  "base_commit": "87c6a5c",
+  "purpose": "separate three propositions that the v1 single boolean conflated; the v1 file is retained BYTE-INTACT as the frozen record and is NOT corrected in place (user instruction: 保留旧矩阵原件，不追改历史记录)",
+  "supersedes_for_machine_reading": {
+    "file": "G0_SAFETY_DELTA.json",
+    "field": "acceptance.criterion_2_historical_suites",
+    "v1_value": true,
+    "why_superseded": "one boolean cannot distinguish \"historical tests all passed\" from \"historical tests have 3 registered, accounted-for failures\"",
+    "v1_file_sha256_at_this_record": "9a7410b3716ac10d23746ce1f12265cba1f96846f817654f7ed3eab2dae28b11",
+    "v1_file_modified_in_place": false
+  },
+  "historical_suites_all_pass": false,
+  "superseded_assertions_accounted_for": true,
+  "updated_safety_contract_accepted": true,
+  "updated_safety_contract_accepted_by": "user, review of 51896c3 on 2026-10-14: \"我认可三条失败属于已经解释的安全契约更新\"",
+  "derivation": {
+    "live_failed_total": 3,
+    "live_passed_total": 66,
+    "prefix_failed_total": 0,
+    "live_failed_case_names": [
+      "A2 end-to-end: on an exact logits tie the new assembly layer matches the ORIGINAL stepwise_sample step for step (projected onto the historical fields)",
+      "A2 the only added step field is the pinned evidence field (incremental_distance), nothing else",
+      "A3 the success path installs exactly once"
+    ],
+    "live_failed_case_names_raw": [
+      "A2 end-to-end: on an exact logits tie the new assembly layer matches the ORIGINAL stepwise_sample step for step (projected onto the historical fields)   <- {'orig': [{'customer': 5, 'vehicle_id': 2, 'slot_kind': 'new_route', 'slot_anchor': -1, 'position': 0, 'predecessor': -1, 'successor': -1}], 'new_projected': []}",
+      "A2 the only added step field is the pinned evidence field (incremental_distance), nothing else   <- set()",
+      "A3 the success path installs exactly once   <- {'installs': 0}"
+    ],
+    "registered_superseded_case_names": [
+      "A2 end-to-end: on an exact logits tie the new assembly layer matches the ORIGINAL stepwise_sample step for step (projected onto the historical fields)",
+      "A2 the only added step field is the pinned evidence field (incremental_distance), nothing else",
+      "A3 the success path installs exactly once"
+    ],
+    "sets_equal": true
+  },
+  "per_suite": {
+    "test_d3_geo_adapter": {
+      "prefix": "36/36",
+      "live": "36/36",
+      "delta_failed_cases": []
+    },
+    "test_d3_adapter_risks": {
+      "prefix": "10/10",
+      "live": "10/10",
+      "delta_failed_cases": []
+    },
+    "test_d3_assembly_invariants": {
+      "prefix": "23/23",
+      "live": "20/23",
+      "delta_failed_cases": [
+        "A2 end-to-end: on an exact logits tie the new assembly layer matches the ORIGINAL stepwise_sample step for step (projected onto the historical fields)   <- {'orig': [{'customer': 5, 'vehicle_id': 2, 'slot_kind': 'new_route', 'slot_anchor': -1, 'position': 0, 'predecessor': -1, 'successor': -1}], 'new_projected': []}",
+        "A2 the only added step field is the pinned evidence field (incremental_distance), nothing else   <- set()",
+        "A3 the success path installs exactly once   <- {'installs': 0}"
+      ]
+    }
+  },
+  "unchanged_assertions": {
+    "test_d3_geo_adapter": "36/0 pre-fix and 36/0 post-fix (T-G1..T-G9, X1, X2 identical)",
+    "test_d3_adapter_risks": "10/0 pre-fix and 10/0 post-fix (R1..R4 identical)",
+    "test_d3_assembly_invariants": "23/0 pre-fix, 20/3 post-fix -- the 3 above only"
+  },
+  "superseded_assertions": [
+    {
+      "suite": "test_d3_assembly_invariants",
+      "case": "A3 the success path installs exactly once",
+      "pre_fix": "PASS (23/0): run_repair_transaction WITHOUT certify_fn installed 1 plan",
+      "post_fix": "FAIL: installs 0, because the install gate now REQUIRES certification",
+      "classification": "SAFETY-CONTRACT UPDATE, not a regression",
+      "why": "this assertion encoded the G0-01 counterexample itself: it required an uncertified plan to be installed. It cannot coexist with a mandatory certification gate. Counterpart: Green Phase G1/G2/G3 + G10 prove the new gate installs exactly once when certification IS bound."
+    },
+    {
+      "suite": "test_d3_assembly_invariants",
+      "case": "A2 end-to-end: on an exact logits tie the new assembly layer matches the ORIGINAL stepwise_sample step for step (projected onto the historical fields)",
+      "pre_fix": "PASS (23/0)",
+      "post_fix": "FAIL: 2 scores were supplied for 1 legal action; the fix refuses it",
+      "classification": "SAFETY-CONTRACT UPDATE, not a regression",
+      "why": "the fixture fed an OVER-LONG score vector (len 2 vs legal len 1) and passed only because the flattened argmax happened to stay in range -- i.e. it exercised the A-1b defect. Counterpart: Green Phase E2/E3 prove F-equivalence on LEGAL (aligned) input, which is the proposition this case intended."
+    },
+    {
+      "suite": "test_d3_assembly_invariants",
+      "case": "A2 the only added step field is the pinned evidence field (incremental_distance), nothing else",
+      "pre_fix": "PASS (23/0)",
+      "post_fix": "FAIL: the same case produces zero steps, so the key delta is empty",
+      "classification": "SAFETY-CONTRACT UPDATE, not a regression",
+      "why": "same fixture as the case above; it is not an independent assertion."
+    }
+  ],
+  "residuals_still_open": [
+    {
+      "item": "A-3b",
+      "status": "OPEN",
+      "owner": "G0-Evidence batch 2",
+      "why": "the commitment guard lives on VehicleState + the mask pool, outside this plan-level adapter; a same-named fake field would not fix it"
+    },
+    {
+      "item": "A-5c",
+      "status": "OPEN",
+      "owner": "G0-Evidence batch 2",
+      "why": "ledger receipts are in-memory only; this batch adds no persistence surface"
+    },
+    {
+      "item": "certifier contract/state identity",
+      "status": "PARTIAL",
+      "owner": "G0-Evidence batch 2",
+      "why": "the PLAN identity is bound (certified hash == installed hash). Binding the C0 contract / state identity needs the assembly layer, so it is declared, not silently claimed"
+    },
+    {
+      "item": "A-1c primitive-level flattening",
+      "status": "by design, unreachable",
+      "owner": "none",
+      "why": "`select_historical_argmax` IS F's rule and must stay `np.argmax`; the adapter now refuses ndim != 1 BEFORE calling it, so the flattening is unreachable from the decision path. The Red Phase harness measures the primitive, so it still reports G0-03 as reproduced -- a measurement-point difference, not a gap."
+    }
+  ],
+  "red_phase_harness_defect": {
+    "test_id": "G0-07",
+    "audit_item": "A-1d",
+    "defect": "the Red Phase fixture used mask_set=[4], so `legal` contained ONE candidate. Selecting customer 4 was then guaranteed by construction, and the reported \"n_legal\": 3 / \"delta_len\": 2 were hard-coded literals, not measurements. The case therefore never exercised a misaligned GEO vector.",
+    "proof": "after the fix, G0-07 still reports COUNTEREXAMPLE_REPRODUCED, which is impossible if it had measured the fixed code path.",
+    "correction": "A-1d is re-established with a correct fixture inside the Green Phase differential: block P/P6 (pre-fix silently picks customer 4 while the true best is 6, failure_reason None) and block G/G7+G8 (clean fail-closed geo_len). The Red Phase file itself is NOT rewritten."
+  },
+  "still_not_established": [
+    "D3 G0 is NOT passed; only batch-1 local safety fixes have engineering acceptance evidence",
+    "G1/G2 not started",
+    "no attributable F-D learning gain",
+    "I3 formal negative result, old D2 not_qualified, stable_online_gain=False unchanged"
+  ]
+}
