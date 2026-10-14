@@ -1,0 +1,18 @@
+{
+  "phase": "failure",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/server_diagnostic.py\", line 295, in <module>\n    raise SystemExit(main())\n  File \"/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/server_diagnostic.py\", line 203, in main\n    p1 = U.snapshot(explicit)\n  File \"/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/unified_closure_protocol.py\", line 47, in snapshot\n    return candidate.capture(explicit_files)\n  File \"/home/hzeng/project/MASKCO-Main/tools/actual_loaded_closure_candidate_r20.py\", line 42, in capture\n    cache = _real_file(getattr(module, \"__cached__\", None))\n  File \"/home/hzeng/project/MASKCO-Main/tools/actual_loaded_closure_candidate_r20.py\", line 25, in _real_file\n    path = Path(raw)\n  File \"/home/hzeng/miniconda3/envs/MASKCO_env/lib/python3.10/pathlib.py\", line 960, in __new__\n    self = cls._from_parts(args)\n  File \"/home/hzeng/miniconda3/envs/MASKCO_env/lib/python3.10/pathlib.py\", line 594, in _from_parts\n    drv, root, parts = self._parse_args(args)\n  File \"/home/hzeng/miniconda3/envs/MASKCO_env/lib/python3.10/pathlib.py\", line 578, in _parse_args\n    a = os.fspath(a)\nTypeError: expected str, bytes or os.PathLike object, not _OpNamespace\n",
+  "gate_pass": false,
+  "publication_performed": false,
+  "pid": 542316,
+  "registration_sha256": "e15176d9b84fe6251add862bcbe565829d951ffcd596b20b17f21346d687dd58",
+  "source_identity": {
+    "/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/server_diagnostic.py": "e25e45bd9daf0208ba162dc92042420665b2aa20139091fba5a1687f05eda507",
+    "/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/unified_closure_protocol.py": "90b34358618c07796b5582da7aedeeb59591918fc1f3c447d9c7284b818db319",
+    "/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/supervise_diagnostic.py": "4fff62aa6104e93b589ec04b8ba120fec81b8fe787550913106857a80d0b42d0",
+    "/home/hzeng/project/MASKCO-Main/tools/actual_loaded_closure_candidate_r20.py": "c062b4c40dccdc9bc8935dd4d64f25c4067fcb4ac64be419ac4ed8918753f0eb",
+    "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/scripts/models/mpre.py": "585f0296e31fc98060f393cad023a6c028c70bbbdb8bcc0c6d27f46f03b3e57c",
+    "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/scripts/models/cvrptw_utils.py": "1fd6aa427bd242227963972c9a439dd94c5b6ca3cb5dbcef37bda3f2f315a73f",
+    "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/scripts/project_paths.py": "3afd25befe673c05318489b83ae259971b0da8b894a8efe7b88e1c8ad84f6658",
+    "/home/hzeng/project/MASKCO-Main/MASKCO_code/ckpts/cvrp100.ckpt": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+  }
+}

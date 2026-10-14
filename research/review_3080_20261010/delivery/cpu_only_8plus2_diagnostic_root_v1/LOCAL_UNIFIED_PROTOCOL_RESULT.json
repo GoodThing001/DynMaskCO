@@ -1,0 +1,82 @@
+{
+  "protocol": "unified",
+  "points": [
+    "P0_before_declared_warmup",
+    "P1_after_declared_warmup",
+    "P2_after_timed_execution",
+    "P3_before_publication"
+  ],
+  "warmup": [
+    "load model and explicit files",
+    "first JAX call",
+    "first native call"
+  ],
+  "gated": [
+    "P1->P2",
+    "P2->P3"
+  ],
+  "informational": [
+    "P0->P1"
+  ],
+  "scenarios": {
+    "warmup_before_p1_clean": {
+      "first_call": 2,
+      "warmup_delta_qualified": false,
+      "warmup_new_files": 1,
+      "p1_p2_qualified": true,
+      "p2_p3_qualified": true,
+      "publishable": true
+    },
+    "lazy_import_inside_timed_region": {
+      "p1_p2_qualified": false,
+      "p2_p3_qualified": true,
+      "publishable": false,
+      "refusal_reasons": [
+        "P1->P2"
+      ],
+      "new_files": [
+        "lazy_lib2.py"
+      ]
+    },
+    "change_between_p2_and_p3": {
+      "publishable": false,
+      "refusal_reasons": [
+        "P2->P3"
+      ]
+    },
+    "earlier_test_case_reversed": {
+      "earlier_test_judged_publishable_on_p2_p3_only": true,
+      "unified_verdict": "rejected because P1->P2 differed"
+    }
+  },
+  "checks": [
+    {
+      "name": "warmup_delta_is_recorded_but_not_gated",
+      "pass_": true
+    },
+    {
+      "name": "clean_path_is_publishable",
+      "pass_": true
+    },
+    {
+      "name": "lazy_import_inside_timed_region_rejects_publication",
+      "pass_": true
+    },
+    {
+      "name": "rejection_names_the_p1_to_p2_adjacency",
+      "pass_": true
+    },
+    {
+      "name": "change_before_publication_rejects",
+      "pass_": true
+    },
+    {
+      "name": "contradiction_with_the_earlier_test_is_resolved",
+      "pass_": true
+    }
+  ],
+  "pass_count": 6,
+  "fail_count": 0,
+  "publication_performed": false,
+  "model_loaded": false
+}

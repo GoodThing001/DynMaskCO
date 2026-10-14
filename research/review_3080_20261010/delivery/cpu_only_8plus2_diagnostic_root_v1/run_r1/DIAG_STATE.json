@@ -1,0 +1,103 @@
+{
+  "phase": "captured_P0",
+  "pid": 533930,
+  "python": "3.10.19",
+  "host": "user",
+  "ROOT": "/home/hzeng/project/MASKCO-Main",
+  "cpu_lock": {
+    "affinity": [
+      15
+    ],
+    "affinity_enforced": true,
+    "thread_env": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "JAX_PLATFORMS": "cpu",
+      "CUDA_VISIBLE_DEVICES": "",
+      "XLA_PYTHON_CLIENT_PREALLOCATE": "false"
+    },
+    "enforced": true
+  },
+  "declared_budget_seconds": 8.0,
+  "declared_reserve_seconds": 2.0,
+  "publication_performed": false,
+  "source_identity": {
+    "/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/server_diagnostic.py": "e25e45bd9daf0208ba162dc92042420665b2aa20139091fba5a1687f05eda507",
+    "/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/unified_closure_protocol.py": "90b34358618c07796b5582da7aedeeb59591918fc1f3c447d9c7284b818db319",
+    "/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/supervise_diagnostic.py": "4fff62aa6104e93b589ec04b8ba120fec81b8fe787550913106857a80d0b42d0",
+    "/home/hzeng/project/MASKCO-Main/tools/actual_loaded_closure_candidate_r20.py": "c062b4c40dccdc9bc8935dd4d64f25c4067fcb4ac64be419ac4ed8918753f0eb",
+    "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/scripts/models/mpre.py": "585f0296e31fc98060f393cad023a6c028c70bbbdb8bcc0c6d27f46f03b3e57c",
+    "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/scripts/models/cvrptw_utils.py": "1fd6aa427bd242227963972c9a439dd94c5b6ca3cb5dbcef37bda3f2f315a73f",
+    "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/scripts/project_paths.py": "3afd25befe673c05318489b83ae259971b0da8b894a8efe7b88e1c8ad84f6658",
+    "/home/hzeng/project/MASKCO-Main/MASKCO_code/ckpts/cvrp100.ckpt": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+  },
+  "registration_sha256": "e15176d9b84fe6251add862bcbe565829d951ffcd596b20b17f21346d687dd58",
+  "source_identity_files": 8,
+  "preconditions": {
+    "measured_at_unix": 1791959730.9173312,
+    "available_ram_gib": 179.918,
+    "ram_gate_gib": 8.0,
+    "ram_pass": true,
+    "total_ram_gib": 247.089,
+    "owned_leftover_processes": [
+      {
+        "pid": 533927,
+        "cmd": "bash -c cd /home/hzeng/project/MASKCO-Main && DIAG_OUT=/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1"
+      }
+    ],
+    "owned_leftovers_checked": true,
+    "owned_leftovers_pass": false,
+    "core_index": 15,
+    "core_usage_percent": 0.0,
+    "core_idle_gate_percent": 25.0,
+    "core_idle_pass": true,
+    "cpu_count": 96,
+    "load_avg": [
+      26.59,
+      33.1,
+      34.11
+    ],
+    "gpu_stage_declared": false,
+    "gpu_devices_requested": 0
+  },
+  "closure": {
+    "protocol_module": "/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/unified_closure_protocol.py",
+    "points": [
+      "P0_before_declared_warmup",
+      "P1_after_declared_warmup",
+      "P2_after_timed_execution",
+      "P3_before_publication"
+    ],
+    "warmup": [
+      "load model and explicit files",
+      "first JAX call",
+      "first native call"
+    ],
+    "gated_adjacencies": [
+      [
+        "P1_after_declared_warmup",
+        "P2_after_timed_execution"
+      ],
+      [
+        "P2_after_timed_execution",
+        "P3_before_publication"
+      ]
+    ],
+    "informational_adjacencies": [
+      [
+        "P0_before_declared_warmup",
+        "P1_after_declared_warmup"
+      ]
+    ],
+    "captures": [
+      {
+        "point": "P0_before_declared_warmup",
+        "seconds": 1.4042007680982351,
+        "files_hashed": 160
+      }
+    ],
+    "explicit_files": 8
+  }
+}

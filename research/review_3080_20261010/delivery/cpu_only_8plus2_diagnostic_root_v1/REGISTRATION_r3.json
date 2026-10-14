@@ -1,0 +1,108 @@
+{
+  "attempt_id": "delivery_cpu_only_8plus2_engineering_diagnostic_r3",
+  "registered_on": "2026-10-14",
+  "line": "delivery / actual-loaded-closure",
+  "kind": "engineering diagnostic (NOT a scientific experiment); third invocation of the same authorized diagnostic",
+  "status": "pre-registered; not yet executed",
+  "authority": {
+    "quote": "你可以在新独占登记中先做一次 CPU-only、无发布的完整 8+2 秒工程诊断，无需再问我；执行前须统一 P1→P2 的明确准入规则，核实当前源码身份、本人进程及目标 CPU 核负载，重新测可用 RAM，并在导入 JAX 前锁定 CPU 环境。GPU 仍繁忙时不启动任何 GPU 依赖阶段。诊断要保留超时、退出和回收原件；它通过后，再登记可发布请求，不把诊断补写成 PASS。",
+    "why_this_is_still_the_same_authorization": [
+      "no attempt has yet reached the timed 8 s segment, so the declared diagnostic still has no measurement",
+      "both aborts were defects in my own harness, not resource, scientific or protocol conditions",
+      "the requirement to keep timeout / exit / reap originals presupposes that aborted attempts are preserved rather than repaired in place",
+      "run_r1 and run_r2 are preserved byte-intact and neither is rewritten into a PASS"
+    ]
+  },
+  "preserved_predecessor_failures": [
+    {
+      "run_dir": "run_r1/",
+      "executor": "server_diagnostic.py (executor r1)",
+      "candidate": "tools/actual_loaded_closure_candidate_r20.py",
+      "cause": "TypeError: expected str, bytes or os.PathLike object, not _OpNamespace, in candidate r20 _real_file(module.__cached__) during the P1 capture",
+      "timed_segment_reached": false,
+      "supervisor": {"wall_seconds": 36.99923777580261, "exit_code": 2, "timed_out": false, "reaped": true, "signalled": false},
+      "status": "FAIL, preserved"
+    },
+    {
+      "run_dir": "run_r2/",
+      "executor": "server_diagnostic.py (executor r1, by mistake)",
+      "cause": "operator/harness error: supervise_diagnostic.py hardcoded its child as server_diagnostic.py, so the corrected executor was never launched and the r1 crash was reproduced",
+      "timed_segment_reached": false,
+      "supervisor": {"wall_seconds": 30.059536695480347, "exit_code": 2, "timed_out": false, "reaped": true, "signalled": false},
+      "status": "FAIL (invalid run: wrong executor), preserved; superseded by this registration"
+    }
+  ],
+  "defect_fixed_here": {
+    "defect": "the supervisor guessed the child executor's name",
+    "fix": "supervise_diagnostic_r2.py: DIAG_CHILD is required with no default, DIAG_EXPECT_MANIFEST is required, and every manifest entry is verified before launch; a mismatch or an absent file refuses with exit 3 and a written record. The resolved child path and its actual sha256 are recorded.",
+    "guarantee": "this attempt cannot silently execute a different executor than the one registered here"
+  },
+  "attempt_to_artifact_mapping": {
+    "run_r1": {"executor": "server_diagnostic.py", "supervisor": "supervise_diagnostic.py", "registration": "REGISTRATION.json"},
+    "run_r2": {"executor": "server_diagnostic.py", "supervisor": "supervise_diagnostic.py", "registration": "REGISTRATION_r2.json"},
+    "run_r3": {"executor": "server_diagnostic_r2.py", "supervisor": "supervise_diagnostic_r2.py", "registration": "REGISTRATION_r3.json", "identity_manifest": "EXPECTED_IDENTITY_r3.json", "closure_protocol": "unified_closure_protocol_r2.py", "closure_candidate": "tools/actual_loaded_closure_candidate_r21.py"}
+  },
+  "exclusive_namespace": {
+    "remote_output": "/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/run_r3/",
+    "rule": "no other run may write into run_r1/, run_r2/ or run_r3/; existing FAIL artifacts elsewhere are read-only"
+  },
+  "declared_phases": [
+    "P0_before_declared_warmup (informational only, never a gate)",
+    "P1_after_declared_warmup (gate reference)",
+    "P2_after_timed_execution (gate)",
+    "P3_before_publication (gate)"
+  ],
+  "declared_warmup": [
+    "import jax (CPU backend)",
+    "load cvrp100.ckpt model",
+    "first JAX call (encode_cvrp)",
+    "first native call (decode_edge_logits)"
+  ],
+  "gated_adjacencies": ["P1->P2", "P2->P3"],
+  "admission_rule_p1_to_p2": "P1 and P2 must be identical in file hashes, the module-name -> file map (including file-less module names), the native path set and the explicit-path set; any change, addition, removal or remapping rejects. P0->P1 is informational because the declared warm-up exists to provoke lazy loading.",
+  "declared_unit_of_work": {
+    "definition": "one model chain = encode_cvrp(51 nodes, B=1) followed by decode_edge_logits",
+    "instance": "fixed, seed 20261014, N=51, B=1, capacity 50",
+    "explicitly_not": "the complete delivery request; the request-level closure gate remains unqualified by this diagnostic"
+  },
+  "segments": {
+    "timed_execution": {"seconds": 8.0, "rule": "repeat the declared unit until the 8.0 s budget is reached; per-unit times recorded"},
+    "recovery_reserve": {"seconds": 2.0, "rule": "declared as gc.collect() + release of timed-region temporaries, measured; must be <= 2.0 s"},
+    "closure_captures": "outside the request budget; capture seconds are recorded as an observation and are NOT used to satisfy the 8 s budget",
+    "supervisor_wall_timeout_seconds": 600
+  },
+  "preconditions_and_gates": {
+    "identity_preflight": "every file in EXPECTED_IDENTITY_r3.json matches its recorded sha256 before the child is launched; mismatch or absence refuses with exit 3 and no child execution",
+    "cpu_environment_locked": "sched_setaffinity to core 15 AND JAX_PLATFORMS=cpu AND CUDA_VISIBLE_DEVICES='' AND all *_NUM_THREADS=1, set BEFORE importing jax",
+    "available_ram_gate": ">= 8.0 GiB available, measured in-process before any heavy import",
+    "no_owned_leftover_processes": "no python process owned by the login user, after excluding the diagnostic's own process ancestry (every exclusion listed by pid)",
+    "target_core_idle": "measured per-core usage of core 15 < 25%",
+    "cpu_only_no_gpu_device": "jax.devices() contains only CPU devices and jax.default_backend() == 'cpu'",
+    "registration_hash_recorded": "sha256 of this file recorded inside the run output",
+    "model_loaded": "cvrp100.ckpt loaded and the declared unit produced finite logits",
+    "unit_fits_budget": "first declared unit <= 8.0 s",
+    "recovery_within_reserve": "measured recovery <= 2.0 s",
+    "closure_gated_adjacencies_qualified": "unified_closure_protocol_r2.evaluate(...).publishable is true"
+  },
+  "pass_rule": "gate_pass = true iff every gate in preconditions_and_gates passes; the verdict is computed by the executor process and written into run_r3/DIAG_STATE.json",
+  "failure_handling": [
+    "a supervisor preflight mismatch refuses before launch: exit 3, SUPERVISOR_RECORD.json with refused_before_launch=true",
+    "a raised exception in the child writes DIAG_FAILURE.json + DIAG_FAILURE.traceback.txt and exits 2",
+    "an unmet gate writes DIAG_STATE.json with gate_pass=false and exits 1",
+    "every outcome is final for this attempt and must not be edited; a further invocation requires a new attempt_id",
+    "no publication is performed on any outcome"
+  ],
+  "prohibited_in_this_attempt": [
+    "GPU use or any GPU-dependent stage",
+    "publication of any request",
+    "editing run_r1, run_r2 or any other previous FAIL artifact",
+    "post-hoc rewriting of the diagnostic verdict",
+    "treating this diagnostic as evidence about utility or about any scientific effect"
+  ],
+  "non_claims": [
+    "does not qualify a publishable delivery request",
+    "does not test mask-reconstruct-cold-chain feasibility",
+    "does not establish or refute any online gain",
+    "measures a model-level unit, not the complete request"
+  ]
+}

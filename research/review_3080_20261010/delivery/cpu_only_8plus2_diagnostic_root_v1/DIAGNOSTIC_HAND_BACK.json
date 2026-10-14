@@ -1,0 +1,500 @@
+{
+  "stage": "delivery_actual_loaded_closure_cpu_only_8plus2_engineering_diagnostic",
+  "round": "r3 (third invocation of the authorized diagnostic)",
+  "verdict_of_the_diagnostic": {
+    "run_r3_gate_pass": true,
+    "run_r3_gates": {
+      "cpu_environment_locked": true,
+      "available_ram_gate": true,
+      "no_owned_leftover_processes": true,
+      "target_core_idle": true,
+      "cpu_only_no_gpu_device": true,
+      "registration_hash_recorded": true,
+      "model_loaded": true,
+      "unit_fits_budget": true,
+      "recovery_within_reserve": true,
+      "closure_gated_adjacencies_qualified": true
+    },
+    "run_r3_failed_gates": [],
+    "publication_performed": false
+  },
+  "raw_originals": {
+    "run_r1/DIAG_STATE.json": {
+      "sha256": "718bbb81d1619cd9afd700b10e2b8b2b61f945c975c6e43f54a22e1976652b0a",
+      "bytes": 3916
+    },
+    "run_r1/DIAG_FAILURE.json": {
+      "sha256": "0efc8c3e8cce1d706e5a4533fe5719708bcdfaecf74dfe59868e00c6dc3374d5",
+      "bytes": 3076
+    },
+    "run_r1/DIAG_FAILURE.traceback.txt": {
+      "sha256": "699203c2595b2f0c24be80b64ef5e2a50d7abb6144221d99fa78410cf6ee3f79",
+      "bytes": 1383
+    },
+    "run_r1/SUPERVISOR_RECORD.json": {
+      "sha256": "698cde2f807ae54b17b6e0b8852165462551cd3f20afea247dfe51e272492597",
+      "bytes": 468
+    },
+    "run_r1/SUPERVISOR_STDOUT.txt": {
+      "sha256": "d44ced487e952e61ae840211095b8c5d39032e2e628ea0fff668968fc8eb5f0f",
+      "bytes": 2226
+    },
+    "run_r2/DIAG_STATE.json": {
+      "sha256": "407cf32cb73c0733fb29ac4bc0d570440da359cfcc18a3943cb5a085f0b3193c",
+      "bytes": 3915
+    },
+    "run_r2/DIAG_FAILURE.json": {
+      "sha256": "2124076a8008ab0511eb8036368a402d60d28e10544c160708b40e9cd87d884b",
+      "bytes": 3076
+    },
+    "run_r2/DIAG_FAILURE.traceback.txt": {
+      "sha256": "699203c2595b2f0c24be80b64ef5e2a50d7abb6144221d99fa78410cf6ee3f79",
+      "bytes": 1383
+    },
+    "run_r2/SUPERVISOR_RECORD.json": {
+      "sha256": "408188fdfec87fca9ecbcc05cfb1a728a1d4c9ebc72761ec567a8d72ae6af28e",
+      "bytes": 469
+    },
+    "run_r2/SUPERVISOR_STDOUT.txt": {
+      "sha256": "926aab3bd2414ffd6b93e0ed1a7483fcebfa8026b3e986f6bab5c4ae5b280805",
+      "bytes": 2226
+    },
+    "run_r3/DIAG_STATE.json": {
+      "sha256": "8b2cb403787470b30a835840c62b8e9d0e3c968dacae9901efdb7993dc8e6faf",
+      "bytes": 8721
+    },
+    "run_r3/SUPERVISOR_RECORD.json": {
+      "sha256": "9e6ab3b7401d4be071cd2ec0e6285cfc0ad37d4e27a6fccee39005699ac214e5",
+      "bytes": 2238
+    },
+    "run_r3/SUPERVISOR_STDOUT.txt": {
+      "sha256": "da13e54d892cf8f15349a707feb8fa715af0bf886d159b05b2390ff4a233260a",
+      "bytes": 7844
+    },
+    "run_r3/SHARD_PROBE.json": {
+      "sha256": "bb2323c0388f058131b51c8d1af7ec410c6603facb44c518daa6043f8c3a4fe1",
+      "bytes": 6628
+    },
+    "REGISTRATION.json": {
+      "sha256": "e15176d9b84fe6251add862bcbe565829d951ffcd596b20b17f21346d687dd58",
+      "bytes": 6000
+    },
+    "REGISTRATION_r2.json": {
+      "sha256": "75c8615600f032887b4cb55766bab29ccb9353af3ece99b29dfdc9370650923f",
+      "bytes": 8411
+    },
+    "REGISTRATION_r3.json": {
+      "sha256": "22859f5a50165266085ef2dd9b96e628c95f1667ebbbccb5a526c353f55d9db2",
+      "bytes": 7893
+    },
+    "EXPECTED_IDENTITY_r3.json": {
+      "sha256": "b49388d6295165daa1e1d46dbbeb0d89d3bec464eac79c8f3fc99f17bbe175e6",
+      "bytes": 1299
+    },
+    "LOCAL_UNIFIED_PROTOCOL_RESULT.json": {
+      "sha256": "15f0a15a05edcac1f4d9b57b34f63b91378eb00b7f45d2d112c1bc75f338462b",
+      "bytes": 1779
+    },
+    "LOCAL_UNIFIED_PROTOCOL_v2_RESULT.json": {
+      "sha256": "3f7386bfa81823c0b7f6304ae1ae4d6e57737e319dc5fa1f33ad84242b02fbb6",
+      "bytes": 2482
+    },
+    "unified_closure_protocol.py": {
+      "sha256": "90b34358618c07796b5582da7aedeeb59591918fc1f3c447d9c7284b818db319",
+      "bytes": 2755
+    },
+    "unified_closure_protocol_r2.py": {
+      "sha256": "df955b10d8d1479db5dffe5817948429bf968ca5167b6c7af98b55f14f114fee",
+      "bytes": 2697
+    },
+    "local_unified_protocol_test.py": {
+      "sha256": "00085468ca0241e2b7fee4bf2d2255b5b0b27ceb587dcbfb60b367a40ec3c400",
+      "bytes": 4821
+    },
+    "local_unified_protocol_v2_test.py": {
+      "sha256": "9d850ecf02030a5aeaa24a51d205e67790b5b2ad1ee6ce735656214bc7bd6532",
+      "bytes": 6775
+    },
+    "build_expected_identity_r3.py": {
+      "sha256": "22386e17a7cb153485e0c29366213c63b92b268c88941224b9c284c41292a6a5",
+      "bytes": 2077
+    },
+    "shard_probe_server.py": {
+      "sha256": "b9fea88ff019b1167b41dc6e3aa8b1b916e0d2b78e395c14f49f5a1eef1fc0e7",
+      "bytes": 2923
+    },
+    "server_diagnostic.py": {
+      "sha256": "e25e45bd9daf0208ba162dc92042420665b2aa20139091fba5a1687f05eda507",
+      "bytes": 14623
+    },
+    "server_diagnostic_r2.py": {
+      "sha256": "ae7f4b256354eaa9bc4559cfa2cad9fca20e4ba694b7eb2f9e7d1925e2c14083",
+      "bytes": 16473
+    },
+    "supervise_diagnostic.py": {
+      "sha256": "4fff62aa6104e93b589ec04b8ba120fec81b8fe787550913106857a80d0b42d0",
+      "bytes": 2619
+    },
+    "supervise_diagnostic_r2.py": {
+      "sha256": "12a6e7e4d32b7e5a281a9cccec6f15462e429241607b52dadde1b792fc1d51b3",
+      "bytes": 5860
+    },
+    "assemble_diagnostic_handback.py": {
+      "sha256": "e92e52d15f960964f70d3f282517087fdbe2a52bfa58c1540d856208930dc7ce",
+      "bytes": 7743
+    },
+    "build_verified_resource_snapshot.py": {
+      "sha256": "54710a8172eeef3f0ca8f5515142c748d2779376de6c69546738cd1bfc72e194",
+      "bytes": 3366
+    },
+    "HAND_BACK_r3.md": {
+      "sha256": "25a6c862980a98369c3c15ecea5b594cfd7130aab8ddbbb2f0d7496d33f7f80a",
+      "bytes": 8413
+    },
+    "RESOURCE_SNAPSHOT_3080_VERIFIED.json": {
+      "sha256": "4ec5f9820c0b9231771dc192443464dd2dce55101152942ebca50559fb135b3b",
+      "bytes": 2455
+    },
+    "REGISTERED_SHARDS_REFERENCE.json": {
+      "sha256": "6317d6843f82631e4d0c4659ace3d8c7e2a187ef30b03e62445373cc67abd91e",
+      "bytes": 7665
+    },
+    "../actual_loaded_closure_request_root_v1/REGISTRATION.json": {
+      "sha256": "acd1944ff466dfa6741b7a3ad544cd5abd8c2071b138968f783f7bd4bf85d47c",
+      "bytes": 5862
+    },
+    "../actual_loaded_closure_request_root_v1/RESOURCE_SNAPSHOT.json": {
+      "sha256": "711707054900cad27b9b52e5a7529c2a19ae8d628f549575a58b97cd5a55ad3c",
+      "bytes": 1125
+    },
+    "../actual_loaded_closure_request_root_v1/THREE_POINT_PROTOCOL_RESULT.json": {
+      "sha256": "121e9dc0c599c998ab232c041d9a8529fd9bb675daef5f87bbd74e1a2dbb64b6",
+      "bytes": 2286
+    },
+    "../../../../tools/actual_loaded_closure_candidate_r20.py": {
+      "sha256": "c062b4c40dccdc9bc8935dd4d64f25c4067fcb4ac64be419ac4ed8918753f0eb",
+      "bytes": 2541
+    },
+    "../../../../tools/actual_loaded_closure_candidate_r21.py": {
+      "sha256": "ddad20b049eb5e595d26dcde75628954695ff6a4c3c22f2f3e38e1e11e7f5e26",
+      "bytes": 5117
+    }
+  },
+  "attempts": [
+    {
+      "run": "run_r1",
+      "executor": "server_diagnostic.py",
+      "phase_reached": "captured_P0",
+      "gate_pass": false,
+      "failure_type": "TypeError: expected str, bytes or os.PathLike object, not _OpNamespace",
+      "supervisor": {
+        "exit_code": 2,
+        "timed_out": false,
+        "signalled": false,
+        "reaped": true,
+        "wall_seconds": 36.99923777580261,
+        "signal_name": null
+      },
+      "reason": "closure candidate r20 crashed on the real module set (P1 capture)"
+    },
+    {
+      "run": "run_r2",
+      "executor": "server_diagnostic.py (wrong: supervisor hardcoded the r1 child)",
+      "phase_reached": "captured_P0",
+      "gate_pass": false,
+      "failure_type": "TypeError: expected str, bytes or os.PathLike object, not _OpNamespace",
+      "supervisor": {
+        "exit_code": 2,
+        "timed_out": false,
+        "signalled": false,
+        "reaped": true,
+        "wall_seconds": 30.059536695480347,
+        "signal_name": null
+      },
+      "reason": "harness error: the corrected executor was never launched"
+    },
+    {
+      "run": "run_r3",
+      "executor": "server_diagnostic_r2.py",
+      "supervisor_script": "supervise_diagnostic_r2.py",
+      "identity_preflight": "passed before launch (9/9 manifest entries matched)",
+      "phase_reached": "complete",
+      "gate_pass": true,
+      "supervisor": {
+        "exit_code": 0,
+        "timed_out": false,
+        "signalled": false,
+        "reaped": true,
+        "wall_seconds": 115.67241549491882,
+        "signal_name": null
+      },
+      "reason": "completed; all declared gates passed"
+    }
+  ],
+  "run_r3_measurements": {
+    "cpu_environment": {
+      "affinity": [
+        15
+      ],
+      "affinity_enforced": true,
+      "thread_env": {
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "NUMEXPR_NUM_THREADS": "1",
+        "JAX_PLATFORMS": "cpu",
+        "CUDA_VISIBLE_DEVICES": "",
+        "XLA_PYTHON_CLIENT_PREALLOCATE": "false"
+      },
+      "enforced": true
+    },
+    "preconditions": {
+      "measured_at_unix": 1791959975.3190353,
+      "available_ram_gib": 180.178,
+      "ram_gate_gib": 8.0,
+      "ram_pass": true,
+      "total_ram_gib": 247.089,
+      "owned_leftover_processes": [],
+      "owned_leftovers_checked": true,
+      "owned_leftovers_pass": true,
+      "leftovers_excluded_own_ancestry": [
+        {
+          "pid": 543895,
+          "reason": "own process ancestry / own diagnostic",
+          "cmd": "bash -c cd /home/hzeng/project/MASKCO-Main && DIAG_OUT=/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1"
+        },
+        {
+          "pid": 543896,
+          "reason": "own process ancestry / own diagnostic",
+          "cmd": "/home/hzeng/miniconda3/envs/MASKCO_env/bin/python /home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/supe"
+        },
+        {
+          "pid": 543898,
+          "reason": "own process ancestry / own diagnostic",
+          "cmd": "/home/hzeng/miniconda3/envs/MASKCO_env/bin/python /home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/serv"
+        }
+      ],
+      "ancestor_pids": [
+        1,
+        4344,
+        543848,
+        543894,
+        543895,
+        543896,
+        543898
+      ],
+      "core_index": 15,
+      "core_usage_percent": 0.0,
+      "core_idle_gate_percent": 25.0,
+      "core_idle_pass": true,
+      "cpu_count": 96,
+      "load_avg": [
+        23.54,
+        30.43,
+        32.97
+      ],
+      "gpu_stage_declared": false,
+      "gpu_devices_requested": 0
+    },
+    "warmup": {
+      "jax_import_seconds": 1.0574049419956282,
+      "jax_version": "0.6.2",
+      "devices": [
+        "TFRT_CPU_0"
+      ],
+      "backend": "cpu",
+      "model_load_seconds": 16.02845637104474,
+      "ckpt_step": 0,
+      "model_class": "CVRPModel",
+      "first_chain_seconds": 7.904486892046407,
+      "logits_shape": [
+        1,
+        51,
+        51
+      ],
+      "logits_finite": true,
+      "rss_after_warmup_mib": 1273.74,
+      "log_records": [
+        {
+          "level": "ERROR",
+          "logger": "jax._src.xla_bridge",
+          "message": "Jax plugin configuration error: Exception when calling jax_plugins.xla_cuda12.initialize()"
+        }
+      ],
+      "log_error_count": 1
+    },
+    "execution": {
+      "budget_seconds": 8.0,
+      "execution_seconds": 8.728897150955163,
+      "units": 13,
+      "unit_seconds_first": 0.8062054420588538,
+      "unit_seconds_median": 0.6668032379820943,
+      "unit_seconds_min": 0.540660731960088,
+      "unit_seconds_max": 0.8062054420588538,
+      "first_unit_fits_budget": true,
+      "steady_unit_fits_budget": true,
+      "reserve_seconds": 2.0,
+      "recovery_seconds": 0.3070267770672217,
+      "recovery_within_reserve": true,
+      "rss_peak_mib": 1274.52,
+      "rss_after_recovery_mib": 1274.52,
+      "rss_released_mib": 0.0,
+      "threads": 8
+    },
+    "closure": {
+      "protocol_module": "/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/unified_closure_protocol_r2.py",
+      "candidate": "/home/hzeng/project/MASKCO-Main/tools/actual_loaded_closure_candidate_r21.py",
+      "points": [
+        "P0_before_declared_warmup",
+        "P1_after_declared_warmup",
+        "P2_after_timed_execution",
+        "P3_before_publication"
+      ],
+      "warmup": [
+        "load model and explicit files",
+        "first JAX call",
+        "first native call"
+      ],
+      "gated_adjacencies": [
+        [
+          "P1_after_declared_warmup",
+          "P2_after_timed_execution"
+        ],
+        [
+          "P2_after_timed_execution",
+          "P3_before_publication"
+        ]
+      ],
+      "informational_adjacencies": [
+        [
+          "P0_before_declared_warmup",
+          "P1_after_declared_warmup"
+        ]
+      ],
+      "captures": [
+        {
+          "point": "P0_before_declared_warmup",
+          "seconds": 1.2171805099351332,
+          "files_hashed": 168,
+          "modules": 112
+        },
+        {
+          "point": "P1_after_declared_warmup",
+          "seconds": 25.627497142995708,
+          "files_hashed": 3753,
+          "modules": 2007
+        },
+        {
+          "point": "P2_after_timed_execution",
+          "seconds": 22.765731955994852,
+          "files_hashed": 3753,
+          "modules": 2007
+        },
+        {
+          "point": "P3_before_publication",
+          "seconds": 26.7395247570239,
+          "files_hashed": 3753,
+          "modules": 2007
+        }
+      ],
+      "explicit_files": 10,
+      "capture_seconds_total": 76.35,
+      "gated": {
+        "P1->P2": {
+          "qualified": true,
+          "changed_files": 0,
+          "new_files": 0,
+          "missing_files": 0,
+          "module_map_changed": false,
+          "module_added": [],
+          "module_dropped": [],
+          "module_remapped": [],
+          "native_map_changed": false,
+          "explicit_map_changed": false,
+          "detail_new": []
+        },
+        "P2->P3": {
+          "qualified": true,
+          "changed_files": 0,
+          "new_files": 0,
+          "missing_files": 0,
+          "module_map_changed": false,
+          "module_added": [],
+          "module_dropped": [],
+          "module_remapped": [],
+          "native_map_changed": false,
+          "explicit_map_changed": false,
+          "detail_new": []
+        }
+      },
+      "informational": {
+        "P0->P1": {
+          "qualified": false,
+          "new_files": 3585,
+          "changed_files": 0,
+          "module_added": [
+            "__future__",
+            "__mp_main__",
+            "_ast",
+            "_asyncio",
+            "_bisect",
+            "_bz2",
+            "_compat_pickle",
+            "_compression"
+          ]
+        }
+      },
+      "publishable": true,
+      "refusal_reasons": []
+    },
+    "source_identity": {
+      "/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/server_diagnostic_r2.py": "ae7f4b256354eaa9bc4559cfa2cad9fca20e4ba694b7eb2f9e7d1925e2c14083",
+      "/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/unified_closure_protocol_r2.py": "df955b10d8d1479db5dffe5817948429bf968ca5167b6c7af98b55f14f114fee",
+      "/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/supervise_diagnostic_r2.py": "12a6e7e4d32b7e5a281a9cccec6f15462e429241607b52dadde1b792fc1d51b3",
+      "/home/hzeng/project/MASKCO-Main/tools/actual_loaded_closure_candidate_r21.py": "ddad20b049eb5e595d26dcde75628954695ff6a4c3c22f2f3e38e1e11e7f5e26",
+      "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/scripts/models/mpre.py": "585f0296e31fc98060f393cad023a6c028c70bbbdb8bcc0c6d27f46f03b3e57c",
+      "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/scripts/models/cvrptw_utils.py": "1fd6aa427bd242227963972c9a439dd94c5b6ca3cb5dbcef37bda3f2f315a73f",
+      "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/scripts/project_paths.py": "3afd25befe673c05318489b83ae259971b0da8b894a8efe7b88e1c8ad84f6658",
+      "/home/hzeng/project/MASKCO-Main/MASKCO_code/ckpts/cvrp100.ckpt": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+      "/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/REGISTRATION_r3.json": "22859f5a50165266085ef2dd9b96e628c95f1667ebbbccb5a526c353f55d9db2",
+      "/home/hzeng/project/MASKCO-Main/research/review_3080_20261010/delivery/cpu_only_8plus2_diagnostic_root_v1/EXPECTED_IDENTITY_r3.json": "b49388d6295165daa1e1d46dbbeb0d89d3bec464eac79c8f3fc99f17bbe175e6"
+    },
+    "registration_sha256": "22859f5a50165266085ef2dd9b96e628c95f1667ebbbccb5a526c353f55d9db2",
+    "wall_seconds": 113.453
+  },
+  "derived": {
+    "note": "the only computed block; every input above is copied verbatim from the originals",
+    "closure_capture_seconds_per_point": {
+      "P0_before_declared_warmup": 1.2171805099351332,
+      "P1_after_declared_warmup": 25.627497142995708,
+      "P2_after_timed_execution": 22.765731955994852,
+      "P3_before_publication": 26.7395247570239
+    },
+    "gated_capture_seconds_total": 75.133,
+    "capture_over_request_budget_ratio": 3.34,
+    "model_unit_seconds_steady": 0.6668032379820943,
+    "inference_share_of_budget": 0.0834
+  },
+  "source_shard_identity_3080": {
+    "registered_shard_count": 46,
+    "registered_shards_present_on_host": 0,
+    "registered_shards_absent_on_host": 46,
+    "all_registered_paths_under_research": true,
+    "compute_sources_present_and_matching_local": [
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/coldchain/coldchain_contract.py",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/coldchain/coldchain_state.py",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/coldchain_evaluator_a1.py",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/rolling_optimizer.py",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/models/cvrptw_utils.py",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/models/mpre.py",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/project_paths.py",
+      "MASKCO_code/ckpts/cvrp100.ckpt"
+    ],
+    "conclusion": "the registered shard set is a host-local research artifact set (46/46 absent on 3080), so a 3080-side delivery request cannot be identity-verified against it without uploading the shard set; the compute sources the request loads are present on 3080 and hash-match the local copies bit-for-bit"
+  },
+  "labels": {
+    "defect_noted": "server_diagnostic_r2.py hardcodes attempt_id='r2' in its output while run_r3 is the third invocation; the authoritative attempt mapping is REGISTRATION_r3.json plus the supervisor record (attempt_id=run_r3), not that field. Recorded, not silently fixed."
+  },
+  "stable_online_gain": false,
+  "publication_performed": false
+}
