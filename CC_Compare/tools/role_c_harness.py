@@ -346,9 +346,21 @@ def make_c0_complete_fn(*, bundle, contract, booking_horizon, physics=None):
         total_e = 0.0
         total_d = 0.0
         for s in state.values():
+            cc = s.get('cc')          # 不透明透传字段（见 OPTIONAL_STATE_KEYS）
+            # ① 已返仓关闭的车：只计入它**已消耗**的能耗，不再走路线、不计距离
+            #    （对照 `scenario_saa.py:827-829`）。
+            if cc is not None and getattr(cc, 'closed', False):
+                total_e += float(cc.cumulative_energy_kwh)
+                continue
+            # ② 未出车且空计划：不 dispatch、不产生幻影预冷；若有 cc 则计入其已耗能耗
+            #    （对照 `:830-833`）。
             if not s['route'] and int(s['cur']) == 0:
-                continue                      # 未出车且空计划：不 dispatch、不产生幻影预冷
-            vstate = physics['dispatch_vehicle'](
+                if cc is not None:
+                    total_e += float(cc.cumulative_energy_kwh)
+                continue
+            # ③ **从真实冷链状态续行**（对照 `:834`）：否则累计能耗与在途货被丢掉，
+            #    能耗会系统性偏低 —— 既与对照不一致，也与真实 `certify_plan` 不一致。
+            vstate = cc if cc is not None else physics['dispatch_vehicle'](
                 physics['create_vehicle_state'](contract), contract)
             cur, t = int(s['cur']), float(s['cur_time'])
             d_acc = 0.0

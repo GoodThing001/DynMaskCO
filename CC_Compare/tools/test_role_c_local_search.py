@@ -315,20 +315,28 @@ def test_state_from_vehicles_real_anchors():
     served = {i: False for i in range(20)}
     served[8] = True
     st = ls.state_from_vehicles(vehicles, served, plan, clock=5.0)
+    anchor = lambda vid: {k: st[vid][k] for k in ('cur', 'cur_time', 'load', 'route',
+                                                  'frozen')}
     cases = [
         ('B6 在途 committed 车：真锚点 (committed_next/finish/load) + frozen=1 + 去重',
-         st[1] == dict(cur=7, cur_time=12.5, load=3.0, route=[7], frozen=1),
+         anchor(1) == dict(cur=7, cur_time=12.5, load=3.0, route=[7], frozen=1),
          st.get(1)),
+        ('★B6-cc 冷链状态 `cc` **原样透传**（终局完成必须从真实状态续行，否则累计能耗/'
+         '在途货被丢掉、能耗系统性偏低）',
+         st[1]['cc'] is vehicles[0].coldchain_state
+         and st[5]['cc'] is vehicles[4].coldchain_state, st[1].get('cc')),
         ('B6b returning / closed 车退出搜索',
          3 not in st and 4 not in st, sorted(st)),
         ('B6c 未出车空计划车**保留**（可接未来订单、无幻影预冷）',
-         2 in st and st[2] == dict(cur=0, cur_time=5.0, load=0.0, route=[],
-                                   frozen=0), st.get(2)),
+         2 in st and anchor(2) == dict(cur=0, cur_time=5.0, load=0.0, route=[],
+                                       frozen=0), st.get(2)),
         ('B6d 非 committed 车锚点 = (current_node, clock, load)；已送达单剔除',
-         st[5] == dict(cur=4, cur_time=5.0, load=0.0, route=[9], frozen=0),
+         anchor(5) == dict(cur=4, cur_time=5.0, load=0.0, route=[9], frozen=0),
          st.get(5)),
-        ('B6e 产出的状态能被 normalize_state 接受（结构自洽）',
-         ls.normalize_state(st) == st, ls.normalize_state(st)),
+        ('B6e 产出的状态能被 normalize_state 接受（结构自洽，且 cc 不丢）',
+         ls.normalize_state(st) == st
+         and ls.normalize_state(st)[1]['cc'] is vehicles[0].coldchain_state,
+         ls.normalize_state(st).get(1)),
     ]
     return cases
 

@@ -186,6 +186,11 @@ class LSCertificate:
 # 状态：真实锚点 + **必需** frozen
 # ---------------------------------------------------------------------------
 REQUIRED_STATE_KEYS = ('cur', 'cur_time', 'load', 'route', 'frozen')
+# **不透明透传**字段：本模块**不读也不解释**它们的语义，只负责"别弄丢"。
+# `cc` = 车辆的冷链状态（`coldchain_state`）。⚠️ 它必须透传，否则**终局 C0 完成**会从零
+# 起算而不是从车辆真实状态续行 ⇒ 累计能耗与在途货被丢掉，算出的能耗系统性偏低，
+# 既与对照 `_complete_u` 不一致、也与真实 `certify_plan` 不一致。
+OPTIONAL_STATE_KEYS = ('cc',)
 
 
 def normalize_state(raw):
@@ -222,6 +227,10 @@ def normalize_state(raw):
             raise LSStateError('车辆 %r 的路线含 depot(0)：路线只装订单' % (vid,))
         out[vid] = dict(cur=int(s['cur']), cur_time=float(s['cur_time']),
                         load=float(s['load']), route=route, frozen=int(frozen))
+        # 不透明透传（不校验、不解释语义）：见 `OPTIONAL_STATE_KEYS`
+        for k in OPTIONAL_STATE_KEYS:
+            if k in s:
+                out[vid][k] = s[k]
     return out
 
 
@@ -233,7 +242,10 @@ def state_from_vehicles(vehicles, served_mask, plan, clock):
       * 在途 `committed` 车：从 `committed_finish` 续行，`route=[committed_next]+tail`，
         前 **1** 位冻结（`frozen=1`）——在途 leg 不可撤销；
       * 其余车：锚点 `(current_node, clock, current_load)`，无冻结位；
-      * 未出车车**即使空计划也保留**（可接未来订单，且不产生幻影预冷）。
+      * 未出车车**即使空计划也保留**（可接未来订单，且不产生幻影预冷）；
+      * `cc`（冷链状态）**原样透传**（`OPTIONAL_STATE_KEYS`）—— 终局完成必须从车辆真实
+        状态**续行**，否则累计能耗/在途货被丢掉（对照 `_complete_u:834` 是
+        `state = cc if cc is not None else dispatch(...)`）。
     """
     if plan is None:
         plan = {}
@@ -257,7 +269,8 @@ def state_from_vehicles(vehicles, served_mask, plan, clock):
             route, frozen = tail, 0
         else:
             cur, t, load, route, frozen = 0, float(clock), 0.0, tail, 0
-        st[vid] = dict(cur=cur, cur_time=t, load=load, route=route, frozen=frozen)
+        st[vid] = dict(cur=cur, cur_time=t, load=load, route=route, frozen=frozen,
+                       cc=cc)
     return st
 
 

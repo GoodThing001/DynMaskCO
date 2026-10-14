@@ -222,6 +222,114 @@ def test_scenario_stream_matches_control():
 # ===========================================================================
 # W. 装配层不碰对照决策引擎
 # ===========================================================================
+def test_same_caliber_vs_control():
+    """**同口径对拍**：我的空间与终局完成必须与对照**逐位相同**。
+
+    为什么要对拍：场景流共享**不等于**复用对照代码。若空间（坐标→距离/TW/需求/温区/初值）
+    或终局 C0 完成（能耗/距离）与对照有口径差，`C − B` 里就混进了口径差 —— 而它看起来
+    只会像"方法更强/更弱"。规格 §2.2.1 明确要求"两臂共用同一口径"。
+
+    ⚠️ 第一版实现**真的有缺口**：`state_from_vehicles` 丢掉了不透明的 `cc`（冷链状态），
+    于是终局一律 `create_vehicle_state()` **从零起算**，而对照 `_complete_u:834` 是
+    `state = cc if cc is not None else dispatch(...)` ⇒ 累计能耗与在途货被丢掉、能耗系统性
+    偏低。本测试的 ③④⑤ 就是为这个区间设的（`cc=None` 区间第一版就已逐位相同）。
+    """
+    import copy
+    import dataclasses
+    from scenario_saa import CondHistoricalSampler, SaaReplanner, make_c0_contract_v2
+    from coldchain_state import (create_vehicle_state, dispatch_vehicle,
+                                 transition_segment)
+    cases = []
+    env = FakeEnv(make_fixture())
+    contract = make_c0_contract_v2()
+    sampler = CondHistoricalSampler(make_history(), n_neighbors=10)
+    scenarios, sdiag = hn.sample_scenarios(sampler=sampler, env=env, inst_idx=0,
+                                           clock=6.0, arm_seed=ARM_SEED_COND_HIST, K=3)
+    mine = hn.build_space_bundle(env=env, inst_idx=0, scenarios=scenarios,
+                                 contract=contract)
+    rp = SaaReplanner(budget=100.0, capacity=50.0, booking_horizon=16.0,
+                      contract=contract, cooling_share=1.0, sampler=sampler,
+                      reject_penalty={0: 5.0, 1: 10.0, 2: 15.0}, K=3, time_limit=10.0,
+                      arm_seed=ARM_SEED_COND_HIST, shadow_mode='greedy')
+    ctrl_sp, _ctrl_orders = rp._build_space(env, inst_idx=0, scenarios=scenarios)
+
+    # ---- ① 空间：8 个数组逐位相同 ----
+    pairs = (('dist/D', mine.space.dist, ctrl_sp.D),
+             ('reveal', mine.space.reveal, ctrl_sp.reveal),
+             ('tws', mine.space.tws, ctrl_sp.tws), ('twe', mine.space.twe, ctrl_sp.twe),
+             ('service/st', mine.space.service, ctrl_sp.st),
+             ('demand', mine.space.demand, ctrl_sp.demand),
+             ('tc', mine.space.tc, ctrl_sp.tc), ('iq', mine.space.iq, ctrl_sp.iq))
+    bad = [n for n, a, b in pairs
+           if not (np.asarray(a).shape == np.asarray(b).shape
+                   and np.array_equal(np.asarray(a), np.asarray(b)))]
+    cases.append(('★S8 空间口径与对照 `_build_space` **逐位相同**（8 个数组：D/reveal/'
+                  'tws/twe/service/demand/tc/iq）', bad == [], bad))
+    cases.append(('S8b n_real 与场景数一致（统一索引空间对齐）',
+                  mine.n_real == ctrl_sp.n_real
+                  and len(mine.scen_nodes) == sum(len(s) for s in scenarios),
+                  (mine.n_real, ctrl_sp.n_real)))
+
+    # ---- ② 终局完成：`cc=None` 区间 ----
+    f_mine = hn.make_c0_complete_fn(bundle=mine, contract=contract, booking_horizon=16.0)
+    base_states = {
+        '空车空计划': {1: dict(cur=0, cur_time=0.0, load=0.0, route=[], frozen=0)},
+        '单车 4 单': {1: dict(cur=0, cur_time=0.0, load=0.0, route=[1, 2, 3, 4],
+                            frozen=0)},
+        '在途 frozen=1': {1: dict(cur=3, cur_time=5.0, load=1.0, route=[3, 4],
+                                 frozen=1)},
+        '两车': {1: dict(cur=0, cur_time=0.0, load=0.0, route=[1, 2], frozen=0),
+                 2: dict(cur=0, cur_time=0.0, load=0.0, route=[3], frozen=0)},
+    }
+
+    def cmp(label, st_mine, st_ctrl):
+        try:
+            a = f_mine(copy.deepcopy(st_mine))
+        except Exception as exc:                            # noqa: BLE001
+            a = ('EXC', type(exc).__name__)
+        try:
+            b = rp._complete_u(ctrl_sp, env, 0, 6.0, copy.deepcopy(st_ctrl), 16.0)
+        except Exception as exc:                            # noqa: BLE001
+            b = ('EXC', type(exc).__name__)
+        ok = (isinstance(a, tuple) and isinstance(b, tuple) and len(a) == 2
+              and len(b) == 2 and a[0] == b[0] and a[1] == b[1])
+        cases.append(('★S9 %s：终局完成 (energy, dist) 与对照 `_complete_u` 逐位相同'
+                      % label, ok, (a, b)))
+
+    for name, st in base_states.items():
+        cmp(name + '（cc=None）', {k: dict(v, cc=None) for k, v in st.items()},
+            {k: dict(v, cc=None) for k, v in st.items()})
+
+    # ---- ③ `cc≠None`：真实冷链状态（有累计能耗 + 在途货）----
+    zones = (True,) * len(contract.thermal.supported_temp_classes)
+    vs = dispatch_vehicle(create_vehicle_state(contract), contract)
+    vs, _ = transition_segment(vs, depart_time=0.0, arrival_time=1.0,
+                               service_finish=1.2, served_customer=1,
+                               active_zone_mask=zones, contract=contract,
+                               order_quantity=1.0, order_temp_class=1,
+                               initial_quality=float(mine.space.iq[1]),
+                               segment_distance_units=float(mine.space.dist[0][1]))
+    cases.append(('S9z 夹具有效：真实冷链状态确实有累计能耗（否则 ③④ 空转）',
+                  float(vs.cumulative_energy_kwh) > 0.0, vs.cumulative_energy_kwh))
+    st_cc = {1: dict(cur=1, cur_time=1.2, load=1.0, route=[2, 3], frozen=1, cc=vs)}
+    cmp('cc≠None 真实累计能耗 + 在途货', st_cc, st_cc)
+
+    # ---- ④ closed 车：只计已耗能耗、不走路线不计距离 ----
+    vs_closed = dataclasses.replace(vs, closed=True)
+    st_closed = {1: dict(cur=1, cur_time=1.2, load=1.0, route=[2, 3], frozen=1,
+                         cc=vs_closed)}
+    cmp('closed 车（应只计累计能耗、不产生距离）', st_closed, st_closed)
+    e_only, d_only = f_mine(copy.deepcopy(st_closed))
+    cases.append(('S9c closed 车确实只计能耗、距离为 0（分支真的走到了）',
+                  d_only == 0.0 and abs(e_only - float(vs.cumulative_energy_kwh)) < 1e-9,
+                  (e_only, d_only, float(vs.cumulative_energy_kwh))))
+
+    # ---- ⑤ cc≠None 且空计划未出车：计入累计能耗、不 dispatch ----
+    st_idle_cc = {1: dict(cur=0, cur_time=0.0, load=0.0, route=[], frozen=0, cc=vs)}
+    cmp('cc≠None 且空计划未出车（计累计能耗、不 dispatch）', st_idle_cc, st_idle_cc)
+    return cases
+
+
 def test_no_control_engine_use():
     cases = []
     mods = {'role_c_local_search': ls, 'role_c_forward': fwd, 'role_c_harness': hn,
@@ -524,7 +632,8 @@ def test_decide_fn_end_to_end():
 
 def main():
     cases = []
-    for fn in (test_scenario_stream_matches_control, test_no_control_engine_use,
+    for fn in (test_scenario_stream_matches_control, test_same_caliber_vs_control,
+               test_no_control_engine_use,
                test_objective_bindings, test_complete_fn_semantics,
                test_decide_fn_end_to_end):
         try:
