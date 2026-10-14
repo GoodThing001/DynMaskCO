@@ -278,6 +278,10 @@ def main():
                                 'ckpt' in k or 'checkpoint' in k or 'model' in k or 'weight' in k
                                 for k in (ident or {})),
                             'identity_keys': sorted((ident or {}).keys()),
+                            'Q_dependency_closure': (
+                                bool(any(('checkpoint' in k) or ('model_bin' in k)
+                                         for k in (ident or {}))
+                                     and any('dependency' in k for k in (ident or {})))),
                             'participation': None,
                         }
                         row.update({k: r[k] for k in
@@ -325,6 +329,12 @@ def main():
                                 'ckpt' in k or 'checkpoint' in k or 'weight' in k
                                 for k in (ident or {})),
                             'identity_keys': sorted((ident or {}).keys()),
+                            # 纯规则臂无学习权重 ⇒ 无 checkpoint/依赖可闭合 → 不适用（None）
+                            'Q_dependency_closure': (
+                                None if (role == 'baseline' or mk_arm in RULE_METHODS) else
+                                bool(any(('checkpoint' in k) or ('model_bin' in k)
+                                         for k in (ident or {}))
+                                     and any('dependency' in k for k in (ident or {})))),
                             'participation': part,
                         }, )
                         rows[-1].update({k: r[k] for k in

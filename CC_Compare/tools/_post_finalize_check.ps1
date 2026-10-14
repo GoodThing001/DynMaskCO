@@ -86,6 +86,8 @@ $rcs['docprose']    = Run-Check '散文/个数口径'    @('CC_Compare\tools\_do
 $rcs['docrefs']     = Run-Check '文档路径引用'     @('CC_Compare\tools\_check_doc_refs.py')
 # 2026-10-14 用户要求新增：配对身份（A−B=D 恒等式 + 同源 + 跨协议混用）
 $rcs['pairing']     = Run-Check '配对身份恒等式'   @('CC_Compare\tools\check_pairing_identity.py')
+# 归档快照完整性（docs/ 下的 Markdown 快照必须与清单哈希一致）
+$rcs['manifest']    = Run-Check '归档清单完整性'   @('CC_Compare\tools\make_artifact_manifest.py', '--verify')
 
 W ""
 W "=== 汇总 ==="

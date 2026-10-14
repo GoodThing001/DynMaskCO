@@ -12,9 +12,16 @@
 
     Q_formal = Q_identity ∧ Q_days ∧ Q_finite ∧ Q_hard ∧ Q_nocrash ∧ Q_nondegen ∧ Q_method
 
+    Q_formal = Q_identity ∧ Q_days ∧ Q_finite ∧ Q_hard ∧ Q_nocrash ∧ Q_nondegen ∧ Q_method
+
 且 `Q_identity` 本身也不完整：`_run_identity()` 的 15 个字段里**没有 checkpoint 哈希**，
 封存清单也不含 provider 的依赖闭包（例：RRNCO 适配器 import 的
 `coordinator` / `pickup_certificate` / `preference` / `subproblem` 四个模块都不在清单内）。
+
+⇒ 因此**另设独立字段** `Q_dependency_closure`（2026-10-14 用户要求）：
+`Q_core=True` **只能**读作「P0 定义的核心检查通过」，**不能**读成「整个方法复现身份已闭合」。
+该字段**刻意不计入** `qualified` —— 对历史臂事后加入新否决条件等于事后改写资格；
+正确做法是不追认、不删除、只如实标注边界。
 
 本模块的定位：
   * **只用于新批次**；对既有 gate **只读**，不重写任何字段（用户明确要求）；
@@ -44,19 +51,15 @@ def _crit(ok, reason=''):
 # 各项判据（纯函数，输入都是 dict/list，便于单测）
 # --------------------------------------------------------------------------- #
 
-def q_identity(identity, pairing, required_fields=DEFAULT_REQUIRED_IDENTITY):
-    """身份合格 = 配对身份通过 **且** 必需身份字段齐备。
+def q_identity(identity, pairing):
+    """**P0 定义**的身份合格 = 配对身份通过 ∧ 源码在运行期间稳定。
 
-    ⚠️ 与旧口径的差别：旧 `formal_adjudication` 只看 `pairing.identity_verified`。
-    新门额外要求 checkpoint / 依赖闭包哈希**确实存在于** identity 里 —— 否则
-    `source_stable=True` 只能证明"源码没变"，**不能**证明"模型权重与依赖没变"。
+    ⚠️ 刻意**只**到这里（与 P0 独立矩阵的 `Q_identity` 口径一致），
+    不把 checkpoint / 依赖闭包塞进来 —— 那是 `q_dependency_closure` 的独立字段。
+    否则「给历史 38 个合格臂补一条新判据」就等于事后改写资格。
     """
     if not pairing or pairing.get('identity_verified') is not True:
         return _crit(False, '配对身份未通过：%s' % (pairing or {}).get('problems'))
-    missing = [f for f in required_fields if not (identity or {}).get(f)]
-    if missing:
-        return _crit(False, '身份缺必需字段（源码级身份不能替代权重/依赖身份）: %s'
-                     % ', '.join(missing))
     if (identity or {}).get('source_stable') is not True:
         return _crit(False, 'source_stable != True（启动/结束源码哈希不一致）')
     return _crit(True)
@@ -131,6 +134,28 @@ def q_method(solver_meta, participation, method_key=None, is_rule=False):
     return _crit(True)
 
 
+def q_dependency_closure(identity, required_fields=DEFAULT_REQUIRED_IDENTITY, is_rule=False):
+    """**独立**字段：完整复现身份是否闭合（checkpoint SHA + provider 依赖闭包）。
+
+    2026-10-14 用户要求单列此字段的原因：P0 独立矩阵已实测——**62 个方法臂逐一
+    `identity_has_checkpoint_sha256 = False`**，且 RRNCO 适配器 import 的
+    `coordinator`/`pickup_certificate`/`preference`/`subproblem` 均不在封存清单内。
+    ⇒ **`Q_core=True` 只能读作「P0 定义的核心检查通过」，不能读成「整个方法复现身份已闭合」。**
+
+    ⚠️ **本字段不参与 `Q_formal_core` 的合取**（刻意如此，并在输出里显式说明）：
+    对历史臂事后加入该否决条件，等于用今天才定义的判据去推翻当初按当时协议产出的合格臂 ——
+    那是"事后改写资格"。正确做法是**不追认、不删除，只如实标注边界**：
+    新批次要求它，历史批次只报告它。
+    """
+    if is_rule:
+        return _crit(None, '纯规则臂：无学习权重 ⇒ 无 checkpoint/依赖身份可闭合')
+    missing = [f for f in required_fields if not (identity or {}).get(f)]
+    if missing:
+        return _crit(False, '缺 %s ⇒ 权重与依赖身份未闭合（source_stable 只覆盖源码）'
+                     % ', '.join(missing))
+    return _crit(True)
+
+
 # --------------------------------------------------------------------------- #
 
 def evaluate(evidence, expected_days=40, required_identity_fields=DEFAULT_REQUIRED_IDENTITY):
@@ -153,8 +178,7 @@ def evaluate(evidence, expected_days=40, required_identity_fields=DEFAULT_REQUIR
         # **不否决**。它们的可信度由 Q_days/Q_finite/Q_hard/Q_nocrash 覆盖。
         ident_crit = _crit(None, '纯规则臂：无学习权重、无配对身份块（by design，缺陷 J）')
     else:
-        ident_crit = q_identity(ev.get('identity'), ev.get('pairing'),
-                                required_identity_fields)
+        ident_crit = q_identity(ev.get('identity'), ev.get('pairing'))
     criteria = {
         'Q_identity': ident_crit,
         'Q_days': q_days(ev.get('per_day'), expected_days),
@@ -167,11 +191,20 @@ def evaluate(evidence, expected_days=40, required_identity_fields=DEFAULT_REQUIR
     }
     vetoes = [k for k, v in criteria.items() if v['ok'] is False]
     na = [k for k, v in criteria.items() if v['ok'] is None]
+    closure = q_dependency_closure(ev.get('identity'), required_identity_fields,
+                                   is_rule=is_rule)
     return {
+        # `qualified` = **P0 定义**的核心合格（与历史 38 个合格臂同口径，可跨批比较）
         'qualified': not vetoes,
+        # `qualified_full` = 新版本的**完整**合格：再加权重/依赖身份闭包。
+        # ⚠️ **新批次一律用 `qualified_full`**；历史批次用 `qualified` + 如实上报 closure。
+        'qualified_full': (not vetoes) and (closure['ok'] is not False),
         'criteria': criteria,
         'vetoes': vetoes,
         'not_applicable': na,
+        'Q_dependency_closure': closure,
         'note': '只在**适用**项上取合取；None = 结构性不适用并附理由（不否决）。'
-                '本门只用于新批次，不改写既有 gate 字段。',
+                '`qualified` 保持 P0 口径（配对身份 ∧ 源码稳定 ∧ 完整日 ∧ 有限 ∧ 硬可行 '
+                '∧ 无崩溃 ∧ 非退化 ∧ 方法健康）；`qualified_full` 额外要求 '
+                '`Q_dependency_closure`。**新批次用 full；历史批次不改判、只标注边界。**',
     }

@@ -334,6 +334,7 @@ def annotate_qualification(r, audit, audit_name=None):
     """
     r['protocol_id'] = '—'
     r['Q_core'] = None
+    r['Q_dep_closure'] = None
     r['paired_source_identity'] = '—'
     r['comparison_status'] = '—'
     r['audit_source'] = audit_name
@@ -353,6 +354,8 @@ def annotate_qualification(r, audit, audit_name=None):
     q = hit.get('Q') or {}
     core = q.get('Q_formal_core')
     r['Q_core'] = core
+    # 独立字段（2026-10-14 用户要求）：`Q_core=True` **不能**读成"复现身份已闭合"
+    r['Q_dep_closure'] = hit.get('Q_dependency_closure')
     ident = hit.get('identity_verified')
     probs = hit.get('identity_problems') or []
     if q.get('Q_identity') is None:
@@ -466,19 +469,21 @@ def md_main_table(data, rows):
     `权重(MB)`，只留每次比对都要读的字段。
     """
     L = []
-    L.append('| # | 方法 | 比较状态 | Q_core | 配对来源身份 | protocol_id | 类别 | 期刊/会议 | '
+    L.append('| # | 方法 | 比较状态 | Q_core | 依赖闭包 | 配对来源身份 | protocol_id | 类别 | 期刊/会议 | '
              'Backbone / 权重 | 参数量(M) | 原生约束 | '
              'Utility p_c=0 ↑ | Utility 主档 p_c=(5,10,15) | Utility p_c=(10,20,30) | '
              'Δ vs cond_hist (p_c=0) | Δ vs cond_hist (主档) | '
              '超时/天 p_c=0 | 超时/天 主档 | 硬可行率 p_c=0 | 服务单/天 p_c=0 | 能耗 kWh/天 p_c=0 | 备注 |')
-    L.append('|---|---|---|---|---|---|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|')
+    L.append('|---|---|---|---|---|---|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|')
     for i, r in enumerate(rows, 1):
         tag = '★ ' if r.get('is_ours') else ('◆ ' if r.get('is_baseline') else '')
         _qc = r.get('Q_core')
-        L.append('| %d | %s%s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |' % (
+        _dc = r.get('Q_dep_closure')
+        L.append('| %d | %s%s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |' % (
             i, tag, r['label'],
             r.get('comparison_status') or '—',
             '—' if _qc is None else ('是' if _qc else '**否**'),
+            '—' if _dc is None else ('是' if _dc else '**否**'),
             r.get('paired_source_identity') or '—',
             r.get('protocol_id') or '—',
             r['cls'], r['venue'], r['backbone'],
@@ -911,7 +916,7 @@ def main():
     # Sheet 1
     ws = wb.active
     ws.title = '性能总表'
-    cols = ['#', '方法', '比较状态', 'Q_core', '配对来源身份', 'protocol_id',
+    cols = ['#', '方法', '比较状态', 'Q_core', '依赖闭包', '配对来源身份', 'protocol_id',
             '类别', '期刊/会议', 'Backbone/权重', '参数量(M)', '原生约束支持',
             'Utility p_c=0', 'CI下界(p_c=0)', 'CI上界(p_c=0)',
             'Utility 主档', 'CI下界(主档)', 'CI上界(主档)',
@@ -936,9 +941,11 @@ def main():
         d0, dm = r['diff0'] or {}, r['diffm'] or {}
         tag = '★ ' if r.get('is_ours') else ('◆ ' if r.get('is_baseline') else '')
         _qc = r.get('Q_core')
+        _dc = r.get('Q_dep_closure')
         ws.append([i, tag + r['label'],
                    r.get('comparison_status') or '—',
                    '—' if _qc is None else ('是' if _qc else '否'),
+                   '—' if _dc is None else ('是' if _dc else '否'),
                    r.get('paired_source_identity') or '—',
                    r.get('protocol_id') or '—',
                    r['cls'], r['venue'], r['backbone'],
@@ -962,7 +969,7 @@ def main():
     for row in ws.iter_rows(min_row=2, max_row=ws.max_row):
         for c in row:
             c.border = border
-            if 12 <= c.column <= 31:          # 数值列（前 11 列是文字/资格列）
+            if 13 <= c.column <= 32:          # 数值列（前 12 列是文字/资格列）
                 c.number_format = '0.00'
         row[0].alignment = ctr
         row[1].alignment = wrap

@@ -1,0 +1,70 @@
+{
+  "kind": "development-evidence-package",
+  "note": "**development 证据包，不是最终测试结果，也不声称 SOTA。** Markdown 文档入 Git；Excel 与完整 dataset.json 仅作 Release 附件，`CC_Compare/results/**` 的忽略规则保持不变。",
+  "source_dir": "CC_Compare/results/a1_compare_table",
+  "generated_by": "python CC_Compare/tools/collect_compare_table.py --json CC_Compare/results/a1_compare_table/dataset.json  &&  python CC_Compare/tools/render_compare_table.py --data CC_Compare/results/a1_compare_table/dataset.json --outdir CC_Compare/results/a1_compare_table",
+  "in_repo": [
+    {
+      "path": "CC_Compare/docs/a1_development_comparison/README.md",
+      "source": "CC_Compare/results/a1_compare_table/README.md",
+      "size": 110074,
+      "sha256": "63de8bfd0cf27eee7c5519aea5238747231a31dd7a90a4c646fe2ed5e18e618f"
+    },
+    {
+      "path": "CC_Compare/docs/a1_development_comparison/A-v1对比方法总表.md",
+      "source": "CC_Compare/results/a1_compare_table/A-v1对比方法总表.md",
+      "size": 77563,
+      "sha256": "f53cc9ac38c26fde2d5fbb98a73148f33b3cf69d26acf79efde23d8893abbeba"
+    },
+    {
+      "path": "CC_Compare/docs/a1_development_comparison/读表注意与已知限定.md",
+      "source": "CC_Compare/results/a1_compare_table/读表注意与已知限定.md",
+      "size": 25548,
+      "sha256": "bdd9b9d4ac42a10116f2bf81f84cb34ec217532c7b2894d6bca87ab69a7f162e"
+    }
+  ],
+  "release_only": [
+    {
+      "name": "A-v1对比方法总表.xlsx",
+      "in_repo": false,
+      "size": 40615,
+      "sha256": "5c7d15020641b44382656e51826e2d1c9d53f0fcc20e7fcd01daa051727cf539",
+      "note": "Release 附件；不入 Git"
+    },
+    {
+      "name": "dataset.json",
+      "in_repo": false,
+      "size": 762598,
+      "sha256": "27adb3f9fe16668f85330eaf4b4be2cfc94a0f2ed7426c0bdf04897a187278f7",
+      "note": "Release 附件；不入 Git"
+    },
+    {
+      "name": "A-v1对比方法效用图.png",
+      "in_repo": false,
+      "size": 149424,
+      "sha256": "26642700a49d60992c9f975c86fca823e070eb189c79ab32c74f870fdbd1a368",
+      "note": "Release 附件；不入 Git"
+    },
+    {
+      "name": "TIMEOUT_SCAN.md",
+      "in_repo": false,
+      "size": 4411,
+      "sha256": "78c16a295cc18335b69cbb986dd1601f0e74d01a6d12f0ee60b4bcc6f31dcd90",
+      "note": "Release 附件；不入 Git"
+    },
+    {
+      "name": "V2批次结果.md",
+      "in_repo": false,
+      "size": 6970,
+      "sha256": "d7cc97b22facd2d1caf2266aa9a25a99def142d88b6badc59793a6ed4aa2d54b",
+      "note": "Release 附件；不入 Git"
+    },
+    {
+      "name": "README_SECTION2_paste.md",
+      "in_repo": false,
+      "size": 2588,
+      "sha256": "e1ba8f31a57a38b33506d327b98e7fad75e3c11a18320a9bcabc6f11abdc31fa",
+      "note": "Release 附件；不入 Git"
+    }
+  ]
+}

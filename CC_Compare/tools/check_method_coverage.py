@@ -44,7 +44,8 @@ CC = os.path.join(ROOT, 'CC_Compare')
 
 # 非方法目录（基础设施 / 共享代码 / 产物），不参与方法覆盖判定。
 # `audit` = 2026-10-14 起的独立审计产物目录（资格矩阵 / 适配边界 / 只读复核），不是对比方法。
-INFRA_DIRS = {'common', 'results', 'tools', 'a1_accept_common', '_upload', 'audit'}
+# `docs`  = 2026-10-14 起的**入库文档快照**目录（a1_development_comparison），也不是对比方法。
+INFRA_DIRS = {'common', 'results', 'tools', 'a1_accept_common', '_upload', 'audit', 'docs'}
 
 # 纯规则臂：没有学习权重，产出脚本 `run_a1_downstream_ablation.py` 从不调用
 # `pairing_identity_check` ⇒ 结构性没有身份块。判据里必须**豁免**它们，
