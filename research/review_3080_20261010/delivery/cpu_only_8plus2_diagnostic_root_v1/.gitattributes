@@ -1,0 +1,5 @@
+# 本根是交付线工程诊断的字节容器（原始逐请求记录 + 登记 + 启动前身份清单 + 交接汇编）。
+# 冻结为 blob == 工作树字节，使 DIAGNOSTIC_HAND_BACK.json 里登记的每个 raw sha256
+# 可从任意 checkout 复现（仓库 core.autocrlf=true，不加此文件时 LF 文件会被转成 CRLF）。
+# 约定与先例同上级字节容器（pickup/、reproduction/followup_20261011/）及 O0CC 字节封口提交 D。
+* -text

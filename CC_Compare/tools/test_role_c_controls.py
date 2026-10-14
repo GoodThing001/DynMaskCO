@@ -15,6 +15,12 @@ import ast
 import os
 import random
 import sys
+# 控制台编码：中文/Ĵ 在 GBK 控制台会 UnicodeEncodeError（看起来像失败、其实是打印崩）
+try:
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+except Exception:                                          # noqa: BLE001
+    pass
+
 
 import numpy as np
 
@@ -118,14 +124,34 @@ def main():
     ck('④ Role C 侧仍拒绝密度阈值 λ（护栏未被本模块削弱）', raised)
 
     # ---------- ⑤ 两臂可归因性核对 ----------
-    # 造一对"只差 λ 来源"的诊断
+    # ⚠️ 2026-10-14 D2b：原用例拿 `myopic_net_fn=3.0`（shadow）与 `REV=5`（density）
+    #    构造了一对**近视基准不同**的臂，并断言 `matched=True` —— 这正是漏检的示范。
+    #    现改为：基准不同 ⇒ **必须**判不可归因；并补一条基准一致的正例。
     a_true, d_shadow = rc.decide_candidate(
         order=o, candidate_plan=plan, budget_B=1.5,
         myopic_net_fn=lambda _o: 3.0, marginal_energy_fn=lambda _o: 1.0,
         future_value_fn=lambda b: b, certify_fn=lambda p: (True, 0.5))
     ok, diffs = ctl.arms_are_matched(d_shadow, d)
-    ck('⑤ 两臂共享字段一致（e_o / certify_ok / budget_B），且 λ 来源标签不同 ⇒ 可归因',
-       ok is True, diffs)
+    ck('⑤ 近视基准不同（Role C 3.0 vs B-density REV=5）⇒ **不得**判可归因',
+       ok is False and any(k == 'myopic_net' for k, _a, _b in diffs), diffs)
+
+    d_shadow_matched = dict(d_shadow)
+    d_shadow_matched['myopic_net'] = d['myopic_net']       # 人为对齐基准
+    ok2, diffs2 = ctl.arms_are_matched(d_shadow_matched, d)
+    ck('⑤ 近视基准对齐后，其余共享字段一致 + λ 标签不同 ⇒ 可归因',
+       ok2 is True, diffs2)
+
+    # ★ 2026-10-14（用户裁定「只替换 λ 估计器」+ 审计 D2b）：走**真实代码路径**的正例 ——
+    #   给 B-density 传与 Role C **同一个** myopic_net_fn ⇒ 两臂真单因素 ⇒ 可归因。
+    _acc, d_aligned = ctl.decide_b_density_control(
+        **dict(kw, myopic_net_fn=lambda _o: 3.0))
+    ok3, diffs3 = ctl.arms_are_matched(d_shadow, d_aligned)
+    ck('★⑤ B-density 传与 Role C 同一个 myopic_net_fn ⇒ 真单因素 ⇒ 可归因（无需手改 dict）',
+       ok3 is True and abs(d_aligned['myopic_net'] - 3.0) < 1e-12, diffs3)
+    ck('★⑤ 且诊断里标明基准来源与保真度（不再冒充上游 knn/valuee）',
+       '同一基准' in d_aligned['myopic_net_note']
+       and '上游口径' in d['myopic_net_note'], (d_aligned['myopic_net_note'],
+                                                d['myopic_net_note']))
 
     passed = sum(1 for _n, ok_, _d in cases if ok_)
     for n, ok_, detail in cases:

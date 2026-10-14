@@ -13,6 +13,12 @@ import copy
 import json
 import os
 import sys
+# 控制台编码：中文/Ĵ 在 GBK 控制台会 UnicodeEncodeError（看起来像失败、其实是打印崩）
+try:
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+except Exception:                                          # noqa: BLE001
+    pass
+
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -181,6 +187,35 @@ def main():
        ok is False and any('cases 为空' in p for p in pr), pr)
     ok, rows, pr = aud.check_ablation_engagement({'scenarios': base})
     ck('fail-closed：对照不是一对日志 ⇒ FAIL', ok is False, pr)
+
+    # ---------- ★ 2026-10-14（审计 D3.3）：「完全相同」只在**机制确实被触发过**时判 FAIL ----------
+    pair_same = (base, copy.deepcopy(base))
+    # (a) 完全相同 + 未提供 activation ⇒ **not_applicable**（不是 FAIL）
+    ok, rows, pr = aud.check_ablation_engagement({'opportunity_cost': pair_same})
+    ck('★ (a) 完全相同 + activation 未提供 ⇒ not_applicable（不判 FAIL）',
+       rows[0]['engaged'] is None and 'not_applicable' in rows[0]['note'], rows[0]['note'])
+    # (b) 完全相同 + activation = 0（本集合内机制从未触发）⇒ **not_applicable**
+    ok, rows, pr = aud.check_ablation_engagement(
+        {'opportunity_cost': pair_same}, activation={'opportunity_cost': 0})
+    ck('★ (b) 完全相同 + activation=0 ⇒ not_applicable（资源不稀缺时正确实现也会相同）',
+       rows[0]['engaged'] is None and rows[0]['activation_count'] == 0, rows[0])
+    # (c) 完全相同 + activation > 0（机制被触发过却毫无差别）⇒ **FAIL**
+    ok, rows, pr = aud.check_ablation_engagement(
+        {'opportunity_cost': pair_same}, activation={'opportunity_cost': 7})
+    ck('★ (c) 完全相同 + activation>0 ⇒ **FAIL**（机制触发过却无差别 = 真没接线）',
+       ok is False and rows[0]['engaged'] is False
+       and any('opportunity_cost' in p for p in pr), pr)
+    # (d) 有差异 + activation=0 ⇒ 仍判 engaged（有差异即说明机制起了作用）
+    ok, rows, pr = aud.check_ablation_engagement(
+        {'opportunity_cost': (base, tiny)}, activation={'opportunity_cost': 0})
+    ck('★ (d) 有差异 + activation=0 ⇒ 仍判已接入（差异本身就是证据）',
+       rows[0]['engaged'] is True, rows[0])
+    # (e) activation 经 audit() 透传
+    r = aud.audit(base, ablations={'opportunity_cost': pair_same},
+                  ablation_activation={'opportunity_cost': 9})
+    ck('★ (e) audit() 透传 ablation_activation ⇒ 记为失败',
+       r['checks']['T2_T3_T4_ablation_engagement'] is False
+       and r['ablation_rows'][0]['activation_count'] == 9, r['problems'])
 
     # audit() 的整合与"不适用 ≠ 失败"
     r = aud.audit(base, log_repeat=copy.deepcopy(base), ablations=allpairs)

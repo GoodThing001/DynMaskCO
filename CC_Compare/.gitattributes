@@ -1,0 +1,15 @@
+# 冻结本目录下「本轮公开了 raw sha256」的文件，使 blob == 工作树字节，可从任意 checkout 复现。
+#
+# 依据：CC_Compare/P1A_RoleC_效用公式与消融门审计_2026-10-14.md §5（改前/改后哈希）
+# 先例：O0CC 字节封口提交 D 的处置（活跃身份文件固定为 LF，使 raw worktree bytes == HEAD blob bytes），
+#       见 C-VRP_Cold-chainVehicleRoutingProblem/03_负结果线/文档/历史已收束/决策与审计/O0CC源码字节基线与行尾处置.md
+#
+# 用 `text eol=lf` 而不是 `-text`：这些是**活跃源码/文档**（还会被编辑），需要规范化到 LF
+# 且 checkout 也为 LF，否则编辑器写回 CRLF 会造成逐行 churn 并让登记哈希失效。
+# 仓库当前 core.autocrlf=true 且根目录无 .gitattributes：不加此文件时，LF 文件在 fresh
+# checkout 会被转成 CRLF，本审计登记的 raw sha256 将无法复现。
+/P1A_RoleC_*.md text eol=lf
+/tools/role_c_controls.py text eol=lf
+/tools/role_c_opportunity_cost.py text eol=lf
+/tools/test_role_c_controls.py text eol=lf
+/tools/test_role_c_opportunity_cost.py text eol=lf

@@ -220,30 +220,56 @@ def compare_ablations(log_base, log_ablated, label=''):
     }
 
 
-def check_ablation_engagement(cases):
+def check_ablation_engagement(cases, activation=None):
     """对三个开关各给一对日志，返回 `(ok, rows, problems)`。
 
     `cases` = `{开关名: (log_base, log_ablated)}`，开关名对应
     `role_c_opportunity_cost.ABLATIONS`（`opportunity_cost` / `lookahead` / `scenarios`）。
-    ⚠️ **三个开关都必须 engaged**（都不得"完全相同"）；任一未接入 ⇒ 判 FAIL。
+
+    ⚠️ **判据已按审计 D3.3 收紧（2026-10-14）**：`engaged=False`（消融前后**完全相同**）
+    **只在"机制在本集合内确实被触发过"时才判 FAIL**。
+    否则报 **`not_applicable`**，因为"完全相同"无法区分两种情形：
+
+      1. 机制**没接进**决策路径（应 FAIL）；
+      2. 机制**接好了**，但在被检验的状态集合上**资源根本不稀缺** ⇒ 正确实现下 `λ_B ≈ 0`
+         ⇒ 决策序列**理应相同**（**不应** FAIL）。
+
+    `activation` = `{开关名: 该集合内"机制被触发"的决策数}`（例如 `λ_B` 的
+    `raw > 0` 计数），由 runner 从其诊断里统计后传入。**未提供或为 0 ⇒ not_applicable**。
+    仓库实据支持这一收紧：登记规则 v4 的 1000 条决策里 `b_rem` 最小 197.27（B=710.65）、
+    `reject_budget` 触发 0 次、每日 `spent_before` 峰值 ≤72.2% B、
+    `λ` 有 291/1000 落在网格下限 ⇒ 在这些日子上，**实现正确**的内生 `λ_B` 也会大面积 ≈0。
+
+    ⇒ **"机制是否接进代码"的正证仍由 T9③ 承担**（纯函数：`Ĵ` 换常数 ⇒ `λ_B ≡ 0`），
+    那比"结果序列不同"强得多，且不受资源松紧影响。
     """
     rows, problems = [], []
+    if not cases:
+        problems.append('未提供任何消融对照（cases 为空）⇒ 无法判定接入，fail-closed')
+        return False, rows, problems
     for name, pair in (cases or {}).items():
         if not (isinstance(pair, (tuple, list)) and len(pair) == 2):
             problems.append('开关 %s 需要 (基准日志, 消融日志) 一对' % name)
             continue
         r = compare_ablations(pair[0], pair[1], label=name)
         r['switch'] = name
+        act = None if activation is None else int(activation.get(name, 0))
+        r['activation_count'] = act
+        if r['engaged'] is False and (act is None or act <= 0):
+            # 未证明机制被触发过 ⇒ **不判 FAIL**，改判 not_applicable
+            r['engaged'] = None
+            r['note'] = ('not_applicable：本集合内未观测到该机制被触发'
+                         '（activation=%s）⇒ "完全相同"无法区分「未接线」与'
+                         '「接线但资源不稀缺」。接入的正证请用 T9③（纯函数）。'
+                         % ('未提供' if act is None else act))
         rows.append(r)
         if r['engaged'] is not True:
             problems.append('开关 %s 未接入决策路径：%s' % (name, r.get('note')))
         problems.extend(r.get('problems') or [])
-    if not cases:
-        problems.append('未提供任何消融对照（cases 为空）⇒ 无法判定接入，fail-closed')
     return (not problems), rows, problems
 
 
-def audit(records, log_repeat=None, ablations=None, tol=TOL):
+def audit(records, log_repeat=None, ablations=None, ablation_activation=None, tol=TOL):
     """跑全部可用检查，返回结构化报告（**不读任何效用**）。
 
     ⚠️ **`problems` 只放"真的违反了"**；「未提供对照 ⇒ 不适用」进 `not_applicable`。
@@ -262,7 +288,8 @@ def audit(records, log_repeat=None, ablations=None, tol=TOL):
     if ablations is None:
         na.append('T2/T3/T4 消融接入：未提供消融对照（`ablations`）⇒ 不适用')
     else:
-        t234_ok, t234_rows, t234 = check_ablation_engagement(ablations)
+        t234_ok, t234_rows, t234 = check_ablation_engagement(
+            ablations, activation=ablation_activation)
     checks = {'T2_T3_T4_ablation_engagement': t234_ok,
               'T5_order_and_causality': t5_ok,
               'T6_commitments_and_budget': t6_ok,

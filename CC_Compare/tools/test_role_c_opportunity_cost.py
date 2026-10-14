@@ -16,6 +16,12 @@
 """
 import os
 import sys
+# 控制台编码：中文/Ĵ 在 GBK 控制台会 UnicodeEncodeError（看起来像失败、其实是打印崩）
+try:
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+except Exception:                                          # noqa: BLE001
+    pass
+
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -96,9 +102,19 @@ def main():
     ck('边界：e_o > B ⇒ 评估点截到 0 且 infeasible 留痕',
        db['infeasible'] is True and db['b_lo_eval'] == 0.0, 'diag=%s' % {k: db[k] for k in ('b_lo', 'b_lo_eval', 'infeasible')})
 
-    # ---------- myopic_net 不得再扣机会成本 ----------
-    ck('myopic_net = revenue − fuel − reject_loss（不含机会成本）',
-       rc.myopic_net(100.0, 30.0, 10.0) == 60.0)
+    # ---------- myopic_net 不得再扣机会成本；符号为 accept−reject 净增益 ----------
+    # ⚠️ 2026-10-14 D1 修正：此处原断言 `== 60.0` 把**错符号**写死成期望值
+    #    （`revenue − fuel − reject_loss`）；正确值为 `100 − 30 + 10 = 80.0`。
+    #    审计见 CC_Compare/P1A_RoleC_效用公式与消融门审计_2026-10-14.md §1.4。
+    ck('myopic_net = revenue − fuel **+** reject_loss（接单避免了拒单罚金）',
+       rc.myopic_net(100.0, 30.0, 10.0) == 80.0)
+    ck('myopic_net 反例：p_c=15/R=10/F=0 ⇒ 必须判接单（旧符号会误拒）',
+       rc.myopic_net(10.0, 0.0, 15.0) == 25.0
+       and rc.decide(myopic_net=rc.myopic_net(10.0, 0.0, 15.0), e_o=0.0,
+                     lambda_B=0.0, certify_ok=True)[0] is True)
+    ck('myopic_net 反例（p_c=15 占用能耗后仍应接单，偏差 2·p_c=30 > δ=20）',
+       rc.decide(myopic_net=rc.myopic_net(10.0, 0.0, 15.0), e_o=2.0,
+                 lambda_B=5.0, certify_ok=True)[1]['net_after_opportunity_cost'] == 15.0)
 
     # ---------- 规格 ↔ 项目实现的**契约接地**（AST 静态检查，不导入、不跑实验）----------
     # 规格 §2.1 假设 `e_o = c0_marginal_energy(c, q, cooling_share, contract)`、
@@ -191,6 +207,59 @@ def main():
     except ValueError as exc:
         raised = '未知 lambda_estimator' in str(exc)
     ck('未知 lambda_estimator ⇒ 拒绝（fail-closed，不默认放行）', raised)
+
+    # ---------- 事前边界规则 B2 / B3（2026-10-14 用户裁定 §三；不得按结果调整）----------
+    # B2：e_o > B（预算扰动越界）⇒ 强制拒单，即使 myopic_net 巨大
+    acc, d = rc.decide_candidate(order=o, candidate_plan=plan, budget_B=1.0,
+                                myopic_net_fn=lambda _o: 1e9, marginal_energy_fn=lambda _o: 5.0,
+                                future_value_fn=jhat, certify_fn=cert_ok)
+    ck('B2：e_o=5 > B=1（预算扰动越界）⇒ **强制拒单**（净收益再大也不接）',
+       acc is False and d['boundary'] == 'B2_budget_out_of_range'
+       and '越界' in d['boundary_reason'], d.get('boundary_reason'))
+
+    # B3：V̂ 非有限 ⇒ λ_B 未定义 ⇒ 强制拒单（**不得**当作 0 —— 那会偏向接单）
+    def _mk_v(kind):
+        def _v(b):
+            if kind == 'NaN':
+                return float('nan')
+            if kind == '+Inf':
+                return float('inf')
+            raise RuntimeError('V̂ 求值失败')
+        return _v
+
+    for label in ('NaN', '+Inf', '抛错'):
+        acc, d = rc.decide_candidate(order=o, candidate_plan=plan, budget_B=100.0,
+                                    myopic_net_fn=lambda _o: 1e9,   # 净收益极大
+                                    marginal_energy_fn=lambda _o: 5.0,
+                                    future_value_fn=_mk_v(label), certify_fn=cert_ok)
+        ck('B3：V̂=%s ⇒ λ_B 未定义 ⇒ **强制拒单**' % label,
+           acc is False and d['boundary'] == 'B3_lambda_undefined'
+           and d['lambda_B'] is None, d.get('boundary_reason'))
+    lam_u, diag_u = rc.shadow_price_budget(100.0, 5.0, lambda b: float('nan'))
+    ck('B3：shadow_price_budget 对非有限 V̂ 返回 None 且 diag 标 undefined',
+       lam_u is None and diag_u.get('undefined') is True, diag_u)
+    lam1, d1 = rc.shadow_price_budget(100.0, 0.0, lambda b: float(b))
+    ck('B1：e_o=0 ⇒ λ_B=0 且 undefined=False', lam1 == 0.0 and d1['undefined'] is False)
+    lam4, d4 = rc.shadow_price_budget(100.0, 5.0, lambda b: (0.0 if b >= 100.0 else 50.0))
+    ck('B4：负差值 ⇒ λ_B 截到 0 且 diag.clipped=True',
+       lam4 == 0.0 and d4['clipped'] is True, d4)
+
+    # ---------- D2.4：把"λ_B ≥ 0"这个**同义反复**换成有信息量的**报告量** ----------
+    # λ_B 由 clip 构造 ⇒ "≥0"永不可能失败，不构成证据；证据在**未截断**的 lambda_raw。
+    diags = [rc.shadow_price_budget(100.0, 5.0, lambda b: (0.0 if b >= 100.0 else 50.0))[1],
+             rc.shadow_price_budget(100.0, 5.0, lambda b: float(b))[1],
+             rc.shadow_price_budget(100.0, 5.0, lambda b: float('nan'))[1],
+             rc.shadow_price_budget(100.0, 0.0, lambda b: float(b))[1]]
+    st = rc.clipped_stats(diags)
+    ck('D2.4：clipped_stats 报告计数/比例（1 个 raw<0、1 个 undefined、共 4）',
+       st['n'] == 4 and st['n_clipped'] == 1 and st['n_undefined'] == 1
+       and abs(st['clipped_ratio'] - 0.25) < 1e-12, st)
+    ck('D2.4：明确标注**不设阈值**（诊断量而非门）', '不设阈值' in st['note'])
+    ck('D2.4：空输入不炸（比例返回 None 而不是除零）',
+       rc.clipped_stats([])['n'] == 0 and rc.clipped_stats([])['clipped_ratio'] is None)
+    ck('边界规则清单被导出（供审计引用）',
+       set(rc.BOUNDARY_RULES) == {'B1_e_o_zero', 'B2_budget_out_of_range',
+                                  'B3_lambda_undefined', 'B4_negative_diff_clipped'})
 
     passed = sum(1 for _n, ok, _d in cases if ok)
     for n, ok, detail in cases:

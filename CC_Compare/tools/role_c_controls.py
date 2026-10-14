@@ -52,20 +52,36 @@ def density_threshold_lambda(vals, energys, remaining_budget):
 
 def decide_b_density_control(*, order, candidate_plan, budget_B,
                              revenue_fn, marginal_energy_fn, certify_fn,
-                             future_vals, future_energys, remaining_budget=None):
-    """`B-density` 对照臂：用**外生密度阈值** λ 判决 `REV − λ·e > 0 ∧ certify`。
+                             future_vals, future_energys, myopic_net_fn=None,
+                             remaining_budget=None):
+    """`B-density` 对照臂：用**外生密度阈值** λ 判决 `myopic_net − λ·e > 0 ∧ certify`。
 
     `future_vals` / `future_energys` = 场景集合里**未来订单**的收益与边际能耗
     （由 runner 从冻结的场景机制取出，保证与 `B-shadow` **同源同 K**）。
     `remaining_budget` 缺省为 `budget_B`。
+
+    ⚠️ **近视基准必须与 Role C 完全一致（2026-10-14 用户裁定 + 审计 D2b）**：
+    用户要求两个 B 臂"**只替换 λ 估计器**"。因此本臂**默认且应当**接收与
+    `decide_candidate` **同一个** `myopic_net_fn`（= `R − fuel + p_c`）。
+    若沿用 `revenue_fn`（只给 `REV`），`B‑shadow − B‑density` 会**同时**改变
+    「λ 来源」与「近视基准」两件事 ⇒ 无法归因（这正是 `arms_are_matched` 现在会拦下的情形）。
+
+    ⚠️ **保真度说明（必须随结果披露）**：改用 Role C 的近视基准后，本臂**不再**等于
+    上游 `knn/valuee` 的 `REV − λe`。若论文需要"忠实上游阈值臂"的对照，
+    该对照由表中**既有的 `knn` / `valuee20/30` 臂**承担，**不要**用本臂冒充。
+    保留 `revenue_fn` 入参仅用于显式构造"上游口径"的对照，且此时
+    `arms_are_matched` 会判**不可归因**（应当如此）。
     """
     e_o = float(marginal_energy_fn(order))
     rem = float(budget_B if remaining_budget is None else remaining_budget)
     lam = density_threshold_lambda(future_vals, future_energys, rem)
-    rev = float(revenue_fn(order))
+    if myopic_net_fn is None:
+        mn, base_note = float(revenue_fn(order)), 'REV（**上游口径**；与 Role C 基准不同 ⇒ 不可归因）'
+    else:
+        mn, base_note = float(myopic_net_fn(order)), 'R − fuel + p_c（与 Role C **同一基准**）'
     certify_ok, certify_energy = certify_fn(candidate_plan)
-    # 复用同一判决实现（`decide`），只是 λ 的来源不同 ⇒ 两臂只差这一件事
-    accept, diag = decide(myopic_net=rev, e_o=e_o, lambda_B=lam, certify_ok=certify_ok)
+    # 复用同一判决实现（`decide`），只是 λ 的来源不同 ⇒ 基准一致时两臂只差这一件事
+    accept, diag = decide(myopic_net=mn, e_o=e_o, lambda_B=lam, certify_ok=certify_ok)
     diag.update({
         'arm': 'B_density_control',
         'lambda_estimator': LAMBDA_ESTIMATOR_DENSITY,
@@ -74,8 +90,7 @@ def decide_b_density_control(*, order, candidate_plan, budget_B,
                         'remaining_budget': rem},
         'certify_energy': certify_energy,
         'budget_B': float(budget_B),
-        'myopic_net_note': 'REV − λ·e（本对照臂用 REV；fuel/reject_loss 属评价口径，'
-                           '**不**进判决 —— 与既有 knn/valuee 一致）',
+        'myopic_net_note': base_note,
     })
     return accept, diag
 
@@ -84,9 +99,18 @@ def arms_are_matched(diag_shadow, diag_density):
     """核对两臂**只差 λ 来源**（其余全同）：用于 `B‑shadow − B‑density` 的可归因性检查。
 
     返回 `(ok, diffs)`；`diffs` 列出除 λ 之外**不应存在**的差异。
+
+    ⚠️ **2026-10-14 修正（D2b）**：原实现只比 `e_o` / `certify_ok` / `budget_B`，
+    **恰好漏掉了唯一真正不同的字段 `myopic_net`** —— 参考臂用 `revenue_fn`（= `REV`），
+    而 Role C 用 `myopic_net_fn`（= `REV − fuel + p_c`）。于是它会对一对
+    **近视基准不同**的臂宣称"只差 λ、可归因"（旧测试用例 ⑤ 正是如此示范）。
+    现把 `myopic_net` 纳入比对：基准不同 ⇒ `ok=False`。
+    若确要保留上游 `REV` 基准，则须把"近视基准"**登记为第二个被检验因素**，
+    不得再把 `B‑shadow − B‑density` 解释成"内生化"的单独效应。
+    审计见 `CC_Compare/P1A_RoleC_效用公式与消融门审计_2026-10-14.md` §2.2。
     """
     diffs = []
-    for k in ('e_o', 'certify_ok', 'budget_B'):
+    for k in ('e_o', 'certify_ok', 'budget_B', 'myopic_net'):
         a, b = diag_shadow.get(k), diag_density.get(k)
         if a != b:
             diffs.append((k, a, b))

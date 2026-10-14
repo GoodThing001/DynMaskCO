@@ -5,9 +5,26 @@
 依据 `CC_Compare/P1A_RoleC_设计规格_2026-10-14.md` §2.1 / §2.1.1（2026-10-14 用户纠错后）：
 
     写法 (i)【本模块，唯一允许】：
-        myopic_net(o) = revenue_o − fuel_o − reject_loss_o        # 只含"接这一单"的直接净收益
+        myopic_net(o) = revenue_o − fuel_o + reject_loss_o        # 接/拒两动作的**直接净增益**
         λ_B(o)        = clip( [Ĵ(B) − Ĵ(B − e_o)] / e_o , 0, +∞ )  # 预算边际价值，≥0
         接单 ⟺ myopic_net(o) − λ_B(o)·e_o > 0   且   certify_plan ≤ B
+
+  ⚠️ **2026-10-14 符号修正（D1，审计见
+  `CC_Compare/P1A_RoleC_效用公式与消融门审计_2026-10-14.md` §1）**：
+  原式写的是 `revenue_o − fuel_o − reject_loss_o`，符号是**错的**。逐项推导：
+
+      J(接 o) − J(拒 o) = R_o − c_f·ΔD + p_{c,o} + Δ(未来项)
+
+  因为 A-v1 效用是 `J = Σ_served R − fuel − Σ_rejected p_c`
+  （`coldchain_evaluator_a1.py:142-145`），拒单才付 `p_c` ⇒ **接单避免了这笔罚金，是正向增量**。
+  p_c=0 时两种写法数值相同（主档不可见），p_c>0 时现式**系统性过度拒单**，
+  偏差 `2·p_{c,o}`（p_c=15 档 ⇒ 30 > P1-A 效果门 δ=20）。单点反例：p_c=15、R=10、F=0
+  ⇒ 正确 `+25` 判接单，现式 `−5` 判拒单。
+
+  ⚠️ **能耗项不在效用里**：`fuel` 是 `distance_km × FUEL_COST_PER_KM`（**行驶燃料**），
+  C0 能耗 `energy_kwh` 只作硬约束 `≤ B` 由 `certify_plan` 把关。
+  因此 `λ_B·e_o` 定价的是**约束的稀缺性**，与 `myopic_net` 无重叠 ⇒ **不构成重复计入**。
+  （接口约束：若哪天把能耗货币化进 utility，`λ_B·e_o` **才会**变成重复计入。）
 
   ⚠️ **禁用写法 (iii)**：`V̂(接单) − V̂(拒单) − λ_B·e_o`。
   因为 `V̂(·, B)` 已在**同一预算 B** 下 rollout，"占用 e_o 会挤掉未来 e_o"**已经体现在 V̂ 的差里**；
@@ -34,6 +51,71 @@ ABLATIONS = ('opportunity_cost', 'lookahead', 'scenarios')
 LAMBDA_ESTIMATOR_SHADOW = 'shadow_price_budget_response'
 LAMBDA_ESTIMATOR_DENSITY = 'density_threshold_knapsack'
 LAMBDA_ESTIMATORS = (LAMBDA_ESTIMATOR_SHADOW, LAMBDA_ESTIMATOR_DENSITY)
+
+# --------------------------------------------------------------------------- #
+# **事前确定**的边界规则（2026-10-14 用户裁定 §三；**不得**按结果调整）
+#
+#   B1 `e_o == 0`                ⇒ `λ_B = 0`（无占用即无机会成本；不得凭空产生）
+#   B2 `e_o > B`（预算扰动越界）  ⇒ **强制拒单**（接单本身就让计划超预算），
+#                                  记 `boundary='B2_budget_out_of_range'`
+#   B3 `λ_B` 未定义（V̂ 非有限 / 差分为 NaN·Inf）
+#                                ⇒ **强制拒单**（保守方向），
+#                                  记 `boundary='B3_lambda_undefined'`
+#   B4 差值为负（采样噪声）       ⇒ `λ_B` 截到 0（见 `shadow_price_budget`）
+#
+# ⚠️ B3 的方向是**刻意选的**：若把"未定义"当作 `λ_B = 0`，判据就退化成"可行即接"
+#    ⇒ 系统性**偏向接单**。宁可保守拒单，并把该情形**计数**出来供审计。
+# --------------------------------------------------------------------------- #
+BOUNDARY_RULES = ('B1_e_o_zero', 'B2_budget_out_of_range', 'B3_lambda_undefined',
+                  'B4_negative_diff_clipped')
+
+
+def clipped_stats(diags):
+    """对一批 `λ_B` 诊断，报告 `clipped`（`raw<0`）与 `undefined` 的**计数与比例**。
+
+    ⚠️ **这是诊断量，不是门**（2026-10-14 审计 D2.4）：
+    原 T9 断言"`λ_B ≥ 0`"是**同义反复** —— `shadow_price_budget` 里
+    `lam = max(raw, 0.0)` 已经 clip 过，该断言永远不可能失败，因此不构成证据。
+    有信息量的是**未截断**的 `lambda_raw`：`raw<0` 的比例偏高说明
+    采样噪声大或 `V̂` 的设定有问题（"预算变少反而更好"在经济学上不该出现）。
+    **不设阈值**：它只被报告，不用来判 PASS/FAIL。
+    """
+    ds = list(diags or [])
+    n = len(ds)
+    n_clip = sum(1 for d in ds if (d or {}).get('clipped'))
+    n_und = sum(1 for d in ds if (d or {}).get('undefined'))
+    return {'n': n,
+            'n_clipped': n_clip,
+            'n_undefined': n_und,
+            'clipped_ratio': (n_clip / float(n)) if n else None,
+            'undefined_ratio': (n_und / float(n)) if n else None,
+            'note': '诊断量：`clipped` = 未截断差值为负的比例（噪声/设定可疑）；'
+                    '`undefined` = λ_B 不可用的比例（触发 B3 强制拒单）。**不设阈值**。'}
+
+
+def apply_budget_boundary(e_o, budget_B, lambda_B, tol=1e-9):
+    """应用**事前确定**的边界规则；返回 `(force_reject, rule, reason)`。
+
+    只处理需要决策上下文的 B2 / B3（B1 / B4 在 `shadow_price_budget` 内处理）。
+    纯函数、与效用无关、与结果无关，可单测。
+    """
+    e = float(e_o or 0.0)
+    if e > float(budget_B) + float(tol):
+        return True, 'B2_budget_out_of_range', (
+            'e_o=%.6f > B=%.6f ⇒ 预算扰动越界，按事前规则 **强制拒单**'
+            % (e, float(budget_B)))
+    if lambda_B is None:
+        return True, 'B3_lambda_undefined', (
+            'λ_B 未定义（V̂ 非有限/差分未定义）⇒ 按事前规则 **强制拒单**'
+            '（不得当作 0 —— 那会系统性偏向接单）')
+    try:
+        lam = float(lambda_B)
+    except (TypeError, ValueError):
+        return True, 'B3_lambda_undefined', 'λ_B 非数值（%r）⇒ **强制拒单**' % (lambda_B,)
+    if lam != lam or lam in (float('inf'), float('-inf')):     # NaN / ±Inf
+        return True, 'B3_lambda_undefined', 'λ_B 非有限（%r）⇒ **强制拒单**' % (lambda_B,)
+    return False, '', ''
+
 DOUBLE_COUNT_REFUSAL = (
     '禁止重复计机会成本：不得把前瞻价值差（lookahead_delta）与 λ_B·e_o **同时**扣减 '
     '（规格 §2.1.1 写法 (iii)）。请二选一：'
@@ -58,20 +140,41 @@ def shadow_price_budget(budget, e_o, future_value_fn, *, clip_nonneg=True):
     """
     e = float(e_o or 0.0)
     if e <= 0.0:
+        # ⚠️ 诊断键必须**统一**（2026-10-14 实测踩到）：本早退分支原先缺 `undefined`/`clipped`，
+        # 于是调用方读 `diag['undefined']` 会 KeyError —— 同一函数不同分支给出不同 schema
+        # 是很容易漏的接口不一致。
         return 0.0, {'lambda_raw': 0.0, 'lambda_B': 0.0, 'e_o': e,
                      'v_hi': None, 'v_lo': None, 'b_lo': float(budget),
-                     'infeasible': False, 'reason': 'e_o<=0 ⇒ 无占用，机会成本恒为 0'}
+                     'b_lo_eval': float(budget), 'infeasible': False,
+                     'undefined': False, 'clipped': False,
+                     'reason': 'e_o<=0 ⇒ 无占用，机会成本恒为 0（B1）'}
     b = float(budget)
     b_lo = b - e
     infeasible = b_lo < 0.0
     b_lo_eval = max(b_lo, 0.0)
-    v_hi = float(future_value_fn(b))
-    v_lo = float(future_value_fn(b_lo_eval))
+    try:
+        v_hi = float(future_value_fn(b))
+        v_lo = float(future_value_fn(b_lo_eval))
+    except Exception as exc:                                   # noqa: BLE001
+        return None, {'lambda_raw': None, 'lambda_B': None, 'e_o': e, 'b_lo': b_lo,
+                      'undefined': True, 'reason': 'V̂ 求值抛错：%s' % exc}
+    vals = (v_hi, v_lo)
+    if any((x != x) or x in (float('inf'), float('-inf')) for x in vals):
+        # B3：V̂ 非有限 ⇒ λ_B **未定义**（返回 None，由边界规则强制拒单）
+        return None, {'lambda_raw': None, 'lambda_B': None, 'e_o': e,
+                      'v_hi': v_hi, 'v_lo': v_lo, 'b_lo': b_lo,
+                      'undefined': True,
+                      'reason': 'V̂ 非有限（v_hi=%r, v_lo=%r）⇒ λ_B 未定义' % vals}
     raw = (v_hi - v_lo) / e
+    if raw != raw or raw in (float('inf'), float('-inf')):
+        return None, {'lambda_raw': raw, 'lambda_B': None, 'e_o': e,
+                      'v_hi': v_hi, 'v_lo': v_lo, 'b_lo': b_lo,
+                      'undefined': True, 'reason': '差分非有限（raw=%r）' % raw}
     lam = max(raw, 0.0) if clip_nonneg else raw
     return lam, {'lambda_raw': raw, 'lambda_B': lam, 'e_o': e,
                  'v_hi': v_hi, 'v_lo': v_lo, 'b_lo': b_lo,
                  'b_lo_eval': b_lo_eval, 'infeasible': infeasible,
+                 'undefined': False,
                  'clipped': bool(clip_nonneg and raw < 0.0),
                  'reason': 'clip 到 0（负影子价格只可能来自采样噪声）' if (clip_nonneg and raw < 0.0)
                            else ''}
@@ -109,8 +212,16 @@ def decide(*, myopic_net, e_o, lambda_B, certify_ok,
 
 
 def myopic_net(revenue, fuel, reject_loss):
-    """`revenue − fuel − reject_loss`（规格 §2.1 左式；**不得**在此再扣机会成本）。"""
-    return float(revenue) - float(fuel) - float(reject_loss)
+    """**接单 − 拒单**的直接净增益 = `revenue − fuel + reject_loss`（规格 §2.1 左式）。
+
+    ⚠️ 2026-10-14 符号修正（D1）：`reject_loss` 是**加号**。
+    推导：`J = Σ_served R − fuel − Σ_rejected p_c` ⇒ 接单避免了 `p_c` 的支出 ⇒ 正向增量。
+    旧实现写 `− reject_loss`，在 p_c>0 档系统性过度拒单（偏差 `2·p_c`）。
+    `fuel` 口径 = **边际**行驶燃料 `FUEL_COST_PER_KM × Δdistance(插入 o)`，
+    不是分摊/整日燃料（否则近视基准量级错，归因失真）。
+    **不得**在此再扣机会成本。
+    """
+    return float(revenue) - float(fuel) + float(reject_loss)
 
 
 def decide_candidate(*, order, candidate_plan, budget_B,
@@ -140,6 +251,17 @@ def decide_candidate(*, order, candidate_plan, budget_B,
     if lambda_estimator not in LAMBDA_ESTIMATORS:
         raise ValueError('未知 lambda_estimator=%r；应为 %s'
                          % (lambda_estimator, ' / '.join(LAMBDA_ESTIMATORS)))
+    # ---- 事前边界规则（B2 预算越界 / B3 λ 未定义）先判：命中即**强制拒单**，不再看净收益 ----
+    boundary = None
+    if e_o > float(budget_B) + 1e-9:
+        boundary = (True, 'B2_budget_out_of_range',
+                    'e_o=%.6f > B=%.6f ⇒ 预算扰动越界，按事前规则强制拒单'
+                    % (e_o, float(budget_B)))
+    if boundary is None:
+        lam0, _d0 = (None, {}) if lambda_estimator == LAMBDA_ESTIMATOR_DENSITY else \
+            shadow_price_budget(budget_B, e_o, future_value_fn)
+    else:
+        lam0, _d0 = 0.0, {}
     if lambda_estimator == LAMBDA_ESTIMATOR_DENSITY:
         # 用既有阈值法时**不允许**再走本函数的前瞻差分（那会误导成"内生"）；
         # 显式拒绝，逼迫调用方要么用真实影子价格，要么明确走既有臂。
@@ -148,12 +270,35 @@ def decide_candidate(*, order, candidate_plan, budget_B,
             '判决式与既有 knn/valuee 相同，若 λ 也沿用其外生背包密度阈值，则 Role C 退化为'
             '该臂的同胞，违反预声明 §9.1「不得只是换名重用同一决策函数」。'
             '若确实要做该对照，请用独立臂 B-density（另立预注册），不要伪装成 Role C。')
+    if boundary is None:
+        reject_b, rule, reason = apply_budget_boundary(e_o, budget_B, lam0)
+        if reject_b:
+            boundary = (reject_b, rule, reason)
+    if boundary is not None:
+        _, rule, reason = boundary
+        certify_ok0, certify_energy0 = certify_fn(candidate_plan)
+        diag = {'boundary': rule, 'boundary_reason': reason, 'e_o': e_o,
+                'lambda_B': None, 'opportunity_cost': None,
+                'net_after_opportunity_cost': None,
+                'myopic_net': float(myopic_net_fn(order)),
+                'certify_ok': bool(certify_ok0), 'certify_energy': certify_energy0,
+                'lambda_diag': {'lambda_source': 'boundary_short_circuit',
+                                'undefined': rule == 'B3_lambda_undefined'},
+                'lambda_estimator': lambda_estimator,
+                'budget_B': float(budget_B), 'ablate_lookahead': bool(ablate_lookahead),
+                'reject_reason': reason,
+                'formulation': '(i) myopic_net − λ_B·e_o > 0 ∧ certify_ok',
+                'log_fields': {'order_id': getattr(order, 'order_id', None),
+                               'action': 'reject', 'certified': bool(certify_ok0),
+                               'certify_energy': certify_energy0}}
+        return False, diag
+    lam = lam0
     if ablate_lookahead:
         lam, lam_diag = 0.0, {'lambda_raw': 0.0, 'lambda_B': 0.0, 'e_o': e_o,
                               'lambda_source': 'ablate_lookahead',
                               'reason': '无前瞻 ⇒ Ĵ 无从估计 ⇒ λ_B 置 0（与 A 版同为 0，但机制不同）'}
     else:
-        lam, lam_diag = shadow_price_budget(budget_B, e_o, future_value_fn)
+        lam_diag = _d0
         lam_diag['lambda_source'] = ('opportunity_cost' if not ablate_opportunity_cost
                                      else 'ablate_opportunity_cost')
     mn = float(myopic_net_fn(order))

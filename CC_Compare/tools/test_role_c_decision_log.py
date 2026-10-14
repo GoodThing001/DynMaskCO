@@ -13,6 +13,12 @@
 import copy
 import os
 import sys
+# 控制台编码：中文/Ĵ 在 GBK 控制台会 UnicodeEncodeError（看起来像失败、其实是打印崩）
+try:
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+except Exception:                                          # noqa: BLE001
+    pass
+
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
