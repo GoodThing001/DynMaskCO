@@ -513,7 +513,7 @@ L1 仅解释、L2 定夺。
 
 | 门 | 内容 | 机械判据 | 现状（2026-10-14） |
 |---|---|---|---|
-| **G1** 仪器正确性回归 | 嵌套 / 顺序 / 异常退出 / 重入四类合成反例 + 离线独立复算 | `tools/test_role_c_phasea_partition.py` 全过 | ✅ **通过**（12 组、47 断言） |
+| **G1** 仪器正确性回归 | 嵌套 / 顺序 / 异常退出 / 重入四类合成反例 + 离线独立复算；**外加**真实调用点上的插桩回归（叶子映射 / `P6` 砍点差分 / `P5`–`P7a` 分流 / `P7c` 只在瞻内 / 截断重放 / L1 不入份额 / 进度记录自开销） | `test_role_c_phasea_partition.py`（12 组）+ `test_role_c_phasea_instrument.py`（9 组）全过 | ✅ **通过**（12 + 9 组） |
 | **G2** 专用资源登记 | `p1a-rolec-phasea-v1` 校验通过 + 父门未被改动 | `role_c_phasea_ceiling` 校验 + `baseline_status()` | ✅ **通过**（父门仍 `6d0e57c6…` / 旧校验器通过） |
 | **G3** 仪器开销 | "空仪器" vs "挂满分区"的真实墙钟自开销 | 如实报出；**不得**据此调容差 | ✅ **通过**（绝对开销 ~20 µs；见门报告） |
 | **G4** 决策点集合 | 真实管线上 `work_fn.digest()` == 登记 digest | **必须在跑批机器上实测并落盘为产物** | ✅ **通过**（跑批机器实测 = 登记值，`n_contexts=8`） |
@@ -616,12 +616,34 @@ L1 仅解释、L2 定夺。
 
 | 门 | 落地物 | 现状 |
 |---|---|---|
-| **G1** 仪器正确性回归 | `tools/role_c_phasea_partition.py`（通道 A/B + 通道 C）、`tools/test_role_c_phasea_partition.py` | ✅ 通过（嵌套/顺序/异常/重入 + 离线复算，12 组 47 断言） |
+| **G1** 仪器正确性回归 | `tools/role_c_phasea_partition.py`（通道 A/B + 通道 C）、`tools/test_role_c_phasea_partition.py`（12 组）、`tools/role_c_phasea_instrument.py` + `tools/test_role_c_phasea_instrument.py`（9 组，真实调用点） | ✅ 通过 |
 | **G1'** `G` 边界缺陷修正 | §4.3（ii）重写；回归里保留"初稿规则会多算"的**回归见证** | ✅ 通过 |
 | **G2** 专用资源登记 | `P1A_资源门登记_PhaseA_v1.json`、`tools/role_c_phasea_ceiling.py`、`tools/test_role_c_phasea_ceiling.py` | ✅ 通过（父门未动） |
-| **G3** 仪器开销 | `PartitionTimer` + `measure_overhead`；门报告内 `overhead_share_of_10s_decision` | ✅ 通过（绝对开销 ~20 µs，见报告） |
+| **G3** 仪器开销 | `PartitionTimer` + `measure_overhead` + `measure_progress_overhead`；门报告内 `overhead_share_of_10s_decision` | ✅ 通过（绝对开销 ~20 µs，见报告） |
 | **G4** 决策点 digest | `tools/role_c_phasea_digest_probe.py` → `P1A_资源阶段_决策点身份探针_2026-10-14.json`（raw SHA `46cd04b0…`） | ✅ 通过（跑批机器实测 == 登记值） |
+| **L1/L2 插桩层** | `tools/role_c_phasea_instrument.py`：把 §4.2 的 11 个叶子映射到真实调用点（打补丁 + 退出**还原**），`P6` 为**砍点**（差分回归证明不双计），`P5`/`P7a` 按 `in_forward` 分流，L1 计数**只作解释证据** | ✅ 就绪（**尚未跑真实 L1/L2**） |
 | 判决产物 | `CC_Compare/P1A_PhaseA_启动前置门_报告_2026-10-14.json` | **`ready_for_L1_L2 = true`**（四门全过） |
+
+### 13.3c L1/L2 插桩层的**映射纪律**（REV3 新增）
+
+* 映射**逐条对应** §4.2，**不新增、不改名、不合并**（`LEAF_BINDINGS` 与
+  `pp.LEAF_ORDER` 相等，回归里有断言）。
+* ⚠️ **`P6` 是砍点**：`_insertion_fuel` 内部还会调 `ls.best_insert`，
+  那按 §4.2 属于 `P6` 自己的工作量 ⇒ 进入 `P6` 时**抑制**内层叶子标注，
+  否则父与子同时计入份额（破坏互斥）。回归用**差分实验**证明：
+  有无 `P6` 两种序列下 `P5` 计数**相同**，而 `best_insert_calls` 差恰好 1。
+* ⚠️ **`P5` / `P7a` 是同一个函数**（`ls.best_insert`）⇒ 用 `in_forward` 深度分流，
+  不靠调用栈猜测。
+* ⚠️ **`P7c` 只在前瞻内标注**；同一闭包在前瞻外被调用时**不标注**
+  （时间落入 `P9_measured`），而不是硬塞进某个叶子。
+* ⚠️ **L1 计数只作解释证据**：`route_feasible`/`route_dist`/`normalize_state`/`_ordered`
+  **只计数、不标叶子**，回归断言它们**不进入份额字典**。
+* ⚠️ **被测模块一字未改**：打补丁只在上下文内生效，退出时把每个属性还原成
+  **同一个对象**（回归里有逐项断言）。
+* 截断位置恢复：**全部叶子**的进入/退出都落进度原件（只落粗粒度叶子的话，
+  被硬杀时只能报出 `P7d`，丢掉"到底停在哪片叶子"）；`flush()` 只交给 OS 页缓存，
+  **不做 fsync** ⇒ SIGKILL 后仍可读回。该 I/O **落在被测区间内** ⇒
+  单列 `measure_progress_overhead()` 如实报开销。
 
 ⚠️ **L1/L2 的启动条件已满足，但这不等于已经启动**：本件交付时
 **尚未**执行任何 L1/L2 测量；启动仍按 §0 的授权范围执行，且 12 000 s 覆盖整个作业。

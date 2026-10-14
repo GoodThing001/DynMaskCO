@@ -125,12 +125,17 @@ class PartitionTimer(object):
     叶子集合里没有任何一个叶子会递归调用自身；放宽它只会让一个真实的插桩 bug 静默过关）。
     """
 
-    def __init__(self, clock=None, *, leaf_order=LEAF_ORDER):
+    def __init__(self, clock=None, *, leaf_order=LEAF_ORDER, on_event=None):
         if clock is None:
             import time
             clock = time.perf_counter
         self.clock = clock
         self.leaf_order = tuple(leaf_order)
+        #: `on_event(kind, label, t)`：可选的**进度钩子**（`enter`/`exit`）。
+        #: 用途：A 类被外层监督器硬杀时，从最后一条钩子记录恢复**截断位置**
+        #: （REV2 §5.1.2 要求，不得只写"超时"）。钩子必须**不抛**、**快**、
+        #: 且**不得**改变分区语义（它只观察）。
+        self.on_event = on_event
         self._stack = []                 # 活动帧：[label, t_enter, child_time]
         self._exclusive = {}
         self._inclusive = {}
@@ -199,10 +204,12 @@ class PartitionTimer(object):
         self._stack.append([label, t, 0.0])
         self._raw.append(('enter', label, t))
         self._counts[label] = self._counts.get(label, 0) + 1
+        self._emit('enter', label, t)
 
     def _exit(self, label):
         t = self.clock()
         self._raw.append(('exit', label, t))
+        self._emit('exit', label, t)
         if not self._stack:
             self._note('unbalanced_exit',
                        '叶子 %s 退出时活动栈为空（exit 无对应 enter）' % label)
@@ -223,6 +230,15 @@ class PartitionTimer(object):
 
     def _note(self, code, detail=''):
         self._errors.append((code, detail))
+
+    def _emit(self, kind, label, t):
+        """调进度钩子。**钩子异常一律吞掉**：观测不得改变被测行为。"""
+        if self.on_event is None:
+            return
+        try:
+            self.on_event(kind, label, t)
+        except Exception:                                        # noqa: BLE001
+            pass
 
     # ------------------------------------------------------------------ 读数
     def result(self):

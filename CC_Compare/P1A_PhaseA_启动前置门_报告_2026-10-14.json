@@ -15,7 +15,7 @@
     ]
   },
   "digest_probe_artifact_sha256": "46cd04b070935b04074819ffb49b3468c57173c8024eb46f1b06d47a3e2e44a6",
-  "evaluated_at": "2026-10-14T20:34:58",
+  "evaluated_at": "2026-10-14T20:41:41",
   "gates": {
     "G1_instrument_correctness": {
       "cases": {
@@ -33,6 +33,17 @@
         "tolerance_and_shares": "pass"
       },
       "failures": [],
+      "instrument_cases": {
+        "composes_with_partition": "pass",
+        "l1_explanation_only": "pass",
+        "mapping_resolves_on_real_source": "pass",
+        "p5_vs_p7a_routing": "pass",
+        "p6_suppression_differential": "pass",
+        "p7c_only_inside_forward": "pass",
+        "patch_restore_identity": "pass",
+        "progress_overhead": "pass",
+        "truncation_replay": "pass"
+      },
       "passed": true
     },
     "G2_phase_a_registration": {
@@ -52,27 +63,27 @@
     },
     "G3_instrument_overhead": {
       "bare_s": {
-        "max_s": 5.020014941692352e-05,
-        "mean_s": 3.7615979090332984e-05,
+        "max_s": 3.629992716014385e-05,
+        "mean_s": 3.193202428519726e-05,
         "n": 25,
-        "p50_s": 3.5899924114346504e-05
+        "p50_s": 3.120000474154949e-05
       },
       "closure_selfcheck": "ok",
       "n_leaves_instrumented": 11,
       "note": "\"空仪器\"自开销：只挂总计时、不挂分区。开销只作诊断，**不得**据此调整 §4.3 对账容差。",
-      "overhead_ratio": 1.7409542833794889,
-      "overhead_s": 6.250012665987015e-05,
-      "overhead_share_of_10s_decision": 6.2500126659870144e-06,
+      "overhead_ratio": 1.4935934270128282,
+      "overhead_s": 4.660012200474739e-05,
+      "overhead_share_of_10s_decision": 4.660012200474739e-06,
       "passed": true,
       "ratio_caveat": "`overhead_ratio` 相对的是合成夹具裸体，**不是**一次真实决策；请读 `overhead_share_of_10s_decision`（绝对开销 / 10 s）。",
       "repeats": 25,
-      "wall_s": 0.004089800175279379,
+      "wall_s": 0.0032112998887896538,
       "warmup": 3,
       "wrapped_s": {
-        "max_s": 0.00012049986980855465,
-        "mean_s": 0.00010009600780904293,
+        "max_s": 9.019998833537102e-05,
+        "mean_s": 7.940402254462242e-05,
         "n": 25,
-        "p50_s": 9.840005077421665e-05
+        "p50_s": 7.780012674629688e-05
       }
     },
     "G4_decision_points_digest": {
@@ -130,7 +141,7 @@
   },
   "inputs_sha256": {
     "CC_Compare/P1A_RoleC_收束裁定_2026-10-14.md": "5f3ac98c579759e442fc8f09eb3d83f297b3889edd708cc78caa2b60675f5b09",
-    "CC_Compare/P1A_RoleC_方案1_PhaseA_归因登记_2026-10-14.md": "929bbd1e71f8773e2242bfb4426a2dcc11e89bd15be975cf4258fffd346dafb2",
+    "CC_Compare/P1A_RoleC_方案1_PhaseA_归因登记_2026-10-14.md": "cc0662db3fc330ef963c2735e9df75da796e476bff7a2d0632beb5b016485c74",
     "CC_Compare/P1A_RoleC_方案1_PhaseA_归因登记_REV2_reviewed_2026-10-14.md": "63ee24e1adbac9bd1db4d56887703fb2e5f91db85a705d273ce1b521ddd45c7a",
     "CC_Compare/P1A_RoleC_方案1_PhaseA_归因登记_v1_reviewed_2026-10-14.md": "6ac795b223d9a3154a669a074a00697e533a506350db8537f868b198b2620db9",
     "CC_Compare/P1A_T2判据分层裁定_2026-10-14.md": "e053f5ed448139c9267fc34155df2490ab49ce0b7e11590622bbf7d9372d8e03",
@@ -144,10 +155,12 @@
     "CC_Compare/tools/role_c_local_search.py": "52e7e4e5284460a1764f8641a82245c35b22cedd1435c1fcefabfbba00c0b3c8",
     "CC_Compare/tools/role_c_phasea_ceiling.py": "fc1a8c195aec365e9c6c6f47680bc770c485dc220d9b69dbfd8a323d210fac33",
     "CC_Compare/tools/role_c_phasea_digest_probe.py": "ce68246d475d0360b366ae9bad8aa31d68afd78eaea796bc6874039cc4be6cd7",
-    "CC_Compare/tools/role_c_phasea_partition.py": "e791ef3f6f7b958dec667f217d3757fd332fb5386b4dd9b1bd5edc70ccdac1b0",
+    "CC_Compare/tools/role_c_phasea_instrument.py": "2ba43380bf7db42ab4d2164dd4be8fc1e6bd11f836790b93843ebdd744188213",
+    "CC_Compare/tools/role_c_phasea_partition.py": "24f82078fd5124b56d98a04169a6457399eb1ff593f4659197db6ac3808818e7",
     "CC_Compare/tools/role_c_timing.py": "1a2c8d7e59c23e289a8e00a25e986b234715615f03bfeacfcb18b8557871122d",
-    "CC_Compare/tools/run_phasea_gates.py": "1b5554b988424c000c9af459668a20e4f16a78113158b1f654e72ec599204b6e",
+    "CC_Compare/tools/run_phasea_gates.py": "45858e5ebe62005f275d48b6b4ea5af95358cdd991070b5771db4ca0f1e2e8b1",
     "CC_Compare/tools/test_role_c_phasea_ceiling.py": "74bbba5732474ac66ec4537d5c5a3e61279341b9e2d9e0f2b8ded11590960aae",
+    "CC_Compare/tools/test_role_c_phasea_instrument.py": "5551f2a6d7002c1a040493d6bdc626bb4c9203cc085d82b85064b2dd46f59e01",
     "CC_Compare/tools/test_role_c_phasea_partition.py": "bb9c88b7fff652974461672498df499e1bdf31c41cc47a57c57a1265cfc2e97c"
   },
   "label": "P1A-RoleC-PhaseA-startup-gates",

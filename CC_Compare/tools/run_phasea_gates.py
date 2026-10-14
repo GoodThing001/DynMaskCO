@@ -47,7 +47,7 @@ PROBE_FACT_EXPECT = {'n_orders': 200, 'n_vehicles': 15, 'arm_seed': 7002, 'K': 1
 
 
 def _gate1_regression():
-    """G1：跑合成反例回归套件（用户点名的四类 + 离线独立复算）。"""
+    """G1：跑合成反例回归套件（用户点名的四类 + 离线独立复算）+ **真实调用点插桩回归**。"""
     import test_role_c_phasea_partition as reg
     reg.FAILS[:] = []
     cases = [
@@ -73,8 +73,39 @@ def _gate1_regression():
         except Exception as exc:                                  # noqa: BLE001
             reg.FAILS.append('%s raised %s' % (name, type(exc).__name__))
         results[name] = 'pass' if len(reg.FAILS) == before else 'fail'
-    return {'passed': all(v == 'pass' for v in results.values()),
-            'cases': results, 'failures': list(reg.FAILS)}
+    # 真实调用点上的插桩回归（叶子映射 / P6 砍点 / P5-P7a 分流 / 截断重放）
+    inst_results = {}
+    try:
+        import test_role_c_phasea_instrument as ireg
+        ireg.FAILS[:] = []
+        icases = [
+            ('patch_restore_identity', ireg.test_install_and_restore_is_identity),
+            ('mapping_resolves_on_real_source',
+             ireg.test_patch_table_resolves_on_real_source),
+            ('p6_suppression_differential',
+             ireg.test_p6_suppression_is_a_real_cut_point),
+            ('p5_vs_p7a_routing', ireg.test_p5_vs_p7a_routing_and_forward_leaves),
+            ('p7c_only_inside_forward', ireg.test_p7c_only_inside_forward),
+            ('truncation_replay', ireg.test_truncation_replay_from_progress),
+            ('l1_explanation_only', ireg.test_l1_counters_are_explanation_only),
+            ('composes_with_partition', ireg.test_composes_with_partition_invariants),
+            ('progress_overhead', ireg.test_progress_overhead_is_reported_honestly),
+        ]
+        for name, fn in icases:
+            before = len(ireg.FAILS)
+            try:
+                fn()
+            except Exception as exc:                              # noqa: BLE001
+                ireg.FAILS.append('%s raised %s' % (name, type(exc).__name__))
+            inst_results[name] = 'pass' if len(ireg.FAILS) == before else 'fail'
+        extra = list(ireg.FAILS)
+    except Exception as exc:                                      # noqa: BLE001
+        inst_results['import'] = 'fail'
+        extra = ['instrument suite import failed: %s' % exc]
+    return {'passed': (all(v == 'pass' for v in results.values())
+                       and all(v == 'pass' for v in inst_results.values())),
+            'cases': results, 'instrument_cases': inst_results,
+            'failures': list(reg.FAILS) + extra}
 
 
 def test_online_bad():
@@ -242,6 +273,8 @@ INPUT_CONTAINERS = (
     'CC_Compare/tools/role_c_phasea_ceiling.py',
     'CC_Compare/tools/test_role_c_phasea_ceiling.py',
     'CC_Compare/tools/role_c_phasea_digest_probe.py',
+    'CC_Compare/tools/role_c_phasea_instrument.py',
+    'CC_Compare/tools/test_role_c_phasea_instrument.py',
     'CC_Compare/tools/run_phasea_gates.py',
     'CC_Compare/tools/role_c_timing.py',
     'CC_Compare/tools/role_c_harness.py',
