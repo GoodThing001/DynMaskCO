@@ -1,0 +1,415 @@
+{
+  "n_fail": 0,
+  "n_pass": 10,
+  "n_rows": 10,
+  "records": {
+    "A_field_comparison": [
+      {
+        "all_equal": true,
+        "applied_fields": {
+          "customer": 5,
+          "position": 1,
+          "predecessor": 0,
+          "slot_anchor": 3,
+          "slot_kind": "anchored",
+          "successor": 0
+        },
+        "applied_plan_in": "f9111c60a3926d5f",
+        "applied_plan_out": "48d80e0fcf4584e8",
+        "per_field_equal": {
+          "customer": true,
+          "position": true,
+          "predecessor": true,
+          "slot_anchor": true,
+          "slot_kind": true,
+          "successor": true
+        },
+        "step_fields": {
+          "customer": 5,
+          "position": 1,
+          "predecessor": 0,
+          "slot_anchor": 3,
+          "slot_kind": "anchored",
+          "successor": 0
+        },
+        "step_incremental_distance": 5.0,
+        "step_index": 0
+      }
+    ],
+    "A_plan_level": {
+      "plan_identity_rebuilt_from_step0": "48d80e0fcf4584e8",
+      "plan_identity_returned_by_assembly": "48d80e0fcf4584e8",
+      "step0": "{'customer': 5, 'vehicle_id': 1, 'slot_kind': 'anchored', 'slot_anchor': 3, 'position': 1, 'predecessor': 0, 'successor': 0, 'incremental_distance': 5.0}"
+    },
+    "A_run": {
+      "exception": null,
+      "failure_reason": null,
+      "legal_count": 2,
+      "legal_order_positions": [
+        1,
+        0
+      ],
+      "n_applied": 1,
+      "n_steps": 1,
+      "plan_identity_returned": "48d80e0fcf4584e8",
+      "scorer": "G.geo_score",
+      "snapshot": {
+        "calls": [
+          {
+            "action_fields": {
+              "customer": 5,
+              "incumbent": false,
+              "position": 1,
+              "predecessor": 0,
+              "slot_anchor": 3,
+              "slot_kind": "anchored",
+              "successor": 0
+            },
+            "action_repr": "FleetAction(customer=5, slot=ActionSlot(kind='anchored', anchor=3), position=1, predecessor=0, successor=0, incumbent=False)",
+            "kwargs_keys": [
+              "allowed_vehicle_ids"
+            ],
+            "plan_in_identity": "f9111c60a3926d5f",
+            "plan_out_identity": "48d80e0fcf4584e8",
+            "step_index": 0
+          }
+        ],
+        "n_calls": 1,
+        "name": "A_same_customer_exact_tie"
+      }
+    },
+    "B_cross_mode": {
+      "assembly_first_applied": {
+        "customer": 5,
+        "incumbent": false,
+        "position": 1,
+        "predecessor": 0,
+        "slot_anchor": 3,
+        "slot_kind": "anchored",
+        "successor": 0
+      },
+      "equal": true,
+      "transaction_first_applied": {
+        "customer": 5,
+        "incumbent": false,
+        "position": 1,
+        "predecessor": 0,
+        "slot_anchor": 3,
+        "slot_kind": "anchored",
+        "successor": 0
+      }
+    },
+    "B_plan_level": {
+      "actually_installed_plan_identities": [
+        "48d80e0fcf4584e8"
+      ],
+      "certified_identities": [
+        "48d80e0fcf4584e8"
+      ],
+      "ledger_installs_raw": "[{'plan_hash': '48d80e0fcf4584e8', 'certified_plan_hash': '48d80e0fcf4584e8', 'certifier': '__main__.main.<locals>._test_only_certifier', 'plan': {1: VehiclePlan(vehicle_id=1, anchor_node=3, anchor_time=0.0, anchor_load=0.0, suffix=[4, 5]), 2: VehiclePlan(vehicle_id=2, anchor_node=0, anchor_time=0.0, anchor_load=0.0, suffix=[]), 3: VehiclePlan(vehicle_id=3, anchor_node=0, anchor_time=0.0, anchor_load=0.0, suffix=[5])}}]",
+      "plan_identity_rebuilt_from_applied_action": "48d80e0fcf4584e8",
+      "three_way_binding": true
+    },
+    "B_run": {
+      "certified_identities": [
+        "48d80e0fcf4584e8"
+      ],
+      "certifier_calls": 1,
+      "install_fn_calls": 1,
+      "ledger": {
+        "events": "[{'action': 'install', 'reason': None, 'plan_hash': '48d80e0fcf4584e8', 'certified_plan_hash': '48d80e0fcf4584e8', 'certifier': '__main__.main.<locals>._test_only_certifier', 'candidate_discarded': False, 'committed_state_restored': False, 'rollback_unverified': False}]",
+        "finish": "<bound method InstallLedger.finish of <d3_geo_adapter.InstallLedger object at 0x000001DA5DE448F0>>",
+        "finished": "True",
+        "install_fn": "<function main.<locals>.<lambda> at 0x000001DA5DE93380>",
+        "installed_plans": "[{1: VehiclePlan(vehicle_id=1, anchor_node=3, anchor_time=0.0, anchor_load=0.0, suffix=[4, 5]), 2: VehiclePlan(vehicle_id=2, anchor_node=0, anchor_time=0.0, anchor_load=0.0, suffix=[]), 3: VehiclePlan(vehicle_id=3, anchor_node=0, anchor_time=0.0, anchor_load=0.0, suffix=[5])}]",
+        "installs": "[{'plan_hash': '48d80e0fcf4584e8', 'certified_plan_hash': '48d80e0fcf4584e8', 'certifier': '__main__.main.<locals>._test_only_certifier', 'plan': {1: VehiclePlan(vehicle_id=1, anchor_node=3, anchor_time=0.0, anchor_load=0.0, suffix=[4, 5]), 2: VehiclePlan(vehicle_id=2, anchor_node=0, anchor_time=0.0, anchor_load=0.0, suffix=[]), 3: VehiclePlan(vehicle_id=3, anchor_node=0, anchor_time=0.0, anchor_load=0.0, suffix=[5])}}]",
+        "n_installs": "1",
+        "n_pre_sampling_refusals": "0",
+        "n_refusals": "0",
+        "n_rollback_unverified": "0",
+        "n_rollbacks": "0",
+        "n_state_restorations": "0",
+        "rollback_fn": "None"
+      },
+      "n_applied": 1,
+      "raised": null,
+      "reason": null,
+      "returned": "True",
+      "snapshot": {
+        "calls": [
+          {
+            "action_fields": {
+              "customer": 5,
+              "incumbent": false,
+              "position": 1,
+              "predecessor": 0,
+              "slot_anchor": 3,
+              "slot_kind": "anchored",
+              "successor": 0
+            },
+            "action_repr": "FleetAction(customer=5, slot=ActionSlot(kind='anchored', anchor=3), position=1, predecessor=0, successor=0, incumbent=False)",
+            "kwargs_keys": [
+              "allowed_vehicle_ids"
+            ],
+            "plan_in_identity": "f9111c60a3926d5f",
+            "plan_out_identity": "48d80e0fcf4584e8",
+            "step_index": 0
+          }
+        ],
+        "n_calls": 1,
+        "name": "B_transaction_flow"
+      }
+    },
+    "C_score_len_mechanism": {
+      "constant_2_vector": {
+        "failure_reason": "score_len",
+        "n_applied": 1,
+        "n_steps": 1
+      },
+      "length_matched_geo_score": {
+        "failure_reason": null,
+        "n_applied": 2,
+        "n_steps": 2
+      },
+      "two_distinct_customers_fixture": [
+        {
+          "customer": 5,
+          "position": 0
+        },
+        {
+          "customer": 4,
+          "position": 1
+        }
+      ]
+    },
+    "D_isolation": {
+      "A_list_object_id": 2037389831552,
+      "A_snapshot_after_B": {
+        "calls": [
+          {
+            "action_fields": {
+              "customer": 5,
+              "incumbent": false,
+              "position": 1,
+              "predecessor": 0,
+              "slot_anchor": 3,
+              "slot_kind": "anchored",
+              "successor": 0
+            },
+            "action_repr": "FleetAction(customer=5, slot=ActionSlot(kind='anchored', anchor=3), position=1, predecessor=0, successor=0, incumbent=False)",
+            "kwargs_keys": [
+              "allowed_vehicle_ids"
+            ],
+            "plan_in_identity": "f9111c60a3926d5f",
+            "plan_out_identity": "48d80e0fcf4584e8",
+            "step_index": 0
+          }
+        ],
+        "n_calls": 1,
+        "name": "A_same_customer_exact_tie"
+      },
+      "A_snapshot_before_B": {
+        "calls": [
+          {
+            "action_fields": {
+              "customer": 5,
+              "incumbent": false,
+              "position": 1,
+              "predecessor": 0,
+              "slot_anchor": 3,
+              "slot_kind": "anchored",
+              "successor": 0
+            },
+            "action_repr": "FleetAction(customer=5, slot=ActionSlot(kind='anchored', anchor=3), position=1, predecessor=0, successor=0, incumbent=False)",
+            "kwargs_keys": [
+              "allowed_vehicle_ids"
+            ],
+            "plan_in_identity": "f9111c60a3926d5f",
+            "plan_out_identity": "48d80e0fcf4584e8",
+            "step_index": 0
+          }
+        ],
+        "n_calls": 1,
+        "name": "A_same_customer_exact_tie"
+      },
+      "B_list_object_id": 2037389831680,
+      "distinct_lists": true,
+      "identical": true
+    },
+    "imported_modules": {
+      "action_contract": {
+        "file": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_fixture_validity_root_v1\\freeze_tree_5273739d\\scripts\\simulation\\action_contract.py",
+        "sha256": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b"
+      },
+      "d3_geo_adapter": {
+        "file": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_fixture_validity_root_v1\\freeze_tree_5273739d\\scripts\\simulation\\d3_geo_adapter.py",
+        "sha256": "099c3517472d886ece4ea3e929df2ec54d0e459b2a2e2e07da5b658acc07adc5"
+      },
+      "mpre_policy": {
+        "file": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_fixture_validity_root_v1\\freeze_tree_5273739d\\scripts\\simulation\\mpre_policy.py",
+        "sha256": "5b03e4cae812fa20785e68ce837be3a615aadb44ab29b7dbdc4b95f104a4a191"
+      },
+      "test_d3_geo_adapter": {
+        "file": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_fixture_validity_root_v1\\freeze_tree_5273739d\\scripts\\tests\\test_d3_geo_adapter.py",
+        "sha256": "80ab32e96e20c4de19baca09f9324031a154cf65c272123117927c0b9b4962a6"
+      }
+    },
+    "previous_round_defects_confirmed": {
+      "non_clean_control": "the archived C_coherence_probe record has failure_reason=\"score_len\" with n_steps=1 (multi-step artefact), reproduced in C1/C2 above",
+      "reference_pollution": "the previous suite stored the module-global APPLY_CALLS list itself, so a later clear() rewrote archived records; confirmed by the archived C1 record showing chosen_step.position=1 with an apply_calls entry whose action is the LATER probe's action"
+    },
+    "primary_constants": {
+      "EPS_D_PRIMARY_ABS": 0.0,
+      "EPS_D_PRIMARY_REL": 0.0,
+      "INSTALL_REQUIRES_CERTIFICATION": true,
+      "TIE_BREAK_LEGAL_ORDER": "legal_order_first"
+    }
+  },
+  "rows": [
+    {
+      "detail": {
+        "exception": null,
+        "max_calls": 12,
+        "n_applied": 1
+      },
+      "name": "A0 the assembly terminates without an exception or the recorder guard",
+      "ok": true
+    },
+    {
+      "detail": {
+        "failure_reason": null,
+        "n_applied": 1,
+        "n_steps": 1
+      },
+      "name": "A1 the legal fixture runs with no CONTRACT-VIOLATION reason (score_len/score_shape/no_certifier) and every step has a recorded applied action (len(steps) == len(applied) >= 1); a terminal no_legal is recorded verbatim, not hidden",
+      "ok": true
+    },
+    {
+      "detail": {
+        "pairs": [
+          {
+            "all_equal": true,
+            "applied_fields": {
+              "customer": 5,
+              "position": 1,
+              "predecessor": 0,
+              "slot_anchor": 3,
+              "slot_kind": "anchored",
+              "successor": 0
+            },
+            "applied_plan_in": "f9111c60a3926d5f",
+            "applied_plan_out": "48d80e0fcf4584e8",
+            "per_field_equal": {
+              "customer": true,
+              "position": true,
+              "predecessor": true,
+              "slot_anchor": true,
+              "slot_kind": true,
+              "successor": true
+            },
+            "step_fields": {
+              "customer": 5,
+              "position": 1,
+              "predecessor": 0,
+              "slot_anchor": 3,
+              "slot_kind": "anchored",
+              "successor": 0
+            },
+            "step_incremental_distance": 5.0,
+            "step_index": 0
+          }
+        ]
+      },
+      "name": "A2 FIELD-BY-FIELD: every action actually passed to apply_fn equals the corresponding step record in all six action fields (customer/slot_kind/slot_anchor/position/predecessor/successor)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "plan_identity_rebuilt_from_step0": "48d80e0fcf4584e8",
+        "plan_identity_returned_by_assembly": "48d80e0fcf4584e8",
+        "step0": "{'customer': 5, 'vehicle_id': 1, 'slot_kind': 'anchored', 'slot_anchor': 3, 'position': 1, 'predecessor': 0, 'successor': 0, 'incremental_distance': 5.0}"
+      },
+      "name": "A3 PLAN LEVEL: the plan the assembly returns equals the plan rebuilt from the recorded step action (identity comparison through the adapter _plan_identity)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "certifier_calls": 1,
+        "install_fn_calls": 1,
+        "n_installs": "1",
+        "raised": null,
+        "returned": "True"
+      },
+      "name": "B1 the full transaction flow completes with the TEST-ONLY certifier: 1 install, certifier called once, no exception",
+      "ok": true
+    },
+    {
+      "detail": {
+        "assembly_first_applied": {
+          "customer": 5,
+          "incumbent": false,
+          "position": 1,
+          "predecessor": 0,
+          "slot_anchor": 3,
+          "slot_kind": "anchored",
+          "successor": 0
+        },
+        "equal": true,
+        "transaction_first_applied": {
+          "customer": 5,
+          "incumbent": false,
+          "position": 1,
+          "predecessor": 0,
+          "slot_anchor": 3,
+          "slot_kind": "anchored",
+          "successor": 0
+        }
+      },
+      "name": "B2 CROSS-MODE: the action applied inside the transaction equals the action the assembly records/applies for the identical fixture (all six fields)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "actually_installed_plan_identities": [
+          "48d80e0fcf4584e8"
+        ],
+        "certified_identities": [
+          "48d80e0fcf4584e8"
+        ],
+        "ledger_installs_raw": "[{'plan_hash': '48d80e0fcf4584e8', 'certified_plan_hash': '48d80e0fcf4584e8', 'certifier': '__main__.main.<locals>._test_only_certifier', 'plan': {1: VehiclePlan(vehicle_id=1, anchor_node=3, anchor_time=0.0, anchor_load=0.0, suffix=[4, 5]), 2: VehiclePlan(vehicle_id=2, anchor_node=0, anchor_time=0.0, anchor_load=0.0, suffix=[]), 3: VehiclePlan(vehicle_id=3, anchor_node=0, anchor_time=0.0, anchor_load=0.0, suffix=[5])}}]",
+        "plan_identity_rebuilt_from_applied_action": "48d80e0fcf4584e8",
+        "three_way_binding": true
+      },
+      "name": "B3 PLAN/IDENTITY LEVEL: three-way binding -- the identity of the plan rebuilt from the applied action == the certified identity == the identity of the plan actually handed to install_fn (and the ledger records the same certified hash)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "failure_reason": "score_len",
+        "n_applied": 1,
+        "n_steps": 1
+      },
+      "name": "C1 the previous probe's `failure_reason` is REPRODUCED as a multi-step artefact: a hand-fed constant 2-vector dies with score_len while steps from earlier iterations remain",
+      "ok": true
+    },
+    {
+      "detail": {
+        "failure_reason": null,
+        "n_applied": 2,
+        "n_steps": 2
+      },
+      "name": "C2 with the length-matched adapter scorer the SAME two-customer fixture no longer dies with score_len (it reaches its natural terminal state) -- so the earlier probe was not a clean control, but the fixture itself is legal",
+      "ok": true
+    },
+    {
+      "detail": {
+        "A_n_calls_archived": 1,
+        "A_n_calls_live": 1,
+        "distinct_lists": true,
+        "identical_before_after": true
+      },
+      "name": "D1 ISOLATION: scenario A's archived snapshot is byte-identical before and after B ran, and A/B never share a list object (the previous round's pollution cannot recur)",
+      "ok": true
+    }
+  ]
+}

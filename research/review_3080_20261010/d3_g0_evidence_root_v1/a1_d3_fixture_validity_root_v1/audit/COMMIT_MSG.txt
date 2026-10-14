@@ -1,0 +1,52 @@
+D3 action-consistency audit (P0 follow-up): per-field applied-vs-recorded action comparison, cross-mode and three-way identity binding, pollution fixed
+
+User finding addressed: the previous round's "recorded choice == applied action" evidence was
+defective in two ways.  Both are confirmed here and closed by a NEW audit tool; the frozen tree
+freeze_tree_5273739d, its raw results and every historical test are untouched.
+
+1. apply_calls reference pollution (confirmed): the previous suite archived the module-global
+   list itself, so a later clear() rewrote already-archived records.  Every scenario in the new
+   audit owns a Recorder whose snapshot is a deep copy; row D1 proves A's archived snapshot is
+   byte-identical before and after B runs and that A/B never share a list object.
+2. The previous probe was not a clean control (confirmed, mechanism measured): its record carries
+   failure_reason='score_len' with n_steps=1.  stepwise_sample_d3 is MULTI-STEP, so a hand-fed
+   constant score vector is only valid for the steps whose legal count equals its length.  Row C1
+   reproduces score_len; row C2 shows the same fixture runs to its natural terminal state with
+   the length-matched adapter scorer.  All new scenarios use length-matched scoring.
+
+Results (10 rows, 10 PASS, 0 FAIL), D3 modules imported from the frozen tree
+(d3_geo_adapter sha256 099c3517472d886e... = the registered identity):
+
+  A2 FIELD-BY-FIELD: the action actually passed to apply_fn equals the steps record in all six
+     fields (customer/slot_kind/slot_anchor/position/predecessor/successor) -- both sides
+     customer=5, anchored, anchor=3, position=1, predecessor=0, successor=0.
+  A3 PLAN LEVEL: the plan the assembly returns equals the plan rebuilt from the recorded action
+     (identity 48d80e0fcf4584e8 both ways).
+  B2 CROSS-MODE: the action applied inside run_repair_transaction equals the assembly's applied
+     action for the identical fixture (six fields).
+  B3 THREE-WAY BINDING: identity of the plan rebuilt from the applied action == certified
+     identity == identity of the plan actually handed to install_fn (48d80e0fcf4584e8); the
+     ledger records plan_hash == certified_plan_hash.
+
+Verdict: the applied action IS field-by-field identical to the recorded action, and the
+apply -> certify -> install identity chain is bound.  The earlier gap was purely an evidence
+defect, not an implementation defect.  Had any field differed, this would have been reported as
+an implementation defect rather than explained away.  No algorithmic conclusion is drawn.
+
+Claim limits: single fixture family and the current adapter; the certifier used is a TEST-ONLY
+stub (not a C0 certification, no D8 receipt); multi-step termination was observed only on two
+small fixtures; the audit tool's own three intermediate debugging runs are documented in the
+report instead of being archived; no F-vs-D-Geo comparison, no metric, no threshold, and no
+PENDING value was frozen.
+
+New files only:
+  C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/d3_action_consistency_audit.py
+  research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_fixture_validity_root_v1/
+    A1_D3_ACTION_CONSISTENCY_AUDIT.md
+    audit/A1_D3_ACTION_CONSISTENCY_AUDIT.json
+    audit/A1_D3_ACTION_CONSISTENCY_AUDIT_stdout.txt
+    audit/A1_D3_ACTION_CONSISTENCY_AUDIT_stderr.txt
+
+Next (P1, awaiting user confirmation): executable spec for the F-vs-D-Geo L1 mechanism
+diagnostic -- state source, MaskCO checkpoint loading identity, common legal set and tie-break,
+record fields, budget and stop rules.
