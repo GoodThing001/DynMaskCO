@@ -170,7 +170,7 @@ def build_ours_rows(data):
                        '（2026-10-14 起交付主表只出 1–2 行 Ours）')
 
 
-def _row_from_records(recs, label, cls, native, venue='本工作'):
+def _row_from_records(recs, label, cls, native, venue='本工作', rank='—'):
     """把**同一个 gate 的多个档位记录**压成**一行**（档位作列）。
 
     这是「每个方法一行」的关键：主模型的 gate 里 `p_c=0` / 主档 / `p_c=(10,20,30)`
@@ -197,7 +197,7 @@ def _row_from_records(recs, label, cls, native, venue='本工作'):
 
     gate = str((recs[0] or {}).get('gate') or '')
     return dict(
-        key=label, label=label, cls=cls, venue=venue,
+        key=label, label=label, cls=cls, venue=venue, rank=rank,
         gate=gate, arm=(recs[0] or {}).get('arm'),
         # 交付 Ours 行的**资格事实**（2026-10-14 独立复核发现其必须随表披露）：
         # 主模型 gate 自身也有 mean_timeouts 与 _pairing_identity 裁决。
@@ -276,7 +276,7 @@ def canonical_c1(data):
     zero = {'mean': 0.0, 'ci_lo': 0.0, 'ci_hi': 0.0}
     return dict(
         key='cond_hist', label='C1 cond_hist（SAA 强基线）', cls='内部基线',
-        venue='本工作', backbone=os.path.basename(os.path.dirname(base.replace('\\', '/'))) or '—',
+        venue='本工作', rank='—', backbone=os.path.basename(os.path.dirname(base.replace('\\', '/'))) or '—',
         native='场景采样 SAA', note='Δ 相对自身 ⇒ 0',
         ckpt_mb=None, params_m=None,
         util0=U('p_c=0'), utilm=U('p_c=(5,10,15)'), util3=U('p_c=(10,20,30)'),
@@ -434,6 +434,8 @@ def build_rows(data):
         rows.append(dict(
             key=key, label=label, cls=meta.get('cls') or '—',
             venue=meta.get('venue') or '—', backbone=meta.get('backbone') or '—',
+            # CCF 推荐目录等级（A/B/C）。**未核实**的一律写 `未确证`，绝不凭印象填。
+            rank=meta.get('rank') or '未确证',
             native=meta.get('native') or '—', note=meta.get('note') or '',
             ckpt_mb=meta.get('ckpt_mb'),
             params_m=meta.get('params_m'),
@@ -470,6 +472,7 @@ def md_main_table(data, rows):
     """
     L = []
     L.append('| # | 方法 | 比较状态 | Q_core | 依赖闭包 | 配对来源身份 | protocol_id | 类别 | 期刊/会议 | '
+             '期刊/会议等级 (CCF) | '
              'Backbone / 权重 | 参数量(M) | 原生约束 | '
              'Utility p_c=0 ↑ | Utility 主档 p_c=(5,10,15) | Utility p_c=(10,20,30) | '
              'Δ vs cond_hist (p_c=0) | Δ vs cond_hist (主档) | '
@@ -479,14 +482,15 @@ def md_main_table(data, rows):
         tag = '★ ' if r.get('is_ours') else ('◆ ' if r.get('is_baseline') else '')
         _qc = r.get('Q_core')
         _dc = r.get('Q_dep_closure')
-        L.append('| %d | %s%s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |' % (
+        L.append('| %d | %s%s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |' % (
             i, tag, r['label'],
             r.get('comparison_status') or '—',
             '—' if _qc is None else ('是' if _qc else '**否**'),
             '—' if _dc is None else ('是' if _dc else '**否**'),
             r.get('paired_source_identity') or '—',
             r.get('protocol_id') or '—',
-            r['cls'], r['venue'], r['backbone'],
+            r['cls'], r['venue'], r.get('rank') or '—',
+            r['backbone'],
             fnum(r.get('params_m'), 3), r['native'],
             fci(r['util0']), fci(r['utilm']), fci(r['util3']),
             fci(r['diff0']), fci(r['diffm']),
@@ -590,6 +594,20 @@ def md_table_notes(rows, data=None):
     """
     labels = ' | '.join((r.get('label') or '') for r in rows)
     notes = []
+    # 列级限定：放在最前，因为它适用于整列而不只是某几个方法。
+    notes.append('- ※ **`期刊/会议等级 (CCF)` 列**＝**CCF 推荐国际会议/期刊目录**等级（A / B / C）；'
+                 '口径为**第 7 版（2026 年，现行）**。CCF 目录**分「会议」与「期刊」两册**：'
+                 '会议行取会议册（ICLR / ICML / NeurIPS / AAAI），'
+                 '期刊行取期刊册（IEEE TNNLS=B 人工智能；INFORMS JOC=B 计算机科学理论；'
+                 'Transportation Science 与 TMLR **未列入**）。'
+                 '⚠️ **ICLR 有版本变化**：2019（第 5 版）/ 2022（第 6 版）均**未列入**，'
+                 '**第 7 版（2026）新增为 A** —— 本表 ICLR 两行（`RRNCO` / `AttentionModel`）'
+                 '即属此情况。换口径只需改 `collect_compare_table.CCF_EDITION` 一个常量。'
+                 '`—` ＝**非论文**（软件 `Google OR-Tools`、本项目规则基线、本工作）；'
+                 '`未列入` ＝该出处在 CCF 目录中**查无此项**；'
+                 '`未确证` ＝**未能在权威来源核实**，引用前请自行核对。'
+                 '⚠️ 该列描述的是**出处（venue）的等级**，**不代表**本表的复现质量或适配保真度 —— '
+                 '表内全部方法都运行在**共用的在线接拒框架**下，不等于原生论文实现的性能。')
     if 'value/energy λ=3' in labels:
         notes.append('- ※ `rule: value/energy λ=3`：该规则**全拒单**（选择不服务任何订单），'
                      '**不是「性能很差的规则」**。依据见 `读表注意与已知限定.md` §2.1。')
@@ -917,7 +935,7 @@ def main():
     ws = wb.active
     ws.title = '性能总表'
     cols = ['#', '方法', '比较状态', 'Q_core', '依赖闭包', '配对来源身份', 'protocol_id',
-            '类别', '期刊/会议', 'Backbone/权重', '参数量(M)', '原生约束支持',
+            '类别', '期刊/会议', '期刊/会议等级(CCF)', 'Backbone/权重', '参数量(M)', '原生约束支持',
             'Utility p_c=0', 'CI下界(p_c=0)', 'CI上界(p_c=0)',
             'Utility 主档', 'CI下界(主档)', 'CI上界(主档)',
             'Utility p_c=10/20/30', 'CI下界(p=10/20/30)', 'CI上界(p=10/20/30)',
@@ -948,7 +966,7 @@ def main():
                    '—' if _dc is None else ('是' if _dc else '否'),
                    r.get('paired_source_identity') or '—',
                    r.get('protocol_id') or '—',
-                   r['cls'], r['venue'], r['backbone'],
+                   r['cls'], r['venue'], r.get('rank') or '—', r['backbone'],
                    r.get('params_m'), r['native'],
                    u0.get('mean'), u0.get('ci_lo'), u0.get('ci_hi'),
                    um.get('mean'), um.get('ci_lo'), um.get('ci_hi'),

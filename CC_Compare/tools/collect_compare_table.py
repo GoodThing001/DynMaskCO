@@ -53,79 +53,118 @@ MAIN_MODEL_PATTERNS = [
 # 方法元数据（类别 / 来源 / 权重 / 原生约束能力），用于总表而非计算。
 # ckpt_mb = checkpoint 文件字节数（2026-10-13 在 1003 上实测，`_preflight_v2.sh` 输出），
 # 作为参考表「参数量(M)/FLOPs(G)」的可核验替代（文件大小而非参数量，脚注已写明）。
+# --------------------------------------------------------------------------- #
+# CCF 目录版本口径（2026-10-14 用户要求新增「期刊/会议等级」列时确立）
+#
+# 三个版本均已核对（官方 CCF PDF）：
+#   `'2019'` = 第 5 版 · `'2022'` = 第 6 版（更名版） · `'2026'` = 第 7 版（2026-03-31 发布，现行）
+# ⚠️ 本批 13 个学习型方法里**只有 ICLR 在版本之间变化**：2019 / 2022 两版均**未列入**，
+#    2026 第 7 版**新增为 A**（ccfddl 提交 c4569983「Update CCF Rank (2026)」同证）。
+#    期刊（TNNLS=B / INFORMS JOC=B / Transportation Science=未列入 / TMLR=未列入）
+#    在 2019 / 2022 / 2026 **三版均无变化**。
+# ⇒ 两边都记：`rank`（2022 值）+ `rank_2026`（2026 值）；显示哪一版由**这一个常量**决定。
+CCF_EDITION = '2026'
+
+
+def ccf_rank(meta):
+    """把 `rank` / `rank_2026` 解析成**显示串**（含跨版本变化注释）。
+
+    * 两版都没有 ⇒ `未确证`（**绝不**凭印象填）；
+    * 两版相同 / 只有一版 ⇒ 该值；
+    * 两版不同 ⇒ `主值（另一版：值）`，当前口径由 `CCF_EDITION` 决定。
+    """
+    r22, r26 = (meta or {}).get('rank'), (meta or {}).get('rank_2026')
+    if r22 is None and r26 is None:
+        return '未确证'
+    if CCF_EDITION == '2026':
+        base = r26 if r26 is not None else r22
+        if r22 is not None and r22 != base:
+            return '%s（2022版：%s）' % (base, r22)
+        return base
+    if r26 is not None and r26 != r22:
+        return '%s（2026版起 %s）' % (r22, r26)
+    return r22
+
+
 METHOD_META = {
+    # ⚠️ `venue` 列已于 2026-10-14 逐条**对外核实**（见 `RANK_AUDIT_2026-10-14` 脚注）：
+    # 13 个学习型方法的出处均与官方来源一致；`routefinder` 的出处**补全**为
+    # 「TMLR 2025 / ICML 2026 (J2C)」（仓库 `README.md` 早已如此记录，此前表里被简写）。
+    # `rank` = **CCF 推荐目录**等级（A/B/C）；`—` = 非论文（软件/内部基线/本工作），
+    # `未列入` = 在 CCF 目录里查无此项，`未确证` = 未能核实（**绝不凭印象填**）。
     'ortools': dict(label='OR-Tools-RH accept', cls='经典求解器',
-                    venue='Google OR-Tools', backbone='CP-SAT/GLS',
+                    venue='Google OR-Tools（软件，非论文）', rank='—',
+                    backbone='CP-SAT/GLS',
                     native='CVRPTW（完整覆盖）', note='myopic 接单 + 强路由',
                     ckpt_mb=None),
     'pyvrp': dict(label='PyVRP-RH accept', cls='经典求解器',
-                  venue='INFORMS JOC 2024', backbone='HGS (pyvrp 0.14.0)',
+                  venue='INFORMS JOC 2024', rank='B', backbone='HGS (pyvrp 0.14.0)',
                   native='CVRPTW（完整覆盖）', note='第二经典锚点', ckpt_mb=None),
     'rrnco': dict(label='RRNCO-Ordering accept', cls='学习型（排序）',
-                  venue='ICLR 2026', backbone='RRNCO rcvrptw epoch_199',
+                  venue='ICLR 2026', rank='未列入', rank_2026='A', backbone='RRNCO rcvrptw epoch_199',
                   native='RCVRPTW（有 TW）', note='冻结 R1 管线逐车排序',
                   ckpt_mb=51.65),
     'routefinder': dict(label='RouteFinder accept', cls='学习型（基础模型）',
-                        venue='TMLR 2025', backbone='rf-transformer 100',
+                        venue='TMLR 2025 / ICML 2026 (J2C)', rank='A（ICML 2026 J2C；TMLR 未列入）', backbone='rf-transformer 100',
                         native='CVRP（零样本，TW 由外层认证）', note='',
                         ckpt_mb=20.15),
     'cada': dict(label='CaDA accept', cls='学习型（约束感知）',
-                 venue='ICML 2025', backbone='CaDA 100 checkpoint-300',
+                 venue='ICML 2025', rank='A', backbone='CaDA 100 checkpoint-300',
                  native='CVRP（零样本）', note='', ckpt_mb=41.29),
     'mvmoe': dict(label='MVMoE accept', cls='学习型（多任务 MoE）',
-                  venue='ICML 2024', backbone='pomo_vrptw_n100 epoch-5000',
+                  venue='ICML 2024', rank='A', backbone='pomo_vrptw_n100 epoch-5000',
                   native='VRPTW（TW 感知）', note='POMO 架构 + VRPTW 权重',
                   ckpt_mb=15.28),
     'pomo': dict(label='POMO accept', cls='学习型（构造）',
-                 venue='NeurIPS 2020', backbone='CVRP100 ckpt-30500',
+                 venue='NeurIPS 2020', rank='A', backbone='CVRP100 ckpt-30500',
                  native='CVRP（零样本）',
                  note='与 SGBS/Omni-VRP **同一权重文件**（sha256 d7a08f61…）',
                  ckpt_mb=16.36),
     'symnco': dict(label='Sym-NCO accept', cls='学习型（构造）',
-                   venue='NeurIPS 2022', backbone='CVRP ckpt-8000',
+                   venue='NeurIPS 2022', rank='A', backbone='CVRP ckpt-8000',
                    native='CVRP（零样本）', note='对称变换', ckpt_mb=16.05),
     'sgbs': dict(label='SGBS accept', cls='学习型（搜索）',
-                 venue='NeurIPS 2022', backbone='CVRP100 ckpt-30500',
+                 venue='NeurIPS 2022', rank='A', backbone='CVRP100 ckpt-30500',
                  native='CVRP（零样本）', note='beam=10 计入时限；与 POMO 同权重',
                  ckpt_mb=16.36),
     'deepaco': dict(label='DeepACO accept', cls='学习型（ACO 增强）',
-                    venue='NeurIPS 2023', backbone='cvrp100',
+                    venue='NeurIPS 2023', rank='A', backbone='cvrp100',
                     native='CVRP（零样本）', note='官方最轻档 T=30', ckpt_mb=0.36),
     'attention': dict(label='AttentionModel accept', cls='学习型（构造）',
-                      venue='ICLR 2019', backbone='cvrp_100',
+                      venue='ICLR 2019', rank='未列入', rank_2026='A', backbone='cvrp_100',
                       native='CVRP（零样本）', note='官方 greedy 档', ckpt_mb=2.78),
     'omnivrp': dict(label='Omni-VRP accept', cls='学习型（构造）',
-                    venue='ICML 2023', backbone='POMO-CVRP 档',
+                    venue='ICML 2023', rank='A', backbone='POMO-CVRP 档',
                     native='CVRP（零样本）', note='官方 aug8 档；与 POMO 同权重',
                     ckpt_mb=16.36),
     'lih': dict(label='Learn-Improvement-Heuristics accept', cls='学习型（改进）',
-                venue='IEEE TNNLS 2022', backbone='CVRP50 epoch-199',
+                venue='IEEE TNNLS 2022', rank='B', backbone='CVRP50 epoch-199',
                 native='CVRP（零样本）', note='steps=100 局部改进；跨次不可复现',
                 ckpt_mb=19.59),
     # --- 本线新适配（2026-10-13）：CO-enriched-ML 两模式 + MAPT ---
     'coenrich_nopchgs': dict(
         label='CO-enriched-ML accept（纯学习排序）', cls='学习型（预测+优化）',
-        venue='Transportation Science 2024', backbone='官方 MLP 20→10×4→1（NumPy 前向）',
+        venue='Transportation Science 2024', rank='未列入', backbone='官方 MLP 20→10×4→1（NumPy 前向）',
         native='原生动态 VRPTW（波次语义 → 逐揭示改造）',
         note='不用 PC-HGS；0.02 s/决策', ckpt_mb=0.004),
     'coenrich_pchgs': dict(
         label='CO-enriched-ML accept（+官方 PC-HGS）', cls='学习型（预测+优化）',
-        venue='Transportation Science 2024', backbone='官方 MLP + PC-HGS（C++20 原二进制）',
+        venue='Transportation Science 2024', rank='未列入', backbone='官方 MLP + PC-HGS（C++20 原二进制）',
         native='原生动态 VRPTW（波次语义 → 逐揭示改造）',
         note='PC-HGS 作优先级生成器，按池缓存 ⇒ 1 次/决策 ≈2.1 s', ckpt_mb=0.004),
     'mapt': dict(label='MAPT accept', cls='学习型（多智能体指针 Transformer）',
-                 venue='AAAI 2026', backbone='MAPT 自训 144 updates（1.44 M 参数）',
+                 venue='AAAI 2026', rank='A', backbone='MAPT 自训 144 updates（1.44 M 参数）',
                  native='MVDPDPSR（无 TW；TW/冷链由外层认证）',
                  note='**弱介入档**：模型只决定前 ~3 位、尾部 EDD；'
                       'dev 效用未超弱贪心（871 vs 951），服务率超（36.4% vs 26.9%）',
                  ckpt_mb=5.82),
-    'myopic': dict(label='rule: myopic', cls='规则基线', venue='—',
+    'myopic': dict(label='rule: myopic', cls='规则基线', venue='—', rank='—',
                    backbone='—', native='完整覆盖可行性', note='无前瞻即收',
                    ckpt_mb=None),
-    'valuee20': dict(label='rule: value/energy λ=2', cls='规则基线', venue='—',
+    'valuee20': dict(label='rule: value/energy λ=2', cls='规则基线', venue='—', rank='—',
                      backbone='—', native='预算感知门槛', note='固定价值/能耗门槛',
                      ckpt_mb=None),
-    'valuee30': dict(label='rule: value/energy λ=3', cls='规则基线', venue='—',
+    'valuee30': dict(label='rule: value/energy λ=3', cls='规则基线', venue='—', rank='—',
                      backbone='—', native='预算感知门槛',
                      note='退化（0 接单）', ckpt_mb=None),
 }
@@ -419,8 +458,10 @@ def main():
                     rec.setdefault('reported_baseline_summary', {})[ban] = \
                         arms[ban].get('utility_all_days')
             meta = METHOD_META.get(rec['method'], {})
-            # 附上实测参数量（百万），供渲染器的「参数量(M)」列使用
-            rec['meta'] = dict(meta, params_m=PARAMS_M.get(rec['method']))
+            # 附上实测参数量（百万），供渲染器的「参数量(M)」列使用；
+            # `rank` 覆盖为**按 `CCF_EDITION` 解析后的显示串**（并保留 `rank_2026` 原值）。
+            rec['meta'] = dict(meta, params_m=PARAMS_M.get(rec['method']),
+                               rank=ccf_rank(meta))
             dataset['arms'].append(rec)
 
     # 未适配清单：**只放确实无法适配的方法**，且必须写清具体机制原因。
