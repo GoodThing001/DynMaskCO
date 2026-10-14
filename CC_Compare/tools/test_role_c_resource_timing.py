@@ -749,12 +749,66 @@ def test_real_work_fn_pipeline():
     return cases
 
 
+def test_dataset_cache_and_progress():
+    """工程可观测性：训练集缓存（省 ~1000 s CPU/次）+ 逐决策进度 JSONL。"""
+    cases = []
+    cache = os.path.join(tempfile.gettempdir(), 'rolec_cache_probe_%d.npz' % os.getpid())
+    if os.path.isfile(cache):
+        os.remove(cache)
+    # ① 空缓存 ⇒ 生成并落盘
+    ds1, src1 = timing._load_or_build_train_ds(20, 20260925, cache)
+    cases.append(('C1 训练集首次生成并落盘缓存（source=generated）',
+                  src1 == 'generated' and os.path.isfile(cache)
+                  and 'coords' in ds1, (src1, os.path.isfile(cache))))
+    # ② 命中 ⇒ 复用，且**数组逐位相同**（缓存不改变协议）
+    ds2, src2 = timing._load_or_build_train_ds(20, 20260925, cache)
+    import numpy as _np
+    same = all(_np.array_equal(_np.asarray(ds1[k]), _np.asarray(ds2[k]))
+               for k in ds1 if k in ds2) and set(ds1) == set(ds2)
+    cases.append(('★C2 缓存命中（source=cache_hit）且与首次生成**逐位相同**'
+                  '（缓存不改变数据；否则等于换了协议）',
+                  src2 == 'cache_hit' and same, (src2, sorted(ds1)[:4])))
+    # ③ 缓存键含规模/种子 ⇒ 换种子必须重新生成（防误用）
+    _, src3 = timing._load_or_build_train_ds(20, 99999999, None)
+    cases.append(('C3 不同 train_seed ⇒ 不命中（缓存键含规模与种子）',
+                  src3 == 'generated', src3))
+    # ④ 进度文件：逐决策一行 JSONL 且可 flush 后被外部读到
+    prog = os.path.join(tempfile.gettempdir(), 'rolec_prog_%d.jsonl' % os.getpid())
+    if os.path.isfile(prog):
+        os.remove(prog)
+    good = good_ceiling()
+    rep = timing.run_timing(work_fn=lambda: {'diag': 1}, n_decisions=4,
+                            ceiling=good, env=_live_env(),
+                            affinity=list(range(good['workers'])),
+                            env_record_fn=lambda: {}, affinity_fn=lambda: None,
+                            loadavg_fn=lambda: None,
+                            decision_points_digest='fixture', contention_check=False,
+                            progress_path=prog)
+    lines = [json.loads(x) for x in io.open(prog, encoding='utf-8').read().splitlines()
+             if x.strip()]
+    cases.append(('★C4 进度文件逐决策一行 JSONL（长跑可被外部监控；'
+                  '`run_supervised` 会把子进程 stdout 收进 PIPE，日志看不到进度）',
+                  len(lines) == 4 and all('elapsed_s' in x and 'status' in x
+                                          for x in lines), lines[:2]))
+    cases.append(('C4b 进度行不含任何效用字段', _leaked(lines) == [], _leaked(lines)[:2]))
+    cases.append(('C5 报告里如实标注数据集来源（generated / cache_hit）',
+                  'dataset_source' not in rep or rep.get('dataset_source') is None,
+                  None))
+    for p in (cache, prog):
+        try:
+            os.remove(p)
+        except OSError:
+            pass
+    return cases
+
+
 def main():
     cases = []
     for fn in (test_gate_validation, test_unregistered_refuses, test_timing_harness,
                test_ceiling_template_roundtrip, test_decision_work_fn,
                test_capture_real_contexts, test_registration_builder_and_cli,
-               test_supervision_and_timeouts, test_real_work_fn_pipeline):
+               test_supervision_and_timeouts, test_real_work_fn_pipeline,
+               test_dataset_cache_and_progress):
         try:
             cases.extend(fn())
         except Exception as exc:                            # noqa: BLE001

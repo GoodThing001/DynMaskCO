@@ -175,7 +175,7 @@ def run_timing(*, work_fn, n_decisions, ceiling=None, warmup=0, label='role_c_de
                contention_check=True, contention_sample_s=1.0,
                max_external_busy_ratio=MAX_EXTERNAL_BUSY_RATIO,
                total_wall_s=None, per_decision_limit_s=None, monotonic=None,
-               allow_undigested=False):
+               allow_undigested=False, progress_path=None):
     """跑一次**不看效用**的单决策级计时，返回报告 dict（含**超时监督**与**竞争判定**）。
 
     参数（除新增的监督项外与既有语义一致）
@@ -243,6 +243,16 @@ def run_timing(*, work_fn, n_decisions, ceiling=None, warmup=0, label='role_c_de
         contention['max_external_busy_ratio'] = float(max_external_busy_ratio)
     before = loadavg_fn()
     t_start = clock()
+    # 可观测性：逐决策写一行 JSONL 到 `progress_path` 并 flush ⇒ 长跑可被外部监控
+    # （`run_supervised` 会把子进程 stdout 收进 PIPE，日志里看不到进度）。
+    def _progress(rec):
+        if not progress_path:
+            return
+        try:
+            with io.open(progress_path, 'a', encoding='utf-8') as f:
+                f.write(json.dumps(rec, ensure_ascii=False, sort_keys=True) + '\n')
+        except Exception:                                     # noqa: BLE001
+            pass
     records = []
     hard = None
     with_timeouts = 0
@@ -274,6 +284,8 @@ def run_timing(*, work_fn, n_decisions, ceiling=None, warmup=0, label='role_c_de
                 with_timeouts += 1
                 records.append({'i': i, 'elapsed_s': elapsed, 'status': 'timeout',
                                 'exceeded_per_decision_limit': True})
+                _progress({'i': i, 'elapsed_s': elapsed, 'status': 'timeout',
+                           'elapsed_wall_s': clock() - t_start})
                 continue
             rt._check_no_utility(out)          # 效用泄漏 ⇒ 立刻抛（不静默）
             over = elapsed > per_lim
@@ -281,10 +293,15 @@ def run_timing(*, work_fn, n_decisions, ceiling=None, warmup=0, label='role_c_de
                 overruns += 1
             records.append({'i': i, 'elapsed_s': elapsed, 'status': 'ok',
                             'exceeded_per_decision_limit': over})
+            _progress({'i': i, 'elapsed_s': elapsed, 'status': 'ok',
+                       'exceeded_per_decision_limit': over,
+                       'elapsed_wall_s': clock() - t_start})
         except DecisionTimeout:
             with_timeouts += 1
             records.append({'i': i, 'elapsed_s': clock() - t0, 'status': 'timeout',
                             'exceeded_per_decision_limit': True})
+            _progress({'i': i, 'elapsed_s': clock() - t0, 'status': 'timeout',
+                       'elapsed_wall_s': clock() - t_start})
         except rt.UtilityLeakError:
             raise
         except Exception as exc:                              # noqa: BLE001
@@ -292,6 +309,9 @@ def run_timing(*, work_fn, n_decisions, ceiling=None, warmup=0, label='role_c_de
             records.append({'i': i, 'elapsed_s': clock() - t0, 'status': 'error',
                             'error': type(exc).__name__,
                             'exceeded_per_decision_limit': False})
+            _progress({'i': i, 'elapsed_s': clock() - t0, 'status': 'error',
+                       'error': type(exc).__name__,
+                       'elapsed_wall_s': clock() - t_start})
     total_elapsed = clock() - t_start
     after = loadavg_fn()
     ok_times = [r['elapsed_s'] for r in records if r['status'] == 'ok']
@@ -471,10 +491,37 @@ def write_report(report, path):
     return p
 
 
+def _load_or_build_train_ds(n_orders, train_seed, cache_path):
+    """训练集**缓存**：`generate_dataset(200,200,…)` 单次约 1000+ s CPU，而它逐次确定。
+
+    缓存键 = `(n_orders, train_seed)`；命中即复用，避免每次迭代都重付这段固定开销
+    （**不改变协议**：同一 seed 同一规模，数据集完全相同）。返回 `(ds, source)`。
+    """
+    import numpy as np
+    if cache_path and os.path.isfile(cache_path):
+        try:
+            z = np.load(cache_path, allow_pickle=False)
+            if int(z['_n_orders']) == int(n_orders) \
+                    and int(z['_train_seed']) == int(train_seed):
+                ds = {k: z[k] for k in z.files if not k.startswith('_')}
+                return ds, 'cache_hit'
+        except Exception:                                     # noqa: BLE001
+            pass
+    from run_exp_reserve import generate_dataset
+    ds = generate_dataset(int(n_orders), int(n_orders), int(train_seed))
+    if cache_path:
+        d = os.path.dirname(os.path.abspath(cache_path))
+        if d and not os.path.isdir(d):
+            os.makedirs(d, exist_ok=True)
+        np.savez_compressed(cache_path, _n_orders=int(n_orders),
+                            _train_seed=int(train_seed), **ds)
+    return ds, 'generated'
+
+
 def build_real_work_fn(*, train_seed=20260925, gate_seed=20260926, n_orders=200,
                        n_vehicles=15, rho=0.6, capture_n=8, arm_seed=7002, K=10,
                        inner_gate='on', time_limit=10.0, inst_idx=0,
-                       expect_frozen_anchors=True):
+                       expect_frozen_anchors=True, dataset_cache=None):
     """按**冻结管线**（`diag_local_timing.py:27-46`）搭出真实计时单元。
 
     ⚠️ 与冻结配置逐项对齐，否则测的不是要跑的东西：
@@ -496,13 +543,12 @@ def build_real_work_fn(*, train_seed=20260925, gate_seed=20260926, n_orders=200,
     ts.ensure_project_paths()
     from coldchain_evaluator_a1 import add_v2_initial_quality
     from run_exp_encoder_v3 import compute_budget_and_dwell
-    from run_exp_reserve import (BOOKING_HORIZON, KM_PER_UNIT, SPEED_KMH,
-                                 generate_dataset)
+    from run_exp_reserve import BOOKING_HORIZON, KM_PER_UNIT, SPEED_KMH
     from scenario_saa import (CondHistoricalSampler, build_history,
                               build_history_times_classes, make_c0_contract_v2)
 
     contract = make_c0_contract_v2()
-    train_ds = generate_dataset(int(n_orders), int(n_orders), int(train_seed))
+    train_ds, ds_source = _load_or_build_train_ds(n_orders, train_seed, dataset_cache)
     hist = build_history(train_ds)
     hist_tc = build_history_times_classes(train_ds)
     B, share, _ = compute_budget_and_dwell(train_ds, contract, int(n_vehicles),
@@ -532,6 +578,7 @@ def build_real_work_fn(*, train_seed=20260925, gate_seed=20260926, n_orders=200,
     else:
         anchor_check = {'checked': False,
                         'reason': 'expect_frozen_anchors=False（**仅管线自检**用）'}
+    from run_exp_reserve import generate_dataset
     gate_ds = add_v2_initial_quality(generate_dataset(1, int(n_orders), int(gate_seed)),
                                     contract)
     sampler = CondHistoricalSampler(hist, n_neighbors=10)
@@ -551,7 +598,7 @@ def build_real_work_fn(*, train_seed=20260925, gate_seed=20260926, n_orders=200,
             'train_seed': int(train_seed), 'n_orders': int(n_orders),
             'n_vehicles': int(n_vehicles), 'arm_seed': int(arm_seed), 'K': int(K),
             'inner_gate': inner_gate, 'inst_idx': int(inst_idx),
-            'anchor_check': anchor_check}
+            'anchor_check': anchor_check, 'dataset_source': ds_source}
 
 
 def main(argv=None):
@@ -578,11 +625,14 @@ def main(argv=None):
     ap.add_argument('--K', type=int, default=10)
     ap.add_argument('--inner-gate', default='on')
     ap.add_argument('--dry-run', action='store_true')
+    ap.add_argument('--dataset-cache', default='/tmp/rolec_train_ds.npz',
+                    help='训练集缓存（逐次确定；避免每次重付 ~1000 s CPU）')
+    ap.add_argument('--progress', default=None, help='逐决策进度 JSONL 路径（可观测性）')
     a = ap.parse_args(argv)
     built = build_real_work_fn(train_seed=a.train_seed, gate_seed=a.gate_seed,
                               n_orders=a.n_orders, n_vehicles=a.n_vehicles,
                               capture_n=a.capture_n, arm_seed=a.arm_seed, K=a.K,
-                              inner_gate=a.inner_gate)
+                              inner_gate=a.inner_gate, dataset_cache=a.dataset_cache)
     print(json.dumps({'built': {k: v for k, v in built.items() if k != 'work_fn'},
                       'work_fn_len': len(built['work_fn']),
                       'decision_points_digest': built['work_fn'].digest()},
@@ -591,7 +641,8 @@ def main(argv=None):
         print('DRY-RUN: 只搭单元与捕获决策点，**未产生任何耗时结论**')
         return 0
     rep = run_timing(work_fn=built['work_fn'], n_decisions=a.n_decisions,
-                     warmup=a.warmup, label='role_c_decision_%dorders' % a.n_orders)
+                     warmup=a.warmup, label='role_c_decision_%dorders' % a.n_orders,
+                     progress_path=a.progress)
     rep['work_fn_build'] = {k: v for k, v in built.items() if k != 'work_fn'}
     p = write_report(rep, a.out)
     print('WROTE: %s' % p)
