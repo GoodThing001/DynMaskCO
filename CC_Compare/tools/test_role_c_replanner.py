@@ -62,9 +62,9 @@ def _mk(decide_fn=None, certify_fn=None, logger=None, **kw):
         p.setdefault(1, []).append(order)
         return True, {'plan': p, 'day_id': ctx['inst_idx'], 'info_max_reveal': ctx['clock']}
 
-    def c(plan):
+    def c(plan, ctx=None):
         if certify_fn is not None:
-            return certify_fn(plan)
+            return certify_fn(plan, ctx)
         return True, 1.0
 
     return rp.RoleCReplanner(budget=B, capacity=50.0, booking_horizon=16.0, contract=None,
@@ -82,7 +82,7 @@ def main():
     try:
         rp.RoleCReplanner(budget=B, capacity=50.0, booking_horizon=None, contract=None,
                           cooling_share=3.72, decide_fn=lambda o, c: (False, {}),
-                          certify_fn=lambda p: (True, 1.0))
+                          certify_fn=lambda p, ctx: (True, 1.0))
         ck('① booking_horizon=None ⇒ 拒绝构造（因果性）', False, '没有抛错')
     except ValueError as e:
         ck('① booking_horizon=None ⇒ 拒绝构造（因果性）', 'has_future_reveal' in str(e), str(e))
@@ -121,7 +121,7 @@ def main():
     ck('⑤ 接单 ∧ 认证过 ⇒ 采纳候选计划且记入 accepted',
        r._accepted == {3} and r._plan.get(1) == [3], 'plan=%s' % r._plan)
 
-    r = _mk(certify_fn=lambda p: (False, 999.0))     # 认证不过
+    r = _mk(certify_fn=lambda p, ctx: (False, 999.0))     # 认证不过
     r.on_reveal(_Env(reveal_time={(0, 3): 1.0}), 0, 1.0, [_V(1)], {3: False}, [3])
     ck('⑤ 认证不过 ⇒ 回滚计划 + 记拒单（不采纳候选）',
        r._accepted == set() and r._rejected == {3} and r._plan == {},

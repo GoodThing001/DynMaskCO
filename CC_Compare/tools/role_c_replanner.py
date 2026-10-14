@@ -43,7 +43,9 @@ class RoleCReplanner:
     budget, capacity, booking_horizon, contract, cooling_share : 与对照臂**同值**
     decide_fn(order, ctx) -> (accept: bool, diag: dict)
         `ctx` 提供 `{'inst_idx','clock','visible_ids','accepted','remaining_budget','plan'}`
-    certify_fn(plan) -> (ok: bool, energy: float)
+    certify_fn(plan, ctx) -> (ok: bool, energy: float)
+        `ctx` 提供 env/inst_idx/clock/vehicles/served_mask/budget_B/contract
+        —— 仅供绑定真实 `certify_plan(env, inst_idx, clock, vehicles, served_mask, plan, contract, B)`
     reveal_time_of(inst_idx, order) -> float      # 缺省读 `env.reveal_time[inst_idx, o]`
     logger : DecisionLogger（可选；给了就落盘）
     """
@@ -126,11 +128,17 @@ class RoleCReplanner:
                'visible_ids': list(visible_ids), 'accepted': sorted(self._accepted),
                'remaining_budget': remaining,
                'plan': {k: list(v) for k, v in self._plan.items()},
-               'booking_horizon': self.booking_horizon}
+               'booking_horizon': self.booking_horizon,
+               # ⚠️ 真实 `certify_plan(env, inst_idx, clock, vehicles, served_mask, plan,
+               # contract, B)` 需要这些上下文（2026-10-14 接线时发现：只给 plan 的
+               # `certify_fn(plan)` 签名**无法**绑定真实认证函数）。
+               'env': env, 'vehicles': vehicles, 'served_mask': served_mask,
+               'budget_B': self.budget, 'contract': self.contract}
         accept, diag = self.decide_fn(order, ctx)
         cand = (diag or {}).get('plan') if accept else None
+        # 认证函数签名统一为 `certify_fn(plan, ctx)`（ctx 提供 env/clock/vehicles/…）
         certify_ok, certify_energy = self.certify_fn(
-            self._plan if cand is None else cand)
+            self._plan if cand is None else cand, ctx)
         if accept and certify_ok:
             if self.max_total_accepts is not None \
                     and len(self._accepted) >= int(self.max_total_accepts):
