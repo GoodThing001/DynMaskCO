@@ -1,0 +1,83 @@
+{
+  "stage": "independent_saved_science_release_r19",
+  "inputs": [
+    {
+      "path": "research\\review_3080_20261010\\pickup\\A1_BUDGET_RESERVING_ADMISSION_PREREGISTRATION.json",
+      "sha256": "7fef22a0f33763571fe51be9975c05f15de509c963d7e1348d3429e4e5327974"
+    },
+    {
+      "path": "research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v4\\REGISTRATION.json",
+      "sha256": "032243a232195ff88a61d2d4631a5d50b6254add1b86f19fbb9c30063f32a7ce"
+    },
+    {
+      "path": "research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v4\\RESULT.json",
+      "sha256": "088a49e1dd94150e3f1bd3dcc643641c3034d97fa832ac86edd3229168c99948"
+    },
+    {
+      "path": "research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v4\\INDEPENDENT_AUDIT.json",
+      "sha256": "03d7ec8569130551d9fae8554d47b5fe0d7a34aab7dbc2646ed0b5e94838318f"
+    },
+    {
+      "path": "research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v4\\AUDIT_FAILURE_ADDENDUM.json",
+      "sha256": "8a2a826e244653ad95a546a37c79c90a77fba4e6a467c628abb50447706d0f13"
+    },
+    {
+      "path": "research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v4\\reserving_admission.py",
+      "sha256": "5b6c37cfd6428706fc1c9564a393da465b566899bc9952c3ae2320e6b0b31ccb"
+    },
+    {
+      "path": "research\\review_3080_20261010\\delivery\\split_final_timed_execution_root_v1\\downloaded\\RESULT.json",
+      "sha256": "939e28dfdccc81e00f1c735edec5922ea3da2c4df7e44e2808de792fc27494ff"
+    },
+    {
+      "path": "research\\review_3080_20261010\\delivery\\split_final_timed_execution_root_v1\\downloaded\\pretrained_initial_fault0_worker\\STAGE_6.json",
+      "sha256": "22a639823cd696024dd1195643e337e3d06c74ccad77544f9d17a3fa415c82ac"
+    },
+    {
+      "path": "research\\review_3080_20261010\\delivery\\split_final_timed_execution_root_v1\\downloaded\\random888_initial_fault0_worker\\STAGE_6.json",
+      "sha256": "638f89c3070a5ca312a3c5b937a430b5ff36350a6cf78ab9e1ae315c904b7fef"
+    }
+  ],
+  "pickup": {
+    "five_day_deltas": [
+      0.0,
+      102.92300423234701,
+      24.755533065646887,
+      0.0,
+      0.0
+    ],
+    "mean_delta": 25.53570745959878,
+    "active_days": 2,
+    "conditional_sign_flip_one_sided_p_descriptive": 0.25,
+    "original_prereg_rule": "accept order i only if e_lower(i) <= B_remaining - reserve_for_future(clock, history), where reserve_for_future uses the frozen training history's revealed-order rate per time bucket and the per-class e_lower distribution",
+    "actual_rule": "smallest clock-dependent grid lambda with expected accepted energy <= remaining budget; accept when REV-lambda*e_lower>0",
+    "same_rule_as_original_prereg": false,
+    "stage_specific_rule_registered_before_stage": true,
+    "original_audit_failed": 2,
+    "audit_failure_names": [
+      "audit_budget_matches",
+      "audit_loaded_files_and_maps_start_end"
+    ],
+    "automatic_40_day_confirmation_release": false,
+    "reason": "mechanism differs from original preregistration; stage-specific 5-day lead is exploratory and original audit retains two FAIL; fresh independent design/controls and preregistration needed"
+  },
+  "delivery": {
+    "saved_initial_arms": [
+      "pretrained_initial",
+      "random888_initial"
+    ],
+    "stage6_seconds_remaining": [
+      1.2212045001797378,
+      1.164393899962306
+    ],
+    "selected_count": 0,
+    "whole_request_budget_qualified": false,
+    "prior_independent_split_audit_failed": 50,
+    "source_shard_synthetic_not_release": true,
+    "scientific_family3_release": false
+  },
+  "stable_core_online_gain": false,
+  "training_attribution_qualified": false,
+  "equal_time_iterative_reconstruction_qualified": false,
+  "independent_strong_dynamic_accept_reject_qualified": false
+}

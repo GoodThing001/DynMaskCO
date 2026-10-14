@@ -1,0 +1,97 @@
+{
+  "registration_sha256": "db1bac46d8d557b8020a6f40a146ae7f4824e8b787e5bb871c5d7029c6f6abbe",
+  "model_input_sha256": "bafea356db6caf6cc816f37b91c024a07ccfbae4e7384db4cf26308bf63a1cf8",
+  "prior_rank_sha256": "d33c6193b3a67d7caf867aafdbb0e3ab87bc6a856db5d1cf502770ac832f89ed",
+  "rows": [
+    {
+      "mode": "pretrained",
+      "phases": [
+        {
+          "step": 0,
+          "candidate_count": 6,
+          "model_choice": [
+            25,
+            1,
+            0
+          ],
+          "c0_best_action": [
+            30,
+            0,
+            3
+          ],
+          "model_choice_c0_utility": 288.72552694380283,
+          "c0_best_utility": 289.82089127600193,
+          "one_step_c0_regret": 1.0953643321990967,
+          "discordant_model_c0_pairs": 7,
+          "comparable_pairs": 15
+        },
+        {
+          "step": 1,
+          "candidate_count": 4,
+          "model_choice": [
+            30,
+            0,
+            3
+          ],
+          "c0_best_action": [
+            30,
+            0,
+            3
+          ],
+          "model_choice_c0_utility": 289.792986497283,
+          "c0_best_utility": 289.792986497283,
+          "one_step_c0_regret": 0.0,
+          "discordant_model_c0_pairs": 0,
+          "comparable_pairs": 5
+        }
+      ]
+    },
+    {
+      "mode": "random",
+      "phases": [
+        {
+          "step": 0,
+          "candidate_count": 6,
+          "model_choice": [
+            25,
+            1,
+            0
+          ],
+          "c0_best_action": [
+            30,
+            0,
+            3
+          ],
+          "model_choice_c0_utility": 288.72552694380283,
+          "c0_best_utility": 289.82089127600193,
+          "one_step_c0_regret": 1.0953643321990967,
+          "discordant_model_c0_pairs": 8,
+          "comparable_pairs": 15
+        },
+        {
+          "step": 1,
+          "candidate_count": 4,
+          "model_choice": [
+            30,
+            0,
+            3
+          ],
+          "c0_best_action": [
+            30,
+            0,
+            3
+          ],
+          "model_choice_c0_utility": 289.792986497283,
+          "c0_best_utility": 289.792986497283,
+          "one_step_c0_regret": 0.0,
+          "discordant_model_c0_pairs": 0,
+          "comparable_pairs": 5
+        }
+      ]
+    }
+  ],
+  "saved_only": true,
+  "no_model_or_C0_rerun": true,
+  "not_new_day_or_equal_time_control": true,
+  "learned_attribution_qualified": false
+}

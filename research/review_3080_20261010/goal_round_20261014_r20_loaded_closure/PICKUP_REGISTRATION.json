@@ -1,0 +1,22 @@
+{
+  "registered_utc": "2026-10-14T03:31:56.502383+00:00",
+  "runner_sha256": "1a6dae872d254d03b329aed43f3c122338c1fabb56836514bf2ab3154f1de201",
+  "sources": {
+    "C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\run_exp_reserve.py": "60d032f772738ca953d62956e46f5d1fb8d171a939df716c94ed039e2b8e5d55",
+    "research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v4\\reserving_admission.py": "5b6c37cfd6428706fc1c9564a393da465b566899bc9952c3ae2320e6b0b31ccb",
+    "research\\review_3080_20261010\\pickup\\a1_budget_reserving_admission_root_v4\\REGISTRATION.json": "032243a232195ff88a61d2d4631a5d50b6254add1b86f19fbb9c30063f32a7ce"
+  },
+  "fixed_train_seed": 20260925,
+  "fixed_train_days": 200,
+  "fixed_budget": 710.6548328611384,
+  "folds": "even/odd day indices, opposite-half calibration",
+  "readout": [
+    "number of days with price rejection",
+    "price and hard budget rejection counts",
+    "class counts before and after admission"
+  ],
+  "old_gate_days_used": false,
+  "final_seeds_used": false,
+  "online_effect_test": false,
+  "scientific_family_started": false
+}

@@ -1,0 +1,11 @@
+{
+  "script_sha256": "e577080af2fa3708c116bac0cca92333efdfde1a763f0d025dfdecff106c185d",
+  "model_sha256": "bafea356db6caf6cc816f37b91c024a07ccfbae4e7384db4cf26308bf63a1cf8",
+  "prior_rank_sha256": "d33c6193b3a67d7caf867aafdbb0e3ab87bc6a856db5d1cf502770ac832f89ed",
+  "phase_counts": [
+    6,
+    4
+  ],
+  "rule": "Within each frozen phase compare ascending saved proposal score with descending saved actual C0 utility; report every action and all comparable pairs without selecting data",
+  "scope": "one old public state, saved-only mechanism, no C0/model rerun, no fresh scientific family or gain"
+}

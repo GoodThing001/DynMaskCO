@@ -1,0 +1,83 @@
+{
+  "report": "docs/当前规划/决策与审计/双线第十九轮_双状态C0教师与双核源哈希边界_2026-10-14.md",
+  "report_sha256": "9ed5e6c67f832a90acdc0ce2714c3193280f696b3af05130933e4f175b8bc335",
+  "sources_sha256": {
+    "research/review_3080_20261010/goal_round_20261014_r17_teacher_dualcore/PICKUP_TEACHER_REGISTRATION.json": "3134a59de3ac7499bafe12c8ccb554b869ae90beb96095f298088a1b2842c7c5",
+    "research/review_3080_20261010/goal_round_20261014_r17_teacher_dualcore/PICKUP_TEACHER_RESULT.json": "3d676bcef08cfec4697f9d77124bd6db59d620986457d761b35d66d6ace69049",
+    "research/review_3080_20261010/goal_round_20261014_r17_teacher_dualcore/INDEPENDENT_R17_REGISTRATION.json": "13a01bd491b911fecf3703185719954fb7ca6f0c3140c24ebcd4000bb20f407d",
+    "research/review_3080_20261010/goal_round_20261014_r17_teacher_dualcore/INDEPENDENT_R17_AUDIT.json": "23818381943be591f162ef40ed11b7a10da9710ee38394ea302431ae9288d71b",
+    "research/review_3080_20261010/delivery/source_overlap_dualcore_root_v1/REGISTRATION.json": "aeda19e3a7976cd39695da3a7ba4556439b6bde698b316d8f122588eefcf7ccc",
+    "research/review_3080_20261010/delivery/source_overlap_dualcore_root_v1/RESOURCE_PREFLIGHT.json": "7ec43e3b19406cc97e7a1ecfde345758207fc5dd57d7995e8179e57217ba5ccf",
+    "research/review_3080_20261010/delivery/source_overlap_dualcore_root_v1/RUN_ATTEMPT.json": "fac48e314d6cf80903ca18993b21edd2d4b39d50832b11a1250e6c89958b1ea6",
+    "research/review_3080_20261010/delivery/source_overlap_dualcore_root_v1/UPLOAD_ACCEPTANCE.json": "15274cb8372d26cbe6dafc2cf5ca849ccfc002a49b7be45a25b7230811185204",
+    "research/review_3080_20261010/delivery/source_overlap_dualcore_root_v1/RUN_RESPONSE.json": "eec29a8acd639dbc0d3b5bc865752cd8a20371a7f133aa625da1b058615f64e9",
+    "research/review_3080_20261010/delivery/source_overlap_dualcore_root_v1/COLLECT_ATTEMPT.json": "0175fe95dac7a5d7d1fecdb108e66141cadd47c975af06cb575b0cd2f544aec2",
+    "research/review_3080_20261010/delivery/source_overlap_dualcore_root_v1/RESULT.json": "c8cc11f75655e8e477ad893f91881c6ba3bfbaba1e815bcae2ba19c1158316f9",
+    "research/review_3080_20261010/delivery/source_overlap_dualcore_root_v1/RESULT.json.receipt.json": "7890142c3d0b2c56e3f69232b7b8a5220969e47b0675a547fbd45df78a5c0249",
+    "research/review_3080_20261010/delivery/source_overlap_dualcore_root_v1/CPU_CHILD_RESULT.json": "1c50e3eef6056cd8904454e96a8fd8ac3ab92ec4f55b7c5a1741774a72e10dcc",
+    "research/review_3080_20261010/delivery/source_overlap_dualcore_root_v1/CPU_CHILD_RESULT.json.receipt.json": "ffffeea566e4aab304964d2e1a157f4603a0dffb925a1dd4517a8408c892871b",
+    "research/review_3080_20261010/delivery/source_overlap_dualcore_root_v1/HASH_CHILD_RESULT.json.missing.json": "d055ccccc8805b585dd1b67c28b1f2fb9340e7f282689a12e827a97f9c3f4671",
+    "research/review_3080_20261010/delivery/source_overlap_dualcore_root_v1/measure_overlap_dualcore_v1.py": "05d74e34f2506e0f0e5a9177d948b881e72b604137c2405c9c384420b7de3270",
+    "tools/register_pickup_two_state_teacher_r17.py": "1298879f03c4a009b10e26ef811a746fb9caf992377bc5777a7f6305f2464198",
+    "tools/build_pickup_two_state_c0_teacher_r17.py": "79650df60ab37ca8fef7d07904b587e8d52db07b17a0396b2f6bf8660713fbb6",
+    "tools/register_dual_teacher_dualcore_audit_r17.py": "0b80c55c35d0a85557598cf797905fa9591f6ac0b7f326e7caacfe1200f25789",
+    "tools/audit_dual_teacher_dualcore_r17.py": "f420ad616f8a80fe1dc04290f02f55ea8514a54c59892769d3f194c78f9642f6",
+    "tools/register_delivery_overlap_dualcore_r17.py": "b24ebc5bcb5ee2d1d9dae89fad2342d4f607661c23b20bc68e614126ab5ab5e2",
+    "tools/transport_delivery_overlap_dualcore_r17.py": "e3ee1e1bab5128c9fbe6f3fa2fb88950a5465ebfc96f21c9f75499137bb0d756"
+  },
+  "pickup_orders": [
+    69,
+    77
+  ],
+  "pickup_candidate_counts_each": [
+    [
+      8,
+      5
+    ],
+    [
+      8,
+      5
+    ]
+  ],
+  "pickup_teacher_actions_each": [
+    [
+      [
+        30,
+        0,
+        3
+      ],
+      [
+        25,
+        0,
+        2
+      ]
+    ],
+    [
+      [
+        30,
+        0,
+        3
+      ],
+      [
+        25,
+        0,
+        2
+      ]
+    ]
+  ],
+  "pickup_final_c0_utilities": [
+    279.8753369450569,
+    289.8611884266138
+  ],
+  "pickup_new_science_or_training": false,
+  "delivery_hash_completed_by_8s": false,
+  "delivery_cpu_completed_by_8s": true,
+  "delivery_parent_elapsed_seconds": 8.032704399898648,
+  "delivery_all_owned_children_reaped": true,
+  "delivery_actual_model_request_run": false,
+  "delivery_full_request_budget_qualified": false,
+  "independent_checks": 37,
+  "independent_failures": 0,
+  "scientific_family3_started": false,
+  "stable_online_gain": false
+}

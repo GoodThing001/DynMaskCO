@@ -1,0 +1,170 @@
+{
+  "created_utc": "2026-10-14T06:29:40.138361+00:00",
+  "purpose": "Preserve the sealed rule-identity result and the source-drift evidence exactly as produced, and record the hold decision: no fresh utility day until the deployability gap is closed.",
+  "v3_rule_identity": {
+    "directory": "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3",
+    "producer": "57 checks, 0 failed",
+    "audit": "51 checks, 0 failed",
+    "decisions_logged": 1000,
+    "decision_mismatches": 0,
+    "rule_identity_established": true,
+    "per_day_utilities": [
+      1793.888119917363,
+      1845.8872958533466,
+      1832.3859690818936,
+      1799.6103530302644,
+      1898.560622766614
+    ],
+    "scope_limit": "this proves rule identity on the sealed five-day log; it does NOT prove the rule is deployable in a current-source online pipeline, because the recorded pipeline cannot be imported any more",
+    "files": {
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/REGISTRATION.json": "a2eb2a6ac183f28c28b30cf1836f31f524e8962e9b6d021cc619567b35705225",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/RESULT.json": "b08d78c767d3d9c61c8bd0742509d21805a49148a145ba75875f374880d74e03",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/RUN_EXIT.json": "81868a6e94ffc0178bf833deb1c9013d9fab4ee95ddb876a5e8ec4f1d26376d2",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/DECISION_LOG.jsonl": "485f60735e54faa2e0bd28cd379772afe99cbd24985250212a258f619eb1a44e",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/INDEPENDENT_AUDIT.json": "f523d0d5f0177bd35c7495fad3ef41710fec28de69b6ddc7eba97880e5ebc45f",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/AUDIT_RUN_EXIT.json": "81868a6e94ffc0178bf833deb1c9013d9fab4ee95ddb876a5e8ec4f1d26376d2",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/SOURCE_START.json": "54d07b5aef1707eb19b60aa6a45c811b846e61654835418fd5256c8c0de3843a",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/SOURCE_END.json": "54d07b5aef1707eb19b60aa6a45c811b846e61654835418fd5256c8c0de3843a",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/AUDIT_SOURCE_START.json": "63cfc938830e51b9be5d9cbbe376e142a041a64607ce05a2413df74f1b13008d",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/AUDIT_SOURCE_END.json": "63cfc938830e51b9be5d9cbbe376e142a041a64607ce05a2413df74f1b13008d",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/RUN_SUPERVISION_RECEIPT.json": "f67d28bd9a6f8191f6f2563c1c5acac617476d79b4220f89bafda76eb05ccd01",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/AUDIT_SUPERVISION_RECEIPT.json": "0cfa9f889810a6dd576a58e2ebc2873d7dc06480a72846b111de7000ce11d102",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/deployment_rule.py": "fb44a7c76442b0ad6622f4ee78ff68af8664cf0ee99c0d5a7b738ef2308f43a8",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/run.py": "29f1a675cc73b103b399dab26ecf75d4edb302083b0df27f395a68158bfcd43a",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/audit.py": "3e74d35d4f1e2ab6417725e7049b23f889045d262cc2ad234000d4a6f7092014",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/prepare.py": "c2e687843006bd6c9346250c2b92330619e47a631a73650f16b28f7d77191af5",
+      "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/supervise.py": "c7e58ad83637d9c1b2b130ca1ad115eb98294aa93cebc13029ed239037c6f313"
+    }
+  },
+  "source_drift_evidence": {
+    "finding": {
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\evaluation\\scenario_saa.py": {
+        "v4_registered": "4e47b99f14be03351506ccccf92f1d414d12b063020805aca07ba6ef56874188",
+        "current": "36e08e06ce7b8e44eee2e6ff778904c1f26bd3145eb7d2072fb7360f33732318"
+      }
+    },
+    "current_scenario_saa_sha256": "36e08e06ce7b8e44eee2e6ff778904c1f26bd3145eb7d2072fb7360f33732318",
+    "recorded_pipeline_importable": false,
+    "recorded_pipeline_import_error": "ImportError(\"cannot import name 'SoftKNNHistoricalSampler' from 'scenario_saa' (D:\\\\PyCharm_\\\\MASKCO-Main\\\\C-VRP_Cold-chainVehicleRoutingProblem\\\\scripts\\\\evaluation\\\\scenario_saa.py)\")",
+    "evidence_source": "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v3/RESULT.json",
+    "meaning": "scenario_saa.py changed after the v4 registration; SoftKNNHistoricalSampler and the anytime_vote path were removed, so run_a1_step2_gate can no longer be imported. The five-day utilities were nevertheless reproduced exactly by the current-source replay, so the drift is API level rather than behaviour level for these arms and days."
+  },
+  "preserved_prior_attempts": {
+    "v1": {
+      "directory": "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v1",
+      "outcome": "TypeError on the replanner constructor, exit 1, no day ran",
+      "files": {
+        "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v1/SOURCE_START.json": "67b181519ace2e7d566a8f772ff4130b51b5538f1bdb4932e000c2d12b83eebf",
+        "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v1/run.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v1/run.stderr.txt": "b94c680b09742cfd9ac5337a98c7fb5574409f0109ae5a4779c93d064a79c7a6",
+        "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v1/RUN_SUPERVISION_RECEIPT.json": "9b679a01aeaa8686c3b7eda06da844eb1757e1981099a5c6240ad8ad5c640669"
+      }
+    },
+    "v2": {
+      "directory": "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v2",
+      "outcome": "producer 57/57 reproduced the v4 rows; the audit reported 7 failures because the audit itself updated spent on rule admits instead of base acceptances",
+      "files": {
+        "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v2/REGISTRATION.json": "1134801594db3201309742492c722c41908e98a284ecc3dd486b0eb8c6936543",
+        "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v2/RESULT.json": "f3904472d17bb376580076529b01ca17983abe6e4735034e784a2e930b98304d",
+        "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v2/DECISION_LOG.jsonl": "485f60735e54faa2e0bd28cd379772afe99cbd24985250212a258f619eb1a44e",
+        "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v2/INDEPENDENT_AUDIT.json": "8ce1b8e0c53e3c8011bf37d82d709af4f07dd910b51fbbf4cea2026aa115e7c5",
+        "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v2/RUN_EXIT.json": "81868a6e94ffc0178bf833deb1c9013d9fab4ee95ddb876a5e8ec4f1d26376d2",
+        "research/review_3080_20261010/pickup/a1_deployment_rule_identity_root_v2/AUDIT_RUN_EXIT.json": "56296949d3a02e635b050fd6b4762f0f0b52c23d05b925203095f7daf8e19027"
+      }
+    }
+  },
+  "hold_decision": {
+    "fresh_utility_day": false,
+    "reason": "the rule has not been shown deployable in a current-source online pipeline; a fresh utility day before that would spend compute on a result that cannot be adjudicated",
+    "old_failures_modified": false,
+    "rerun_to_chase_pass": false,
+    "delivery_request_deferred": true,
+    "final_seeds_used": false,
+    "stable_online_gain": false
+  },
+  "next_engineering_step": "qualify the registered rule together with a contemporaneous control through a current-source online pipeline on already-consumed days only, and check whether the control still reproduces its recorded rows after the scenario_saa drift",
+  "pickup_deployability_qualification": {
+    "stage": "pickup_current_pipeline_deployment_qualification",
+    "directory": "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2",
+    "prior_attempt": "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v1",
+    "prior_attempt_classification": "11 failures from two mis-scoped checks of my own harness: the per-day wall time was compared with the registered 10 s, which is a PER-DECISION deadline inside _saa_decide, and the closure start preceded a lazy import of the rule module. The substantive v1 rows already reproduced both v4 arms exactly.",
+    "producer": "77 checks, 0 failed",
+    "audit": "54 checks, 0 failed",
+    "rule_rows_match_v4": true,
+    "control_rows_match_v4": true,
+    "paired_delta_matches_v4": true,
+    "rule_utilities": [
+      1793.888119917363,
+      1845.8872958533466,
+      1832.3859690818936,
+      1799.6103530302644,
+      1898.560622766614
+    ],
+    "control_utilities": [
+      1793.888119917363,
+      1742.9642916209996,
+      1807.6304360162467,
+      1799.6103530302644,
+      1898.560622766614
+    ],
+    "paired_deltas": [
+      0.0,
+      102.92300423234701,
+      24.755533065646887,
+      0.0,
+      0.0
+    ],
+    "mean_paired_delta": 25.53570745959878,
+    "decision_accounting": {
+      "total": 1000,
+      "admit": 890,
+      "reject_price": 110,
+      "reject_budget": 0,
+      "base_accepted": 553
+    },
+    "online_decisions_re_derived": 1000,
+    "online_decision_mismatches": 0,
+    "timeouts": {
+      "rule": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "control": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "deployment_qualified": true,
+    "semantics": "the registered rule and a contemporaneous unmodified-SaaReplanner control were both executed through a frozen current-source online pipeline on the five already-consumed days; every arm-day is hard feasible, inside budget and free of timeouts, and the paired difference reproduces the v4 value exactly, so the scenario_saa drift did not change either arm on these days",
+    "still_not_proven": [
+      "the rule is not shown superior on any fresh day",
+      "no time-budget equivalence against a learned or strong-dynamic control",
+      "no independent strong-dynamic accept/reject control"
+    ],
+    "files": {
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/REGISTRATION.json": "51a2421989cf23fef8ea8e5040e4c3d853edfd7b2fae1c58cd24d3463485d7af",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/RESULT.json": "6e5a36f0e30676d7b27d6cda85c508f2a8f4c53712e9bb123ff958f069eaa4a7",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/RUN_EXIT.json": "81868a6e94ffc0178bf833deb1c9013d9fab4ee95ddb876a5e8ec4f1d26376d2",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/INDEPENDENT_AUDIT.json": "34818f4a9415f42478e97189a947e9535c817b0a18aa45ea1f8e9beea3d7085a",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/AUDIT_RUN_EXIT.json": "81868a6e94ffc0178bf833deb1c9013d9fab4ee95ddb876a5e8ec4f1d26376d2",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/ONLINE_ARM_LOG.jsonl": "e9b7628ec992f7b24de528316835eb386d9991aaa212b4949551ff5d73f72f71",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/SOURCE_START.json": "9b460229dd6eef776a646307da3b8586ddf32e01b97d6acfe82beb6eb7777b04",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/SOURCE_END.json": "9b460229dd6eef776a646307da3b8586ddf32e01b97d6acfe82beb6eb7777b04",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/AUDIT_SOURCE_START.json": "b9ab84860d3366718f5cddfed67cdcd0b56b762f93acf1fea66e974d987785e5",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/AUDIT_SOURCE_END.json": "b9ab84860d3366718f5cddfed67cdcd0b56b762f93acf1fea66e974d987785e5",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/RUN_SUPERVISION_RECEIPT.json": "0f07fe297f52b7f05b599bf15dcc4988a582959d761142e2e4767e03171836a3",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/AUDIT_SUPERVISION_RECEIPT.json": "020ee0ad066273d9c2eb99b15cdfb183c8b2c44d11e6cbf5225e7e9524474a4c",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/pipeline.py": "9b62c995dd4c69045f04b891b95e265f5a6e655ba5ea144e6bdc4b4821581468",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/run.py": "3f6dacaf045c44cfbe36ba2c1feea342cb627375b52d8b3f28ea8c439f05b2f8",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/audit.py": "f59706cb320d910da94d53bc32aaebdae0af8d47ba11e79a7e0d0790ddfe590a",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/prepare.py": "65008bd26073023a1511a8d7c52c0644d34b96ccb41f8d03f8a15481636cea56",
+      "research/review_3080_20261010/pickup/a1_current_pipeline_deployment_root_v2/supervise.py": "cb4ac57c79c9a81402bb6c47aef3a6f840b55ae999ee916c010f559937a3e396"
+    }
+  }
+}

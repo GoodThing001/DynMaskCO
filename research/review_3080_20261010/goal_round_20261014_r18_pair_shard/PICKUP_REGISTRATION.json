@@ -1,0 +1,45 @@
+{
+  "script_sha256": "f4feda7449fe245054c93e904a40a40dfc45f0ab662d52094235fedb5f875a58",
+  "input_paths": [
+    "research/review_3080_20261010/pickup/strong_independent_owner_root_v3/RESPONSE_ATTEMPT_0.json",
+    "research/review_3080_20261010/pickup/strong_independent_owner_next_root_v2/RESPONSE_ATTEMPT_0.json"
+  ],
+  "input_sha256": {
+    "research/review_3080_20261010/pickup/strong_independent_owner_root_v3/RESPONSE_ATTEMPT_0.json": "dc03eab1d072b53f11e717f34229e1c088a5f0be7c4d3c126673df78cce029df",
+    "research/review_3080_20261010/pickup/strong_independent_owner_next_root_v2/RESPONSE_ATTEMPT_0.json": "2aa178f8de1be3528a282c4929772b9228f1411706941793ee1154d040a365ad"
+  },
+  "expected_interior": [
+    40,
+    25,
+    32,
+    30
+  ],
+  "masks": [
+    [
+      40,
+      25
+    ],
+    [
+      40,
+      32
+    ],
+    [
+      40,
+      30
+    ],
+    [
+      25,
+      32
+    ],
+    [
+      32,
+      30
+    ]
+  ],
+  "rule": "All two-order pairs among positions 1..4 of route0 on both old consecutive states, except previously computed [25,30]; enumerate insertable actions, choose each step's highest actual C0 utility with lexicographic tie, certify final, report every delta without choosing a winning mask.",
+  "scope": "Old correlated observed states only; engineering availability diagnosis, no new day/seed/model training or scientific family. Disallow cherry-picking a mask for future science from this outcome.",
+  "cpu": [
+    7
+  ],
+  "final_seeds_used": false
+}

@@ -1,0 +1,21 @@
+{
+  "script_sha256": "79650df60ab37ca8fef7d07904b587e8d52db07b17a0396b2f6bf8660713fbb6",
+  "input_paths": [
+    "research/review_3080_20261010/pickup/strong_independent_owner_root_v3/RESPONSE_ATTEMPT_0.json",
+    "research/review_3080_20261010/pickup/strong_independent_owner_next_root_v2/RESPONSE_ATTEMPT_0.json"
+  ],
+  "input_sha256": {
+    "research/review_3080_20261010/pickup/strong_independent_owner_root_v3/RESPONSE_ATTEMPT_0.json": "dc03eab1d072b53f11e717f34229e1c088a5f0be7c4d3c126673df78cce029df",
+    "research/review_3080_20261010/pickup/strong_independent_owner_next_root_v2/RESPONSE_ATTEMPT_0.json": "2aa178f8de1be3528a282c4929772b9228f1411706941793ee1154d040a365ad"
+  },
+  "masked_orders": [
+    25,
+    30
+  ],
+  "rule": "Preserve unmasked original edges, original vehicles and committed next; enumerate all insertable orders/vehicles/positions. Temporarily place the other masked order on its old owner, certify actual C0, choose highest C0 utility; lexicographic action tie. Repeat once. Record all candidates and final C0.",
+  "scope": "Two consecutive observed public engineering states order69/77 from one old day; not an independent train/validation split, no model training or new science family",
+  "cpu": [
+    7
+  ],
+  "final_seeds_used": false
+}
