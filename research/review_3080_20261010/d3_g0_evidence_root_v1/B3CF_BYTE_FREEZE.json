@@ -1,0 +1,66 @@
+{
+  "record": "D3_G0_Evidence_B3CF_byte_freeze",
+  "date": "2026-10-14",
+  "base_commit": "22f26b8",
+  "why": "the B3-CF matrix registers the raw sha256 of its own pre-registration spec and of the source files on the submission path, and the report registers the matrix itself, so a fresh checkout must reproduce them byte-for-byte; with core.autocrlf=true a checkout injects CRLF unless the container is pinned",
+  "self_reference_note": "this record does NOT register its own sha256 (a self-referential hash is meaningless); its bytes are pinned by the container .gitattributes and its own commit",
+  "pin_set": {
+    "file": "research/review_3080_20261010/d3_g0_evidence_root_v1/.gitattributes",
+    "content": "* -text",
+    "added_by_this_record": true,
+    "n_files_in_container": 36,
+    "measured_before_pin": {
+      "blob_eq_worktree_raw_bytes": 30,
+      "blob_ne_worktree_raw_bytes": 5,
+      "mismatched_files": [
+        "raw/B1_state_level_stdout.txt",
+        "raw/B2_certification_after_b3q_stdout.txt",
+        "raw/B2_certification_stdout.txt",
+        "raw/B3QC_lower_bound_stdout.txt",
+        "raw/B3Q_projection_stdout.txt"
+      ],
+      "cause": "PowerShell `>` redirection writes CRLF; `text` was unspecified so git stored LF",
+      "action": "one `git add --renormalize` on the container makes blob == worktree bytes for all files",
+      "no_registered_value_changed": "`git grep -l -F <sha256>` over both the LF and the CRLF variant of all five returned 0 hits for both variants"
+    },
+    "scoping_note": "directory-scoped pin; the sibling byte-container roots already follow this convention (pickup/.gitattributes, p0_next_stage_audit_root_v1/.gitattributes)"
+  },
+  "registered_byte_containers_b3cf": {
+    "scripts": {
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3cf_submit_failures.py": "0303cb20b35bda9ff3791e15ddb9df934369a05e93f9c5c52d68f03adcb83a8d",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_install_gate.py": "adc8df289be1babcf8d6907ff57ab30ab3d66d58fcb47a6c9539bc8591634483",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_composed_certifier.py": "b65ddf6545a84b656cd2e9dd541cea266d2d6bdbc1cd56abd76f7780104aea01",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_credential.py": "85f32d67ad38f1a88be6aa5a8c4c4af3f48797df6a1ca088d05c672453834c7f",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/coldchain/coldchain_state.py": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e"
+    },
+    "evidence": {
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3CF_COUNTEREXAMPLE_SPEC.json": "567726481b3b0e47f7dd85a925bd6c85eb20e82ccec17e41d0dda4e96e257749",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3CF_FAILURE_PATH_MATRIX.json": "2b679bfcfbd6872a8b203e59b790b1ac3108ef731017af5abbdc5b2e8b9c82ae",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3CF_FAILURE_PATH_REPORT.md": "b8520cae8b95782c35f37571f7c1955fb25c9917d057412bedf8f3598f67ef40",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3CG_SPEC_ADDENDUM.md": "73f2fc3544d090773c3ddefa669ee16f7e1aad4a4264ccfe09fe49f525a7f96a"
+    },
+    "raw": {
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3CF_failures_instance0.txt": "1e2b61b24cfbc7ace2b2127176c6eb43f009cb08f402bed8582ac9e2ed15c326",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3CF_failures_instance1.txt": "1e2b61b24cfbc7ace2b2127176c6eb43f009cb08f402bed8582ac9e2ed15c326",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3CF_failures_instance2.txt": "1e2b61b24cfbc7ace2b2127176c6eb43f009cb08f402bed8582ac9e2ed15c326",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3CF_failures_instance3.txt": "1e2b61b24cfbc7ace2b2127176c6eb43f009cb08f402bed8582ac9e2ed15c326",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3CF_failures_instance4.txt": "1e2b61b24cfbc7ace2b2127176c6eb43f009cb08f402bed8582ac9e2ed15c326",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3CF_failures_instance5.txt": "1e2b61b24cfbc7ace2b2127176c6eb43f009cb08f402bed8582ac9e2ed15c326",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3CF_failures_stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3CF_failures_stdout.txt": "1e2b61b24cfbc7ace2b2127176c6eb43f009cb08f402bed8582ac9e2ed15c326",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3CF_MATRIX_instance0.json": "2b679bfcfbd6872a8b203e59b790b1ac3108ef731017af5abbdc5b2e8b9c82ae",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3CF_MATRIX_instance1.json": "acd05fe85e58c29001972eb59c13961c4f28c329513b82b664b8d14785d089ef",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3CF_MATRIX_instance2.json": "4da19864bf8637c783f9aa7b93327e694929db9674472a6c43aa779b8cc0a35c",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3CF_MATRIX_instance3.json": "2c682cb374e3dd672098d3e685dfae64f9bda5af34f1d33072c0000b44f47c23",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3CF_MATRIX_instance4.json": "1fe1dd78322c9181dab874c631b02fa8822f0c672a735d4618db6f4aa778f57f",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3CF_MATRIX_instance5.json": "4639c124a877133211036ce9e85e27e0a3646c72d86b0722a1223ba00f26b189"
+    }
+  },
+  "gates": {
+    "G-L": "NOT_ESTABLISHED",
+    "G-C": "NOT_ESTABLISHED"
+  },
+  "not_reported_as_passing": "CP-F10 reproduces a DEFECT and is COUNTEREXAMPLE_REPRODUCED; this batch does not report G-L as passing",
+  "verification_required_after_commit": "git archive HEAD <each pinned path> must reproduce the registered sha256 exactly; run after the commit that adds these pins, because git archive reads attributes from the committed tree"
+}

@@ -1,0 +1,12 @@
+  PRE       SETUP_OK            isolated copies captured from a real run, and the live state was not written
+  CP-F10    COUNTEREXAMPLE_REPRODUCED CP-F10 the real commit loop executes an illegal suffix with no gate
+  CP-F8     COUNTEREXAMPLE_REPRODUCED CP-F8 the approval and the first real write are separated by an uncontrolled state change
+  CP-F9     MECHANISM_SATISFIED_ON_REAL_PATH CP-F9 a later real reveal invalidates the old credential (mechanism)
+  CP-A-c7   COUNTEREXAMPLE_REPRODUCED CP-A-c7 _validate_state does not raise on a thermal excursion; it is only counted
+  CP-A-c8   CONCLUSION_RECORDED CP-A-c8 zone capacity/door-warming floor analysis: can hard_upper be reached
+  CP-A-c5   NOT_REPRODUCED      CP-A-c5 forcing _force_return_all exposes the physics-vs-recorded time gap
+  PREREG    OK                  every pre-registered counterexample is present; none dropped
+  AUDIT     OK                  the counterexample probes did not perturb the production trajectory
+
+verdict_counts: {"SETUP_OK": 1, "COUNTEREXAMPLE_REPRODUCED": 3, "MECHANISM_SATISFIED_ON_REAL_PATH": 1, "CONCLUSION_RECORDED": 1, "NOT_REPRODUCED": 1, "OK": 2}
+wrote D:\PyCharm_\MASKCO-Main\research\review_3080_20261010\d3_g0_evidence_root_v1\B3CF_FAILURE_PATH_MATRIX.json
