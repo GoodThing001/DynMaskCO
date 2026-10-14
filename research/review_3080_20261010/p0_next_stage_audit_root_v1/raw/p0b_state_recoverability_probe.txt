@@ -1,0 +1,63 @@
+== ENV ==
+host=user date=2026-10-14T17:56:02+08:00
+
+== [B1] the 32-state asset directory (ALL files) ==
+total 36
+drwxrwxr-x   2 hzeng hzeng  4096 Sep 22 14:36 .
+drwxrwxr-x 204 hzeng hzeng 16384 Sep 25 10:54 ..
+-rw-rw-r--   1 hzeng hzeng 10795 Sep 22 14:36 per_state.json
+-rw-rw-r--   1 hzeng hzeng  1522 Sep 22 14:36 summary.json
+
+== [B2] per_state.json key inventory (actual schema) ==
+records: 32
+per-record keys: ['J0', 'Mpre_greedy', 'Mpre_sgbs', 'Mtrained_greedy', 'Mtrained_greedy7', 'Mtrained_sgbs', 'R', 'dist_sgbs', 'event', 'inst']
+  snapshot         False
+  state_hash       False
+  schema_version   False
+  vehicles         False
+  mask_set         False
+  visible_ids      False
+  P0               False
+  partial          False
+  protected        False
+  vis              False
+  J0               True
+  inst             True
+  event            True
+  clock            False
+sample record: {"inst": 0, "event": 0, "J0": 1.4778266296366724, "R": 1.4117910223360397, "Mpre_greedy": 1.4778266296366724, "Mtrained_greedy": 1.4721750204850284, "Mpre_sgbs": 1.4778266296366724, "Mtrained_sgbs": 1.4721750204850284, "dist_sgbs": 1.3954418850338188, "Mtraine
+
+== [B3] summary.json identity block ==
+top keys: ['Mtrained_greedy7_minus_R', 'Mtrained_sgbs_minus_Mpre_sgbs', 'Mtrained_sgbs_minus_Mtrained_greedy', 'Mtrained_sgbs_minus_Mtrained_greedy7', 'Mtrained_sgbs_minus_R', 'Mtrained_sgbs_minus_dist_sgbs', 'accepted_mean', 'n_instances', 'n_states', 'split', 'wallclock_total_s']
+  split = "cal"
+  n_states = 32
+  n_instances = 16
+
+== [B4] input data identity: cal npz + any manifest ==
+OK   420584  c35fa6834b8007922160f7979680c1fb  data/m0_scale/dcc_50_r1_edod05_cal_teacher.npz
+OK   8189  b84e171676f8afc02e5ac416538965dd  data/m0_scale/M0_TEACHER_MANIFEST.json
+MISS data/m0_scale/manifest.json
+MISS data/m0_scale/DATA_MANIFEST.json
+-- all files in data/m0_scale (depth 1) --
+total 2472
+drwxrwxr-x  2 hzeng hzeng    4096 Sep 16 11:14 .
+drwxrwxr-x 10 hzeng hzeng    4096 Sep 26 08:44 ..
+-rw-rw-r--  1 hzeng hzeng    8189 Sep 16 11:14 M0_TEACHER_MANIFEST.json
+-rw-rw-r--  1 hzeng hzeng  420584 Sep 16 11:14 dcc_50_r1_edod05_cal_teacher.npz
+-rw-rw-r--  1 hzeng hzeng  420657 Sep 16 11:14 dcc_50_r1_edod05_dev_check_teacher.npz
+-rw-rw-r--  1 hzeng hzeng 1667788 Sep 16 11:14 dcc_50_r1_edod05_train_teacher.npz
+
+== [B5] do m0_scale result manifests record the cal npz sha? (bounded depth 2) ==
+results/m0_scale/cal/manifest.json
+(end)
+
+== [B6] is a snapshot module present + its registered identity status ==
+OK   0af3535acaf6a84956104c0f1c8788c0  scripts/simulation/recourse_snapshot.py
+OK   8751921954a8c45f23f127272540d11d  scripts/evaluation/run_sgbs_fixed_state.py
+OK   fd38cb3c2b1084b899e4ec78e2d2f935  scripts/evaluation/run_fixed_state_quality.py
+-- snapshot schema versions --
+20:SNAPSHOT_SCHEMA_VERSION = 'recourse_snapshot_v2'
+21:CC_SNAPSHOT_SCHEMA_VERSION = 'recourse_snapshot_v3_cc'
+
+== DONE ==
+
