@@ -172,20 +172,37 @@ def main():
             delivered.append({'order_id': int(r.order_id),
                               'delivered_quality': float(r.delivered_quality),
                               'salable': (None if r.salable is None else bool(r.salable))})
+    # BND over EVERY captured decision point, so BOTH branches are exercised: the first decision
+    # points have no cargo (not_yet_loaded), later ones carry cargo (in_cargo).  Matching against
+    # the delivered records of the whole run is a necessary condition on real trajectories.
+    per_item, all_viol, sources = [], [], {}
+    for it in g.items:
+        b = LB.bound_for_state(it['env'], it['inst'], it['clock'], it['vehicles'],
+                               {v: list(pp.suffix) for v, pp in it['plans'].items()}, eff)
+        v = LB.falsify_bound_against_delivered(b['rows'], delivered)
+        for r in b['rows']:
+            sources[r['source']] = sources.get(r['source'], 0) + 1
+        all_viol.extend(v)
+        per_item.append({'clock': it['clock'], 'n_rows': len(b['rows']),
+                         'n_in_cargo': sum(1 for r in b['rows'] if r['source'] == 'in_cargo'),
+                         'n_violations': len(v),
+                         'n_unsalable_lower_bound': len(b['unsalable_lower_bound_orders'])})
     base = g.items[0] if g.items else None
-    bnd = None
-    if base is not None:
-        bnd = LB.bound_for_state(base['env'], base['inst'], base['clock'], base['vehicles'],
-                                 {v: list(p.suffix) for v, p in base['plans'].items()}, eff)
-    viol_bnd = LB.falsify_bound_against_delivered(bnd['rows'], delivered) if bnd else []
-    chk('BND', 'BND delivered_quality >= q_lower_bound on every delivered lot of a real run '
-        '(a violation FALSIFIES the candidate bound)', bnd is not None and not viol_bnd,
-        {'n_bound_rows': len(bnd['rows']) if bnd else 0, 'n_delivered': len(delivered),
+    bnd = (LB.bound_for_state(base['env'], base['inst'], base['clock'], base['vehicles'],
+                              {v: list(p.suffix) for v, p in base['plans'].items()}, eff)
+           if base is not None else None)
+    viol_bnd = all_viol
+    chk('BND', 'BND delivered_quality >= q_lower_bound on every delivered lot, over ALL captured '
+        'decision points and BOTH lot branches (in-cargo / not-yet-loaded); a violation FALSIFIES',
+        bnd is not None and not viol_bnd,
+        {'n_decision_points_checked': len(per_item),
+         'n_bound_rows_total': sum(r['n_rows'] for r in per_item),
+         'branch_coverage': sources,
+         'n_delivered_records': len(delivered),
          'n_violations': len(viol_bnd), 'violations': viol_bnd[:3],
+         'per_item': per_item,
          'tau_max_h': (bnd['tau_max'] if bnd else None),
-         'n_unsalable_lower_bound': (len(bnd['unsalable_lower_bound_orders']) if bnd else None),
          'ambient_branch_reachable': (bnd['ambient_branch_reachable'] if bnd else None),
-         'ambient_branch_detail': (bnd['ambient_branch_detail'] if bnd else None),
          'per_class_T_max': ({str(r['temp_class']): r['T_max_used'] for r in bnd['rows']}
                              if bnd else None),
          'tightest_ratio_lower_bound': (min((r['ratio_lower_bound'] for r in bnd['rows']

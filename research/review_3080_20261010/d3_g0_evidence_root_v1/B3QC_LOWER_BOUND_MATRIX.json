@@ -15,7 +15,7 @@
     "effective_contract_hash": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
     "code": {
       "scripts/simulation/d3_quality_lower_bound.py": "21857907064debbbfced51fb6d38c69e27c08f57652ccc3ac7ea5ddbaa0e7d12",
-      "scripts/tests/test_d3_b3qc_lower_bound.py": "a3a26239360095141165265290f093c4571c8b03cfc0e7653fdf26656723c77e"
+      "scripts/tests/test_d3_b3qc_lower_bound.py": "3e246342f6d69c5611d8566139a539897187d0b88a5d19bff80a5bdf48a20d67"
     }
   },
   "assumptions": [
@@ -198,22 +198,120 @@
     },
     {
       "cid": "BND",
-      "name": "BND delivered_quality >= q_lower_bound on every delivered lot of a real run (a violation FALSIFIES the candidate bound)",
+      "name": "BND delivered_quality >= q_lower_bound on every delivered lot, over ALL captured decision points and BOTH lot branches (in-cargo / not-yet-loaded); a violation FALSIFIES",
       "ok": true,
       "detail": {
-        "n_bound_rows": 25,
-        "n_delivered": 50,
+        "n_decision_points_checked": 14,
+        "n_bound_rows_total": 256,
+        "branch_coverage": {
+          "not_yet_loaded": 222,
+          "in_cargo": 34
+        },
+        "n_delivered_records": 50,
         "n_violations": 0,
         "violations": [],
+        "per_item": [
+          {
+            "clock": 0.0,
+            "n_rows": 25,
+            "n_in_cargo": 0,
+            "n_violations": 0,
+            "n_unsalable_lower_bound": 0
+          },
+          {
+            "clock": 0.1465623676776886,
+            "n_rows": 23,
+            "n_in_cargo": 0,
+            "n_violations": 0,
+            "n_unsalable_lower_bound": 0
+          },
+          {
+            "clock": 0.49480384588241577,
+            "n_rows": 21,
+            "n_in_cargo": 0,
+            "n_violations": 0,
+            "n_unsalable_lower_bound": 0
+          },
+          {
+            "clock": 1.0800970792770386,
+            "n_rows": 19,
+            "n_in_cargo": 0,
+            "n_violations": 0,
+            "n_unsalable_lower_bound": 0
+          },
+          {
+            "clock": 1.2553534507751465,
+            "n_rows": 17,
+            "n_in_cargo": 1,
+            "n_violations": 0,
+            "n_unsalable_lower_bound": 0
+          },
+          {
+            "clock": 1.255711317062378,
+            "n_rows": 18,
+            "n_in_cargo": 1,
+            "n_violations": 0,
+            "n_unsalable_lower_bound": 0
+          },
+          {
+            "clock": 1.4913861751556396,
+            "n_rows": 16,
+            "n_in_cargo": 2,
+            "n_violations": 0,
+            "n_unsalable_lower_bound": 0
+          },
+          {
+            "clock": 1.747131884098053,
+            "n_rows": 17,
+            "n_in_cargo": 3,
+            "n_violations": 0,
+            "n_unsalable_lower_bound": 0
+          },
+          {
+            "clock": 2.442596673965454,
+            "n_rows": 18,
+            "n_in_cargo": 3,
+            "n_violations": 0,
+            "n_unsalable_lower_bound": 0
+          },
+          {
+            "clock": 2.499143362045288,
+            "n_rows": 16,
+            "n_in_cargo": 3,
+            "n_violations": 0,
+            "n_unsalable_lower_bound": 0
+          },
+          {
+            "clock": 2.6447315216064453,
+            "n_rows": 15,
+            "n_in_cargo": 4,
+            "n_violations": 0,
+            "n_unsalable_lower_bound": 0
+          },
+          {
+            "clock": 2.652686595916748,
+            "n_rows": 16,
+            "n_in_cargo": 5,
+            "n_violations": 0,
+            "n_unsalable_lower_bound": 0
+          },
+          {
+            "clock": 2.8454880714416504,
+            "n_rows": 17,
+            "n_in_cargo": 6,
+            "n_violations": 0,
+            "n_unsalable_lower_bound": 0
+          },
+          {
+            "clock": 3.1123225688934326,
+            "n_rows": 18,
+            "n_in_cargo": 6,
+            "n_violations": 0,
+            "n_unsalable_lower_bound": 0
+          }
+        ],
         "tau_max_h": 24.0,
-        "n_unsalable_lower_bound": 0,
         "ambient_branch_reachable": false,
-        "ambient_branch_detail": {
-          "precooled_flag": true,
-          "precool_min_temp_class": 0,
-          "classes_below_floor": [],
-          "why": "no class falls below precool_min_temp_class, so every lot is precooled and the ambient branch is UNREACHABLE"
-        },
         "per_class_T_max": {
           "1": 8.0,
           "2": -12.0,
