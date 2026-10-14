@@ -1,0 +1,1109 @@
+{
+  "stage": "D3_G0_Evidence_B3AT1_authorized_commit_transaction",
+  "read_only": true,
+  "production_state_written": false,
+  "commit_modified": false,
+  "transaction_registered_on_env": false,
+  "real_writeback_enabled": false,
+  "d8_relaxed": false,
+  "three_separate_acceptances": {
+    "AT1_transaction_success": "MEASURED (isolated copies only)",
+    "certification_capability_completeness": "NOT_ACHIEVED (D8 quality gap stands)",
+    "AT2_production_write_qualification": "NOT_AUTHORISED (P2 not established)"
+  },
+  "propositions": {
+    "P1_gate_can_refuse": "VERIFIED_ON_ISOLATED_COPIES_ONLY",
+    "P2_every_real_commit_goes_through_the_gate": "NOT_ESTABLISHED"
+  },
+  "gates": {
+    "G-L": "NOT_ESTABLISHED",
+    "G-C": "NOT_ESTABLISHED",
+    "P2": "NOT_ESTABLISHED"
+  },
+  "refusal_capability": {
+    "n_rows_with_a_refusal": 3,
+    "counted_as_capability": [
+      "AT-F8",
+      "AT-ONCE",
+      "AT-IDENT"
+    ],
+    "waits_not_counted": [
+      "AT-WAIT"
+    ],
+    "detection_not_prevention": [
+      "AT-F10"
+    ],
+    "note": "H2/H3/H4: only refusals attributed to the designated reason count; a WAIT never counts; D8 counts on the quality dimension only; AT-F10 is a DETECTION and must not be read as a prevention capability"
+  },
+  "preregistered": [
+    "AT-F8",
+    "AT-F10",
+    "AT-ONCE",
+    "AT-PARTIAL",
+    "AT-IDENT",
+    "AT-D8",
+    "AT-WAIT",
+    "AT-POS-REAL",
+    "AT-POS"
+  ],
+  "covered": [
+    "PRE",
+    "AT-F8",
+    "AT-F10",
+    "AT-ONCE",
+    "AT-PARTIAL",
+    "AT-IDENT",
+    "AT-D8",
+    "AT-POS-REAL",
+    "AT-POS",
+    "AT-WAIT",
+    "ISOLATION"
+  ],
+  "missing": [],
+  "verdict_counts": {
+    "SETUP_OK": 1,
+    "REFUSED_NO_MUTATION": 3,
+    "DETECTED_NOT_PREVENTED": 1,
+    "NO_PARTIAL_PUBLISH_ATOMIC_AND_PARTIAL_REPORTED_FOR_NONATOMIC": 1,
+    "BLOCKED_BY_D8": 2,
+    "COMMITTED_ON_ISOLATED_COPY": 1,
+    "WAIT_BY_ENV_PROTOCOL": 1,
+    "OK": 3
+  },
+  "identities": {
+    "data_npz_sha256": "c35fa6834b8007922160f7979680c1fb8c6dda4d93309cd5ef509b57d83f20f1",
+    "profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
+    "effective_contract_hash": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+    "prereg_spec_sha256": "01803fd5428a83a8b262b49c6dfa4710b60c2f15e8c8d8bc52283b19bfe476a4",
+    "code": {
+      "scripts/tests/test_d3_b3at1_transaction.py": "757c93153957114082a87a2a5df1d86cca63ee607c9cc95a9946440011ccb34d",
+      "scripts/simulation/d3_commit_transaction.py": "43d2ce76ee3b98e656f2d33f2a66d5fe28c3019841962496ff0db4d1fb085298",
+      "scripts/simulation/d3_composed_certifier.py": "b65ddf6545a84b656cd2e9dd541cea266d2d6bdbc1cd56abd76f7780104aea01",
+      "scripts/simulation/d3_install_gate.py": "adc8df289be1babcf8d6907ff57ab30ab3d66d58fcb47a6c9539bc8591634483",
+      "scripts/simulation/d3_credential.py": "85f32d67ad38f1a88be6aa5a8c4c4af3f48797df6a1ca088d05c672453834c7f",
+      "scripts/simulation/d3_state_assembly.py": "03fa7c164b269910cd33011de2a0f6017a97ce5bf1832a788ebbd81032545874",
+      "scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6",
+      "scripts/simulation/action_contract.py": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b"
+    }
+  },
+  "results": [
+    {
+      "cid": "PRE",
+      "name": "fixtures captured from a real run; capture proven read-only; predicate recorded",
+      "verdict": "SETUP_OK",
+      "detail": {
+        "n_items": 8,
+        "n_calls": 100,
+        "predicate": "any pending customer in the incumbent plan (suffix length > 0)",
+        "candidates_examined": [
+          {
+            "clock": 0.0,
+            "n_pending": 25,
+            "ok": true
+          },
+          {
+            "clock": 0.1465623676776886,
+            "n_pending": 23,
+            "ok": true
+          },
+          {
+            "clock": 0.49480384588241577,
+            "n_pending": 21,
+            "ok": true
+          },
+          {
+            "clock": 1.0800970792770386,
+            "n_pending": 19,
+            "ok": true
+          },
+          {
+            "clock": 1.2553534507751465,
+            "n_pending": 16,
+            "ok": true
+          },
+          {
+            "clock": 1.255711317062378,
+            "n_pending": 17,
+            "ok": true
+          },
+          {
+            "clock": 1.4913861751556396,
+            "n_pending": 14,
+            "ok": true
+          },
+          {
+            "clock": 1.747131884098053,
+            "n_pending": 14,
+            "ok": true
+          }
+        ],
+        "n_matching": 8
+      }
+    },
+    {
+      "cid": "AT-F8",
+      "name": "AT-F8 a state change between re-verification and write is caught",
+      "verdict": "REFUSED_NO_MUTATION",
+      "detail": {
+        "outcome": "REFUSED_NO_MUTATION",
+        "refusals": [
+          "state_changed_inside_boundary"
+        ],
+        "boundary": {
+          "schema": "commit_boundary_v1",
+          "opened": true,
+          "closed": false,
+          "state_recheck_inside_boundary": true,
+          "state_hash_at_reverify": "0b81882cb62566b68b7ccdbf39e6faaedd9d3e504c0d6dd0dd63d57ee38a6111",
+          "state_hash_before_publish": "a431dc2d6d5ae8a772190095208f83158302bb0b8b1b4234ca96a98f8204091e"
+        },
+        "pre_drift_state_equalled_the_authorised_state": true,
+        "state_hash_before": "0b81882cb62566b68b7ccdbf39e6faaedd9d3e504c0d6dd0dd63d57ee38a6111",
+        "state_hash_after": "a431dc2d6d5ae8a772190095208f83158302bb0b8b1b4234ca96a98f8204091e",
+        "state_hash_moved_by": "the injected drift (the simulated other writer), NOT the tx",
+        "transaction_published_nothing": true,
+        "n_write_primitives_inside_the_boundary": 0,
+        "vehicle_fields_unchanged_by_the_transaction": true,
+        "fields_after_hook_head": [
+          {
+            "vehicle_id": 0,
+            "status": "idle",
+            "current_node": 0,
+            "ready_time": 0.0,
+            "committed_next": null,
+            "mutable_suffix": []
+          },
+          {
+            "vehicle_id": 1,
+            "status": "idle",
+            "current_node": 0,
+            "ready_time": 0.0,
+            "committed_next": null,
+            "mutable_suffix": []
+          },
+          {
+            "vehicle_id": 2,
+            "status": "idle",
+            "current_node": 0,
+            "ready_time": 0.0,
+            "committed_next": null,
+            "mutable_suffix": []
+          }
+        ],
+        "fields_after_refusal_head": [
+          {
+            "vehicle_id": 0,
+            "status": "idle",
+            "current_node": 0,
+            "ready_time": 0.0,
+            "committed_next": null,
+            "mutable_suffix": []
+          },
+          {
+            "vehicle_id": 1,
+            "status": "idle",
+            "current_node": 0,
+            "ready_time": 0.0,
+            "committed_next": null,
+            "mutable_suffix": []
+          },
+          {
+            "vehicle_id": 2,
+            "status": "idle",
+            "current_node": 0,
+            "ready_time": 0.0,
+            "committed_next": null,
+            "mutable_suffix": []
+          }
+        ],
+        "control_without_the_drift": {
+          "outcome": "COMMITTED",
+          "n_writes_inside": 3
+        },
+        "gate_used": "control_gate_allow (test double; not a certification)",
+        "real_qualification_claimed": false,
+        "qualification": {
+          "Q1_nonempty": {
+            "ok": true,
+            "pending_customers": [
+              {
+                "customer": 38,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 12,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 2,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 5,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 9,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 1,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 14,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 7,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 32,
+                "vehicle_id": 1
+              },
+              {
+                "customer": 40,
+                "vehicle_id": 1
+              },
+              {
+                "customer": 47,
+                "vehicle_id": 1
+              },
+              {
+                "customer": 29,
+                "vehicle_id": 1
+              }
+            ],
+            "n_pending": 25,
+            "why": "every non-WAIT row must involve at least one real, locatable pending customer"
+          },
+          "Q2_precondition": {
+            "ok": true,
+            "predicate": "pending customer + control gate",
+            "candidates_examined": [
+              {
+                "clock": 0.0,
+                "n_pending": 25,
+                "ok": true
+              },
+              {
+                "clock": 0.1465623676776886,
+                "n_pending": 23,
+                "ok": true
+              },
+              {
+                "clock": 0.49480384588241577,
+                "n_pending": 21,
+                "ok": true
+              },
+              {
+                "clock": 1.0800970792770386,
+                "n_pending": 19,
+                "ok": true
+              },
+              {
+                "clock": 1.2553534507751465,
+                "n_pending": 16,
+                "ok": true
+              },
+              {
+                "clock": 1.255711317062378,
+                "n_pending": 17,
+                "ok": true
+              },
+              {
+                "clock": 1.4913861751556396,
+                "n_pending": 14,
+                "ok": true
+              },
+              {
+                "clock": 1.747131884098053,
+                "n_pending": 14,
+                "ok": true
+              }
+            ],
+            "silent_filtering": false,
+            "why": "the row declares its precondition and every captured candidate is recorded with pass/fail; no candidate is dropped silently"
+          },
+          "Q3_plan_identity": {
+            "commit_identity_candidate": "548a68be2712b8ab45bede9d02026731",
+            "plan_hash_legacy_candidate": "fd3380e889f3610c",
+            "incumbent_is_the_same_object_as_candidate": true,
+            "certified_plan_is_the_same_object_as_candidate": true,
+            "actually_committed_plan_recorded_from_vehicle_fields": true,
+            "reprepared_plans_match_the_fixture": true,
+            "reprepared_state_matches_the_fixture_post_hash": false,
+            "why": "incumbent, candidate and certified plan are the same object in these rows, and that coincidence is stated here rather than left implicit; the re-prepared clone is asserted against the fixture"
+          },
+          "Q4_contract_budget": {
+            "ok": true,
+            "budget_role": "FORMAL",
+            "budget_used": 300.0,
+            "does_not_establish_install_feasibility": false,
+            "why": "formal rows use the original contract budget; an ISOLATION_ONLY budget only isolates a mechanism"
+          },
+          "Q5_attribution": {
+            "ok": true,
+            "expected": "state_changed_inside_boundary",
+            "observed": [
+              "state_changed_inside_boundary"
+            ],
+            "designated_check_is_the_only_failing_cause": true,
+            "control_without_the_drift": "COMMITTED"
+          },
+          "Q6_real_state": {
+            "ok": true,
+            "evidence_source": "live_vehicle_fields",
+            "why": "evidence must be real vehicle fields / post-commit state, never a callback return value"
+          },
+          "all_ok": true
+        },
+        "why_it_matters": "the boundary re-checks the state version immediately before the publish; a bare \"reverify then install\" sequence has no such checkpoint and cannot catch this"
+      }
+    },
+    {
+      "cid": "AT-F10",
+      "name": "AT-F10 bypassing the transaction is DETECTED at runtime",
+      "verdict": "DETECTED_NOT_PREVENTED",
+      "detail": {
+        "static_d3_scope": {
+          "d3_write_primitive_calls": [
+            {
+              "file": "scripts/simulation/d3_commit_transaction.py",
+              "line": 477,
+              "call": "_commit"
+            }
+          ],
+          "d3_write_primitive_calls_excluding_the_transaction": [],
+          "d3_live_state_assigns": [
+            {
+              "file": "scripts/simulation/d3_commit_transaction.py",
+              "line": 471,
+              "attr": "mutable_suffix"
+            },
+            {
+              "file": "scripts/simulation/d3_commit_transaction.py",
+              "line": 476,
+              "attr": "mutable_suffix"
+            }
+          ],
+          "d3_live_state_assigns_excluding_the_transaction": [],
+          "n_d3_module_files": 8,
+          "why_the_transaction_module_is_excluded": "the transaction IS the authorised writer, so it is expected to reference the write primitives; the D3-scope claim is that no OTHER d3_ module does"
+        },
+        "runtime_monitor": {
+          "n_records": 5,
+          "n_out_of_transaction": 2,
+          "out_of_transaction_records": [
+            {
+              "primitive": "_plan_and_commit",
+              "caller": "D:/PyCharm_/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at1_transaction.py:364",
+              "inside_transaction": false,
+              "vehicle_id": null,
+              "node": null,
+              "clock": 0.0,
+              "n_vehicles": 25
+            },
+            {
+              "primitive": "_commit",
+              "caller": "D:/PyCharm_/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/strict_online_env.py:655",
+              "inside_transaction": false,
+              "vehicle_id": 0,
+              "node": 38,
+              "clock": 0.0
+            }
+          ],
+          "inside_transaction_records": [
+            {
+              "primitive": "_commit",
+              "caller": "D:/PyCharm_/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at1_transaction.py:269",
+              "inside_transaction": true,
+              "vehicle_id": 0,
+              "node": 38,
+              "clock": 0.0
+            },
+            {
+              "primitive": "_commit",
+              "caller": "D:/PyCharm_/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at1_transaction.py:269",
+              "inside_transaction": true,
+              "vehicle_id": 1,
+              "node": 32,
+              "clock": 0.0
+            },
+            {
+              "primitive": "_commit",
+              "caller": "D:/PyCharm_/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at1_transaction.py:269",
+              "inside_transaction": true,
+              "vehicle_id": 2,
+              "node": 48,
+              "clock": 0.0
+            }
+          ]
+        },
+        "detected": true,
+        "prevented": false,
+        "honesty": "DETECTION IS NOT PREVENTION: the monitor observed a write that bypassed the transaction and attributed it to its caller; nothing blocked it, because blocking requires owning the write capability, which is B3-AT2",
+        "transaction_outcome_in_the_same_window": "COMMITTED",
+        "claim_allowed": "within the D3 module set APART FROM THIS TRANSACTION MODULE ITSELF, no live write primitive is referenced and no live state attribute is assigned, so an ungated write is UNREACHABLE from those modules; this transaction module is the one authorised writer and is the only entry listed above.  This is NOT proposition P2 (\"every real commit goes through the gate\") and does not claim the transaction took over the production path"
+      }
+    },
+    {
+      "cid": "AT-ONCE",
+      "name": "AT-ONCE the same authorisation cannot be consumed twice, even by a NEW object",
+      "verdict": "REFUSED_NO_MUTATION",
+      "detail": {
+        "first": {
+          "outcome": "COMMITTED",
+          "ticket_id": "73776bf8e78839d6",
+          "ticket_state": "consumed_in_boundary"
+        },
+        "second": {
+          "outcome": "REFUSED_NO_MUTATION",
+          "refusals": [
+            "ticket_already_consumed"
+          ],
+          "consume_info": {
+            "reason": "ticket_already_consumed",
+            "first_consumer": "tx-first",
+            "attempted_consumer": "tx-second-NEW-OBJECT",
+            "consumed_at": 1
+          },
+          "ticket_state": "consumed",
+          "state_unchanged": true
+        },
+        "registry": {
+          "scope": "in_process_module_singleton",
+          "n_issued": 1,
+          "n_consumed": 1,
+          "issued": [
+            "73776bf8e78839d6"
+          ],
+          "consumed": [
+            "73776bf8e78839d6"
+          ],
+          "note": "in-process only: no nonce survives the process, and no cross-process claim is made"
+        },
+        "why_new_object_is_not_enough": "consumption lives in the shared registry keyed on the ticket id, not in the transaction object, so constructing a fresh transaction does not refresh the authorisation",
+        "scope": "in-process only (CommitTicketRegistry.scope)",
+        "qualification": {
+          "Q1_nonempty": {
+            "ok": true,
+            "pending_customers": [
+              {
+                "customer": 38,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 12,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 2,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 5,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 9,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 1,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 14,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 7,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 32,
+                "vehicle_id": 1
+              },
+              {
+                "customer": 40,
+                "vehicle_id": 1
+              },
+              {
+                "customer": 47,
+                "vehicle_id": 1
+              },
+              {
+                "customer": 29,
+                "vehicle_id": 1
+              }
+            ],
+            "n_pending": 25,
+            "why": "every non-WAIT row must involve at least one real, locatable pending customer"
+          },
+          "Q2_precondition": {
+            "ok": true,
+            "predicate": "pending customer + control gate",
+            "candidates_examined": [
+              {
+                "clock": 0.0,
+                "n_pending": 25,
+                "ok": true
+              },
+              {
+                "clock": 0.1465623676776886,
+                "n_pending": 23,
+                "ok": true
+              },
+              {
+                "clock": 0.49480384588241577,
+                "n_pending": 21,
+                "ok": true
+              },
+              {
+                "clock": 1.0800970792770386,
+                "n_pending": 19,
+                "ok": true
+              },
+              {
+                "clock": 1.2553534507751465,
+                "n_pending": 16,
+                "ok": true
+              },
+              {
+                "clock": 1.255711317062378,
+                "n_pending": 17,
+                "ok": true
+              },
+              {
+                "clock": 1.4913861751556396,
+                "n_pending": 14,
+                "ok": true
+              },
+              {
+                "clock": 1.747131884098053,
+                "n_pending": 14,
+                "ok": true
+              }
+            ],
+            "silent_filtering": false,
+            "why": "the row declares its precondition and every captured candidate is recorded with pass/fail; no candidate is dropped silently"
+          },
+          "Q3_plan_identity": {
+            "commit_identity_candidate": "548a68be2712b8ab45bede9d02026731",
+            "plan_hash_legacy_candidate": "fd3380e889f3610c",
+            "incumbent_is_the_same_object_as_candidate": true,
+            "certified_plan_is_the_same_object_as_candidate": true,
+            "actually_committed_plan_recorded_from_vehicle_fields": true,
+            "reprepared_plans_match_the_fixture": true,
+            "reprepared_state_matches_the_fixture_post_hash": false,
+            "why": "incumbent, candidate and certified plan are the same object in these rows, and that coincidence is stated here rather than left implicit; the re-prepared clone is asserted against the fixture"
+          },
+          "Q4_contract_budget": {
+            "ok": true,
+            "budget_role": "FORMAL",
+            "budget_used": 300.0,
+            "does_not_establish_install_feasibility": false,
+            "why": "formal rows use the original contract budget; an ISOLATION_ONLY budget only isolates a mechanism"
+          },
+          "Q5_attribution": {
+            "ok": true,
+            "expected": "ticket_already_consumed",
+            "observed": [
+              "ticket_already_consumed"
+            ],
+            "designated_check_is_the_only_failing_cause": true
+          },
+          "Q6_real_state": {
+            "ok": true,
+            "evidence_source": "live_vehicle_fields",
+            "why": "evidence must be real vehicle fields / post-commit state, never a callback return value"
+          },
+          "all_ok": true
+        }
+      }
+    },
+    {
+      "cid": "AT-PARTIAL",
+      "name": "AT-PARTIAL a mid-publish failure leaves no partial publish, or is reported as partial",
+      "verdict": "NO_PARTIAL_PUBLISH_ATOMIC_AND_PARTIAL_REPORTED_FOR_NONATOMIC",
+      "detail": {
+        "atomic_path": {
+          "exception_before_any_write": "RuntimeError: candidate construction failed before any write",
+          "n_write_primitives_inside_the_failed_attempt": 0,
+          "n_published": 0,
+          "partial_publish_possible": false,
+          "why": "the candidate is fully built and validated before the publish, so a failure in that phase runs no write primitive at all"
+        },
+        "non_atomic_path": {
+          "outcome": "PARTIAL_COMMIT",
+          "n_published_before_failure": 1,
+          "published_vehicles": [
+            {
+              "vehicle_id": 0,
+              "after": {
+                "vehicle_id": 0,
+                "status": "idle",
+                "current_node": 0,
+                "ready_time": 0.0,
+                "committed_next": null,
+                "mutable_suffix": [
+                  38,
+                  12,
+                  2,
+                  5,
+                  9,
+                  1,
+                  14,
+                  7
+                ]
+              }
+            }
+          ],
+          "exception": "RuntimeError: publish failed on the second vehicle",
+          "rollback_claimed": false,
+          "partial_commit_report": true,
+          "ticket_state": "consumed_on_partial_commit"
+        },
+        "v1_help_scope": "untouched",
+        "no_rollback_claimed": "a partial publish is reported as PARTIAL_COMMIT; it is never called a rollback, because no durable transaction mechanism exists (H5)"
+      }
+    },
+    {
+      "cid": "AT-IDENT",
+      "name": "AT-IDENT anchor_time / anchor_load changes are DETECTED",
+      "verdict": "REFUSED_NO_MUTATION",
+      "detail": {
+        "anchor_time_changed_by": 1.0,
+        "anchor_load_changed_by": 7.0,
+        "plan_hash_legacy_unchanged": true,
+        "plan_hash_legacy_value": "fd3380e889f3610c",
+        "commit_identity_unchanged": false,
+        "authorised_commit_identity": "548a68be2712b8ab45bede9d02026731",
+        "attempted_commit_identity": "ed803116bc4d12ab186910b72080fe52",
+        "outcome": "REFUSED_NO_MUTATION",
+        "refusals": [
+          "commit_identity_mismatch"
+        ],
+        "state_unchanged": true,
+        "why": "the legacy 16-hex `plan_hash` is blind to anchor_time/anchor_load, so the transaction uses `commit_identity`; this row proves the difference is what detects the change",
+        "qualification": {
+          "Q1_nonempty": {
+            "ok": true,
+            "pending_customers": [
+              {
+                "customer": 38,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 12,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 2,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 5,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 9,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 1,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 14,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 7,
+                "vehicle_id": 0
+              },
+              {
+                "customer": 32,
+                "vehicle_id": 1
+              },
+              {
+                "customer": 40,
+                "vehicle_id": 1
+              },
+              {
+                "customer": 47,
+                "vehicle_id": 1
+              },
+              {
+                "customer": 29,
+                "vehicle_id": 1
+              }
+            ],
+            "n_pending": 25,
+            "why": "every non-WAIT row must involve at least one real, locatable pending customer"
+          },
+          "Q2_precondition": {
+            "ok": true,
+            "predicate": "pending customer + control gate",
+            "candidates_examined": [
+              {
+                "clock": 0.0,
+                "n_pending": 25,
+                "ok": true
+              },
+              {
+                "clock": 0.1465623676776886,
+                "n_pending": 23,
+                "ok": true
+              },
+              {
+                "clock": 0.49480384588241577,
+                "n_pending": 21,
+                "ok": true
+              },
+              {
+                "clock": 1.0800970792770386,
+                "n_pending": 19,
+                "ok": true
+              },
+              {
+                "clock": 1.2553534507751465,
+                "n_pending": 16,
+                "ok": true
+              },
+              {
+                "clock": 1.255711317062378,
+                "n_pending": 17,
+                "ok": true
+              },
+              {
+                "clock": 1.4913861751556396,
+                "n_pending": 14,
+                "ok": true
+              },
+              {
+                "clock": 1.747131884098053,
+                "n_pending": 14,
+                "ok": true
+              }
+            ],
+            "silent_filtering": false,
+            "why": "the row declares its precondition and every captured candidate is recorded with pass/fail; no candidate is dropped silently"
+          },
+          "Q3_plan_identity": {
+            "commit_identity_candidate": "548a68be2712b8ab45bede9d02026731",
+            "plan_hash_legacy_candidate": "fd3380e889f3610c",
+            "incumbent_is_the_same_object_as_candidate": true,
+            "certified_plan_is_the_same_object_as_candidate": true,
+            "actually_committed_plan_recorded_from_vehicle_fields": true,
+            "reprepared_plans_match_the_fixture": true,
+            "reprepared_state_matches_the_fixture_post_hash": false,
+            "why": "incumbent, candidate and certified plan are the same object in these rows, and that coincidence is stated here rather than left implicit; the re-prepared clone is asserted against the fixture"
+          },
+          "Q4_contract_budget": {
+            "ok": true,
+            "budget_role": "FORMAL",
+            "budget_used": 300.0,
+            "does_not_establish_install_feasibility": false,
+            "why": "formal rows use the original contract budget; an ISOLATION_ONLY budget only isolates a mechanism"
+          },
+          "Q5_attribution": {
+            "ok": true,
+            "expected": "commit_identity_mismatch",
+            "observed": [
+              "commit_identity_mismatch"
+            ],
+            "designated_check_is_the_only_failing_cause": true
+          },
+          "Q6_real_state": {
+            "ok": true,
+            "evidence_source": "live_vehicle_fields",
+            "why": "evidence must be real vehicle fields / post-commit state, never a callback return value"
+          },
+          "all_ok": true
+        }
+      }
+    },
+    {
+      "cid": "AT-D8",
+      "name": "AT-D8 the quality capability gap still blocks the transaction",
+      "verdict": "BLOCKED_BY_D8",
+      "detail": {
+        "outcome": "BLOCKED_BY_D8",
+        "counts_as_refusal_capability": "quality_dimension_only",
+        "blocking_capability_gaps": [
+          "quality_salability"
+        ],
+        "certification_reasons": [],
+        "executable_checks_all_ok": true,
+        "state_unchanged": true,
+        "budget_role": "ISOLATION_ONLY",
+        "budget_used": 1000000000.0,
+        "does_not_establish_install_feasibility": true,
+        "formal_budget_observation": {
+          "outcome": "REFUSED_NO_MUTATION",
+          "refusals": [
+            "certification_incomplete"
+          ],
+          "formal_certification_reasons": [
+            "energy_budget_exceeded"
+          ],
+          "formal_certification_ok": false,
+          "why": "with the FORMAL budget the composed certifier itself fails (see formal_certification_reasons), so the real gate refuses with `certification_incomplete` before the D8 question arises; the ISOLATION_ONLY row exists only to isolate the quality gap and is NOT install-feasibility evidence"
+        },
+        "no_relaxation": "D8 was not relaxed and no quality check was injected"
+      }
+    },
+    {
+      "cid": "AT-POS-REAL",
+      "name": "AT-POS-REAL under REAL certification the transaction cannot commit",
+      "verdict": "BLOCKED_BY_D8",
+      "detail": {
+        "outcome": "BLOCKED_BY_D8",
+        "reached_boundary": false,
+        "gate_used": "default_gate_decision_fn (the REAL gate)",
+        "certification_complete_used": false,
+        "real_qualification_established": false,
+        "install_permission_claimed": false,
+        "why": "this is the positive control under REAL conditions, and the honest verdict is that the transaction never reaches its boundary: `installable` is False for every plan while the quality capability gap stands"
+      }
+    },
+    {
+      "cid": "AT-POS",
+      "name": "AT-POS mechanics-only control: the transaction can re-verify, consume and publish",
+      "verdict": "COMMITTED_ON_ISOLATED_COPY",
+      "detail": {
+        "outcome": "COMMITTED",
+        "publish": "atomic",
+        "ticket_state": "consumed_in_boundary",
+        "commit_id": "548a68be2712b8ab45bede9d02026731",
+        "evidence_source": "live_vehicle_fields",
+        "evidence_before_head": [
+          {
+            "vehicle_id": 0,
+            "status": "idle",
+            "current_node": 0,
+            "ready_time": 0.0,
+            "committed_next": null,
+            "mutable_suffix": [
+              38,
+              12,
+              2,
+              5,
+              9,
+              1,
+              14,
+              7,
+              0
+            ]
+          },
+          {
+            "vehicle_id": 1,
+            "status": "idle",
+            "current_node": 0,
+            "ready_time": 0.0,
+            "committed_next": null,
+            "mutable_suffix": [
+              32,
+              40,
+              47,
+              29,
+              31,
+              22,
+              17,
+              26,
+              21,
+              0
+            ]
+          },
+          {
+            "vehicle_id": 2,
+            "status": "idle",
+            "current_node": 0,
+            "ready_time": 0.0,
+            "committed_next": null,
+            "mutable_suffix": [
+              48,
+              33,
+              13,
+              16,
+              49,
+              3,
+              11,
+              43,
+              0
+            ]
+          },
+          {
+            "vehicle_id": 3,
+            "status": "idle",
+            "current_node": 0,
+            "ready_time": 0.0,
+            "committed_next": null,
+            "mutable_suffix": [
+              0
+            ]
+          }
+        ],
+        "evidence_after_head": [
+          {
+            "vehicle_id": 0,
+            "status": "committed",
+            "current_node": 0,
+            "ready_time": 0.0,
+            "committed_next": 38,
+            "mutable_suffix": [
+              12,
+              2,
+              5,
+              9,
+              1,
+              14,
+              7
+            ]
+          },
+          {
+            "vehicle_id": 1,
+            "status": "committed",
+            "current_node": 0,
+            "ready_time": 0.0,
+            "committed_next": 32,
+            "mutable_suffix": [
+              40,
+              47,
+              29,
+              31,
+              22,
+              17,
+              26,
+              21
+            ]
+          },
+          {
+            "vehicle_id": 2,
+            "status": "committed",
+            "current_node": 0,
+            "ready_time": 0.0,
+            "committed_next": 48,
+            "mutable_suffix": [
+              33,
+              13,
+              16,
+              49,
+              3,
+              11,
+              43
+            ]
+          },
+          {
+            "vehicle_id": 3,
+            "status": "idle",
+            "current_node": 0,
+            "ready_time": 0.0,
+            "committed_next": null,
+            "mutable_suffix": []
+          }
+        ],
+        "gate_used": "control_gate_allow (test double: the caller supplies the allowing decision; no quality check is injected)",
+        "real_qualification_claimed": false,
+        "install_permission_claimed": false,
+        "not_a_production_path": true,
+        "does_not_establish_install_feasibility": true,
+        "why": "this row separates TRANSACTION MECHANICS from CERTIFICATION CAPABILITY and from PRODUCTION WRITE QUALIFICATION; the real gate cannot produce an allowing decision today (see AT-POS-REAL), so this row establishes only that the transaction mechanics work"
+      }
+    },
+    {
+      "cid": "AT-WAIT",
+      "name": "AT-WAIT a legal WAIT is recorded as WAIT and never as a refusal",
+      "verdict": "WAIT_BY_ENV_PROTOCOL",
+      "detail": {
+        "outcome": "WAIT_BY_ENV_PROTOCOL",
+        "counts_as_refusal_capability": false,
+        "state_unchanged": true,
+        "gate_invoked": false,
+        "why": "no pending action exists, so there is no refused write to attribute; counting this as refusal capability would be the D0 ambiguity the B3-CG addendum forbids"
+      }
+    },
+    {
+      "cid": "ISOLATION",
+      "name": "the transaction did not take over the production path",
+      "verdict": "OK",
+      "detail": {
+        "non_test_modules_importing_the_transaction": [],
+        "registered_on_env_anywhere": false,
+        "d3_write_primitive_calls": [
+          {
+            "file": "scripts/simulation/d3_commit_transaction.py",
+            "line": 477,
+            "call": "_commit"
+          }
+        ],
+        "d3_live_state_assigns": [
+          {
+            "file": "scripts/simulation/d3_commit_transaction.py",
+            "line": 471,
+            "attr": "mutable_suffix"
+          },
+          {
+            "file": "scripts/simulation/d3_commit_transaction.py",
+            "line": 476,
+            "attr": "mutable_suffix"
+          }
+        ],
+        "historical_bypass_sites_modified_this_batch": [],
+        "reachable_call_graph": {
+          "module": "d3_commit_transaction",
+          "callers": [
+            "scripts/tests/test_d3_b3at1_transaction.py"
+          ]
+        },
+        "claim_allowed": "within the D3 module set APART FROM THIS TRANSACTION MODULE ITSELF, no live write primitive is referenced and no live state attribute is assigned, so an ungated write is UNREACHABLE from those modules; this transaction module is the one authorised writer and is the only entry listed above.  This is NOT proposition P2 (\"every real commit goes through the gate\") and does not claim the transaction took over the production path"
+      }
+    },
+    {
+      "cid": "PREREG",
+      "name": "every pre-registered row is present; none dropped",
+      "verdict": "OK",
+      "detail": {
+        "preregistered": [
+          "AT-F8",
+          "AT-F10",
+          "AT-ONCE",
+          "AT-PARTIAL",
+          "AT-IDENT",
+          "AT-D8",
+          "AT-WAIT",
+          "AT-POS-REAL",
+          "AT-POS"
+        ],
+        "covered": [
+          "PRE",
+          "AT-F8",
+          "AT-F10",
+          "AT-ONCE",
+          "AT-PARTIAL",
+          "AT-IDENT",
+          "AT-D8",
+          "AT-POS-REAL",
+          "AT-POS",
+          "AT-WAIT",
+          "ISOLATION"
+        ],
+        "missing": []
+      }
+    },
+    {
+      "cid": "AUDIT",
+      "name": "the transaction and its probes did not perturb the production trajectory",
+      "verdict": "OK",
+      "detail": {
+        "probed_outcome_sha256": "51fad6c5cdf48ed2a8723a7f5cd515cce6eacf89e921bae16794b9b5e2080f6f",
+        "clean_rerun_outcome_sha256": "51fad6c5cdf48ed2a8723a7f5cd515cce6eacf89e921bae16794b9b5e2080f6f",
+        "n_served": 51,
+        "note": "every transaction row wrote only to detached clones; a fresh hook-less env reproduces the same production outcome hash"
+      }
+    }
+  ]
+}

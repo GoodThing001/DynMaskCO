@@ -1,0 +1,64 @@
+{
+  "record": "D3_G0_Evidence_B3AT1_byte_freeze",
+  "date": "2026-10-14",
+  "revision": 1,
+  "base_commit": "100018e",
+  "why": "B3AT1_TRANSACTION_MATRIX.json registers the raw sha256 of the transaction module, its acceptance suite and the gate primitives; a fresh checkout must reproduce them byte-for-byte",
+  "self_reference_note": "this record does not register its own sha256; it is covered by the directory pin",
+  "pin_set": {
+    "file": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/.gitattributes",
+    "added_by_this_record": [
+      "simulation/d3_commit_transaction.py -text",
+      "tests/test_d3_b3at1_transaction.py -text"
+    ],
+    "n_pinned_before": 25,
+    "n_pinned_after": 27,
+    "additive_check": "`git hash-object` == `git hash-object --no-filters` for both files before the pin, so no existing blob is rewritten and no registered value changes"
+  },
+  "registered_byte_containers_b3at1": {
+    "scripts": {
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_commit_transaction.py": "43d2ce76ee3b98e656f2d33f2a66d5fe28c3019841962496ff0db4d1fb085298",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at1_transaction.py": "757c93153957114082a87a2a5df1d86cca63ee607c9cc95a9946440011ccb34d",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_composed_certifier.py": "b65ddf6545a84b656cd2e9dd541cea266d2d6bdbc1cd56abd76f7780104aea01",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_install_gate.py": "adc8df289be1babcf8d6907ff57ab30ab3d66d58fcb47a6c9539bc8591634483",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_credential.py": "85f32d67ad38f1a88be6aa5a8c4c4af3f48797df6a1ca088d05c672453834c7f",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_state_assembly.py": "03fa7c164b269910cd33011de2a0f6017a97ce5bf1832a788ebbd81032545874",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/action_contract.py": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b"
+    },
+    "evidence": {
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT1_COUNTEREXAMPLE_SPEC.json": "01803fd5428a83a8b262b49c6dfa4710b60c2f15e8c8d8bc52283b19bfe476a4",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT1_DESIGN.md": "b2450100abddd1c74fe5b99726e5e8e523350a74135b5dda217fc9ed8e8c41bb",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT1_REPORT.md": "b3c2a3b382096187bc02f7ab29b9b2daa12d531bfdbd630f3f1a922dc9708c69",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT1_TRANSACTION_MATRIX.json": "3a011bb8e682bcf54d7f986b93a5097d913b81b6da59342fc37c7cf39803c012"
+    },
+    "raw": {
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_instance0.txt": "ec1d30e77d2c235b3bb898044d73989eb2f110414d0933eb822f955aecee44ec",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_instance1.txt": "ec1d30e77d2c235b3bb898044d73989eb2f110414d0933eb822f955aecee44ec",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_instance2.txt": "ec1d30e77d2c235b3bb898044d73989eb2f110414d0933eb822f955aecee44ec",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_instance3.txt": "ec1d30e77d2c235b3bb898044d73989eb2f110414d0933eb822f955aecee44ec",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_instance4.txt": "ec1d30e77d2c235b3bb898044d73989eb2f110414d0933eb822f955aecee44ec",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_instance5.txt": "ec1d30e77d2c235b3bb898044d73989eb2f110414d0933eb822f955aecee44ec",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_stdout.txt": "ec1d30e77d2c235b3bb898044d73989eb2f110414d0933eb822f955aecee44ec",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance0.json": "34698a54ab6df48414eeacc71f95e07b8d3c2cb6831ff65ed91599255f5caf1a",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance1.json": "e192a8020a0e9869ccb71d5fb9a7ec0039e44c51dc471121f0aaadaae7e40223",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance2.json": "1ad8322229ac4a30372b1f4c2d004cbcafa5078552b0975e472fd3d2bfb373f2",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance3.json": "544729a6fed70357f201e01900a3983f5db2873b6a2137513a1d9990bd9ce363",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance4.json": "45acf5caac0513c485dcbd7c5ca99707cdd8dfbfc2fd1715b87a1cf655b37da7",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT1_TRANSACTION_MATRIX_instance5.json": "ded6d52d80dd545eb1cb436b2727e090f2ae8ba4d567dc5a6db5d9bce8c7f50e"
+    }
+  },
+  "three_separate_acceptances": {
+    "AT1_transaction_success": "MEASURED (isolated copies only)",
+    "certification_capability_completeness": "NOT_ACHIEVED (D8 quality gap stands)",
+    "AT2_production_write_qualification": "NOT_AUTHORISED (P2 not established)"
+  },
+  "gates": {
+    "G-L": "NOT_ESTABLISHED",
+    "G-C": "NOT_ESTABLISHED",
+    "P2": "NOT_ESTABLISHED"
+  },
+  "not_reported_as_passing": "AT-F10 is DETECTED_NOT_PREVENTED; AT-PARTIAL reports PARTIAL_COMMIT for the non-atomic path and never calls it a rollback; AT-POS is a mechanics-only control with real_qualification_claimed=false; AT-D8 and AT-POS-REAL are BLOCKED_BY_D8.  No row establishes P2, G-L, G-C or install qualification.",
+  "verification_required_after_commit": "git archive HEAD <each pinned path> must reproduce the registered sha256"
+}
