@@ -1,0 +1,21 @@
+{
+  "items": {
+    "F": "ready",
+    "D": "incompatible",
+    "mask_pool": "ready",
+    "E2": "missing",
+    "fields": "not_verifiable"
+  },
+  "blocking_items": [
+    "D",
+    "E2",
+    "fields"
+  ],
+  "registration_preconditions_satisfied": false,
+  "overall": "not_qualified",
+  "overall_basis": "three of five items are ready (F, D-with-semantic-gap, mask pool); E2 has no asset and the two required per-candidate fields are absent from every located asset. The original not_qualified verdict therefore STANDS, and no F-D / F-E comparison was performed",
+  "comparison_performed": false,
+  "training_started": false,
+  "original_audit_untouched": true,
+  "new_blocker_found": "F was trained against a different dynmaskco_cc_context.py (the module that defines the shared mask pool) and a different cc_lns_replanner.py; the same-mask prerequisite is therefore not satisfied against the current sources"
+}

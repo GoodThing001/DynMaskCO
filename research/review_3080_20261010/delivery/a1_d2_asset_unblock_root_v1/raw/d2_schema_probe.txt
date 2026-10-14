@@ -1,0 +1,268 @@
+===== results/m0_scale/sgbs_fixed_cal/summary.json  (1522 bytes) =====
+TOP TYPE: dict len 11
+split: str = cal
+n_states: int = 32
+n_instances: int = 16
+accepted_mean: dict(7)
+  R: float = 1.1515392924575663
+  Mpre_greedy: float = 1.1849874474700057
+  Mtrained_greedy: float = 1.1663435062207577
+  Mpre_sgbs: float = 1.1848937980781984
+  Mtrained_sgbs: float = 1.1592288112177453
+  dist_sgbs: float = 1.146302342457294
+  Mtrained_greedy7: float = 1.1527717787580933
+wallclock_total_s: dict(7)
+  R: float = 0.6072291099699214
+  Mpre_greedy: float = 227.89721568208188
+  Mtrained_greedy: float = 360.1631114651682
+  Mpre_sgbs: float = 77.81847604434006
+  Mtrained_sgbs: float = 87.4439961760072
+  dist_sgbs: float = 1.591152933659032
+  Mtrained_greedy7: float = 56.521778973867185
+Mtrained_sgbs_minus_Mtrained_greedy: dict(3)
+  mean: float = -0.00711469500301249
+  ci_lo: float = -0.014043283759977734
+  ci_hi: float = -0.0022185906966807113
+Mtrained_sgbs_minus_R: dict(3)
+  mean: float = 0.007689518760178954
+  ci_lo: float = -0.004597268563353809
+  ci_hi: float = 0.018782551334732403
+Mtrained_sgbs_minus_Mtrained_greedy7: dict(3)
+  mean: float = 0.006457032459652186
+  ci_lo: float = 0.002093538039274243
+  ci_hi: float = 0.011522547766359196
+Mtrained_sgbs_minus_dist_sgbs: dict(3)
+  mean: float = 0.012926468760451407
+  ci_lo: float = 0.005277151845385515
+  ci_hi: float = 0.02187999616912526
+Mtrained_sgbs_minus_Mpre_sgbs: dict(3)
+  mean: float = -0.02566498686045322
+  ci_lo: float = -0.03966928014701324
+  ci_hi: float = -0.011812627452710368
+Mtrained_greedy7_minus_R: dict(3)
+  mean: float = 0.001232486300526768
+  ci_lo: float = -0.009637708258479186
+  ci_hi: float = 0.010026675935962792
+===== results/m0_scale/sgbs_fixed_cal/per_state.json  (10795 bytes) =====
+TOP TYPE: list len 32
+inst: int = 0
+event: int = 0
+J0: float = 1.4778266296366724
+R: float = 1.4117910223360397
+Mpre_greedy: float = 1.4778266296366724
+Mtrained_greedy: float = 1.4721750204850284
+Mpre_sgbs: float = 1.4778266296366724
+Mtrained_sgbs: float = 1.4721750204850284
+dist_sgbs: float = 1.3954418850338188
+Mtrained_greedy7: float = 1.4117910223360397
+===== results/m0_scale/mpre_reinforce_s42_clean/summary.json  (26300 bytes) =====
+TOP TYPE: dict len 8
+num_steps: int = 1000
+batch_states: int = 8
+K: int = 4
+s_TRAIN: float = 0.1334134797781528
+n_states: int = 256
+final_loss: float = -0.03569777309894562
+loss_hist: list(1000)
+seed: int = 42
+===== results/m0_scale/mpre_reinforce_s42_clean/training_identity.json  (40876 bytes) =====
+TOP TYPE: dict len 5
+model_ckpt_sha256: str = f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5
+data_sha256: str = c70258c4fde86e5ebfb08c17e4f8ccacac5f1b18319dc180eaa048e8ae771d01
+src_sha256: dict(12)
+  scripts/training/train_mpre_reinforce.py: str = 33c617a3e24bfc4c5d68c2ca4e72f41561999906dcea4795493cc8a2aad1b5fd
+  scripts/simulation/dynmaskco_cc_context.py: str = 9de8ceb54d088b8afa087948d6469f8cbd6f503678715bbf39e9971f5a91be54
+  scripts/simulation/cc_lns_replanner.py: str = 7ea14c07e13943ea41bf9123f8c4f47d40546970b09d0e70777f8d4f8d9437c3
+  scripts/simulation/mtrained_replanner.py: str = 3b414e4a9f64953ec759ee2d05ea529abbb8710bc94bbb909bd267e071830b48
+  scripts/simulation/mpre_policy.py: str = 5b03e4cae812fa20785e68ce837be3a615aadb44ab29b7dbdc4b95f104a4a191
+  scripts/models/mpre.py: str = 585f0296e31fc98060f393cad023a6c028c70bbbdb8bcc0c6d27f46f03b3e57c
+  scripts/models/mpre_trained.py: str = e88c7d0d0d21c73b6335880a20111ee4d02b0a6693071872c74d217d34beb300
+  scripts/simulation/action_contract.py: str = 9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b
+  scripts/simulation/visible_state.py: str = 710fe75ca1fc08aedf59bf46e263c6de62ae24315e873aa41b2547d42e57e046
+  scripts/simulation/strict_online_env.py: str = 60f9063442236e934b5a27bdbad0b7677388f6a63e7cd000f18ac30c3a00b9de
+  scripts/data/repair_state.py: str = daf1d8ea6b5b7ace865fc130c8be85879567fa6fc7d7642bc8a1241b28511148
+  scripts/coldchain/coldchain_contract.py: str = 901d3957bc77543e55c2483328b1ab750e4e46d727b2b531ac09eb90bcf2c412
+summary: dict(8)
+  num_steps: int = 1000
+  batch_states: int = 8
+  K: int = 4
+  s_TRAIN: float = 0.1334134797781528
+  n_states: int = 256
+  final_loss: float = -0.03569777309894562
+  loss_hist: list(1000)
+  seed: int = 42
+state_manifest: dict(3)
+  inst_event: list(256)
+  inst_dist: dict(64)
+    0: int = 4
+    1: int = 4
+    2: int = 4
+    3: int = 4
+    4: int = 4
+    5: int = 4
+    6: int = 4
+    7: int = 4
+    8: int = 4
+    9: int = 4
+    10: int = 4
+    11: int = 4
+    12: int = 4
+    13: int = 4
+  s_TRAIN: float = 0.1334134797781528
+===== results/correction_validation_1009_v3/fixed_state/per_state.json  (6973 bytes) =====
+TOP TYPE: list len 2
+inst: int = 0
+event: int = 0
+J0: float = 1.4778266296366724
+mask_audit: dict(4)
+  per_customer: dict(2)
+    16: dict(5)
+      in_decision_pool: bool = True
+      is_committed_next: bool = False
+      in_non_mutable_tail: bool = False
+      in_protected_tail: bool = False
+      in_mutable_vehicle: bool = True
+    7: dict(5)
+      in_decision_pool: bool = True
+      is_committed_next: bool = False
+      in_non_mutable_tail: bool = False
+      in_protected_tail: bool = False
+      in_mutable_vehicle: bool = True
+  n_out_of_pool: int = 0
+  decision_pool_size: int = 25
+  mask_size: int = 2
+R: dict(2)
+  det: dict(11)
+    J: float = 1.4117910223360397
+    D: float = 11.723739504814148
+    Q: float = 1.6760918738410404
+    E: float = 229.92577865643307
+    fail: bool = False
+    fail_reason: NoneType = None
+    time: float = 0.012314207036979496
+    hash: str = 5c28be5a88095753
+    cert_ok: bool = True
+    cert: dict(6)
+      dup: list = []
+      missing: list = []
+      extra: list = []
+      order_changed: list = []
+      protected_vehicle_changed: list = []
+      vehicle_changed: list = []
+    diag: NoneType = None
+  samples: list(0)
+Mpre: dict(2)
+  det: dict(11)
+    J: float = 1.5277455955670425
+    D: float = 13.243596002459526
+    Q: float = 1.612483350610069
+    E: float = 295.62250550610827
+    fail: bool = False
+    fail_reason: NoneType = None
+    time: float = 112.83728842396522
+    hash: str = cbf6e08a7b727b9d
+    cert_ok: bool = True
+    cert: dict(6)
+      dup: list = []
+      missing: list = []
+      extra: list = []
+      order_changed: list = []
+      protected_vehicle_changed: list = []
+      vehicle_changed: list = []
+    diag: NoneType = None
+  samples: list(1)
+    J: float = 1.5277455955670425
+    D: float = 13.243596002459526
+    Q: float = 1.612483350610069
+    E: float = 295.62250550610827
+    fail: bool = False
+    fail_reason: NoneType = None
+    time: float = 0.399587323947344
+    hash: str = cbf6e08a7b727b9d
+    cert_ok: bool = True
+    cert: dict(6)
+      dup: list = []
+      missing: list = []
+      extra: list = []
+      order_changed: list = []
+      protected_vehicle_changed: list = []
+      vehicle_changed: list = []
+    diag: NoneType = None
+Mtrained: dict(2)
+  det: dict(11)
+    J: float = 1.4721750204850284
+    D: float = 12.227466821670532
+    Q: float = 1.7596962694227858
+    E: float = 234.69283824784563
+    fail: bool = False
+    fail_reason: NoneType = None
+    time: float = 108.57716950803297
+    hash: str = 5635953ce6a07bba
+    cert_ok: bool = True
+    cert: dict(6)
+      dup: list = []
+      missing: list = []
+      extra: list = []
+      order_changed: list = []
+      protected_vehicle_changed: list = []
+      vehicle_changed: list = []
+    diag: NoneType = None
+  samples: list(1)
+    J: float = 1.4117910223360397
+    D: float = 11.723739504814148
+    Q: float = 1.6760918738410404
+    E: float = 229.92577865643307
+    fail: bool = False
+    fail_reason: NoneType = None
+    time: float = 51.69050602597417
+    hash: str = 5c28be5a88095753
+    cert_ok: bool = True
+    cert: dict(6)
+      dup: list = []
+      missing: list = []
+      extra: list = []
+      order_changed: list = []
+      protected_vehicle_changed: list = []
+      vehicle_changed: list = []
+    diag: NoneType = None
+===== results/correction_validation_1009_v3/fixed_state/summary.json  (966 bytes) =====
+TOP TYPE: dict len 12
+split: str = cal
+n_instances: int = 1
+n_states: int = 2
+R: dict(5)
+  n_states: int = 2
+  n_fail: int = 0
+  fail_rate: float = 0.0
+  mean_J: float = 1.372107145422564
+  inst_std: float = 0.0
+Mpre_det: dict(5)
+  n_states: int = 2
+  n_fail: int = 0
+  fail_rate: float = 0.0
+  mean_J: float = 1.4170503686470877
+  inst_std: float = 0.0
+Mtrained_det: dict(5)
+  n_states: int = 2
+  n_fail: int = 0
+  fail_rate: float = 0.0
+  mean_J: float = 1.4376123770251046
+  inst_std: float = 0.0
+Mpre_samples: dict(4)
+  mean_J: float = 1.4170503686470877
+  inst_std: float = 0.0
+  fail_rate: float = 0.0
+  n_unique_plans: int = 2
+Mtrained_samples: dict(4)
+  mean_J: float = 1.4128670298325319
+  inst_std: float = 0.0
+  fail_rate: float = 0.0
+  n_unique_plans: int = 2
+mask_audit: dict(3)
+  n_states_with_out_of_pool: int = 0
+  n_out_of_pool_customers: int = 0
+  reason_counts: dict(0)
+Mpre_det_minus_R: float = 0.04494322322452371
+Mtrained_det_minus_R: float = 0.06550523160254063
+Mtrained_det_minus_Mpre: float = 0.020562008378016916
+

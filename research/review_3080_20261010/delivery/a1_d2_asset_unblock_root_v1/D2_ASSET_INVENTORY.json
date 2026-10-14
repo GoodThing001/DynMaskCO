@@ -1,0 +1,123 @@
+{
+  "env": {
+    "local": {
+      "platform": "Windows-11-10.0.26200-SP0",
+      "python": "3.12.7",
+      "cwd": "D:\\PyCharm_\\MASKCO-Main"
+    },
+    "server": {
+      "host": "user",
+      "date": "2026-10-14T15:47:54+08:00",
+      "python": "Python 3.10.19",
+      "cwd": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem"
+    },
+    "searched_scope": {
+      "local": [
+        "C-VRP_Cold-chainVehicleRoutingProblem/results",
+        "CC_Compare",
+        "tools",
+        "research/review_3080_20261010"
+      ],
+      "server": {
+        "checkpoint_walk": "find results -maxdepth 6, pruned at '*/_bverify_pinned'",
+        "dir_walk": "find results -maxdepth 4 for *mpre*/*mtrained*/*reinforce*/*clean* dirs",
+        "file_walk": "find results -maxdepth 6 -type f -name '*.json' -size -512k",
+        "not_covered": [
+          "trees outside the extension root",
+          "B_REPRO_CLEAN",
+          "any path the login user cannot read",
+          "archives not mounted on the host"
+        ]
+      }
+    },
+    "raw_evidence": {
+      "d2_server_inventory.txt": {
+        "present": true,
+        "sha256": "b3ff3b12da836a85719e27226eeeeaa0c528a890bed8465f379c4a19094ce666"
+      },
+      "d2_schema_probe.txt": {
+        "present": true,
+        "sha256": "4425c20eaea11b4cf71ab647a2d72ea75463b23babc7fb974219621141a24e09"
+      },
+      "d2_schema_probe.sh": {
+        "present": false,
+        "sha256": null
+      }
+    }
+  },
+  "F": {
+    "role": "F: trained MaskCO repair",
+    "documented_path": "results/m0_scale/mpre_reinforce_s42_clean/model.ckpt",
+    "documented_sha256": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5",
+    "server": {
+      "path": "results/m0_scale/mpre_reinforce_s42_clean/model.ckpt",
+      "exists": true,
+      "bytes": 89592616,
+      "mtime": "Sep 22 11:11",
+      "sha256": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5",
+      "matches_documented_sha": true,
+      "identity_record": "results/m0_scale/mpre_reinforce_s42_clean/training_identity.json",
+      "also_named_by": "results/correction_validation_1009_v2/SOURCE_START.json and SOURCE_END.json, under the B_REPRO_CLEAN mirror path, same sha256"
+    },
+    "local": {
+      "path": "results/m0_scale/mpre_reinforce_s42_clean/model.ckpt",
+      "present": true,
+      "bytes": 89592616
+    },
+    "sibling_runs": {
+      "mpre_reinforce_s43_clean/model.ckpt": "e536407535d5cd99215055f1fcc826185fdb55588b16c6615418df445ae9113b",
+      "mpre_reinforce_s44_clean/model.ckpt": "f0b276e1dc7e80d6c0957c286439f919b1182523dfa21179071ce5b945412066",
+      "mpre_reinforce_s42_defective/model.ckpt": "670159037f54b7ab8f049a3c93f0d82a6fa2156c6a66c996db26ff705b9a3a8f",
+      "mpre_reinforce_s42_corrected/model.ckpt": "60f6360e8b4256e9ca9eea78435afc00537a92f12755041aaf42f41c7145ab17",
+      "repair_s43/model.ckpt": "(present; sha not requested in this probe)"
+    },
+    "verdict": "ready",
+    "verdict_basis": "the checkpoint exists at the documented path with the documented sha256, and is independently named by the frozen SOURCE_START/END identity pair",
+    "caveats": [
+      "the frozen identity pair names it under a B_REPRO_CLEAN mirror path (same sha256); the extension-tree copy is the one verified here",
+      "the sibling directory mpre_reinforce_s42_defective must never be used as F",
+      "F may only be registered if its load config, training protocol and architecture all match the task contract in force (registration S1)"
+    ]
+  },
+  "D": {
+    "role": "D: non-learning geometric repair",
+    "server_source": {
+      "scripts/simulation/cc_lns_replanner.py": "ae634f5323595aafda85aaf8e99eb4e240173106d60b2523bb033ae603e22f25",
+      "scripts/simulation/cc_lns_swap.py": null,
+      "scripts/evaluation/run_cc_lns_swap_fixed_state.py": null,
+      "scripts/simulation/dynmaskco_cc_context.py": "4eebb2a51a024a9e881ce7100bbe568219e1afa5ac8c6d33c707924a36ff1685",
+      "scripts/evaluation/run_fixed_state_quality.py": "fd38cb3c2b1084b899e4ec78e2d2f93592e3287ed1f1847ed7657a65300b6544"
+    },
+    "geometric_baseline_present": {
+      "scripts/simulation/cc_lns_replanner.py": true
+    },
+    "swap_variant_present": {
+      "scripts/simulation/cc_lns_swap.py": false,
+      "scripts/evaluation/run_cc_lns_swap_fixed_state.py": false
+    },
+    "verdict": "incompatible",
+    "verdict_basis": "the geometric baseline EXISTS (regret-2 reconstruction in cc_lns_replanner.py), so the v1 statement \"D arm missing\" was wrong; but two blockers remain: (a) the registration does not fix which D semantics it means, and the documented swap variant does not exist in either tree; (b) cc_lns_replanner.py has DRIFTED from the version F was trained against",
+    "source_drift_vs_F_training_identity": [
+      {
+        "file": "scripts/simulation/cc_lns_replanner.py",
+        "at_F_training": "7ea14c07e13943ea41bf9123f8c4f47d40546970b09d0e70777f8d4f8d9437c3",
+        "current_server": "ae634f5323595aafda85aaf8e99eb4e240173106d60b2523bb033ae603e22f25",
+        "match": false
+      },
+      {
+        "file": "scripts/simulation/dynmaskco_cc_context.py",
+        "at_F_training": "9de8ceb54d088b8afa087948d6469f8cbd6f503678715bbf39e9971f5a91be54",
+        "current_server": "4eebb2a51a024a9e881ce7100bbe568219e1afa5ac8c6d33c707924a36ff1685",
+        "match": false,
+        "why_it_matters": "this module DEFINES the unified mask pool that every arm must share; it changed after F was trained"
+      },
+      {
+        "file": "scripts/models/mpre.py",
+        "at_F_training": "585f0296e31fc98060f393cad023a6c028c70bbbdb8bcc0c6d27f46f03b3e57c",
+        "current_server": "585f0296e31fc98060f393cad023a6c028c70bbbdb8bcc0c6d27f46f03b3e57c",
+        "match": true
+      }
+    ],
+    "required_decision": "declare which D semantics the registration means, and either recover/freeze the training-era sources or demonstrate that the current mask-pool and D implementations are behaviour-equivalent on the fixed states"
+  }
+}
