@@ -16,12 +16,12 @@
   },
   "registered_byte_containers_b3at2b2a": {
     "scripts": {
-      "scripts/simulation/d3_authoritative_state.py": "86e60e94d44d1922385773c9756732fcc9f5e242a559c83d236ae334ae695c35",
-      "scripts/simulation/d3_write_exclusion.py": "1868813dcf573cf98faca7cd650971cb45947e5552702ec2eb2671eae7d82590",
-      "scripts/tests/test_d3_b3at2b2a_write_exclusion.py": "94b34d370dd31b9feff75deb47b02d23fdd08533bcc52e6ae05a98f8872d6460",
-      "scripts/simulation/d3_execution_authority.py": "50ab7d834fb5fcd3c3ce3e18569a95668098c2b62e0c45015158db647c654102",
-      "scripts/simulation/d3_state_container.py": "8119e2e7ef8820bc7c4469f4ae982cd8941d2f0da81ce558de8293314e66f0df",
-      "scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_authoritative_state.py": "86e60e94d44d1922385773c9756732fcc9f5e242a559c83d236ae334ae695c35",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_write_exclusion.py": "1868813dcf573cf98faca7cd650971cb45947e5552702ec2eb2671eae7d82590",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at2b2a_write_exclusion.py": "94b34d370dd31b9feff75deb47b02d23fdd08533bcc52e6ae05a98f8872d6460",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_execution_authority.py": "50ab7d834fb5fcd3c3ce3e18569a95668098c2b62e0c45015158db647c654102",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_state_container.py": "8119e2e7ef8820bc7c4469f4ae982cd8941d2f0da81ce558de8293314e66f0df",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
     },
     "evidence": {
       "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2B2A_COUNTEREXAMPLE_SPEC.json": "7fd53f1dd507b1a51d15e623b9a6ea2b04f91384536a575166d64908628e17e6",
@@ -60,5 +60,5 @@
   },
   "algorithmic_gain_claim": "none",
   "verification_required_after_commit": "git archive HEAD <each pinned path> must reproduce the sha256",
-  "path_format_note": "recorded defect: the first version of this record wrote ABSOLUTE Windows paths for the evidence/raw entries, so `git archive HEAD -- <path>` matched nothing and every path reported NOMATCH.  Keys are now repo-relative; the hashes themselves were unchanged."
+  "path_format_note": "recorded defect: the first version of this record wrote ABSOLUTE Windows paths for the evidence/raw entries, so `git archive HEAD -- <path>` matched nothing and every path reported NOMATCH.  Keys are now repo-relative; the hashes themselves were unchanged.  A second pass was needed for the scripts/ keys: they were missing the C-VRP_Cold-chainVehicleRoutingProblem/ prefix.  Hash values unchanged."
 }
