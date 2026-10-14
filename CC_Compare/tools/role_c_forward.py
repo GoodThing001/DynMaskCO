@@ -69,6 +69,7 @@ __all__ = [
 
 INNER_GATES = ('on', 'off')
 INNER_GATE_PRIMARY = 'on'                 # 规格 §2.2.2：**事前锁定**，不得按结果切换
+FUTURE_ORDERS = ('reveal_asc', 'reveal_desc')   # 场景使用消融（T4）用的处理顺序
 
 INNER_GATE_SPEC = {
     'on': {'discrete_est_gate': True, 'terminal_energy_cap': False,
@@ -177,14 +178,27 @@ def _assert_disjoint_from_plan(base_states, scenarios):
                 '⇒ 伪装成"预算稀缺⇒强制拒单"而掩盖真实缺陷。' % (dup,))
 
 
-def _rev_ordered(scen, reveal):
-    return sorted((int(o) for o in scen), key=lambda o: (float(reveal[o]), o))
+def _ordered(scen, reveal, future_order):
+    """场景内未来订单的处理顺序（**确定性**，无 RNG）。
+
+    * `'reveal_asc'`（缺省）：按揭示时刻升序（与对照 `future_policy='reveal'` 同口径）；
+    * `'reveal_desc'`：降序 —— 用于 T4 的**场景使用消融**（"换个处理顺序"）。
+      它**不是**无操作：顺序变了，`est` 闸门下的贪心打包结果会变。
+    """
+    if future_order not in FUTURE_ORDERS:
+        raise ForwardError('future_order 只能是 %s，得到 %r'
+                           % (' / '.join(FUTURE_ORDERS), future_order))
+    items = [int(o) for o in scen]
+    if future_order == 'reveal_asc':
+        return sorted(items, key=lambda o: (float(reveal[o]), o))
+    return sorted(items, key=lambda o: (-float(reveal[o]), o))
 
 
 def forward_value(*, space, base_states, scenarios, budget, initial_est_used,
                   order_energy_fn, order_revenue_fn, order_penalty_fn,
                   complete_fn, fuel_cost_per_distance_unit, infeasible_penalty,
-                  inner_gate=INNER_GATE_PRIMARY, ls_kwargs=None, deadline=None):
+                  inner_gate=INNER_GATE_PRIMARY, ls_kwargs=None, deadline=None,
+                  future_order='reveal_asc'):
     """在**给定**场景集合上算 `Ĵ(b)`。返回 `(value, diag)`。
 
     参数（除 `space` 外全部注入，故可离线单测）
@@ -230,6 +244,7 @@ def forward_value(*, space, base_states, scenarios, budget, initial_est_used,
     cap_on = INNER_GATE_SPEC[inner_gate]['terminal_energy_cap']
 
     diag = {'inner_gate': inner_gate, 'budget': b, 'n_scenarios': len(scenarios),
+            'future_order': future_order,
             'scenario_digest': scenario_digest(scenarios),
             'forward_spec_sha256': FORWARD_SPEC_SHA256,
             'neighborhood_id': ls.NEIGHBORHOOD_ID,
@@ -248,7 +263,7 @@ def forward_value(*, space, base_states, scenarios, budget, initial_est_used,
               for vid, s in ls.normalize_state(base_states).items()}
         est_used = float(initial_est_used)
         rej_loss = 0.0
-        for o in _rev_ordered(scen, space.reveal):
+        for o in _ordered(scen, space.reveal, future_order):
             e = float(order_energy_fn(o))
             if INNER_GATE_SPEC[inner_gate]['discrete_est_gate'] \
                     and est_used + e > b + 1e-9:
@@ -295,7 +310,7 @@ class FutureValueFn(object):
                  order_revenue_fn, order_penalty_fn, complete_fn,
                  fuel_cost_per_distance_unit, infeasible_penalty,
                  initial_est_used, inner_gate=INNER_GATE_PRIMARY,
-                 ls_kwargs=None, deadline=None):
+                 ls_kwargs=None, deadline=None, future_order='reveal_asc'):
         if inner_gate not in INNER_GATES:
             raise ForwardError('inner_gate 只能是 %s，得到 %r'
                                % (' / '.join(INNER_GATES), inner_gate))
@@ -312,6 +327,10 @@ class FutureValueFn(object):
         self.inner_gate = inner_gate
         self.ls_kwargs = ls_kwargs
         self.deadline = deadline
+        self.future_order = future_order
+        if future_order not in FUTURE_ORDERS:
+            raise ForwardError('future_order 只能是 %s，得到 %r'
+                               % (' / '.join(FUTURE_ORDERS), future_order))
         self.calls = []
         self.last_diag = None
         # 构造期就拦"场景订单与计划重叠"：runner 在**装配阶段**失败，
@@ -331,7 +350,7 @@ class FutureValueFn(object):
             fuel_cost_per_distance_unit=self.fuel_cost_per_distance_unit,
             infeasible_penalty=self.infeasible_penalty,
             inner_gate=self.inner_gate, ls_kwargs=self.ls_kwargs,
-            deadline=self.deadline)
+            deadline=self.deadline, future_order=self.future_order)
         self.calls.append((float(b), value))
         self.last_diag = diag
         return value

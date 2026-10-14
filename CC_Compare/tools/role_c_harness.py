@@ -97,7 +97,7 @@ ROLE_C_DEPENDENCY_ROLES = {
         'shared_physics: transition_segment / create_vehicle_state / dispatch_vehicle',
     'C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/coldchain_evaluator_a1.py':
         'shared_objective: REV / FUEL_COST_PER_KM / KM_PER_UNIT',
-    'C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/strict_online_env.py':
+    'C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/strict_online_env.py':
         'shared_protocol: StrictOnlineEnv event engine',
 }
 
@@ -422,7 +422,9 @@ def initial_est_used(*, env, inst_idx, vehicles, plan, served_mask, order_energy
 def build_decide_fn(*, sampler, arm_seed, K, contract, cooling_share, booking_horizon,
                     budget, inner_gate=fwd.INNER_GATE_PRIMARY, ls_kwargs=None,
                     energy_pricing='marginal', standby_orders=None, time_limit=10.0,
-                    infeasible_penalty=-1e5, certify_plan_fn=None):
+                    infeasible_penalty=-1e5, certify_plan_fn=None,
+                    ablate_opportunity_cost=False, ablate_lookahead=False,
+                    ablate_scenarios=None):
     """组装 `RoleCReplanner` 需要的 `decide_fn(order, ctx) -> (accept, diag)`。
 
     流程（严格按规格 §2.4 顺序：候选评估 → 认证 → 提交；提交由 `RoleCReplanner` 做）：
@@ -434,15 +436,29 @@ def build_decide_fn(*, sampler, arm_seed, K, contract, cooling_share, booking_ho
       5. `decide_candidate`：`myopic_net − λ_B·e_o > 0 ∧ certify_ok`（写法 (i)）。
 
     ⚠️ `inner_gate` 缺省 = `'on'`（规格 §2.2.2 事前锁定的主档），**不得**按结果切换。
+
+    **消融钩子（T2/T3/T4 需要，缺省全关）**：
+      * `ablate_opportunity_cost=True` ⇒ 保留场景前瞻但 `λ_B ≡ 0`（A–F 表的 **A 版**）；
+      * `ablate_lookahead=True` ⇒ 不做前瞻 ⇒ `Ĵ` 无从估计 ⇒ `λ_B` **必然也只能是 0**
+        （与 A 版机制不同：A 版仍持有场景机制）；
+      * `ablate_scenarios` ∈ {None, `'k1'`, `'shuffle'`}：`'k1'` 把场景数截到 **1**；
+        `'shuffle'` 把场景内未来订单改为**降序**处理。两者都**不是**无操作 ——
+        单纯重排"取平均"的场景列表是**恒等变换**，拿它当消融会得到"消融前后完全相同"的
+        假 FAIL，故这里用真正会改变贪心打包的两个变体。
     """
     if inner_gate not in fwd.INNER_GATES:
         raise HarnessError('inner_gate 只能是 %s' % (' / '.join(fwd.INNER_GATES),))
+    if ablate_scenarios not in (None, 'k1', 'shuffle'):
+        raise HarnessError("ablate_scenarios 只能是 None / 'k1' / 'shuffle'，得到 %r"
+                           % (ablate_scenarios,))
     if not isinstance(arm_seed, int) or isinstance(arm_seed, bool):
         raise HarnessError('arm_seed 必须是显式 int（见 scenario_rng 的说明），得到 %r'
                            % (arm_seed,))
     if certify_plan_fn is None:
         from run_exp_energy_c0 import certify_plan as certify_plan_fn
     last = {}
+    K_eff = 1 if ablate_scenarios == 'k1' else int(K)
+    future_order = 'reveal_desc' if ablate_scenarios == 'shuffle' else 'reveal_asc'
 
     def decide_fn(order, ctx):
         env, inst_idx = ctx['env'], ctx['inst_idx']
@@ -455,7 +471,7 @@ def build_decide_fn(*, sampler, arm_seed, K, contract, cooling_share, booking_ho
         states = ls.state_from_vehicles(vehicles, served_mask, plan, clock)
         # ② 共享场景集合
         scenarios, sdiag = sample_scenarios(sampler=sampler, env=env, inst_idx=inst_idx,
-                                            clock=clock, arm_seed=arm_seed, K=K)
+                                            clock=clock, arm_seed=arm_seed, K=K_eff)
         # ③ 空间 + 物理
         bundle = build_space_bundle(env=env, inst_idx=inst_idx, scenarios=scenarios,
                                     contract=contract)
@@ -524,19 +540,28 @@ def build_decide_fn(*, sampler, arm_seed, K, contract, cooling_share, booking_ho
                 served_mask=served_mask, order_energy_fn=energy_fn,
                 cooling_share=cooling_share, energy_pricing=energy_pricing,
                 standby_orders=standby_orders),
-            inner_gate=inner_gate, ls_kwargs=ls_kwargs, deadline=deadline)
+            inner_gate=inner_gate, ls_kwargs=ls_kwargs, deadline=deadline,
+            future_order=future_order)
         acc, diag = oc.decide_candidate(
             order=int(order), candidate_plan=cand_plan, budget_B=float(budget),
             myopic_net_fn=myopic_net_of, marginal_energy_fn=energy_fn,
             future_value_fn=fvf, certify_fn=certify_one,
             lambda_estimator=oc.LAMBDA_ESTIMATOR_SHADOW,
-            myopic_base=oc.MYOPIC_BASE_COMPONENTS)
+            myopic_base=oc.MYOPIC_BASE_COMPONENTS,
+            ablate_opportunity_cost=bool(ablate_opportunity_cost),
+            ablate_lookahead=bool(ablate_lookahead))
         diag['plan'] = cand_plan if acc else None
         diag['day_id'] = inst_idx
         diag['info_max_reveal'] = sdiag['info_max_reveal']
         diag['scenario'] = sdiag
         diag['inner_gate'] = inner_gate
         diag['arm_seed'] = int(arm_seed)
+        diag['ablate_opportunity_cost'] = bool(ablate_opportunity_cost)
+        diag['ablate_lookahead'] = bool(ablate_lookahead)
+        diag['ablate_scenarios'] = ablate_scenarios
+        # 前瞻评估的**自有诊断**（场景数/接受拒单计数/信息边界/规格哈希），
+        # 供 T2b/T4 统计"场景机制是否真的被跑到"；不含任何效用字段。
+        diag['forward'] = fvf.last_diag
         diag['elapsed_s'] = time.monotonic() - t0
         last['diag'] = diag
         return bool(acc), diag
