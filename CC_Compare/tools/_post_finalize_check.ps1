@@ -84,6 +84,8 @@ $rcs['coverage']    = Run-Check '方法覆盖度'      @('CC_Compare\tools\check
 $rcs['readme']      = Run-Check 'README 数字'      @('CC_Compare\tools\check_readme_numbers.py')
 $rcs['docprose']    = Run-Check '散文/个数口径'    @('CC_Compare\tools\_doc_prose_check.py')
 $rcs['docrefs']     = Run-Check '文档路径引用'     @('CC_Compare\tools\_check_doc_refs.py')
+# 2026-10-14 用户要求新增：配对身份（A−B=D 恒等式 + 同源 + 跨协议混用）
+$rcs['pairing']     = Run-Check '配对身份恒等式'   @('CC_Compare\tools\check_pairing_identity.py')
 
 W ""
 W "=== 汇总 ==="

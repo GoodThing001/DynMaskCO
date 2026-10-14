@@ -79,6 +79,8 @@ MAIN_MODEL_ARMS = ('maskco', 'warmstart', 'reconstruction_control', 'a1_rollout'
 
 DEV_SEED = 20260926
 DEV_SEED_STR = str(DEV_SEED)
+# 结论口径档位（2026-10-14 用户要求：正式论文主结论以主档为准）
+TIER_MAIN = 'p_c=(5,10,15)'
 
 # 交付主表里允许出现的 Ours 行（**只有这两个配置**）：
 #   (显示名, 用于在 main_model 里筛选 gate 的子串, 是否钉在冻结开发集那一次运行上)
@@ -518,7 +520,62 @@ def md_main_model(data):
     return '\n'.join(L)
 
 
-def md_table_notes(rows):
+def ours_same_batch_pair(data, rows=None):
+    """交付 Ours 行的**同 gate 三元组**：本臂效用 / 同批 cond_hist 效用 / 配对差(+CI)。
+
+    为什么必须有这个函数（2026-10-14 用户指出的真实错误）：
+    我曾在正文里把 **I3 gate 内的配对差 −144.680** 与 **另一套协议**的 C1 基线值
+    `a1_c1fresh_reveal_40|cond_hist` = **631.41** 并列 ⇒ 三个数**不同源**：
+        456.317 − 600.997 = −144.680  ✅ 同批成立
+        456.317 − 631.410 = −175.093  ✗ 与 −144.680 不符
+    ⇒ 本函数**只从同一个 gate 记录**里取三个数，并在 `md_table_notes` / Excel 注里
+    用恒等式自证；跨协议的数字一律另行标注来源。
+    """
+    ours = canonical_ours(data)
+    if not ours:
+        return None
+    # ⚠️ `canonical_ours()` 的行**还没有** `Q_core`（那是 `annotate_qualification` 事后加的）
+    # ⇒ 必须自己查审计矩阵，否则会退化成"永远选第一行"（2026-10-14 实测：错选了 A3）。
+    audit, _ = load_audit_matrix()
+
+    def qcore(r):
+        hit = (audit.get((_gate_key(r.get('gate')), TIER_MAIN)) or
+               audit.get((_gate_key(r.get('gate')), 'p_c=0')) or {})
+        return (hit.get('Q') or {}).get('Q_formal_core')
+
+    pick = (next((r for r in ours if qcore(r) is True), None)
+            or next((r for r in ours if qcore(r) is not None), None)
+            or ours[0])
+    gate = pick.get('gate')
+    recs = [r for r in (data.get('main_model') or []) if r.get('gate') == gate]
+
+    def U(arm):
+        """**只取主档** —— 结论口径是主档；漏掉这个过滤会抓到 p_c=(10,20,30) 的记录
+        （2026-10-14 实测：一度把 −704.061 / −459.904 当成主档三元组）。"""
+        for r in recs:
+            if r.get('arm') == arm and r.get('p_c') == TIER_MAIN:
+                u = (r.get('reported_utility') or {})
+                if u.get('mean') is not None:
+                    return u
+        return None
+
+    diff = None
+    for r in recs:
+        if r.get('p_c') != TIER_MAIN:
+            continue
+        mc = (r.get('main_comparison') or {}).get('%s_minus_cond_hist' % (r.get('arm') or ''))
+        if mc and mc.get('mean') is not None:
+            diff = mc
+            break
+    a, b = U('maskco'), U('cond_hist')
+    ident = None
+    if a and b and diff:
+        ident = abs((a['mean'] - b['mean']) - diff['mean']) <= 1e-6
+    return {'label': pick.get('label'), 'gate': gate, 'tier': TIER_MAIN,
+            'arm_util': a, 'cond_util': b, 'diff': diff, 'identity_holds': ident}
+
+
+def md_table_notes(rows, data=None):
     """主表下方的「读表注记」：**数据驱动**，只对表内真实出现的方法加注。
 
     为什么放在渲染器里而不是只写在文档里：这些限定（全拒单规则、弱介入、不可复现、
@@ -573,11 +630,22 @@ def md_table_notes(rows):
                      '方法按行计，臂按 (方法 × 档位) 计。）'
                      '依据：`CC_Compare/audit/BASELINE_QUALIFICATION_MATRIX_2026-10-14.json`。')
     # 5) **结论口径**：正式论文的主结论以**主档**为准（2026-10-14 用户要求）
-    notes.append('- ※ **结论口径：正式论文的主结论以主档 `p_c=(5,10,15)` 为准**；'
-                 '`p_c=0` 是**敏感性结果**，不得因为它的绝对效用更高就充当头条贡献证据。'
-                 '本表按 p_c=0 排序仅为呈现习惯，不代表主结论口径。'
-                 '主档下 Ours(I3) = **456.3**，而 C1 cond_hist = **631.4** ⇒ '
-                 '**主档上主模型未超过 C1 基线**（I3−cond_hist = −144.7，95% CI 不含 0）。')
+    #    三元组**从同一 gate 现算**，避免再次出现跨批次混用（见 ours_same_batch_pair 注释）。
+    _p = ours_same_batch_pair(data, rows) if data else None
+    if _p and _p.get('arm_util') and _p.get('cond_util') and _p.get('diff'):
+        _d = _p['diff']
+        notes.append('- ※ **结论口径：正式论文的主结论以主档 `p_c=(5,10,15)` 为准**；'
+                     '`p_c=0` 是**敏感性结果**，不得因为它的绝对效用更高就充当头条贡献证据。'
+                     '本表按 p_c=0 排序仅为呈现习惯，不代表主结论口径。'
+                     '**主档同批三元组**（同一 gate `%s`）：%s = **%.3f**、同批 `cond_hist` = **%.3f**、'
+                     '配对差 = **%+.3f** [%.3f, %.3f]，恒等式校验 **%s**。'
+                     '⇒ **主档上主模型未超过 C1 强基线**。'
+                     '⚠️ 解释该配对差时**必须用同批的 %.3f**；`631.4` 属**另一套协议**'
+                     '（外部臂配对基线 `a1_c1fresh_reveal_40|cond_hist`），**不得**与本行并列。'
+                     % (_p['gate'], _p['label'] or 'Ours', _p['arm_util']['mean'],
+                        _p['cond_util']['mean'], _d['mean'], _d['ci_lo'], _d['ci_hi'],
+                        '通过' if _p.get('identity_holds') else '**不通过**',
+                        _p['cond_util']['mean']))
     # 4) future_policy 不同 ⇒ 本表不是同协议方法归因
     notes.append('- ※ **本表各行的 `future_policy` 并不一致**：Ours 两行取自 `density` 配置'
                  '（gate 名含 `density` / `i3_online_recovery`），而 19 个对比方法的配对基线由'
@@ -795,7 +863,7 @@ def main():
     head += ['']
     md = '\n'.join(head)
     md += '\n## 0. Ours（主模型）摘要\n\n' + md_ours_summary(data, rows)
-    md += '\n\n## 1. 主表（C1 基线 + 全部对比方法 + Ours，同一张表按 p_c=0 效用降序）\n\n' + md_main_table(data, delivered) + md_table_notes(delivered)
+    md += '\n\n## 1. 主表（C1 基线 + 全部对比方法 + Ours，同一张表按 p_c=0 效用降序）\n\n' + md_main_table(data, delivered) + md_table_notes(delivered, data)
     md += '\n\n## 2. 身份合格的 C1 基线臂（配对参照）\n\n' + md_baseline_table(data)
     md += '\n\n## 3. 主模型 / 内部臂（**不同 future_policy / standby / 基线，不与上表同尺度比较**）\n\n' + md_main_model(data)
     md += '\n\n## 4. 臂明细与身份\n\n' + md_arm_detail(data)
@@ -912,6 +980,19 @@ def main():
                             _pi.get('identity_verified'), _pb))
         _o_note = ('※ Ours 行同样受 CPU 争用影响，且其中一行配对身份未通过 ⇒ 引用主模型结果'
                    '必须与外部臂一样带限定（外部 19 个正式臂超时/天=0.0）：' + '；'.join(_bits))
+    _p2 = ours_same_batch_pair(data, delivered)
+    _tri = ''
+    if _p2 and _p2.get('arm_util') and _p2.get('cond_util') and _p2.get('diff'):
+        _tri = ('※ 结论口径：正式论文主结论以【主档 p_c=(5,10,15)】为准；p_c=0 是敏感性结果。'
+                '主档**同批**三元组（gate %s）：%s=%.3f、同批 cond_hist=%.3f、配对差=%+.3f '
+                '[%.3f, %.3f]，恒等式校验 %s ⇒ 主档上主模型未超过 C1。'
+                '⚠️ 必须用同批的 %.3f；631.4 属另一套协议（a1_c1fresh_reveal_40|cond_hist），'
+                '不得与本行并列。'
+                % (_p2['gate'], _p2['label'] or 'Ours', _p2['arm_util']['mean'],
+                   _p2['cond_util']['mean'], _p2['diff']['mean'], _p2['diff']['ci_lo'],
+                   _p2['diff']['ci_hi'],
+                   '通过' if _p2.get('identity_holds') else '不通过',
+                   _p2['cond_util']['mean']))
     for _t in (
         _o_note,
         '※ 主档列 = 同一策略的惩罚「重新评分」，不是策略对惩罚的「响应」：'
@@ -920,8 +1001,7 @@ def main():
         '※ 本表各行 future_policy 不一致：Ours 两行为 density，19 个对比方法的配对基线为 reveal；'
         '该杠杆会显著改变 cond_hist−uncond_hist 的相对差 ⇒ 本表效用排序只可读作开发集能力对照，'
         '不构成同协议方法归因。详见 CC_Compare/audit/INDEPENDENT_READONLY_ADJUDICATION_2026-10-14.md',
-        '※ 结论口径：正式论文主结论以【主档 p_c=(5,10,15)】为准；p_c=0 是敏感性结果。'
-        '主档下 Ours(I3)=456.3 vs C1 cond_hist=631.4 ⇒ 主档上主模型未超过 C1（−144.7，CI 不含 0）。',
+        _tri,
     ):
         if not _t:
             continue
