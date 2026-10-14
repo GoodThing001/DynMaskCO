@@ -24,3 +24,14 @@ tests/test_d3_assembly_invariants.py -text
 #   scripts/tests/test_d3_b1_state_level.py   8720109b621d6f39b847e356f6a4364edfb1c5dd003c2a8188757e7b8c07ef34
 simulation/d3_state_assembly.py -text
 tests/test_d3_b1_state_level.py -text
+
+# Added by D3-G0 Evidence B2 (2026-10-14).  Same reason as the B1 additions: the B2 matrix
+# registers these files' raw sha256, so a fresh checkout must reproduce them byte-for-byte.
+#   scripts/simulation/d3_credential.py          85f32d67ad38f1a88be6aa5a8c4c4af3f48797df6a1ca088d05c672453834c7f
+#   scripts/simulation/d3_composed_certifier.py  b93c81756adcd15b0cdac4ca98771c5cb6e354d083f2d0f094d344766571a1c9
+#   scripts/simulation/d3_install_gate.py        adc8df289be1babcf8d6907ff57ab30ab3d66d58fcb47a6c9539bc8591634483
+#   scripts/tests/test_d3_b2_certification.py    285bdc928b2f7ee7925b123e2bf61bea18da5acfd89d82f66ffc5fad4ef8f6dd
+simulation/d3_credential.py -text
+simulation/d3_composed_certifier.py -text
+simulation/d3_install_gate.py -text
+tests/test_d3_b2_certification.py -text
