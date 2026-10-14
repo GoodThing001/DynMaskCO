@@ -42,6 +42,10 @@ __all__ = ['TimingRefused', 'DecisionTimeout', 'CONTENTION_RULE',
 # 实测期间**外部**任务在 affinity 核集上的平均占用比 > 该值 ⇒ 本次计时**不合格**
 # （保留资源登记，但**不**产生合格结论；**不得**临场换核集或加 workers）。
 MAX_EXTERNAL_BUSY_RATIO = 0.5
+# 冻结锚点的**规模**容差（相对）：只用于判"是不是同一规模"，不用于判"完全相等"。
+# 实测：`cooling_share` 逐位相同；`B` 相对差 2.5e-8（浮点/版本层面微差）；规模错配是 8 倍量级。
+ANCHOR_REL_TOL = 1e-6
+ANCHOR_ABS_TOL_SHARE = 1e-9
 CONTENTION_RULE = ('external_busy_ratio_on_affinity_set > '
                    'MAX_EXTERNAL_BUSY_RATIO(%.1f) ⇒ qualified=False'
                    % MAX_EXTERNAL_BUSY_RATIO)
@@ -465,3 +469,141 @@ def write_report(report, path):
     with io.open(p, 'w', encoding='utf-8') as f:
         json.dump(report, f, ensure_ascii=False, indent=2, sort_keys=True)
     return p
+
+
+def build_real_work_fn(*, train_seed=20260925, gate_seed=20260926, n_orders=200,
+                       n_vehicles=15, rho=0.6, capture_n=8, arm_seed=7002, K=10,
+                       inner_gate='on', time_limit=10.0, inst_idx=0,
+                       expect_frozen_anchors=True):
+    """按**冻结管线**（`diag_local_timing.py:27-46`）搭出真实计时单元。
+
+    ⚠️ 与冻结配置逐项对齐，否则测的不是要跑的东西：
+      * 训练历史 `generate_dataset(200, 200, train_seed=20260925)` → `build_history`；
+      * `B, cooling_share = compute_budget_and_dwell(train_ds, contract, 15, train_seed,
+        0.6, hist_tc, k=10)` —— **必须复现冻结锚点**
+        `B=710.6548152249378` / `cooling_share=3.7208946347769882`（`expect_frozen_anchors`
+        为真时不一致即抛错：宁可失败，也不要拿一条不确定的管线去测时间）；
+      * 实例 = **单实例**（`generate_dataset(1, n_orders, gate_seed=20260926)`）
+        + `add_v2_initial_quality`；
+      * `StrictOnlineEnv(..., num_vehicles=15, tw_speed=SPEED_KMH/KM_PER_UNIT,
+        booking_horizon=BOOKING_HORIZON)`。
+
+    返回 `{'work_fn', 'budget', 'cooling_share', 'n_records', 'n_served', ...}`。
+    **只建单元与捕获决策点，不产生任何耗时结论**（计时由 `run_timing` 做）。
+    """
+    import role_c_harness as hn
+    import role_c_t_series as ts
+    ts.ensure_project_paths()
+    from coldchain_evaluator_a1 import add_v2_initial_quality
+    from run_exp_encoder_v3 import compute_budget_and_dwell
+    from run_exp_reserve import (BOOKING_HORIZON, KM_PER_UNIT, SPEED_KMH,
+                                 generate_dataset)
+    from scenario_saa import (CondHistoricalSampler, build_history,
+                              build_history_times_classes, make_c0_contract_v2)
+
+    contract = make_c0_contract_v2()
+    train_ds = generate_dataset(int(n_orders), int(n_orders), int(train_seed))
+    hist = build_history(train_ds)
+    hist_tc = build_history_times_classes(train_ds)
+    B, share, _ = compute_budget_and_dwell(train_ds, contract, int(n_vehicles),
+                                          int(train_seed), float(rho), hist_tc, k=10)
+    if expect_frozen_anchors:
+        from role_c_identity import frozen_anchors
+        a = frozen_anchors()
+        fb, fs = float(a['budget_B']), float(a['cooling_share'])
+        rel_b = abs(float(B) - fb) / max(1e-12, abs(fb))
+        abs_s = abs(float(share) - fs)
+        # ⚠️ 用**相对**容差判"是否同一规模"，并把**实测值/冻结值/两个差值**一并带回报告 ——
+        #    不把差异藏在容差里。本地实测：`cooling_share` 逐位相同，
+        #    `B` 相差 1.76e-5（相对 2.5e-8），属浮点/版本层面的微差而非规模错配
+        #    （错配是 8 倍量级：89.6 vs 710.7）。
+        if rel_b > ANCHOR_REL_TOL or abs_s > ANCHOR_ABS_TOL_SHARE:
+            raise TimingRefused(
+                '预算/冷却份额未复现冻结锚点 ⇒ 拒绝用这条管线测时间：'
+                'B=%.13f（冻结 %.13f，相对差 %.3e）、cooling_share=%.13f（冻结 %.13f，'
+                '绝对差 %.3e）' % (float(B), fb, rel_b, float(share), fs, abs_s))
+        anchor_check = {'frozen_B': fb, 'witnessed_B': float(B), 'rel_gap_B': rel_b,
+                        'frozen_cooling_share': fs,
+                        'witnessed_cooling_share': float(share),
+                        'abs_gap_cooling_share': abs_s,
+                        'rel_tol_B': ANCHOR_REL_TOL,
+                        'abs_tol_cooling_share': ANCHOR_ABS_TOL_SHARE,
+                        'note': '相对容差只用于判"同一规模"；实测差值如实报出，未隐藏'}
+    else:
+        anchor_check = {'checked': False,
+                        'reason': 'expect_frozen_anchors=False（**仅管线自检**用）'}
+    gate_ds = add_v2_initial_quality(generate_dataset(1, int(n_orders), int(gate_seed)),
+                                    contract)
+    sampler = CondHistoricalSampler(hist, n_neighbors=10)
+    dfn = hn.build_decide_fn(sampler=sampler, arm_seed=int(arm_seed), K=int(K),
+                            contract=contract, cooling_share=float(share),
+                            booking_horizon=BOOKING_HORIZON, budget=float(B),
+                            inner_gate=inner_gate, time_limit=float(time_limit))
+    run = ts.run_fixture(decide_fn=dfn, ds=gate_ds, contract=contract, budget=float(B),
+                         capacity=50.0, num_vehicles=int(n_vehicles),
+                         booking_horizon=BOOKING_HORIZON, cooling_share=float(share),
+                         inst_idx=int(inst_idx), capture_n=int(capture_n),
+                         tw_speed=SPEED_KMH / KM_PER_UNIT)
+    wf = make_decision_work_fn(dfn, run.get('contexts') or [])
+    return {'work_fn': wf, 'budget': float(B), 'cooling_share': float(share),
+            'n_records': len(run['records']), 'n_served': run['n_served'],
+            'n_contexts': len(wf), 'gate_seed': int(gate_seed),
+            'train_seed': int(train_seed), 'n_orders': int(n_orders),
+            'n_vehicles': int(n_vehicles), 'arm_seed': int(arm_seed), 'K': int(K),
+            'inner_gate': inner_gate, 'inst_idx': int(inst_idx),
+            'anchor_check': anchor_check}
+
+
+def main(argv=None):
+    """CLI：**只测时间与资源量**的单决策计时（登记未通过 ⇒ 拒绝运行）。
+
+        python CC_Compare/tools/role_c_timing.py --out <report.json> \\
+            --n-decisions 200 --capture-n 8 [--dry-run]
+
+    `--dry-run` 只搭单元与捕获决策点（**不产生耗时结论**）。
+    超时监督与竞争检查始终生效；**不改核集、不加 workers、不挑参数**。
+    退出码：0 = 合格；5 = 跑完但不合格（原因见 `unqualified_reasons`）。
+    """
+    import argparse
+    ap = argparse.ArgumentParser(description='P1-A Role C 单决策资源计时（不看效用）')
+    ap.add_argument('--out', required=True)
+    ap.add_argument('--n-decisions', type=int, default=200)
+    ap.add_argument('--capture-n', type=int, default=8)
+    ap.add_argument('--warmup', type=int, default=2)
+    ap.add_argument('--n-orders', type=int, default=200)
+    ap.add_argument('--n-vehicles', type=int, default=15)
+    ap.add_argument('--train-seed', type=int, default=20260925)
+    ap.add_argument('--gate-seed', type=int, default=20260926)
+    ap.add_argument('--arm-seed', type=int, default=7002)
+    ap.add_argument('--K', type=int, default=10)
+    ap.add_argument('--inner-gate', default='on')
+    ap.add_argument('--dry-run', action='store_true')
+    a = ap.parse_args(argv)
+    built = build_real_work_fn(train_seed=a.train_seed, gate_seed=a.gate_seed,
+                              n_orders=a.n_orders, n_vehicles=a.n_vehicles,
+                              capture_n=a.capture_n, arm_seed=a.arm_seed, K=a.K,
+                              inner_gate=a.inner_gate)
+    print(json.dumps({'built': {k: v for k, v in built.items() if k != 'work_fn'},
+                      'work_fn_len': len(built['work_fn']),
+                      'decision_points_digest': built['work_fn'].digest()},
+                     ensure_ascii=False, indent=2))
+    if a.dry_run:
+        print('DRY-RUN: 只搭单元与捕获决策点，**未产生任何耗时结论**')
+        return 0
+    rep = run_timing(work_fn=built['work_fn'], n_decisions=a.n_decisions,
+                     warmup=a.warmup, label='role_c_decision_%dorders' % a.n_orders)
+    rep['work_fn_build'] = {k: v for k, v in built.items() if k != 'work_fn'}
+    p = write_report(rep, a.out)
+    print('WROTE: %s' % p)
+    print(json.dumps({'n_completed': rep['n_completed'], 'n_timeouts': rep['n_timeouts'],
+                      'n_overruns': rep['n_overruns'],
+                      'per_decision': rep['per_decision'],
+                      'enforcement': rep['enforcement'], 'qualified': rep['qualified'],
+                      'unqualified_reasons': rep['unqualified_reasons']},
+                     ensure_ascii=False, indent=2))
+    return 0 if rep['qualified'] else 5
+
+
+if __name__ == '__main__':
+    import sys
+    sys.exit(main())

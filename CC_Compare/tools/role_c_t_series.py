@@ -65,6 +65,14 @@ def ensure_project_paths():
 # ---------------------------------------------------------------------------
 # 在真实 env 上跑一个臂
 # ---------------------------------------------------------------------------
+class _CaptureDone(Exception):
+    """内部哨兵：捕获够 `capture_n` 个决策点后提前结束**捕获**这一趟。
+
+    ⚠️ 只用于"搭计时单元"这一趟；被中断的结果**标记为不完整**
+    （`partial=True`），不得被当成整天结果使用。
+    """
+
+
 def vehicle_fingerprint(vehicles):
     """车辆**可变状态**的指纹（用于证明捕获的上下文真的被冻结）。
 
@@ -90,7 +98,7 @@ def vehicle_fingerprint(vehicles):
 
 
 def run_fixture(*, decide_fn, ds, contract, budget, capacity, num_vehicles,
-                booking_horizon, cooling_share, inst_idx=0, capture_n=0):
+                booking_horizon, cooling_share, inst_idx=0, capture_n=0, tw_speed=None):
     """用**真实** `StrictOnlineEnv` + 真实 `certify_plan` 驱动一个臂，返回落盘日志与诊断。
 
     返回 `{'records', 'diags', 'served', 'n_served'}`；`capture_n > 0` 时额外返回
@@ -140,6 +148,10 @@ def run_fixture(*, decide_fn, ds, contract, budget, capacity, num_vehicles,
             # 捕获当时的车辆指纹：跑完一天后重新指纹化必须一致 ⇒ "冻结"可被机械验证
             snap['_vehicle_fingerprint'] = vehicle_fingerprint(snap['vehicles'])
             captured.append(snap)
+            if len(captured) >= int(capture_n):
+                # 捕获够数即停：**不**为搭计时单元而白跑整天
+                # （整天 ≈ 200 次决策 × 每次 20 场前瞻，代价极大且与计时无关）。
+                raise _CaptureDone()
         acc, d = decide_fn(order, ctx)
         diags.append(d)
         return acc, d
@@ -148,16 +160,30 @@ def run_fixture(*, decide_fn, ds, contract, budget, capacity, num_vehicles,
                                booking_horizon=float(booking_horizon), contract=contract,
                                cooling_share=float(cooling_share), decide_fn=_wrapped,
                                certify_fn=certify_fn, logger=logger)
+    env_kw = {}
+    if tw_speed is not None:
+        # ⚠️ 冻结管线（`diag_local_timing.py:45`）传的是 `SPEED_KMH / KM_PER_UNIT`；
+        # 不传就会用 `StrictOnlineEnv` 自己的默认值 ⇒ 与冻结管线**不同口径**
+        # （影响可行插入数与单决策代价）。
+        env_kw['tw_speed'] = float(tw_speed)
     env = StrictOnlineEnv(ds, capacity=float(capacity), num_vehicles=int(num_vehicles),
                           replanner=policy, coldchain_contract=contract,
-                          booking_horizon=float(booking_horizon))
-    traces, served_mask = env.run(int(inst_idx))
+                          booking_horizon=float(booking_horizon), **env_kw)
+    partial = False
+    try:
+        traces, served_mask = env.run(int(inst_idx))
+    except _CaptureDone:
+        # 捕获够数即停 ⇒ 结果**不完整**（不得当整天结果用）；决策点本身是**真实**的。
+        partial = True
+        served_mask = None
     # **活车**在跑完之后的指纹（对象被模拟器原地改过）—— 与捕获当时的活车指纹对照，
     # 用来证明"捕获指纹不变"只能归因于深拷贝，而不是因为车辆状态本来就没变。
     live_fp['last'] = vehicle_fingerprint(live_fp.get('ref') or ())
     out = {'records': [dict(r) for r in logger.records], 'diags': diags,
            'served': served_mask,
-           'n_served': int(np.sum(np.asarray(served_mask)[1:]))}
+           'n_served': (None if served_mask is None
+                        else int(np.sum(np.asarray(served_mask)[1:]))),
+           'partial': partial, 'stopped_after_capture': partial}
     if capture_n:
         out['contexts'] = captured
         out['live_fingerprint_first'] = live_fp['first']

@@ -706,12 +706,55 @@ def test_supervision_and_timeouts():
     return cases
 
 
+def test_real_work_fn_pipeline():
+    """真实计时单元的**管线自检**（小规模；不产生耗时结论）。
+
+    关键：CLI **没有**跳过锚点校验的开关 —— 小规模必须**被拒绝**，
+    否则就会拿一条与冻结配置不同规模的管线去测时间。
+    """
+    cases = []
+    # ---- 小规模 + 关掉锚点校验 ⇒ 仅用于验证管线搭得起来 ----
+    try:
+        built = timing.build_real_work_fn(n_orders=20, n_vehicles=3, capture_n=2,
+                                          expect_frozen_anchors=False)
+    except Exception as exc:                                # noqa: BLE001
+        import traceback
+        cases.append(('★Z1 真实计时单元可搭建（小规模、关锚点校验）', False,
+                      traceback.format_exc()[-500:]))
+        return cases
+    wf = built['work_fn']
+    cases.append(('★Z1 真实计时单元可搭建（小规模）：捕获到真实决策点',
+                  len(wf) >= 1 and built['n_records'] >= 1, built))
+    cases.append(('Z1b 计时单元自带 `digest()` ⇒ `run_timing` 能自动固定决策点集合',
+                  isinstance(wf.digest(), str) and len(wf.digest()) == 64, wf.digest()))
+    cases.append(('Z1c 单元返回值只含行为标签（无任何效用字段）',
+                  _leaked(wf()) == [], _leaked(wf())))
+    # ---- 同一小规模但**打开**锚点校验 ⇒ 必须拒绝（判据非空转） ----
+    try:
+        timing.build_real_work_fn(n_orders=20, n_vehicles=3, capture_n=1,
+                                 expect_frozen_anchors=True)
+        cases.append(('★Z2 小规模 + 锚点校验开 ⇒ **拒绝**（不得拿非冻结规模的管线测时间）',
+                      False, '未抛错'))
+    except timing.TimingRefused as exc:
+        cases.append(('★Z2 小规模 + 锚点校验开 ⇒ **拒绝**（不得拿非冻结规模的管线测时间）',
+                      '未复现冻结锚点' in str(exc), str(exc)[:90]))
+    # ---- CLI **不提供**跳过锚点校验的开关（避免误用） ----
+    import ast as _ast
+    src = io.open(os.path.join(HERE, 'role_c_timing.py'), encoding='utf-8').read()
+    has_bypass = 'skip-anchor' in src or 'no-anchor' in src \
+        or 'allow-nonfrozen' in src
+    cases.append(('★Z3 CLI **没有**跳过锚点校验的开关（防"拿错规模测时间"）',
+                  has_bypass is False, has_bypass))
+    _ = _ast
+    return cases
+
+
 def main():
     cases = []
     for fn in (test_gate_validation, test_unregistered_refuses, test_timing_harness,
                test_ceiling_template_roundtrip, test_decision_work_fn,
                test_capture_real_contexts, test_registration_builder_and_cli,
-               test_supervision_and_timeouts):
+               test_supervision_and_timeouts, test_real_work_fn_pipeline):
         try:
             cases.extend(fn())
         except Exception as exc:                            # noqa: BLE001
