@@ -39,9 +39,14 @@ REQUIRE_TRUE = ('source_stable',)
 # **跨 gate 同源**字段：必须逐字段相同。⚠️ 这是 `source_stable=True` **不能**替代的那一层
 # （A3 被判 DIAGNOSTIC/CROSS-SOURCE 正是因为它自身 source_stable=True 但跨源不符）。
 CROSS_FIELDS = ('shared_source_sha256',)
-# 新协议**附加**要求：正式比较必须记录并相等。旧 gate 无此字段 ⇒ 只能作**历史比较**，
+# 新协议**附加**要求：正式比较必须记录并相等。旧 gate 无这些字段 ⇒ 只能作**历史比较**，
 # 不能作为新协议的正式比较（除非显式 `--legacy-pair`，此时降级为告警并明确标注）。
-NEW_PROTOCOL_FIELDS = ('protocol_id',)
+#
+# ⚠️ `booking_horizon` 是**因果性开关**：`StrictOnlineEnv(booking_horizon=None)` 会让
+# `has_future_reveal` **读真实未来**（源码自述"旧行为…非因果主张"）⇒ 协议失效。
+# 既有 gate 的 `config` **没有**记录它（只能从 runner 源码看到 `BOOKING_HORIZON=16.0`）
+# ⇒ 因果性无法从落盘产物审计。新协议必须显式记录且两臂相等。
+NEW_PROTOCOL_FIELDS = ('protocol_id', 'booking_horizon')
 
 
 def load_spec(path=SPEC):
@@ -247,6 +252,7 @@ def main():
         g['source_stable'] = True
         g['shared_source_sha256'] = {'a.py': 'a' * 64}
         g['protocol_id'] = 'p1a-v1'
+        g['booking_horizon'] = spec['must_record_causal_flag']['booking_horizon']
         ok3, _r3, bad3 = compare_pair(g, g, spec)
         print('   配对（同一 gate，含 protocol_id/跨源）⇒ OK=%s' % ok3)
         g2 = json.loads(json.dumps(g))
@@ -263,16 +269,23 @@ def main():
         ok6, _r6, bad6 = compare_pair(g, g3, spec)
         print('   配对（跨源不符但双方 source_stable=True）⇒ OK=%s，检出 %s'
               % (ok6, bad6))
-        # 新协议缺 protocol_id：默认 FAIL；--legacy-pair 降级为告警
+        # 新协议缺字段：默认 FAIL；--legacy-pair 降级为告警
         g4 = json.loads(json.dumps(g))
         g4.pop('protocol_id')
+        g4.pop('booking_horizon')
         ok7, _r7, bad7 = compare_pair(g4, g4, spec)
         ok8, _r8, bad8 = compare_pair(g4, g4, spec, legacy_pair=True)
-        print('   缺 protocol_id ⇒ 默认 OK=%s（检出 %s）；--legacy-pair ⇒ OK=%s'
-              % (ok7, bad7, ok8))
+        print('   缺 protocol_id+booking_horizon ⇒ 默认 OK=%s（检出 %s）；--legacy-pair ⇒ OK=%s'
+              % (ok7, sorted(bad7), ok8))
+        # 因果开关必须两臂相等（不等 ⇒ FAIL）
+        g5 = json.loads(json.dumps(g))
+        g5['booking_horizon'] = None
+        ok9, _r9, bad9 = compare_pair(g, g5, spec)
+        print('   两臂 booking_horizon 不等（16.0 vs None）⇒ OK=%s，检出 %s' % (ok9, bad9))
         if (ok3 is not True or ok4 or bad4 != ['contract_sha256'] or ok5 or not bad5
                 or ok6 or bad6 != ['shared_source_sha256']
-                or ok7 or bad7 != ['protocol_id'] or not ok8 or rc):
+                or ok7 or set(bad7) != {'protocol_id', 'booking_horizon'} or not ok8
+                or ok9 or bad9 != ['booking_horizon'] or rc):
             rc = 1
 
     if a.config:

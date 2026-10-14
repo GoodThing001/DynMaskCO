@@ -110,6 +110,15 @@
     "note": "旁证 δ=20 是**项目级预先存在**的标准，不是为 P1-A 调的。判定式为 `mean(Δ) >= 20 AND CI_95%,lo(Δ) > 0`。"
   },
 
+  "must_record_causal_flag": {
+    "booking_horizon": 16.0,
+    "why": "这是**因果性开关**：`StrictOnlineEnv.booking_horizon=None` 时 `has_future_reveal` 会**读真实未来**（源码注释自述『旧行为…非因果主张』）⇒ 整个 strict-online 协议失效。设为 `16.0` 时公开预约截止在 16 h，订单只在 [0,16) 揭示，`has_future_reveal` 走因果口径。",
+    "legacy_gates_record_it": false,
+    "legacy_gap": "⚠️ **既有 gate 的 `config` 里没有 `booking_horizon`** ⇒ 无法从落盘产物审计因果性（只能读 runner 源码）。P1-A 必须**显式记录**它，并与对照臂逐字段一致。",
+    "observed_at_runtime": "run_a1_step2_gate.py:67,79 与 run_a1_external_accept.py:114,140 都以 `booking_horizon=BOOKING_HORIZON` 构造 replanner 与 env；常量定义 `BOOKING_HORIZON = 16.0`（run_exp_reserve.py:43 / run_exp_energy.py:40 / run_exp_capacity.py:52 / run_causal_accept_gate.py:40）；diag_a1_null.py:110 亦为 16.0。",
+    "role_c_requirement": "Role C 的 runner 必须①传给 env 与 policy 同一个非 None 的 booking_horizon；②写入 `config.booking_horizon`；③与对照臂相等。"
+  },
+
   "forbidden": [
     "启动两天烟测 / 40 天正式批次 / 最终测试",
     "触碰 seeds.final_test_reserved（20260927 / 20260928）",

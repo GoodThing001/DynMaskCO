@@ -82,7 +82,14 @@ Manufacturing Journal 2024）用 ADP/rollout 研究取货中的**未来容量价
 protocol_id · day_id · future_policy · shadow_mode · K · time_limit
 contract_sha256 · data_sha256 · data_meta_sha256
 shared_source_sha256（跨 gate 共享源码） · 依赖闭包 SHA · method_class
+booking_horizon   ← 因果性开关（必须非 None 且两臂相等；见下）
 ```
+
+⚠️ **`booking_horizon` 必须记录（2026-10-14 读源码发现）**：
+`StrictOnlineEnv(booking_horizon=None)` 会让 `has_future_reveal` **读真实未来**
+（源码自述"旧行为…非因果主张"）⇒ **整个 strict-online 协议失效**。
+所有 runner 运行时都传了 `BOOKING_HORIZON = 16.0`，但**既有 gate 的 `config` 里没有这个字段**
+⇒ 因果性**无法从落盘产物审计**。新协议必须显式记录并与对照臂相等。
 
 ### 4.2 五条要求
 
