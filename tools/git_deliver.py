@@ -85,6 +85,10 @@ def main():
     ap.add_argument('--message-file')
     ap.add_argument('--paths', nargs='*')
     ap.add_argument('--check-only', action='store_true')
+    ap.add_argument('--push-only', action='store_true',
+                    help='skip the commit phase entirely and only push HEAD to both branches; '
+                         'use when the work is already committed and the remaining worktree '
+                         'entries belong to another (concurrent) writer')
     ap.add_argument('--allow-concurrent', action='store_true')
     ap.add_argument('--concurrent-window', type=int, default=90)
     ap.add_argument('--ignore-recent', nargs='*', default=[],
@@ -136,7 +140,9 @@ def main():
     # routinely separated (an earlier call commits, this one pushes), and returning early here
     # would silently leave the work unpushed -- the exact failure the convention forbids.
     committed = False
-    if not entries:
+    if a.push_only:
+        print('push-only: skipping the commit phase')
+    elif not entries:
         print('nothing to commit; proceeding to the push check')
     else:
         if not a.message_file:
