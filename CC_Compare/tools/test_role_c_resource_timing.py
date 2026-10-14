@@ -625,9 +625,21 @@ def test_supervision_and_timeouts():
                   len(rep_t['records']) >= 1
                   and any(r['exceeded_per_decision_limit'] for r in rep_t['records']),
                   rep_t['records'][:2]))
-    cases.append(('S2c 「已登记上限」≠「已执行硬上限」：非硬中断 ⇒ qualified=False',
-                  (rep_t['qualified'] is True) if rep_t['enforcement'] == 'hard_sigalrm'
-                  else (rep_t['qualified'] is False), rep_t['unqualified_reasons']))
+    # 两条**不同**的断言（第一版把它们混成一条，在 POSIX 上必然错）：
+    #   A. 非硬中断 ⇒ 必须不合格，且理由点名 enforcement（"已登记上限"≠"已执行硬上限"）；
+    #   B. 硬中断下若决策全部超时 ⇒ 完成数为 0 ⇒ 同样不合格（不可能拿 0 个样本宣称
+    #      合格分布），理由里写明"完成 0 / 请求 3"。
+    if rep_t['enforcement'] != 'hard_sigalrm':
+        cases.append(('★S2c-A 非硬中断 ⇒ qualified=False，且理由点名 enforcement',
+                      rep_t['qualified'] is False
+                      and any('enforcement' in x for x in rep_t['unqualified_reasons']),
+                      rep_t['unqualified_reasons']))
+    else:
+        cases.append(('★S2c-B 硬中断下决策全部超时 ⇒ n_completed=0 ⇒ qualified=False'
+                      '（不得用 0 个样本宣称合格分布），理由写明完成数',
+                      rep_t['qualified'] is False and rep_t['n_completed'] == 0
+                      and any('完成 0' in x for x in rep_t['unqualified_reasons']),
+                      (rep_t['n_completed'], rep_t['unqualified_reasons'])))
 
     # ---- C. 总墙钟是硬上限：用注入时钟确定性地触发 ----
     tick = {'t': 0.0}
