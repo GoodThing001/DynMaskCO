@@ -71,7 +71,8 @@ __all__ = [
     'LSStateError', 'LSError',
     'RouteContext', 'LSCertificate',
     'state_from_vehicles', 'plan_of', 'frozen_prefixes', 'normalize_state',
-    'route_dist', 'route_feasible', 'improve', 'ablate_to_myopic_scope',
+    'route_dist', 'route_feasible', 'best_insert', 'improve',
+    'ablate_to_myopic_scope',
 ]
 
 # ---------------------------------------------------------------------------
@@ -85,6 +86,8 @@ SOURCE_SPEC = {
     'lineage': 'independent',            # 不 import / 不继承对照血统
     'operators': ('relocate', 'swap'),
     'operator_order': 'relocate_then_swap',
+    'insertion': 'best_distance_increment_over_(vid,pos); pos>=frozen; '
+                 'first_lexicographic_minimum; no_crossing_frozen_prefix',
     'acceptance': 'first_improvement',
     'objective': 'pure_travel_distance',  # 不含 energy / coldchain_cost / revenue
     'objective_depends_on': ('dist',),
@@ -321,6 +324,40 @@ def route_feasible(ctx, cur, cur_time, load, route):
 
 def _total_dist(ctx, state):
     return sum(route_dist(ctx, s['cur'], s['route']) for s in state.values())
+
+
+def best_insert(ctx, state, o):
+    """把订单 `o` 插到**最优可行位**（最小距离增量），返回 `(新状态, 是否插入)`。
+
+    * 枚举顺序**固定**：`vid` 升序 → `pos` 升序；取**首个**达到最小增量的位置
+      （严格 `< best − 1e-9` 才替换）⇒ 同一输入必得同一结果，无 RNG。
+    * **插入侧尊重 `frozen`**：`pos` 从 `s['frozen']` 起（不可越过在途 committed leg）。
+    * **不改动输入**：返回新的状态 dict。
+    * 无处可插（全部不可行）⇒ 返回 `(未改动的副本, False)`，由调用方决定拒单语义。
+    """
+    incumbent = normalize_state(state)
+    o = int(o)
+    for s in incumbent.values():
+        if o in s['route']:
+            raise LSStateError('订单 %d 已在车辆路线上（恰好一次护栏）' % o)
+    work = {vid: dict(s, route=list(s['route'])) for vid, s in incumbent.items()}
+    best = None
+    for vid in sorted(work.keys()):
+        s = work[vid]
+        base = route_dist(ctx, s['cur'], s['route'])
+        for pos in range(s['frozen'], len(s['route']) + 1):
+            trial = s['route'][:pos] + [o] + s['route'][pos:]
+            if not route_feasible(ctx, s['cur'], s['cur_time'], s['load'], trial):
+                continue
+            incr = route_dist(ctx, s['cur'], trial) - base
+            if best is None or incr < best[0] - 1e-9:
+                best = (incr, vid, pos)
+    if best is None:
+        return work, False
+    _, vid, pos = best
+    r = work[vid]['route']
+    work[vid]['route'] = r[:pos] + [o] + r[pos:]
+    return work, True
 
 
 # ---------------------------------------------------------------------------

@@ -540,6 +540,66 @@ def test_myopic_ablation_scope():
     return cases
 
 
+def test_best_insert():
+    """`best_insert`：最优可行位 / 冻结不越界 / 确定性 / 不改输入 / 恰好一次。"""
+    cases = []
+    # 线度量 x=[0,1,2,3]：depot=0。把订单 2 插进空车队的最小增量位。
+    c = ctx_line(3, d_pairs={(0, 1): 1.0, (1, 2): 1.0, (2, 3): 1.0,
+                             (0, 2): 2.0, (1, 3): 2.0, (0, 3): 3.0})
+    st = {1: dict(cur=0, cur_time=0.0, load=0.0, route=[], frozen=0)}
+    s2, ok = ls.best_insert(c, st, 2)
+    cases.append(('D1 空车插入：唯一位置，增量 = 2+2 = 4',
+                  ok is True and s2[1]['route'] == [2] and st[1]['route'] == [],
+                  (s2[1]['route'], ok)))
+    # 已有 [1]：插 2 到 pos 0 → [2,1] = 2+1+1 = 4，增量 4−2 = 2；
+    #            插 2 到 pos 1 → [1,2] = 1+1+2 = 4，增量 2 ⇒ 并列，取**首个**（pos 0）⇒ [2,1]
+    st2 = {1: dict(cur=0, cur_time=0.0, load=0.0, route=[1], frozen=0)}
+    s3, ok3 = ls.best_insert(c, st2, 2)
+    cases.append(('D1b 并列最小增量 ⇒ 取**首个**（pos 升序）⇒ 确定性，无 RNG',
+                  ok3 is True and s3[1]['route'] == [2, 1] and s3[1]['route'] != [1, 2],
+                  s3[1]['route']))
+    # 冻结位：在途车 cur=3、route=[3]、frozen=1 ⇒ 只能插在 pos 1（不能越过在途 leg）
+    st3 = {1: dict(cur=3, cur_time=0.0, load=0.0, route=[3], frozen=1)}
+    s4, ok4 = ls.best_insert(c, st3, 2)
+    cases.append(('D2 插入侧尊重 frozen：只能插在冻结前缀之后（[3,2] 而非 [2,3]）',
+                  ok4 is True and s4[1]['route'] == [3, 2]
+                  and ls.frozen_prefixes(s4) == {1: (3,)}, s4[1]['route']))
+    # 不可行 ⇒ 不插入且不改输入
+    c_tight = ctx_line(3, d_pairs={(0, 1): 1.0, (0, 2): 2.0, (0, 3): 3.0},
+                       twe=[BIG, 0.5, 0.5, 0.5])
+    st4 = {1: dict(cur=0, cur_time=1.0, load=0.0, route=[], frozen=0)}
+    s5, ok5 = ls.best_insert(c_tight, st4, 1)
+    cases.append(('D3 全部不可行 ⇒ 返回 False 且状态不变（由调用方定拒单语义）',
+                  ok5 is False and s5[1]['route'] == [] and st4[1]['route'] == [],
+                  (s5[1]['route'], ok5)))
+    # 恰好一次
+    try:
+        ls.best_insert(c, {1: dict(cur=0, cur_time=0.0, load=0.0, route=[2],
+                                   frozen=0)}, 2)
+        cases.append(('D4 订单已在路线上 ⇒ LSStateError（恰好一次）', False, '未抛错'))
+    except ls.LSStateError as exc:
+        cases.append(('D4 订单已在路线上 ⇒ LSStateError（恰好一次）', True,
+                      str(exc)[:50]))
+    # 缺 frozen 的状态必须被拒绝（沿用必需字段语义）
+    try:
+        ls.best_insert(c, {1: dict(cur=0, cur_time=0.0, load=0.0, route=[])}, 2)
+        cases.append(('D5 缺 frozen ⇒ LSStateError（必需字段语义一致）', False, '未抛错'))
+    except ls.LSStateError:
+        cases.append(('D5 缺 frozen ⇒ LSStateError（必需字段语义一致）', True, None))
+    # 确定性
+    a = ls.best_insert(c, st2, 2)[0]
+    b = ls.best_insert(c, st2, 2)[0]
+    cases.append(('D6 best_insert 两次运行逐位一致', a == b, (a, b)))
+    # 多车择优选车：订单 3 在锚点附近时，锚点在节点 3 的车明显更省
+    st6 = {1: dict(cur=0, cur_time=0.0, load=0.0, route=[1], frozen=0),
+           2: dict(cur=3, cur_time=0.0, load=0.0, route=[], frozen=0)}
+    s7, ok7 = ls.best_insert(c, st6, 3)
+    cases.append(('D7 多车择优选车：车 2 锚点在节点 3 ⇒ 增量 3 < 车 1 的 4（选车 2）',
+                  ok7 is True and s7[2]['route'] == [3] and s7[1]['route'] == [1],
+                  {k: v['route'] for k, v in s7.items()}))
+    return cases
+
+
 def test_context_validation():
     cases = []
     try:
@@ -566,6 +626,7 @@ def main():
                test_frozen_required, test_frozen_blocks_the_only_improving_move,
                test_real_anchors_and_cross_vehicle,
                test_state_from_vehicles_real_anchors, test_feasibility_semantics,
+               test_best_insert,
                test_determinism_and_ablation, test_certify_closure,
                test_myopic_ablation_scope, test_context_validation):
         try:
