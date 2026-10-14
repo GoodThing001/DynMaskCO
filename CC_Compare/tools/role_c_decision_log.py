@@ -132,6 +132,19 @@ class DecisionLogger:
         self.records.append(rec)
         return rec
 
+    # ---- 复用：换实例时**原地清空**，而不是新建对象 ----
+    def reset(self):
+        """清空记录与状态（**保留 budget_B / tol**）。
+
+        ⚠️ 为什么必须原地清空而不是让调用方 new 一个（2026-10-14 实测踩到）：
+        `RoleCReplanner._reset_if_new` 初版在换实例时**new 了一个新 logger**，
+        于是调用方传进来的 logger 对象被丢弃 —— 外部拿到的 `logger.records` 永远是空的
+        （测试里表现为"每单一条记录"= 0 条）。**原地清空**既满足"一次运行一个实例"，
+        又保证调用方持有的句柄一直有效。
+        """
+        self.state = CommittedState()
+        self.records = []
+
     def audit(self, **kw):
         """对自己产出的日志跑审计（写入器正确 ⇒ 必然通过）。"""
         return aud.audit(self.records, **kw)
