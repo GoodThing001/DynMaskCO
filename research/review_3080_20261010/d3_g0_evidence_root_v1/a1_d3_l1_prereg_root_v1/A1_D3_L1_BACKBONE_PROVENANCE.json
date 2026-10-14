@@ -1,0 +1,116 @@
+{
+  "task": "A1-D3-L1 task B: F backbone training-period identity provenance (read-only)",
+  "round": "A1-D3-L1-MECHANISM-PREREG",
+  "method": "read-only local search + read-only server queries through tools/_srv.py; no training, no model construction, no forward pass, no F-vs-D-Geo comparison",
+  "backbone_file": {
+    "path": "MASKCO_code/ckpts/cvrp100.ckpt",
+    "sha256": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+    "bytes": 305061150,
+    "server_path": "/home/hzeng/project/MASKCO-Main/MASKCO_code/ckpts/cvrp100.ckpt",
+    "server_sha256": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+    "server_mtime": "2026-09-20 20:12:16.503135680 +0800",
+    "server_mtime_predates_training_run": true,
+    "copies_of_cvrp_ckpt_on_server": 1
+  },
+  "labels": {
+    "CURRENT_BACKBONE_CANDIDATE": true,
+    "TRAINING_BACKBONE_PATH_BOUND": true,
+    "TRAINING_BACKBONE_SHA_RECORDED_IN_RUN": false,
+    "TRAINING_BACKBONE_VERIFIED": false,
+    "recommended_label": "TRAINING_BACKBONE_VERIFIED_BY_COMMAND_RECORD",
+    "until_user_ratifies": "F_RECONSTRUCTED_WITH_CURRENT_BACKBONE / HISTORICAL_BACKBONE_UNVERIFIED"
+  },
+  "training_command_record": {
+    "server_file": "/home/hzeng/project/MASKCO-Main/_run_mpre_seed.sh",
+    "mtime": "Sep 23 08:41 (before the run)",
+    "binds": [
+      "train_mpre_reinforce.py",
+      "data/m0_scale/dcc_50_r1_edod05_train_teacher.npz",
+      "--cvrp-ckpt ../MASKCO_code/ckpts/cvrp100.ckpt",
+      "--num-steps 1000",
+      "--batch-states 8",
+      "--K 4",
+      "--seed $SEED",
+      "--out results/m0_scale/mpre_reinforce_s${SEED}_clean"
+    ],
+    "cvrp_argument_is_a_relative_path_from_the_extension_dir": true,
+    "resolves_to": "/home/hzeng/project/MASKCO-Main/MASKCO_code/ckpts/cvrp100.ckpt",
+    "sibling_run_scripts_using_the_same_path": [
+      "_run_eval_all.sh:13",
+      "_run_step5.sh:13"
+    ]
+  },
+  "run_outputs": {
+    "server_dir": "C-VRP_Cold-chainVehicleRoutingProblem/results/m0_scale/mpre_reinforce_s42_clean/",
+    "model_ckpt_sha256": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5",
+    "model_ckpt_server_mtime": "2026-09-22 11:11:34.086452330 +0800",
+    "training_identity_server_mtime": "2026-09-22 11:15:53.900564098 +0800",
+    "training_identity_server_sha256": "e8ede3900ffeb88d2110b25f7a706509ec9c770189e7fca3343d609665ffb272",
+    "run_log_present_on_server": "results/m0_scale/_mpre_s42_clean.log",
+    "local_dir_mtime_note": "the local copy shows 2026-09-24 because of synchronisation; local mtimes are NOT training-time evidence",
+    "training_identity_local_sha256": "e8ede3900ffeb88d2110b25f7a706509ec9c770189e7fca3343d609665ffb272",
+    "local_vs_server_training_identity_equal": true
+  },
+  "independent_sha_registrations": [
+    {
+      "record": "IMMUTABLE_BASELINE.json:403",
+      "value": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+    },
+    {
+      "record": "PROTECTED_BEFORE.json:403",
+      "value": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+    },
+    {
+      "record": "SHA256SUMS.txt:1",
+      "value": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+    },
+    {
+      "record": "protocol.json (cvrp_sha256, several places)",
+      "value": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+    },
+    {
+      "record": "evidence_matrix.json:988",
+      "value": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+    },
+    {
+      "record": "candidate_manifest.json:1082",
+      "value": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+    },
+    {
+      "record": "论文封存与收口检查_2026-10-09.json:1045-1046",
+      "value": "expected_sha256 == actual_sha256 == 03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+    },
+    {
+      "record": "I3固定教师决策训练_执行预声明_2026-10-08.md:157",
+      "value": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+    },
+    {
+      "record": "I3_固定训练验收与在线入口恢复_2026-10-09.md:33",
+      "value": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+    },
+    {
+      "record": "方向A_补跑进度与I3实现准备_2026-10-08.md:273",
+      "value": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+    },
+    {
+      "record": "配送_多步教师完整模型前后向与独立复算验收_2026-10-11.md:11",
+      "value": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+    }
+  ],
+  "why_not_TRAINING_BACKBONE_VERIFIED": [
+    "no SHA is written into the training run's own records: training_identity.json only carries src_sha256 / data_sha256 / model_ckpt_sha256, and summary.json only hyperparameters and loss history",
+    "the command record -> file bytes step relies on the file at that path not having been replaced since the run; the server mtime (2026-09-20, before the run) plus the single-copy fact support it but are not a byte-invariance proof",
+    "most of the independent SHA registrations postdate the training run (they prove the file equalled that SHA on 2026-10-08+, not which bytes were loaded during training"
+  ],
+  "optional_remaining_checks": [
+    "read results/m0_scale/_mpre_s42_clean.log on the server for any other backbone path",
+    "search the server ~/.bash_history for a direct train_mpre_reinforce.py --cvrp-ckpt invocation",
+    "search for any pre-2026-09-22 record binding a SHA to that path (backup/upload manifests)"
+  ],
+  "if_unverifiable": [
+    "an engineering-level model restore and scoring-interface check may use the current file, labelled F_RECONSTRUCTED_WITH_CURRENT_BACKBONE / HISTORICAL_BACKBONE_UNVERIFIED",
+    "that scorer must not be called an exact reproduction of the historical training F and must not be used for a formal learning-contribution attribution",
+    "establishing a new, identity-complete F requires a separate pre-registration; retrained weights must never silently replace the historical main model"
+  ],
+  "not_a_claim": "This file records provenance evidence strength only. It asserts nothing about F's quality or about F versus D-Geo, and it changes no qualification: D3 G0, D8, E2, L2/L3, the I3 formal negative result and stable_online_gain=False all stand."
+}

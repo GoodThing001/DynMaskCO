@@ -95,3 +95,18 @@ L1 冻结契约（全部必须在运行前核对）：
    因此不构成"评分接口已验证"。
 3. backbone SHA 只与当前本地文件一致，训练期身份未证（§3.1）。
 4. E2 不存在，不阻止 L1 机制诊断，但阻止任何学习增益主张；I3 正式负结果与 `stable_online_gain=False` 不变。
+
+---
+
+## 7. 追加记录（2026-10-14，用户裁决②之后；不改写上文）
+
+- §2 表中 `CVRP_CKPT` 一行原记为"本轮新登记"；现按用户裁决**改标为
+  `CURRENT_BACKBONE_CANDIDATE`**，sha256 `03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db`。
+  **不登记为 `TRAINING_BACKBONE_VERIFIED`**：用户不接受"当前文件就是训练期文件"的无证据假设。
+- 本轮新增的溯源证据（服务器训练命令记录 `_run_mpre_seed.sh` 显式指定
+  `--cvrp-ckpt ../MASKCO_code/ckpts/cvrp100.ckpt`，且该机器仅此一份 `cvrp*.ckpt`）见
+  `A1_D3_L1_BACKBONE_PROVENANCE.md` / `.json`；建议标签
+  `TRAINING_BACKBONE_VERIFIED_BY_COMMAND_RECORD` 仍需用户批准。§3 的两条身份缺口结论**不变**。
+- 在标签获批前，§4 的 `F_LOADED_AND_SCORED` 即使通过，也只能表述为
+  `F_RECONSTRUCTED_WITH_CURRENT_BACKBONE / HISTORICAL_BACKBONE_UNVERIFIED`，
+  不得称为"历史训练 F 的精确复现"，不得用于正式学习贡献归因。
