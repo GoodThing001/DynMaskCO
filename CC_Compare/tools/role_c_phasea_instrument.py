@@ -44,7 +44,48 @@ import role_c_phasea_partition as pp
 
 __all__ = ['LEAF_BINDINGS', 'SUPPRESSING_LEAVES', 'InstrumentationError',
            'LeafInstrumentation', 'patch_table', 'active_leaf_from_progress',
-           'leaves_entered', 'measure_progress_overhead']
+           'leaves_entered', 'measure_progress_overhead', 'certify_proxy',
+           'active_session']
+
+#: 当前生效的插桩会话（单线程顺序跑决策 ⇒ 不需要线程局部）。
+#: 用途：`certify_proxy` 在**构建期**就被注入 `build_decide_fn`，运行期它要找到
+#: 当下的 `PartitionTimer`。用模块级"活动会话"而不是闭包捕获，
+#: 是因为 `decide_fn` 的构建早于任何一次决策。
+_ACTIVE = None
+_REAL_CERTIFY = None
+
+
+def active_session():
+    return _ACTIVE
+
+
+def _real_certify():
+    """懒加载真实 `certify_plan`（不依赖 import 期就有项目路径）。"""
+    global _REAL_CERTIFY
+    if _REAL_CERTIFY is None:
+        try:
+            import role_c_t_series as ts
+            ts.ensure_project_paths()
+        except Exception:                                        # noqa: BLE001
+            pass
+        from run_exp_energy_c0 import certify_plan
+        _REAL_CERTIFY = certify_plan
+    return _REAL_CERTIFY
+
+
+def certify_proxy(*a, **kw):
+    """`P8` 的注入点：在**构建期**传给 `build_decide_fn(certify_plan_fn=...)`。
+
+    为什么走"显式注入"而不是替换模块属性：`build_decide_fn` 在缺省时才从
+    `run_exp_energy_c0` 导入 `certify_plan`；显式传入是公开参数，比替换模块属性
+    更干净、也更难出错。没有活动会话时**原样调用**真实函数（构建期跑一天就是这种情况）。
+    """
+    fn = _real_certify()
+    if _ACTIVE is None:
+        return fn(*a, **kw)
+    _ACTIVE.l1['certify_calls'] = _ACTIVE.l1.get('certify_calls', 0) + 1
+    with _ACTIVE.timer.leaf('P8'):
+        return fn(*a, **kw)
 
 #: 叶子 → 绑定的真实调用点（人类可读，供报告与审计）
 LEAF_BINDINGS = {
@@ -167,10 +208,15 @@ class LeafInstrumentation(object):
 
     # ------------------------------------------------------------ 生命周期
     def __enter__(self):
+        global _ACTIVE
         self._install()
+        _ACTIVE = self
         return self
 
     def __exit__(self, *exc):
+        global _ACTIVE
+        if _ACTIVE is self:
+            _ACTIVE = None
         self._restore()
         self._close_progress()
         return False

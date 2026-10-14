@@ -444,6 +444,10 @@ def reconcile(online, *, t_decision=None, floor_s=DEFAULT_TOL_FLOOR_S,
         'p9_residual': d3,
         'p9_measured': g_on,
         'shares': _shares(online.get('exclusive') or {}, g_on, td, leaf_order),
+        # ⚠️ inclusive **一并记录**（规格 §4.1：两套都记，用途不同），
+        #    但它**同级可重叠** ⇒ **不得**用于份额或 50% 判据。
+        'inclusive': dict(online.get('inclusive') or {}),
+        'leaf_counts': dict(online.get('leaf_counts') or {}),
         'offline': off,
         'honesty_note': ('条件 ③ 在记账完全正确时是代数恒等式 ⇒ 它抓的是**实现层故障**'
                          '（帧不平衡 / 异常路径漏 pop / 多线程交错 / 时钟非单调），'

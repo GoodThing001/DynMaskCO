@@ -102,9 +102,47 @@ def _gate1_regression():
     except Exception as exc:                                      # noqa: BLE001
         inst_results['import'] = 'fail'
         extra = ['instrument suite import failed: %s' % exc]
+    # L1/L2 驱动器的**判定逻辑**回归（§6.2 并列/稳定性、§6.3 四档、
+    # 截断不许判定、B 类三态可区分、digest 同算法）
+    drv_results = {}
+    try:
+        import test_role_c_phasea_l1l2 as dreg
+        dreg.FAILS[:] = []
+        dcases = [
+            ('i_star_and_tie_break', dreg.test_i_star_and_tie_break),
+            ('below_threshold', dreg.test_below_threshold),
+            ('stability_binds_same_leaf', dreg.test_stability_binds_to_same_leaf),
+            ('p9_dominant_incomplete',
+             dreg.test_p9_dominant_is_attribution_incomplete),
+            ('censored_blocks_verdict',
+             dreg.test_any_censored_blocks_bottleneck_verdict),
+            ('accounting_error_blocks_verdict',
+             dreg.test_accounting_error_blocks_verdict),
+            ('total_exceeded_blocks_verdict',
+             dreg.test_total_exceeded_blocks_verdict),
+            ('structural_group_slack_undetermined',
+             dreg.test_structural_group_is_slack_undetermined),
+            ('a_class_truncation_position',
+             dreg.test_a_class_censored_record_has_position),
+            ('b_class_three_states', dreg.test_b_class_three_states_distinguishable),
+            ('digest_same_algorithm', dreg.test_digest_matches_timing_module),
+        ]
+        for name, fn in dcases:
+            before = len(dreg.FAILS)
+            try:
+                fn()
+            except Exception as exc:                              # noqa: BLE001
+                dreg.FAILS.append('%s raised %s' % (name, type(exc).__name__))
+            drv_results[name] = 'pass' if len(dreg.FAILS) == before else 'fail'
+        extra = extra + list(dreg.FAILS)
+    except Exception as exc:                                      # noqa: BLE001
+        drv_results['import'] = 'fail'
+        extra = extra + ['driver suite import failed: %s' % exc]
     return {'passed': (all(v == 'pass' for v in results.values())
-                       and all(v == 'pass' for v in inst_results.values())),
+                       and all(v == 'pass' for v in inst_results.values())
+                       and all(v == 'pass' for v in drv_results.values())),
             'cases': results, 'instrument_cases': inst_results,
+            'driver_cases': drv_results,
             'failures': list(reg.FAILS) + extra}
 
 
@@ -275,6 +313,8 @@ INPUT_CONTAINERS = (
     'CC_Compare/tools/role_c_phasea_digest_probe.py',
     'CC_Compare/tools/role_c_phasea_instrument.py',
     'CC_Compare/tools/test_role_c_phasea_instrument.py',
+    'CC_Compare/tools/role_c_phasea_l1l2.py',
+    'CC_Compare/tools/test_role_c_phasea_l1l2.py',
     'CC_Compare/tools/run_phasea_gates.py',
     'CC_Compare/tools/role_c_timing.py',
     'CC_Compare/tools/role_c_harness.py',
