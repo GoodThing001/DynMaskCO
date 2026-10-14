@@ -147,8 +147,9 @@ def audit_block(gate, blk, arm_name, expected_days=EXPECTED_DAYS):
     served = [d.get('n_served') for d in pd if isinstance(d.get('n_served'), int)]
     fin = [u for u in utils if isinstance(u, (int, float))]
 
-    q_days = (len(uniq) == expected_days and len(ids) == expected_days
-              and uniq == list(range(min(uniq), min(uniq) + expected_days)) if uniq else False)
+    # 2026-10-14 用户核实：旧判据 `uniq == range(min(uniq), min(uniq)+N)` **允许整体平移**
+    # （`1..40` 也会通过）。必须要求恰好是 `0..N-1`。
+    q_days = (len(ids) == expected_days and uniq == list(range(expected_days)))
     q_finite = bool(utils) and len(fin) == len(utils)
     q_hard = bool(hard) and all(h is True for h in hard)
     q_crash = len(crashes) == 0

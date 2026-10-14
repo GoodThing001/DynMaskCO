@@ -92,12 +92,25 @@ $rcs['manifest']    = Run-Check '归档清单完整性'   @('CC_Compare\tools\ma
 W ""
 W "=== 汇总 ==="
 $bad = @()
+$warn = @()
 foreach ($k in $rcs.Keys | Sort-Object) {
     W ("  {0,-12} rc={1}" -f $k, $rcs[$k])
-    if ($rcs[$k] -ne 0) { $bad += $k }
+    if ($rcs[$k] -eq 3) {
+        # rc=3 = 「部分通过」：D 段（日级证据）因本机没有原始 gate 而 SKIP。
+        # **不得**当作通过，也不宜当作硬失败 —— 单列告警，并在持有 gate 的机器上重跑。
+        $warn += $k
+    } elseif ($rcs[$k] -ne 0) {
+        $bad += $k
+    }
+}
+if ($warn.Count -gt 0) {
+    # 单行拼接：PowerShell 对跨行 `+` 续行的解析在此处会报 'Missing closing )'
+    $wtxt = "⚠️ 部分通过（非硬失败）：" + ($warn -join ', ') + " —— 该项需在持有原始 gate 的机器上重跑才能判 PASS"
+    W $wtxt
 }
 if ($bad.Count -eq 0) {
-    W "POST_FINALIZE_CHECKS_ALL_PASS"
+    if ($warn.Count -gt 0) { W "POST_FINALIZE_CHECKS_PASS_WITH_PARTIAL" }
+    else { W "POST_FINALIZE_CHECKS_ALL_PASS" }
 } else {
     W ("POST_FINALIZE_CHECKS_FAIL: " + ($bad -join ', '))
     W "注：_doc_prose_check 的 FAIL 多数是「个数 13 → 15/16」未改散文，按它打印的应有值改 README §2/§8/§10 后重跑即可。"

@@ -1,23 +1,30 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""`qualification_gate` 的反例测试（用户 P0 明确要求四类反例必须全部被拒绝）。
+"""`qualification_gate` 的反例测试。
 
-这是**纯本地、不依赖任何 gate 文件**的合成数据测试 —— 因为我们要验证的是"判据本身
-能不能挡住坏数据"，而不是"当前批次好不好"。用真实 gate 测不出前者。
+2026-10-14 用户核查后在远端源码里指出三个**门自身**的缺口，本文件把它们的反例补齐：
+  ① `q_days()` 未要求 day_id 恰为 `0..N-1` ⇒ `1..40` 也通过 → 新增「ID 平移」「ID 越界」反例；
+  ② `q_dependency_closure()` 只查字段非空 ⇒ 任意字符串即可通过 → 新增「格式非法」
+     与「**哈希格式正确但对应文件被篡改**（独立重算不符）」反例；
+  ③ 规则臂被**整体**豁免身份 ⇒ 连源码/合同/数据身份都不再要求 → 新增
+     「规则臂 source_stable=False」「规则臂缺合同哈希」反例。
+另按用户要求把「合法全拒」与「故障导致全拒」分开（`Q_validity` vs `Q_informativeness`）。
 
 运行：python CC_Compare/tools/test_qualification_gate.py   （退出码 0 = 全过）
 """
 import os
 import sys
-import io
 
-if hasattr(sys.stdout, 'buffer'):
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+# 注：本模块不自绑 sys.stdout（`qualification_gate` 也不绑），避免双重 TextIOWrapper
+# 关闭底层 buffer 的问题。
 from qualification_gate import evaluate                     # noqa: E402
 
 N = 40
+_SHARED = {'contract_sha256': 'c' * 64, 'data_sha256': 'd' * 64,
+           'data_meta_sha256': 'e' * 64}
+_HASHES = {'checkpoint_sha256': 'a' * 64, 'provider_dependency_sha256': 'b' * 64}
 
 
 def good_per_day(n=N, served=60):
@@ -28,14 +35,13 @@ def good_per_day(n=N, served=60):
 
 def good_evidence(**over):
     ev = {
-        'identity': {'source_stable': True,
-                     'checkpoint_sha256': 'a' * 64,
-                     'provider_dependency_sha256': 'b' * 64},
+        'identity': dict(source_stable=True, **_SHARED, **_HASHES),
         'pairing': {'identity_verified': True, 'problems': []},
         'per_day': good_per_day(),
         'solver_meta': {'n_solves': 7761, 'n_fail': 0},
         'participation': {'required': True, 'present': True, 'path': 'participation/x.json'},
         'is_rule': False,
+        'actual_hashes': dict(_HASHES),
     }
     ev.update(over)
     return ev
@@ -49,98 +55,142 @@ def case(name, expect_qualified, expect_veto=None, **over):
 
 
 # ---- 正例 ----
-case('① 合格臂（全绿）', True)
+case('① 合格臂（全绿，含独立重算相符）', True)
 
-# ---- 用户要求的四类反例 ----
+# ---- 用户四类反例（其中的 checkpoint 缺失见 closure 段）----
 case('② 源码匹配但只有 39/40 天', False, 'Q_days', per_day=good_per_day(39))
 case('③ 某日 hard_feasible=False', False, 'Q_hard',
-     per_day=[dict(d, hard_feasible=False) if d['i'] == 17 else d
-              for d in good_per_day()])
+     per_day=[dict(d, hard_feasible=False) if d['i'] == 17 else d for d in good_per_day()])
 case('④ 求解器全部抛异常（执行期崩溃）', False, 'Q_nocrash',
      per_day=[dict(d, utility=None, hard_feasible=False, failures=['execution_crash'],
                    n_served=None) for d in good_per_day()])
-# 注：用户四类反例里的「checkpoint 身份缺失」**不在**此处 —— 它由 `qualified_full`
-# 拒绝（见 closure_checks 的第一条），而不是由 P0 口径的核心门拒绝。
-# 这样历史 38 个合格臂的 `qualified=True` 不被事后改写，同时新批次仍会拒绝它。
-# ---- 其余必须被挡住的劣化 ----
-case('⑥ 效用含 NaN', False, 'Q_finite',
+
+# ---- ① 新增：day_id 集合必须恰为 0..39 ----
+case('⑤ day_id 整体平移 1..40（旧实现会误通过）', False, 'Q_days',
+     per_day=[dict(d, i=d['i'] + 1) for d in good_per_day()])
+case('⑥ day_id 越界（39 缺失、40 出现）', False, 'Q_days',
+     per_day=[dict(d, i=(40 if d['i'] == 39 else d['i'])) for d in good_per_day()])
+case('⑦ day_id 重复（40 条但只有 39 个唯一）', False, 'Q_days',
+     per_day=[dict(d, i=(38 if d['i'] == 39 else d['i'])) for d in good_per_day()])
+
+# ---- 其余劣化 ----
+case('⑧ 效用含 NaN', False, 'Q_finite',
      per_day=[dict(d, utility=float('nan')) if d['i'] == 3 else d for d in good_per_day()])
-case('⑦ 效用含 +inf', False, 'Q_finite',
+case('⑨ 效用含 +inf', False, 'Q_finite',
      per_day=[dict(d, utility=float('inf')) if d['i'] == 3 else d for d in good_per_day()])
-case('⑧ 全拒单退化（PyVRP 故障指纹）', False, 'Q_nondegen',
-     per_day=[dict(d, n_served=0) for d in good_per_day()])
-case('⑨ day_id 重复（40 条但只有 39 个唯一）', False, 'Q_days',
-     per_day=[dict(d, i=(39 if d['i'] == 38 else d['i'])) for d in good_per_day()])
 case('⑩ 配对身份未通过', False, 'Q_identity',
      pairing={'identity_verified': False, 'problems': ['baseline_identity_missing']})
 case('⑪ source_stable=False（源码中途被改）', False, 'Q_identity',
-     identity={'source_stable': False, 'checkpoint_sha256': 'a' * 64,
-               'provider_dependency_sha256': 'b' * 64})
-case('⑫ 求解器有 fallback（n_fail>0）', False, 'Q_method',
+     identity=dict(source_stable=False, **_SHARED, **_HASHES))
+case('⑫ 共享身份缺合同哈希', False, 'Q_identity',
+     identity=dict(source_stable=True, data_sha256='d' * 64, data_meta_sha256='e' * 64,
+                   **_HASHES))
+case('⑬ 求解器有 fallback（n_fail>0）', False, 'Q_method',
      solver_meta={'n_solves': 7761, 'n_fail': 12})
-case('⑬ 学习型方法缺参与度证据', False, 'Q_method',
+case('⑭ 学习型方法缺参与度证据', False, 'Q_method',
      participation={'required': True, 'present': False, 'path': 'participation/x.json'})
-case('⑭ 未记录任何求解调用（无法证明被执行）', False, 'Q_method',
+case('⑮ 未记录任何求解调用（无法证明被执行）', False, 'Q_method',
      solver_meta={'n_solves': 0, 'n_fail': 0})
-case('⑮ 完全没有逐日记录', False, 'Q_days', per_day=[])
+case('⑯ 完全没有逐日记录', False, 'Q_days', per_day=[])
 
-# ---- 结构性不适用：必须**不**被否决 ----
-case('⑯ 纯规则臂（无权重、无 solver_meta、无配对身份）', True,
-     is_rule=True, solver_meta={},
+# ---- ⑧ 合法性 vs 信息量：用户要求分开 ----
+case('⑰ 合法全拒（健康求解器）⇒ 协议**有效**但**无信息量**', True,
+     per_day=[dict(d, n_served=0) for d in good_per_day()])
+case('⑱ 全拒 + n_fail>0（故障导致）⇒ 有效性失败', False, 'Q_validity',
+     per_day=[dict(d, n_served=0) for d in good_per_day()],
+     solver_meta={'n_solves': 7761, 'n_fail': 5})
+
+# ---- ⑨ 结构不适用：不得被否决，但共享身份仍强制 ----
+case('⑲ 纯规则臂（含共享身份）⇒ 权重身份不适用，仍合格', True,
+     is_rule=True, pairing={}, solver_meta={},
      participation={'required': False, 'present': False},
-     identity={'source_stable': True}, pairing={})
-# 注：规则臂的 Q_identity / Q_method 应为 **None（不适用）** 而非 False ——
-# 否则就是缺陷 J 那一类「判据结构性不可能成立 ⇒ 报告里永远有假失败」。
+     identity=dict(source_stable=True, **_SHARED))
+case('⑳ 纯规则臂 source_stable=False ⇒ **必须被拒**', False, 'Q_identity',
+     is_rule=True, pairing={}, solver_meta={},
+     participation={'required': False, 'present': False},
+     identity=dict(source_stable=False, **_SHARED))
+case('㉑ 纯规则臂缺合同哈希 ⇒ **必须被拒**', False, 'Q_identity',
+     is_rule=True, pairing={}, solver_meta={},
+     participation={'required': False, 'present': False},
+     identity=dict(source_stable=True, data_sha256='d' * 64, data_meta_sha256='e' * 64))
 
 
 def closure_checks():
-    """`Q_dependency_closure` 是**独立**字段：缺权重/依赖身份要如实标 False，
-    但**不得**因此否决 `Q_formal_core`（否则就是用今天的新判据事后推翻历史合格臂）。"""
+    """`Q_dependency_closure`：fail-closed 三重校验（字段 / 格式 / **独立重算相符**）。"""
     out = []
-    # 用户四类反例之一：checkpoint 身份缺失 ⇒ **新批次必须拒绝**（由 qualified_full）
-    r0 = evaluate(good_evidence(identity={'source_stable': True,
-                                         'provider_dependency_sha256': 'b' * 64}))
-    out.append(('缺 checkpoint ⇒ core 保持 True 但**新批次门 qualified_full=False**（拒绝）',
-                r0['qualified'] is True and r0['qualified_full'] is False
-                and r0['Q_dependency_closure']['ok'] is False))
-    r = evaluate(good_evidence(identity={'source_stable': True}))
-    out.append(('缺 checkpoint/依赖哈希 ⇒ closure=False 且**不**否决 P0 core',
-                r['Q_dependency_closure']['ok'] is False and r['qualified'] is True))
-    r2 = evaluate(good_evidence())
-    out.append(('字段齐备 ⇒ closure=True 且 qualified_full=True',
-                r2['Q_dependency_closure']['ok'] is True and r2['qualified_full'] is True))
-    r3 = evaluate(good_evidence(is_rule=True, pairing={}, solver_meta={},
-                                identity={'source_stable': True},
+    base = dict(source_stable=True, **_SHARED)
+
+    r0 = evaluate(good_evidence(identity=dict(base, provider_dependency_sha256='b' * 64),
+                               actual_hashes={'provider_dependency_sha256': 'b' * 64}))
+    out.append(('缺 checkpoint ⇒ core 仍 True 但 qualified_full=False（新批次拒绝）',
+                r0['qualified'] is True and r0['qualified_full'] is False))
+
+    r1 = evaluate(good_evidence(identity=dict(base, checkpoint_sha256='a' * 64,
+                                             provider_dependency_sha256='b' * 64),
+                               actual_hashes=None))
+    out.append(('② 无独立重算结果 ⇒ fail-closed 判不合格',
+                r1['Q_dependency_closure']['ok'] is False
+                and '独立重算' in r1['Q_dependency_closure']['reason']))
+
+    r2 = evaluate(good_evidence(identity=dict(base, checkpoint_sha256='ZZ' * 32,
+                                             provider_dependency_sha256='b' * 64),
+                               actual_hashes=_HASHES))
+    out.append(('② 哈希格式非法（非小写十六进制）⇒ 不合格',
+                r2['Q_dependency_closure']['ok'] is False))
+
+    r3 = evaluate(good_evidence(identity=dict(base, **_HASHES),
+                               actual_hashes={'checkpoint_sha256': 'f' * 64,
+                                              'provider_dependency_sha256': 'b' * 64}))
+    out.append(('② **哈希格式正确但文件被篡改**（独立重算不符）⇒ 不合格',
+                r3['Q_dependency_closure']['ok'] is False
+                and r3['qualified_full'] is False))
+
+    r4 = evaluate(good_evidence())
+    out.append(('字段齐备 + 独立重算相符 ⇒ closure=True 且 qualified_full=True',
+                r4['Q_dependency_closure']['ok'] is True and r4['qualified_full'] is True))
+
+    r5 = evaluate(good_evidence(is_rule=True, pairing={}, solver_meta={},
+                                identity=dict(source_stable=True, **_SHARED),
                                 participation={'required': False, 'present': False}))
-    out.append(('纯规则臂 ⇒ closure=None（不适用），不影响 qualified_full',
-                r3['Q_dependency_closure']['ok'] is None and r3['qualified_full'] is True))
+    out.append(('纯规则臂 ⇒ closure=None（不适用），qualified_full 仍 True',
+                r5['Q_dependency_closure']['ok'] is None and r5['qualified_full'] is True))
+    return out
+
+
+def informativeness_checks():
+    out = []
+    r = evaluate(good_evidence(per_day=[dict(d, n_served=0) for d in good_per_day()]))
+    out.append(('合法全拒：qualified=True 且 informative=False（历史 λ=3 判定不改写）',
+                r['qualified'] is True and r['informative'] is False))
+    r2 = evaluate(good_evidence())
+    out.append(('有服务：informative=True', r2['informative'] is True))
     return out
 
 
 def run():
     passed = failed = 0
     for name, expect_q, expect_veto, over in CASES:
-        ev = good_evidence(**over)
-        res = evaluate(ev)
-        ok = (res['qualified'] == expect_q)
-        veto_ok = (expect_veto is None) or (expect_veto in res['vetoes'])
-        if ok and veto_ok:
+        res = evaluate(good_evidence(**over))
+        ok = (res['qualified'] == expect_q) and (
+            (expect_veto is None) or (expect_veto in res['vetoes']))
+        if ok:
             passed += 1
-            print('  PASS %-44s qualified=%-5s vetoes=%s'
+            print('  PASS %-52s qualified=%-5s vetoes=%s'
                   % (name, res['qualified'], res['vetoes'] or '—'))
         else:
             failed += 1
-            print('  FAIL %-44s 期望 qualified=%s veto=%s，实得 qualified=%s vetoes=%s n/a=%s'
-                  % (name, expect_q, expect_veto, res['qualified'],
-                     res['vetoes'], res['not_applicable']))
-    print('\nQ_dependency_closure 独立字段检查：')
-    for name, ok in closure_checks():
-        if ok:
-            passed += 1
-            print('  PASS %s' % name)
-        else:
-            failed += 1
-            print('  FAIL %s' % name)
+            print('  FAIL %-52s 期望 qualified=%s veto=%s，实得 qualified=%s vetoes=%s'
+                  % (name, expect_q, expect_veto, res['qualified'], res['vetoes']))
+    for title, checks in (('\nQ_dependency_closure 三重校验：', closure_checks()),
+                          ('\n有效性 / 信息量分离：', informativeness_checks())):
+        print(title)
+        for name, ok in checks:
+            if ok:
+                passed += 1
+                print('  PASS %s' % name)
+            else:
+                failed += 1
+                print('  FAIL %s' % name)
     print('\n结果：%d 通过 / %d 失败' % (passed, failed))
     return 1 if failed else 0
 

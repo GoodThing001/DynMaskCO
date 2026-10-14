@@ -64,16 +64,38 @@ def sha256(p):
     return h.hexdigest()
 
 
+def _target_commit():
+    """记录**目标 commit**（发布包对应哪个提交）。
+
+    2026-10-14 用户要求：发布器必须锁定发布目标 commit。git 不可用时如实写 None
+    （不要编造），并由 `--verify` 报出。
+    """
+    import subprocess
+    try:
+        r = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True,
+                           text=True, timeout=20)
+        return r.stdout.strip() or None
+    except Exception:                                        # noqa: BLE001
+        return None
+
+
 def build():
     if not os.path.isdir(SRC):
         print('FAIL: 源目录不存在: %s' % SRC)
         return 2
     os.makedirs(DST, exist_ok=True)
+    # ⚠️ 2026-10-14 用户核实：旧实现遇到缺失附件**直接跳过** ⇒ 清单可以"少件"却仍报成功；
+    # `--verify` 也只验入库 Markdown。现在**六份附件逐个要求存在**，缺一即失败。
+    missing = [s for s in RELEASE_ONLY if not os.path.isfile(os.path.join(SRC, s))]
+    if missing:
+        print('FAIL: Release 附件缺失 %d 份（发布包不完整）: %s' % (len(missing), missing))
+        return 2
     man = {
         'kind': 'development-evidence-package',
         'note': ('**development 证据包，不是最终测试结果，也不声称 SOTA。** '
                  'Markdown 文档入 Git；Excel 与完整 dataset.json 仅作 Release 附件，'
                  '`CC_Compare/results/**` 的忽略规则保持不变。'),
+        'target_commit': _target_commit(),
         'source_dir': os.path.relpath(SRC, ROOT).replace('\\', '/'),
         'generated_by': GEN,
         'in_repo': [],
@@ -91,14 +113,13 @@ def build():
             'size': os.path.getsize(dp), 'sha256': sha256(dp)})
     for s in RELEASE_ONLY:
         sp = os.path.join(SRC, s)
-        if not os.path.isfile(sp):
-            continue
         man['release_only'].append({
             'name': s, 'in_repo': False,
             'size': os.path.getsize(sp), 'sha256': sha256(sp),
-            'note': 'Release 附件；不入 Git'})
+            'note': 'Release 附件；不入 Git；**发布前必须逐个校验 size+sha256**'})
     with open(os.path.join(DST, 'ARTIFACT_MANIFEST.json'), 'w', encoding='utf-8') as f:
         json.dump(man, f, ensure_ascii=False, indent=2)
+    print('target_commit = %s' % man['target_commit'])
     print('归档 %d 份 Markdown → %s' % (len(man['in_repo']), os.path.relpath(DST, ROOT)))
     for e in man['in_repo']:
         print('   %-46s %8d B  %s' % (e['path'].split('/')[-1], e['size'], e['sha256'][:16]))
@@ -109,6 +130,7 @@ def build():
 
 
 def verify():
+    """校验**入库快照**与**六份 Release 附件**的 size + SHA-256，并检查目标 commit。"""
     mp = os.path.join(DST, 'ARTIFACT_MANIFEST.json')
     if not os.path.isfile(mp):
         print('FAIL: 缺 ARTIFACT_MANIFEST.json（先跑一次不带 --verify）')
@@ -119,14 +141,28 @@ def verify():
         p = os.path.join(ROOT, *e['path'].split('/'))
         if not os.path.isfile(p):
             bad.append('缺文件 %s' % e['path'])
-        elif sha256(p) != e['sha256']:
-            bad.append('哈希不符 %s（快照被改动过？）' % e['path'])
+        elif os.path.getsize(p) != e['size'] or sha256(p) != e['sha256']:
+            bad.append('size/哈希不符 %s（快照被改动过？）' % e['path'])
+    src = os.path.join(ROOT, *str(man.get('source_dir') or '').split('/'))
+    rel = man.get('release_only') or []
+    if len(rel) != len(RELEASE_ONLY):
+        bad.append('Release 附件条目数 %d != 预定 %d' % (len(rel), len(RELEASE_ONLY)))
+    for e in rel:
+        p = os.path.join(src, e['name'])
+        if not os.path.isfile(p):
+            bad.append('Release 附件缺失 %s' % e['name'])
+        elif os.path.getsize(p) != e['size'] or sha256(p) != e['sha256']:
+            bad.append('Release 附件 size/哈希不符 %s' % e['name'])
+    if not man.get('target_commit'):
+        bad.append('清单未记录 target_commit')
     if bad:
         for b in bad:
             print('   ✗ %s' % b)
         print('ARTIFACT_MANIFEST_VERIFY_FAIL: %d' % len(bad))
         return 1
-    print('ARTIFACT_MANIFEST_VERIFY_PASS（%d 份入库快照哈希一致）' % len(man['in_repo']))
+    print('ARTIFACT_MANIFEST_VERIFY_PASS（入库快照 %d 份 + Release 附件 %d 份，'
+          'target_commit=%s）' % (len(man['in_repo']), len(rel),
+                                str(man['target_commit'])[:12]))
     return 0
 
 
