@@ -1,0 +1,159 @@
+{
+  "preregistration": "A1_D3_MAIN_MODEL_SINGLE_LEVER_PREREGISTRATION",
+  "version": 1,
+  "date": "2026-10-14",
+  "status": "DRAFT_PENDING_USER_APPROVAL -- NOT AUTHORISED FOR EXECUTION",
+  "position_in_the_programme": "工作包 B 的入口；上游是工作包 A（D3 同掩码 F−D-Geo 归因，规格 REV2 尚未签字）",
+  "supersedes": null,
+  "reference_instruments": {
+    "stage1_attribution": "D3_PREREGISTRATION_REV2.md（状态：REVISION 2 — 待裁定冻结，不授权执行）",
+    "eligibility_audit": "A1_D3_ELIGIBILITY_MATRIX.json（本批 P1 交付，零运行）",
+    "dgeo_spec": "D3_GEO_IMPLEMENTATION_SPEC.md + D3_ENGINEERING_RESULT.md（T-G1..T-G9 PASS）"
+  },
+  "hard_constraints_carried_verbatim": [
+    "品质不货币化",
+    "鱼可售为硬约束",
+    "C0 能耗预算由 certify_plan 认证",
+    "不得为构造更好看的 loss 把上述硬约束改成软罚项",
+    "不得因 A1 通过追认 A2",
+    "不得因某敏感性档通过就声称主档优势",
+    "E2 不得用完全未训练的随机权重充当充分对照",
+    "替换共同决策器必须作为独立机制假设预声明，且所有臂共用同一代码路径、信息边界与预算"
+  ],
+  "seven_elements": {
+    "1_unique_primary_control": {
+      "primary": "F − D-Geo（唯一主对照）",
+      "why": "REV2 §5：只有 F 与 D-Geo 共享动作枚举与 tie-break；其他比较（F−R2、D-Geo−R2）为次要，运行后不得从表中挑最有利的比较",
+      "forbidden": [
+        "事后替换主对照",
+        "以更弱的几何启发式替代 D-Geo 来宣称领先",
+        "事后为 F 挑选更有利的共同决策器"
+      ]
+    },
+    "2_criteria": {
+      "layer_1_comparability_gate": {
+        "must_be_elementwise_equal": [
+          "掩码集合",
+          "可变车辆集合",
+          "合同身份",
+          "认证器身份"
+        ],
+        "rule": "任一项不等 ⇒ not_comparable，不进入比较；方向与显著性不作本层判据",
+        "disclosure_required": [
+          "超时",
+          "缺失日/状态",
+          "身份不匹配"
+        ]
+      },
+      "layer_2_decision_quality": {
+        "unit": "固定状态下的合法动作选择",
+        "must_report": [
+          "legal/illegal 判定",
+          "C0 认证结果",
+          "候选价值分布",
+          "两臂首步分歧（分歧本身不判 FAIL）"
+        ],
+        "statistics": [
+          "逐状态配对",
+          "状态/日聚类 bootstrap",
+          "预登记均值门槛与置信区间"
+        ],
+        "post_hoc_forbidden": "运行后不得改判据、不得改门槛、不得挑档"
+      },
+      "layer_3_only_if_authorised": "在线效用（需要 AT2B-3 类生产接入 + P2；本预声明不授权）"
+    },
+    "3_cost": {
+      "stage_A_diagnostic": "零训练、零在线批次；只跑固定状态比较（成本 = 一次诊断运行）",
+      "stage_B_retraining": {
+        "authorised_only_in_branch_A_or_B": true,
+        "ceiling": "≤3 seeds × 同配方 × 与本项目既有 recipe 同一训练协议；不新增数据生成、不新增未声明的种子",
+        "forbidden": [
+          "新的 40 天正式批次",
+          "预留最终测试种子",
+          "跨数据集跑批",
+          "多臂/多 seed 大规模对比（需另行确认）"
+        ]
+      },
+      "stage_C_online": "不在本预声明内"
+    },
+    "4_failure_branches": {
+      "pre_declared_switching_rule": "分支由阶段 1（F−D-Geo 固定状态诊断）的结果决定，不事后挑选",
+      "branch_A_no_decision_difference": {
+        "condition": "在全部已测量状态上 F 与 D-Geo 的可执行决策完全一致",
+        "action": "不重训；主杠杆改为“让学习产生几何评分无法产生的合法分歧”（目标须包含 Δd 之外的后果），作为唯一杠杆重新预声明",
+        "meaning": "现有评分机制无独立学习价值（在本层）"
+      },
+      "branch_B_diverges_but_worse": {
+        "condition": "F 与 D-Geo 有分歧，且 F 的候选质量/C0 合法性/实际决策结果更差",
+        "action": "唯一杠杆 = 把训练信号与“可认证的动作价值”对齐（action-value-aware ranking 或 value-guided masked reconstruction，二者只选一个并写明）",
+        "meaning": "当前 recipe 的目标函数与决策价值不匹配（可证伪假设）"
+      },
+      "branch_C_diverges_better_but_not_significant": {
+        "condition": "F 分歧且方向更好，但未达预登记门槛",
+        "action": "不重训；按阶段 3 处理（需要在线层与更强对照），并保留 not_qualified",
+        "meaning": "固定状态层证据不足，不得升级为在线结论"
+      },
+      "branch_D_not_comparable": {
+        "condition": "可比性门任一不等",
+        "action": "停止，修身份/掩码/合同/认证器一致性后重跑；不得在不可比状态下作任何结论"
+      },
+      "branch_E_hard_constraint_violation": {
+        "condition": "任何臂为了更好看的指标放宽品质/鱼可售/C0 硬约束",
+        "action": "立即作废该臂结果，保留失败原件，按违规记录"
+      }
+    },
+    "5_code_identity": {
+      "must_be_frozen_before_any_comparison": true,
+      "measured_gap_from_P1": {
+        "scripts/simulation/d3_geo_adapter.py": "记录 41e9dfb8…/17166 B vs 当前 41770 B ⇒ STALE",
+        "scripts/tests/test_d3_geo_adapter.py": "记录 17285 B vs 当前 19019 B ⇒ STALE",
+        "other_four_recorded_files": "MATCH（action_contract / mpre_policy / dynmaskco_cc_context / cc_lns_replanner）",
+        "required_action": "建立正式 freeze tree 后重做 T-G9；D3_SOURCE_IDENTITY.json 自述不是 freeze seal"
+      },
+      "F_checkpoint_mapping_required": {
+        "documented_F": "results/m0_scale/mpre_reinforce_s42_clean/model.ckpt (f5acf83fa2519020…, 89592616 B)",
+        "second_checkpoint_present": "results/m0_scale/mpre_reinforce_s42_corrected/model.ckpt (60f6360e8b4256e9…, 89592616 B)",
+        "rule": "在用户登记“哪个是 F”之前，任何臂不得引用任何一个"
+      },
+      "every_run_must_record": [
+        "代码 SHA（逐文件）",
+        "数据 SHA",
+        "profile/contract 哈希",
+        "掩码与可变车辆指纹",
+        "认证器身份"
+      ],
+      "data": "m0_scale 既有数据；不新增数据生成"
+    },
+    "6_stop_conditions": [
+      "REV2 未签字冻结 ⇒ 不运行阶段 1",
+      "可比性门未通过 ⇒ 停止并修身份，不做结论",
+      "任一硬约束被放宽 ⇒ 该臂结果作废",
+      "两臂等工作量不成立（n_eval 或墙钟不等）⇒ 不得声称等时合格",
+      "出现未预声明的杠杆/决策器/数据 ⇒ 停止并另行预声明",
+      "达到预登记成本上限 ⇒ 停止，报告 not_qualified 而非扩预算"
+    ],
+    "7_non_claims": [
+      "不声称 MaskCO 主模型在线增益（未建立）",
+      "不声称学习或预训练贡献（E2 无合格对照）",
+      "不声称 P2 / G-L / G-C 成立",
+      "不因 A1 通过而追认 A2；不因某敏感性档通过而声称主档优势",
+      "不把工程安全机制（B3-*）写成算法创新",
+      "不改写 I3 正式负结果（−144.680，95% CI [−191.109, −100.125]）与旧 D2 not_qualified",
+      "algorithmic_gain_claim: none"
+    ]
+  },
+  "approval_required_before_execution": [
+    "1) 签字冻结 D3_PREREGISTRATION_REV2.md（阶段 1 的仪器）",
+    "2) 登记 F 与 corrected 两个 checkpoint 的地位",
+    "3) 决定是否先建 freeze tree 并重做 T-G9",
+    "4) 批准本预声明的唯一杠杆与分支规则"
+  ],
+  "preserved": {
+    "D3_G0": "未通过",
+    "D8": "CAPABILITY_GAP_BLOCKING",
+    "G1_G2": "未启动",
+    "stable_online_gain": false,
+    "E2": "无合格训练结果",
+    "F_vs_DGeo": "科学效果未验证"
+  }
+}
