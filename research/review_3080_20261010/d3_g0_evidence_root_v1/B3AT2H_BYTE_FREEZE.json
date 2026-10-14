@@ -1,0 +1,61 @@
+{
+  "record": "D3_G0_Evidence_B3AT2H_byte_freeze",
+  "date": "2026-10-14",
+  "revision": 1,
+  "base_commit": "d3a36af",
+  "why": "the AT2H inventory registers the auditor and the audited environment file it anchors on; strict_online_env.py is UNMODIFIED by this batch and its sha256 is recorded as the audit target identity",
+  "read_only_batch": true,
+  "source_modified": false,
+  "self_reference_note": "this record does not register its own sha256; the directory pin covers it",
+  "pin_set": {
+    "file": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/.gitattributes",
+    "added_by_this_record": [
+      "tests/test_d3_b3at2h_write_inventory.py -text"
+    ],
+    "n_pinned_before": 33,
+    "n_pinned_after": 34,
+    "additive_check": "blob==worktree before the pin"
+  },
+  "registered_byte_containers_b3at2h": {
+    "scripts": {
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at2h_write_inventory.py": "31343fa1fad0d27909c88e8e6927f6a2dafbe4624be3f5c0bc6752bbb80f2cee",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+    },
+    "evidence": {
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2H_COUNTEREXAMPLE_SPEC.json": "3f84d395eba48b828efd3f30d9df8be7875bd85ffc0f7fe81443be31ffabf850",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2H_OWNERSHIP_DESIGN.md": "17f37cbb8815be790cb4fd0644c7f90bd343f8feddac584dbe384508c34931dc",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2H_REAL_ENV_WRITE_INVENTORY.json": "b4a07f24b2ec4a811f229c0f337a5e63e2d8e25145ec2bb4100232bafe4f2f69",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2H_REPORT.md": "eb83956bc0cf703be506affe11a472f390db6c1784b017448f77bc9174a3c3e9"
+    },
+    "raw": {
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2H_stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2H_stdout.txt": "8f1435d136170cb7e7123d74ebf170991db90398dd99d1edf1af5162d32179c9"
+    }
+  },
+  "audit_target_identity": {
+    "scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+  },
+  "write_inventory_headline": {
+    "n_write_points": 115,
+    "DECISION_WRITE": 28,
+    "EXECUTION_ADVANCE": 54,
+    "UNCLASSIFIED": 33,
+    "unclassified_all_adjudicated_as_construction_or_local": true
+  },
+  "non_claims": [
+    "not P2",
+    "not a production unique-writer proof",
+    "not D8 closure",
+    "not formal-budget install qualification",
+    "threat model does not cover arbitrary reflection or malicious memory modification",
+    "design completion does NOT authorise B3-AT2B"
+  ],
+  "algorithmic_gain_claim": "none",
+  "gates": {
+    "P1": "VERIFIED_ON_ISOLATED_COPIES_ONLY",
+    "P2": "NOT_ESTABLISHED",
+    "G-L": "NOT_ESTABLISHED",
+    "G-C": "NOT_ESTABLISHED"
+  },
+  "verification_required_after_commit": "git archive HEAD <each pinned path> must reproduce the registered sha256"
+}

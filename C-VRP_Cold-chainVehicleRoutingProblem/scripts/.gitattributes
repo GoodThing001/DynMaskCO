@@ -123,3 +123,6 @@ tests/test_d3_b3at1_transaction.py -text
 # git hash-object == git hash-object --no-filters for both.
 simulation/d3_state_container.py -text
 tests/test_d3_b3at2g_container.py -text
+# Added by D3-G0 Evidence B3-AT2H (2026-10-14).  The READ-ONLY write-point inventory auditor; its raw
+# sha256 is registered by B3AT2H_REAL_ENV_WRITE_INVENTORY.json.  Additive.
+tests/test_d3_b3at2h_write_inventory.py -text

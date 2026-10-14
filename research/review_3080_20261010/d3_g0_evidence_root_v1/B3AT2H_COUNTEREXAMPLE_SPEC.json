@@ -1,0 +1,102 @@
+{
+  "spec": "D3_G0_Evidence_B3AT2H_write_inventory_preregistration",
+  "version": 1,
+  "date": "2026-10-14",
+  "frozen_before_implementation": true,
+  "base_commit": "74b58583a72fb5dcad969431dc1b3b22fa4debfb",
+  "authorised_scope_verbatim": "我的裁决建议：批准 B3-AT2H（只读所有权移交设计与写入点审计），暂不批准 AT2B 真实写回。B3-AT2H 的停止条件是形成完整、可机械核验的真实 env 写入清单、权威状态所有权方案、权限分类和预声明回归规格。不得因为设计完成而自动启动 AT2B。",
+  "read_only": true,
+  "this_batch_does_not": [
+    "接入容器或守卫到真实 env",
+    "修改 strict_online_env.py 或任何历史基线",
+    "修改 MASKCO_code/",
+    "做真实写回",
+    "自动启动 AT2B"
+  ],
+  "three_questions": {
+    "Q1_ownership": "谁拥有权威车辆状态（StrictOnlineEnv / D3StateContainer / D3CommitCoordinator 的关系）",
+    "Q2_which_writes_need_certification": "哪些状态修改需要认证（逐函数写入清单）",
+    "Q3_protocol_consistency": "如何证明接入前后协议一致（含兼容性比较与安全修复比较的区分）"
+  },
+  "threat_model_scope_required": {
+    "covered": [
+      "项目正常执行路径",
+      "意外持有的可变引用（旧引用/复制后仍被使用）",
+      "历史 replanner 直接写入",
+      "已登记的动态调用（属性赋值、列表原地修改、元素替换）"
+    ],
+    "explicitly_not_claimed": [
+      "任意反射代码（getattr/setattr/直接访问单下划线属性）",
+      "恶意内存修改 / ctypes / gc 遍历"
+    ],
+    "reason": "在 Python 中 `_vehicles` / `_authoritative()` 这类单下划线名称只是访问约定，不是语言级私有权限边界；因此不得仅凭『权威状态放在私有属性里』就宣称任意代码都无法越权修改"
+  },
+  "permission_classes": {
+    "DECISION_WRITE": {
+      "definition": "修改未执行后缀、提交新的派车头部 —— 必须经过认证事务",
+      "members_expected": ["mutable_suffix", "committed_next", "committed_arrive", "committed_finish",
+                           "committed_coldchain_before", "needs_replan", "replan_reason"]
+    },
+    "EXECUTION_ADVANCE": {
+      "definition": "推进已冻结前缀、服务完成、状态计时 —— 只能由指定 env 执行原语处理，并满足相应不变量",
+      "members_expected": ["status", "current_node", "current_load", "ready_time", "dispatch_time",
+                           "return_finish", "coldchain_state", "coldchain_updated_time",
+                           "coldchain_accounting_anchor", "served_route",
+                           "traces[*].services", "traces[*].depot_unload_records", "served_mask"]
+    },
+    "why_the_split_is_required": "不区分两类权限会产生两种相反错误：要么真正的提交绕过认证，要么合法的执行推进（沿已承诺路线继续行驶、时钟推进、已完成服务）被全部锁死"
+  },
+  "classification_rules": [
+    "R1 以【所属函数】为主键分类，而不是仅看目标字段：同一个 `status` 既被 `_commit`（决策）也被 `_advance_fleet`（执行）写入",
+    "R2 DECISION_FUNCS = {Replanner.plan, Replanner.on_reveal, _plan_and_commit, _commit, prepare_decision_point, GreedyReplanner.plan, _force_return_all}",
+    "R3 EXECUTION_FUNCS = {_advance_fleet, _advance_coldchain_to, _dispatch_coldchain, _run_loop（服务完成/揭示清理）, _apply_door_event（若存在）}",
+    "R4 其余函数中的写入点一律记为 UNCLASSIFIED，并作为必须显式裁定的发现（不得默认归类）",
+    "R5 requires_recertification：DECISION 类在协调器/容器之外发生 = true；EXECUTION 类 = false",
+    "R6 每个写入点必须记录 failure_semantics ∈ {refuse_before_write, partial_possible, unknown}，未声明即记为 UNKNOWN 并计入发现"
+  ],
+  "required_coverage": {
+    "functions": ["Replanner.plan", "Replanner.on_reveal", "GreedyReplanner.plan", "_plan_and_commit",
+                  "_commit", "_advance_fleet", "_advance_coldchain_to", "_dispatch_coldchain",
+                  "_run_loop", "_force_return_all", "prepare_decision_point"],
+    "targets": ["mutable_suffix", "committed_next", "committed_arrive", "committed_finish",
+                "committed_coldchain_before", "needs_replan", "replan_reason", "status",
+                "current_node", "current_load", "ready_time", "dispatch_time", "return_finish",
+                "coldchain_state", "coldchain_updated_time", "coldchain_accounting_anchor",
+                "served_route", "services", "depot_unload_records", "served_mask"],
+    "rule": "清单必须覆盖上述函数×目标组合；缺失组合必须逐条给出裁定（为何不存在 / 由谁承担），不得静默省略"
+  },
+  "regression_specification": {
+    "inputs_must_be_identical": ["相同初始状态", "相同订单揭示序列", "相同合法决策输入"],
+    "compare": ["车辆服务顺序与时刻", "承诺冻结", "订单恰好服务一次", "certify_plan 的 C0 能耗口径",
+                "冷链状态与品质记录", "拒绝 / WAIT / 超时等协议行为"],
+    "two_kinds_of_comparison": {
+      "compatibility_comparison": "合法行为的结果应与历史 env 一致；出现差异即为回归",
+      "safety_fix_comparison": "非法行为原先可能被写入，新路径应在写入前拒绝；此处出现轨迹差异是【预期结果】，不得误记为回归失败"
+    },
+    "mechanical_requirement": "两类比较必须使用不同的判据标签与不同的结论字段，不得合并统计"
+  },
+  "AT2B_thresholds_as_of_this_batch": {
+    "AT2G_isolated_container": "已有验收证据",
+    "env_ownership_handover_design": "本批建立（设计层）",
+    "decision_vs_execution_permission_classification": "本批建立（审计层）",
+    "call_graph_proof_of_no_bypass_on_the_real_path": "未建立（需 AT2B 前段）",
+    "formal_quality_certification_D8": "仍阻断",
+    "formal_budget_install_qualification": "未建立"
+  },
+  "AT2B_must_be_split_further": [
+    "第一步：生产代码中的可关闭、默认不启用的 D3 专用接线",
+    "第二步：独立的隔离环境验收",
+    "第三步（最后）：启用生产真实写回",
+    "每一步单独预声明、单独裁决"
+  ],
+  "research_direction_reminder": {
+    "statement": "从 B3-Q 到 AT2G 的认证与提交安全工程不直接构成 MaskCO 的算法创新；即使最终完成 P2，也不得把『拥有了安全提交机制』写成『生成模型提升了在线决策质量』。两条证据链必须继续分开。",
+    "enforced_by": "本批的 all outcome documents record `algorithmic_gain_claim: none`"
+  },
+  "stop_rule": "形成完整、可机械核验的真实 env 写入清单、权威状态所有权方案、权限分类和预声明回归规格。不得因为设计完成而自动启动 AT2B。",
+  "preserved": {
+    "P2": "未建立", "G-L_G-C": "未建立", "D8": "阻断", "D3_G0": "未通过", "G1_G2": "未启动",
+    "MaskCO_attributable_FD_gain": "未建立", "I3": "负结果不变",
+    "D2": "not_qualified 不变", "stable_online_gain": false
+  }
+}
