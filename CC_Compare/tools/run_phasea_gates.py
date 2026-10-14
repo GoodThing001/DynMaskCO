@@ -315,6 +315,7 @@ INPUT_CONTAINERS = (
     'CC_Compare/tools/test_role_c_phasea_instrument.py',
     'CC_Compare/tools/role_c_phasea_l1l2.py',
     'CC_Compare/tools/test_role_c_phasea_l1l2.py',
+    'CC_Compare/tools/role_c_phasea_recheck.py',
     'CC_Compare/tools/run_phasea_gates.py',
     'CC_Compare/tools/role_c_timing.py',
     'CC_Compare/tools/role_c_harness.py',

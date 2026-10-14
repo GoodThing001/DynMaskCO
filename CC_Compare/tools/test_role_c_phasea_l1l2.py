@@ -252,7 +252,8 @@ def test_structural_group_is_slack_undetermined():
 # --------------------------------------------- 9. A 类截断记录 / B 类三态
 def _fake_bundle(n=2):
     return {'n_contexts': n, 'contexts': [{'order': i, 'clock': float(i)}
-                                          for i in range(n)]}
+                                          for i in range(n)],
+            'frozen': {'K': 10}}
 
 
 def test_a_class_censored_record_has_position():
@@ -291,49 +292,76 @@ def test_a_class_censored_record_has_position():
 
 
 def test_b_class_three_states_distinguishable():
-    print('\n[10] B 类三态必须**可区分**（不得一律填 deadline_hit=false）')
+    print('\n[10] B 类三态必须**可区分**（按"前瞻是否真的跑完"，不能只看 deadline_hit）')
+    import time
+    import role_c_forward as fwd
+    import role_c_local_search as ls
+    # 复用插桩层回归里的**同一套合成世界**（`_world` / `_make_complete`），
+    # 避免两处各写一份 stub 而彼此漂移。
+    import test_role_c_phasea_instrument as iw
+    ctx, space, veh, served, plan = iw._world(n=16)
     b = _fake_bundle(3)
-    state = {'n': 0}
+    scen = [[o] for o in range(2, 12)]           # 10 个场景
+    cache = {}
 
-    def decide_fn(order, ctx):
-        state['n'] += 1
+    def _complete():
+        """**必须**在插桩会话内、经**被插桩的工厂**造出来（真实管线同构）。"""
+        if 'fn' not in cache:
+            cache['fn'] = iw._make_complete(space)
+        return cache['fn']
+
+    def _run_forward(*, past_deadline):
+        states = ls.state_from_vehicles(veh, served, plan, 0.0)
+        d = (time.monotonic() - 1.0) if past_deadline else None
+        return fwd.forward_value(
+            space=space, base_states=states, scenarios=scen, budget=1000.0,
+            initial_est_used=0.0, order_energy_fn=lambda o: 1.0,
+            order_revenue_fn=lambda o: 10.0, order_penalty_fn=lambda o: 5.0,
+            complete_fn=_complete(), fuel_cost_per_distance_unit=1.0,
+            infeasible_penalty=-1e5, deadline=d)
+
+    def decide_fn(order, ctx_):
         k = int(order)
         if k == 0:                       # 不进前瞻
             return False, {'boundary': 'insertion_infeasible', 'e_o': 1.0,
                            'lambda_B': None, 'certify_ok': False,
                            'log_fields': {'action': 'reject'}, 'forward': None}
-        if k == 1:                       # 进前瞻且完成
-            with pin.active_session().timer.leaf('P7d'):
-                pass
+        if k == 1:                       # 进前瞻且 10/10 场景都跑完
+            _val, fw = _run_forward(past_deadline=False)
             return True, {'boundary': None, 'e_o': 2.0, 'lambda_B': 0.5,
                           'certify_ok': True,
-                          'log_fields': {'action': 'accept'},
-                          'forward': {'deadline_hit': False, 'n_scenarios': 10}}
-        with pin.active_session().timer.leaf('P7d'):      # 进前瞻且触截止
-            pass
+                          'log_fields': {'action': 'accept'}, 'forward': fw}
+        _val, fw = _run_forward(past_deadline=True)   # 进前瞻即触截止
         return False, {'boundary': 'B3_lambda_undefined', 'e_o': 3.0,
-                       'lambda_B': None, 'certify_ok': False,
-                       'log_fields': {'action': 'reject'},
-                       'forward': {'deadline_hit': True, 'n_scenarios': 10}}
+                       'lambda_B': None, 'certify_ok': True,
+                       'log_fields': {'action': 'reject'}, 'forward': fw}
 
     rep = drv.run_stage_b(b, decide_fn=decide_fn, per_decision_cap_s=10.0)
     st = [r['evaluation_status'] for r in rep['per_decision']]
     check('三态齐备且互斥', st == ['not_entered', 'completed', 'timed_out'], st)
-    check('not_entered：forward_entered=false 且 deadline_hit=false',
-          rep['per_decision'][0]['forward_entered'] is False
-          and rep['per_decision'][0]['deadline_hit'] is False,
+    check('not_entered：forward_entered=false',
+          rep['per_decision'][0]['forward_entered'] is False,
           rep['per_decision'][0])
-    check('timed_out：forward_entered=true 且 deadline_hit=true',
+    check('completed：10/10 场景都进过且都跑完',
+          rep['per_decision'][1]['n_scenarios_entered'] == 10
+          and rep['per_decision'][1]['n_scenarios_completed'] == 10,
+          (rep['per_decision'][1]['n_scenarios_entered'],
+           rep['per_decision'][1]['n_scenarios_completed']))
+    check('timed_out：进前瞻但 0/10 场景跑完',
           rep['per_decision'][2]['forward_entered'] is True
-          and rep['per_decision'][2]['deadline_hit'] is True,
+          and rep['per_decision'][2]['evaluation_status'] == 'timed_out'
+          and (rep['per_decision'][2]['n_scenarios_completed'] or 0) == 0,
           rep['per_decision'][2])
-    check('completed：forward_entered=true 且 deadline_hit=false',
-          rep['per_decision'][1]['forward_entered'] is True
-          and rep['per_decision'][1]['deadline_hit'] is False,
-          rep['per_decision'][1])
-    check('**三态没有塌成同一个 deadline_hit=false**',
-          len({(r['forward_entered'], r['deadline_hit'])
-               for r in rep['per_decision']}) == 3, rep['per_decision'])
+    # 三态必须由**诊断签名**彼此区分（只看 deadline_hit 会塌类）
+    sigs = {(r['forward_entered'],
+             r['n_scenarios_entered'] if r['forward_entered'] else None)
+            for r in rep['per_decision']}
+    check('**三态的签名互不相同**（(未进) / (进,10/10) / (进,0/10)）',
+          len(sigs) == 3, sigs)
+    check('逐决策点带 expected 场景数与判据来源',
+          rep['per_decision'][1]['n_scenarios_expected'] == 10
+          and rep['per_decision'][1]['evaluation_status_basis']
+          == 'by_scenario_completion', sorted(rep['per_decision'][1]))
     check('逐决策点带 action / boundary / lambda_B / e_o / stages_entered',
           all(k in rep['per_decision'][0] for k in
               ('action', 'boundary', 'lambda_B', 'e_o', 'stages_entered')),
@@ -342,6 +370,32 @@ def test_b_class_three_states_distinguishable():
           rep['enforcement'] == 'hard_sigalrm', rep['enforcement'])
     check('B 类报告与 A 类**分开**（各自 class 字段）',
           rep['class'] == 'B' and rep['internal_deadline'] == 10.0, rep['class'])
+    return True
+
+
+# ------------------------------------------- 10b. 三态判据更正（真实反例的回归）
+def test_three_state_recomputed_from_archive():
+    print('\n[10b] **判据更正回归**：原始记录 `completed` + 只进 1/10 场景 ⇒ 重算为 timed_out')
+    import role_c_phasea_recheck as rck
+    rec = {'decision_point': 0, 'forward_entered': True, 'deadline_hit': False,
+           'evaluation_status': 'completed', 'n_scenarios_entered': 1,
+           'n_scenarios_expected': 10}
+    got = rck._three_state_ok(rec)
+    check('重算 = timed_out（过宽标签被收紧）', got['recomputed'] == 'timed_out', got)
+    check('如实标出记录与重算不一致', got['consistent'] is False
+          and got['recorded'] == 'completed', got)
+    ok = rck._three_state_ok({'forward_entered': True, 'deadline_hit': False,
+                              'evaluation_status': 'completed',
+                              'n_scenarios_entered': 10,
+                              'n_scenarios_expected': 10})
+    check('真正跑完的仍判 completed', ok['recomputed'] == 'completed'
+          and ok['consistent'] is True, ok)
+    ne = rck._three_state_ok({'forward_entered': False, 'deadline_hit': False,
+                              'evaluation_status': 'not_entered',
+                              'n_scenarios_entered': None,
+                              'n_scenarios_expected': 10})
+    check('没进前瞻的仍判 not_entered', ne['recomputed'] == 'not_entered'
+          and ne['consistent'] is True, ne)
     return True
 
 
@@ -385,6 +439,7 @@ def main():
     test_structural_group_is_slack_undetermined()
     test_a_class_censored_record_has_position()
     test_b_class_three_states_distinguishable()
+    test_three_state_recomputed_from_archive()
     test_digest_matches_timing_module()
     print('\n' + '=' * 78)
     if FAILS:

@@ -77,6 +77,23 @@ def elapsed_total():
     return 0.0 if _PHASE_START is None else _now() - _PHASE_START
 
 
+def _contract_fingerprint(contract):
+    """契约的**可序列化指纹**（对象本身不可 JSON 化；这里只留身份）。"""
+    if contract is None:
+        return None
+    out = {'type': type(contract).__name__}
+    for attr in ('contract_hash', 'hash', 'sha256', 'version'):
+        v = getattr(contract, attr, None)
+        if isinstance(v, (str, int, float)) and not isinstance(v, bool):
+            out[attr] = v
+    try:
+        out['repr_sha256'] = __import__('hashlib').sha256(
+            repr(contract).encode('utf-8')).hexdigest()
+    except Exception:                                             # noqa: BLE001
+        pass
+    return out
+
+
 def _write_json(path, obj):
     p = os.path.abspath(path)
     d = os.path.dirname(p)
@@ -267,7 +284,11 @@ def _trim_diag(d):
 
 def run_stage_a(bundle, *, out_dir, per_decision_cap_s, total_cap_s,
                 fork=True, decide_fn=None):
-    """A 类：每个决策点一个**子进程**，外层 `600 s` 硬杀；恢复截断位置。"""
+    """A 类：每个决策点一个**子进程**，外层 `600 s` 硬杀；恢复截断位置。
+
+    `total_cap_s` 是**整个 Phase A 作业的绝对预算**（自 phase 起算，含决策点准备），
+    不是"剩下的秒数" —— 否则会与 `elapsed_total()` 的基准混用、把预算算少一个 build。
+    """
     decide_fn = decide_fn or _make_decide(bundle, internal_deadline=DISABLED)
     os.makedirs(out_dir, exist_ok=True)
     per = []
@@ -410,14 +431,19 @@ def run_stage_b(bundle, *, decide_fn=None, per_decision_cap_s=10.0):
         inst = pin.LeafInstrumentation()
         timed_out = False
         out = None
+        err = None
         with inst:
             inst.begin(subject={'decision_point': k})
             try:
                 res = rt._run_with_limit(lambda: decide_fn(order, ctx),
                                          float(per_decision_cap_s))
+                out, timed_out, wall, hard = res
             except rt.DecisionTimeout:
-                res = (None, True, float(per_decision_cap_s), True)
-            out, timed_out, wall, hard = res
+                out, timed_out, wall, hard = None, True, float(per_decision_cap_s), True
+            except BaseException as exc:                          # noqa: BLE001
+                # 决策抛错**不得**掀掉整个 Phase A 作业：如实记下并继续下一点
+                out, timed_out, wall, hard = None, False, None, False
+                err = '%s: %s' % (type(exc).__name__, exc)
             rec = inst.end()
         accept, diag = (out if isinstance(out, tuple) else (None, None))
         d = _trim_diag(diag or {})
@@ -425,12 +451,38 @@ def run_stage_b(bundle, *, decide_fn=None, per_decision_cap_s=10.0):
         fw = d.get('forward') or {}
         counts = inst.timer._counts
         forward_entered = int(counts.get('P7d', 0)) > 0
+        n_entered = rec['l1'].get('role_c_forward._ordered')
+        n_done = rec['l1'].get('complete_fn_calls_in_forward') or 0
+        k_expected = int(bundle['frozen']['K'])
+        # ⚠️ **三态必须按"前瞻是否真的跑完"判，不能只看 `deadline_hit`**：
+        #    实测出现过 `deadline_hit=False` 但只进了 **1/10** 个场景、
+        #    一个场景都没跑完（`boundary=B3_lambda_undefined`）的情况 ——
+        #    那时把它标成 `completed` 就是把"被 10 s 预算截断"写成"已完成"，
+        #    属于把未观察到的信息写成肯定结论。现按 `n_scenarios_entered` 与
+        #    `complete_fn` 调用数判：
+        #      not_entered  ：没进 P7d；
+        #      completed    ：10/10 场景都进过且没有 deadline_hit；
+        #      timed_out    ：进了前瞻但没跑完（含"进了 1 个场景就被预算截断"）。
         if not forward_entered:
             status = 'not_entered'
-        elif timed_out or bool(fw.get('deadline_hit')):
+            reason = None
+        elif bool(fw.get('deadline_hit')):
             status = 'timed_out'
+            reason = 'forward_deadline'
+        elif n_entered is None or int(n_entered) < k_expected \
+                or int(n_done) < int(n_entered):
+            status = 'timed_out'
+            reason = ('budget_exhausted_inside_forward'
+                      '（进入 %s/%d 个场景，完成 %s 个）'
+                      % (n_entered, k_expected, n_done))
+        elif timed_out:
+            status = 'timed_out'
+            reason = 'sigalrm'
         else:
             status = 'completed'
+            reason = None
+        if timed_out and reason is None:
+            reason = 'sigalrm'
         per.append({
             'decision_point': k,
             'action': (d.get('log_fields') or {}).get('action'),
@@ -438,10 +490,11 @@ def run_stage_b(bundle, *, decide_fn=None, per_decision_cap_s=10.0):
             'reject_reason': d.get('reject_reason'),
             'forward_entered': forward_entered,
             'evaluation_status': status,
+            'evaluation_status_basis': ('by_scenario_completion'
+                                        if status != 'not_entered' else 'by_entry'),
+            'n_scenarios_expected': k_expected,
             'deadline_hit': bool(fw.get('deadline_hit')),
-            'timeout_reason': ('sigalrm' if timed_out else
-                               ('forward_deadline' if fw.get('deadline_hit')
-                                else None)),
+            'timeout_reason': reason,
             'n_scenarios_entered': rec['l1'].get('role_c_forward._ordered'),
             'n_scenarios_completed': rec['l1'].get(
                 'complete_fn_calls_in_forward'),
@@ -453,6 +506,8 @@ def run_stage_b(bundle, *, decide_fn=None, per_decision_cap_s=10.0):
             'per_decision_cap_s': float(per_decision_cap_s),
             'exceeded_cap': bool(wall is not None
                                  and wall > float(per_decision_cap_s)),
+            'error': err,
+            'sigalrm_enforced': bool(hard),
             'partition': {'verdict': rec['verdict'],
                           'failed_conditions': rec['failed_conditions'],
                           'tolerance_s': rec['tolerance_s'],
@@ -609,46 +664,112 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description='P1-A Role C Phase A L1/L2 归因测量')
     ap.add_argument('--out', required=True)
     ap.add_argument('--out-dir', required=True, help='逐决策点原始产物目录')
-    ap.add_argument('--stage', default='A', choices=['A', 'B'])
+    ap.add_argument('--stage', default='A', choices=['A', 'B', 'both'])
     ap.add_argument('--per-decision-cap', type=float, default=None)
     ap.add_argument('--total-cap', type=float, default=None)
     ap.add_argument('--dataset-cache', default='/tmp/rolec_train_ds.npz')
     ap.add_argument('--no-fork', action='store_true',
                     help='**仅本机冒烟**：没有外层硬杀，产物标注为不合格 A 类')
+    ap.add_argument('--supervise', action='store_true',
+                    help='外层监督器模式：起子进程跑本脚本，`total-cap` 到点 SIGKILL 回收')
+    ap.add_argument('--supervisor-out', default=None,
+                    help='监督器判决 JSON 路径（仅有 --supervise 时用）')
     a = ap.parse_args(argv)
+
+    if a.supervise:
+        ceiling0 = pc.load_phasea_ceiling()
+        total0 = float(a.total_cap if a.total_cap is not None
+                       else ceiling0['phase_total_cap_s'])
+        inner = [sys.executable, '-u', os.path.abspath(__file__),
+                 '--out', a.out, '--out-dir', a.out_dir, '--stage', a.stage,
+                 '--dataset-cache', a.dataset_cache]
+        if a.per_decision_cap is not None:
+            inner += ['--per-decision-cap', str(a.per_decision_cap)]
+        if a.total_cap is not None:
+            inner += ['--total-cap', str(a.total_cap)]
+        if a.no_fork:
+            inner += ['--no-fork']
+        t0 = _now()
+        sup = rt.run_supervised(inner, total_wall_s=total0,
+                                cwd=os.path.dirname(os.path.abspath(__file__)))
+        sup['label'] = 'P1A-RoleC-PhaseA-outer-supervisor'
+        sup['total_cap_s'] = total0
+        sup['wall_s'] = _now() - t0
+        sup['covers'] = ('**整个 Phase A 作业**：决策点准备 + L1 + L2 + B 类诊断')
+        sup['kill_semantics'] = ('总上限到点 ⇒ 子进程被外层监督器**硬杀并回收**；'
+                                 '本次按未完成处理，不产生合格结论')
+        sup['inner_argv'] = inner
+        p = _write_json(a.supervisor_out or (os.path.abspath(a.out) + '.supervisor.json'),
+                        sup)
+        print('WROTE: %s' % p)
+        print(json.dumps({k: sup[k] for k in ('rc', 'timed_out', 'elapsed_s',
+                                              'total_cap_s')},
+                         ensure_ascii=False, indent=2))
+        return 0 if (sup['rc'] == 0 and not sup['timed_out']) else 7
+
     ceiling = pc.load_phasea_ceiling()
-    cls = ceiling['classes'][a.stage]
-    cap = float(a.per_decision_cap if a.per_decision_cap is not None
-                else cls['per_decision_cap_s'])
-    total = float(a.total_cap if a.total_cap is not None
-                  else ceiling['phase_total_cap_s'])
     _PHASE_START = _now()
     bundle = build_bundle(dataset_cache=a.dataset_cache)
     if bundle['digest'] != ceiling['decision_points']['digest']:
         raise SystemExit('决策点 digest 不符：实测 %s != 登记 %s ⇒ 拒绝测量'
                          % (bundle['digest'], ceiling['decision_points']['digest']))
-    if a.stage == 'A':
-        rep = run_stage_a(bundle, out_dir=a.out_dir, per_decision_cap_s=cap,
-                          total_cap_s=total - (elapsed_total()),
+    total = float(a.total_cap if a.total_cap is not None
+                  else ceiling['phase_total_cap_s'])
+    # ⚠️ `contract` 是 `ColdChainContractV2` **对象**，不可 JSON 序列化。
+    #    第一版把它塞进 bundle 摘要 ⇒ 写最终报告时 `TypeError` ⇒ 0 字节报告
+    #    （stage_A/stage_B 已先落盘，故数据未丢，但主报告丢了）。
+    #    ⇒ 只保留**可序列化**的 bundle 摘要，并另记 contract 的指纹。
+    bundle_pub = {k: v for k, v in bundle.items()
+                  if k not in ('contexts', 'contract', 'sampler')}
+    bundle_pub['contract_fingerprint'] = _contract_fingerprint(bundle.get('contract'))
+    bundle_pub['contexts_digest'] = bundle['digest']
+    bundle_pub['n_contexts'] = bundle['n_contexts']
+
+    def _stage_a():
+        cap_a = float(a.per_decision_cap
+                      if a.per_decision_cap is not None
+                      else ceiling['classes']['A']['per_decision_cap_s'])
+        rep = run_stage_a(bundle, out_dir=os.path.join(a.out_dir, 'A'),
+                          per_decision_cap_s=cap_a,
+                          total_cap_s=total,
                           fork=not a.no_fork)
         rep['obligations'] = {
             'internal_deadline': DISABLED,
-            'external_per_decision_cap_s': cap,
-            'phase_total_cap_s': total,
-            'note': ('A 类关闭内部截止；`600 s` 是**外层**硬上限；'
-                     '截断位置必须给出（不得只写超时）'),
-        }
+            'external_per_decision_cap_s': cap_a, 'phase_total_cap_s': total,
+            'note': ('A 类关闭内部截止；每决策点上限由**测量进程之外**的父进程执行；'
+                     '截断位置必须给出（不得只写超时）')}
+        return rep
+
+    def _stage_b():
+        cap_b = float(ceiling['classes']['B']['per_decision_cap_s'])
+        return run_stage_b(bundle, per_decision_cap_s=cap_b)
+
+    if a.stage == 'A':
+        rep = _stage_a()
+    elif a.stage == 'B':
+        rep = _stage_b()
     else:
-        rep = run_stage_b(bundle, per_decision_cap_s=cap)
-    rep['bundle'] = {k: v for k, v in bundle.items() if k != 'contexts'}
+        b_rep = _stage_b()
+        a_rep = _stage_a()
+        rep = aggregate(a_rep, b_rep,
+                        digest_registered=ceiling['decision_points']['digest'])
+        rep['a_report_path'] = None
+        rep['b_report_path'] = None
+        _write_json(os.path.join(a.out_dir, 'stage_A.json'), a_rep)
+        _write_json(os.path.join(a.out_dir, 'stage_B.json'), b_rep)
+        rep['stage_files'] = {'stage_A': os.path.join(a.out_dir, 'stage_A.json'),
+                              'stage_B': os.path.join(a.out_dir, 'stage_B.json')}
+        rep['ceiling_id'] = ceiling['ceiling_id']
+    rep['bundle'] = bundle_pub
     rep['phase_elapsed_s'] = elapsed_total()
+    rep['phase_total_cap_s'] = total
     p = _write_json(a.out, rep)
     print('WROTE: %s' % p)
-    print(json.dumps({k: rep[k] for k in rep
-                      if k in ('class', 'n_completed', 'n_censored',
-                               'n_timed_out', 'n_not_entered', 'enforcement',
-                               'total_exceeded', 'phase_elapsed_s')},
-                     ensure_ascii=False, indent=2))
+    print(json.dumps({k: rep.get(k) for k in
+                      ('class', 'conclusion', 'bottleneck', 'n_completed',
+                       'n_censored', 'n_timed_out', 'n_not_entered',
+                       'enforcement', 'total_exceeded', 'phase_elapsed_s')
+                      if k in rep}, ensure_ascii=False, indent=2))
     return 0
 
 
