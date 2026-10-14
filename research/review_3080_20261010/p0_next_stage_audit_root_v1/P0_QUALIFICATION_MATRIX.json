@@ -1,0 +1,76 @@
+{
+  "stage": "P0_qualification_matrix",
+  "baseline_commit": "d6d17a041b305caf3d9940a090b49763da1d87b3",
+  "work_packages": {
+    "P1A_information_value": {
+      "question": "does MaskCO scenario information change executable accept/reject decisions under the same decision maker?",
+      "existing_assets": [
+        "results/a1_c1rr2_reveal_40/gate.json (day-level four-arm summary + identity)",
+        "I3 verdict doc day-level decomposition (revenue/fuel/reject-loss/served/rejected/energy)",
+        "small teacher candidate dumps (m0dev 32 contexts / 916 candidates)"
+      ],
+      "missing_assets": [
+        "per-decision scenario identity",
+        "both accept/reject scores per decision",
+        "executable candidate set per decision",
+        "chosen action per decision",
+        "C0 certificate per decision",
+        "timeout reason/context per decision",
+        "install receipt"
+      ],
+      "source_identity": {"four_arm_identity": "present in gate.json 'identity'", "acquisition_qualification_file": "MISSING on server"},
+      "compute_budget": "undefined; must register wall-clock AND a same-definition candidate workload",
+      "independent_preregistration_required": true,
+      "readonly_partial_scope": "fixed-state / teacher layer only, and only with the 50-node m0_scale caveat",
+      "status": "read-only partial blocked by missing per-decision fields"
+    },
+    "P1B_same_mask_attribution": {
+      "question": "does the trained MaskCO repair score choose executable actions that a pure-distance geometric score does not?",
+      "existing_assets": [
+        "F checkpoint results/m0_scale/mpre_reinforce_s42_clean/model.ckpt sha256 f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5",
+        "D-Geo adapter + T-G1..T-G9 (33/0)",
+        "risk counterexample suite R1-R4 (10/0)",
+        "fixed-state evaluator + real C0 certifier"
+      ],
+      "missing_assets": [
+        "E2 same-task random-initialisation control (absent; needs separately authorised training)",
+        "P_after_install install receipt",
+        "32-state RESTOREABILITY proof (currently index-only for static schema checks)"
+      ],
+      "source_identity": {
+        "action_contract.py": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b == F training identity",
+        "mpre_policy.py": "5b03e4cae812fa20785e68ce837be3a615aadb44ab29b7dbdc4b95f104a4a191 == F training identity",
+        "dynmaskco_cc_context.py": "4eebb2a5... differs (B gate implemented explicitly in the new tree)",
+        "cc_lns_replanner.py": "ae634f53... differs (not used as the D-Geo primary control)"
+      },
+      "compute_budget": "not frozen; six separate counters implemented, ceiling must be fixed independently before Science",
+      "independent_preregistration_required": true,
+      "status": "engineering ready minus assembly invariants; science not authorised"
+    },
+    "P2_two_by_two_controller": {
+      "question": "M+C - H+C (single primary) and the interaction term as a secondary pre-declared analysis",
+      "existing_assets": [
+        "Role C engineering pieces (opportunity cost / controls / replanner / T-series)",
+        "CC_Compare/P1A_RoleC_影子价格经济重叠审计_2026-10-14.md (exists, 5572 bytes)"
+      ],
+      "missing_assets": [
+        "scenario-input adapter that can carry BOTH cond_hist and MaskCO through ONE decision code path with verifiable identity",
+        "runnable interface on the MaskCO scenario side",
+        "run qualification for any of the four arms"
+      ],
+      "source_identity": "Role C side has provider_dependency_sha256 / solver_config_sha256 machinery; MaskCO scenario side to be built",
+      "compute_budget": "undefined; the four arms must share a same-definition budget (wall-clock AND candidate workload), not merely equal call counts",
+      "independent_preregistration_required": true,
+      "methodological_error_to_avoid": "the existing SAA's forward evaluation already lets budget scarcity reject future orders, so V_accept - V_reject - lambda_B*e_o would double-penalise the same scarcity; controller C must pre-commit to ONE value composition (direct lookahead, or myopic net minus estimated opportunity cost), never both",
+      "status": "design only; not authorised"
+    }
+  },
+  "gates": {
+    "G0_engineering": "code/identity/resource closure; model-controller input consistency; correct rollback semantics; full C0 certification; no future-information leakage; new freeze tree + per-file SHA + data/contract identity + runtime env + independent read-only acceptance; timing proves the decision ceiling is executable",
+    "G1_smoke": "pre-registered 2-day engineering smoke test; engineering only, must not select a model or controller on two-day utility",
+    "G2_effect": "separately authorised formal development batch; frozen protocol; per-day pairing; mean gate AND 95% CI lower bound > 0 if the project's locked minimum-gain rule is inherited; missing days, identity mismatch and timeouts fully disclosed"
+  },
+  "sealed": {"final_test_seeds": [20260927, 20260928], "status": "continue sealed; no new controller may be validated on them until A1/A2/A3 qualifications are all satisfied"},
+  "preserved": {"old_D2": "not_qualified (unchanged)", "D3_engineering": "33/0 + risks 10/0", "historical_verdicts": "unchanged"},
+  "stable_online_gain": false
+}

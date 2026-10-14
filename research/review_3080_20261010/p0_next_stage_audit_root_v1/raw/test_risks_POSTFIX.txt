@@ -1,0 +1,12 @@
+  PASS R1 injected pool_fn is actually invoked and its order preserved
+  PASS R2 action applications are counted separately from solver calls
+  PASS R2 Budget.KEYS exposes both units explicitly
+  PASS R3 with a positive tolerance D-Geo and F DIVERGE on a near-tie (risk is real)
+  PASS R3 with eps == 0 D-Geo reproduces F exactly (single-factor comparison)
+  PASS R3 the zero-tolerance configuration is flagged as single-factor with F
+  PASS R3 a positive tolerance is flagged as NOT single-factor
+  PASS R4 no_legal after a successful step returns the ORIGINAL plan (fail-closed)
+  PASS R4 the partial plan is preserved as EVIDENCE, not returned as the result
+  PASS R4 timeout also returns the ORIGINAL plan
+
+结果：10 通过 / 0 失败

@@ -1,0 +1,38 @@
+{
+  "stage": "P0_field_coverage_matrix",
+  "baseline_commit": "d6d17a041b305caf3d9940a090b49763da1d87b3",
+  "method": "read-only server probe (raw/p0_field_coverage_probe.txt) + authoritative I3 verdict doc",
+  "classification": ["verifiable_from_raw", "summary_only", "untraceable"],
+  "authoritative_text_facts": {
+    "I3_doc_line_15": "最终 gate 只保存日汇总，未保留可供新路线重放的在线全轨迹、逐决定 margin 或超时原因日志",
+    "I3_doc_line_51": "不同超时发生的状态、订单价值与回退机会均未保留",
+    "I3_doc_line_11": "采集层有 32 日 / 128 唯一状态、全部原动作续程与可执行分支；102 有效标签(47 正/55 负)、26 动作不可行、16 有效小差值、230 可执行分支 hard"
+  },
+  "field_coverage": {
+    "visible_state":            {"online_40day": "untraceable", "fixed_state": "partial_mask_audit_only", "teacher_layer": "verifiable_from_raw (m0_scale 50-node only)"},
+    "scenario_identity":        {"online_40day": "untraceable", "fixed_state": "untraceable", "teacher_layer": "untraceable (no scenario id persisted)"},
+    "accept_reject_margin_per_decision": {"online_40day": "untraceable", "fixed_state": "untraceable", "teacher_layer": "candidate-level counterfactual labels only, small samples"},
+    "action_taken":             {"online_40day": "untraceable", "fixed_state": "plan identifier 'hash' only, not an action identity", "teacher_layer": "candidate actions enumerable, small samples"},
+    "c0_certificate":           {"online_40day": "untraceable", "fixed_state": "verifiable_from_raw (cert_ok + 6-way reconciliation)", "teacher_layer": "not applicable"},
+    "timeout":                  {"online_40day": "summary_only (per-day counts)", "fixed_state": "not applicable", "teacher_layer": "not applicable"},
+    "timeout_reason_or_context": {"online_40day": "untraceable", "fixed_state": "untraceable", "teacher_layer": "untraceable"},
+    "install_receipt_P_after_install": {"online_40day": "untraceable", "fixed_state": "untraceable", "teacher_layer": "untraceable"},
+    "daily_utility_revenue_fuel_rejectloss_energy": {"online_40day": "summary_only (gate.json + I3 doc table)", "fixed_state": "scalar J in per_state.json", "teacher_layer": "not applicable"}
+  },
+  "artifact_facts": {
+    "results/a1_c1rr2_reveal_40/gate.json": {"exists": true, "bytes": 387851, "top_keys": ["budget", "config", "delta_star", "gate", "identity", "main_penalty", "note", "seeds"], "per_decision_records": false, "note": "day-level arrays only"},
+    "results/correction_validation_1009_v3/fixed_state/per_state.json": {"exists": true, "bytes": 6973, "per_arm_keys": ["J","D","Q","E","fail","fail_reason","time","hash","cert_ok","cert","diag"], "mask_audit": true, "naming_caveat": "the plan identifier key is 'hash', not 'plan_hash'"},
+    "results/i3_registered_1008_v5/LOCAL_128_STAGE_ACCEPTANCE_20261009.json": {"exists": false, "impact": "the acquisition-layer qualification file cited by the I3 doc's evidence entry is MISSING on the server => that qualification cannot currently be re-verified in place (NOT proof that the original qualification failed)"},
+    "data/m0_scale/dcc_50_r1_edod05_train_teacher.npz": {"exists": true, "instances": 64, "nodes": 51, "keys": ["coords","demands","dist_mat","energy_mat","initial_quality","legacy_delivery_reference_quality","legacy_edge_energy_proxy","opt_costs","quality_loss","reveal_time","routes","service_time","temp_class","tw_end","tw_start","visible_mask"], "caveat": "50-node m0_scale set, NOT the A-v1 dynamic accept/reject panel"},
+    "contexts_jsonl_candidates_jsonl": {"exists": true, "note": "small only: m0_teacher 1 context/28 candidates; m0dev 32 contexts/916 candidates; no A-v1/I3 per-decision candidate dump"}
+  },
+  "task2_conclusion": {
+    "P1A_readonly_feasible_on_online_layer": false,
+    "reason": "no per-decision margin, no scenario identity, no install receipt in the recorded four-arm run",
+    "narrower_question_feasible_from_fixed_state_or_teacher_layer": true,
+    "narrower_question_caveat": "the available teacher assets are the 50-node m0_scale sets, which are a DIFFERENT problem instance family from the A-v1 panel",
+    "prohibited": "back-filling historical fields",
+    "provenance_gap_registered": "LOCAL_128_STAGE_ACCEPTANCE_20261009.json missing on the server"
+  },
+  "no_fabrication_declaration": "no historical field was reconstructed, inferred or back-filled; every 'untraceable' entry stays untraceable"
+}

@@ -14,12 +14,13 @@
   PASS T-G5 tie set is anchored to d_min, so the non-transitive pair chain 0~1~2 is NOT used
   PASS T-G5 all-equal ties resolve to the smallest canonical key (customer 4)
   PASS T-G5 tie outcome is invariant to permuting the candidate order
-  PASS T-G5 tie rule recorded and marked provisional
+  PASS T-G5 default eps == 0 is the single-factor primary rule (not flagged provisional)
+  PASS T-G5 a positive tolerance is flagged provisional AND not single-factor
   PASS T-G5 eps evidence report produced, explicitly NOT frozen
   PASS T-G6 failing full certification gives failure_reason=cert_fail (not adoption)
   PASS T-G6 certification detail retained
   PASS T-G7 no_legal / nan / timeout / cert_fail all surface as failure_reason
-  PASS T-G7 budget reports the five units SEPARATELY (they are not equal-cost)
+  PASS T-G7 budget reports the units SEPARATELY (they are not equal-cost)
   PASS T-G8 two selectors may take different first actions (state divergence)
   PASS T-G8 divergence does NOT produce a failure reason
   PASS T-G9 per-file source identity recorded for the four modules
@@ -31,4 +32,4 @@
   PASS X2 F rule is still first-maximum argmax
   PASS X2 F has no distance tolerance: a 1e-13 gap is NOT treated as a tie (picks index 1)
 
-结果：32 通过 / 0 失败
+结果：33 通过 / 0 失败

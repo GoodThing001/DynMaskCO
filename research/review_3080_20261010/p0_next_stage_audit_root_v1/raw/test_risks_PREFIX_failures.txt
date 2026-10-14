@@ -1,0 +1,12 @@
+  FAIL R1 injected pool_fn is actually invoked and its order preserved   <- UnboundLocalError: cannot access local variable 'mask_candidate_pool' where it is not associated with a value
+  FAIL R2 action applications are counted separately from solver calls   <- {'n_actions_enumerated': 6, 'n_actions_scored': 6, 'n_candidate_plans_certified': 0, 'n_solver_calls': 3, 'wall_seconds': 0.000189}
+  FAIL R2 Budget.KEYS exposes both units explicitly   <- ('n_actions_enumerated', 'n_actions_scored', 'n_candidate_plans_certified', 'n_solver_calls', 'wall_seconds')
+  FAIL R3 with a positive tolerance D-Geo and F DIVERGE on a near-tie (risk is real)   <- {'F': 1, 'D-Geo(eps>0)': 1}
+  PASS R3 with eps == 0 D-Geo reproduces F exactly (single-factor comparison)
+  FAIL R3 the zero-tolerance configuration is flagged as single-factor with F   <- {'d_min': 1.0, 'eps_used': 0.0, 'tie_set': [1], 'selected': 1, 'n_candidates': 2, 'eps_is_provisional': True, 'rule': 'unified minimum reference; tie decided by canonical action key'}
+  FAIL R3 a positive tolerance is flagged as NOT single-factor   <- {'d_min': 1.0, 'eps_used': 1e-09, 'tie_set': [0, 1], 'selected': 1, 'n_candidates': 2, 'eps_is_provisional': True, 'rule': 'unified minimum reference; tie decided by canonical action key'}
+  FAIL R4 no_legal after a successful step returns the ORIGINAL plan (fail-closed)   <- {'returned': {1: [4, 4], 2: [], 3: [5]}, 'orig': {1: [4], 2: [], 3: [5]}}
+  FAIL R4 the partial plan is preserved as EVIDENCE, not returned as the result   <- None
+  PASS R4 timeout also returns the ORIGINAL plan
+
+结果：2 通过 / 8 失败

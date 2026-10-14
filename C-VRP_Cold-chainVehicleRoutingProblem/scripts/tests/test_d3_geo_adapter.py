@@ -189,8 +189,17 @@ def main():
        keys[idx_a] == min(keys) and keys[idx_a][0] == 4)
     ck('T-G5 tie outcome is invariant to permuting the candidate order',
        keys[perm[idx_b]] == keys[idx_a])
-    ck('T-G5 tie rule recorded and marked provisional',
-       sel_a['rule'].startswith('unified minimum reference') and sel_a['eps_is_provisional'])
+    # Contract after the P0 fix: the DEFAULT is eps == 0, which makes the tie rule
+    # structurally identical to F (single-factor primary comparison) and therefore is NOT
+    # flagged provisional; a positive tolerance is the robustness variant and IS flagged.
+    ck('T-G5 default eps == 0 is the single-factor primary rule (not flagged provisional)',
+       sel_a['rule'].startswith('unified minimum reference')
+       and sel_a['single_factor_with_F'] is True and sel_a['eps_is_provisional'] is False,
+       sel_a)
+    _idx_tol, sel_tol = G.select_geo([7.0, 7.0, 7.0], keys, eps_rel=1e-9, eps_abs=1e-12)
+    ck('T-G5 a positive tolerance is flagged provisional AND not single-factor',
+       sel_tol['eps_is_provisional'] is True and sel_tol['single_factor_with_F'] is False,
+       sel_tol)
     ok_rep, rep = G.distance_stability_report([('equal_route_delta', 1.0 + 1e-12, 1.0)])
     ck('T-G5 eps evidence report produced, explicitly NOT frozen',
        ok_rep and 'NOT frozen' in rep['note'])
@@ -237,9 +246,9 @@ def main():
         apply_fn=_identity_apply, plans=P0, mask_set=[4, 5, 6], mutable_ids=MUT,
         selector=G.SELECTOR_GEO, deterministic=True, budget=budget)
     snap = budget.snapshot()
-    ck('T-G7 budget reports the five units SEPARATELY (they are not equal-cost)',
-       sorted(snap.keys()) == sorted(G.Budget.KEYS) and snap['n_actions_scored'] > 0
-       and snap['n_solver_calls'] == 3, snap)
+    ck('T-G7 budget reports the units SEPARATELY (they are not equal-cost)',
+       set(G.Budget.KEYS).issubset(set(snap.keys())) and snap['n_actions_scored'] > 0
+       and snap['n_action_applications'] == 3 and snap['n_solver_calls'] == 0, snap)
 
     # ---------------- T-G8 divergence is not identity mismatch ----------------
     seq_div = [_cand(4, 'anchored', 3, 0, 5.0), _cand(5, 'anchored', -4, 1, 5.0)]

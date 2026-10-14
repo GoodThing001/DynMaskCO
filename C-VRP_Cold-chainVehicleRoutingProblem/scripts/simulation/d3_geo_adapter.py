@@ -41,9 +41,18 @@ GEO_SCORE_KEY = 'geo_incremental_distance'
 SLOT_KIND_RANK = {'anchored': 0, 'new_route': 1}
 """Declared string ordering for `slot.kind`: never rely on container iteration order."""
 
-# PROVISIONAL engineering defaults -- NOT frozen.  Freezing requires a numerical-stability
-# check on the distance computation (see `distance_stability_report`); the ~1e-5 figure seen
-# elsewhere in this project is MODEL padding noise and is NOT a distance-error basis.
+# PROVISIONAL engineering defaults for the ROBUSTNESS VARIANT -- NOT frozen, and NOT the
+# primary comparison.  Freezing requires a numerical-stability check on the distance
+# computation (see `distance_stability_report`); the ~1e-5 figure seen elsewhere in this
+# project is MODEL padding noise and is NOT a distance-error basis.
+#
+# PRIMARY comparison uses eps == 0 (see EPS_D_PRIMARY_*): with the legal list in canonical
+# order, a zero tolerance makes D-Geo's tie resolution structurally IDENTICAL to F's
+# first-maximum argmax, so the two arms then differ in exactly one factor -- the score
+# vector.  Any eps > 0 introduces a SECOND factor (tolerance band) and is therefore only a
+# registered robustness variant, never the primary contrast.
+EPS_D_PRIMARY_REL = 0.0
+EPS_D_PRIMARY_ABS = 0.0
 EPS_D_REL_PROVISIONAL = 1e-9
 EPS_D_ABS_PROVISIONAL = 1e-12
 
@@ -100,9 +109,13 @@ def build_pool_B(vehicles, served_mask, visible_ids, plans, mutable_ids,
     `diag['empty']=True`; callers MUST record it as-is and MUST NOT drop the state.
     """
     if pool_fn is None:
-        from dynmaskco_cc_context import mask_candidate_pool
-    pool = [int(c) for c in mask_candidate_pool(vehicles, served_mask, visible_ids,
-                                                protected=protected, plans=plans)]
+        from dynmaskco_cc_context import mask_candidate_pool as pool_fn
+    # NOTE (P0 audit R1): the injected `pool_fn` must actually be used.  The pre-fix version
+    # imported into a local name inside `if pool_fn is None:` and then called
+    # `mask_candidate_pool(...)` unconditionally, so passing a pool_fn raised
+    # UnboundLocalError and the injection silently never took effect.
+    pool = [int(c) for c in pool_fn(vehicles, served_mask, visible_ids,
+                                    protected=protected, plans=plans)]
     mutable_plan_customers = set()
     for vid, p in (plans or {}).items():
         if vid in mutable_ids:
@@ -185,8 +198,7 @@ def _eps_for(d_min, eps_rel, eps_abs):
     return max(float(eps_abs), float(eps_rel) * abs(float(d_min)))
 
 
-def unified_minimum_tie_set(deltas, eps_rel=EPS_D_REL_PROVISIONAL,
-                            eps_abs=EPS_D_ABS_PROVISIONAL):
+def unified_minimum_tie_set(deltas, eps_rel=EPS_D_PRIMARY_REL, eps_abs=EPS_D_PRIMARY_ABS):
     """`d_min = min_i delta_d[i]`; `T = {i : delta_d[i] <= d_min + eps}`.
 
     Deliberately NOT a pairwise approximate-equality relation: approximate equality is not
@@ -202,13 +214,20 @@ def unified_minimum_tie_set(deltas, eps_rel=EPS_D_REL_PROVISIONAL,
     return d_min, eps, T
 
 
-def select_geo(deltas, keys, eps_rel=EPS_D_REL_PROVISIONAL, eps_abs=EPS_D_ABS_PROVISIONAL):
-    """D-Geo selection: argmin under the unified-minimum tie rule, tie broken by key."""
+def select_geo(deltas, keys, eps_rel=EPS_D_PRIMARY_REL, eps_abs=EPS_D_PRIMARY_ABS):
+    """D-Geo selection: argmin under the unified-minimum tie rule, tie broken by key.
+
+    `single_factor_with_F` is True only when eps == 0: then, with the legal list in canonical
+    order, `first-maximum argmax over -delta_d` and `argmin over delta_d with canonical-key
+    tie-break` select the SAME index -- i.e. F and D-Geo differ in exactly one factor.  Any
+    eps > 0 adds a tolerance band as a second factor and must be declared as such.
+    """
     d_min, eps, T = unified_minimum_tie_set(deltas, eps_rel, eps_abs)
     idx = min(T, key=lambda i: keys[i])
     return idx, {'d_min': d_min, 'eps_used': eps, 'tie_set': list(T),
                  'selected': int(idx), 'n_candidates': len(deltas),
-                 'eps_is_provisional': True,
+                 'eps_is_provisional': eps > 0.0,
+                 'single_factor_with_F': eps == 0.0,
                  'rule': 'unified minimum reference; tie decided by canonical action key'}
 
 
@@ -225,10 +244,16 @@ def select_historical_argmax(scores):
 # budget accounting (user: engineering maxima are capacity planning ONLY)
 # ---------------------------------------------------------------------------
 class Budget(object):
-    """Counter set; every unit is reported separately because they are NOT equal cost."""
+    """Counter set; every unit is reported separately because they are NOT equal cost.
+
+    P0 audit R2: `n_action_applications` counts calls to `apply_fn`.  It is NOT a solver-call
+    count -- this adapter never invokes a solver.  Real solver invocations must be reported by
+    the caller through `report_solver_calls()`; conflating the two would let a comparison
+    claim equal solver work while the arms did different amounts of it.
+    """
 
     KEYS = ('n_actions_enumerated', 'n_actions_scored', 'n_candidate_plans_certified',
-            'n_solver_calls', 'wall_seconds')
+            'n_action_applications', 'n_solver_calls', 'wall_seconds')
 
     def __init__(self):
         self.d = {k: 0 for k in self.KEYS}
@@ -240,12 +265,18 @@ class Budget(object):
             raise KeyError(key)
         self.d[key] += n
 
+    def report_solver_calls(self, n):
+        """Called by the assembly layer with the REAL solver invocations it performed."""
+        self.d['n_solver_calls'] += int(n)
+
     def add_wall(self, seconds):
         self.d['wall_seconds'] += float(seconds)
 
     def snapshot(self):
         out = dict(self.d)
         out['wall_seconds'] = round(out['wall_seconds'], 6)
+        out['n_solver_calls_note'] = ('reported by the caller; stays 0 inside this adapter '
+                                      'because no solver is invoked here')
         return out
 
 
@@ -263,6 +294,11 @@ def stepwise_sample_d3(*, score_fn, extract_fn, legal_fn, apply_fn, plans, mask_
     (injected so this module never re-implements enumeration).  `failure_reason` follows the
     historical vocabulary plus `cert_fail`, `timeout`, `rollback`; every failure is recorded
     and stays in the denominator.
+
+    P0 audit R4 -- FAIL-CLOSED ROLLBACK: on ANY failure the returned plan is the ORIGINAL
+    `plans`, never the partially repaired working plan.  Recording `failure_reason` alone
+    would not stop a careless caller from installing a half-repaired plan; the partial plan is
+    kept in `diag['partial_plan_at_failure']` as evidence instead.
     """
     if selector not in SELECTORS:
         raise ValueError('unknown selector %r' % selector)
@@ -275,24 +311,32 @@ def stepwise_sample_d3(*, score_fn, extract_fn, legal_fn, apply_fn, plans, mask_
     records, steps = [], []
     diag = {'selector': selector, 'mask_order': list(mask), 'divergence': None,
             'n_steps': 0}
+
+    def _rollback(reason):
+        """Return the ORIGINAL plan + keep the partial one as evidence."""
+        diag['rollback'] = True
+        diag['rollback_to'] = 'the original plans passed in by the caller'
+        diag['partial_plan_at_failure'] = {int(vid): [int(x) for x in p.suffix]
+                                           for vid, p in P.items()}
+        diag['n_steps'] = len(steps)
+        budget.add_wall(time.perf_counter() - t0)
+        return dict(plans), steps, records, reason, diag
+
     t0 = time.perf_counter()
     while remaining:
         if wall_clock_limit_s is not None and (time.perf_counter() - t0) > wall_clock_limit_s:
-            budget.add_wall(time.perf_counter() - t0)
-            return P, steps, records, 'timeout', diag
+            return _rollback('timeout')
         legal = legal_fn(P, remaining)
         budget.bump('n_actions_enumerated', len(legal))
         if not legal:
-            budget.add_wall(time.perf_counter() - t0)
+            return _rollback('no_legal')
             diag['n_steps'] = len(steps)
-            return P, steps, records, 'no_legal', diag
+            return _rollback('no_legal')
         state = extract_fn(P, remaining, legal)
         scores = np.asarray(score_fn(state))
         budget.bump('n_actions_scored', len(scores))
         if not np.isfinite(scores).all():
-            budget.add_wall(time.perf_counter() - t0)
-            diag['n_steps'] = len(steps)
-            return P, steps, records, 'nan', diag
+            return _rollback('nan')
         if selector == SELECTOR_HISTORICAL or not deterministic:
             # historical semantics: first-maximum argmax when deterministic, softmax when not
             if deterministic:
@@ -319,15 +363,13 @@ def stepwise_sample_d3(*, score_fn, extract_fn, legal_fn, apply_fn, plans, mask_
                       'predecessor': int(a.predecessor), 'successor': int(a.successor),
                       'incremental_distance': float(_cand.incremental_distance)})
         remaining.remove(c)
-        budget.bump('n_solver_calls')
+        budget.bump('n_action_applications')
     if certify_fn is not None:
         ok, detail = certify_fn(P)
         budget.bump('n_candidate_plans_certified')
         if not ok:
-            budget.add_wall(time.perf_counter() - t0)
-            diag['n_steps'] = len(steps)
             diag['certify_detail'] = detail
-            return dict(plans), steps, records, 'cert_fail', diag
+            return _rollback('cert_fail')
     budget.add_wall(time.perf_counter() - t0)
     diag['n_steps'] = len(steps)
     return P, steps, records, None, diag
