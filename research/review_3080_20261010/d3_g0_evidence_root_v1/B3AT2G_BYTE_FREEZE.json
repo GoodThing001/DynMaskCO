@@ -1,8 +1,8 @@
 {
   "record": "D3_G0_Evidence_B3AT2G_byte_freeze",
   "date": "2026-10-14",
-  "revision": 1,
-  "base_commit": "6653d3f",
+  "revision": 2,
+  "base_commit": "f904826",
   "why": "the AT2G matrix registers the state container, its acceptance suite, the coordinator, the AT1 transaction and the gate primitives",
   "self_reference_note": "this record does not register its own sha256; the directory pin covers it",
   "pin_set": {
@@ -17,7 +17,7 @@
   },
   "registered_byte_containers_b3at2g": {
     "scripts": {
-      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_state_container.py": "fa10a41cda6546656fa180db4e71310e0cf2784b2532ab615a35fba939fc6625",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_state_container.py": "8119e2e7ef8820bc7c4469f4ae982cd8941d2f0da81ce558de8293314e66f0df",
       "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at2g_container.py": "854570d9a52d0dcee0ae0dea7d3229cd05a8505593444d3f2af7c6e7249adbac",
       "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_commit_coordinator.py": "5104ce2caa52a91fcf7f588167cc975cdc31a105b9e4e66ed3d7fd275d76659c",
       "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_commit_transaction.py": "3bc73a9803cd8e169bc72bee7ae51fbcc3f5bbbf45c5076fab5a4b10f633f276",
@@ -25,18 +25,18 @@
       "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
     },
     "evidence": {
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2G_CONTAINER_MATRIX.json": "1add29ff6221e446ad78d89b95955ab1d6abe77454bd1b5347b6c68e86a8ba46",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2G_CONTAINER_MATRIX.json": "da943ec07d5dba30f9261edb954a87b9b4e365a289b454a43899859a6e9625e7",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2G_COUNTEREXAMPLE_SPEC.json": "c3f6d1f7fdefc2dab40caa2516ea43f23e9578df22756878dbf3d8f581efeff1",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2G_DESIGN.md": "453e7e0500c7e9992ce72ed9819d198c6f22f400839652d4915ccafcb844a24b",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AT2G_REPORT.md": "135f451a17d71a05bb9847233793dda1673bcfb786473fa77ab26ae2440ddcc4"
     },
     "raw": {
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance0.json": "ec7b4aa83ed5184d3fb8c6c21f6d6df4f2a6cec63849f1b68c56fa92c10c7269",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance1.json": "9cfdc2f18a78e623137d1936a9a7769ae5b6b1191cbe29390012f1e0c47a615a",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance2.json": "9942a4a6715ea80cd85e7ab5e3a3ad6c974ea6425059f4dc1a487df6f80865e4",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance3.json": "66c4414019a09ecddbbca3358747038af444f50160dcbbf524a59fd00e3b6d21",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance4.json": "74e47f71eaa9e6017319a0c21e2ce5ce91605fbf11a91f27b0940288716e93d4",
-      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance5.json": "d0f484e2a29e2f14bd303f3498dacf696bdcc68c68acd0dca20c9353e58e581a",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance0.json": "162d41b0fdb23cf17a09c0fae4ef1eee09fce373719d6dc9a4d50d4495d8a32a",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance1.json": "36bced5036c461c0854b68b5b306907abbeb796ee0edd6d0612cefb00a645d81",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance2.json": "289bd3075bdd1696b5f1f342dfce22c5253e84ab28e5e471a5768b048c624a38",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance3.json": "741b841a12a05f88d4b95236f3cde330f764ab28c026c5748fe55ddac70a1875",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance4.json": "902c28ef0affb5e7843431273eb0669a32a12e4e265b6683c52a9343843dd82f",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_CONTAINER_MATRIX_instance5.json": "8ddfb6d249a932f52653a4efc5c4dda0fb5dbd04ddb5ebf10abf52583d7c3ef1",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_instance0.txt": "21194963e9bc831d4dbfa6942f5dedc613a4552e441e5d26b9247c39cf2c6598",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_instance1.txt": "21194963e9bc831d4dbfa6942f5dedc613a4552e441e5d26b9247c39cf2c6598",
       "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AT2G_instance2.txt": "21194963e9bc831d4dbfa6942f5dedc613a4552e441e5d26b9247c39cf2c6598",
@@ -68,5 +68,6 @@
     "G-L": "NOT_ESTABLISHED",
     "G-C": "NOT_ESTABLISHED"
   },
-  "verification_required_after_commit": "git archive HEAD <each pinned path> must reproduce the registered sha256"
+  "verification_required_after_commit": "git archive HEAD <each pinned path> must reproduce the registered sha256",
+  "revision_note": "v1 (74b5858) registered the AT2G container.  B3-AT2B-1 then ADDED two methods to the same file (`D3StateContainer.adopt`, which lets the container take ownership of the environment objects without copying, and `set_context`, which keeps the sanctioned epoch context current) plus an epoch guard for an incomplete context, so v2 refreshes the container hash and the AT2G evidence.  The AT2G suite was RE-RUN after the change: all 13 verdicts and all three sub-proofs are unchanged (instances 0-5 refreshed in raw/), so the addition is behaviour-preserving for AT2G.  No pin changed and v1 stays byte-intact in history."
 }

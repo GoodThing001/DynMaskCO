@@ -104,7 +104,7 @@
     "prereg_spec_sha256": "c3f6d1f7fdefc2dab40caa2516ea43f23e9578df22756878dbf3d8f581efeff1",
     "code": {
       "scripts/tests/test_d3_b3at2g_container.py": "854570d9a52d0dcee0ae0dea7d3229cd05a8505593444d3f2af7c6e7249adbac",
-      "scripts/simulation/d3_state_container.py": "fa10a41cda6546656fa180db4e71310e0cf2784b2532ab615a35fba939fc6625",
+      "scripts/simulation/d3_state_container.py": "8119e2e7ef8820bc7c4469f4ae982cd8941d2f0da81ce558de8293314e66f0df",
       "scripts/simulation/d3_commit_coordinator.py": "5104ce2caa52a91fcf7f588167cc975cdc31a105b9e4e66ed3d7fd275d76659c",
       "scripts/simulation/d3_commit_transaction.py": "3bc73a9803cd8e169bc72bee7ae51fbcc3f5bbbf45c5076fab5a4b10f633f276",
       "scripts/simulation/d3_composed_certifier.py": "b65ddf6545a84b656cd2e9dd541cea266d2d6bdbc1cd56abd76f7780104aea01",
@@ -288,14 +288,14 @@
       "verdict": "AT_MOST_ONE_COMMITTED",
       "detail": {
         "outcomes": {
-          "b": "REFUSED_NO_MUTATION",
-          "a": "COMMITTED"
+          "b": "COMMITTED",
+          "a": "REFUSED_NO_MUTATION"
         },
         "refusals": {
-          "b": [
+          "b": [],
+          "a": [
             "ticket_already_consumed"
-          ],
-          "a": []
+          ]
         },
         "n_committed_at_most_one": true,
         "registry": {
