@@ -65,13 +65,44 @@ def ensure_project_paths():
 # ---------------------------------------------------------------------------
 # 在真实 env 上跑一个臂
 # ---------------------------------------------------------------------------
+def vehicle_fingerprint(vehicles):
+    """车辆**可变状态**的指纹（用于证明捕获的上下文真的被冻结）。
+
+    为什么需要：模拟器**原地**改车辆对象（`current_node`/`ready_time`/`mutable_suffix`…），
+    若捕获时不深拷贝，拿到的就是"决策之后"的状态 —— 本项目已经踩过一次
+    （`freeze_vehicles`：不冻结时 60.8% 不一致）。指纹让"冻结"可被**机械验证**：
+    跑完一天后重新指纹化捕获对象，必须与捕获当时一致。
+    """
+    out = []
+    for v in vehicles or ():
+        try:
+            suffix = getattr(v, 'mutable_suffix', None)
+            out.append((int(getattr(v, 'vehicle_id', -1)),
+                        str(getattr(v, 'status', None)),
+                        int(getattr(v, 'current_node', -1)),
+                        round(float(getattr(v, 'current_load', 0.0)), 9),
+                        round(float(getattr(v, 'ready_time', 0.0)), 9),
+                        (int(getattr(v, 'committed_next', 0) or 0)),
+                        None if suffix is None else tuple(int(x) for x in suffix)))
+        except Exception as exc:                            # noqa: BLE001
+            out.append(('unfingerprintable', type(exc).__name__))
+    return tuple(out)
+
+
 def run_fixture(*, decide_fn, ds, contract, budget, capacity, num_vehicles,
-                booking_horizon, cooling_share, inst_idx=0):
+                booking_horizon, cooling_share, inst_idx=0, capture_n=0):
     """用**真实** `StrictOnlineEnv` + 真实 `certify_plan` 驱动一个臂，返回落盘日志与诊断。
 
-    返回 `{'records', 'diags', 'served', 'n_served'}`。**不返回任何效用**。
+    返回 `{'records', 'diags', 'served', 'n_served'}`；`capture_n > 0` 时额外返回
+    `'contexts'`：前 `capture_n` 个**真实决策点**的上下文**深拷贝**（用于把
+    "单决策耗时"的计时单元固定下来 —— 见 `role_c_timing.make_decision_work_fn`）。
+    **不返回任何效用**。
+
+    ⚠️ 上下文必须**深拷贝**（尤其 `vehicles`）：模拟器会**原地**改车辆对象，不拷贝就会
+    拿到"决策发生之后"的状态 —— 那是本项目已经踩过的坑（`freeze_vehicles`）。
     """
     ensure_project_paths()
+    import copy as _copy
     from strict_online_env import StrictOnlineEnv
     from run_exp_energy_c0 import certify_plan
     import role_c_replanner as rp
@@ -89,8 +120,26 @@ def run_fixture(*, decide_fn, ds, contract, budget, capacity, num_vehicles,
         return bool(ok), energy
 
     diags = []
+    captured = []
+    live_fp = {'first': None, 'last': None}
 
     def _wrapped(order, ctx):
+        if live_fp['first'] is None:
+            # **活车**在捕获当时的指纹 + 引用（跑完后它会变 ⇒ 证明深拷贝不是摆设）
+            live_fp['ref'] = ctx['vehicles']
+            live_fp['first'] = vehicle_fingerprint(ctx['vehicles'])
+        if capture_n and len(captured) < int(capture_n):
+            snap = {k: v for k, v in ctx.items()
+                    if k not in ('env', 'vehicles', 'served_mask', 'plan', 'contract')}
+            snap['env'] = ctx['env']                       # 只读数组，按引用保留
+            snap['contract'] = ctx['contract']
+            snap['vehicles'] = _copy.deepcopy(ctx['vehicles'])
+            snap['served_mask'] = _copy.deepcopy(ctx['served_mask'])
+            snap['plan'] = {k: list(v) for k, v in (ctx.get('plan') or {}).items()}
+            snap['order'] = int(order)
+            # 捕获当时的车辆指纹：跑完一天后重新指纹化必须一致 ⇒ "冻结"可被机械验证
+            snap['_vehicle_fingerprint'] = vehicle_fingerprint(snap['vehicles'])
+            captured.append(snap)
         acc, d = decide_fn(order, ctx)
         diags.append(d)
         return acc, d
@@ -103,9 +152,17 @@ def run_fixture(*, decide_fn, ds, contract, budget, capacity, num_vehicles,
                           replanner=policy, coldchain_contract=contract,
                           booking_horizon=float(booking_horizon))
     traces, served_mask = env.run(int(inst_idx))
-    return {'records': [dict(r) for r in logger.records], 'diags': diags,
-            'served': served_mask,
-            'n_served': int(np.sum(np.asarray(served_mask)[1:]))}
+    # **活车**在跑完之后的指纹（对象被模拟器原地改过）—— 与捕获当时的活车指纹对照，
+    # 用来证明"捕获指纹不变"只能归因于深拷贝，而不是因为车辆状态本来就没变。
+    live_fp['last'] = vehicle_fingerprint(live_fp.get('ref') or ())
+    out = {'records': [dict(r) for r in logger.records], 'diags': diags,
+           'served': served_mask,
+           'n_served': int(np.sum(np.asarray(served_mask)[1:]))}
+    if capture_n:
+        out['contexts'] = captured
+        out['live_fingerprint_first'] = live_fp['first']
+        out['live_fingerprint_last'] = live_fp['last']
+    return out
 
 
 # ---------------------------------------------------------------------------

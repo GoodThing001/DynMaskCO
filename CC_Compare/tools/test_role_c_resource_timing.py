@@ -310,10 +310,147 @@ def test_ceiling_template_roundtrip():
     return cases
 
 
+def test_decision_work_fn():
+    """单决策计时单元：只在**真实捕获的**决策点上求值，返回值不含效用。"""
+    cases = []
+    seen = {'n': 0}
+
+    def fake_decide(order, ctx):
+        seen['n'] += 1
+        return True, {'certify_ok': True, 'inner_gate': 'on',
+                      'lambda_diag': {'lambda_B': 1.0, 'undefined': False},
+                      'forward': {'n_scenarios': 3}}
+
+    ctxs = [{'order': 1, 'clock': 0.0}, {'order': 2, 'clock': 2.0},
+            {'order': 3, 'clock': 4.0}]
+    wf = timing.make_decision_work_fn(fake_decide, ctxs)
+    cases.append(('W1 单元长度 = 决策点数', len(wf) == 3, len(wf)))
+    outs = [wf() for _ in range(5)]
+    cases.append(('W2 轮转多个决策点（不死的复议一个状态）',
+                  [o['context_index'] for o in outs] == [0, 1, 2, 0, 1],
+                  [o['context_index'] for o in outs]))
+    cases.append(('★W3 返回值**只含行为标签、不含效用**（计时边界）',
+                  _leaked(outs[0]) == [], _leaked(outs[0])))
+    cases.append(('W4 标签齐备（动作/认证/λ 是否定义/是否为正/前瞻是否跑到）',
+                  set(outs[0]) >= {'action', 'certified', 'lambda_defined',
+                                   'lambda_positive', 'inner_gate',
+                                   'has_forward_diag', 'elapsed_scope'},
+                  sorted(outs[0])))
+    cases.append(('W5 decide_fn 被真正调用（不是空转）', seen['n'] == 5, seen['n']))
+    for name, args in (('contexts 为空', ([],)),
+                       ('contexts=None', (None,))):
+        try:
+            timing.make_decision_work_fn(fake_decide, *args)
+            cases.append(('★W6 %s ⇒ TimingRefused（不得用手搓假状态冒充）' % name,
+                          False, '未抛错'))
+        except timing.TimingRefused as exc:
+            cases.append(('★W6 %s ⇒ TimingRefused（不得用手搓假状态冒充）' % name,
+                          '假状态' in str(exc), str(exc)[:70]))
+    try:
+        timing.make_decision_work_fn('nope', ctxs)
+        cases.append(('W6b decide_fn 不可调用 ⇒ TimingRefused', False, '未抛错'))
+    except timing.TimingRefused:
+        cases.append(('W6b decide_fn 不可调用 ⇒ TimingRefused', True, None))
+    # 决策诊断里带效用 ⇒ 计时单元**白名单**式取值，效用**结构上出不来**
+    # （比"依赖递归检查去抓"更强：不靠"记得别传"，而是"根本没有那个通道"）
+    wf_leak = timing.make_decision_work_fn(
+        lambda order, ctx: (True, {'certify_ok': True, 'utility': 9.0,
+                                   'lambda_diag': {'lambda_B': 1.0, 'undefined': False}}),
+        ctxs)
+    leak_out = wf_leak()
+    cases.append(('★W7 决策诊断里带效用 ⇒ 计时单元白名单取值，效用**传不出来**',
+                  _leaked(leak_out) == [] and 'utility' not in leak_out,
+                  _leaked(leak_out)))
+    rep_leak = timing.run_timing(
+        work_fn=wf_leak, n_decisions=2, ceiling=good_ceiling(), env=_live_env(),
+        affinity=list(range(good_ceiling()['workers'])), env_record_fn=lambda: {},
+        affinity_fn=lambda: None, loadavg_fn=lambda: None)
+    cases.append(('★W7b 因此即使诊断带效用，计时报告里也不会出现（并有 rt 递归检查兜底）',
+                  _leaked(rep_leak) == [], _leaked(rep_leak)))
+    # 报告写出：写入前再自检
+    with tempfile.TemporaryDirectory() as tmp:
+        p = os.path.join(tmp, 'r.json')
+        rep = timing.run_timing(work_fn=wf, n_decisions=6, ceiling=good_ceiling(),
+                                warmup=1, env=_live_env(),
+                                affinity=list(range(good_ceiling()['workers'])),
+                                env_record_fn=lambda: {}, affinity_fn=lambda: None,
+                                loadavg_fn=lambda: None)
+        out = timing.write_report(rep, p)
+        cases.append(('W8 报告可写出且可读回（JSON round-trip）',
+                      os.path.isfile(out)
+                      and json.load(io.open(out, encoding='utf-8'))['n'] == 6, out))
+        try:
+            timing.write_report({'utility': 1.0}, os.path.join(tmp, 'bad.json'))
+            cases.append(('★W9 写报告前再自检：带效用 ⇒ 拒绝写', False, '未抛错'))
+        except rt.UtilityLeakError:
+            cases.append(('★W9 写报告前再自检：带效用 ⇒ 拒绝写', True, None))
+    return cases
+
+
+def test_capture_real_contexts():
+    """`run_fixture(capture_n=…)` 捕获的是**真实**决策点，且是**深拷贝**（冻结）。"""
+    import role_c_t_series as ts
+    ts.ensure_project_paths()          # 必须先注入项目路径，才能 import scenario_saa
+    from scenario_saa import make_c0_contract_v2, ScenarioOrder
+    cases = []
+    contract = make_c0_contract_v2()
+    env_mod = __import__('test_role_c_harness')
+    ds = env_mod.make_fixture()
+    scenario = [ScenarioOrder(oid=10 ** 6 + j, reveal=1.0, x=float(1 + j * 0.1), y=0.0,
+                              demand=1.0, temp_class=1, tw_start=0.0, tw_end=100.0,
+                              service_time=0.1) for j in range(4)]
+    sampler = env_mod._FixedSampler(scenario)
+    dfn = __import__('role_c_harness').build_decide_fn(
+        sampler=sampler, arm_seed=7002, K=3, contract=contract,
+        cooling_share=3.7208946347769882, booking_horizon=16.0, budget=710.6548152249378,
+        certify_plan_fn=lambda *a, **k: (True, 1.0))
+    run = ts.run_fixture(decide_fn=dfn, ds=ds, contract=contract,
+                         budget=710.6548152249378, capacity=50.0, num_vehicles=2,
+                         booking_horizon=16.0, cooling_share=3.7208946347769882,
+                         capture_n=3)
+    ctxs = run.get('contexts') or []
+    cases.append(('C1 捕获到真实决策点（%d 个）' % len(ctxs), len(ctxs) >= 1, len(ctxs)))
+    if ctxs:
+        c = ctxs[0]
+        cases.append(('C2 上下文含 decide_fn 需要的键（env/vehicles/served_mask/plan/'
+                      'budget_B/contract/order）',
+                      all(k in c for k in ('env', 'vehicles', 'served_mask', 'plan',
+                                           'budget_B', 'contract', 'order')),
+                      sorted(c)))
+        cases.append(('★C3 vehicles 被**深拷贝并冻结**：跑完一天后重新指纹化，仍与捕获'
+                      '当时一致（模拟器原地改车 ⇒ 不冻结就会拿到"决策之后"的状态；'
+                      '本项目踩过 freeze_vehicles 那个坑）',
+                      c.get('_vehicle_fingerprint') is not None
+                      and ts.vehicle_fingerprint(c['vehicles'])
+                      == c['_vehicle_fingerprint'],
+                      (ts.vehicle_fingerprint(c['vehicles'])[:2],
+                       (c.get('_vehicle_fingerprint') or ())[:2])))
+        # 幂等性：同一 ctx 反复调用 decide_fn 不应报错（计时单元依赖这一点）
+        try:
+            a1 = dfn(c['order'], c)
+            a2 = dfn(c['order'], c)
+            cases.append(('★C4 decide_fn 对同一 ctx **幂等**（计时单元靠它做重复测量）',
+                          isinstance(a1, tuple) and isinstance(a2, tuple), (a1[0], a2[0])))
+        except Exception as exc:                            # noqa: BLE001
+            cases.append(('★C4 decide_fn 对同一 ctx 幂等', False,
+                          '%s: %s' % (type(exc).__name__, exc)))
+    cases.append(('C5 捕获不引入效用字段（run_fixture 返回里不需有效用）',
+                  _leaked(ctxs) == [], _leaked(ctxs)[:3]))
+    # ★ 非空转证明：**活车**在跑完一天后指纹确实变了 ⇒ 捕获指纹不变只能归因于深拷贝
+    fp_first = run.get('live_fingerprint_first')
+    fp_last = run.get('live_fingerprint_last')
+    cases.append(('★C6 非空转：**活车**跑完一天后指纹**确实变了**（车辆被原地修改）'
+                  '⇒ C3 的"捕获指纹不变"只能归因于深拷贝，不是因为状态本来就没变',
+                  fp_first is not None and fp_last is not None and fp_first != fp_last,
+                  (str(fp_first)[:90], str(fp_last)[:90])))
+    return cases
+
+
 def main():
     cases = []
     for fn in (test_gate_validation, test_unregistered_refuses, test_timing_harness,
-               test_ceiling_template_roundtrip):
+               test_ceiling_template_roundtrip, test_decision_work_fn,
+               test_capture_real_contexts):
         try:
             cases.extend(fn())
         except Exception as exc:                            # noqa: BLE001
