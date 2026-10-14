@@ -1,0 +1,163 @@
+{
+  "Q_counts": {
+    "Q_days": {
+      "false": 0,
+      "none": 0,
+      "true": 264
+    },
+    "Q_finite": {
+      "false": 0,
+      "none": 0,
+      "true": 264
+    },
+    "Q_formal_core": {
+      "false": 120,
+      "none": 0,
+      "true": 144
+    },
+    "Q_formal_strict": {
+      "false": 180,
+      "none": 0,
+      "true": 84
+    },
+    "Q_hard": {
+      "false": 0,
+      "none": 0,
+      "true": 264
+    },
+    "Q_identity": {
+      "false": 118,
+      "none": 6,
+      "true": 140
+    },
+    "Q_method_health": {
+      "false": 18,
+      "none": 22,
+      "true": 224
+    },
+    "Q_method_participation": {
+      "false": 0,
+      "none": 214,
+      "true": 50
+    },
+    "Q_no_crash": {
+      "false": 0,
+      "none": 0,
+      "true": 264
+    },
+    "Q_nondegen": {
+      "false": 8,
+      "none": 0,
+      "true": 256
+    },
+    "Q_timeout_clean": {
+      "false": 82,
+      "none": 0,
+      "true": 182
+    }
+  },
+  "caveats": [
+    "`n_arms` 是**方法臂记录数**，不是独立算法数，也不是正式合格对照数：其中含主模型交付记录、不同档位与重复适配配置",
+    "`Q_*` 取值除 true/false 外还有 **none**（不适用）—— 统计时必须单独列出，不得把 none 归并进 true 或 false",
+    "本报告只复算**计数**，**不重算**任何历史效用，也不对资格做新的实质判断"
+  ],
+  "composition": {
+    "by_group": {
+      "a1_ext_extra": 88,
+      "a1_ext_formal2": 160,
+      "ours_delivered": 16
+    },
+    "by_p_c": {
+      "'p_c=(10,20,30)'": 12,
+      "'p_c=(5,10,15)'": 128,
+      "'p_c=0'": 124
+    },
+    "by_role": {
+      "baseline": 186,
+      "method": 62,
+      "ours": 16
+    },
+    "source_stable": {
+      "False": 4,
+      "None": 24,
+      "True": 236
+    }
+  },
+  "core_false_breakdown": {
+    "by_veto_combination": {
+      "['Q_identity', 'Q_method_health', 'Q_nondegen']": 6,
+      "['Q_identity', 'Q_method_health']": 12,
+      "['Q_identity']": 100,
+      "['Q_nondegen']": 2
+    },
+    "n_core_false": 120
+  },
+  "core_true_but_strict_false": {
+    "by_veto_combination": {
+      "[]": 60
+    },
+    "n": 60
+  },
+  "criteria_revision": 2,
+  "label": "CC_Compare-qualification-matrix-recomputation",
+  "matrix_path": "CC_Compare/audit/BASELINE_QUALIFICATION_MATRIX_2026-10-14.json",
+  "matrix_sha256": "932a8fbf006f301f606de648ee74aa87dd84970f87f18a258eab608ddf21cdb7",
+  "n_arms": 264,
+  "not_applicable_counts": {
+    "Q_identity": 6,
+    "Q_method_health": 22,
+    "Q_method_participation": 214
+  },
+  "source_stable_false_arms": [
+    {
+      "Q_formal_core": false,
+      "Q_formal_strict": false,
+      "method": "lih",
+      "p_c": "p_c=0",
+      "role": "method",
+      "vetoes": [
+        "Q_identity"
+      ]
+    },
+    {
+      "Q_formal_core": false,
+      "Q_formal_strict": false,
+      "method": "cond_hist",
+      "p_c": "p_c=0",
+      "role": "baseline",
+      "vetoes": [
+        "Q_identity"
+      ]
+    },
+    {
+      "Q_formal_core": false,
+      "Q_formal_strict": false,
+      "method": "uncond_hist",
+      "p_c": "p_c=0",
+      "role": "baseline",
+      "vetoes": [
+        "Q_identity"
+      ]
+    },
+    {
+      "Q_formal_core": false,
+      "Q_formal_strict": false,
+      "method": "explicit_feat",
+      "p_c": "p_c=0",
+      "role": "baseline",
+      "vetoes": [
+        "Q_identity"
+      ]
+    }
+  ],
+  "timeout_clean_false_by_role": {
+    "baseline": 59,
+    "method": 7,
+    "ours": 16
+  },
+  "veto_counts": {
+    "Q_identity": 118,
+    "Q_method_health": 18,
+    "Q_nondegen": 8
+  }
+}
