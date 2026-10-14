@@ -34,6 +34,7 @@ import argparse
 import glob
 import hashlib
 import json
+import math
 import os
 import sys
 import io
@@ -124,6 +125,54 @@ def participant_evidence(mk, role=None):
             'present': os.path.isfile(p)}
 
 
+def recheck_days(pd, expected_days=EXPECTED_DAYS):
+    """从**原始记录**独立复算 `Q_days`。返回 `(ok, detail)`。
+
+    ⚠️ 2026-10-14 第二版修正（复核指出）：旧实现写
+        `ids = [int(d.get('i')) for d in pd if d.get('i') is not None]`
+    `int()` 会**静默强制转换** —— `0.5 → 0`、`'5' → 5`、`True → 1` ⇒ 一个**非整数**
+    的 `day_id` 可以伪装成合法日号通过 `0..N-1` 检查（例如 40 条 `i=0.5..39.5`
+    全部截断成 `0..39` 而被判"日号完整"）。原始日号**必须是真整数**（`bool` 也不算），
+    否则直接判不完整。
+    """
+    raw = [d.get('i') for d in pd]
+    bad = [{'pos': k, 'day_id': v} for k, v in enumerate(raw)
+           if not (isinstance(v, int) and not isinstance(v, bool))]
+    if len(raw) != expected_days:
+        return False, ('记录数 %d≠%d（缺日或多日）' % (len(raw), expected_days))
+    if bad:
+        return False, ('含**非整数** day_id（int() 强转会静默伪装成合法日号）: %s'
+                       % bad[:8])
+    uniq = sorted(set(raw))
+    if len(uniq) != len(raw):
+        return False, 'day_id 重复：%d 条记录只有 %d 个唯一日号' % (len(raw), len(uniq))
+    if uniq != list(range(expected_days)):
+        return False, ('day_id 集合≠0..%d（旧实现允许整体平移，如 1..%d）: %s..%s'
+                       % (expected_days - 1, expected_days, uniq[0], uniq[-1]))
+    return True, 'OK'
+
+
+def recheck_finite(pd):
+    """从**原始记录**独立复算 `Q_finite`。返回 `(ok, detail)`。
+
+    ⚠️ 2026-10-14 第二版修正（复核指出）：旧实现写
+        `fin = [u for u in utils if isinstance(u, (int, float))]`
+    `float('nan')` / `float('inf')` **都是** `float` ⇒ 它们被算作"有限"，判据形同虚设。
+    用 `math.isfinite` 硬判，并显式排除 `None` / 字符串 / `bool`（`True` 是 `int` 子类，
+    不是效用值）。
+    """
+    bad = []
+    for d in pd:
+        u = d.get('utility')
+        if isinstance(u, bool) or not isinstance(u, (int, float)) or not math.isfinite(u):
+            bad.append({'day_id': d.get('i'), 'utility': repr(u)})
+    if not pd:
+        return False, '无逐日记录'
+    if bad:
+        return False, '效用非有限/非数值（NaN、±Inf、None、字符串、bool）: %s' % bad[:8]
+    return True, 'OK'
+
+
 def audit_block(gate, blk, arm_name, expected_days=EXPECTED_DAYS):
     """从**原始逐日记录**独立重算资格，并与运行器自报值对照。"""
     # 两种 schema（2026-10-14 实测）：
@@ -139,18 +188,19 @@ def audit_block(gate, blk, arm_name, expected_days=EXPECTED_DAYS):
     if isinstance(sm, dict) and arm_name in sm and isinstance(sm[arm_name], dict):
         sm = sm[arm_name]            # 主模型 gate 的 solver_meta 也可能按臂分键
 
-    ids = [int(d.get('i')) for d in pd if d.get('i') is not None]
-    uniq = sorted(set(ids))
+    ids = [d.get('i') for d in pd]
+    uniq = sorted(set(i for i in ids if isinstance(i, int) and not isinstance(i, bool)))
     utils = [d.get('utility') for d in pd]
     hard = [d.get('hard_feasible') for d in pd]
     crashes = [d for d in pd if 'execution_crash' in (d.get('failures') or [])]
     served = [d.get('n_served') for d in pd if isinstance(d.get('n_served'), int)]
-    fin = [u for u in utils if isinstance(u, (int, float))]
+    fin = [u for u in utils
+           if isinstance(u, (int, float)) and not isinstance(u, bool) and math.isfinite(u)]
 
     # 2026-10-14 用户核实：旧判据 `uniq == range(min(uniq), min(uniq)+N)` **允许整体平移**
-    # （`1..40` 也会通过）。必须要求恰好是 `0..N-1`。
-    q_days = (len(ids) == expected_days and uniq == list(range(expected_days)))
-    q_finite = bool(utils) and len(fin) == len(utils)
+    # （`1..40` 也会通过）。必须要求恰好是 `0..N-1`，且原始日号必须是**真整数**。
+    q_days, days_detail = recheck_days(pd, expected_days)
+    q_finite, finite_detail = recheck_finite(pd)
     q_hard = bool(hard) and all(h is True for h in hard)
     q_crash = len(crashes) == 0
     q_nondegen = bool(served) and sum(served) > 0
@@ -166,6 +216,9 @@ def audit_block(gate, blk, arm_name, expected_days=EXPECTED_DAYS):
             'n_execution_crash': len(crashes),
             'sum_n_served': sum(served) if served else None,
             'mean_utility': (sum(fin) / len(fin)) if fin else None,
+            # 判据不通过时的**具体原因**（复核要求：失败必须可解释，不能只给 False）
+            'Q_days_detail': days_detail,
+            'Q_finite_detail': finite_detail,
         },
         'runner_reported': {
             'n_days': rep.get('n_days'), 'expected_n': rep.get('expected_n'),
@@ -347,11 +400,21 @@ def main():
         'generated_from': {'ext_root': EXT, 'expected_days': EXPECTED_DAYS,
                            'scanned': [g for g, _ in SCAN]},
         'criteria': {
+            'revision': 2,
             'Q_formal_core': 'Q_identity ∧ Q_days ∧ Q_finite ∧ Q_hard ∧ Q_no_crash '
                              '∧ Q_nondegen ∧ Q_method_health',
             'Q_formal_strict': 'Q_formal_core ∧ Q_timeout_clean',
             'note': '本文件为**独立复算**：days/finite/hard/crash/退化 一律从 gate 内原始 '
                     'per_day 重算，不采信运行器自报的 formal_adjudication。',
+            'revision_2_2026-10-14': (
+                '复核指出两处确定性缺陷并已修复：① `Q_days` 原先对原始 `day_id` 做 '
+                '`int()` 强转（0.5→0、\'5\'→5、True→1），非整数日号可伪装成 0..N-1；'
+                '② `Q_finite` 原先只查 `isinstance(u,(int,float))`，NaN/±Inf 皆通过。'
+                '现分别改为「原始日号必须是真整数」与 `math.isfinite`（并排除 bool）。'
+                '**判据只收紧、不放松**；在 264 个真实臂上逐臂复算，'
+                '`Q_formal_core`/`Q_formal_strict`/`Q_vetoes` **逐字段零差异**'
+                '（core 38/62、strict 32/62 不变，λ=3 全拒臂仍由 `Q_nondegen` 否决）。'
+                '⇒ 本文件已由修复后的工具重新生成，历史裁决未被改写。'),
         },
         'runner_formal_adjudication_is_identity_only': {
             'claim': 'run_a1_external_accept.py:404 formal_adjudication = bool(identity_verified)',

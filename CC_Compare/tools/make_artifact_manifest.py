@@ -13,9 +13,27 @@
   * 为**入库快照**与**Release 附件**分别计算 SHA-256；
   * 写 `ARTIFACT_MANIFEST.json`（含生成命令、来源路径、大小、哈希）。
 
+**commit 语义（2026-10-14 第二版；复核指出旧 `target_commit` 语义混淆）**：
+旧实现只写一个 `target_commit = git rev-parse HEAD`，把**两件不同的事**挤在一个字段里：
+
+  * `source_commit` —— **快照来源**：这份归档是从哪个提交的树里取出来的。
+    它写进入库清单，**必然早于**「包含本清单的那次提交」。
+  * `release_commit` —— **发布靶点**：Release 从哪个提交/标签切出去。只有在清单**提交之后**
+    才能确定，因此**不能**在 build 时写进入库清单 —— 否则产生**循环自指**
+    （清单声称自己是某个 commit，而那个 commit 正是为了记录它才产生的）。
+
+⇒ 现在的做法：
+  * 入库清单写 `source_commit`（+ `source_commit_dirty_*` + `self_reference_note`），
+    **不再**写 `target_commit`；
+  * `release_commit` / `release_tag` 写进**独立的 Release 元数据**（`--release-metadata`，
+    落在 `results/` 下、**不入 Git**），并以 `manifest_sha256` **指回**入库清单 ⇒ 单向、无环。
+  * `--verify` 在 `source_commit != HEAD` 时**告警**（这是清单自身提交带来的**预期**差异），
+    但若 `source_commit` **不是** HEAD 的祖先 ⇒ **判失败**（那才是真漂移）。
+
 用法：
-    python CC_Compare/tools/make_artifact_manifest.py            # 归档 + 生成清单
-    python CC_Compare/tools/make_artifact_manifest.py --verify    # 只校验快照哈希是否与清单一致
+    python CC_Compare/tools/make_artifact_manifest.py                  # 归档 + 生成清单
+    python CC_Compare/tools/make_artifact_manifest.py --verify          # 校验清单与文件
+    python CC_Compare/tools/make_artifact_manifest.py --release-metadata [--release-tag vX]
 退出码：0 = OK；1 = 校验失败；2 = 输入缺失。
 """
 import argparse
@@ -24,6 +42,7 @@ import io
 import json
 import os
 import shutil
+import subprocess
 import sys
 
 if hasattr(sys.stdout, 'buffer'):
@@ -33,6 +52,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 SRC = os.path.join(ROOT, 'CC_Compare', 'results', 'a1_compare_table')
 DST = os.path.join(ROOT, 'CC_Compare', 'docs', 'a1_development_comparison')
+MANIFEST_NAME = 'ARTIFACT_MANIFEST.json'
+# Release 元数据落在 **results/**（gitignored）⇒ 只随 Release 附件走，不入 Git。
+RELEASE_META = os.path.join(SRC, 'RELEASE_METADATA.json')
 
 # 入库的 Markdown 快照（源文件名 → 目标相对名）
 IN_REPO = [
@@ -54,6 +76,10 @@ GEN = ('python CC_Compare/tools/collect_compare_table.py --json '
        'python CC_Compare/tools/render_compare_table.py --data '
        'CC_Compare/results/a1_compare_table/dataset.json --outdir '
        'CC_Compare/results/a1_compare_table')
+# 判定「快照来源是否干净」的路径范围：只看本交付物自己的目录。
+# ⚠️ 不看全仓 —— 本仓有**并行工作线**同时改别的目录，那与本次归档无关，
+# 混进来会让 `source_commit_dirty` 永远为真，报告噪声掩盖真问题。
+DIRTY_SCOPE = 'CC_Compare'
 
 
 def sha256(p):
@@ -64,17 +90,39 @@ def sha256(p):
     return h.hexdigest()
 
 
-def _target_commit():
-    """记录**目标 commit**（发布包对应哪个提交）。
-
-    2026-10-14 用户要求：发布器必须锁定发布目标 commit。git 不可用时如实写 None
-    （不要编造），并由 `--verify` 报出。
-    """
-    import subprocess
+def _git(*args):
+    """跑一条 git 命令；不可用/失败一律返回 None（**不编造**）。"""
     try:
-        r = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True,
-                           text=True, timeout=20)
-        return r.stdout.strip() or None
+        r = subprocess.run(['git'] + list(args), cwd=ROOT, capture_output=True,
+                           text=True, timeout=30)
+        return r.stdout.strip() if r.returncode == 0 else None
+    except Exception:                                        # noqa: BLE001
+        return None
+
+
+def _source_commit():
+    """`source_commit` = 快照来源提交 = 归档时刻的 HEAD。"""
+    return _git('rev-parse', 'HEAD')
+
+
+def _dirty_files():
+    """本交付物目录下**已跟踪但未提交**的改动（快照来源是否干净）。
+
+    返回 `(n, 前若干条)`；git 不可用 ⇒ `(None, None)`（如实缺失，不写 0 假装干净）。
+    """
+    out = _git('status', '--porcelain', '--', DIRTY_SCOPE)
+    if out is None:
+        return None, None
+    lines = [l for l in out.splitlines() if l.strip()]
+    return len(lines), lines[:5]
+
+
+def _is_ancestor(a, b):
+    """a 是否为 b 的祖先（`merge-base --is-ancestor`；rc=0 即真）。"""
+    try:
+        r = subprocess.run(['git', 'merge-base', '--is-ancestor', a, b], cwd=ROOT,
+                           capture_output=True, text=True, timeout=30)
+        return r.returncode == 0
     except Exception:                                        # noqa: BLE001
         return None
 
@@ -90,12 +138,27 @@ def build():
     if missing:
         print('FAIL: Release 附件缺失 %d 份（发布包不完整）: %s' % (len(missing), missing))
         return 2
+    dn, dlines = _dirty_files()
     man = {
         'kind': 'development-evidence-package',
         'note': ('**development 证据包，不是最终测试结果，也不声称 SOTA。** '
                  'Markdown 文档入 Git；Excel 与完整 dataset.json 仅作 Release 附件，'
                  '`CC_Compare/results/**` 的忽略规则保持不变。'),
-        'target_commit': _target_commit(),
+        # —— 快照来源（入库清单里唯一的 commit 字段）——
+        'source_commit': _source_commit(),
+        'source_commit_dirty_n': dn,
+        'source_commit_dirty_files': dlines,
+        'self_reference_note': (
+            '`source_commit` 是**快照来源**（归档时刻 HEAD）。包含本清单的那次提交是它的'
+            '**子**提交 ⇒ `--verify` 时 `source_commit != HEAD` 是**预期**的，不是漂移；'
+            '真正要判的是 `source_commit` 是否为 HEAD 的祖先。'),
+        # —— 发布靶点**不在**入库清单里（避免循环自指）——
+        'release_commit': None,
+        'release_commit_note': ('发布靶点（tag/commit）在**清单提交之后**才能确定，'
+                                '记录于独立 Release 元数据 %s（不入 Git，以 '
+                                '`manifest_sha256` 指回本清单 ⇒ 单向无环）。'
+                                '用 `--release-metadata` 生成。'
+                                % os.path.relpath(RELEASE_META, ROOT).replace('\\', '/')),
         'source_dir': os.path.relpath(SRC, ROOT).replace('\\', '/'),
         'generated_by': GEN,
         'in_repo': [],
@@ -117,26 +180,69 @@ def build():
             'name': s, 'in_repo': False,
             'size': os.path.getsize(sp), 'sha256': sha256(sp),
             'note': 'Release 附件；不入 Git；**发布前必须逐个校验 size+sha256**'})
-    with open(os.path.join(DST, 'ARTIFACT_MANIFEST.json'), 'w', encoding='utf-8') as f:
+    with open(os.path.join(DST, MANIFEST_NAME), 'w', encoding='utf-8') as f:
         json.dump(man, f, ensure_ascii=False, indent=2)
-    print('target_commit = %s' % man['target_commit'])
+    print('source_commit = %s（dirty=%s）' % (str(man['source_commit'])[:12], dn))
     print('归档 %d 份 Markdown → %s' % (len(man['in_repo']), os.path.relpath(DST, ROOT)))
     for e in man['in_repo']:
         print('   %-46s %8d B  %s' % (e['path'].split('/')[-1], e['size'], e['sha256'][:16]))
     print('Release 附件（不入 Git）%d 份：' % len(man['release_only']))
     for e in man['release_only']:
         print('   %-34s %10d B  %s' % (e['name'], e['size'], e['sha256'][:16]))
+    print('⚠️ release_commit **未**记录（入库清单里恒为 None，避免循环自指）。')
+    print('   发布时再跑：make_artifact_manifest.py --release-metadata [--release-tag <tag>]')
+    return 0
+
+
+def release_metadata(release_tag=None):
+    """生成**独立** Release 元数据：把发布靶点写给入库清单，并指回清单哈希（无环）。"""
+    mp = os.path.join(DST, MANIFEST_NAME)
+    if not os.path.isfile(mp):
+        print('FAIL: 缺 %s（先跑一次归档）' % MANIFEST_NAME)
+        return 2
+    man = json.load(open(mp, encoding='utf-8'))
+    head = _git('rev-parse', 'HEAD')
+    src = man.get('source_commit')
+    if not head:
+        print('FAIL: 取不到 HEAD（git 不可用）⇒ 不编造 release_commit')
+        return 2
+    anc = _is_ancestor(src, head) if src else None
+    if src and anc is False:
+        print('FAIL: source_commit=%s **不是** HEAD=%s 的祖先 ⇒ 快照来源不在发布线上'
+              % (str(src)[:12], str(head)[:12]))
+        return 1
+    meta = {
+        'kind': 'development-release-metadata',
+        'release_commit': head,
+        'release_tag': release_tag,
+        'manifest_path': os.path.relpath(mp, ROOT).replace('\\', '/'),
+        'manifest_sha256': sha256(mp),
+        'source_commit': src,
+        'source_commit_is_ancestor_of_release': anc,
+        'source_commit_dirty_n': man.get('source_commit_dirty_n'),
+        'note': ('**发布靶点**在此（不在入库清单里，避免循环自指）。'
+                 '`manifest_sha256` 指向入库清单 ⇒ Release 包可单向校验：'
+                 'release_commit ▸ manifest ▸ 三份 Markdown 快照 + 六份附件。'),
+        'release_only': man.get('release_only') or [],
+    }
+    with open(RELEASE_META, 'w', encoding='utf-8') as f:
+        json.dump(meta, f, ensure_ascii=False, indent=2)
+    print('release_commit = %s（tag=%s）' % (head[:12], release_tag))
+    print('source_commit  = %s（是其祖先=%s）' % (str(src)[:12], anc))
+    print('manifest_sha256 = %s' % meta['manifest_sha256'][:16])
+    print('wrote %s（不入 Git，随 Release 附件发布）'
+          % os.path.relpath(RELEASE_META, ROOT))
     return 0
 
 
 def verify():
-    """校验**入库快照**与**六份 Release 附件**的 size + SHA-256，并检查目标 commit。"""
-    mp = os.path.join(DST, 'ARTIFACT_MANIFEST.json')
+    """校验入库快照 + 六份 Release 附件，并核对 commit 语义（**区分告警与失败**）。"""
+    mp = os.path.join(DST, MANIFEST_NAME)
     if not os.path.isfile(mp):
-        print('FAIL: 缺 ARTIFACT_MANIFEST.json（先跑一次不带 --verify）')
+        print('FAIL: 缺 %s（先跑一次不带 --verify）' % MANIFEST_NAME)
         return 2
     man = json.load(open(mp, encoding='utf-8'))
-    bad = []
+    bad, warn = [], []
     for e in man.get('in_repo') or []:
         p = os.path.join(ROOT, *e['path'].split('/'))
         if not os.path.isfile(p):
@@ -153,21 +259,73 @@ def verify():
             bad.append('Release 附件缺失 %s' % e['name'])
         elif os.path.getsize(p) != e['size'] or sha256(p) != e['sha256']:
             bad.append('Release 附件 size/哈希不符 %s' % e['name'])
-    if not man.get('target_commit'):
-        bad.append('清单未记录 target_commit')
+
+    # ---- commit 语义 ----
+    sc = man.get('source_commit')
+    if not sc:
+        bad.append('清单未记录 source_commit')
+    if 'target_commit' in man:
+        bad.append('清单仍含已废弃的 `target_commit`（语义混淆，应只留 '
+                   '`source_commit` + 独立 Release 元数据）')
+    head = _git('rev-parse', 'HEAD')
+    if sc and head:
+        if sc == head:
+            warn.append('source_commit == HEAD：本清单**尚未提交**（清单自身所在提交还不存在），'
+                        '提交后会出现预期的 `source_commit != HEAD`')
+        elif _is_ancestor(sc, head) is False:
+            bad.append('source_commit=%s **不是** HEAD=%s 的祖先 ⇒ 真漂移（快照来源不在当前线上）'
+                       % (sc[:12], head[:12]))
+        else:
+            warn.append('source_commit=%s ≠ HEAD=%s（**预期**：清单自身所在提交是其子提交，'
+                        '已核实为祖先关系，非漂移）' % (sc[:12], head[:12]))
+    elif not head:
+        warn.append('git 不可用 ⇒ 无法核对 source_commit 与 HEAD 的关系')
+    dn = man.get('source_commit_dirty_n')
+    if dn:
+        warn.append('source_commit 时刻 %s 下有 %d 个已跟踪文件未提交（快照来源不干净）：%s'
+                    % (DIRTY_SCOPE, dn, man.get('source_commit_dirty_files')))
+
+    # ---- 独立 Release 元数据（未发布不算失败）----
+    rc_meta = None
+    if os.path.isfile(RELEASE_META):
+        rc_meta = json.load(open(RELEASE_META, encoding='utf-8'))
+        if rc_meta.get('manifest_sha256') != sha256(mp):
+            bad.append('RELEASE_METADATA.manifest_sha256 与当前清单**不符** ⇒ 清单在打标签后'
+                       '被改动过（Release 记录已过期）')
+        rcm = rc_meta.get('release_commit')
+        if not rcm:
+            bad.append('RELEASE_METADATA 缺 release_commit')
+        elif _git('cat-file', '-t', rcm) != 'commit':
+            bad.append('release_commit=%s 在仓库中不存在或不是 commit' % str(rcm)[:12])
+        if rc_meta.get('source_commit') != sc:
+            bad.append('RELEASE_METADATA.source_commit (=%s) 与清单 (=%s) 不一致'
+                       % (str(rc_meta.get('source_commit'))[:12], str(sc)[:12]))
+    else:
+        warn.append('未生成独立 Release 元数据（尚未发布）⇒ release_commit **未记录**；'
+                    '发布时跑 `--release-metadata`')
+
+    for w in warn:
+        print('   ⚠️ %s' % w)
     if bad:
         for b in bad:
             print('   ✗ %s' % b)
         print('ARTIFACT_MANIFEST_VERIFY_FAIL: %d' % len(bad))
         return 1
-    print('ARTIFACT_MANIFEST_VERIFY_PASS（入库快照 %d 份 + Release 附件 %d 份，'
-          'target_commit=%s）' % (len(man['in_repo']), len(rel),
-                                str(man['target_commit'])[:12]))
+    print('ARTIFACT_MANIFEST_VERIFY_PASS（入库快照 %d 份 + Release 附件 %d 份；'
+          'source_commit=%s；release_commit=%s；告警 %d 条）'
+          % (len(man['in_repo']), len(rel), str(sc)[:12],
+             (str(rc_meta.get('release_commit'))[:12] if rc_meta else '未记录'), len(warn)))
     return 0
 
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--verify', action='store_true')
+    ap.add_argument('--release-metadata', action='store_true', dest='release_metadata')
+    ap.add_argument('--release-tag', default=None)
     a = ap.parse_args()
-    sys.exit(verify() if a.verify else build())
+    if a.verify:
+        sys.exit(verify())
+    if a.release_metadata:
+        sys.exit(release_metadata(a.release_tag))
+    sys.exit(build())

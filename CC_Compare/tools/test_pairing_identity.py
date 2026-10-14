@@ -105,5 +105,91 @@ def run():
     return 1 if failed else 0
 
 
+# ---------------------------------------------------------------- gate 种子解析
+# 2026-10-14：part_d ④ 之前把 0930/20261001 两个 gate 的 18 个块判成"CI 未复现"，
+# 根因是种子取错（回落 `generated_from.seed`=20260926）。以下锁定解析规则本身：
+# **必须**按确定性优先级取，**不得**事后试种子凑复现。
+
+def _gate_json(tmp, name, payload):
+    d = os.path.join(tmp, name)
+    os.makedirs(d, exist_ok=True)
+    p = os.path.join(d, 'gate.json')
+    with open(p, 'w', encoding='utf-8') as f:
+        json.dump(payload, f)
+    return p
+
+
+def run_gate_seed():
+    import tempfile
+    tmp = tempfile.mkdtemp(prefix='cpiseed_')
+    cases = []
+
+    def check(name, got, want):
+        cases.append((name, got == want, got, want))
+
+    # ① 规范字段：run_a1_step3_compare / run_a1_external_accept 只写 ran
+    p = _gate_json(tmp, 'a1_a3_x_20260930_y',
+                   {'seeds': {'train': 20260925, 'ran': [20260930]}})
+    check('① ran 单一 int ⇒ 用它', cpi._gate_seed({'seeds': {'ran': [20260930]}}, p),
+          (20260930, 'seeds.ran'))
+    # ② step2 schema：顶层 seeds.gate
+    p2 = _gate_json(tmp, 'a1_step2_x_20260926_y', {'seeds': {'gate': 20260926}})
+    check('② 无 ran、有 seeds.gate ⇒ 用它',
+          cpi._gate_seed({'seeds': {'gate': 20260926}}, p2), (20260926, 'seeds.gate'))
+    # ③ ran 非单一 int ⇒ fail-closed（不猜）
+    g3, s3 = cpi._gate_seed({'seeds': {'ran': [20260926, 20260930]}}, p)
+    check('③ ran=[两个] ⇒ None（歧义，不猜）', (g3, s3.startswith('ambiguous')), (None, True))
+    # ④ ran 与 gate 冲突 ⇒ fail-closed（不择优）
+    g4, s4 = cpi._gate_seed({'seeds': {'ran': [20260930], 'gate': 20260926}}, p)
+    check('④ ran≠gate ⇒ None（冲突，不择优）', (g4, s4.startswith('conflict')), (None, True))
+    # ⑤ 无任何种子字段 ⇒ 用目录日期兜底
+    p5 = _gate_json(tmp, 'a1_a3_online_density_B_20261001_40_1003_040454', {'seeds': {}})
+    check('⑤ 无 ran/gate ⇒ 目录日期兜底',
+          cpi._gate_seed({'seeds': {}}, p5), (20261001, 'dir_date'))
+    # ⑥ 连日期都没有 ⇒ 最后兜底 seeds.dev
+    p6 = _gate_json(tmp, 'nodate', {'seeds': {'dev': 20260926}})
+    check('⑥ 目录无日期 ⇒ seeds.dev 兜底',
+          cpi._gate_seed({'seeds': {'dev': 20260926}}, p6), (20260926, 'seeds.dev'))
+    # ⑦ 什么都没有 ⇒ None（part_d 会记 SKIP，**不**回落默认种子）
+    p7 = _gate_json(tmp, 'nodate2', {'seeds': {}})
+    check('⑦ 全无 ⇒ None（SKIP，不回落默认）',
+          cpi._gate_seed({'seeds': {}}, p7), (None, 'absent'))
+
+    # ⑧ 嵌套 schema：results[<seed>][pc]['per_day'] ⇒ 外层键即该块种子（证据最强）
+    p8 = _gate_json(tmp, 'nested_20260926', {'seeds': {'ran': [20260926]}, 'results': {
+        '20260930': {'p_c=(5,10,15)': {'per_day': {'maskco': [], 'cond_hist': []}}}}})
+    pd8, s8, src8 = cpi._per_day_of(p8, 'p_c=(5,10,15)')
+    check('⑧ 嵌套 results[seed] ⇒ 用外层键',
+          (s8, src8, pd8), (20260930, 'results_key', {'maskco': [], 'cond_hist': []}))
+
+    # ⑨ **必须按 pc 选块**：p_c=0 在前，请求的是主档 —— 取错档会一次跑出大量假失败
+    p9 = _gate_json(tmp, 'flat_20260926', {'seeds': {'ran': [20260926]}, 'results': {
+        '20260926': {
+            'p_c=0': {'per_day': {'maskco': [1], 'cond_hist': [1]}},
+            'p_c=(5,10,15)': {'per_day': {'maskco': [2], 'cond_hist': [2]}}}}})
+    pd9, s9, _src9 = cpi._per_day_of(p9, 'p_c=(5,10,15)')
+    check('⑨ 按 pc 选块（不得取第一个含 per_day 的块）',
+          (s9, pd9['maskco']), (20260926, [2]))
+
+    # ⑩ gate 文件缺失 ⇒ (None,None,'gate_missing') ⇒ part_d 记 SKIP
+    check('⑩ gate 缺失 ⇒ gate_missing',
+          cpi._per_day_of(os.path.join(tmp, 'nope', 'gate.json'), 'p_c=0'),
+          (None, None, 'gate_missing'))
+
+    passed = sum(1 for _n, ok, _g, _w in cases if ok)
+    for n, ok, got, want in cases:
+        if ok:
+            print('  PASS [种子] %-40s → %r' % (n, got))
+        else:
+            print('  FAIL [种子] %-40s 得 %r，期望 %r' % (n, got, want))
+    failed = len(cases) - passed
+    print('\n种子解析：%d 通过 / %d 失败' % (passed, failed))
+    return 1 if failed else 0
+
+
+def main():
+    return run() | run_gate_seed()
+
+
 if __name__ == '__main__':
-    sys.exit(run())
+    sys.exit(main())

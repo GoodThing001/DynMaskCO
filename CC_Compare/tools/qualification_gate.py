@@ -140,27 +140,49 @@ def q_nocrash(per_day):
     return _crit(True)
 
 
-def q_validity(per_day, solver_meta=None):
+def q_validity(per_day, solver_meta=None, is_rule=False):
     """**协议有效性**：全拒单是否由**故障**造成。
 
     2026-10-14 用户要求把两件事分开：
       * **合法**的全拒策略（如 λ=3 规则：选择不服务任何订单）⇒ **不是**有效性失败，
         只是**无信息量**；
       * **求解器异常**导致的全拒（如 PyVRP 的 API 不兼容）⇒ **有效性失败**。
-    判据：出现 `sum(n_served)==0` **且**同时有故障证据（execution_crash 或 n_fail>0
-    或 n_solves 缺失/为 0）⇒ False；否则 True。
+
+    **判据（2026-10-14 第二版修正）**：只在存在**正面故障证据**时否决 ——
+    `execution_crash`、`n_fail > 0`、或 `n_solves` **显式为 0**。
+
+    ⚠️ 旧实现把「`n_solves` **缺失**」也当作故障证据（`not n_solves`），这是一个**确定性
+    逻辑缺陷**：纯规则臂 `is_rule=True` **结构性**没有求解器，`solver_meta` 天然为 `{}`
+    ⇒ 一个**完全合法**的规则全拒臂会被误判为有效性失败。缺失字段不是失败证据。
+    「方法到底有没有被执行」由 `q_method` 负责（对**非规则**臂，`n_solves` 缺失依然否决），
+    两条判据职责分开后，这里不再承担"证明方法被调用"的职责，因此不会留下漏洞。
     """
-    served = [d.get('n_served') for d in (per_day or []) if isinstance(d.get('n_served'), int)]
-    if not served or sum(served) > 0:
+    serves = [d.get('n_served') for d in (per_day or []) if isinstance(d.get('n_served'), int)]
+    if not serves or sum(serves) > 0:
         return _crit(True)
+    # —— 以下为「全拒单」分支：只认正面故障证据 ——
     sm = solver_meta or {}
     n_solves, n_fail = sm.get('n_solves'), sm.get('n_fail')
     crash = any('execution_crash' in (d.get('failures') or []) for d in (per_day or []))
-    if crash or (n_fail or 0) > 0 or not n_solves:
-        return _crit(False, '全拒单**且**有故障证据（crash=%s, n_fail=%s, n_solves=%s）'
-                            '⇒ 判为求解器/执行失败，而非合法全拒策略'
-                     % (crash, n_fail, n_solves))
-    return _crit(True)
+    ev = []
+    if crash:
+        ev.append('crash=True')
+    if (n_fail or 0) > 0:
+        ev.append('n_fail=%s' % n_fail)
+    if n_solves == 0:                       # 显式 0 才是异常；**缺失**不是
+        ev.append('n_solves=0')
+    if ev:
+        return _crit(False, '全拒单**且**有正面故障证据（%s）⇒ 判为求解器/执行失败，'
+                            '而非合法全拒策略' % ', '.join(ev))
+    if is_rule:
+        return _crit(True, '纯规则臂**结构性**无求解器（solver_meta=%r）；全拒单是合法策略选择，'
+                           '不由 `Q_validity` 否决（信息量问题归 `Q_informativeness`）'
+                     % (solver_meta,))
+    if not sm or n_solves is None:
+        return _crit(True, '无求解器健康元数据（solver_meta=%r）⇒ 缺失**不是**故障证据；'
+                           '方法是否真被执行由 `Q_method` 判定' % (solver_meta,))
+    return _crit(True, '全拒单但无故障证据（n_solves=%s, n_fail=%s）⇒ 视为合法全拒策略'
+                 % (n_solves, n_fail))
 
 
 def q_informativeness(per_day, method_key=None):
@@ -268,8 +290,9 @@ def evaluate(evidence, expected_days=40, required_identity_fields=DEFAULT_REQUIR
         'Q_finite': q_finite(ev.get('per_day')),
         'Q_hard': q_hard(ev.get('per_day')),
         'Q_nocrash': q_nocrash(ev.get('per_day')),
-        # **有效性**（否决项）：全拒单若伴随故障证据 ⇒ 无效
-        'Q_validity': q_validity(ev.get('per_day'), ev.get('solver_meta')),
+        # **有效性**（否决项）：全拒单若伴随**正面故障证据** ⇒ 无效。
+        # ⚠️ 规则臂的 `solver_meta={}` 是结构性事实，**不是**故障证据（第二版修正）。
+        'Q_validity': q_validity(ev.get('per_day'), ev.get('solver_meta'), is_rule=is_rule),
         # **信息量**（仅报告，不否决）：合法全拒不使协议失效，但不可用于排名
         'Q_informativeness': q_informativeness(ev.get('per_day'), ev.get('method')),
         'Q_method': q_method(ev.get('solver_meta'), ev.get('participation'),

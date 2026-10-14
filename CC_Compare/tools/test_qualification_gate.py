@@ -9,6 +9,10 @@
   ③ 规则臂被**整体**豁免身份 ⇒ 连源码/合同/数据身份都不再要求 → 新增
      「规则臂 source_stable=False」「规则臂缺合同哈希」反例。
 另按用户要求把「合法全拒」与「故障导致全拒」分开（`Q_validity` vs `Q_informativeness`）。
+**第二版（2026-10-14 复核后）**：`q_validity` 旧实现用 `not n_solves` 把「字段**缺失**」
+当成「求解器异常」—— 纯规则臂结构性 `solver_meta={}`，合法的规则全拒臂因此被误判失败。
+现改为**只认正面故障证据**（crash / n_fail>0 / 显式 n_solves==0）；「方法是否真被执行」
+归 `Q_method`。反例见 ㉒–㉕ 与 `validity_checks()`。
 
 运行：python CC_Compare/tools/test_qualification_gate.py   （退出码 0 = 全过）
 """
@@ -114,6 +118,63 @@ case('㉑ 纯规则臂缺合同哈希 ⇒ **必须被拒**', False, 'Q_identity'
      participation={'required': False, 'present': False},
      identity=dict(source_stable=True, data_sha256='d' * 64, data_meta_sha256='e' * 64))
 
+# ---- ⑩ 第二版修正：**缺失** `n_solves` 不是故障证据 ----
+# 用户 2026-10-14 复核指出的**确定性逻辑缺陷**：旧 `q_validity` 用 `not n_solves` 把
+# 「字段缺失」当成「求解器异常」。纯规则臂结构性没有求解器（`solver_meta={}`），
+# 于是一个**完全合法**的规则全拒臂会被误判为有效性失败。以下是那个**精确反例**。
+case('㉒ 纯规则臂 + 合法全拒 + solver_meta={} ⇒ 有效但无信息量', True,
+     is_rule=True, pairing={}, solver_meta={},
+     participation={'required': False, 'present': False},
+     identity=dict(source_stable=True, **_SHARED),
+     per_day=[dict(d, n_served=0) for d in good_per_day()])
+# 反面：**非**规则臂全拒且完全没有求解器元数据 ⇒ 不构成有效性失败（缺失≠故障），
+# 但 `Q_method` 会否决「无法证明方法被执行」⇒ 整体仍不合格。**没有留下漏洞。**
+case('㉓ 非规则臂 + 全拒 + solver_meta={} ⇒ 由 Q_method 否决（不由 Q_validity）', False,
+     'Q_method', solver_meta={},
+     per_day=[dict(d, n_served=0) for d in good_per_day()])
+# 正面故障证据仍然必须否决：
+case('㉔ 全拒 + 显式 n_solves=0 ⇒ 有效性失败', False, 'Q_validity',
+     solver_meta={'n_solves': 0, 'n_fail': 0},
+     per_day=[dict(d, n_served=0) for d in good_per_day()])
+case('㉕ 全拒 + execution_crash ⇒ 有效性失败', False, 'Q_validity',
+     per_day=[dict(d, n_served=0, failures=['execution_crash']) for d in good_per_day()])
+
+
+def validity_checks():
+    """把「全拒单」的三种成因逐一对齐（正面证据 / 结构性缺失 / 合法策略）。"""
+    out = []
+    allrej = [dict(d, n_served=0) for d in good_per_day()]
+
+    # ① 用户指出的精确反例：规则臂全拒 + solver_meta={} ⇒ Q_validity 不得否决
+    r = evaluate(good_evidence(is_rule=True, pairing={}, solver_meta={},
+                               participation={'required': False, 'present': False},
+                               identity=dict(source_stable=True, **_SHARED),
+                               per_day=allrej))
+    out.append(('规则臂全拒 + solver_meta={} ⇒ Q_validity=%s（不得判失败）、'
+                'qualified=True、informative=False'
+                % r['criteria']['Q_validity']['ok'],
+                r['criteria']['Q_validity']['ok'] is True
+                and r['qualified'] is True and r['informative'] is False
+                and 'Q_validity' not in r['vetoes']))
+
+    # ② 规则臂全拒 + **真的**崩溃 ⇒ 仍须否决（修正没有放宽故障判定）
+    r = evaluate(good_evidence(is_rule=True, pairing={}, solver_meta={},
+                               participation={'required': False, 'present': False},
+                               identity=dict(source_stable=True, **_SHARED),
+                               per_day=[dict(d, n_served=0, failures=['execution_crash'])
+                                        for d in good_per_day()]))
+    out.append(('规则臂全拒 + 崩溃 ⇒ 仍判有效性失败（修正未放宽故障）',
+                r['criteria']['Q_validity']['ok'] is False
+                and 'Q_validity' in r['vetoes']))
+
+    # ③ 非规则臂全拒 + solver_meta={} ⇒ 缺失不是故障证据，但 Q_method 兜住
+    r = evaluate(good_evidence(solver_meta={}, per_day=allrej))
+    out.append(('非规则臂全拒 + solver_meta={} ⇒ Q_validity=True 但 Q_method 否决'
+                '（缺失≠故障，且不留漏洞）',
+                r['criteria']['Q_validity']['ok'] is True
+                and 'Q_method' in r['vetoes'] and r['qualified'] is False))
+    return out
+
 
 def closure_checks():
     """`Q_dependency_closure`：fail-closed 三重校验（字段 / 格式 / **独立重算相符**）。"""
@@ -182,6 +243,7 @@ def run():
             print('  FAIL %-52s 期望 qualified=%s veto=%s，实得 qualified=%s vetoes=%s'
                   % (name, expect_q, expect_veto, res['qualified'], res['vetoes']))
     for title, checks in (('\nQ_dependency_closure 三重校验：', closure_checks()),
+                          ('\n全拒单成因对齐（Q_validity 第二版）：', validity_checks()),
                           ('\n有效性 / 信息量分离：', informativeness_checks())):
         print(title)
         for name, ok in checks:

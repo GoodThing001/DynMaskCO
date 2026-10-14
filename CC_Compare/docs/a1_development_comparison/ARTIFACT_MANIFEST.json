@@ -1,15 +1,26 @@
 {
   "kind": "development-evidence-package",
   "note": "**development 证据包，不是最终测试结果，也不声称 SOTA。** Markdown 文档入 Git；Excel 与完整 dataset.json 仅作 Release 附件，`CC_Compare/results/**` 的忽略规则保持不变。",
-  "target_commit": "c3e0c22b3483338b5655fde2ba0f18ac209ea260",
+  "source_commit": "480bd7f91dd61ffeca9cc3c261e48cef5cd91aec",
+  "source_commit_dirty_n": 15,
+  "source_commit_dirty_files": [
+    "M CC_Compare/MAPT_code",
+    " M \"CC_Compare/P1A_\\345\\274\\272\\345\\212\\250\\346\\200\\201\\345\\257\\271\\347\\205\\247_\\351\\242\\204\\345\\243\\260\\346\\230\\216_2026-10-14.md\"",
+    " M CC_Compare/audit/BASELINE_QUALIFICATION_MATRIX_2026-10-14.json",
+    " M CC_Compare/audit/INDEPENDENT_READONLY_ADJUDICATION_2026-10-14.md",
+    " M CC_Compare/docs/a1_development_comparison/ARTIFACT_MANIFEST.json"
+  ],
+  "self_reference_note": "`source_commit` 是**快照来源**（归档时刻 HEAD）。包含本清单的那次提交是它的**子**提交 ⇒ `--verify` 时 `source_commit != HEAD` 是**预期**的，不是漂移；真正要判的是 `source_commit` 是否为 HEAD 的祖先。",
+  "release_commit": null,
+  "release_commit_note": "发布靶点（tag/commit）在**清单提交之后**才能确定，记录于独立 Release 元数据 CC_Compare/results/a1_compare_table/RELEASE_METADATA.json（不入 Git，以 `manifest_sha256` 指回本清单 ⇒ 单向无环）。用 `--release-metadata` 生成。",
   "source_dir": "CC_Compare/results/a1_compare_table",
   "generated_by": "python CC_Compare/tools/collect_compare_table.py --json CC_Compare/results/a1_compare_table/dataset.json  &&  python CC_Compare/tools/render_compare_table.py --data CC_Compare/results/a1_compare_table/dataset.json --outdir CC_Compare/results/a1_compare_table",
   "in_repo": [
     {
       "path": "CC_Compare/docs/a1_development_comparison/README.md",
       "source": "CC_Compare/results/a1_compare_table/README.md",
-      "size": 110074,
-      "sha256": "63de8bfd0cf27eee7c5519aea5238747231a31dd7a90a4c646fe2ed5e18e618f"
+      "size": 114723,
+      "sha256": "5ddd20f314ce949bb958372e2bfc0b17bcbfff794b51abc7192b6d78d1ad029f"
     },
     {
       "path": "CC_Compare/docs/a1_development_comparison/A-v1对比方法总表.md",
@@ -28,8 +39,8 @@
     {
       "name": "A-v1对比方法总表.xlsx",
       "in_repo": false,
-      "size": 40615,
-      "sha256": "5c7d15020641b44382656e51826e2d1c9d53f0fcc20e7fcd01daa051727cf539",
+      "size": 40616,
+      "sha256": "e32b325e64a4e0b41d86db35fdb04c40f1edc997baa255884f9ef23cc1f14ddc",
       "note": "Release 附件；不入 Git；**发布前必须逐个校验 size+sha256**"
     },
     {

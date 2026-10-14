@@ -29,9 +29,128 @@
 而「CI 是否排除 0」结论一致 ⇒ 主模型 driver 与采集器复刻的 `_stat` **不是同一个 bootstrap 生产者**，
 引用主模型 CI 时须知这一点（结论未受影响）。
 
+> ⚠️ **上述推断已在 §〇.1 第 1 条中被推翻（2026-10-14 第二轮）**：CI 对不上的真实原因**不是**
+> 生产者不同，而是**取错了 gate 的 bootstrap 种子**（回落到了 `generated_from.seed`）。
+> 「不是同一个生产者」这一说法**作废**；`_stat` 实为同一生产者。**数值结论不变**，
+> 且修复后 52 个块的 CI **全部逐位复现**（④ `CI_exact_reproduction=True`）。
+
 > D 段（2026-10-14 新增，由 `CC_Compare/tools/check_pairing_identity.py` 提供）在**持有原始 gate** 的
 > 1003 上实测 **PASS**：`A` 52/52 恒等式、`B` 隐含对照（I3 = **600.997**）、`C` 0 条跨协议混用、
 > `D` 52 个块 day_id 集合相同且均值逐位复算一致。
+
+---
+
+## 〇.1 第二轮复核（2026-10-14 晚）：两项**确定性**缺陷修复 + CI 复现边界已闭合
+
+> **性质与边界（如实声明）**：本轮**只改 `CC_Compare/tools/` 下的检查工具**，
+> **未修改任何 gate、冻结树、已封存结果或已交付数字**；**未重跑** A3；
+> **未接触**保留的最终测试种子（`20260927`/`20260928`）；**未**发起任何新的正式科学实验。
+> 用户 2026-10-14 复核在源码里指出两处**确定性**逻辑缺陷与一处未闭合的 CI 复现边界，本节逐条闭合。
+
+### 〇.1.1 CI 精确复现边界：**已解决**（根因是**取错种子**，不是生产者不同）
+
+**症状**：D 段 ④ 一度报告 18 个配对块落盘 CI 与独立重算不符（偏差 5.06–9.96，但"是否排除 0"一致）。
+
+**根因（只读核对两个生产者源码后确定）**：这些块属于 `a1_a3_online_density_*`，它们有**三个不同的
+开发日集**（`20260926` / `20260930` / `20261001`），**每块必须用该 gate 自己的种子**。但：
+
+| 事实 | 位置 |
+|---|---|
+| `run_a1_step3_compare.py` 的 gate 顶层 `seeds` **只写 `ran`，不写 `gate`** | `run_a1_step3_compare.py:405`（`"ran": list(seeds)`） |
+| 外部臂 gate 同样只写 `ran` | `run_a1_external_accept.py:411` |
+| 官方裁决器**正是读 `ran`** 作为 gate 种子 | `diag_a3_adjudicate.py:165`（断言 `seeds['ran'] == [int(seed)]`）、`diag_i3_online_adjudicate.py:45`（`doc['seeds']['ran']`） |
+| 旧 `part_d` 只找 `seeds['gate']`，找不到就**回落到 `generated_from.seed`(=20260926)** | 已修复 |
+
+⇒ 0930/20261001 两个 gate 的块被**用错了种子**算 bootstrap —— 这是**种子**差异，**不是**生产者差异。
+**§〇 附注中"主模型 driver 与采集器复刻的 `_stat` 不是同一个 bootstrap 生产者"的推断据此作废。**
+
+**修复（确定性优先级，禁止事后择优）**：
+
+```
+seeds['ran']（单一 int，规范字段） ▸ seeds['gate'] ▸ 目录名 _YYYYMMDD_ ▸ seeds['dev']
+冲突（ran≠gate）或歧义（ran 非单一 int） ⇒ **fail-closed**，该块记 SKIP
+解析不出的块**不回落任何默认种子**（否则 ④ 会静默变成假象）
+```
+
+⚠️ 明确**不做**的事：**不**"试遍候选种子取能对上 CI 的那一个" —— 那是事后择优，会使 ④ 失去证据价值。
+`part_d` 现在**披露每个块实际用了哪一路证据**（`src_tally`）。
+
+**复跑结果（在持有原始 gate 的 1003 上，只读）**：
+
+```
+A 52/52 恒等式 → 0 失败 ；B 隐含对照 I3 = 600.997 ；C 文档混用 0 条
+D 核对 52 个配对块 → 硬失败 0、CI 数值未复现 0、SKIP 0
+  每块种子来源：results_key=28, seeds.gate=24     ← 无一块需要弱兜底
+  ✅ ④ CI_exact_reproduction=True
+PAIRING_IDENTITY_PASS（①②③④ 全部通过，CI 逐位复现）   rc=0
+```
+
+新增反例测试 10 条（`tools/test_pairing_identity.py::run_gate_seed`）：`ran` 单一 / `gate`-only /
+`ran` 歧义 / `ran≠gate` 冲突 / 目录日期兜底 / `seeds.dev` 兜底 / 全无 ⇒ SKIP / 嵌套 `results[seed]`
+取外层键 / **按 `pc` 选块**（取错档会一次跑出 148 条假失败）/ gate 缺失。**14/14 通过**（含原 4 条 A/B 例）。
+
+### 〇.1.2 `q_validity` 的确定性逻辑缺陷：**已修复**（合法全拒曾被误判为失败）
+
+旧实现把「`n_solves` **缺失**」当作故障证据（`not n_solves`）。纯规则臂**结构性**没有求解器
+（`solver_meta={}`），于是一个**完全合法**的规则全拒臂会被判为有效性失败 —— **缺失字段不是失败证据**。
+
+**修复**：只认**正面**故障证据 —— `execution_crash`、`n_fail > 0`、或 `n_solves` **显式为 0**。
+「方法究竟有没有被执行」由 `Q_method` 负责（对**非规则**臂，`n_solves` 缺失依然否决）；
+两条判据职责分开后**不留漏洞**（非规则臂全拒 + `solver_meta={}` 仍由 `Q_method` 否决）。
+
+**新增反例 ㉒–㉕ + `validity_checks()` 3 条**（`tools/test_qualification_gate.py`，**36/36 通过**）：
+① 规则臂 + 合法全拒 + `solver_meta={}` ⇒ `qualified=True`、`informative=False`（用户点名的精确反例）；
+② 规则臂 + 真崩溃 ⇒ **仍**判失败（修正未放宽故障判定）；
+③ 非规则臂 + 全拒 + `solver_meta={}` ⇒ `Q_validity` 通过但 `Q_method` 否决；
+④ 显式 `n_solves=0` / `execution_crash` ⇒ 否决。**λ=3 的历史判定（由 `Q_nondegen` 否决）不改写。**
+
+### 〇.1.3 资格矩阵 `Q_days` / `Q_finite` 的确定性缺陷：**已修复（只收紧，零判决漂移）**
+
+| # | 缺陷 | 后果 | 修复 |
+|---|---|---|---|
+| ① | `ids = [int(d.get('i')) …]` **静默强转** | `0.5→0`、`'5'→5`、`True→1` ⇒ 40 条 `i=0.5..39.5` 被截断成 `0..39`，**非整数日号伪装成"日号完整"** | 原始日号必须是**真整数**（`bool` 不算），否则直接判不完整 |
+| ② | `fin = [u for u in utils if isinstance(u,(int,float))]` | `float('nan')`/`±inf` **都是** `float` ⇒ 被算作"有限"，判据形同虚设 | `math.isfinite`，并显式排除 `None`/字符串/`bool` |
+
+**关键复核（防"事后改判据"）**：修复后在 **264 个真实臂**上逐臂复算，
+`Q_formal_core` / `Q_formal_strict` / `Q_vetoes` **逐字段零差异**（core **38/62**、strict **32/62** 不变；
+λ=3 全拒臂仍由 `Q_nondegen` 否决；A3 仍由 `Q_identity` 否决）。⇒ **判据只收紧，历史裁决未被改写。**
+矩阵 JSON 已由修复后的工具重新生成（`criteria.revision=2`，并写入本节所述修订说明）。
+
+新增反例测试 22 条（`tools/test_audit_qualification_matrix.py`），其中 `naive_*` 断言**故意复刻旧实现**
+以证明"旧实现确实会放过这些输入"：非整数/字符串/bool/缺失/越界/重复日号、NaN/±Inf/None/字符串/bool 效用，
+以及"缺陷必须传导到 `Q_formal_core`"的端到端 4 条。**22/22 通过。**
+
+### 〇.1.4 归档清单的 commit 语义：**已拆分**（消除循环自指）
+
+旧实现只写一个 `target_commit = git rev-parse HEAD`，把两件事挤在一个字段里。现改为：
+
+| 字段 | 含义 | 落在哪 |
+|---|---|---|
+| `source_commit`（+ `source_commit_dirty_n/_files`） | **快照来源**：归档取树的那个提交 | 入库清单 `ARTIFACT_MANIFEST.json` |
+| `release_commit` / `release_tag` | **发布靶点**：Release 切出的提交 | **独立** `results/.../RELEASE_METADATA.json`（**不入 Git**），以 `manifest_sha256` **指回**清单 ⇒ **单向无环** |
+
+`--verify`：`source_commit != HEAD` ⇒ **告警**（清单自身所在提交必然是其**子**提交，属**预期**）；
+`source_commit` **不是** HEAD 的祖先 ⇒ **判失败**（那才是真漂移）；清单里若仍有 `target_commit` ⇒ **判失败**。
+负例实测：注入 `target_commit` 后 `ARTIFACT_MANIFEST_VERIFY_FAIL: 1`（rc=1）。
+三份 Markdown 快照重建后与已提交版本**逐字节一致**。
+
+### 〇.1.5 P1-A 正式效果门 δ = 20：**已登记（待用户最终锁定）**
+
+`CC_Compare/P1A_强动态对照_预声明_2026-10-14.md` 新增 **§0.1**：判据为
+主档 `p_c=(5,10,15)` 上、**以天为单位**按 `day_id` 配对，`mean(Δ) ≥ 20 ∧ CI_95%,lo(Δ) > 0`。
+δ=20 **沿用 A3 的预注册值**（`A3在线比较预声明_2026-10-01.md`；`A3在线比较正式裁决_2026-10-06.md`
+L5–6/L10「δ₃=+20」；`run_a1_step3_compare.py:49` `DELTA_3 = 20.0`、`:340/:343` 判定式），
+**不是**为新实验量身定阈值。同时登记 bootstrap 规格（2000 次、2.5/97.5、种子跑前冻结、
+④ 必须逐位复现否则**不算过门**）。
+⚠️ **状态为"已登记 · 待用户确认"**，锁定前**不放行**任何正式科学批次；且只有一个开发种子 ⇒
+过门**不得**声称跨种子稳健性，也**不替代** MaskCO 在 A3 上的贡献。
+
+### 〇.1.6 本轮**仍未**做的事
+
+- **未**重跑 A3 或任何已完成批次；**未**碰保留最终测试种子；**未**修改任何 gate / 冻结树 / 已封存结果。
+- **未**修改任何**数字**：交付表、`dataset.json`、`Q_formal_core` 38/62 等一律不变。
+- 仍**未**独立复核：3080 原始日志字节、PyVRP 历史故障批次（目录已删）、
+  `RouteFinder strict=False` 缺失键清单、1003 `ordering_providers.py` 反向取回与 SHA。
 
 ---
 
