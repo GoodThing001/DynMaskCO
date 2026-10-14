@@ -35,3 +35,10 @@ simulation/d3_credential.py -text
 simulation/d3_composed_certifier.py -text
 simulation/d3_install_gate.py -text
 tests/test_d3_b2_certification.py -text
+
+# Added by D3-G0 Evidence B3-Q (2026-10-14).  Same reason as the B1/B2 additions: the
+# B3-Q matrix registers these files' raw sha256, so a fresh checkout must reproduce them.
+#   scripts/simulation/d3_quality_projection.py        024f30b0ec0a62321a5d6f15ce9798bb55be1212f371c9cb71cde1b5fec46424
+#   scripts/tests/test_d3_b3q_quality_projection.py    4702467aa5ef462dead0a2ac66b14c59676c0f9e46d56ec01fd41cc8bf7c68a5
+simulation/d3_quality_projection.py -text
+tests/test_d3_b3q_quality_projection.py -text

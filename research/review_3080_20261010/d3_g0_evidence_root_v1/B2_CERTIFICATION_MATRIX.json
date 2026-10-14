@@ -37,7 +37,7 @@
     "effective_contract_hash": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
     "code": {
       "scripts/simulation/d3_credential.py": "85f32d67ad38f1a88be6aa5a8c4c4af3f48797df6a1ca088d05c672453834c7f",
-      "scripts/simulation/d3_composed_certifier.py": "b93c81756adcd15b0cdac4ca98771c5cb6e354d083f2d0f094d344766571a1c9",
+      "scripts/simulation/d3_composed_certifier.py": "b65ddf6545a84b656cd2e9dd541cea266d2d6bdbc1cd56abd76f7780104aea01",
       "scripts/simulation/d3_install_gate.py": "adc8df289be1babcf8d6907ff57ab30ab3d66d58fcb47a6c9539bc8591634483",
       "scripts/simulation/d3_state_assembly.py": "03fa7c164b269910cd33011de2a0f6017a97ce5bf1832a788ebbd81032545874",
       "scripts/tests/test_d3_b2_certification.py": "285bdc928b2f7ee7925b123e2bf61bea18da5acfd89d82f66ffc5fad4ef8f6dd"
@@ -194,7 +194,7 @@
         "no_check": {
           "quality": {
             "state": "CAPABILITY_GAP_BLOCKING",
-            "why": "no executable decision-time quality/salability check exists: certify_route leaves projected_quality_loss as None and the only salability check is terminal (coldchain_evaluator_a1:115-117)"
+            "why": "no CONSERVATIVE decision-time quality/salability certification exists. A read-only projection is available (component `quality_projection`), but the user rejected the worst-case-schedule inference and the bound is labelled CONSERVATIVENESS_NOT_ESTABLISHED, so the gap STANDS."
           },
           "blocking_gaps": [
             "quality_salability"

@@ -36,7 +36,9 @@ from __future__ import annotations
 from d3_credential import (QUALITY_CAPABILITY_GAP, QUALITY_FAILED, QUALITY_OK)
 
 CERTIFICATION_CHECKS = ('repair_plan', 'full_partition', 'route_feasible', 'energy_budget')
-COMPENSATIONS = ('revealed_only', 'no_served_in_plan', 'plan_vehicle_set', 'no_duplicate_order')
+# D-B3A-1 (authorised 2026-10-14): the legality gates run FIRST and short-circuit the rest.
+LEGALITY_GATES = ('plan_vehicle_set', 'revealed_only', 'no_served_in_plan', 'no_duplicate_order')
+COMPENSATIONS = LEGALITY_GATES          # kept as an alias for the pre-B3-Q name
 CAPABILITY_GAPS = ('quality_salability',)
 
 
@@ -52,11 +54,13 @@ def _plan_routes(plans):
 
 def compose_certification(env, inst_idx, clock, vehicles, served_mask, plans, *, mask_set,
                           protected=frozenset(), deferred=frozenset(), B, contract,
-                          base_plans=None, mutable_ids=None, quality_check_fn=None):
-    """Run the four checks + the compensations, and report the quality capability state.
+                          base_plans=None, mutable_ids=None, quality_check_fn=None,
+                          project_quality=True, stress_quality_schedule=False):
+    """Run the LEGALITY GATES first, then the four checks, plus the read-only quality projection.
 
-    Returns a dict; `installable` is True only when every check and compensation passes AND no
-    blocking capability gap exists.
+    Returns a dict; `installable` is True only when every check passes AND no blocking capability
+    gap exists.  A PASSING QUALITY PROJECTION DOES NOT CHANGE `installable` (D-B3A-3 is deferred
+    until the conservative bound is proven).
     """
     from mpre_policy import validate_repair_plan
     from dynmaskco_cc_context import validate_full_partition
@@ -86,7 +90,89 @@ def compose_certification(env, inst_idx, clock, vehicles, served_mask, plans, *,
             reasons.append('%s_error:%s' % (name, type(exc).__name__))
             return None
 
-    # ---- 1. plan reconciliation (exact-once / non-mask order / protected unchanged) ---------
+    def _not_run(names, why, gate):
+        for nm in names:
+            components[nm] = {'ok': False, 'not_run_illegal_order_set': True,
+                              'refused_by_gate': gate, 'why': why}
+        reasons.append('legality_short_circuit:%s' % gate)
+
+    # =======================================================================================
+    # D-B3A-1 LEGALITY-FIRST SHORT-CIRCUIT (authorised 2026-10-14)
+    # ---------------------------------------------------------------------------------------
+    # Previously the compensations ran AFTER the four checks, so `certify_plan` could be handed a
+    # plan containing unrevealed or already-served orders -- and inside it,
+    # `c0_completion_energy:127` silently reschedules by `reveal_time` while `certify_plan:173`
+    # silently drops served orders.  Now the legality gates run FIRST and, if any fails, the
+    # route / energy / quality components are NOT RUN AT ALL.  "Every certification component only
+    # ever receives a legality-checked order set" thereby becomes a STRUCTURAL property instead of
+    # an accident of call order.
+    # =======================================================================================
+    DOWNSTREAM = ('route_feasible', 'energy_budget', 'quality_projection')
+
+    live_non_closed = {int(v.vehicle_id) for v in vehicles if v.status != 'closed'}
+    extra_vehicles = sorted(set(int(v) for v in plans) - live_non_closed)
+    components['plan_vehicle_set'] = {
+        'ok': not extra_vehicles, 'plan_vehicles': sorted(int(v) for v in plans),
+        'live_non_closed': sorted(live_non_closed),
+        'closed_or_absent_vehicles_in_plan': extra_vehicles}
+
+    reveal_row = env.reveal_time[inst_idx]
+    unrevealed = sorted({int(x) for p in plans.values() for x in p.suffix
+                         if int(x) > 0 and not bool(reveal_row[int(x)] <= clock + 1e-6)})
+    components['revealed_only'] = {'ok': not unrevealed, 'unrevealed_in_plan': unrevealed}
+
+    served_seen = {int(x) for p in plans.values() for x in p.suffix if int(x) > 0}
+    served_planned = sorted(c for c in served_seen if bool(served_mask[c]))
+    components['no_served_in_plan'] = {'ok': not served_planned, 'served_planned': served_planned}
+
+    counts = {}
+    for p in plans.values():
+        for x in p.suffix:
+            if int(x) > 0:
+                counts[int(x)] = counts.get(int(x), 0) + 1
+    duplicates = sorted(c for c, k in counts.items() if k > 1)
+    components['no_duplicate_order'] = {'ok': not duplicates, 'duplicate_suffix': duplicates}
+
+    if extra_vehicles:
+        _not_run(DOWNSTREAM, 'plan references a vehicle that is not in the live non-closed fleet',
+                 'plan_vehicle_set')
+    elif unrevealed:
+        _not_run(DOWNSTREAM, 'plan contains an order that is not revealed at this clock',
+                 'revealed_only')
+    elif served_planned:
+        _not_run(DOWNSTREAM, 'plan contains an order that has already been served',
+                 'no_served_in_plan')
+    elif duplicates:
+        _not_run(DOWNSTREAM, 'plan contains a duplicated order', 'no_duplicate_order')
+    legality_ok = not (extra_vehicles or unrevealed or served_planned or duplicates)
+
+    # ---- ownership / commitment / service partition (still before the downstream checks) ----
+    committed = {int(v.committed_next) for v in vehicles
+                 if v.committed_next not in (None, 0)}
+    universe = [int(c) for c in range(1, env.num_nodes)
+                if not bool(served_mask[c]) and int(c) not in committed
+                and bool(env.reveal_time[inst_idx, c] <= clock + 1e-6)]
+    if legality_ok:
+        got = _guard('full_partition', lambda: validate_full_partition(
+            committed, plans, set(deferred), universe, served_mask=served_mask))
+        if got is not None:
+            ok_part, detail_part = got
+            components['full_partition'] = {'ok': bool(ok_part), 'detail': detail_part}
+            if not ok_part:
+                reasons.append('full_partition_failed')
+                _not_run(DOWNSTREAM, 'ownership / commitment partition failed', 'full_partition')
+                legality_ok = False
+        else:
+            detail_part = {'served_planned': [], 'duplicate_suffix': []}
+            _not_run(DOWNSTREAM, 'partition check errored', 'full_partition')
+            legality_ok = False
+    else:
+        components['full_partition'] = {'ok': False, 'not_run_illegal_order_set': True,
+                                        'refused_by_gate': 'legality_gate',
+                                        'why': 'a legality gate already refused'}
+        detail_part = {'served_planned': [], 'duplicate_suffix': []}
+
+    # ---- plan reconciliation (needs base_plans; legality already established) ---------------
     if not base_is_given:
         components['repair_plan'] = {
             'ok': False, 'error': 'base_plans_missing',
@@ -94,7 +180,7 @@ def compose_certification(env, inst_idx, clock, vehicles, served_mask, plans, *,
                     'defaulting to the candidate itself would make this check vacuous')}
         reasons.append('repair_plan_unverifiable')
         detail_repair = {'served_planned': [], 'duplicate_suffix': []}
-    else:
+    elif legality_ok:
         got = _guard('repair_plan', lambda: validate_repair_plan(plans, base_plans,
                                                                  list(mask_set),
                                                                  list(protected)))
@@ -105,99 +191,101 @@ def compose_certification(env, inst_idx, clock, vehicles, served_mask, plans, *,
                 reasons.append('repair_plan_failed')
         else:
             detail_repair = {'served_planned': [], 'duplicate_suffix': []}
-
-    # ---- 2. ownership / commitment / service partition --------------------------------------
-    committed = {int(v.committed_next) for v in vehicles
-                 if v.committed_next not in (None, 0)}
-    universe = [int(c) for c in range(1, env.num_nodes)
-                if not bool(served_mask[c]) and int(c) not in committed
-                and bool(env.reveal_time[inst_idx, c] <= clock + 1e-6)]
-    got = _guard('full_partition', lambda: validate_full_partition(
-        committed, plans, set(deferred), universe, served_mask=served_mask))
-    if got is not None:
-        ok_part, detail_part = got
-        components['full_partition'] = {'ok': bool(ok_part), 'detail': detail_part}
-        if not ok_part:
-            reasons.append('full_partition_failed')
     else:
-        detail_part = {'served_planned': [], 'duplicate_suffix': []}
+        components['repair_plan'] = {'ok': False, 'not_run_illegal_order_set': True,
+                                     'refused_by_gate': 'legality_gate',
+                                     'why': 'a legality gate already refused'}
+        detail_repair = {'served_planned': [], 'duplicate_suffix': []}
 
-    # ---- 3. route feasibility (TW / capacity / return / temperature class) ------------------
+    # ---- route feasibility (TW / capacity / return / temperature class) --------------------
     # `ok` is DERIVED from the per-route report that is actually returned, never from a parallel
     # flag: two sources of truth for the same verdict let a component report "all routes feasible"
     # while the component itself says not-ok, which is exactly the kind of inconsistency a
     # certification gate must not have.
-    def _routes():
-        out = {}
-        for vid, p in sorted(plans.items()):
-            r = certify_route(env, inst_idx, p.anchor_node, p.anchor_time, p.anchor_load,
-                              tuple(p.suffix))
-            out[int(vid)] = {'feasible': bool(r['feasible']), 'reason': r['reason'],
-                             'temperature_compatible': bool(r['temperature_compatible']),
-                             'coldchain_reject_reason': r.get('coldchain_reject_reason'),
-                             # recorded as None by the primitive itself -- evidence that no
-                             # decision-time energy/quality projection exists
-                             'projected_energy_kwh': r.get('projected_energy_kwh'),
-                             'projected_quality_loss': r.get('projected_quality_loss')}
-        return out
+    # RUNS ONLY IF legality_ok (see the short-circuit above).
+    if legality_ok:
+        def _routes():
+            out = {}
+            for vid, p in sorted(plans.items()):
+                r = certify_route(env, inst_idx, p.anchor_node, p.anchor_time, p.anchor_load,
+                                  tuple(p.suffix))
+                out[int(vid)] = {'feasible': bool(r['feasible']), 'reason': r['reason'],
+                                 'temperature_compatible': bool(r['temperature_compatible']),
+                                 'coldchain_reject_reason': r.get('coldchain_reject_reason'),
+                                 # recorded as None by the primitive itself: no decision-time
+                                 # energy/quality projection exists in it
+                                 'projected_energy_kwh': r.get('projected_energy_kwh'),
+                                 'projected_quality_loss': r.get('projected_quality_loss')}
+            return out
 
-    got = _guard('route_feasible', _routes)
-    if got is not None:
-        per_route = got
-        infeasible_routes = sorted(vid for vid, v in per_route.items() if not v['feasible'])
-        ok_route = not infeasible_routes
-        components['route_feasible'] = {'ok': ok_route, 'per_route': per_route,
-                                        'infeasible_routes': infeasible_routes,
-                                        'n_routes_checked': len(per_route)}
-        if not ok_route:
-            reasons.append('route_infeasible')
+        got = _guard('route_feasible', _routes)
+        if got is not None:
+            per_route = got
+            infeasible_routes = sorted(vid for vid, v in per_route.items() if not v['feasible'])
+            ok_route = not infeasible_routes
+            components['route_feasible'] = {'ok': ok_route, 'per_route': per_route,
+                                            'infeasible_routes': infeasible_routes,
+                                            'n_routes_checked': len(per_route)}
+            if not ok_route:
+                reasons.append('route_infeasible')
 
-    # ---- 4. C0 energy budget ---------------------------------------------------------------
-    got = _guard('energy_budget', lambda: certify_plan(env, inst_idx, clock, vehicles, served_mask,
-                                                       _plan_routes(plans), contract, B))
-    if got is not None:
-        feasible_energy, total_energy = got
-        components['energy_budget'] = {'ok': bool(feasible_energy), 'total_energy_kwh':
-                                       float(total_energy), 'B': float(B),
-                                       'headroom_kwh': float(B) - float(total_energy)}
-        if not feasible_energy:
-            reasons.append('energy_budget_exceeded')
+        # ---- C0 energy budget -------------------------------------------------------------
+        got = _guard('energy_budget', lambda: certify_plan(env, inst_idx, clock, vehicles,
+                                                           served_mask, _plan_routes(plans),
+                                                           contract, B))
+        if got is not None:
+            feasible_energy, total_energy = got
+            components['energy_budget'] = {'ok': bool(feasible_energy),
+                                           'total_energy_kwh': float(total_energy),
+                                           'B': float(B),
+                                           'headroom_kwh': float(B) - float(total_energy)}
+            if not feasible_energy:
+                reasons.append('energy_budget_exceeded')
 
-    # ---- compensations ---------------------------------------------------------------------
-    def _compensations():
-        reveal = env.reveal_time[inst_idx]
-        unrevealed = sorted({int(x) for p in plans.values() for x in p.suffix
-                             if int(x) > 0 and not bool(reveal[int(x)] <= clock + 1e-6)})
-        live_non_closed = {int(v.vehicle_id) for v in vehicles if v.status != 'closed'}
-        extra_vehicles = sorted(set(int(v) for v in plans) - live_non_closed)
-        return {
-            'revealed_only': {'ok': not unrevealed, 'unrevealed_in_plan': unrevealed},
-            'no_served_in_plan': {'ok': not detail_part['served_planned'],
-                                  'served_planned': detail_part['served_planned']},
-            'plan_vehicle_set': {'ok': not extra_vehicles,
-                                 'plan_vehicles': sorted(int(v) for v in plans),
-                                 'live_non_closed': sorted(live_non_closed),
-                                 'closed_or_absent_vehicles_in_plan': extra_vehicles},
-            'no_duplicate_order': {'ok': not detail_part['duplicate_suffix'],
-                                   'duplicate_suffix': detail_part['duplicate_suffix']},
-        }
-
-    comp = _guard('compensations', _compensations)
-    if comp is None:
-        comp = {name: {'ok': False, 'error': 'compensation_check_error'}
-                for name in COMPENSATIONS}
+        # ---- read-only quality PROJECTION (D-B3A-2; NEVER a conservative certificate) ------
+        if project_quality:
+            def _quality_projection():
+                from d3_quality_projection import (SCHEDULE_LATEST_ADMISSIBLE,
+                                                   project_plan_quality)
+                proj = project_plan_quality(
+                    env, inst_idx, clock, vehicles, _plan_routes(plans), contract,
+                    schedule=(SCHEDULE_LATEST_ADMISSIBLE if stress_quality_schedule
+                              else 'nominal'), served_mask=served_mask)
+                return proj
+            got = _guard('quality_projection', _quality_projection)
+            if got is not None:
+                projection = got
+                components['quality_projection'] = {
+                    'ok': projection['projection_state'] != 'PROJECTED_FAILED',
+                    'projection_state': projection['projection_state'],
+                    'conservativeness': projection['conservativeness'],
+                    'schedule_kind': projection['schedule_kind'],
+                    'applicable_contract_version': projection['applicable_contract_version'],
+                    'unsalable_orders': projection['unsalable_orders'],
+                    'still_loaded_after_return': projection['still_loaded_after_return'],
+                    'inadmissible_stress_vehicles': projection['inadmissible_stress_vehicles'],
+                }
+                if projection['projection_state'] == 'PROJECTED_FAILED':
+                    reasons.append('quality_projection_failed')
     else:
-        components['compensations'] = {'ok': all(v['ok'] for v in comp.values())}
-    for name in COMPENSATIONS:
-        if not comp[name]['ok']:
-            reasons.append('compensation_failed:%s' % name)
+        components['route_feasible'] = {'ok': False, 'not_run_illegal_order_set': True,
+                                        'refused_by_gate': 'legality_gate'}
+        components['energy_budget'] = {'ok': False, 'not_run_illegal_order_set': True,
+                                       'refused_by_gate': 'legality_gate'}
+        if project_quality:
+            components['quality_projection'] = {'ok': False, 'not_run_illegal_order_set': True,
+                                                'refused_by_gate': 'legality_gate'}
 
     # ---- quality / salability: three-state, never a default pass ---------------------------
+    # D-B3A-3 is DEFERRED (user ruling): `PROJECTED_SATISFIED_CONSERVATIVE` does not exist yet,
+    # because no testable bound Q_cert,i <= Q_i(omega) has been proven.  A PASSING PROJECTION
+    # therefore changes NOTHING here -- the capability gap and installable=False STAND.
     if quality_check_fn is None:
         quality = {'state': QUALITY_CAPABILITY_GAP,
-                   'why': ('no executable decision-time quality/salability check exists: '
-                           'certify_route leaves projected_quality_loss as None and the only '
-                           'salability check is terminal (coldchain_evaluator_a1:115-117)')}
+                   'why': ('no CONSERVATIVE decision-time quality/salability certification exists. '
+                           'A read-only projection is available (component `quality_projection`), '
+                           'but the user rejected the worst-case-schedule inference and the bound '
+                           'is labelled CONSERVATIVENESS_NOT_ESTABLISHED, so the gap STANDS.')}
         blocking_gaps = list(CAPABILITY_GAPS)
     else:
         qok, qdetail = quality_check_fn(env, inst_idx, clock, vehicles, served_mask, plans)
@@ -209,13 +297,14 @@ def compose_certification(env, inst_idx, clock, vehicles, served_mask, plans, *,
     ok = not reasons
     installable = bool(ok and not blocking_gaps)
     return {
-        'certification_schema': 'composed_certification_v1',
-        'checks': list(CERTIFICATION_CHECKS), 'compensations': list(COMPENSATIONS),
-        'components': components, 'compensation_results': comp,
+        'certification_schema': 'composed_certification_v2_legality_first',
+        'checks': list(CERTIFICATION_CHECKS), 'legality_gates': list(LEGALITY_GATES),
+        'components': components,
+        'legality_ok': legality_ok,
         'quality': quality, 'blocking_capability_gaps': blocking_gaps,
         'reasons': reasons, 'ok': ok, 'installable': installable,
         'contract_hash_used_for_energy': getattr(contract, 'contract_hash', None),
-        'note': ('`ok` means every executable check passed; `installable` additionally requires '
-                 'that no blocking capability gap stands.  A caller must not treat `ok` alone as '
-                 'a licence to install.'),
+        'note': ('legality gates run FIRST and, when one fails, the route / energy / quality '
+                 'components are NOT RUN (`not_run_illegal_order_set`); `installable` still '
+                 'requires that no blocking capability gap stands'),
     }
