@@ -76,10 +76,18 @@ GEN = ('python CC_Compare/tools/collect_compare_table.py --json '
        'python CC_Compare/tools/render_compare_table.py --data '
        'CC_Compare/results/a1_compare_table/dataset.json --outdir '
        'CC_Compare/results/a1_compare_table')
-# 判定「快照来源是否干净」的路径范围：只看本交付物自己的目录。
-# ⚠️ 不看全仓 —— 本仓有**并行工作线**同时改别的目录，那与本次归档无关，
-# 混进来会让 `source_commit_dirty` 永远为真，报告噪声掩盖真问题。
-DIRTY_SCOPE = 'CC_Compare'
+# 判定「快照来源是否干净」的路径范围。
+#
+# ⚠️ 必须只看**入库快照的目的地**（`docs/a1_development_comparison/`），理由：
+#   * 六个 Release 附件与三份快照的**源**都在 `CC_Compare/results/**`，而该目录被
+#     `.gitignore` 忽略 ⇒ 对它们做 `git status` 恒为空 ⇒ 会**假报"干净"**，毫无意义；
+#   * 入库快照的**目的地**是 git 跟踪的 ⇒ `git status` 在那里**确实**回答了我们真正要问的问题：
+#     「本次归档出的快照是否已经提交」。
+#   * 但清单文件本身也在这个目录里，且归档时刚被写入 ⇒ 必须**排除**它，否则该字段恒 >0，
+#     永远到不了"干净"这个不动点。
+# ⇒ 语义：`source_commit_dirty_n > 0` 表示「快照内容尚未提交，快照内容 ≠ `source_commit` 的树」；
+#    `= 0` 表示「快照内容恰等于 `source_commit` 的树」（清单自身除外）。
+DIRTY_SCOPE = 'CC_Compare/docs/a1_development_comparison'
 
 
 def sha256(p):
@@ -106,14 +114,16 @@ def _source_commit():
 
 
 def _dirty_files():
-    """本交付物目录下**已跟踪但未提交**的改动（快照来源是否干净）。
+    """入库快照目录下**已跟踪但未提交**的改动（快照内容是否已提交）。
 
+    排除清单文件自身（归档时刚写入，否则该字段恒 >0，永远到不了干净的不动点）。
     返回 `(n, 前若干条)`；git 不可用 ⇒ `(None, None)`（如实缺失，不写 0 假装干净）。
     """
     out = _git('status', '--porcelain', '--', DIRTY_SCOPE)
     if out is None:
         return None, None
-    lines = [l for l in out.splitlines() if l.strip()]
+    lines = [l for l in out.splitlines()
+             if l.strip() and not l.rstrip().endswith(MANIFEST_NAME)]
     return len(lines), lines[:5]
 
 
@@ -138,7 +148,6 @@ def build():
     if missing:
         print('FAIL: Release 附件缺失 %d 份（发布包不完整）: %s' % (len(missing), missing))
         return 2
-    dn, dlines = _dirty_files()
     man = {
         'kind': 'development-evidence-package',
         'note': ('**development 证据包，不是最终测试结果，也不声称 SOTA。** '
@@ -146,12 +155,24 @@ def build():
                  '`CC_Compare/results/**` 的忽略规则保持不变。'),
         # —— 快照来源（入库清单里唯一的 commit 字段）——
         'source_commit': _source_commit(),
-        'source_commit_dirty_n': dn,
-        'source_commit_dirty_files': dlines,
+        # ⚠️ 这两个字段必须**在复制之后**填（见下方赋值），否则会把"复制之前"的状态当成
+        # 快照内容的状态：本次归档刚写出的新快照尚未提交，却会被报告成 dirty=0、
+        # 进而错误地声称"快照内容恰等于 source_commit 的树"。
+        'source_commit_dirty_n': None,
+        'source_commit_dirty_files': None,
+        'source_commit_dirty_scope': DIRTY_SCOPE,
+        'source_commit_dirty_meaning': (
+            '入库快照目录下**未提交**的已跟踪文件数（**已排除清单自身**）。'
+            '`=0` ⇒ 快照内容恰等于 `source_commit` 的树；`>0` ⇒ 快照内容 = `source_commit` '
+            '**加上**这些改动，此时**不得**把 `source_commit` 当作快照内容的定位。'
+            '⚠️ 该判据**不覆盖** `results/**`（被 .gitignore 忽略 ⇒ 对其做 git status 恒为空，'
+            '会假报干净）；Release 附件的完整性由 `release_only` 的 size+sha256 保证。'),
         'self_reference_note': (
             '`source_commit` 是**快照来源**（归档时刻 HEAD）。包含本清单的那次提交是它的'
             '**子**提交 ⇒ `--verify` 时 `source_commit != HEAD` 是**预期**的，不是漂移；'
-            '真正要判的是 `source_commit` 是否为 HEAD 的祖先。'),
+            '真正要判的是 `source_commit` 是否为 HEAD 的祖先。'
+            '快照**内容**的定位：看 `source_commit_dirty_n` —— 为 0 时内容 = `source_commit` 的树，'
+            '否则再加上所列改动；无论哪种，最终判据都是本清单记录的 `sha256`。'),
         # —— 发布靶点**不在**入库清单里（避免循环自指）——
         'release_commit': None,
         'release_commit_note': ('发布靶点（tag/commit）在**清单提交之后**才能确定，'
@@ -180,6 +201,9 @@ def build():
             'name': s, 'in_repo': False,
             'size': os.path.getsize(sp), 'sha256': sha256(sp),
             'note': 'Release 附件；不入 Git；**发布前必须逐个校验 size+sha256**'})
+    # —— 快照已写出，**现在**才能判"快照内容是否已提交" ——
+    dn, dlines = _dirty_files()
+    man['source_commit_dirty_n'], man['source_commit_dirty_files'] = dn, dlines
     with open(os.path.join(DST, MANIFEST_NAME), 'w', encoding='utf-8') as f:
         json.dump(man, f, ensure_ascii=False, indent=2)
     print('source_commit = %s（dirty=%s）' % (str(man['source_commit'])[:12], dn))
@@ -284,6 +308,9 @@ def verify():
     if dn:
         warn.append('source_commit 时刻 %s 下有 %d 个已跟踪文件未提交（快照来源不干净）：%s'
                     % (DIRTY_SCOPE, dn, man.get('source_commit_dirty_files')))
+        warn.append('⇒ 快照内容 = `source_commit` **加上**清单所在提交携带的改动，'
+                    '**不等于** `source_commit` 的树；定位内容请看**清单所在提交**'
+                    '（发布时即 `release_commit`），最终以清单 `sha256` 为准')
 
     # ---- 独立 Release 元数据（未发布不算失败）----
     rc_meta = None

@@ -1,16 +1,14 @@
 {
   "kind": "development-evidence-package",
   "note": "**development 证据包，不是最终测试结果，也不声称 SOTA。** Markdown 文档入 Git；Excel 与完整 dataset.json 仅作 Release 附件，`CC_Compare/results/**` 的忽略规则保持不变。",
-  "source_commit": "480bd7f91dd61ffeca9cc3c261e48cef5cd91aec",
-  "source_commit_dirty_n": 15,
+  "source_commit": "b14242a183a934f02e268a62efac0847f2f106cb",
+  "source_commit_dirty_n": 1,
   "source_commit_dirty_files": [
-    "M CC_Compare/MAPT_code",
-    " M \"CC_Compare/P1A_\\345\\274\\272\\345\\212\\250\\346\\200\\201\\345\\257\\271\\347\\205\\247_\\351\\242\\204\\345\\243\\260\\346\\230\\216_2026-10-14.md\"",
-    " M CC_Compare/audit/BASELINE_QUALIFICATION_MATRIX_2026-10-14.json",
-    " M CC_Compare/audit/INDEPENDENT_READONLY_ADJUDICATION_2026-10-14.md",
-    " M CC_Compare/docs/a1_development_comparison/ARTIFACT_MANIFEST.json"
+    " M CC_Compare/docs/a1_development_comparison/README.md"
   ],
-  "self_reference_note": "`source_commit` 是**快照来源**（归档时刻 HEAD）。包含本清单的那次提交是它的**子**提交 ⇒ `--verify` 时 `source_commit != HEAD` 是**预期**的，不是漂移；真正要判的是 `source_commit` 是否为 HEAD 的祖先。",
+  "source_commit_dirty_scope": "CC_Compare/docs/a1_development_comparison",
+  "source_commit_dirty_meaning": "入库快照目录下**未提交**的已跟踪文件数（**已排除清单自身**）。`=0` ⇒ 快照内容恰等于 `source_commit` 的树；`>0` ⇒ 快照内容 = `source_commit` **加上**这些改动，此时**不得**把 `source_commit` 当作快照内容的定位。⚠️ 该判据**不覆盖** `results/**`（被 .gitignore 忽略 ⇒ 对其做 git status 恒为空，会假报干净）；Release 附件的完整性由 `release_only` 的 size+sha256 保证。",
+  "self_reference_note": "`source_commit` 是**快照来源**（归档时刻 HEAD）。包含本清单的那次提交是它的**子**提交 ⇒ `--verify` 时 `source_commit != HEAD` 是**预期**的，不是漂移；真正要判的是 `source_commit` 是否为 HEAD 的祖先。快照**内容**的定位：看 `source_commit_dirty_n` —— 为 0 时内容 = `source_commit` 的树，否则再加上所列改动；无论哪种，最终判据都是本清单记录的 `sha256`。",
   "release_commit": null,
   "release_commit_note": "发布靶点（tag/commit）在**清单提交之后**才能确定，记录于独立 Release 元数据 CC_Compare/results/a1_compare_table/RELEASE_METADATA.json（不入 Git，以 `manifest_sha256` 指回本清单 ⇒ 单向无环）。用 `--release-metadata` 生成。",
   "source_dir": "CC_Compare/results/a1_compare_table",
@@ -19,8 +17,8 @@
     {
       "path": "CC_Compare/docs/a1_development_comparison/README.md",
       "source": "CC_Compare/results/a1_compare_table/README.md",
-      "size": 114723,
-      "sha256": "5ddd20f314ce949bb958372e2bfc0b17bcbfff794b51abc7192b6d78d1ad029f"
+      "size": 115363,
+      "sha256": "1a9fdb3546deb053b0ce5306a3cf71d72323cc445578a1568c11a78391fc6204"
     },
     {
       "path": "CC_Compare/docs/a1_development_comparison/A-v1对比方法总表.md",
