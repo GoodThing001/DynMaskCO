@@ -1,0 +1,1175 @@
+{
+  "stage": "D2_followup_behaviour_equivalence",
+  "arm": "D2_EQ_V1",
+  "scope": "read-only",
+  "effect_comparison": false,
+  "training_started": false,
+  "state_suite": {
+    "note": "synthetic, branch-covering, deterministic; declared before execution. Covers: committed vehicles, non-replan frozen tails, deferred customers, protected vehicle tails, depot 0 in suffix, empty pool, id ordering.",
+    "n_states": 10
+  },
+  "constructive": {
+    "dynmaskco_cc_context": {
+      "comparable": true,
+      "functions": {
+        "_decision_context": {
+          "train": "b890ef94259d18eaf142cecc365897d2e082d49a6a26013885f4710b764dded1",
+          "current": "b890ef94259d18eaf142cecc365897d2e082d49a6a26013885f4710b764dded1",
+          "identical": true
+        },
+        "cc_state_dict": {
+          "train": "0e9261ff3bfe25c5a4a294b7d53e40398fb56e936ef58969f315a828ffcc9d95",
+          "current": "0e9261ff3bfe25c5a4a294b7d53e40398fb56e936ef58969f315a828ffcc9d95",
+          "identical": true
+        },
+        "compute_incumbent_plans": {
+          "train": "ef204badaa34f694f7716795c3ce5f26d29099965fc72e744d0dec7e67db5c2c",
+          "current": "ef204badaa34f694f7716795c3ce5f26d29099965fc72e744d0dec7e67db5c2c",
+          "identical": true
+        },
+        "decision_pool_from_vehicles": {
+          "train": "cc14da513ba6e33a2a183d40f6689e50d6539317972adaac10080eca0d09b9a3",
+          "current": "cc14da513ba6e33a2a183d40f6689e50d6539317972adaac10080eca0d09b9a3",
+          "identical": true
+        },
+        "mask_candidate_pool": {
+          "train": "0fecd6ed78860564f78755370e7bb0dbcbd81bd32e28a2fc2c823d677fa33acc",
+          "current": "0fecd6ed78860564f78755370e7bb0dbcbd81bd32e28a2fc2c823d677fa33acc",
+          "identical": true
+        },
+        "mutable_scope": {
+          "train": "60427a1d08516c168e8cc37f8e8269af5464a0cf7a90192ebe9b9a2987ef6f8f",
+          "current": "60427a1d08516c168e8cc37f8e8269af5464a0cf7a90192ebe9b9a2987ef6f8f",
+          "identical": true
+        },
+        "restore_vehicles_from_json": {
+          "train": "1d6fbf87d81c43a9a10bdf546389626bd936f49e64059de33a257ee660fb7599",
+          "current": "1d6fbf87d81c43a9a10bdf546389626bd936f49e64059de33a257ee660fb7599",
+          "identical": true
+        },
+        "validate_full_partition": {
+          "train": "8bb30cef0ffb01fee7ce42017a587bfd3e7841ee56803e6482599cc39488c486",
+          "current": "8bb30cef0ffb01fee7ce42017a587bfd3e7841ee56803e6482599cc39488c486",
+          "identical": true
+        },
+        "validate_mask_scope": {
+          "train": "a28e308ad46d269a3395ff62382822567d8e08beddaad0e3bd41dc1f13a01e75",
+          "current": "91ecce724b04dc4882a4ebc0f536894ddd6e0c42c9558e9f059092c59505908b",
+          "identical": false
+        }
+      },
+      "n_identical": 8,
+      "n_functions": 9,
+      "all_identical": false
+    },
+    "cc_lns_replanner": {
+      "comparable": true,
+      "functions": {
+        "CCLNSReplanner": {
+          "train": "47cc46f6fd5a8212c7e8e09ee3ea10ac10c45595e6d07795a9abc7eaaa37cb49",
+          "current": "47cc46f6fd5a8212c7e8e09ee3ea10ac10c45595e6d07795a9abc7eaaa37cb49",
+          "identical": true
+        },
+        "_detour": {
+          "train": "ebeb1984aeb8349ca2a3925808e896428d4c1c063f02e9be4c3f8805d4c92d88",
+          "current": "ebeb1984aeb8349ca2a3925808e896428d4c1c063f02e9be4c3f8805d4c92d88",
+          "identical": true
+        },
+        "_event": {
+          "train": "1499c7baa975f1bfe175b1722a949892ee33ab93dd07d3667ac642049f4c854f",
+          "current": "1499c7baa975f1bfe175b1722a949892ee33ab93dd07d3667ac642049f4c854f",
+          "identical": true
+        },
+        "_partition_ok": {
+          "train": "9a0253725799f3a9ae664431a0d25715e1dc477becd7d5e7a4cde8f295566c33",
+          "current": "9a0253725799f3a9ae664431a0d25715e1dc477becd7d5e7a4cde8f295566c33",
+          "identical": true
+        },
+        "_plan_suffixes": {
+          "train": "07f74af97e641faf4681479e16253ce6ac2acbcfcc5f49b5c34220d315c6954c",
+          "current": "07f74af97e641faf4681479e16253ce6ac2acbcfcc5f49b5c34220d315c6954c",
+          "identical": true
+        },
+        "_reconstruct": {
+          "train": "49a8af3e7d52fb6d48cbda4804b59bf0502fbba096081c4ea8cd7ba277e63518",
+          "current": "49a8af3e7d52fb6d48cbda4804b59bf0502fbba096081c4ea8cd7ba277e63518",
+          "identical": true
+        },
+        "_select_one_mask": {
+          "train": "1d1530123c7c1b0477e85f6c81f16213e7d9ae152a822a812647904accde8bc9",
+          "current": "1d1530123c7c1b0477e85f6c81f16213e7d9ae152a822a812647904accde8bc9",
+          "identical": true
+        },
+        "cc_lns_search": {
+          "train": "a347d5c0a034d94e9a61d11a930cef4bd0e1220c4e8ab8fbb4eb3d92bc4f6221",
+          "current": "ae620d18e037a6f9c311a8c967d2a9e40ca59704e14fed9f1c4c6ae5c3da06e0",
+          "identical": false
+        }
+      },
+      "n_identical": 7,
+      "n_functions": 8,
+      "all_identical": false
+    }
+  },
+  "dynamic": {
+    "module": "dynmaskco_cc_context",
+    "n_states": 10,
+    "n_identical": 1,
+    "n_different": 9,
+    "different_states": [
+      "S1_plain_idle",
+      "S2_committed_next",
+      "S3_nonreplan_tail",
+      "S4_served",
+      "S5_protected_no_plans",
+      "S6_protected_with_plans",
+      "S7_deferred",
+      "S9_order_unsorted_visible",
+      "S10_depot_in_suffix"
+    ],
+    "rows": [
+      {
+        "state": "S1_plain_idle",
+        "identical": false,
+        "train": {
+          "decision_pool_ordered": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "mask_pool_ordered": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "mask_pool_noprotected": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "seeded_selection": [
+            5,
+            2,
+            2,
+            4,
+            5,
+            5,
+            3,
+            3
+          ],
+          "mutable_ids": [
+            1,
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            2
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        },
+        "current": {
+          "decision_pool_ordered": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "mask_pool_ordered": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "mask_pool_noprotected": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "seeded_selection": [
+            5,
+            2,
+            2,
+            4,
+            5,
+            5,
+            3,
+            3
+          ],
+          "mutable_ids": [
+            1,
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            2
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        }
+      },
+      {
+        "state": "S2_committed_next",
+        "identical": false,
+        "train": {
+          "decision_pool_ordered": [
+            1,
+            2,
+            5
+          ],
+          "mask_pool_ordered": [
+            1,
+            2,
+            5
+          ],
+          "mask_pool_noprotected": [
+            1,
+            2,
+            5
+          ],
+          "seeded_selection": [
+            5,
+            5,
+            1,
+            5,
+            1,
+            2,
+            5,
+            5
+          ],
+          "mutable_ids": [
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            2
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 3 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 3 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        },
+        "current": {
+          "decision_pool_ordered": [
+            1,
+            2,
+            5
+          ],
+          "mask_pool_ordered": [
+            1,
+            2,
+            5
+          ],
+          "mask_pool_noprotected": [
+            1,
+            2,
+            5
+          ],
+          "seeded_selection": [
+            5,
+            5,
+            1,
+            5,
+            1,
+            2,
+            5,
+            5
+          ],
+          "mutable_ids": [
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            2
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 3 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 3 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        }
+      },
+      {
+        "state": "S3_nonreplan_tail",
+        "identical": false,
+        "train": {
+          "decision_pool_ordered": [
+            1,
+            2,
+            5
+          ],
+          "mask_pool_ordered": [
+            1,
+            2,
+            5
+          ],
+          "mask_pool_noprotected": [
+            1,
+            2,
+            5
+          ],
+          "seeded_selection": [
+            5,
+            5,
+            1,
+            5,
+            1,
+            2,
+            5,
+            5
+          ],
+          "mutable_ids": [
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            2
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        },
+        "current": {
+          "decision_pool_ordered": [
+            1,
+            2,
+            5
+          ],
+          "mask_pool_ordered": [
+            1,
+            2,
+            5
+          ],
+          "mask_pool_noprotected": [
+            1,
+            2,
+            5
+          ],
+          "seeded_selection": [
+            5,
+            5,
+            1,
+            5,
+            1,
+            2,
+            5,
+            5
+          ],
+          "mutable_ids": [
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            2
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        }
+      },
+      {
+        "state": "S4_served",
+        "identical": false,
+        "train": {
+          "decision_pool_ordered": [
+            1,
+            3,
+            4,
+            5
+          ],
+          "mask_pool_ordered": [
+            1,
+            3,
+            4,
+            5
+          ],
+          "mask_pool_noprotected": [
+            1,
+            3,
+            4,
+            5
+          ],
+          "seeded_selection": [
+            3,
+            3,
+            5,
+            4,
+            4,
+            4,
+            4,
+            3
+          ],
+          "mutable_ids": [
+            1,
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        },
+        "current": {
+          "decision_pool_ordered": [
+            1,
+            3,
+            4,
+            5
+          ],
+          "mask_pool_ordered": [
+            1,
+            3,
+            4,
+            5
+          ],
+          "mask_pool_noprotected": [
+            1,
+            3,
+            4,
+            5
+          ],
+          "seeded_selection": [
+            3,
+            3,
+            5,
+            4,
+            4,
+            4,
+            4,
+            3
+          ],
+          "mutable_ids": [
+            1,
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        }
+      },
+      {
+        "state": "S5_protected_no_plans",
+        "identical": false,
+        "train": {
+          "decision_pool_ordered": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "mask_pool_ordered": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "mask_pool_noprotected": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "seeded_selection": [
+            2,
+            2,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2
+          ],
+          "mutable_ids": [
+            1,
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            2
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "AssertionError: mask 2 not from mutable_ids vehicle"
+          },
+          "validate_with_empty_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "AssertionError: mask 2 not from mutable_ids vehicle"
+          }
+        },
+        "current": {
+          "decision_pool_ordered": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "mask_pool_ordered": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "mask_pool_noprotected": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "seeded_selection": [
+            2,
+            2,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2
+          ],
+          "mutable_ids": [
+            1,
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            2
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        }
+      },
+      {
+        "state": "S6_protected_with_plans",
+        "identical": false,
+        "train": {
+          "decision_pool_ordered": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "mask_pool_ordered": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "mask_pool_noprotected": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "seeded_selection": [
+            2,
+            2,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2
+          ],
+          "mutable_ids": [
+            1,
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            2
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "AssertionError: mask 2 not from mutable_ids vehicle"
+          },
+          "validate_with_empty_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "AssertionError: mask 2 not from mutable_ids vehicle"
+          }
+        },
+        "current": {
+          "decision_pool_ordered": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "mask_pool_ordered": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "mask_pool_noprotected": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "seeded_selection": [
+            2,
+            2,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2
+          ],
+          "mutable_ids": [
+            1,
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            2
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        }
+      },
+      {
+        "state": "S7_deferred",
+        "identical": false,
+        "train": {
+          "decision_pool_ordered": [
+            1,
+            2,
+            3,
+            4,
+            9
+          ],
+          "mask_pool_ordered": [
+            1,
+            2,
+            3,
+            4,
+            9
+          ],
+          "mask_pool_noprotected": [
+            1,
+            2,
+            3,
+            4,
+            9
+          ],
+          "seeded_selection": [
+            9,
+            2,
+            2,
+            4,
+            9,
+            9,
+            3,
+            3
+          ],
+          "mutable_ids": [
+            1,
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            2,
+            4,
+            9
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        },
+        "current": {
+          "decision_pool_ordered": [
+            1,
+            2,
+            3,
+            4,
+            9
+          ],
+          "mask_pool_ordered": [
+            1,
+            2,
+            3,
+            4,
+            9
+          ],
+          "mask_pool_noprotected": [
+            1,
+            2,
+            3,
+            4,
+            9
+          ],
+          "seeded_selection": [
+            9,
+            2,
+            2,
+            4,
+            9,
+            9,
+            3,
+            3
+          ],
+          "mutable_ids": [
+            1,
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            2,
+            4,
+            9
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        }
+      },
+      {
+        "state": "S8_empty",
+        "identical": true,
+        "train": {
+          "decision_pool_ordered": [],
+          "mask_pool_ordered": [],
+          "mask_pool_noprotected": [],
+          "seeded_selection": [],
+          "mutable_ids": [],
+          "deferred_customers_in_pool": [],
+          "validate_with_faithful_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        },
+        "current": {
+          "decision_pool_ordered": [],
+          "mask_pool_ordered": [],
+          "mask_pool_noprotected": [],
+          "seeded_selection": [],
+          "mutable_ids": [],
+          "deferred_customers_in_pool": [],
+          "validate_with_faithful_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        }
+      },
+      {
+        "state": "S9_order_unsorted_visible",
+        "identical": false,
+        "train": {
+          "decision_pool_ordered": [
+            9,
+            2,
+            7,
+            1,
+            5
+          ],
+          "mask_pool_ordered": [
+            9,
+            2,
+            7,
+            1,
+            5
+          ],
+          "mask_pool_noprotected": [
+            9,
+            2,
+            7,
+            1,
+            5
+          ],
+          "seeded_selection": [
+            5,
+            2,
+            2,
+            1,
+            5,
+            5,
+            7,
+            7
+          ],
+          "mutable_ids": [
+            1,
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            5
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "AssertionError: mask 9 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        },
+        "current": {
+          "decision_pool_ordered": [
+            9,
+            2,
+            7,
+            1,
+            5
+          ],
+          "mask_pool_ordered": [
+            9,
+            2,
+            7,
+            1,
+            5
+          ],
+          "mask_pool_noprotected": [
+            9,
+            2,
+            7,
+            1,
+            5
+          ],
+          "seeded_selection": [
+            5,
+            2,
+            2,
+            1,
+            5,
+            5,
+            7,
+            7
+          ],
+          "mutable_ids": [
+            1,
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            5
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        }
+      },
+      {
+        "state": "S10_depot_in_suffix",
+        "identical": false,
+        "train": {
+          "decision_pool_ordered": [
+            1,
+            2,
+            4
+          ],
+          "mask_pool_ordered": [
+            1,
+            2,
+            4
+          ],
+          "mask_pool_noprotected": [
+            1,
+            2,
+            4
+          ],
+          "seeded_selection": [
+            4,
+            4,
+            1,
+            4,
+            1,
+            2,
+            4,
+            4
+          ],
+          "mutable_ids": [
+            1,
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            2
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "AssertionError: mask 1 not from mutable_ids vehicle",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        },
+        "current": {
+          "decision_pool_ordered": [
+            1,
+            2,
+            4
+          ],
+          "mask_pool_ordered": [
+            1,
+            2,
+            4
+          ],
+          "mask_pool_noprotected": [
+            1,
+            2,
+            4
+          ],
+          "seeded_selection": [
+            4,
+            4,
+            1,
+            4,
+            1,
+            2,
+            4,
+            4
+          ],
+          "mutable_ids": [
+            1,
+            2
+          ],
+          "deferred_customers_in_pool": [
+            1,
+            2
+          ],
+          "validate_with_faithful_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          },
+          "validate_with_empty_plans": {
+            "legal": "ok",
+            "not_in_pool": "AssertionError: mask 999 not in decision_pool",
+            "committed": "AssertionError: mask 999 not in decision_pool",
+            "protected_tail": "ok"
+          }
+        }
+      }
+    ],
+    "compared": [
+      "decision_pool order",
+      "mask_candidate_pool order (protected & not)",
+      "seeded selection over the ordered pool",
+      "validate_mask_scope accept/reject on a legal mask and on three clause-violating masks"
+    ]
+  },
+  "source_identity": {
+    "dynmaskco_cc_context": {
+      "train_path": "C-VRP_Cold-chainVehicleRoutingProblem\\negative_result_paper\\release\\v1_modules\\dynmaskco_cc_context.py",
+      "train_sha256": "9de8ceb54d088b8afa087948d6469f8cbd6f503678715bbf39e9971f5a91be54",
+      "train_sha_expected": "9de8ceb54d088b8afa087948d6469f8cbd6f503678715bbf39e9971f5a91be54",
+      "train_sha_matches": true,
+      "current_path": "C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\dynmaskco_cc_context.py",
+      "current_sha256": "4eebb2a51a024a9e881ce7100bbe568219e1afa5ac8c6d33c707924a36ff1685",
+      "bytes_train": 10886,
+      "bytes_current": 10728
+    },
+    "cc_lns_replanner": {
+      "train_path": "C-VRP_Cold-chainVehicleRoutingProblem\\negative_result_paper\\release\\v1_modules\\cc_lns_replanner.py",
+      "train_sha256": "7ea14c07e13943ea41bf9123f8c4f47d40546970b09d0e70777f8d4f8d9437c3",
+      "train_sha_expected": "7ea14c07e13943ea41bf9123f8c4f47d40546970b09d0e70777f8d4f8d9437c3",
+      "train_sha_matches": true,
+      "current_path": "C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\cc_lns_replanner.py",
+      "current_sha256": "ae634f5323595aafda85aaf8e99eb4e240173106d60b2523bb033ae603e22f25",
+      "bytes_train": 14278,
+      "bytes_current": 14412
+    },
+    "train_mpre_reinforce.py": {
+      "path": "scripts/training/train_mpre_reinforce.py",
+      "current_sha256": "33c617a3e24bfc4c5d68c2ca4e72f41561999906dcea4795493cc8a2aad1b5fd",
+      "sha_at_F_training": "33c617a3e24bfc4c5d68c2ca4e72f41561999906dcea4795493cc8a2aad1b5fd",
+      "matches": true,
+      "why_it_matters": "the TRAINER is where the F/E2 mask protocol must be comparable; this file is separate from the evaluation-time mask pool and the two requirements are NOT substitutes"
+    }
+  },
+  "verdict": {
+    "mask_pool": "behavior_different",
+    "basis": "the POOL GENERATORS (decision_pool_from_vehicles, mask_candidate_pool) are byte-identical, so the pool contents and order are the same; but these functions differ: validate_mask_scope; and the ordered/validated outputs differ on 9/10 suite states",
+    "geometric_arm_cc_lns_replanner": "functions_differ: cc_lns_search",
+    "not_proven": [
+      "the state suite is synthetic and branch-covering, NOT the historical public states; no historical state contents were reconstructed",
+      "a byte-identical function body proves input-output equivalence of that function, not of the module as a whole (module-level constants and imports are compared separately)",
+      "differing source SHA in files whose relevant functions ARE identical still means the files are not the same artefact: record the training-era identity explicitly in any later comparison",
+      "comparable mask protocol at EVALUATION time (F vs D) and comparable mask/data protocol at TRAINING time (F vs E2) are separate requirements; this audit only addresses the former"
+    ],
+    "consequence": "The mask POOL is provably identical (contents and order), so a shared-mask comparison (F vs D) is not invalidated by the drift. What changed is the ENFORCEMENT STRENGTH of mask legality: the current validate_mask_scope dropped the clause \"mask customer must come from a mutable_ids vehicle plan\", so it is strictly MORE PERMISSIVE — masks containing customers that sit in decision_pool but in no mutable vehicle plan suffix (deferred customers) now pass where the training-era version raised. A new experiment must therefore either adopt the current gate and declare the relaxation, or freeze the training-era gate; and F's training-era identity must be recorded either way. Separately, the D arm's cc_lns_search gained a time-budget break, so the D trajectory is not reproducible from the training-era file without that break.",
+    "practical_frequency_unknown": "the declared suite is synthetic and sparsely planned, so it does not measure how often real states contain pool customers outside every mutable plan suffix; the clause removal is proven, its real-world reach is not"
+  }
+}
