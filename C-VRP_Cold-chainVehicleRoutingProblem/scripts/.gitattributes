@@ -1,0 +1,18 @@
+# Byte-container freeze (project convention: "blob == worktree bytes" must survive a fresh
+# checkout even though core.autocrlf=true).
+#
+# Scope is deliberately NARROW.  A blanket `* -text` here would store the 34 CRLF `*.sh` files
+# under scripts/ as CRLF and rewrite their blobs, so only the files whose raw sha256 are
+# REGISTERED as evidence are pinned.  Registered by the D3-G0 Green Phase:
+#   scripts/simulation/d3_geo_adapter.py        099c3517472d886ece4ea3e929df2ec54d0e459b2a2e2e07da5b658acc07adc5
+#   scripts/tests/test_d3_g0_red_phase.py       779cafaf7876dc13ca11ef2bc8e83a11f595b9d15ef931c7d1636ca5816e01d9
+#   scripts/tests/test_d3_g0_green_phase.py     f7e0cb9a101e8f863c51270c204c797a04c2e6d9e34d6e4ac7702c6012e6620e
+#   scripts/tests/test_d3_geo_adapter.py        80ab32e96e20c4de19baca09f9324031a154cf65c272123117927c0b9b4962a6
+#   scripts/tests/test_d3_adapter_risks.py      916a7f80e573878f60ccddc920d0fdc0e31fdb7172da2ce08ad95d0495d7fe71
+#   scripts/tests/test_d3_assembly_invariants.py 384fb023b1f27cfc5c6dc25875a11c568cc11d7fbb6844fdeb635bb8750d1326
+simulation/d3_geo_adapter.py -text
+tests/test_d3_g0_red_phase.py -text
+tests/test_d3_g0_green_phase.py -text
+tests/test_d3_geo_adapter.py -text
+tests/test_d3_adapter_risks.py -text
+tests/test_d3_assembly_invariants.py -text

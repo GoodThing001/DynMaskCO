@@ -1,0 +1,401 @@
+diff --git a/C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_geo_adapter.py b/C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_geo_adapter.py
+index d8d655f..42dffab 100644
+--- a/C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_geo_adapter.py
++++ b/C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_geo_adapter.py
+@@ -22,6 +22,42 @@ the historical sampler's `np.argmax` semantics are what F was trained and tuned
+ Changing the shared decision path before the attribution comparison would silently change
+ the very policy being compared.  So the loop is mirrored here, the historical behaviour is
+ left byte-intact, and a test proves the historical mode reproduces it exactly.
++
++---------------------------------------------------------------------------
++G0-Safety Green Phase (batch 1, user-authorised 2026-10-14) -- SAFETY CONTRACT CHANGE
++---------------------------------------------------------------------------
++The Red Phase counterexample harness found nine reproduced interface-contract gaps.  This
++batch closes the five that are verifiable with synthetic hooks.  Every change below is a NEW
++safety semantic for INVALID / UNVERIFIED input; on legal input the decision path is unchanged
++(see `test_d3_g0_green_phase.py` block E, which diffs live vs the frozen pre-fix module).
++
++  S1 score-vector contract (A-1a/A-1b/A-1c): `ndim(scores) == 1` and
++     `len(scores) == len(legal)` are now enforced BEFORE selection, and a violation fails
++     CLOSED (`failure_reason in ('score_shape','score_len')`) -- it is not an exception, and it
++     is not a silent prefix/flattened-argmax selection.
++  S2 GEO index alignment (A-1d, and the A-1e index too): the state-supplied
++     `GEO_SCORE_KEY` vector and `vehicle_target_vid` must both be index-aligned with `legal`,
++     else fail closed (`'geo_len'`).
++  S3 mandatory certification at the INSTALL boundary (A-2): `stepwise_sample_d3` stays a pure
++     sampler, but `run_repair_transaction` refuses to proceed without a real certifier, and
++     `InstallLedger.finish` installs ONLY with certification evidence bound to the installed
++     plan's identity.  Counting certifications is NOT sufficient: the certified plan hash must
++     equal the installed plan hash.
++  S4 identity binding + immutability (A-4b): the certified plan hash is recorded at
++     certification; the ledger stores a VALUE COPY together with `plan_hash` /
++     `certified_plan_hash` / certifier identity, so the ledger cannot later "change its story".
++  S5 install idempotency + three-state rollback (A-5b/A-5d): `finish` may be called at most
++     once per ledger (one ledger = one transaction); a rollback now distinguishes
++     `candidate_discarded` / `committed_state_restored` / `rollback_unverified` instead of
++     counting every failure as a completed restoration.
++
++STILL OPEN after this batch (deferred to G0-Evidence, batch 2 -- do NOT read as fixed):
++  * A-3b: the adapter does not itself freeze/verify the committed prefix.  The real guard lives
++    on `VehicleState` + the mask pool.  Adding a same-named fake field would NOT fix it.
++  * A-5c: no durable `P_after_install` receipt.  The ledger receipts are IN-MEMORY only and
++    vanish with the process; no persistence surface is added by this batch.
++  * Contract/state identity binding for the certifier: only the PLAN identity is bound here.
++    Binding the C0 contract / state identity needs the assembly layer.
+ """
+ from __future__ import annotations
+ 
+@@ -69,7 +105,23 @@ TIE_BREAK_LEGAL_ORDER = 'legal_order_first'
+ TIE_BREAK_CANONICAL = 'canonical_key'
+ TIE_BREAKS = (TIE_BREAK_LEGAL_ORDER, TIE_BREAK_CANONICAL)
+ 
+-FAILURE_REASONS = (None, 'no_legal', 'nan', 'timeout', 'rollback', 'cert_fail')
++FAILURE_REASONS = (None, 'no_legal', 'nan', 'timeout', 'rollback', 'cert_fail',
++                   # G0-Safety batch 1: new CLEAN fail-closed reasons.  These are returned as
++                   # ordinary failure reasons (never raised), so a caller can never install on
++                   # them and an audit can tell them apart from a crash.
++                   'score_shape', 'score_len', 'geo_len', 'no_certifier')
++
++# Declarative safety contract (G0-Safety batch 1).  A plan may be installed only when a real
++# certifier ran, bound to the installed plan's identity.  The gate is enforced at the INSTALL
++# boundary (`run_repair_transaction` + `InstallLedger.finish`), NOT inside `stepwise_sample_d3`:
++# the sampler produces a candidate and installs nothing, and several historical tests exercise
++# it without a certifier on purpose.
++INSTALL_REQUIRES_CERTIFICATION = True
++
++# Reasons the INSTALL gate refuses to install, even with `failure_reason is None`.
++REFUSAL_REASONS = ('already_finished', 'certification_missing', 'certified_plan_hash_missing',
++                   'certified_plan_identity_mismatch', 'certifier_identity_missing',
++                   'decision_deadline_exceeded')
+ 
+ 
+ def sha256_of(path):
+@@ -85,6 +137,51 @@ def source_identity(paths):
+     return {str(p): sha256_of(p) for p in paths}
+ 
+ 
++# ---------------------------------------------------------------------------
++# plan identity (G0-Safety batch 1, S4)
++# ---------------------------------------------------------------------------
++def _plan_identity(plans):
++    """Deterministic identity of a full-fleet plan, or None when it cannot be computed.
++
++    Returns None rather than raising: the identity is used by a REFUSING gate, and a gate that
++    crashes on a malformed candidate would be strictly worse than one that refuses it.  A None
++    identity can never satisfy an identity comparison, so an unhashable plan is refused.
++    """
++    try:
++        from action_contract import plan_hash
++        return plan_hash(plans)
++    except Exception:                                            # noqa: BLE001 (refuse, don't crash)
++        return None
++
++
++def _copy_plan(plan):
++    """Value copy of a plan, so a ledger entry cannot be changed by an external mutation.
++
++    Handles the real `VehiclePlan` mapping and, for robustness, any other mapping by deep copy.
++    """
++    import copy as _copy
++    if not isinstance(plan, dict):
++        return _copy.deepcopy(plan)
++    out = {}
++    for vid, p in plan.items():
++        if all(hasattr(p, a) for a in ('vehicle_id', 'anchor_node', 'anchor_time',
++                                       'anchor_load', 'suffix')):
++            out[vid] = type(p)(p.vehicle_id, p.anchor_node, p.anchor_time, p.anchor_load,
++                               list(p.suffix))
++        else:
++            out[vid] = _copy.deepcopy(p)
++    return out
++
++
++def _callable_identity(fn):
++    """Stable, human-auditable identity of an injected callable (module + qualname)."""
++    if fn is None:
++        return None
++    mod = getattr(fn, '__module__', None)
++    name = getattr(fn, '__qualname__', None) or getattr(fn, '__name__', None)
++    return ('%s.%s' % (mod, name)) if mod and name else (name or repr(fn))
++
++
+ # ---------------------------------------------------------------------------
+ # ordered-mask discipline
+ # ---------------------------------------------------------------------------
+@@ -339,7 +436,12 @@ def stepwise_sample_d3(*, score_fn, extract_fn, legal_fn, apply_fn, plans, mask_
+     remaining = list(mask)
+     records, steps = [], []
+     diag = {'selector': selector, 'mask_order': list(mask), 'divergence': None,
+-            'n_steps': 0}
++            'n_steps': 0,
++            # G0-Safety batch 1: certification/deadline evidence is ALWAYS present, so the install
++            # gate never has to guess whether a field is absent or False.  Defaults describe the
++            # truthful initial state: nothing has been certified yet.
++            'certified': False, 'certifier': None, 'certified_plan_hash': None,
++            'deadline_ok': None}
+ 
+     def _rollback(reason):
+         """Return the ORIGINAL plan + keep the partial one as evidence."""
+@@ -364,6 +466,23 @@ def stepwise_sample_d3(*, score_fn, extract_fn, legal_fn, apply_fn, plans, mask_
+             return _rollback('no_legal')
+         state = extract_fn(P, remaining, legal)
+         scores = np.asarray(score_fn(state))
++        # ---- S1 score-vector contract (A-1a / A-1b / A-1c) --------------------------------
++        # The injected scorer is an INTERFACE.  A short vector used to be silently scored as a
++        # prefix (wrong action chosen, failure_reason None); an over-long one raised only when
++        # the flattened argmax happened to fall outside `legal`; a 2-D one was flattened by
++        # `np.argmax` (silently denoting a different candidate) and then crashed inside this
++        # function's own evidence recorder.  All three are now CLEAN fail-closed refusals, and
++        # the check runs BEFORE `np.isfinite`, so `scores[idx]` below is always a scalar.
++        if scores.ndim != 1:
++            diag['score_contract'] = {'violation': 'ndim != 1', 'ndim': int(scores.ndim),
++                                      'shape': list(scores.shape), 'n_legal': len(legal)}
++            return _rollback('score_shape')
++        if scores.shape[0] != len(legal):
++            diag['score_contract'] = {'violation': 'len(scores) != len(legal)',
++                                      'len_scores': int(scores.shape[0]),
++                                      'n_legal': len(legal)}
++            return _rollback('score_len')
++        # counted only once the vector is a valid score for every legal action
+         budget.bump('n_actions_scored', len(scores))
+         if not np.isfinite(scores).all():
+             return _rollback('nan')
+@@ -379,9 +498,31 @@ def stepwise_sample_d3(*, score_fn, extract_fn, legal_fn, apply_fn, plans, mask_
+                 idx = int(rng.choice(len(legal), p=probs))
+                 sel = {'rule': 'historical softmax sampling'}
+         else:
+-            keys = [canonical_action_key(c, a, state['vehicle_target_vid'][i])
++            # ---- S2 GEO index alignment (A-1d, and the A-1e index as well) -----------------
++            # `select_geo` anchors its tie set to `min(deltas)` over the vector it is GIVEN, so a
++            # truncated vector silently drops the true minimum.  The keys are indexed by
++            # `vehicle_target_vid`, so a short one would mis-key the tie.  Both are validated
++            # against `legal` before use: an injected state supplier is an interface too.
++            try:
++                geo_vec = state[GEO_SCORE_KEY]
++            except (KeyError, IndexError, TypeError):
++                diag['geo_contract'] = {'violation': 'missing %s' % GEO_SCORE_KEY,
++                                       'n_legal': len(legal)}
++                return _rollback('geo_len')
++            try:
++                vids = state['vehicle_target_vid']
++            except (KeyError, IndexError, TypeError):
++                diag['geo_contract'] = {'violation': 'missing vehicle_target_vid',
++                                       'n_legal': len(legal)}
++                return _rollback('geo_len')
++            if len(geo_vec) != len(legal) or len(vids) != len(legal):
++                diag['geo_contract'] = {'violation': 'index vector not aligned with legal',
++                                       'len_geo': len(geo_vec), 'len_vids': len(vids),
++                                       'n_legal': len(legal)}
++                return _rollback('geo_len')
++            keys = [canonical_action_key(c, a, vids[i])
+                     for i, (c, a, _cand) in enumerate(legal)]
+-            idx, sel = select_geo(state[GEO_SCORE_KEY], keys, eps_rel, eps_abs, tie_break)
++            idx, sel = select_geo(geo_vec, keys, eps_rel, eps_abs, tie_break)
+         c, a, _cand = legal[idx]
+         vid = state['vehicle_target_vid'][idx]
+         # A4 evidence: raw legal order, canonical keys, distance ties and EXACT score ties are
+@@ -412,6 +553,11 @@ def stepwise_sample_d3(*, score_fn, extract_fn, legal_fn, apply_fn, plans, mask_
+     if certify_fn is not None:
+         ok, detail = certify_fn(P)
+         budget.bump('n_candidate_plans_certified')
++        # S3/S4: bind the certification to the EXACT plan object that was certified.  A count of
++        # certifications cannot distinguish "certified A, installed B"; the hash can.
++        diag['certified'] = True
++        diag['certifier'] = _callable_identity(certify_fn)
++        diag['certified_plan_hash'] = _plan_identity(P)
+         if not ok:
+             diag['certify_detail'] = detail
+             return _rollback('cert_fail')
+@@ -422,42 +568,140 @@ def stepwise_sample_d3(*, score_fn, extract_fn, legal_fn, apply_fn, plans, mask_
+             diag['timed_out'] = True
+             diag['timed_out_after_certification'] = True
+             return _rollback('timeout')
++    else:
++        # NOT an error here: this sampler installs nothing, so it stays a pure candidate
++        # generator.  The MANDATORY gate is at the install boundary (`run_repair_transaction`
++        # refuses without a certifier; `InstallLedger.finish` refuses without bound evidence).
++        diag['certified'] = False
++        diag['certifier'] = None
++        diag['certified_plan_hash'] = None
++        diag['certification_note'] = ('no certifier supplied: this is a candidate only and MUST '
++                                      'NOT be installed; the install gate refuses it')
+     budget.add_wall(time.perf_counter() - t0)
+     diag['n_steps'] = len(steps)
++    diag['deadline_ok'] = True          # every ceiling check above was passed
+     return P, steps, records, None, diag
+ 
+ 
+ class InstallLedger(object):
+-    """SAFETY ADDITION (not historical-behaviour identity).
++    """SAFETY ADDITION (not historical-behaviour identity).  ONE LEDGER == ONE TRANSACTION.
+ 
+     The historical decision path has no transaction concept: it returns a plan and the caller
+     decides.  This ledger makes the invariant explicit and testable -- a plan may be installed
+-    ONLY when `failure_reason is None`, otherwise the caller rolls back to `P_before`.  Note the
+-    two propositions are different: "F's selection rule is unchanged" is a strict requirement;
+-    "F's post-failure install behaviour is unchanged" is NOT claimed -- the new layer adds
+-    fail-closed protection, which is declared here as a safety improvement.
++    ONLY when all of the following hold (G0-Safety batch 1):
++      * `failure_reason is None` (the candidate itself succeeded);
++      * a real certifier ran (`certified is True`) and its identity is recorded;
++      * the certification was bound to a plan identity (`certified_plan_hash` is present);
++      * the installed plan's identity EQUALS the certified plan's identity -- counting
++        certifications cannot distinguish "certified A, installed B";
++      * the decision deadline was not blown (`deadline_ok is not False`).
++
++    Anything else is a REFUSAL (`n_refusals`, event `action='refuse'`), which is different from a
++    rollback: nothing was changed, so there is nothing to restore.  Three rollback states are now
++    distinguished rather than counted as one:
++        candidate_discarded       - the failed candidate is not installed (always True on failure)
++        committed_state_restored  - `rollback_fn` actually ran
++        rollback_unverified       - no `rollback_fn` was supplied, so restoration is NOT proven
++    `n_rollbacks` keeps its historical meaning ("failure paths taken") and is NOT a claim that
++    committed state was restored -- read `n_state_restorations` / `n_rollback_unverified`.  A
++    transaction refused BEFORE any candidate existed counts in `n_pre_sampling_refusals`
++    instead, so it can never be read as a rollback that restored something.
++
++    Receipts are IN-MEMORY ONLY (G0-Evidence batch 2 owns persistence); this class exposes no
++    persistence surface and must not be described as producing a durable `P_after_install`.
+     """
+ 
+     def __init__(self, install_fn, rollback_fn=None):
+         self.install_fn = install_fn
+         self.rollback_fn = rollback_fn
+         self.n_installs = 0
+-        self.n_rollbacks = 0
+-        self.installed_plans = []
++        self.n_rollbacks = 0                 # failure paths taken (== candidates discarded)
++        self.n_refusals = 0                  # install refused by the safety gate
++        self.n_pre_sampling_refusals = 0     # refused BEFORE any candidate existed
++        self.n_state_restorations = 0        # `rollback_fn` actually invoked
++        self.n_rollback_unverified = 0       # failure with no rollback_fn -> NOT proven restored
++        self.installed_plans = []            # value copies, so an external mutation cannot lie
++        self.installs = []                   # identity-bound receipts
+         self.events = []
+-
+-    def finish(self, *, failure_reason, plan, original_plan):
+-        """Install iff the repair succeeded; otherwise roll back and record the event."""
++        self.finished = False                # S5 idempotency guard
++
++    def finish(self, *, failure_reason, plan, original_plan,
++               certified=None, certified_plan_hash=None, certifier=None, deadline_ok=None,
++               refused_before_sampling=False):
++        """Install iff the repair succeeded AND the certification is bound to this plan."""
++        # ---- S5: one ledger is one transaction; a second finish is refused, never repeated -----
++        if self.finished:
++            self.n_refusals += 1
++            self.events.append({'action': 'refuse', 'reason': 'already_finished',
++                                'candidate_discarded': True,
++                                'committed_state_restored': True,
++                                'rollback_unverified': False})
++            return False
+         if failure_reason is not None:
++            self.finished = True
++            if refused_before_sampling:
++                # No candidate was ever produced and nothing was changed: this is a REFUSAL, not
++                # a rollback, and it must not be counted as a restoration of committed state.
++                self.n_pre_sampling_refusals += 1
++                self.events.append({'action': 'refuse', 'reason': failure_reason,
++                                    'refused_before_sampling': True,
++                                    'candidate_discarded': True,
++                                    'committed_state_restored': True,
++                                    'rollback_unverified': False})
++                return False
+             self.n_rollbacks += 1
++            restored = False
+             if self.rollback_fn is not None:
+                 self.rollback_fn(original_plan)
+-            self.events.append({'action': 'rollback', 'reason': failure_reason})
++                restored = True
++                self.n_state_restorations += 1
++            else:
++                self.n_rollback_unverified += 1
++            self.events.append({'action': 'rollback', 'reason': failure_reason,
++                                'candidate_discarded': True,
++                                'committed_state_restored': restored,
++                                'rollback_unverified': not restored})
++            return False
++        # ---- S3/S4: the install gate ---------------------------------------------------------
++        installed_hash = _plan_identity(plan)
++        why = None
++        if certified is not True:
++            why = 'certification_missing'
++        elif not certified_plan_hash:
++            why = 'certified_plan_hash_missing'
++        elif installed_hash != certified_plan_hash:
++            why = 'certified_plan_identity_mismatch'
++        elif not certifier:
++            why = 'certifier_identity_missing'
++        elif deadline_ok is False:
++            why = 'decision_deadline_exceeded'
++        if why is not None:
++            self.finished = True
++            self.n_refusals += 1
++            self.events.append({'action': 'refuse', 'reason': why,
++                                'installed_plan_hash': installed_hash,
++                                'certified_plan_hash': certified_plan_hash,
++                                'certifier': certifier,
++                                'candidate_discarded': True,
++                                'committed_state_restored': True,   # nothing was changed
++                                'rollback_unverified': False})
+             return False
+         self.install_fn(plan)
+         self.n_installs += 1
+-        self.installed_plans.append(plan)
+-        self.events.append({'action': 'install', 'reason': None})
++        stored = _copy_plan(plan)
++        self.installed_plans.append(stored)
++        self.installs.append({'plan_hash': installed_hash,
++                              'certified_plan_hash': certified_plan_hash,
++                              'certifier': certifier,
++                              'plan': stored})
++        self.finished = True
++        self.events.append({'action': 'install', 'reason': None,
++                            'plan_hash': installed_hash,
++                            'certified_plan_hash': certified_plan_hash,
++                            'certifier': certifier,
++                            'candidate_discarded': False,
++                            'committed_state_restored': False,
++                            'rollback_unverified': False})
+         return True
+ 
+ 
+@@ -466,19 +710,36 @@ def run_repair_transaction(*, ledger, **kwargs):
+ 
+     Any exception raised by the injected hooks is converted into a failure reason, so the
+     caller can never install on an exception path.  Returns the ledger's `finish()` result.
++
++    G0-Safety batch 1 (S3): certification is MANDATORY here.  Without a `certify_fn` the
++    transaction refuses BEFORE sampling (`failure_reason='no_certifier'`, zero installs, the
++    original plan returned) instead of silently installing an uncertified plan.  This is a
++    deliberate safety-contract change: the previous behaviour -- install with
++    `n_candidate_plans_certified == 0` -- is the G0-01 counterexample.
+     """
+     plans = kwargs.get('plans')
++    if INSTALL_REQUIRES_CERTIFICATION and kwargs.get('certify_fn') is None:
++        return ledger.finish(failure_reason='no_certifier',
++                             plan=dict(plans) if plans is not None else {},
++                             original_plan=dict(plans) if plans is not None else {},
++                             refused_before_sampling=True)
+     try:
+         plan, _steps, _records, failure_reason, diag = stepwise_sample_d3(**kwargs)
+     except BaseException as exc:
+         plan = dict(plans) if plans is not None else {}
+         failure_reason = 'exception:%s' % type(exc).__name__
+-        diag = {'exception': repr(exc)[:400], 'rollback': True, 'n_steps': 0}
++        diag = {'exception': repr(exc)[:400], 'rollback': True, 'n_steps': 0,
++                'certified': False, 'certifier': None, 'certified_plan_hash': None,
++                'deadline_ok': None}
+         ledger.events.append({'action': 'exception', 'reason': failure_reason})
+     if failure_reason is not None and diag.get('timed_out'):
+         diag['counted_as'] = 'timeout (never a normal completion)'
+     return ledger.finish(failure_reason=failure_reason, plan=plan,
+-                         original_plan=dict(plans) if plans is not None else {})
++                         original_plan=dict(plans) if plans is not None else {},
++                         certified=diag.get('certified'),
++                         certified_plan_hash=diag.get('certified_plan_hash'),
++                         certifier=diag.get('certifier'),
++                         deadline_ok=diag.get('deadline_ok'))
+ 
+ 
+ def distance_stability_report(pairs):

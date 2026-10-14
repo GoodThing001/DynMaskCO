@@ -1,0 +1,990 @@
+{
+  "stage": "D3_G0_Green_Phase_batch1_differential",
+  "production_source_modified": true,
+  "scientific_data_used": false,
+  "checkpoint_loaded": false,
+  "prefix_base_commit": "87c6a5c",
+  "prefix_sha256": "f7480925f339555982e12bed58600e5b8dd96825f077a88ddf9857b80af676bb",
+  "prefix_sha256_observed": "f7480925f339555982e12bed58600e5b8dd96825f077a88ddf9857b80af676bb",
+  "results": [
+    {
+      "block": "F",
+      "name": "the pre-fix module under test is byte-identical to commit 87c6a5c",
+      "ok": true,
+      "detail": {
+        "want": "f7480925f339555982e12bed58600e5b8dd96825f077a88ddf9857b80af676bb",
+        "got": "f7480925f339555982e12bed58600e5b8dd96825f077a88ddf9857b80af676bb"
+      }
+    },
+    {
+      "block": "P",
+      "name": "P1 A-2   install without certification",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "returned": true,
+          "n_installs": 1,
+          "n_install_fn_calls": 1,
+          "n_pre_sampling_refusals": "ABSENT",
+          "n_rollbacks": 0,
+          "last_event": {
+            "action": "install",
+            "reason": null
+          }
+        }
+      }
+    },
+    {
+      "block": "P",
+      "name": "P2 A-2   no identity concept to bind",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "returned": true,
+          "n_installs": 1,
+          "hash_certified": "f9111c60a3926d5f",
+          "hash_installed": "5f8c9f0e3ba8076d",
+          "hashes_differ": true,
+          "last_event": {
+            "action": "install",
+            "reason": null
+          }
+        }
+      }
+    },
+    {
+      "block": "P",
+      "name": "P3 A-1a  short score silently used",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "fr": null,
+          "chosen": [
+            4,
+            5,
+            6
+          ],
+          "n_legal": 3,
+          "score_len": 1,
+          "diag_score_contract": null
+        }
+      }
+    },
+    {
+      "block": "P",
+      "name": "P4 A-1b  over-long score silently used",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "inside_exception": null,
+          "inside_fr": null,
+          "inside_chosen": [
+            4,
+            5,
+            6
+          ],
+          "beyond_exception": "IndexError: list index out of range",
+          "beyond_fr": null,
+          "n_legal": 3,
+          "score_len": 4
+        }
+      }
+    },
+    {
+      "block": "P",
+      "name": "P5 A-1c  2-D score flattened by the primitive",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "primitive_flat_index": 2,
+          "intended_row_index": 1,
+          "primitive_mis_indexes": true,
+          "adapter_exception": "ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()",
+          "adapter_fr": null,
+          "adapter_diag": null
+        }
+      }
+    },
+    {
+      "block": "P",
+      "name": "P6 A-1d  truncated GEO vector silently used",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "exception": null,
+          "fr": null,
+          "chosen": [
+            4,
+            6,
+            5
+          ],
+          "true_best_customer": 6,
+          "delta_len_injected": 2,
+          "n_legal": 3,
+          "diag_geo_contract": null
+        }
+      }
+    },
+    {
+      "block": "P",
+      "name": "P7 A-4b  no identity recorded",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "returned": true,
+          "fr": null,
+          "n_installs": 1,
+          "certifier": null,
+          "certified_plan_hash": null,
+          "expected_hash": "f9111c60a3926d5f",
+          "hash_after_mutation": "c4ab937dde7bed21",
+          "mutation_was_real": true,
+          "receipt_plan_hash": null,
+          "entry_before": {
+            "1": [
+              4
+            ],
+            "2": [],
+            "3": [
+              5
+            ]
+          },
+          "entry_after": {
+            "1": [
+              999
+            ],
+            "2": [],
+            "3": [
+              5
+            ]
+          },
+          "ledger_entry_stable_under_external_mutation": false,
+          "receipt_stable_under_external_mutation": true,
+          "install_event": {
+            "action": "install",
+            "reason": null
+          }
+        }
+      }
+    },
+    {
+      "block": "P",
+      "name": "P8 A-5b  finish twice installs twice",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "first": true,
+          "second": true,
+          "n_installs": 2,
+          "n_refusals": "ABSENT",
+          "last_event": {
+            "action": "install",
+            "reason": null
+          }
+        }
+      }
+    },
+    {
+      "block": "P",
+      "name": "P9 A-5d  unbacked rollback unflagged",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "unbacked_event": {
+            "action": "rollback",
+            "reason": "no_legal"
+          },
+          "unbacked_flagged": false,
+          "unbacked_restored_flag": null,
+          "backed_event": {
+            "action": "rollback",
+            "reason": "no_legal"
+          },
+          "backed_rollback_fn_calls": 1,
+          "backed_n_state_restorations": "ABSENT"
+        }
+      }
+    },
+    {
+      "block": "G",
+      "name": "G1  A-2 no certifier -> refused BEFORE sampling, zero installs",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "returned": false,
+          "n_installs": 0,
+          "n_install_fn_calls": 0,
+          "n_pre_sampling_refusals": 1,
+          "n_rollbacks": 0,
+          "last_event": {
+            "action": "refuse",
+            "reason": "no_certifier",
+            "refused_before_sampling": true,
+            "candidate_discarded": true,
+            "committed_state_restored": true,
+            "rollback_unverified": false
+          }
+        }
+      }
+    },
+    {
+      "block": "G",
+      "name": "G2  A-2 certified plan A cannot be swapped for plan B",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "returned": false,
+          "n_installs": 0,
+          "hash_certified": "f9111c60a3926d5f",
+          "hash_installed": "5f8c9f0e3ba8076d",
+          "hashes_differ": true,
+          "last_event": {
+            "action": "refuse",
+            "reason": "certified_plan_identity_mismatch",
+            "installed_plan_hash": "5f8c9f0e3ba8076d",
+            "certified_plan_hash": "f9111c60a3926d5f",
+            "certifier": "test.certifier",
+            "candidate_discarded": true,
+            "committed_state_restored": true,
+            "rollback_unverified": false
+          }
+        }
+      }
+    },
+    {
+      "block": "G",
+      "name": "G3  A-2 decision deadline blown -> refused, zero installs",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "returned": false,
+          "n_installs": 0,
+          "last_event": {
+            "action": "refuse",
+            "reason": "decision_deadline_exceeded",
+            "installed_plan_hash": "f9111c60a3926d5f",
+            "certified_plan_hash": "f9111c60a3926d5f",
+            "certifier": "test.certifier",
+            "candidate_discarded": true,
+            "committed_state_restored": true,
+            "rollback_unverified": false
+          }
+        }
+      }
+    },
+    {
+      "block": "G",
+      "name": "G4  A-1a short score -> clean fail-closed score_len (no silent prefix)",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "fr": "score_len",
+          "chosen": [],
+          "n_legal": 3,
+          "score_len": 1,
+          "diag_score_contract": {
+            "violation": "len(scores) != len(legal)",
+            "len_scores": 1,
+            "n_legal": 3
+          }
+        }
+      }
+    },
+    {
+      "block": "G",
+      "name": "G5  A-1b over-long score -> clean fail-closed score_len in BOTH branches",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "inside_exception": null,
+          "inside_fr": "score_len",
+          "inside_chosen": [],
+          "beyond_exception": null,
+          "beyond_fr": "score_len",
+          "n_legal": 3,
+          "score_len": 4
+        }
+      }
+    },
+    {
+      "block": "G",
+      "name": "G6  A-1c 2-D score -> clean fail-closed score_shape, never reaches selection",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "primitive_flat_index": 2,
+          "intended_row_index": 1,
+          "primitive_mis_indexes": true,
+          "adapter_exception": null,
+          "adapter_fr": "score_shape",
+          "adapter_diag": {
+            "violation": "ndim != 1",
+            "ndim": 2,
+            "shape": [
+              3,
+              2
+            ],
+            "n_legal": 3
+          }
+        }
+      }
+    },
+    {
+      "block": "G",
+      "name": "G7  A-1d truncated GEO vector -> clean fail-closed geo_len (no silent miss)",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "exception": null,
+          "fr": "geo_len",
+          "chosen": [],
+          "true_best_customer": 6,
+          "delta_len_injected": 2,
+          "n_legal": 3,
+          "diag_geo_contract": {
+            "violation": "index vector not aligned with legal",
+            "len_geo": 2,
+            "len_vids": 3,
+            "n_legal": 3
+          }
+        }
+      }
+    },
+    {
+      "block": "G",
+      "name": "G8  A-1d short vehicle_target_vid -> clean fail-closed geo_len (was IndexError)",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "exception": null,
+          "fr": "geo_len",
+          "diag_geo_contract": {
+            "violation": "index vector not aligned with legal",
+            "len_geo": 3,
+            "len_vids": 2,
+            "n_legal": 3
+          }
+        }
+      }
+    },
+    {
+      "block": "G",
+      "name": "G9  A-4b install is identity-bound and immutable under external mutation",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "returned": true,
+          "fr": null,
+          "n_installs": 1,
+          "certifier": "__main__.c_A4b_identity.<locals>.<lambda>",
+          "certified_plan_hash": "f9111c60a3926d5f",
+          "expected_hash": "f9111c60a3926d5f",
+          "hash_after_mutation": "c4ab937dde7bed21",
+          "mutation_was_real": true,
+          "receipt_plan_hash": "f9111c60a3926d5f",
+          "entry_before": {
+            "1": [
+              4
+            ],
+            "2": [],
+            "3": [
+              5
+            ]
+          },
+          "entry_after": {
+            "1": [
+              4
+            ],
+            "2": [],
+            "3": [
+              5
+            ]
+          },
+          "ledger_entry_stable_under_external_mutation": true,
+          "receipt_stable_under_external_mutation": true,
+          "install_event": {
+            "action": "install",
+            "reason": null,
+            "plan_hash": "f9111c60a3926d5f",
+            "certified_plan_hash": "f9111c60a3926d5f",
+            "certifier": "__main__.c_A4b_identity.<locals>.<lambda>",
+            "candidate_discarded": false,
+            "committed_state_restored": false,
+            "rollback_unverified": false
+          }
+        }
+      }
+    },
+    {
+      "block": "G",
+      "name": "G10 A-5b second finish -> refused already_finished, exactly one install",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "first": true,
+          "second": false,
+          "n_installs": 1,
+          "n_refusals": 1,
+          "last_event": {
+            "action": "refuse",
+            "reason": "already_finished",
+            "candidate_discarded": true,
+            "committed_state_restored": true,
+            "rollback_unverified": false
+          }
+        }
+      }
+    },
+    {
+      "block": "G",
+      "name": "G11 A-5d three-state rollback: unverified != restored",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "unbacked_event": {
+            "action": "rollback",
+            "reason": "no_legal",
+            "candidate_discarded": true,
+            "committed_state_restored": false,
+            "rollback_unverified": true
+          },
+          "unbacked_flagged": true,
+          "unbacked_restored_flag": false,
+          "backed_event": {
+            "action": "rollback",
+            "reason": "no_legal",
+            "candidate_discarded": true,
+            "committed_state_restored": true,
+            "rollback_unverified": false
+          },
+          "backed_rollback_fn_calls": 1,
+          "backed_n_state_restorations": 1
+        }
+      }
+    },
+    {
+      "block": "G",
+      "name": "G12 acc#4 every failure path: sampler returns the ORIGINAL plan, transaction installs ZERO times, source plan unmutated, no crash",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "rows": {
+            "no_legal": {
+              "sampler_exception": null,
+              "sampler_fr": "no_legal",
+              "sampler_returned_plan": {
+                "1": [
+                  4
+                ],
+                "2": [],
+                "3": [
+                  5
+                ]
+              },
+              "tx_exception": null,
+              "tx_returned": false,
+              "tx_n_installs": 0,
+              "tx_n_install_fn_calls": 0
+            },
+            "nan": {
+              "sampler_exception": null,
+              "sampler_fr": "nan",
+              "sampler_returned_plan": {
+                "1": [
+                  4
+                ],
+                "2": [],
+                "3": [
+                  5
+                ]
+              },
+              "tx_exception": null,
+              "tx_returned": false,
+              "tx_n_installs": 0,
+              "tx_n_install_fn_calls": 0
+            },
+            "timeout": {
+              "sampler_exception": null,
+              "sampler_fr": "timeout",
+              "sampler_returned_plan": {
+                "1": [
+                  4
+                ],
+                "2": [],
+                "3": [
+                  5
+                ]
+              },
+              "tx_exception": null,
+              "tx_returned": false,
+              "tx_n_installs": 0,
+              "tx_n_install_fn_calls": 0
+            },
+            "score_len": {
+              "sampler_exception": null,
+              "sampler_fr": "score_len",
+              "sampler_returned_plan": {
+                "1": [
+                  4
+                ],
+                "2": [],
+                "3": [
+                  5
+                ]
+              },
+              "tx_exception": null,
+              "tx_returned": false,
+              "tx_n_installs": 0,
+              "tx_n_install_fn_calls": 0
+            }
+          },
+          "original": {
+            "1": [
+              4
+            ],
+            "2": [],
+            "3": [
+              5
+            ]
+          },
+          "source_plan_unchanged": true,
+          "all_failed_closed": true,
+          "all_sampler_returned_original": true,
+          "all_tx_zero_installs": true,
+          "no_exception": true
+        }
+      }
+    },
+    {
+      "block": "E",
+      "name": "E1 no exception in either module's equivalence battery",
+      "ok": true,
+      "detail": {
+        "live": null,
+        "prefix": null
+      }
+    },
+    {
+      "block": "E",
+      "name": "E2 GEO selector: identical steps + failure reason (legal input)",
+      "ok": true,
+      "detail": {
+        "live": {
+          "exact_tie_2": {
+            "steps": [
+              {
+                "customer": 5,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 0,
+                "predecessor": 3,
+                "successor": 3,
+                "incremental_distance": 5.0
+              },
+              {
+                "customer": 4,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 1,
+                "predecessor": 0,
+                "successor": 0,
+                "incremental_distance": 5.0
+              }
+            ],
+            "fr": null
+          },
+          "distinct_3": {
+            "steps": [
+              {
+                "customer": 6,
+                "vehicle_id": 2,
+                "slot_kind": "new_route",
+                "slot_anchor": -1,
+                "position": 0,
+                "predecessor": -1,
+                "successor": -1,
+                "incremental_distance": 1.0
+              },
+              {
+                "customer": 4,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 0,
+                "predecessor": 3,
+                "successor": 3,
+                "incremental_distance": 5.0
+              },
+              {
+                "customer": 5,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 1,
+                "predecessor": 0,
+                "successor": 0,
+                "incremental_distance": 6.0
+              }
+            ],
+            "fr": null
+          },
+          "one_legal": {
+            "steps": [
+              {
+                "customer": 4,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 0,
+                "predecessor": 3,
+                "successor": 3,
+                "incremental_distance": 3.0
+              }
+            ],
+            "fr": null
+          }
+        },
+        "prefix": {
+          "exact_tie_2": {
+            "steps": [
+              {
+                "customer": 5,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 0,
+                "predecessor": 3,
+                "successor": 3,
+                "incremental_distance": 5.0
+              },
+              {
+                "customer": 4,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 1,
+                "predecessor": 0,
+                "successor": 0,
+                "incremental_distance": 5.0
+              }
+            ],
+            "fr": null
+          },
+          "distinct_3": {
+            "steps": [
+              {
+                "customer": 6,
+                "vehicle_id": 2,
+                "slot_kind": "new_route",
+                "slot_anchor": -1,
+                "position": 0,
+                "predecessor": -1,
+                "successor": -1,
+                "incremental_distance": 1.0
+              },
+              {
+                "customer": 4,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 0,
+                "predecessor": 3,
+                "successor": 3,
+                "incremental_distance": 5.0
+              },
+              {
+                "customer": 5,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 1,
+                "predecessor": 0,
+                "successor": 0,
+                "incremental_distance": 6.0
+              }
+            ],
+            "fr": null
+          },
+          "one_legal": {
+            "steps": [
+              {
+                "customer": 4,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 0,
+                "predecessor": 3,
+                "successor": 3,
+                "incremental_distance": 3.0
+              }
+            ],
+            "fr": null
+          }
+        }
+      }
+    },
+    {
+      "block": "E",
+      "name": "E3 historical selector: identical steps (projected) + failure reason",
+      "ok": true,
+      "detail": {
+        "live": {
+          "exact_tie_2": {
+            "steps": [
+              {
+                "customer": 5,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 0,
+                "predecessor": 3,
+                "successor": 3
+              },
+              {
+                "customer": 4,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 1,
+                "predecessor": 0,
+                "successor": 0
+              }
+            ],
+            "fr": null
+          },
+          "distinct_3": {
+            "steps": [
+              {
+                "customer": 4,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 0,
+                "predecessor": 3,
+                "successor": 3
+              },
+              {
+                "customer": 5,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 1,
+                "predecessor": 0,
+                "successor": 0
+              },
+              {
+                "customer": 6,
+                "vehicle_id": 2,
+                "slot_kind": "new_route",
+                "slot_anchor": -1,
+                "position": 0,
+                "predecessor": -1,
+                "successor": -1
+              }
+            ],
+            "fr": null
+          },
+          "one_legal": {
+            "steps": [
+              {
+                "customer": 4,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 0,
+                "predecessor": 3,
+                "successor": 3
+              }
+            ],
+            "fr": null
+          }
+        },
+        "prefix": {
+          "exact_tie_2": {
+            "steps": [
+              {
+                "customer": 5,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 0,
+                "predecessor": 3,
+                "successor": 3
+              },
+              {
+                "customer": 4,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 1,
+                "predecessor": 0,
+                "successor": 0
+              }
+            ],
+            "fr": null
+          },
+          "distinct_3": {
+            "steps": [
+              {
+                "customer": 4,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 0,
+                "predecessor": 3,
+                "successor": 3
+              },
+              {
+                "customer": 5,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 1,
+                "predecessor": 0,
+                "successor": 0
+              },
+              {
+                "customer": 6,
+                "vehicle_id": 2,
+                "slot_kind": "new_route",
+                "slot_anchor": -1,
+                "position": 0,
+                "predecessor": -1,
+                "successor": -1
+              }
+            ],
+            "fr": null
+          },
+          "one_legal": {
+            "steps": [
+              {
+                "customer": 4,
+                "vehicle_id": 1,
+                "slot_kind": "anchored",
+                "slot_anchor": 3,
+                "position": 0,
+                "predecessor": 3,
+                "successor": 3
+              }
+            ],
+            "fr": null
+          }
+        }
+      }
+    },
+    {
+      "block": "E",
+      "name": "E4 F first-maximum primitive identical on the whole battery",
+      "ok": true,
+      "detail": {
+        "live": [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "prefix": [
+          0,
+          1,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "block": "E",
+      "name": "E5 F first-maximum semantics themselves (no tolerance leaked in)",
+      "ok": true,
+      "detail": {
+        "battery": "[[2,2,1],[0,1e-13,0],[1,1],[3],[-1,-2,-2]] -> first maximum",
+        "got": [
+          0,
+          1,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "block": "R",
+      "name": "R1 A-5c durable P_after_install receipt STILL ABSENT (G0-Evidence batch 2)",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "persistence_api_surface": [],
+          "events_in_memory_only": true
+        }
+      }
+    },
+    {
+      "block": "R",
+      "name": "R2 A-3b commitment guard STILL OUTSIDE this adapter and STILL OPEN",
+      "ok": true,
+      "detail": {
+        "exception": null,
+        "observed": {
+          "adapter_accepts_committed_next": false,
+          "adapter_mentions_committed_next": false,
+          "note": "the commitment guard lives on VehicleState + the mask pool, OUTSIDE this plan-level adapter; batch 1 must not fake it with a same-named field"
+        }
+      }
+    },
+    {
+      "block": "R",
+      "name": "R3 no same-named fake field was added to \"fix\" A-3b",
+      "ok": true,
+      "detail": false
+    }
+  ],
+  "blocks": {
+    "F": {
+      "passed": 1,
+      "total": 1
+    },
+    "P": {
+      "passed": 9,
+      "total": 9
+    },
+    "G": {
+      "passed": 12,
+      "total": 12
+    },
+    "E": {
+      "passed": 5,
+      "total": 5
+    },
+    "R": {
+      "passed": 3,
+      "total": 3
+    }
+  },
+  "chain_complete": true,
+  "note": "block P proves the pre-fix defect is real and detectable; block G proves the fix satisfies the invariant WITHOUT substituting a crash for fail-closed; block E proves legal-input decisions are unchanged; block R declares the residuals this batch does not own (A-3b, A-5c, contract/state identity)."
+}

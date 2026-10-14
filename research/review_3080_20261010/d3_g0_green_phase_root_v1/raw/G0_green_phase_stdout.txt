@@ -1,0 +1,34 @@
+  PASS F   the pre-fix module under test is byte-identical to commit 87c6a5c
+  PASS P   P1 A-2   install without certification
+  PASS P   P2 A-2   no identity concept to bind
+  PASS P   P3 A-1a  short score silently used
+  PASS P   P4 A-1b  over-long score silently used
+  PASS P   P5 A-1c  2-D score flattened by the primitive
+  PASS P   P6 A-1d  truncated GEO vector silently used
+  PASS P   P7 A-4b  no identity recorded
+  PASS P   P8 A-5b  finish twice installs twice
+  PASS P   P9 A-5d  unbacked rollback unflagged
+  PASS G   G1  A-2 no certifier -> refused BEFORE sampling, zero installs
+  PASS G   G2  A-2 certified plan A cannot be swapped for plan B
+  PASS G   G3  A-2 decision deadline blown -> refused, zero installs
+  PASS G   G4  A-1a short score -> clean fail-closed score_len (no silent prefix)
+  PASS G   G5  A-1b over-long score -> clean fail-closed score_len in BOTH branches
+  PASS G   G6  A-1c 2-D score -> clean fail-closed score_shape, never reaches selection
+  PASS G   G7  A-1d truncated GEO vector -> clean fail-closed geo_len (no silent miss)
+  PASS G   G8  A-1d short vehicle_target_vid -> clean fail-closed geo_len (was IndexError)
+  PASS G   G9  A-4b install is identity-bound and immutable under external mutation
+  PASS G   G10 A-5b second finish -> refused already_finished, exactly one install
+  PASS G   G11 A-5d three-state rollback: unverified != restored
+  PASS G   G12 acc#4 every failure path: sampler returns the ORIGINAL plan, transaction installs ZERO times, source plan unmutated, no crash
+  PASS E   E1 no exception in either module's equivalence battery
+  PASS E   E2 GEO selector: identical steps + failure reason (legal input)
+  PASS E   E3 historical selector: identical steps (projected) + failure reason
+  PASS E   E4 F first-maximum primitive identical on the whole battery
+  PASS E   E5 F first-maximum semantics themselves (no tolerance leaked in)
+  PASS R   R1 A-5c durable P_after_install receipt STILL ABSENT (G0-Evidence batch 2)
+  PASS R   R2 A-3b commitment guard STILL OUTSIDE this adapter and STILL OPEN
+  PASS R   R3 no same-named fake field was added to "fix" A-3b
+
+blocks: {"F": "1/1", "P": "9/9", "G": "12/12", "E": "5/5", "R": "3/3"}
+chain_complete: True
+wrote D:\PyCharm_\MASKCO-Main\research\review_3080_20261010\d3_g0_green_phase_root_v1\D3_G0_GREEN_PHASE_MATRIX.json
