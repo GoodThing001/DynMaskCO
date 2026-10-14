@@ -108,11 +108,27 @@ SOURCE_FACTS = (
 
 
 def audit_source():
-    """机械核验 `SOURCE_FACTS`。返回 `{'facts': [...], 'all_hold': bool}`。"""
-    facts = []
+    """机械核验 `SOURCE_FACTS`。返回 `{'facts': [...], 'all_hold': bool, ...}`。
 
-    def add(key, holds, evidence):
-        facts.append({'fact': key, 'holds': bool(holds), 'evidence': evidence})
+    ⚠️ **分代（2026-10-14 C2 之后）**：F6（B3 分支丢弃 `_d0`）描述的是**旧版**行为；
+    C2 的**目的**就是让 B3 分支把审计信息传出去 ⇒ 在新版上 F6 **应当不再成立**，
+    并由新事实 **F6b**（确实传出去了）成立。
+    ⇒ 每条事实带 `expected`（**该代**应有取值），`all_hold` 判"实测 == 该代预期"。
+    ⚠️ **这不是把旧事实判失败**：旧结论建立在**旧字节**上，仍然成立；
+    本函数只保证"逐代读数与逐代预期一致"。
+    """
+    facts = []
+    src_all = ''.join(_read(n) for n in FROZEN_FILES)
+
+    # 代际判定：C2 标记（审计字段名 / 版本串）出现在被审文件里 ⇒ 新版
+    oc_src = _read('role_c_opportunity_cost.py')
+    generation = 'c2' if ("'exception_audit'" in oc_src
+                          or 'c2-v1' in oc_src) else 'pre-c2'
+
+    def add(key, holds, evidence, expected=True):
+        facts.append({'fact': key, 'holds': bool(holds), 'expected': bool(expected),
+                      'matches_expected': bool(holds) == bool(expected),
+                      'evidence': evidence})
 
     # ---- F1 ----
     import role_c_timing as rt
@@ -216,14 +232,31 @@ def audit_source():
         bnd = rest[:end + len('return False, diag')] if end >= 0 else rest
     d0_in_boundary = '_d0' in bnd
     lam_diag_from_rule = "'lambda_source': 'boundary_short_circuit'" in bnd
+    # F6 的**逐代预期**：pre-c2 ⇒ 应当"丢弃"（成立）；c2 ⇒ 应当"不再丢弃"（不成立）
     add('F6_decide_candidate_discards_reason',
         bnd_start >= 0 and lam_diag_from_rule and not d0_in_boundary,
         {'span_lines': dc_span, 'boundary_branch_found': bnd_start >= 0,
          'boundary_branch_lines': bnd.count('\n') + 1,
          'lambda_diag_from_rule': lam_diag_from_rule,
          '_d0_referenced_in_boundary_branch': d0_in_boundary,
+         'generation': generation,
          'consequence': ('B3 记录里留下的 `boundary_reason` 是**通用**文案，'
-                         '与"V̂ 真的非有限"无法区分；原始抛错信息不进入决策记录')})
+                         '与"V̂ 真的非有限"无法区分；原始抛错信息不进入决策记录'
+                         if generation == 'pre-c2' else
+                         '**C2 已修**：B3 分支把 `_d0` 的 `exception_audit` 附加进 `diag`'
+                         '⇒ 异常来源进入最终决策记录（见 F6b）')},
+        expected=(generation == 'pre-c2'))
+
+    # ---- F6b（C2 新增事实）：B3 分支确实把审计信息**传出去**了 ----
+    passes_through = ("diag['exception_audit'] = _audit" in (dc or '')
+                      or 'diag["exception_audit"] = _audit' in (dc or ''))
+    add('F6b_c2_passes_exception_audit_through',
+        passes_through and generation == 'c2',
+        {'generation': generation,
+         'b3_branch_assigns_exception_audit': passes_through,
+         'scope': ('仅在 B3 诊断装配分支**附加** `diag[\'exception_audit\']`；'
+                   '不动 boundary / reject_reason / 认证调用 / 返回值形状')},
+        expected=(generation == 'c2'))
 
     # ---- F7（记录层，非冻结源码）----
     # Phase A 的 B 类记录**没有**归档 `forward` 子诊断 ⇒ 记录里的 `deadline_hit`
@@ -240,7 +273,14 @@ def audit_source():
                          '(b) `forward` 键**根本不存在**（`last_diag is None`）'
                          '⇒ 本批 `deadline_hit` 不作为"未触发截止"的证据')})
 
-    return {'facts': facts, 'all_hold': all(f['holds'] for f in facts),
+    return {'facts': facts,
+            'all_hold': all(f['matches_expected'] for f in facts),
+            'generation': generation,
+            'generation_note': (
+                ('当前为 **C2 之后**的代际：F6（B3 丢弃 `_d0`）**应当不再成立**，'
+                 '并由 F6b（审计信息传出）成立。旧 F6 描述的是**旧字节**的行为，'
+                 '历史诊断结论不受影响。' if generation == 'c2' else
+                 '当前为 **C2 之前**的代际：F6 应当成立（B3 丢弃 `_d0`）。')),
             'files': {n: _sha(os.path.join(_HERE, n)) for n in FROZEN_FILES},
             'note': ('只读审计：机械核验源码事实，不修改任何被审计模块的字节')}
 

@@ -50,15 +50,18 @@ POSIX = bool(hasattr(__import__('signal'), 'SIGALRM'))
 
 # ------------------------------------------------------------------ 1. 源码事实
 def test_source_facts():
-    print('\n[1] 源码事实：逐条机械核验（缺一条即失败）')
+    print('\n[1] 源码事实：逐条机械核验（按**代际预期**判，缺一条即失败）')
     a = tsa.audit_source()
-    got = {f['fact']: f['holds'] for f in a['facts']}
+    got = {f['fact']: f['matches_expected'] for f in a['facts']}
+    gen = a['generation']
+    print('  （被审代际：%s）' % gen)
     for key, _f, _d in tsa.SOURCE_FACTS:
-        check('源码事实成立：%s' % key, got.get(key) is True, got.get(key))
-    check('全部事实成立（all_hold）', a['all_hold'] is True, got)
+        check('源码事实与代际预期一致：%s' % key, got.get(key) is True, got.get(key))
+    check('全部事实与代际预期一致（all_hold）', a['all_hold'] is True, got)
+    check('给出代际标记与说明', gen in ('pre-c2', 'c2')
+          and bool(a.get('generation_note')), a.get('generation_note'))
     check('审计只读：给出被审文件的 SHA（不改字节）',
           all(v for v in a['files'].values()), a['files'])
-    # 关键三条的**具体证据**（不是只报 True）
     ev = {f['fact']: f['evidence'] for f in a['facts']}
     check('F1：DecisionTimeout 继承 RuntimeError ⇒ 属 Exception',
           ev['F1_decision_timeout_is_exception']['class_decl']
@@ -66,10 +69,20 @@ def test_source_facts():
     check('F2：内部截止检查在场景循环内、且在订单循环**之前**',
           ev['F2_deadline_hit_not_independent']['check_is_before_order_loop'] is True,
           ev['F2_deadline_hit_not_independent'])
-    check('F6：B3 边界分支确实丢弃 `_d0`',
-          ev['F6_decide_candidate_discards_reason']
-          ['_d0_referenced_in_boundary_branch'] is False,
-          ev['F6_decide_candidate_discards_reason'])
+    # F6 逐代判定：pre-c2 应当"丢弃"；c2 应当"不再丢弃"且**传出去**
+    holds6 = {f['fact']: f['holds'] for f in a['facts']}
+    if gen == 'c2':
+        check('C2 代际：B3 分支**不再**丢弃 `_d0`（F6 如实不成立）',
+              holds6['F6_decide_candidate_discards_reason'] is False,
+              holds6['F6_decide_candidate_discards_reason'])
+        check('C2 代际：F6b 成立（审计信息确实传出到最终 diag）',
+              holds6['F6b_c2_passes_exception_audit_through'] is True, holds6)
+    else:
+        check('pre-c2 代际：B3 分支确实丢弃 `_d0`',
+              holds6['F6_decide_candidate_discards_reason'] is True, holds6)
+    check('旧事实**未被判失败**（只是逐代读数不同；历史结论建立在旧字节上）',
+          all('matches_expected' in f for f in a['facts'])
+          and '旧字节' in a['generation_note'])
     return True
 
 

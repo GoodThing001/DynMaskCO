@@ -122,6 +122,67 @@ DOUBLE_COUNT_REFUSAL = (
     '写法 (i) 传 myopic_net + lambda_B（本规格）；或写法 (ii) 只传 V̂(接单)−V̂(拒单)，'
     '此时不要再传 λ_B。')
 
+# --- C2 诊断审计（2026-10-14 用户裁定 ⑤ / 登记件 §8.2 + §14.4）----------------------
+# 目的：让"一次真实的硬超时"与"普通 λ_B 未定义"在**记录层**可分。
+# 纪律：**只记录，不改控制流**；判决、返回值形状、`undefined` 取值、B3 强制拒单规则均不变。
+_EVENT_SEQ = [0]
+_DECISION_TIMEOUT_TYPES = [None]          # 惰性解析；None = 尚未尝试，() = 不可用
+
+
+def _event_id():
+    """本进程内单调的事件号（§3.3 去重用；同时保证"两条事件不被并成一条"）。"""
+    _EVENT_SEQ[0] += 1
+    return 'exc-%d' % _EVENT_SEQ[0]
+
+
+def _decision_timeout_types():
+    """惰性取 `DecisionTimeout` 的**类型**（按类型判定，不靠文案）。
+
+    不可用 ⇒ 返回 `()`，并让 `hard_deadline_exception` 记为 **None（未知）**，
+    **不得**写 False —— 未观察到的信息不得写成否定证据。
+    """
+    if _DECISION_TIMEOUT_TYPES[0] is None:
+        try:
+            import role_c_timing as _rt
+            _DECISION_TIMEOUT_TYPES[0] = (_rt.DecisionTimeout,)
+        except Exception:                                      # noqa: BLE001
+            _DECISION_TIMEOUT_TYPES[0] = ()
+    return _DECISION_TIMEOUT_TYPES[0]
+
+
+def _budget_point_of(future_value_fn):
+    """**只读**推断异常落在哪个预算点（只在 `except` 体内调用，不在 `try` 内插桩）。
+
+    `FutureValueFn.calls` **只在成功返回后**追加 ⇒ 长度为 0 判 `hi`、否则判 `lo`。
+    推断不可得（注入的不是该类型）⇒ `'unknown'`。
+    """
+    calls = getattr(future_value_fn, 'calls', None)
+    if not isinstance(calls, list):
+        return 'unknown'
+    try:
+        return 'hi' if len(calls) == 0 else 'lo'
+    except Exception:                                          # noqa: BLE001
+        return 'unknown'
+
+
+def _exception_audit(exc, *, stage, future_value_fn=None):
+    """结构化异常来源（附加字段；**不改动**任何既有键的语义）。"""
+    types = _decision_timeout_types()
+    if not types:
+        hard = None                        # 类型不可用 ⇒ **未知**，不是 False
+    else:
+        hard = bool(isinstance(exc, types))
+    return {
+        'exception_type': type(exc).__name__,
+        'exception_stage': stage,
+        'budget_point': _budget_point_of(future_value_fn),
+        'hard_deadline_exception': hard,
+        'evaluation_status': ('timed_out' if hard is True else
+                              ('errored' if hard is False else 'unknown')),
+        'event_id': _event_id(),
+        'exception_audit_version': 'c2-v1',
+    }
+
 
 def shadow_price_budget(budget, e_o, future_value_fn, *, clip_nonneg=True):
     """估计预算的边际价值 `λ_B`。返回 `(lambda_B, diag)`。
@@ -156,8 +217,14 @@ def shadow_price_budget(budget, e_o, future_value_fn, *, clip_nonneg=True):
         v_hi = float(future_value_fn(b))
         v_lo = float(future_value_fn(b_lo_eval))
     except Exception as exc:                                   # noqa: BLE001
+        # ─── C2 诊断审计（2026-10-14 用户裁定 ⑤；白名单见登记件 §8.2 + §14.4）───
+        # **只记录，不改控制流**：下面的返回值、`undefined` 取值与 B3 强制拒单规则
+        # 一字不动；仅**新增** `exception_audit` 子字典（附加字段）。
         return None, {'lambda_raw': None, 'lambda_B': None, 'e_o': e, 'b_lo': b_lo,
-                      'undefined': True, 'reason': 'V̂ 求值抛错：%s' % exc}
+                      'undefined': True, 'reason': 'V̂ 求值抛错：%s' % exc,
+                      'exception_audit': _exception_audit(
+                          exc, stage='shadow_price_budget.future_value',
+                          future_value_fn=future_value_fn)}
     vals = (v_hi, v_lo)
     if any((x != x) or x in (float('inf'), float('-inf')) for x in vals):
         # B3：V̂ 非有限 ⇒ λ_B **未定义**（返回 None，由边界规则强制拒单）
@@ -341,6 +408,13 @@ def decide_candidate(*, order, candidate_plan, budget_B,
                 'log_fields': {'order_id': getattr(order, 'order_id', None),
                                'action': 'reject', 'certified': bool(certify_ok0),
                                'certify_energy': certify_energy0}}
+        # ─── C2 诊断审计传递（2026-10-14 用户裁定 ⑤；登记件 §14.4 追加白名单）───
+        # 本分支原先**丢弃** `_d0`（只按 `rule` 重建 `lambda_diag`）⇒ 结构化异常来源
+        # 进不了最终决策记录。此处**仅**把 `_d0` 的审计信息**附加**到 `diag`：
+        # 不动 `boundary` / `boundary_reason` / `reject_reason` / 认证调用 / 返回值形状。
+        _audit = (_d0 or {}).get('exception_audit')
+        if _audit is not None:
+            diag['exception_audit'] = _audit
         return False, diag
     lam = lam0
     if ablate_lookahead:
