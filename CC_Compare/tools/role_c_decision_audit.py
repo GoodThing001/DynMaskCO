@@ -106,6 +106,12 @@ def check_commitments_and_budget(records, tol=TOL):
         if removed_exe:
             problems.append('T6 已执行前缀被改写：记录 #%d 的 executed **回退** %s'
                             % (i, sorted(removed_exe)[:6]))
+        # ③ **执行 ⊆ 接受**：没接过的单不可能被执行（拒绝 = 永不服务）。
+        #    与写入器 `role_c_decision_log` 的同一不变式保持同步。
+        orphan = ea - aa
+        if orphan:
+            problems.append('T6 执行了**未接受**的订单：记录 #%d 的 executed_after 含 %s'
+                            '（不在 accepted_after 里）' % (i, sorted(orphan)[:6]))
         if r['action'] == 'accept':
             oid = r.get('order_id')
             if oid is not None and oid in ab:
