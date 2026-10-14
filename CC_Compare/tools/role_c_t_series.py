@@ -224,6 +224,10 @@ def t8_shared_config_check(*, config=None, frozen=None):
     冻结文件里**缺**的字段（如 `arm_seed`）**不冒充相等**，而是列进 `gaps` 如实上报。
     """
     pair_fields = _extract_const('PAIR_FIELDS')
+    # `arm_seed` 由 2026-10-14 用户裁定补录进冻结文件（见 `role_c_identity` 模块头），
+    # 但 `check_control_config.PAIR_FIELDS`（他方已登记模块）**没有**它 ⇒ 本层**额外**
+    # 强制它，并把它标为 `beyond_pair_fields`，供用户决定是否也加进那张清单。
+    extra_fields = ('arm_seed',)
     f = frozen if frozen is not None else ri.load_frozen_control()
     cfg = config if config is not None else ri.role_c_solver_config(frozen=f)
     mine = dict(cfg['shared'])
@@ -233,20 +237,23 @@ def t8_shared_config_check(*, config=None, frozen=None):
     flat.update({k: v for k, v in f['shared_identity_anchor'].items()
                  if k not in ('seeds', 'main_penalty')})
     rows, mismatches = [], []
-    for name in pair_fields:
+    for name in tuple(pair_fields) + tuple(extra_fields):
+        beyond = name not in pair_fields
         if name not in flat:
             rows.append({'field': name, 'role_c': mine.get(name), 'control': None,
-                         'status': 'not_recorded_in_frozen_control'})
+                         'status': 'not_recorded_in_frozen_control',
+                         'beyond_pair_fields': beyond})
             continue
         same = mine.get(name) == flat[name]
         rows.append({'field': name, 'role_c': mine.get(name), 'control': flat[name],
-                     'status': 'ok' if same else 'MISMATCH'})
+                     'status': 'ok' if same else 'MISMATCH',
+                     'beyond_pair_fields': beyond})
         if not same:
             mismatches.append(name)
     gaps = [r['field'] for r in rows
             if r['status'] == 'not_recorded_in_frozen_control']
     return {'ok': not mismatches, 'rows': rows, 'mismatches': mismatches, 'gaps': gaps,
-            'n_fields': len(pair_fields),
+            'n_fields': len(pair_fields), 'extra_fields': list(extra_fields),
             'pair_fields_source': 'check_control_config.py (AST-extracted, not imported)'}
 
 

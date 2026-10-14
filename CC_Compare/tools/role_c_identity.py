@@ -18,14 +18,14 @@ Role C **没有模型权重**，所以它既不能伪造 `checkpoint_sha256`，�
    邻域预算 / 场景数与 `arm_seed`）。规格 §2.2.2 ④ 要求 `inner_gate` **计入**
    `solver_config_sha256` ⇒ 按结果偷换档位必然改变身份，不可能静默。
 
-⚠️ **`arm_seed` 的来历（冻结文件的缺口，本模块如实标注而不是悄悄补上）**：
-`P1A_CONTROL_FROZEN.json` 的 `frozen_config` **没有** `arm_seed`，但它**完整决定**场景流。
-可从产出该冻结证据的 runner 读出：`run_a1_step2_gate.py:51`
+⚠️ **`arm_seed` 的来历（2026-10-14 用户裁定后**已补录**进冻结文件）**：
+`P1A_CONTROL_FROZEN.json` 的 `frozen_config` 原先**漏记** `arm_seed`，而它**完整决定**场景流。
+取值从产出该冻结证据的 runner 读出：`run_a1_step2_gate.py:51`
 `ARM_SEEDS = {"uncond_hist": 7001, "cond_hist": 7002, "explicit_feat": 7003, ...}`
-（`diag_local_timing.py:23` 一致）⇒ 主对照 `cond_hist` 的 `arm_seed = 7002`，
-**不是** `SaaReplanner` 的默认值 `7001`。本模块把它连同**出处字符串**一起写进配置，
-使"这是从源码读出的、冻结文件未记录"这件事**本身也在哈希里**，事后可审计。
-是否把该字段补进冻结文件属**预注册变更**，待用户裁定。
+（`diag_local_timing.py:23` 一致）⇒ 主对照 `cond_hist` = **7002**，**不是**
+`SaaReplanner` 的默认值 **7001**。**用户已裁定补录入冻结文件**（属补全可复核字段，
+不是更改既有冻结值），故本模块现在**优先读冻结文件**的 `arm_seed`，并把"该值本轮之前
+未被记录 + 出处"作为**补录留痕**写进配置（信息本身也进哈希，事后可审计）。
 """
 from __future__ import annotations
 
@@ -117,26 +117,39 @@ def shared_config(frozen=None):
 
 
 def role_c_solver_config(*, inner_gate=fwd.INNER_GATE_PRIMARY,
-                         arm_seed=CONTROL_ARM_SEEDS['cond_hist'],
-                         ls_kwargs=None, energy_pricing=None,
+                         arm_seed=None, ls_kwargs=None, energy_pricing=None,
                          standby_orders=None, future_policy=None, time_limit=None,
                          K=None, k_neighbors=None, frozen=None):
     """Role C 的 `solver_config_sha256` 输入：共享旋钮 + 机制旋钮 + 冻结规格哈希。
 
     除机制旋钮外**一律从冻结文件取默认值** ⇒ 想改共享旋钮必须显式传入，而一旦传入
     就会改变 `solver_config_sha256`（进而与对照的身份不再相同）。
+
+    `arm_seed` **优先取冻结文件**（2026-10-14 补录后已记录）；仅当冻结文件缺该字段时
+    才回落到 `CONTROL_ARM_SEEDS['cond_hist']`，并把回落这件事写进配置（fail-loud 留痕）。
     """
     f = frozen if frozen is not None else load_frozen_control()
     sh = shared_config(f)
     if inner_gate not in fwd.INNER_GATES:
         raise IdentityError('inner_gate 只能是 %s' % (' / '.join(fwd.INNER_GATES),))
+    frozen_seed = sh.get('arm_seed')
+    if arm_seed is None:
+        if frozen_seed is None:
+            raise IdentityError(
+                '冻结文件缺 arm_seed 且调用方也未给出 ⇒ 拒绝猜（该值完整决定场景流，'
+                '猜错会静默换掉两臂共用的场景集合）。')
+        arm_seed = int(frozen_seed)
+        seed_src = 'frozen_config'
+    else:
+        seed_src = 'caller'
     if not isinstance(arm_seed, int) or isinstance(arm_seed, bool):
-        raise IdentityError('arm_seed 必须是显式 int（见模块头：冻结配置未记录该字段）')
+        raise IdentityError('arm_seed 必须是显式 int（见模块头：它决定场景流）')
     kw = dict(ls_kwargs or {})
     return {
         'method_class': ROLE_C_METHOD_CLASS,
         'shared': {
             **sh,
+            'arm_seed': int(arm_seed),
             'K': int(K if K is not None else sh['K']),
             'k_neighbors': int(k_neighbors if k_neighbors is not None
                                else sh['k_neighbors']),
@@ -160,9 +173,13 @@ def role_c_solver_config(*, inner_gate=fwd.INNER_GATE_PRIMARY,
         'role_c_scenario': {
             'sampler': 'CondHistoricalSampler',
             'arm_seed': {'value': int(arm_seed),
-                         'recorded_in_frozen_control': False,
+                         'source': seed_src,
+                         'recorded_in_frozen_control': frozen_seed is not None,
+                         'added_to_frozen_by': ('user ruling 2026-10-14 '
+                                                '(previously missing field)'),
                          'provenance': CONTROL_ARM_SEEDS_SOURCE,
-                         'note': '冻结配置缺该字段；值从产出该冻结证据的 runner 读出'},
+                         'note': '冻结配置原先漏记该字段；值从产出该冻结证据的 runner 读出，'
+                                 '已由用户裁定补录'},
             'rng_convention': hn.SAMPLER_RNG_CONVENTION,
         },
         'role_c_route_search': {

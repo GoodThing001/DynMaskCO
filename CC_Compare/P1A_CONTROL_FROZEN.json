@@ -23,6 +23,7 @@
     "k_neighbors": 10,
     "penalty": null,
     "gate_seed": 20260926,
+    "arm_seed": 7002,
     "shadow_mode": "greedy",
     "energy_pricing": "marginal",
     "future_policy": "reveal",
@@ -32,6 +33,7 @@
   },
   "frozen_config_note": {
     "workers": "**故意不冻结** —— workers 只影响墙钟耗时、不影响决策轨迹；按机器实际登记在**资源门**里，不得据此调参。",
+    "arm_seed": "**补录（2026-10-14 用户裁定）**：原 `frozen_config` **漏记**该字段，而它**完整决定场景流**（`SaaReplanner.on_reveal` 的 `rng = default_rng([arm_seed, inst_idx, round(clock*1000)])`，`scenario_saa.py:1002`）。取值从**产出本文件所引冻结证据的那个 runner** 读出：`run_a1_step2_gate.py:51` 的 `ARM_SEEDS = {\"uncond_hist\": 7001, \"cond_hist\": 7002, \"explicit_feat\": 7003, ...}`（`diag_local_timing.py:23` 一致）⇒ 主对照 `cond_hist` = **7002**，**不是** `SaaReplanner` 的默认值 **7001**。这是**补全可复核字段**，不是更改任何既有冻结值；本文件此前未登记任何 raw sha256，故不触发链式失效。",
     "future_policy": "取 `reveal`：这是**身份合格**的那个对照 gate 实际落盘的值（见 evidence）。换成 `density` 会改变对照强度 ⇒ 属**新的预注册**，不得事后切换。",
     "overage_price": "`null`（旧行为：终局超预算不扣罚）。",
     "incr_eval": "`false`（等价加速开关；`c1rr2` 未记录该字段，`c1fresh` 记为 false）。"
@@ -91,6 +93,7 @@
       "K",
       "time_limit",
       "future_policy",
+      "arm_seed",
       "budget_B",
       "cooling_share",
       "contract_sha256",

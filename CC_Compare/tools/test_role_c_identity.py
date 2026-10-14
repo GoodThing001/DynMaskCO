@@ -84,24 +84,47 @@ def test_declaration_and_frozen_grounding():
                   sh.get('booking_horizon') == 16.0
                   and f['must_record_causal_flag']['booking_horizon'] == 16.0,
                   sh.get('booking_horizon')))
-    # ⚠️ arm_seed 缺口如实标注
+    # ⚠️ arm_seed：2026-10-14 用户裁定**补录**进冻结文件（属补全可复核字段）
     cfg = ri.role_c_solver_config()
     asd = cfg['role_c_scenario']['arm_seed']
-    cases.append(('★I6 冻结配置**未记录** arm_seed ⇒ 身份里如实标注（含出处），不悄悄补上',
-                  asd['recorded_in_frozen_control'] is False
+    cases.append(('★I6 arm_seed 已由裁定**补录**进冻结文件，且身份块记下"曾漏记 + 出处"',
+                  fc.get('arm_seed') == 7002
+                  and asd['recorded_in_frozen_control'] is True
+                  and asd['source'] == 'frozen_config'
                   and asd['provenance'] == ri.CONTROL_ARM_SEEDS_SOURCE
-                  and 'arm_seed' not in fc, asd))
+                  and 'previously missing' in asd['added_to_frozen_by'],
+                  asd))
+    cases.append(('I6b 冻结文件里附了补录说明（为何补、值从哪读、不是改既有值）',
+                  'arm_seed' in f['frozen_config_note']
+                  and 'run_a1_step2_gate.py:51' in f['frozen_config_note']['arm_seed']
+                  and '不是' in f['frozen_config_note']['arm_seed'],
+                  f['frozen_config_note'].get('arm_seed', '')[:120]))
     cases.append(('I7 cond_hist 的 arm_seed = 7002（**不是** SaaReplanner 默认值 7001）',
                   ri.CONTROL_ARM_SEEDS['cond_hist'] == 7002
-                  and asd['value'] == 7002, asd['value']))
+                  and asd['value'] == 7002 and cfg['shared']['arm_seed'] == 7002,
+                  asd['value']))
+    cases.append(('I7b 冻结文件同时把 arm_seed 列入 Role C 必须相同的字段',
+                  'arm_seed' in f['role_c_alignment_requirements']['identical'],
+                  f['role_c_alignment_requirements']['identical']))
     cases.append(('I8 身份里的共享锚点等于冻结锚点（合同/数据/数据元/预算/冷却份额）',
                   cfg['shared_identity_anchor'] == ri.frozen_anchors(f),
                   cfg['shared_identity_anchor']))
+    # 冻结文件缺该字段时的回落路径也必须 fail-loud（不能被静默用默认值顶替）
+    f_noseed = copy.deepcopy(f)
+    f_noseed['frozen_config'].pop('arm_seed', None)
     try:
-        ri.role_c_solver_config(arm_seed=None)
-        cases.append(('I9 arm_seed=None ⇒ 报错', False, '未抛错'))
-    except ri.IdentityError:
-        cases.append(('I9 arm_seed=None ⇒ 报错', True, None))
+        ri.role_c_solver_config(frozen=f_noseed, arm_seed=None)
+        cases.append(('I9 冻结文件缺 arm_seed 且调用方不给 ⇒ 拒绝猜（不静默用默认值）',
+                      False, '未抛错'))
+    except ri.IdentityError as exc:
+        cases.append(('I9 冻结文件缺 arm_seed 且调用方不给 ⇒ 拒绝猜（不静默用默认值）',
+                      True, str(exc)[:60]))
+    cfg_fb = ri.role_c_solver_config(frozen=f_noseed, arm_seed=7002)
+    cases.append(('I9b 显式给出时可用，且标为 source=caller / 未记录在冻结文件',
+                  cfg_fb['role_c_scenario']['arm_seed']['source'] == 'caller'
+                  and cfg_fb['role_c_scenario']['arm_seed'][
+                      'recorded_in_frozen_control'] is False,
+                  cfg_fb['role_c_scenario']['arm_seed']))
     try:
         ri.role_c_solver_config(inner_gate='maybe')
         cases.append(('I10 未知 inner_gate ⇒ 报错', False, '未抛错'))
@@ -273,7 +296,7 @@ def test_mechanism_knobs_are_hashed():
         ('inner_gate on→off', dict(inner_gate='off')),
         ('LS max_passes 2→3', dict(ls_kwargs={'max_passes': 3})),
         ('LS max_moves 4000→10', dict(ls_kwargs={'max_moves': 10})),
-        ('arm_seed 7002→7001', dict(arm_seed=7001)),
+            ('arm_seed 7002→7001', dict(arm_seed=7001)),
         ('K 10→1', dict(K=1)),
         ('time_limit 10→11', dict(time_limit=11.0)),
         ('energy_pricing marginal→amortized', dict(energy_pricing='amortized')),
