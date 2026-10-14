@@ -1,0 +1,464 @@
+{
+  "F_identity": {
+    "backbone_ckpt": {
+      "bytes": 305061150,
+      "path": "MASKCO_code/ckpts/cvrp100.ckpt",
+      "sha256": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+    },
+    "backbone_recorded_in_training_identity": false,
+    "model_ckpt": {
+      "bytes": 89592616,
+      "path": "results/m0_scale/mpre_reinforce_s42_clean/model.ckpt",
+      "sha256": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5"
+    },
+    "model_ckpt_matches_registered": true,
+    "pickle": {
+      "backbone_leaves_inside_train_state": 71,
+      "flax": "0.10.4",
+      "group_stats": {
+        "backbone": {
+          "absmax": 1.4156469106674194,
+          "all_zero_leaves": 0,
+          "n_leaves": 71,
+          "params": 21657600
+        },
+        "c_adapter": {
+          "absmax": 0.7193627953529358,
+          "all_zero_leaves": 0,
+          "n_leaves": 6,
+          "params": 530944
+        },
+        "delta_head": {
+          "absmax": 0.2422086000442505,
+          "all_zero_leaves": 0,
+          "n_leaves": 6,
+          "params": 207617
+        }
+      },
+      "jax": "0.5.0",
+      "meta": {
+        "F_ACTION_EXPLICIT": 20,
+        "F_NODE": 10,
+        "K": 4,
+        "batch_states": 8,
+        "num_steps": 1000,
+        "s_TRAIN": 0.1334134797781528,
+        "seed": 42
+      },
+      "n_leaves": 83,
+      "task_params_nonzero": true,
+      "top_keys": [
+        "F_ACTION_EXPLICIT",
+        "F_NODE",
+        "K",
+        "batch_states",
+        "num_steps",
+        "s_TRAIN",
+        "seed",
+        "train_state"
+      ],
+      "train_state_type": "flax.nnx.statelib.State"
+    },
+    "registered_sha256": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5",
+    "state_manifest_sha256": "d37a837a873a33345dc881b4f12f624c01fa330ea8b4ad6eb783342eebc59ba0",
+    "summary_sha256": "8f5087a7c59f500ac680f7f516ef4441c41a3b44f7ef959c2774d30bdeb41760",
+    "training_identity_sha256": "e8ede3900ffeb88d2110b25f7a706509ec9c770189e7fca3343d609665ffb272",
+    "training_identity_top_keys": [
+      "data_sha256",
+      "model_ckpt_sha256",
+      "src_sha256",
+      "state_manifest",
+      "summary"
+    ]
+  },
+  "data_identity": {
+    "data/m0_scale/M0_TEACHER_MANIFEST.json": {
+      "bytes": 8189,
+      "sha256": "b84e171676f8afc02e5ac416538965dda224671d719863a1412f659464bcaf04"
+    },
+    "data/m0_scale/dcc_50_r1_edod05_cal_teacher.npz": {
+      "bytes": 420584,
+      "sha256": "c35fa6834b8007922160f7979680c1fb8c6dda4d93309cd5ef509b57d83f20f1"
+    },
+    "data/m0_scale/dcc_50_r1_edod05_dev_check_teacher.npz": {
+      "bytes": 420657,
+      "sha256": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89"
+    },
+    "data/m0_scale/dcc_50_r1_edod05_train_teacher.npz": {
+      "bytes": 1667788,
+      "sha256": "c70258c4fde86e5ebfb08c17e4f8ccacac5f1b18319dc180eaa048e8ae771d01"
+    }
+  },
+  "field_coverage": {
+    "fields_missing_in_history": [
+      "committed_arrive",
+      "committed_finish",
+      "committed_next",
+      "customer_universe",
+      "dispatch_time",
+      "mutable_suffix",
+      "mutable_suffix_len",
+      "needs_replan",
+      "num_nodes",
+      "num_vehicles",
+      "replan_count",
+      "replan_reason",
+      "served_mask",
+      "served_route",
+      "served_route_len",
+      "services_arrival",
+      "services_depart",
+      "services_finish",
+      "services_len",
+      "services_node",
+      "services_prev_node",
+      "services_start",
+      "vehicle_load",
+      "vehicle_node",
+      "vehicle_ready",
+      "vehicle_status",
+      "visible_mask"
+    ],
+    "fields_present_in_history": [
+      "clock"
+    ],
+    "index_fields_present": [
+      "clock",
+      "event",
+      "inst"
+    ],
+    "snapshot_fields_checked": 28
+  },
+  "snapshot_machinery": {
+    "api": {
+      "capture_recourse_snapshot": true,
+      "restore_recourse_snapshot": true,
+      "resume_from_snapshot": true,
+      "snapshot_state_hash": true,
+      "validate_snapshot_against_env": true
+    },
+    "bytes": 19520,
+    "exists": true,
+    "path": "scripts/simulation/recourse_snapshot.py",
+    "schema_versions": [
+      "recourse_snapshot_v2",
+      "recourse_snapshot_v3_cc"
+    ],
+    "sha256": "0af3535acaf6a84956104c0f1c8788c04e02499a087b6faa3d264239a19f27f8"
+  },
+  "state_index_assets": [
+    {
+      "bytes": 363874,
+      "n_records": 32,
+      "path": "results/m0_scale/fsq_clean_cal/per_state.json",
+      "per_record_keys": [
+        "J0",
+        "Mpre",
+        "Mtrained",
+        "R",
+        "event",
+        "inst",
+        "mask_audit"
+      ],
+      "sha256": "6f2347d62b846de798eea2b5af0e7f3d8a70acd645e3c5f6f8261949106bdc92"
+    },
+    {
+      "bytes": 363823,
+      "n_records": 32,
+      "path": "results/m0_scale/fsq_clean_train/per_state.json",
+      "per_record_keys": [
+        "J0",
+        "Mpre",
+        "Mtrained",
+        "R",
+        "event",
+        "inst",
+        "mask_audit"
+      ],
+      "sha256": "3f06b6867b8ca5a076b8addaca38423aaf8b8cbc6abd2f155d717129be15f1ce"
+    },
+    {
+      "bytes": 363371,
+      "n_records": 32,
+      "path": "results/m0_scale/fsq_heldout_clean/per_state.json",
+      "per_record_keys": [
+        "J0",
+        "Mpre",
+        "Mtrained",
+        "R",
+        "event",
+        "inst",
+        "mask_audit"
+      ],
+      "sha256": "a3afb9380bc2e18bee68c2da941b2d43b41d66249b722d61a835a77c140d40c8"
+    },
+    {
+      "bytes": 363178,
+      "n_records": 32,
+      "path": "results/m0_scale/fsq_s43_cal/per_state.json",
+      "per_record_keys": [
+        "J0",
+        "Mpre",
+        "Mtrained",
+        "R",
+        "event",
+        "inst",
+        "mask_audit"
+      ],
+      "sha256": "052b5f6abeb411079e3fa2f31544997b76a03370208c31ed3b7e187dd2e1f22f"
+    },
+    {
+      "bytes": 363220,
+      "n_records": 32,
+      "path": "results/m0_scale/fsq_s43_train/per_state.json",
+      "per_record_keys": [
+        "J0",
+        "Mpre",
+        "Mtrained",
+        "R",
+        "event",
+        "inst",
+        "mask_audit"
+      ],
+      "sha256": "7dc2d673eafb72514cd740f00034a514f89d31f4a5cf14e7e56eb40b169a35a3"
+    },
+    {
+      "bytes": 363274,
+      "n_records": 32,
+      "path": "results/m0_scale/fsq_s44_cal/per_state.json",
+      "per_record_keys": [
+        "J0",
+        "Mpre",
+        "Mtrained",
+        "R",
+        "event",
+        "inst",
+        "mask_audit"
+      ],
+      "sha256": "ccfdb24f854a9bcb650d49fad24de480a785e0b287234ef56d1da08fcb670e82"
+    },
+    {
+      "bytes": 363388,
+      "n_records": 32,
+      "path": "results/m0_scale/fsq_s44_train/per_state.json",
+      "per_record_keys": [
+        "J0",
+        "Mpre",
+        "Mtrained",
+        "R",
+        "event",
+        "inst",
+        "mask_audit"
+      ],
+      "sha256": "314a7fc8fa0f977ea53125d049bdc84f55ace97cc1d585cdd8cf1ee0cfa68a5b"
+    },
+    {
+      "bytes": 14983,
+      "n_records": 32,
+      "path": "results/m0_scale/headroom_census_cal/per_state.json",
+      "per_record_keys": [
+        "J0",
+        "J_dist_greedy",
+        "J_exhaustive",
+        "correction_signal",
+        "dist_sgbs_ref",
+        "event",
+        "exhaustive_stats",
+        "gap_exh_vs_dist_sgbs",
+        "gap_exh_vs_greedy",
+        "inst",
+        "n_dev_improved",
+        "n_dev_tried",
+        "n_first_step_actions"
+      ],
+      "sha256": "b4613788bb921b0defed452e59131681b468184bc2b179f2a5aecac8225a3abd"
+    },
+    {
+      "bytes": 14955,
+      "n_records": 32,
+      "path": "results/m0_scale/headroom_census_train/per_state.json",
+      "per_record_keys": [
+        "J0",
+        "J_dist_greedy",
+        "J_exhaustive",
+        "correction_signal",
+        "dist_sgbs_ref",
+        "event",
+        "exhaustive_stats",
+        "gap_exh_vs_dist_sgbs",
+        "gap_exh_vs_greedy",
+        "inst",
+        "n_dev_improved",
+        "n_dev_tried",
+        "n_first_step_actions"
+      ],
+      "sha256": "a1e035ee877077e87ecc3d7b259e8d4b98e47b9f73c349265772c8adfa1eef7b"
+    },
+    {
+      "bytes": 19248,
+      "n_records": 32,
+      "path": "results/m0_scale/sgbs_fixed_cal_v2/per_state.json",
+      "per_record_keys": [
+        "J0",
+        "Mpre_greedy",
+        "Mpre_sgbs",
+        "Mpre_sgbs_n_fail",
+        "Mpre_sgbs_n_total",
+        "Mpre_sgbs_n_unique",
+        "Mtrained_greedy",
+        "Mtrained_greedy7",
+        "Mtrained_sgbs",
+        "Mtrained_sgbs_n_fail",
+        "Mtrained_sgbs_n_total",
+        "Mtrained_sgbs_n_unique",
+        "R",
+        "dist_sgbs",
+        "dist_sgbs_n_fail",
+        "dist_sgbs_n_total",
+        "dist_sgbs_n_unique",
+        "event",
+        "inst"
+      ],
+      "sha256": "4fbe88595a40a534c9a0e7ebda5842e4d09652fc8e485856cfb2b6f0378c64a7"
+    },
+    {
+      "bytes": 19248,
+      "n_records": 32,
+      "path": "results/m0_scale/sgbs_fixed_train_v2/per_state.json",
+      "per_record_keys": [
+        "J0",
+        "Mpre_greedy",
+        "Mpre_sgbs",
+        "Mpre_sgbs_n_fail",
+        "Mpre_sgbs_n_total",
+        "Mpre_sgbs_n_unique",
+        "Mtrained_greedy",
+        "Mtrained_greedy7",
+        "Mtrained_sgbs",
+        "Mtrained_sgbs_n_fail",
+        "Mtrained_sgbs_n_total",
+        "Mtrained_sgbs_n_unique",
+        "R",
+        "dist_sgbs",
+        "dist_sgbs_n_fail",
+        "dist_sgbs_n_total",
+        "dist_sgbs_n_unique",
+        "event",
+        "inst"
+      ],
+      "sha256": "c7218c7bdfd52770c3a68b4e129d18164c986f7a1cad81b486cfaaa8a2fcec26"
+    },
+    {
+      "bytes": 2605153,
+      "n_records": 4500,
+      "path": "results/m0_scale/swap_fixed_train_4s/per_state.json",
+      "per_record_keys": [
+        "D_R",
+        "D_S",
+        "E_R",
+        "E_S",
+        "J_R",
+        "J_S",
+        "P0_feasible",
+        "Q_R",
+        "Q_S",
+        "clock",
+        "delta",
+        "event",
+        "inst",
+        "n_attempts_R",
+        "n_attempts_S",
+        "n_improve_R",
+        "n_improve_S",
+        "n_swap_S",
+        "pool_nonempty",
+        "stop_R",
+        "stop_S"
+      ],
+      "sha256": "beb3ec72cf0d00b8b78a6fecc65d0daf85e3d0b9822c395a7209561ce0fdb873"
+    },
+    {
+      "bytes": 20823,
+      "n_records": 32,
+      "path": "results/m0_scale/terminal_headroom_cal/per_state.json",
+      "per_record_keys": [
+        "complete_0",
+        "complete_exh",
+        "event",
+        "inst",
+        "myopic_J0",
+        "myopic_J_dg",
+        "myopic_J_exh",
+        "myopic_gap_exh_vs_dg",
+        "terminal_J0",
+        "terminal_J_dg",
+        "terminal_J_exh",
+        "terminal_distance_delta_exh_vs_dg",
+        "terminal_energy_delta_exh_vs_dg",
+        "terminal_gap_exh_vs_dg",
+        "terminal_headroom_dg",
+        "terminal_headroom_exh",
+        "terminal_quality_delta_exh_vs_dg"
+      ],
+      "sha256": "c0ef652d6d6c35a0d92144eb68b3730f567b7770ec0fb8f1b43a7eb1dbf5b4cc"
+    },
+    {
+      "bytes": 20297,
+      "n_records": 32,
+      "path": "results/m0_scale/terminal_headroom_train/per_state.json",
+      "per_record_keys": [
+        "complete_0",
+        "complete_exh",
+        "event",
+        "inst",
+        "myopic_J0",
+        "myopic_J_dg",
+        "myopic_J_exh",
+        "myopic_gap_exh_vs_dg",
+        "terminal_J0",
+        "terminal_J_dg",
+        "terminal_J_exh",
+        "terminal_distance_delta_exh_vs_dg",
+        "terminal_energy_delta_exh_vs_dg",
+        "terminal_gap_exh_vs_dg",
+        "terminal_headroom_dg",
+        "terminal_headroom_exh",
+        "terminal_quality_delta_exh_vs_dg"
+      ],
+      "sha256": "506b9e75b642b80e73bd0a2e1062093c374f9d7483ce25b8300bdacb6e3e2db5"
+    }
+  ],
+  "training_state_manifest": {
+    "carries_state_content": false,
+    "keys": [
+      "inst_dist",
+      "inst_event",
+      "s_TRAIN"
+    ],
+    "n_indices": 256,
+    "note": "inst_event is a list of [inst,event] pairs only; no clock/served_mask/suffix/vehicle fields",
+    "path": "results/m0_scale/mpre_reinforce_s42_clean/state_manifest.json",
+    "sha256": "d37a837a873a33345dc881b4f12f624c01fa330ea8b4ad6eb783342eebc59ba0"
+  },
+  "verdict": {
+    "not_done_deliberately": [
+      "no state was replayed or re-derived",
+      "no result value was used to reconstruct a state",
+      "no snapshot was invented",
+      "no execution was performed for this inventory"
+    ],
+    "required_before_any_L1_execution": [
+      "an authorised deterministic RE-COLLECTION pre-registration that captures a recourse_snapshot (v2/v3_cc) per state and requires (inst,event,J0) to reproduce exactly",
+      "closure of the contract/profile identity gap noted by the earlier audit",
+      "a pinned backbone identity (cvrp100.ckpt sha256 is NOT recorded in training_identity.json)"
+    ],
+    "state_assets": "STATE_ASSET_GAP",
+    "why": [
+      "every historical asset under results/m0_scale stores (inst,event) indices plus scalar per-arm outcomes only",
+      "none of the 28 checked registered snapshot fields is stored for any state",
+      "the 256 training-state indices in state_manifest.json carry no state content either",
+      "the sealed asset alone therefore cannot supply a state to F and D-Geo",
+      "the registered recoverability judgement already says index_only_recovery_requires_a_new_execution, is_that_route_read_only=false, authorised_this_round=false"
+    ]
+  }
+}

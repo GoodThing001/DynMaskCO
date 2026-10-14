@@ -1,0 +1,50 @@
+A1-D3-L1-MECHANISM-PREREG: state-asset inventory (STATE_ASSET_GAP), F loading contract audit, seven-element L1 pre-registration
+
+Authorised scope: design and engineering preparation only.  NO real F-vs-D-Geo comparison was
+run, no state was replayed, no weights were touched, no E2/L2/L3 work was started.  Everything
+here is read-only inventory plus specification.
+
+1. State assets -> STATE_ASSET_GAP (blocking, reported as instructed rather than worked around)
+   All 14 depth-1 per_state.json assets under results/m0_scale (13 with 32 records, plus
+   swap_fixed_train_4s with 4500) store (inst, event) indices plus scalar per-arm outcomes only.
+   Of the 28 registered snapshot fields, only `clock` appears anywhere; the other 27 are MISSING.
+   The training state_manifest.json holds 256 [inst,event] pairs and no state content.  The
+   snapshot machinery does exist (scripts/simulation/recourse_snapshot.py sha256 0af3535a...,
+   capture/restore/resume/state_hash/validate, schemas recourse_snapshot_v2 / v3_cc), so the
+   route forward is an authorised DETERMINISTIC RE-COLLECTION pre-registration -- not an
+   improvised replay of historical events, and not reconstructing state from result scalars.
+
+2. F loading contract audit -> the user's concern is confirmed
+   model.ckpt is a pickle of {'train_state', s_TRAIN, F_NODE, F_ACTION_EXPLICIT, num_steps,
+   batch_states, K, seed}; train_state is flax.nnx.statelib.State with 83 leaves.  Measured
+   structural probe: backbone group 71 leaves / 21,657,600 params / absmax 1.4156, c_adapter
+   6 leaves / absmax 0.7194, delta_head 6 leaves / absmax 0.2422 -- the task-trained residuals
+   are NON-ZERO, so a load path that skips train_state restoration (e.g. load_mpre_trained alone,
+   zero-init last layers) yields a DIFFERENT scorer.  The only legal path is
+   load_mpre_trained -> partition -> nnx.merge(gd, train_state, frozen_state), exactly as
+   load_trained_model does.  model.ckpt sha256 f5acf83f...903a7f5 matches the registration.
+   NEW identity gap found and recorded: training_identity.json / summary.json never record the
+   CVRP backbone checkpoint, yet the frozen encoder can only be rebuilt from it.  This round
+   pins MASKCO_code/ckpts/cvrp100.ckpt sha256 03615b08a55125a8... as the current file, and states
+   explicitly that it is NOT proven to be the training-time file.
+   F_LOADED_AND_SCORED has NOT been claimed: no model was built and no forward pass was run.
+
+3. Seven-element L1 pre-registration drafted (A1_D3_L1_MECHANISM_DIAGNOSTIC_PREREGISTRATION.md)
+   unique comparison (mask_scope=B, eps_rel=eps_abs=0, tie_break=legal_order_first, canonical_key
+   as an audit column only), state source (blocked per 1), mechanism criteria separating
+   first_step_divergence / full_repair_completed / certified_executable_plan, the log schema,
+   fail-closed failure semantics with timeout kept in the denominator, the to-be-frozen budget and
+   resource gate, and the source/asset identity list.  Forked legal sets after a first-step
+   divergence are recorded separately instead of being forced to agree.  Source identity excludes
+   the parallel CC_Compare commits (HEAD 9d4e851 is NOT part of the D3 identity).
+
+Unchanged: D3 G0, D8, E2 qualification; I3 formal negative result; stable_online_gain=False.
+algorithmic_gain_claim: none.  F_vs_D_Geo_effect: NOT_COMPARED.
+
+New files:
+  research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/
+    A1_D3_L1_MECHANISM_DIAGNOSTIC_PREREGISTRATION.md
+    A1_D3_L1_F_LOADING_CONTRACT.md
+    A1_D3_L1_STATE_AND_F_ASSET_AUDIT.json
+    RUN_L1_ASSET_AUDIT.py
+    COMMIT_MSG.txt
