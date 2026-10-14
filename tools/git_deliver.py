@@ -111,8 +111,14 @@ def main():
         return 3
 
     status = run(['-c', 'core.quotepath=false', 'status', '--porcelain=v1', '-uall']).stdout
-    entries = [l for l in status.splitlines() if l.strip()]
-    print('status :', len(entries), 'entr(ies)')
+    raw_entries = [l for l in status.splitlines() if l.strip()]
+    # the intentionally excluded phantom submodule must not count as "something to commit",
+    # otherwise every invocation demands a --message-file for a path we never stage
+    entries = [l for l in raw_entries
+               if not any(l.endswith(e) or ('/' + e) in l or e in l for e in EXCLUDE)]
+    excluded_seen = len(raw_entries) - len(entries)
+    print('status :', len(entries), 'entr(ies)'
+          + (' (+%d excluded: %s)' % (excluded_seen, ', '.join(EXCLUDE)) if excluded_seen else ''))
     if not entries:
         print('nothing to commit')
     if a.check_only:
