@@ -1,0 +1,16 @@
+  PRE       SETUP_OK                           fixtures captured from a real run; capture proven read-only
+  AC-R1     COUNTEREXAMPLE_REPRODUCED          AC-R1 OLD path: the same illegal suffix is written with no gate
+  AC-R2     REFUSE_NO_MUTATION                 AC-R2 CONTROLLED path: the same illegal suffix is REFUSED, state unchanged
+  AC-R3     REFUSE_NO_MUTATION                 AC-R3 legal plan is refused ONLY by the D8 quality capability gap
+  AC-R4     REFUSE_NO_MUTATION                 AC-R4 certification failure (energy budget) refuses by its own reason
+  AC-R5     WAIT_BY_ENV_PROTOCOL               AC-R5 legal WAIT is recorded as WAIT_BY_ENV_PROTOCOL, never as a refusal
+  AC-R6     REFUSE_NO_MUTATION                 AC-R6 state drift is refused even though the PLAN is unchanged
+  AC-R7     COUNTEREXAMPLE_REPRODUCED          AC-R7 EXCLUSIVITY gap: the writer layer installs under an unseen drift
+  AC-R8     COUNTEREXAMPLE_REPRODUCED          AC-R8 ONE-TIME-USE: the gate is a pure function and can be replayed
+  AC-R9     FAILURE_ATOMICITY_ABSENT           AC-R9 FAILURE CONSISTENCY: a raising install_fn leaves an unreported partial write
+  AC-R10    PROBE_ONLY_GATE_NOT_A_WALL         AC-R10 PROBE ONLY: installable is reachable solely via an injected quality check
+  PREREG    OK                                 every pre-registered counterexample is present; none dropped
+  AUDIT     OK                                 the acceptance probes did not perturb the production trajectory
+
+verdict_counts: {"SETUP_OK": 1, "COUNTEREXAMPLE_REPRODUCED": 3, "REFUSE_NO_MUTATION": 4, "WAIT_BY_ENV_PROTOCOL": 1, "FAILURE_ATOMICITY_ABSENT": 1, "PROBE_ONLY_GATE_NOT_A_WALL": 1, "OK": 2}
+wrote D:\PyCharm_\MASKCO-Main\research\review_3080_20261010\d3_g0_evidence_root_v1\B3AC_REFUSAL_MATRIX.json

@@ -1,0 +1,439 @@
+{
+  "stage": "D3_G0_Evidence_B3AC_gate_refusal_acceptance",
+  "read_only": true,
+  "production_state_written": false,
+  "commit_modified": false,
+  "d8_relaxed": false,
+  "real_writeback_enabled": false,
+  "propositions": {
+    "P1_gate_can_refuse": "VERIFIED_ON_ISOLATED_COPIES_ONLY",
+    "P2_every_real_commit_goes_through_the_gate": "NOT_THIS_BATCH_B3_AT"
+  },
+  "gates": {
+    "G-L": "NOT_ESTABLISHED",
+    "G-C": "NOT_ESTABLISHED"
+  },
+  "refusal_capability": {
+    "n_rows_with_a_refusal": 4,
+    "counted_as_capability": [
+      "AC-R2",
+      "AC-R4",
+      "AC-R6"
+    ],
+    "counted_on_the_quality_dimension_only": [
+      "AC-R3"
+    ],
+    "waits_not_counted": [
+      "AC-R5"
+    ],
+    "wrong_reason_refusals": [],
+    "note": "H2/H3/H4: only refusals attributed to the expected REASON count; legal WAIT never counts; the D8 refusal counts on the quality dimension only.  The quality-dimension row is listed SEPARATELY and deliberately not merged into `counted_as_capability`, so nobody can read it as installability or G-L"
+  },
+  "preregistered": [
+    "AC-R1",
+    "AC-R2",
+    "AC-R3",
+    "AC-R4",
+    "AC-R5",
+    "AC-R6",
+    "AC-R7",
+    "AC-R8",
+    "AC-R9",
+    "AC-R10"
+  ],
+  "covered": [
+    "PRE",
+    "AC-R1",
+    "AC-R2",
+    "AC-R3",
+    "AC-R4",
+    "AC-R5",
+    "AC-R6",
+    "AC-R7",
+    "AC-R8",
+    "AC-R9",
+    "AC-R10"
+  ],
+  "missing": [],
+  "verdict_counts": {
+    "SETUP_OK": 1,
+    "COUNTEREXAMPLE_REPRODUCED": 3,
+    "REFUSE_NO_MUTATION": 4,
+    "WAIT_BY_ENV_PROTOCOL": 1,
+    "FAILURE_ATOMICITY_ABSENT": 1,
+    "PROBE_ONLY_GATE_NOT_A_WALL": 1,
+    "OK": 2
+  },
+  "identities": {
+    "data_npz_sha256": "c35fa6834b8007922160f7979680c1fb8c6dda4d93309cd5ef509b57d83f20f1",
+    "profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
+    "effective_contract_hash": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+    "prereg_spec_sha256": "217ca641691c2ada22e85d82388fdeedab3ffd6ed5f32879493721591c0b2b33",
+    "code": {
+      "scripts/tests/test_d3_b3ac_gate_refusal.py": "5125e05edef67ac1a5c546cb1b9601834e27385f91cf6a115f8f75d97a6c87fb",
+      "scripts/simulation/d3_composed_certifier.py": "b65ddf6545a84b656cd2e9dd541cea266d2d6bdbc1cd56abd76f7780104aea01",
+      "scripts/simulation/d3_install_gate.py": "adc8df289be1babcf8d6907ff57ab30ab3d66d58fcb47a6c9539bc8591634483",
+      "scripts/simulation/d3_credential.py": "85f32d67ad38f1a88be6aa5a8c4c4af3f48797df6a1ca088d05c672453834c7f",
+      "scripts/simulation/d3_geo_adapter.py": "099c3517472d886ece4ea3e929df2ec54d0e459b2a2e2e07da5b658acc07adc5",
+      "scripts/simulation/action_contract.py": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b",
+      "scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+    }
+  },
+  "results": [
+    {
+      "cid": "PRE",
+      "name": "fixtures captured from a real run; capture proven read-only",
+      "verdict": "SETUP_OK",
+      "detail": {
+        "n_items": 8,
+        "n_calls": 100,
+        "first_clock": 0.0,
+        "last_clock": 1.990464448928833
+      }
+    },
+    {
+      "cid": "AC-R1",
+      "name": "AC-R1 OLD path: the same illegal suffix is written with no gate",
+      "verdict": "COUNTEREXAMPLE_REPRODUCED",
+      "detail": {
+        "illegal_customer": 22,
+        "before": {
+          "status": "ready",
+          "committed_next": null,
+          "suffix": [
+            22
+          ]
+        },
+        "after": {
+          "status": "committed",
+          "committed_next": 22,
+          "suffix": []
+        },
+        "gate_invoked": false,
+        "certifier_called": false,
+        "state_hash_before": "a47165537c598bb9024d62e81930959fadfef47ead7fb95a0a4e0e718d538edb",
+        "state_hash_after": "5a38a83210001591c85ee69b70876c70f6e810d5fb26225cde02741b02049928",
+        "note": "the old path is the env's own _plan_and_commit; this row is the counterfactual baseline for AC-R2 and is expected to WRITE"
+      }
+    },
+    {
+      "cid": "AC-R2",
+      "name": "AC-R2 CONTROLLED path: the same illegal suffix is REFUSED, state unchanged",
+      "verdict": "REFUSE_NO_MUTATION",
+      "detail": {
+        "action": "REFUSE_NO_MUTATION",
+        "counts_as_refusal_capability": true,
+        "refusal_stage": "compose_certification",
+        "reasons": [
+          "legality_short_circuit:no_served_in_plan"
+        ],
+        "blocking_capability_gaps": [
+          "quality_salability"
+        ],
+        "certification_ok": false,
+        "legality_ok": false,
+        "components": {
+          "plan_vehicle_set": {
+            "ok": true,
+            "plan_vehicles": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24
+            ],
+            "live_non_closed": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24
+            ],
+            "closed_or_absent_vehicles_in_plan": []
+          },
+          "revealed_only": {
+            "ok": true,
+            "unrevealed_in_plan": []
+          },
+          "no_served_in_plan": {
+            "ok": false,
+            "served_planned": [
+              22
+            ]
+          },
+          "no_duplicate_order": {
+            "ok": true,
+            "duplicate_suffix": []
+          },
+          "route_feasible": {
+            "ok": false,
+            "not_run_illegal_order_set": true,
+            "refused_by_gate": "legality_gate"
+          },
+          "energy_budget": {
+            "ok": false,
+            "not_run_illegal_order_set": true,
+            "refused_by_gate": "legality_gate"
+          },
+          "quality_projection": {
+            "ok": false,
+            "not_run_illegal_order_set": true,
+            "refused_by_gate": "legality_gate"
+          },
+          "full_partition": {
+            "ok": false,
+            "not_run_illegal_order_set": true,
+            "refused_by_gate": "legality_gate",
+            "why": "a legality gate already refused"
+          },
+          "repair_plan": {
+            "ok": false,
+            "not_run_illegal_order_set": true,
+            "refused_by_gate": "legality_gate",
+            "why": "a legality gate already refused"
+          }
+        },
+        "state_hash_before": "a47165537c598bb9024d62e81930959fadfef47ead7fb95a0a4e0e718d538edb",
+        "state_hash_after": "a47165537c598bb9024d62e81930959fadfef47ead7fb95a0a4e0e718d538edb",
+        "illegal_customer": 22,
+        "expected_reason_substring": "legality_short_circuit",
+        "expected_reason_found": true,
+        "state_unchanged": true,
+        "counterfactual_row": "AC-R1",
+        "not_a_production_path": "the controlled commit path below exists ONLY in this test file; it is never registered on an env, never imported by a d3_ module, and P2 (\"every real commit goes through the gate\") stays with B3-AT"
+      }
+    },
+    {
+      "cid": "AC-R3",
+      "name": "AC-R3 legal plan is refused ONLY by the D8 quality capability gap",
+      "verdict": "REFUSE_NO_MUTATION",
+      "detail": {
+        "action": "REFUSE_NO_MUTATION",
+        "reasons": [],
+        "blocking_capability_gaps": [
+          "quality_salability"
+        ],
+        "certification_ok_all_executable_checks_passed": true,
+        "quality_state": "CAPABILITY_GAP_BLOCKING",
+        "B_used": 1000000000.0,
+        "why_roomy_B": "the incumbent plan of the captured decision points fails the energy budget at the nominal B=300, so a B at which the executable checks all pass is required to isolate the D8 gap; that is measured, not assumed (see AC-R4 for the energy-failure row at B=0.0)",
+        "state_unchanged": true,
+        "counts_as_refusal_capability": "quality dimension only (H4): NOT installability, NOT G-L",
+        "components_ok": {
+          "plan_vehicle_set": true,
+          "revealed_only": true,
+          "no_served_in_plan": true,
+          "no_duplicate_order": true,
+          "full_partition": true,
+          "repair_plan": true,
+          "route_feasible": true,
+          "energy_budget": true,
+          "quality_projection": true
+        },
+        "not_a_production_path": "the controlled commit path below exists ONLY in this test file; it is never registered on an env, never imported by a d3_ module, and P2 (\"every real commit goes through the gate\") stays with B3-AT"
+      }
+    },
+    {
+      "cid": "AC-R4",
+      "name": "AC-R4 certification failure (energy budget) refuses by its own reason",
+      "verdict": "REFUSE_NO_MUTATION",
+      "detail": {
+        "action": "REFUSE_NO_MUTATION",
+        "reasons": [
+          "energy_budget_exceeded"
+        ],
+        "expected_reason_substring": "energy_budget_exceeded",
+        "expected_reason_found": true,
+        "state_unchanged": true,
+        "counts_as_refusal_capability": true,
+        "certification_ok": false,
+        "not_a_production_path": "the controlled commit path below exists ONLY in this test file; it is never registered on an env, never imported by a d3_ module, and P2 (\"every real commit goes through the gate\") stays with B3-AT"
+      }
+    },
+    {
+      "cid": "AC-R5",
+      "name": "AC-R5 legal WAIT is recorded as WAIT_BY_ENV_PROTOCOL, never as a refusal",
+      "verdict": "WAIT_BY_ENV_PROTOCOL",
+      "detail": {
+        "action": "WAIT_BY_ENV_PROTOCOL",
+        "counts_as_refusal_capability": false,
+        "state_unchanged_by_both_paths": true,
+        "env_own_loop_wrote_nothing": true,
+        "constructed_by": "harness (all candidate suffixes emptied = the env WAIT protocol state)",
+        "why_not_a_refusal": "no write was requested, so there is nothing to refuse; counting this as refusal capability would be the D0 ambiguity the B3-CG addendum forbids"
+      }
+    },
+    {
+      "cid": "AC-R6",
+      "name": "AC-R6 state drift is refused even though the PLAN is unchanged",
+      "verdict": "REFUSE_NO_MUTATION",
+      "detail": {
+        "control_same_state_allow": true,
+        "drifted_allow": false,
+        "drifted_refusals": [
+          "state_hash_mismatch"
+        ],
+        "plan_hash_s1": "a302739c4e89b307",
+        "plan_hash_after_drift": "a302739c4e89b307",
+        "plan_byte_identical": true,
+        "state_hash_s1": "285931fb3783eaf5494b48467b18e41e7cbbd1b55b02e0fcc8aeaa399909cf25",
+        "state_hash_drifted": "3afc9fb85c8dc7d723f5428ad2a05d5baa1c9db732452383bd9a159679b584d5",
+        "counts_as_refusal_capability": true,
+        "refusal_caused_by_drift_not_by_blanket_deny": true
+      }
+    },
+    {
+      "cid": "AC-R7",
+      "name": "AC-R7 EXCLUSIVITY gap: the writer layer installs under an unseen drift",
+      "verdict": "COUNTEREXAMPLE_REPRODUCED",
+      "detail": {
+        "plan_hash_blind_to_anchor_time_and_load": true,
+        "plan_hash_a": "a302739c4e89b307",
+        "plan_hash_b": "a302739c4e89b307",
+        "anchor_time_a": 0.0,
+        "anchor_time_b": 1.0,
+        "ledger_installed": 1,
+        "ledger_returns": true,
+        "honest_scope": "the CREDENTIAL layer (AC-R6) does refuse the drift; the WRITER layer (`InstallLedger.finish`, d3_geo_adapter.py:666-689) never consults the credential, it only compares `plan_hash` -- so the two layers are not composed and exclusivity holds only where the credential is consulted"
+      }
+    },
+    {
+      "cid": "AC-R8",
+      "name": "AC-R8 ONE-TIME-USE: the gate is a pure function and can be replayed",
+      "verdict": "COUNTEREXAMPLE_REPRODUCED",
+      "detail": {
+        "gate_layer": {
+          "first_allow": true,
+          "second_allow_same_credential": true,
+          "why": "pre_install_reverify(cred_cert, cred_install, ...) is a pure function of its arguments; there is no nonce, counter or sequence, so the same credential authorises arbitrarily many submissions"
+        },
+        "writer_layer": {
+          "first_finish": true,
+          "second_finish": false,
+          "n_installs": 1,
+          "second_finish_reason": "already_finished",
+          "why": "InstallLedger.finish has a per-OBJECT `finished` guard, so reuse is refused only while the SAME ledger object is reused -- a fresh ledger with the same credential is not refused"
+        }
+      }
+    },
+    {
+      "cid": "AC-R9",
+      "name": "AC-R9 FAILURE CONSISTENCY: a raising install_fn leaves an unreported partial write",
+      "verdict": "FAILURE_ATOMICITY_ABSENT",
+      "detail": {
+        "exception_escaped": "RuntimeError: install_fn failed after mutating the first vehicle",
+        "partial_write_visible_on_the_copy": true,
+        "partial_target_suffix_after": [
+          999
+        ],
+        "ledger_n_installs": 0,
+        "ledger_events": [],
+        "ledger_finished": false,
+        "ledger_n_rollback_unverified": 0,
+        "why": "`d3_geo_adapter.py:689` calls `self.install_fn(plan)` outside any guard and sets `finished` only AFTER it returns, so an exception escapes with n_installs==0, no event, finished==False and the next finish() free to install again",
+        "no_crash_recovery_claimed": "H5: there is no durable transaction mechanism, so NOTHING here may be described as crash-recovery atomicity"
+      }
+    },
+    {
+      "cid": "AC-R10",
+      "name": "AC-R10 PROBE ONLY: installable is reachable solely via an injected quality check",
+      "verdict": "PROBE_ONLY_GATE_NOT_A_WALL",
+      "detail": {
+        "without_quality_check_installable": false,
+        "with_injected_check_installable": true,
+        "blocking_gaps_without_check": [
+          "quality_salability"
+        ],
+        "blocking_gaps_with_check": [],
+        "executable_checks_ok_without_check": true,
+        "B_used": 1000000000.0,
+        "not_a_production_path": true,
+        "install_permission_claimed": false,
+        "why": "answers \"is the gate discriminating or a wall?\": every executable check already passes, so the D8 capability gap is the ONLY blocker -- and injecting a fake quality check is what flips `installable`. That injection is diagnostic only; no install permission is claimed and D8 is not relaxed"
+      }
+    },
+    {
+      "cid": "PREREG",
+      "name": "every pre-registered counterexample is present; none dropped",
+      "verdict": "OK",
+      "detail": {
+        "preregistered": [
+          "AC-R1",
+          "AC-R2",
+          "AC-R3",
+          "AC-R4",
+          "AC-R5",
+          "AC-R6",
+          "AC-R7",
+          "AC-R8",
+          "AC-R9",
+          "AC-R10"
+        ],
+        "covered": [
+          "PRE",
+          "AC-R1",
+          "AC-R2",
+          "AC-R3",
+          "AC-R4",
+          "AC-R5",
+          "AC-R6",
+          "AC-R7",
+          "AC-R8",
+          "AC-R9",
+          "AC-R10"
+        ],
+        "missing": []
+      }
+    },
+    {
+      "cid": "AUDIT",
+      "name": "the acceptance probes did not perturb the production trajectory",
+      "verdict": "OK",
+      "detail": {
+        "probed_outcome_sha256": "98d791d44483682868836203408ff4e5e721985a310a5834c4752a1e0a8f0f92",
+        "clean_rerun_outcome_sha256": "98d791d44483682868836203408ff4e5e721985a310a5834c4752a1e0a8f0f92",
+        "n_served": 51
+      }
+    }
+  ]
+}

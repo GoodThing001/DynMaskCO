@@ -82,3 +82,13 @@ tests/test_d3_b3qp_closure.py -text
 tests/test_d3_b3cf_submit_failures.py -text
 simulation/strict_online_env.py -text
 coldchain/coldchain_state.py -text
+
+# Added by D3-G0 Evidence B3-AC (2026-10-14).  Two new evidence carries whose raw sha256 the B3-AC
+# matrices register.  Both are LF in the worktree and their index blobs already equal the worktree
+# bytes, so the pin is purely additive (measured with `git hash-object --no-filters` before pinning).
+#   scripts/tests/test_d3_b3ac_path_classification.py
+#       (sha256 recorded in B3AC_PATH_CLASSIFICATION.json -> identities.this_file_sha256)
+#   scripts/tests/test_d3_b3ac_gate_refusal.py
+#       (sha256 recorded in B3AC_REFUSAL_MATRIX.json -> identities.code)
+tests/test_d3_b3ac_path_classification.py -text
+tests/test_d3_b3ac_gate_refusal.py -text

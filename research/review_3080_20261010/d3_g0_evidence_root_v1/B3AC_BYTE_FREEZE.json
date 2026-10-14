@@ -1,0 +1,74 @@
+{
+  "record": "D3_G0_Evidence_B3AC_byte_freeze",
+  "date": "2026-10-14",
+  "revision": 1,
+  "base_commit": "d76a505",
+  "why": "both B3-AC deliverables register raw sha256 as evidence (the path classifier registers its own hash, the refusal matrix registers its own source plus the gate primitives), so a fresh checkout must reproduce them byte-for-byte; with core.autocrlf=true a checkout injects CRLF unless the container is pinned",
+  "self_reference_note": "this record does not register its own sha256 (self-reference is meaningless); it is covered by the directory pin",
+  "pin_sets": [
+    {
+      "file": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/.gitattributes",
+      "added_by_this_record": [
+        "tests/test_d3_b3ac_path_classification.py -text",
+        "tests/test_d3_b3ac_gate_refusal.py -text"
+      ],
+      "n_pinned_before": 21,
+      "n_pinned_after": 23,
+      "additive_check": "`git hash-object --no-filters` equalled the index blob for both files before the pin, so no existing blob is rewritten and no registered value changes",
+      "not_done_deliberately": "a blanket `*.py -text` under scripts/: 11 of 438 tracked `*.py` files there hold CRLF in the worktree"
+    },
+    {
+      "file": "research/review_3080_20261010/d3_g0_evidence_root_v1/.gitattributes",
+      "content": "* -text (added by B3-CF, unchanged here)",
+      "added_by_this_record": false
+    }
+  ],
+  "registered_byte_containers_b3ac": {
+    "scripts": {
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3ac_path_classification.py": "48f2515e6f42994ce4a359d7faf6ac923c343ffbf0ac97a0c8dbd0aa6244d5d9",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3ac_gate_refusal.py": "5125e05edef67ac1a5c546cb1b9601834e27385f91cf6a115f8f75d97a6c87fb",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_composed_certifier.py": "b65ddf6545a84b656cd2e9dd541cea266d2d6bdbc1cd56abd76f7780104aea01",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_install_gate.py": "adc8df289be1babcf8d6907ff57ab30ab3d66d58fcb47a6c9539bc8591634483",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_credential.py": "85f32d67ad38f1a88be6aa5a8c4c4af3f48797df6a1ca088d05c672453834c7f",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_geo_adapter.py": "099c3517472d886ece4ea3e929df2ec54d0e459b2a2e2e07da5b658acc07adc5",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/action_contract.py": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6",
+      "C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/run_exp_energy_c0.py": "9f0e9dd321abebe05a549dc98c14778251eb2583b71749adb9b39ba13a877bbf"
+    },
+    "evidence": {
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AC_COUNTEREXAMPLE_SPEC.json": "217ca641691c2ada22e85d82388fdeedab3ffd6ed5f32879493721591c0b2b33",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AC_DESIGN.md": "51882059b4eda2a16eb17d5fc086d58bd5f103dd736f1266148030c4e017395b",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AC_PATH_CLASSIFICATION.json": "a23ee7caa7760a6c9f08cef227040fc8a65b5f5c0272ada8a70408a1ffb6c447",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AC_REFUSAL_MATRIX.json": "ec82d0edd23f2bfd21aedee5792494361d3562f1c2bf2a5c6eca96d24a68abe6",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/B3AC_REPORT.md": "2961e46ad685f976b87f08a704697bd2cef3aca0e2030fd8f64e83069610035e"
+    },
+    "raw": {
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_paths_stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_paths_stdout.txt": "fe09309c60afd52576d413eb0d18fa9c0564415c96b53cdd0c307256dd138f6a",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_refusal_instance0.txt": "875e532f0212c9b72d845e8470d0b6f17884a36c8b9b2b17589d7cbad2966315",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_refusal_instance1.txt": "875e532f0212c9b72d845e8470d0b6f17884a36c8b9b2b17589d7cbad2966315",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_refusal_instance2.txt": "875e532f0212c9b72d845e8470d0b6f17884a36c8b9b2b17589d7cbad2966315",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_refusal_instance3.txt": "f43b9ae4c24df0df3ba651d34e32ed7c233580ff6aec0640024c9ce093831b19",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_refusal_instance4.txt": "875e532f0212c9b72d845e8470d0b6f17884a36c8b9b2b17589d7cbad2966315",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_refusal_instance5.txt": "875e532f0212c9b72d845e8470d0b6f17884a36c8b9b2b17589d7cbad2966315",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_REFUSAL_MATRIX_instance0.json": "ec82d0edd23f2bfd21aedee5792494361d3562f1c2bf2a5c6eca96d24a68abe6",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_REFUSAL_MATRIX_instance1.json": "7a7a92d6299d7f1c0fa62797933228a38da9feb35cf97d953561fc5de6218101",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_REFUSAL_MATRIX_instance2.json": "8d7903427075656459dc83be516fce290562bd2ee8f3f00ab798dd53ec73be1d",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_REFUSAL_MATRIX_instance3.json": "1d5d26c67769117b7601286b6927fd0384655eaddd44e7d44f0aa712a37192e6",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_REFUSAL_MATRIX_instance4.json": "04d223d5d8e37d67f0ba16c39759d128091b0eebebf1d70bb2a1465a3723a409",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_REFUSAL_MATRIX_instance5.json": "b9d243b58819932caf250d208c457dbae8995b3ce7781f3fe77d31554ced47ce",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_refusal_stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "research/review_3080_20261010/d3_g0_evidence_root_v1/raw/B3AC_refusal_stdout.txt": "875e532f0212c9b72d845e8470d0b6f17884a36c8b9b2b17589d7cbad2966315"
+    }
+  },
+  "gates": {
+    "G-L": "NOT_ESTABLISHED",
+    "G-C": "NOT_ESTABLISHED"
+  },
+  "propositions": {
+    "P1_gate_can_refuse": "VERIFIED_ON_ISOLATED_COPIES_ONLY",
+    "P2_every_real_commit_goes_through_the_gate": "NOT_THIS_BATCH_B3_AT"
+  },
+  "not_reported_as_passing": "AC-R1/AC-R7/AC-R8 reproduce DEFECTS and are COUNTEREXAMPLE_REPRODUCED; AC-R9 is FAILURE_ATOMICITY_ABSENT; AC-R5 is a WAIT and is never counted as refusal capability; AC-R3 counts on the quality dimension only.  This batch does not report G-L or G-C as passing, and does not claim atomicity.",
+  "verification_required_after_commit": "git archive HEAD <each pinned path> must reproduce the registered sha256 exactly"
+}
