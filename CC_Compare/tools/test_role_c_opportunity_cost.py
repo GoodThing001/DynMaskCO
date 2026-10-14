@@ -170,6 +170,28 @@ def main():
        r['passed'] is True and r['problems'] == []
        and [x['action'] for x in lg.records] == ['accept', 'reject'], r['problems'])
 
+    # ---------- 机制独立性护栏（规格 §2.6）：不得沿用既有 knn/valuee 的密度阈值 λ ----------
+    ck('默认 lambda_estimator = 内生影子价格（shadow_price_budget_response）',
+       d['lambda_estimator'] == rc.LAMBDA_ESTIMATOR_SHADOW)
+    raised = False
+    try:
+        rc.decide_candidate(order=o, candidate_plan=plan, budget_B=B,
+                            myopic_net_fn=mn_fn, marginal_energy_fn=e_fn,
+                            future_value_fn=jhat, certify_fn=cert_ok,
+                            lambda_estimator=rc.LAMBDA_ESTIMATOR_DENSITY)
+    except ValueError as exc:
+        raised = '换名重用' in str(exc)
+    ck('★ 若声明用既有密度阈值 λ ⇒ **拒绝执行**（否则 Role C 退化为 knn 同胞）', raised)
+    raised = False
+    try:
+        rc.decide_candidate(order=o, candidate_plan=plan, budget_B=B,
+                            myopic_net_fn=mn_fn, marginal_energy_fn=e_fn,
+                            future_value_fn=jhat, certify_fn=cert_ok,
+                            lambda_estimator='whatever')
+    except ValueError as exc:
+        raised = '未知 lambda_estimator' in str(exc)
+    ck('未知 lambda_estimator ⇒ 拒绝（fail-closed，不默认放行）', raised)
+
     passed = sum(1 for _n, ok, _d in cases if ok)
     for n, ok, detail in cases:
         print(('  PASS ' if ok else '  FAIL ') + n + ('' if ok else ('   ← ' + str(detail))))

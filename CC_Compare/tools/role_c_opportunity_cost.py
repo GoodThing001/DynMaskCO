@@ -24,6 +24,16 @@ from __future__ import annotations
 
 # 消融开关（与规格 §2 一一对应；由 runner 传入，本模块只消费）
 ABLATIONS = ('opportunity_cost', 'lookahead', 'scenarios')
+
+# λ 的两种估计器（规格 §2.6）：**Role C 必须用前者**。
+#   SHADOW  = [Ĵ(B) − Ĵ(B−e_o)]/e_o          —— 内生影子价格（单位 utility/kWh）
+#   DENSITY = 既有 knn/valuee 的背包密度阈值   —— 外生（单位 revenue/kWh），
+#             实现见 run_exp_reserve.py:108 `_marginal_lambda`（排序+贪心填充+取边界密度）
+# 判决式两者**形式相同**（`REV − λ·e > 0`）⇒ 若 Role C 用了 DENSITY 却仍称"机制独立"，
+# 那就是规格 §9.1 禁止的"换名重用同一决策函数"。此标签使该情形**可被机械检出**。
+LAMBDA_ESTIMATOR_SHADOW = 'shadow_price_budget_response'
+LAMBDA_ESTIMATOR_DENSITY = 'density_threshold_knapsack'
+LAMBDA_ESTIMATORS = (LAMBDA_ESTIMATOR_SHADOW, LAMBDA_ESTIMATOR_DENSITY)
 DOUBLE_COUNT_REFUSAL = (
     '禁止重复计机会成本：不得把前瞻价值差（lookahead_delta）与 λ_B·e_o **同时**扣减 '
     '（规格 §2.1.1 写法 (iii)）。请二选一：'
@@ -105,7 +115,8 @@ def myopic_net(revenue, fuel, reject_loss):
 
 def decide_candidate(*, order, candidate_plan, budget_B,
                      myopic_net_fn, marginal_energy_fn, future_value_fn, certify_fn,
-                     ablate_opportunity_cost=False, ablate_lookahead=False):
+                     ablate_opportunity_cost=False, ablate_lookahead=False,
+                     lambda_estimator=LAMBDA_ESTIMATOR_SHADOW):
     """**Role C 的候选评估核心**（规格 §2.1 + §2.4 的"候选评估 → certify → 提交"）。
 
     环境相关的部分**全部注入**（`myopic_net_fn` / `marginal_energy_fn` /
@@ -126,6 +137,17 @@ def decide_candidate(*, order, candidate_plan, budget_B,
     返回 `(result_dict, diag)`；`result_dict['accept']` 为最终判决。
     """
     e_o = float(marginal_energy_fn(order))
+    if lambda_estimator not in LAMBDA_ESTIMATORS:
+        raise ValueError('未知 lambda_estimator=%r；应为 %s'
+                         % (lambda_estimator, ' / '.join(LAMBDA_ESTIMATORS)))
+    if lambda_estimator == LAMBDA_ESTIMATOR_DENSITY:
+        # 用既有阈值法时**不允许**再走本函数的前瞻差分（那会误导成"内生"）；
+        # 显式拒绝，逼迫调用方要么用真实影子价格，要么明确走既有臂。
+        raise ValueError(
+            'Role C **不得**使用 density_threshold_knapsack 估计 λ（规格 §2.6）：'
+            '判决式与既有 knn/valuee 相同，若 λ 也沿用其外生背包密度阈值，则 Role C 退化为'
+            '该臂的同胞，违反预声明 §9.1「不得只是换名重用同一决策函数」。'
+            '若确实要做该对照，请用独立臂 B-density（另立预注册），不要伪装成 Role C。')
     if ablate_lookahead:
         lam, lam_diag = 0.0, {'lambda_raw': 0.0, 'lambda_B': 0.0, 'e_o': e_o,
                               'lambda_source': 'ablate_lookahead',
@@ -141,6 +163,7 @@ def decide_candidate(*, order, candidate_plan, budget_B,
                           ablate_opportunity_cost=ablate_opportunity_cost)
     diag.update({
         'lambda_diag': lam_diag,
+        'lambda_estimator': lambda_estimator,
         'certify_energy': certify_energy,
         'budget_B': float(budget_B),
         'ablate_lookahead': bool(ablate_lookahead),
