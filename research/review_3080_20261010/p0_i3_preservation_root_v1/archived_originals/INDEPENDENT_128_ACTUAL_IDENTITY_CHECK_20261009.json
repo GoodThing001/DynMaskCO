@@ -1,0 +1,813 @@
+{
+  "server_time": "2026-10-09 00:42:46.472994",
+  "accepted": {
+    "audit_path": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/results/i3_teacher_data_audit_1008_v3/TEACHER_DATA_AUDIT.json",
+    "audit_sha256": "ac747189c1a2f02e5268ee934c8ad0cecd1780a3c76ec9a6a51dac80a3c22a72",
+    "all_registered_states": 128,
+    "qualification_verified": true
+  },
+  "audit_summary": {
+    "states": 128,
+    "days": 32,
+    "valid_teachers": 102,
+    "invalid_teachers": 26,
+    "actor_eligible_states": 86,
+    "valid_small_or_tie_states": 16,
+    "signs": {
+      "positive": 47,
+      "negative": 55,
+      "tie": 0
+    },
+    "valid_delta_quantiles": {
+      "min": -279.3594064861536,
+      "q25": -31.878784363158047,
+      "median": -6.521747004284407,
+      "q75": 15.586147570051253,
+      "max": 89.64617513865232
+    },
+    "conditional_hist_evaluable_states": 102,
+    "conditional_hist_wrong_directions": 33,
+    "conditional_hist_regret_sum": 1153.062684457138,
+    "by_day": {
+      "0": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "1": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "2": {
+        "teacher_valid": 4,
+        "decision_eligible": 3
+      },
+      "3": {
+        "teacher_valid": 4,
+        "decision_eligible": 4
+      },
+      "4": {
+        "teacher_valid": 4,
+        "decision_eligible": 4
+      },
+      "5": {
+        "teacher_valid": 3,
+        "decision_eligible": 2
+      },
+      "6": {
+        "teacher_valid": 3,
+        "decision_eligible": 2
+      },
+      "7": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "8": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "9": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "10": {
+        "teacher_valid": 3,
+        "decision_eligible": 2
+      },
+      "11": {
+        "teacher_valid": 3,
+        "decision_eligible": 2
+      },
+      "12": {
+        "teacher_valid": 4,
+        "decision_eligible": 2
+      },
+      "13": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "14": {
+        "teacher_valid": 4,
+        "decision_eligible": 2
+      },
+      "15": {
+        "teacher_valid": 4,
+        "decision_eligible": 2
+      },
+      "16": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "17": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "18": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "19": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "20": {
+        "teacher_valid": 3,
+        "decision_eligible": 2
+      },
+      "21": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "22": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "23": {
+        "teacher_valid": 3,
+        "decision_eligible": 2
+      },
+      "24": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "25": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "26": {
+        "teacher_valid": 3,
+        "decision_eligible": 2
+      },
+      "27": {
+        "teacher_valid": 4,
+        "decision_eligible": 4
+      },
+      "28": {
+        "teacher_valid": 3,
+        "decision_eligible": 2
+      },
+      "29": {
+        "teacher_valid": 3,
+        "decision_eligible": 2
+      },
+      "30": {
+        "teacher_valid": 3,
+        "decision_eligible": 3
+      },
+      "31": {
+        "teacher_valid": 2,
+        "decision_eligible": 2
+      }
+    },
+    "notes": [],
+    "scope": "All registered states; valid-label statistics are explicitly conditional, no filtering of training states",
+    "online_gain_established": false,
+    "model_selection_changed": false
+  },
+  "audit_split": {
+    "training": {
+      "states": 96,
+      "days": 24,
+      "valid_teachers": 78,
+      "invalid_teachers": 18,
+      "actor_eligible_states": 65,
+      "valid_small_or_tie_states": 13,
+      "signs": {
+        "positive": 35,
+        "negative": 43,
+        "tie": 0
+      },
+      "valid_delta_quantiles": {
+        "min": -175.66082452601404,
+        "q25": -30.59453621157445,
+        "median": -6.521747004284407,
+        "q75": 15.073810700327158,
+        "max": 89.64617513865232
+      },
+      "conditional_hist_evaluable_states": 78,
+      "conditional_hist_wrong_directions": 24,
+      "conditional_hist_regret_sum": 743.8988704149087,
+      "by_day": {
+        "0": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "1": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "2": {
+          "teacher_valid": 4,
+          "decision_eligible": 3
+        },
+        "3": {
+          "teacher_valid": 4,
+          "decision_eligible": 4
+        },
+        "4": {
+          "teacher_valid": 4,
+          "decision_eligible": 4
+        },
+        "5": {
+          "teacher_valid": 3,
+          "decision_eligible": 2
+        },
+        "6": {
+          "teacher_valid": 3,
+          "decision_eligible": 2
+        },
+        "7": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "8": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "9": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "10": {
+          "teacher_valid": 3,
+          "decision_eligible": 2
+        },
+        "11": {
+          "teacher_valid": 3,
+          "decision_eligible": 2
+        },
+        "12": {
+          "teacher_valid": 4,
+          "decision_eligible": 2
+        },
+        "13": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "14": {
+          "teacher_valid": 4,
+          "decision_eligible": 2
+        },
+        "15": {
+          "teacher_valid": 4,
+          "decision_eligible": 2
+        },
+        "16": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "17": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "18": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "19": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "20": {
+          "teacher_valid": 3,
+          "decision_eligible": 2
+        },
+        "21": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "22": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "23": {
+          "teacher_valid": 3,
+          "decision_eligible": 2
+        }
+      },
+      "notes": [],
+      "scope": "All registered states; valid-label statistics are explicitly conditional, no filtering of training states",
+      "online_gain_established": false,
+      "model_selection_changed": false
+    },
+    "teacher_objective_holdout": {
+      "states": 32,
+      "days": 8,
+      "valid_teachers": 24,
+      "invalid_teachers": 8,
+      "actor_eligible_states": 21,
+      "valid_small_or_tie_states": 3,
+      "signs": {
+        "positive": 12,
+        "negative": 12,
+        "tie": 0
+      },
+      "valid_delta_quantiles": {
+        "min": -279.3594064861536,
+        "q25": -56.651554979383945,
+        "median": -9.005662392824888,
+        "q75": 19.050273975357413,
+        "max": 59.10493428260088
+      },
+      "conditional_hist_evaluable_states": 24,
+      "conditional_hist_wrong_directions": 9,
+      "conditional_hist_regret_sum": 409.1638140422292,
+      "by_day": {
+        "24": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "25": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "26": {
+          "teacher_valid": 3,
+          "decision_eligible": 2
+        },
+        "27": {
+          "teacher_valid": 4,
+          "decision_eligible": 4
+        },
+        "28": {
+          "teacher_valid": 3,
+          "decision_eligible": 2
+        },
+        "29": {
+          "teacher_valid": 3,
+          "decision_eligible": 2
+        },
+        "30": {
+          "teacher_valid": 3,
+          "decision_eligible": 3
+        },
+        "31": {
+          "teacher_valid": 2,
+          "decision_eligible": 2
+        }
+      },
+      "notes": [],
+      "scope": "All registered states; valid-label statistics are explicitly conditional, no filtering of training states",
+      "online_gain_established": false,
+      "model_selection_changed": false
+    }
+  },
+  "audit_terminal_trace_reevaluation_complete": true,
+  "audit_summary_sha256": "ac747189c1a2f02e5268ee934c8ad0cecd1780a3c76ec9a6a51dac80a3c22a72",
+  "accepted_audit_hash_matches": true,
+  "audit_main_output_matches": true,
+  "audit_protocol_matches": true,
+  "audit_source_matches": true,
+  "actual_inputs": [
+    {
+      "day_id": 0,
+      "report_sha256": "c4d60ac1cb610f6fe58e6458709c6316ddbd4239484f447d646b356d0a46aed9",
+      "archive_sha256": "b72a60a2435e6b12eeaf9df1e7e5465f248e78c5b117686a2339e6a37b42755c",
+      "report_matches": true
+    },
+    {
+      "day_id": 1,
+      "report_sha256": "34d103b8d432235e4d79b0b5b22d07e0fb2ea23ea2cad22c2de87339182759f8",
+      "archive_sha256": "0dd67e2863fd27c66ce2dd2da55b9701b696d2aa10390d193823091d294cb9e7",
+      "report_matches": true
+    },
+    {
+      "day_id": 2,
+      "report_sha256": "3da11cf35588bdbadd5576edd3179a257478e9cce7757cc4441b8473fc255cb0",
+      "archive_sha256": "868c082e3710345464530172c3b00295669a303415777406feb7aef80bb39b04",
+      "report_matches": true
+    },
+    {
+      "day_id": 3,
+      "report_sha256": "e1d3216b1f6aaacbf54c59330cd89ab46c3df68183f2052b792211d0b9c9ba02",
+      "archive_sha256": "25de1d45c0f4eb832a8d281fea93b1806e51c48cc4f0d117afed999ca1e4bb06",
+      "report_matches": true
+    },
+    {
+      "day_id": 4,
+      "report_sha256": "b399a53064163c4d22ac1fc726be9ef013eb577579e6448a4693cba0ed326498",
+      "archive_sha256": "f6309e55965282d966ba1cc46edc3b4621c9344473de839aa5b9deea831cebc6",
+      "report_matches": true
+    },
+    {
+      "day_id": 5,
+      "report_sha256": "aa25f49d7c9daedb0e8944ba6cb51a8db58784d8015fc0161f1c18b315f8a05c",
+      "archive_sha256": "44ccbbbfba19e56b1e185890cd6c68651ba78aaf851e8338a91b81d8b1126d6f",
+      "report_matches": true
+    },
+    {
+      "day_id": 6,
+      "report_sha256": "62ad18b84b866bddcb9cac35bdf4acd4d1885b9c27893ba33db3fa92e3926960",
+      "archive_sha256": "0d6e4fbc1a87c5259a7aa86f5965e5ee34cb0ee52f33d0795c564802aa806c82",
+      "report_matches": true
+    },
+    {
+      "day_id": 7,
+      "report_sha256": "b0ef4c3447259ed874a240f932a4b04a38d007e4f7db5aa95f591220fd87c173",
+      "archive_sha256": "67ef677785ab98c4ab15ecf8f5f946193239aeeecbb691bba77cd90457fe618b",
+      "report_matches": true
+    },
+    {
+      "day_id": 8,
+      "report_sha256": "d743c64035f08023cb0108737f5e0c24d252e21793adb8e2d9e246a48fc83b63",
+      "archive_sha256": "8c0c608fc4877a5def565d1b0e316a46a148a113aa2e405a3236e1d7a45297d2",
+      "report_matches": true
+    },
+    {
+      "day_id": 9,
+      "report_sha256": "7e08225e2aa10a66cfc358c253a03f335d8373394b5cb0a872ae0e8e6fdad700",
+      "archive_sha256": "0925a4847ca52a9f351200ad3479f737ba56684d978323cc74fa5a540a0e3d73",
+      "report_matches": true
+    },
+    {
+      "day_id": 10,
+      "report_sha256": "472a118876be151e9d5cdae7e503c45a0f659addd4aca06d155419de355303f4",
+      "archive_sha256": "563b98b1f8572cb3e1f58303288f1d33c36c750756fd621f7f9a040e7765350e",
+      "report_matches": true
+    },
+    {
+      "day_id": 11,
+      "report_sha256": "00a9800bce2d409117288010e788811cb7538e82bfd67d169792233d2defa9b4",
+      "archive_sha256": "84d95d3ccca554a9fd3ddae7773df4a1e1fa38481e7464f2d4b091a804c1166c",
+      "report_matches": true
+    },
+    {
+      "day_id": 12,
+      "report_sha256": "fba2686fc04ace85ee2049b79c2ca698a43811a74ddcbc309d48515f1acc096e",
+      "archive_sha256": "0eb59a8f4dcda0f2cb25ebb920740677acf379c4fa74310dd063794df0f4ea01",
+      "report_matches": true
+    },
+    {
+      "day_id": 13,
+      "report_sha256": "70d0244a3675886c525d3fce6c36e5bf2ec7d76e7d3f877ed744d1ab2567a321",
+      "archive_sha256": "9327d22c1c8bc73712389b61d0a068d35eca7f00d52d157794d123f0483bc9d5",
+      "report_matches": true
+    },
+    {
+      "day_id": 14,
+      "report_sha256": "cba1812966e3e326c1055615cdb8fd2ed5b113c670e2827df8e18715b7e64c7b",
+      "archive_sha256": "58886c89b21d2aaceafc3bfb529dcfd011490e48edf7a74a5c1a93953c8faad5",
+      "report_matches": true
+    },
+    {
+      "day_id": 15,
+      "report_sha256": "0b303d534914c145d6d10e42fd878f7c2f2ee0b7430606cea1ab35e8740a80ae",
+      "archive_sha256": "8070df323d210bbe82e4c12ac42e3a9d041ca132c574316be96e10058f8f5392",
+      "report_matches": true
+    },
+    {
+      "day_id": 16,
+      "report_sha256": "7a6a28ab9a4b6c6a5b8abd11d70a345c9de4aa614598f6522527acdd7463ef20",
+      "archive_sha256": "2138daeb7513a0d35f715caaf79e30601bfe22c6927359b675df6422562342b5",
+      "report_matches": true
+    },
+    {
+      "day_id": 17,
+      "report_sha256": "37073e85e64ad988e48c8f437775593a32fa5796327b2d6d25747e3a229d8ca9",
+      "archive_sha256": "546c9968c33b5386961ff74d0fbf73fcaed91a2b77c953f47f707c26abfcd04d",
+      "report_matches": true
+    },
+    {
+      "day_id": 18,
+      "report_sha256": "24513e5fecec2fde7a9acb84c41cf7b490e29a0db72ad24e4d2c1b1d1d023a99",
+      "archive_sha256": "e11730a5d4047c8da1a2e3206fd3fe029ea205c66965b771e361fa239f47e7c6",
+      "report_matches": true
+    },
+    {
+      "day_id": 19,
+      "report_sha256": "4ad0666476e43e2a71fc5f6acafe4d561438ec055ef0521720c8a362bbf06fff",
+      "archive_sha256": "63e98a210dc56c4624de0c5189180f25dd9eefc69a499bf7182a526c79abde69",
+      "report_matches": true
+    },
+    {
+      "day_id": 20,
+      "report_sha256": "92ef3a30c5a32d6d914bfc10b29b3a45c24c89afed7ef0197d926d80cb5b02c1",
+      "archive_sha256": "af4a8be25b8c57ae0a7b6ad7d4fb6cb5d3f2466578813696fb9937abe41e2419",
+      "report_matches": true
+    },
+    {
+      "day_id": 21,
+      "report_sha256": "5fe5d5d55bdd58a23d08ce8bbbe30cb4bdc5f9013d1eb5c6d5cdd2b765fb04ff",
+      "archive_sha256": "d035c55dc04279dd466b9903851759bef5bd3ce04f0ac882d8d697df2aaa42ea",
+      "report_matches": true
+    },
+    {
+      "day_id": 22,
+      "report_sha256": "dd2e9b702a3159efaa71a068b20baa9da09955c8037df2943485418d8be6d76e",
+      "archive_sha256": "eff98f422768f2d4a6cd99b123f9f022d7795ac5b2ab3f2acc1b3dfac350f835",
+      "report_matches": true
+    },
+    {
+      "day_id": 23,
+      "report_sha256": "8fa0afdcd9a477e1aeb4525021389ec028356466e5ecfaf3c6234a44299b8e77",
+      "archive_sha256": "2c7020096cd39abf2369e8754c26e5645097200bc3a188b3b3acd28f02f01171",
+      "report_matches": true
+    },
+    {
+      "day_id": 24,
+      "report_sha256": "b107425e8fc9f6807cf542895a2dda44a526eff7657daeb54dd05d4469956c2b",
+      "archive_sha256": "c399e49613c92603d6a91131e9788a4a2256e500d871a8807121ff43251fbe3e",
+      "report_matches": true
+    },
+    {
+      "day_id": 25,
+      "report_sha256": "668c43a0efd90427963ec1a81881f4b7f40d72c21ee0d66978dea868232d605c",
+      "archive_sha256": "2f6b86494debdc415c81152a3a6b8a94a580f93d518d885626b9f4a3dd36f29a",
+      "report_matches": true
+    },
+    {
+      "day_id": 26,
+      "report_sha256": "778266da6327527235d4309051cd0dd55b1a294cc71475ab28548f6dc7dc448c",
+      "archive_sha256": "a3ddf58118e6cc700af3e7099e59f20befcd6ee86d326082bdf3f5335aac2f2b",
+      "report_matches": true
+    },
+    {
+      "day_id": 27,
+      "report_sha256": "79849c2a0ff17eaa0b2fb00d44430b883e496517cbed7082a3e0f7814906f0de",
+      "archive_sha256": "b59deecbbfaef63b84626991fe92317dbb3a6e889c31575aa7cc662aee67c4a1",
+      "report_matches": true
+    },
+    {
+      "day_id": 28,
+      "report_sha256": "93eed81df958d5faf5b32816619af38be1ea635f3d75cdc6fc0e8d676e54b390",
+      "archive_sha256": "8a402f4eb751536e934c6582d9733799578d08ab9b9eac765de7d48f8752e428",
+      "report_matches": true
+    },
+    {
+      "day_id": 29,
+      "report_sha256": "d7f1e8a9cebdd299cc9790e0ca679d52df08aaae28cb038e0f60cf82f656535d",
+      "archive_sha256": "640c693e31f0b6ba67a7dd3ddf45c169eaec59fdc963e78aac1ecbf69304d239",
+      "report_matches": true
+    },
+    {
+      "day_id": 30,
+      "report_sha256": "249271fab35941615d98ede31c0eb93c78b7c360f3e3724ec9a51007d1289e42",
+      "archive_sha256": "f08fd1d242aae9385b96f09cb276123ad50a15e633d84be9b911e87d97830dff",
+      "report_matches": true
+    },
+    {
+      "day_id": 31,
+      "report_sha256": "03619ba4c635960228a477d201bee750e6e5a1ad822493ec70d0c9b5ef5d5d17",
+      "archive_sha256": "dba78172c67b2a2cbdcb946e2d49f2986fdf32135016bf16a6b28563bba45a4c",
+      "report_matches": true
+    }
+  ],
+  "all_32_actual_shard_hashes_match_independent_audit": true,
+  "key_count": 128,
+  "unique_key_count": 128,
+  "keys_match_registered": true,
+  "keys_match_merged": true,
+  "merged_archive_matches": true,
+  "merged_archive_sha256": "9028f75770d2ac8d7b115101cf58af297839e8ef1f6cdf48d8c717b8e5081495",
+  "audit_row_keys": [
+    "day_id",
+    "ordinal",
+    "clock",
+    "candidate",
+    "visible_order_count",
+    "teacher_valid",
+    "teacher_delta",
+    "decision_eligible",
+    "loss_teacher_margin",
+    "hist_resampled_margin",
+    "hist_teacher_regret",
+    "hist_direction_wrong",
+    "branch_summaries",
+    "delta_decomposition",
+    "terminal_trace_recomputed"
+  ],
+  "audit_sample_row": {
+    "day_id": 0,
+    "ordinal": 24,
+    "clock": 2.782252073287964,
+    "candidate": 25,
+    "visible_order_count": 25,
+    "teacher_valid": true,
+    "teacher_delta": -75.43902231752872,
+    "decision_eligible": true,
+    "loss_teacher_margin": -75.43902231752872,
+    "hist_resampled_margin": -25.877559725047877,
+    "hist_teacher_regret": 0,
+    "hist_direction_wrong": false,
+    "branch_summaries": [
+      {
+        "forced_accept": true,
+        "action_feasible": true,
+        "utility": 478.21381126716733,
+        "revenue": 1760,
+        "fuel_cost": 51.78618873283267,
+        "reject_loss": 1230,
+        "distance_km": 517.8618873283267,
+        "energy_kwh": 710.0020785869397,
+        "hard_feasible": true,
+        "failures": [],
+        "n_served": 94,
+        "n_rejected": 106
+      },
+      {
+        "forced_accept": false,
+        "action_feasible": true,
+        "utility": 553.652833584696,
+        "revenue": 1810,
+        "fuel_cost": 51.347166415303946,
+        "reject_loss": 1205,
+        "distance_km": 513.4716641530395,
+        "energy_kwh": 710.2859393995639,
+        "hard_feasible": true,
+        "failures": [],
+        "n_served": 101,
+        "n_rejected": 99
+      }
+    ],
+    "delta_decomposition": {
+      "revenue": -50,
+      "fuel_cost": 0.43902231752872467,
+      "reject_loss": 25
+    },
+    "terminal_trace_recomputed": true
+  },
+  "maskco": {
+    "status.json": {
+      "stage": "running",
+      "qualification": "formal_development",
+      "training_complete": false
+    },
+    "progress_rows": 44,
+    "progress_last": {
+      "step": 44,
+      "day_id": 10,
+      "ordinal": 124,
+      "record_hash": "65850a62505eb5b2b1d12466011603aed8c21481b1773f14ff2682c9a649a5a0",
+      "teacher_valid": true,
+      "teacher_delta": 0.4167206957936287,
+      "decision_eligible": false,
+      "actor_update": false,
+      "future_support": true,
+      "prior_baseline": 29.83361750127362,
+      "next_baseline": 29.83361750127362,
+      "estimated_margins": null,
+      "draw_hash": null,
+      "trainable_before": "f91c1fee3bf0e12068a162fb9dbbc6ac19c859ec4c107572e2c854c15499b65d",
+      "trainable_after": "91627217f46fbcdf69aa885ccb13eca837bb034b46f6891f4c313bc8aa8ae9cb",
+      "loss": 0.7796183824539185,
+      "gradient_norm": 1.5316795110702515
+    },
+    "config": {
+      "settings": {
+        "steps": 192,
+        "K": 10,
+        "independent_sets": 2,
+        "learning_rate": 0.00001,
+        "weight_decay": 0,
+        "max_grad_norm": 1,
+        "reconstruction_weight": 0.1,
+        "tau": 20,
+        "weight_cap": 100,
+        "baseline_decay": 0.9,
+        "schedule_seed": 23,
+        "actor_seed": 507,
+        "label_seed": 71,
+        "objective": "decision_reconstruction"
+      },
+      "mode": null,
+      "runtime": {
+        "device": "cpu",
+        "one_cpu_affinity": false
+      },
+      "model_selection": "fixed_last_step",
+      "train_key_count": 96,
+      "teacher_sha256": "9028f75770d2ac8d7b115101cf58af297839e8ef1f6cdf48d8c717b8e5081495",
+      "warmstart_sha256": "056a2d9a6f175d355b4e51f4bb587964a949d542553f45b764215e9dcbb55077"
+    }
+  },
+  "reconstruction_control": {
+    "status.json": {
+      "stage": "finished",
+      "qualification": "formal_development",
+      "training_complete": true,
+      "source_stable": true,
+      "checkpoint_reload_verified": true
+    },
+    "train_report.json": {
+      "keys": [
+        "settings",
+        "steps_completed",
+        "initial_trainable_hash",
+        "final_trainable_hash",
+        "frozen_hash",
+        "train_keys",
+        "logs",
+        "state_distribution",
+        "online_gain_established",
+        "config_sha256",
+        "qualification",
+        "source_start",
+        "source_end",
+        "source_stable",
+        "model_bin_sha256",
+        "checkpoint_reload_verified",
+        "teacher_archive_sha256",
+        "split_scope",
+        "history_pool_lineage",
+        "holdout_days",
+        "model_selection"
+      ],
+      "settings": {
+        "steps": 192,
+        "K": 10,
+        "independent_sets": 2,
+        "learning_rate": 0.00001,
+        "weight_decay": 0,
+        "max_grad_norm": 1,
+        "reconstruction_weight": 0.1,
+        "tau": 20,
+        "weight_cap": 100,
+        "baseline_decay": 0.9,
+        "schedule_seed": 23,
+        "actor_seed": 507,
+        "label_seed": 71,
+        "objective": "reconstruction_control"
+      },
+      "steps_completed": 192,
+      "initial_trainable_hash": "7db77e999a3777e5062cf810edeb96c799fedfb14b4e7a6b1e083508b709c66e",
+      "final_trainable_hash": "d2cda51167166b2279c2bb2e79da935fefd3406657876d46e11b4bb805617d97",
+      "frozen_hash": "2390d4d77b0ecf81af334dc451780e92f48b0c03030ff4581dea225887db6774",
+      "state_distribution": "fixed teacher policy, not learner-collected",
+      "online_gain_established": false,
+      "config_sha256": "c46d305c7f69c719226aa7ecd9baa4a1fba44100a83f6885e2e1d8e797132675",
+      "qualification": "formal_development",
+      "source_stable": true,
+      "model_bin_sha256": "651ef31ccf2032dc7bcbfa129785ab3448de452413d3798322d4473520ee7160",
+      "checkpoint_reload_verified": true,
+      "teacher_archive_sha256": "9028f75770d2ac8d7b115101cf58af297839e8ef1f6cdf48d8c717b8e5081495",
+      "split_scope": "teacher_objective_only",
+      "holdout_days": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "model_selection": "fixed_last_step"
+    },
+    "progress_rows": 192,
+    "progress_last": {
+      "step": 192,
+      "day_id": 23,
+      "ordinal": 169,
+      "record_hash": "69336beeed1dd4144319569620663b18490e212ec0935f06f113432ed588a441",
+      "teacher_valid": false,
+      "teacher_delta": null,
+      "decision_eligible": false,
+      "actor_update": false,
+      "future_support": true,
+      "prior_baseline": 0,
+      "next_baseline": 0,
+      "estimated_margins": null,
+      "draw_hash": null,
+      "trainable_before": "fabf8158e224d4d2a469928bb47db34f49601d13fbd6741057668697135da412",
+      "trainable_after": "d2cda51167166b2279c2bb2e79da935fefd3406657876d46e11b4bb805617d97",
+      "loss": 0.7658689618110657,
+      "gradient_norm": 1.5947271585464478
+    },
+    "config": {
+      "settings": {
+        "steps": 192,
+        "K": 10,
+        "independent_sets": 2,
+        "learning_rate": 0.00001,
+        "weight_decay": 0,
+        "max_grad_norm": 1,
+        "reconstruction_weight": 0.1,
+        "tau": 20,
+        "weight_cap": 100,
+        "baseline_decay": 0.9,
+        "schedule_seed": 23,
+        "actor_seed": 507,
+        "label_seed": 71,
+        "objective": "reconstruction_control"
+      },
+      "mode": null,
+      "runtime": {
+        "device": "cpu",
+        "one_cpu_affinity": false
+      },
+      "model_selection": "fixed_last_step",
+      "train_key_count": 96,
+      "teacher_sha256": "9028f75770d2ac8d7b115101cf58af297839e8ef1f6cdf48d8c717b8e5081495",
+      "warmstart_sha256": "056a2d9a6f175d355b4e51f4bb587964a949d542553f45b764215e9dcbb55077"
+    }
+  },
+  "pipeline_state": {
+    "stage": "training_fixed_models",
+    "time": "2026-10-09 00:24:41",
+    "steps": 192,
+    "selection": "fixed_last_step"
+  },
+  "phase_completed": "128_states_collected_and_independently_audited",
+  "formal_training_pair_complete": false,
+  "online_gain_established": false,
+  "remote_documents_uploaded": false
+}

@@ -1,0 +1,76 @@
+{
+  "stage": "P0_I3_preservation_privacy_scan",
+  "targets": {
+    "C-VRP_Cold-chainVehicleRoutingProblem/results/i3_registered_1008_v5/LOCAL_128_STAGE_ACCEPTANCE_20261009.json": {
+      "exists": true,
+      "bytes": 1338,
+      "chars": 1306,
+      "blocking_hits": {},
+      "report_hits": {},
+      "sftp_containment": {
+        "config_present": true,
+        "host_in_text": false,
+        "username_in_text": false,
+        "password_in_text": false
+      }
+    },
+    "C-VRP_Cold-chainVehicleRoutingProblem/results/i3_registered_1008_v5/INDEPENDENT_128_ACTUAL_IDENTITY_CHECK_20261009.json": {
+      "exists": true,
+      "bytes": 24764,
+      "chars": 24764,
+      "blocking_hits": {},
+      "report_hits": {
+        "posix_home_path": {
+          "count": 1,
+          "unique": 1,
+          "samples_masked": [
+            "/hom***ng"
+          ]
+        }
+      },
+      "sftp_containment": {
+        "config_present": true,
+        "host_in_text": false,
+        "username_in_text": true,
+        "password_in_text": false
+      }
+    },
+    "C-VRP_Cold-chainVehicleRoutingProblem/results/i3_online_recovery_1009_v1/INDEPENDENT_ACTUAL_ONLINE_END_IDENTITY_20261009.json": {
+      "exists": true,
+      "bytes": 153550,
+      "chars": 151201,
+      "blocking_hits": {},
+      "report_hits": {
+        "posix_home_path": {
+          "count": 348,
+          "unique": 1,
+          "samples_masked": [
+            "/hom***ng"
+          ]
+        }
+      },
+      "sftp_containment": {
+        "config_present": true,
+        "host_in_text": false,
+        "username_in_text": true,
+        "password_in_text": false
+      }
+    }
+  },
+  "blocking": [],
+  "report_only": [
+    {
+      "file": "C-VRP_Cold-chainVehicleRoutingProblem/results/i3_registered_1008_v5/INDEPENDENT_128_ACTUAL_IDENTITY_CHECK_20261009.json",
+      "pattern": "posix_home_path",
+      "count": 1,
+      "unique": 1
+    },
+    {
+      "file": "C-VRP_Cold-chainVehicleRoutingProblem/results/i3_online_recovery_1009_v1/INDEPENDENT_ACTUAL_ONLINE_END_IDENTITY_20261009.json",
+      "pattern": "posix_home_path",
+      "count": 348,
+      "unique": 1
+    }
+  ],
+  "verdict": "clear_to_preserve"
+}
