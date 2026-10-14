@@ -92,3 +92,14 @@ coldchain/coldchain_state.py -text
 #       (sha256 recorded in B3AC_REFUSAL_MATRIX.json -> identities.code)
 tests/test_d3_b3ac_path_classification.py -text
 tests/test_d3_b3ac_gate_refusal.py -text
+
+# Added by D3-G0 Evidence B3-AC byte freeze v2 (2026-10-14).  The post-commit `git archive HEAD`
+# verification caught two MORE unpinned files that the B3-AC matrices register:
+#   simulation/action_contract.py      archived 691fd2ce... != registered 9d64273a...
+#   evaluation/run_exp_energy_c0.py    archived 60f24701... != registered 9f0e9dd3...
+# Only B3-AC's own two deliverables had been pinned in v1; the matrices also register the gate
+# primitives and the path-classification anchors, and two of those were still unpinned.  Both are
+# additive (`git hash-object` == `git hash-object --no-filters` before the pin), so no blob is
+# rewritten and no registered value changes.
+simulation/action_contract.py -text
+evaluation/run_exp_energy_c0.py -text

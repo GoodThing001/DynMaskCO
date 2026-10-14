@@ -1,8 +1,8 @@
 {
   "record": "D3_G0_Evidence_B3AC_byte_freeze",
   "date": "2026-10-14",
-  "revision": 1,
-  "base_commit": "d76a505",
+  "revision": 2,
+  "base_commit": "881c693",
   "why": "both B3-AC deliverables register raw sha256 as evidence (the path classifier registers its own hash, the refusal matrix registers its own source plus the gate primitives), so a fresh checkout must reproduce them byte-for-byte; with core.autocrlf=true a checkout injects CRLF unless the container is pinned",
   "self_reference_note": "this record does not register its own sha256 (self-reference is meaningless); it is covered by the directory pin",
   "pin_sets": [
@@ -10,12 +10,25 @@
       "file": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/.gitattributes",
       "added_by_this_record": [
         "tests/test_d3_b3ac_path_classification.py -text",
-        "tests/test_d3_b3ac_gate_refusal.py -text"
+        "tests/test_d3_b3ac_gate_refusal.py -text",
+        "tests/test_d3_b3ac_path_classification.py (v1)",
+        "simulation/action_contract.py -text",
+        "evaluation/run_exp_energy_c0.py -text"
       ],
       "n_pinned_before": 21,
-      "n_pinned_after": 23,
-      "additive_check": "`git hash-object --no-filters` equalled the index blob for both files before the pin, so no existing blob is rewritten and no registered value changes",
-      "not_done_deliberately": "a blanket `*.py -text` under scripts/: 11 of 438 tracked `*.py` files there hold CRLF in the worktree"
+      "n_pinned_after": 25,
+      "additive_check": "`git hash-object` == `git hash-object --no-filters` for all four files before their pins, so no existing blob is rewritten",
+      "not_done_deliberately": "a blanket `*.py -text` under scripts/: 11 of 438 tracked `*.py` files there hold CRLF in the worktree",
+      "v2_measured_before_pin": {
+        "simulation/action_contract.py": {
+          "archived": "691fd2ce776d200d9f8b44d80528a87244ed2f00fc60672217ed9413b30518ac",
+          "registered": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b"
+        },
+        "evaluation/run_exp_energy_c0.py": {
+          "archived": "60f247017c71b26182a8ccf6379d15cc2e0f750b11cc08f3ff3ddeac5854f287",
+          "registered": "9f0e9dd321abebe05a549dc98c14778251eb2583b71749adb9b39ba13a877bbf"
+        }
+      }
     },
     {
       "file": "research/review_3080_20261010/d3_g0_evidence_root_v1/.gitattributes",
@@ -70,5 +83,6 @@
     "P2_every_real_commit_goes_through_the_gate": "NOT_THIS_BATCH_B3_AT"
   },
   "not_reported_as_passing": "AC-R1/AC-R7/AC-R8 reproduce DEFECTS and are COUNTEREXAMPLE_REPRODUCED; AC-R9 is FAILURE_ATOMICITY_ABSENT; AC-R5 is a WAIT and is never counted as refusal capability; AC-R3 counts on the quality dimension only.  This batch does not report G-L or G-C as passing, and does not claim atomicity.",
-  "verification_required_after_commit": "git archive HEAD <each pinned path> must reproduce the registered sha256 exactly"
+  "verification_required_after_commit": "git archive HEAD <each pinned path> must reproduce the registered sha256 exactly",
+  "revision_note": "v1 (commit 881c693) pinned only the two B3-AC deliverables; the post-commit `git archive HEAD` verification then found two MORE registered files still unpinned (simulation/action_contract.py, evaluation/run_exp_energy_c0.py), because the matrices also register the gate primitives and the path-classification anchors.  v2 adds those two pins (both additive, no registered value changed) and refreshes the hashes.  v1 stays byte-intact in history."
 }
