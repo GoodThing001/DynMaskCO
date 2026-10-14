@@ -1,0 +1,80 @@
+{
+  "stage": "P0_task2_I3_qualification_provenance",
+  "baseline_commit": "f10cb4772",
+  "question": "能否在其他可信历史归档中找回与 I3 原登记身份一致的资格文件？",
+  "subject_file": "results/i3_registered_1008_v5/LOCAL_128_STAGE_ACCEPTANCE_20261009.json",
+  "answer": {
+    "copy_of_the_record_found_in_a_second_archive": false,
+    "local_copy_found": true,
+    "identity_corroborated_by_present_artifacts": true,
+    "verdict": "not_recoverable_from_second_archive_but_identity_corroborated",
+    "wording": "该资格记录只在本地工作树存在单副本（未跟踪、被 .gitignore 忽略、且不在证据包中）；服务器与各离线归档中均无副本。其内嵌的两个身份哈希可由服务器侧 6 个逐字节一致的工件交叉佐证，但这不等于找回该记录本身：不得以交叉佐证替代原件，不得补造。"
+  },
+  "local_copy": {
+    "path": "C-VRP_Cold-chainVehicleRoutingProblem/results/i3_registered_1008_v5/LOCAL_128_STAGE_ACCEPTANCE_20261009.json",
+    "bytes": 1338,
+    "mtime": "2026-10-09 00:44:21",
+    "sha256": "10e60da10a80d74ae59cc10333f012f1f09e9541497db2d69c84f48ed776564a",
+    "git_tracked": false,
+    "gitignored_by": ".gitignore:28  /C-VRP_Cold-chainVehicleRoutingProblem/results/*",
+    "in_release_evidence_tarball": false,
+    "tarball_members_total": 474,
+    "tarball_matches_for_STAGE_ACCEPTANCE": 0,
+    "single_copy_risk": "HIGH - the only copy is an untracked, ignored worktree file"
+  },
+  "version_spread": {
+    "i3_registered_1008_v1": "absent", "i3_registered_1008_v2": "absent",
+    "i3_registered_1008_v3": "absent", "i3_registered_1008_v4": "absent",
+    "i3_registered_1008_v5": "PRESENT (sha256 10e60da1...)"
+  },
+  "server_side": {
+    "v5_dir_present": true,
+    "v5_top_level_file_count": 41,
+    "acceptance_file_present": false,
+    "filename_search_depth": 9,
+    "filename_hits": 0,
+    "STAGE_ACCEPTANCE_hits_repo_wide": 0,
+    "B_REPRO_CLEAN_results_match": "none",
+    "B_REPRO_CLEAN_repro_work_match": "none",
+    "correction_validation_v2_v3_recovered": "absent",
+    "probe_scope_not_covered": ["paths the login user cannot read", "archives not mounted on the host", "external tapes/backups"]
+  },
+  "embedded_identities": {
+    "audit_sha256": "ac747189c1a2f02e5268ee934c8ad0cecd1780a3c76ec9a6a51dac80a3c22a72",
+    "merged_teacher_sha256": "9028f75770d2ac8d7b115101cf58af297839e8ef1f6cdf48d8c717b8e5081495"
+  },
+  "corroborating_artifacts": {
+    "note": "files that carry one of the two embedded identities AND are byte-identical on BOTH hosts",
+    "rows": [
+      {"path": "results/i3_registered_1008_v5/TEACHER_AUDIT_ACCEPTED.json", "bytes": 305, "sha256_prefix": "5db9c4c84bd70fcf", "carries": "audit_sha256", "local_vs_server": "MATCH"},
+      {"path": "results/i3_registered_1008_v5/SOURCE_MANIFEST.sha256", "bytes": 82634, "sha256_prefix": "b75bb9c7abab38b0", "carries": "audit_sha256", "local_vs_server": "MATCH"},
+      {"path": "results/i3_registered_1008_v5/teacher_merged/report.json", "bytes": 17823, "sha256_prefix": "bd89557140ffaa03", "carries": "merged_teacher_sha256", "local_vs_server": "MATCH"},
+      {"path": "results/i3_registered_1008_v5/maskco/train_report.json", "bytes": 238999, "sha256_prefix": "c096cc2fd8c74882", "carries": "merged_teacher_sha256", "local_vs_server": "MATCH"},
+      {"path": "results/i3_registered_1008_v5/reconstruction_control/train_report.json", "bytes": 215682, "sha256_prefix": "075942cfe9ca45e4", "carries": "merged_teacher_sha256", "local_vs_server": "MATCH"},
+      {"path": "results/i3_online_recovery_1009_v1/SOURCE_MANIFEST.sha256", "bytes": 86414, "sha256_prefix": "79d8de47af327ae4", "carries": "audit_sha256", "local_vs_server": "MATCH"}
+    ]
+  },
+  "local_only_corroborators": [
+    {"path": "results/i3_registered_1008_v5/INDEPENDENT_128_ACTUAL_IDENTITY_CHECK_20261009.json", "bytes": 24764, "sha256_prefix": "0825ad07afbf2392", "server": "MISSING"},
+    {"path": "results/i3_online_recovery_1009_v1/INDEPENDENT_ACTUAL_ONLINE_END_IDENTITY_20261009.json", "server": "MISSING"}
+  ],
+  "content_vs_I3_doc_consistency": {
+    "states_128_unique_128_days_32": "matches I3 doc line 11",
+    "action_feasible_branches_230": "matches",
+    "infeasible_action_branches_26": "matches",
+    "hard_failed_action_feasible_branches_0": "matches",
+    "labels_valid_102_negative_55_positive_47_invalid_26_small_or_tie_16": "matches",
+    "training_states_96_fixed_last_192_steps": "matches I3 doc line 12",
+    "formal_training_pair_independently_accepted_false": "this is precisely the field the I3 doc line 15 refers to",
+    "online_gain_established_false": "consistent with the standing conclusion",
+    "scope_field": "states it is linked to a separately executed server terminal-trace audit and does NOT claim a new local raw-archive replay"
+  },
+  "prohibitions_respected": [
+    "no historical field was reconstructed, inferred or back-filled",
+    "no substitution of the corroborating artifacts for the missing record",
+    "no modification of any frozen tree, gate, checkpoint or sealed result",
+    "the I3 doc's evidence-entry link is NOT edited"
+  ],
+  "recommendation": "record this provenance and the single-copy risk; if the user wants durable preservation, copy the 1338-byte record (or at least its SHA) into a tracked evidence location - a deliberate preservation action, explicitly not a reconstruction",
+  "stable_online_gain": false
+}

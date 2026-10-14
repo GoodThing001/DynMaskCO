@@ -1,0 +1,77 @@
+== ENV ==
+host=user date=2026-10-14T17:40:32+08:00 pwd=/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem
+
+== [P1] does the v5 dir exist on the server, and what is in it? ==
+DIR PRESENT: results/i3_registered_1008_v5
+total 840
+-rw-rw-r-- 1 hzeng hzeng 61772 Oct  8 18:41 A3_ACTIVATION.json
+-r--r--r-- 1 hzeng hzeng   533 Oct  8 17:49 APPROVAL_AND_CHANGE_RECORD.json
+-rw-rw-r-- 1 hzeng hzeng  1124 Oct  8 18:58 INDEPENDENT_QA_RELEASE_AUDIT.json
+-rw-rw-r-- 1 hzeng hzeng   725 Oct  8 17:50 LAUNCH_RECORD.json
+-rw-rw-r-- 1 hzeng hzeng   448 Oct  8 17:57 LAUNCH_STDOUT_NOTE.json
+-rw-rw-r-- 1 hzeng hzeng   681 Oct  8 18:40 LOW_ORDER_QA_PASS.json
+-rw-rw-r-- 1 hzeng hzeng   378 Oct  8 18:40 QA_PASS.json
+-rw-rw-r-- 1 hzeng hzeng 21705 Oct  8 17:57 QA_STDOUT_1759_SNAPSHOT.log
+-r--r--r-- 1 hzeng hzeng   650 Oct  8 17:50 SOURCE_DIFF.json
+-r--r--r-- 1 hzeng hzeng 82634 Oct  8 17:50 SOURCE_MANIFEST.sha256
+-rw-rw-r-- 1 hzeng hzeng   305 Oct  9 00:24 TEACHER_AUDIT_ACCEPTED.json
+-rw-rw-r-- 1 hzeng hzeng   106 Oct  8 17:50 cpu_lease_test.log
+-rw-rw-r-- 1 hzeng hzeng    29 Oct  9 01:30 ended_at.txt
+drwxrwxr-x 2 hzeng hzeng  4096 Oct  8 18:10 engineering_200_teacher
+-rw-rw-r-- 1 hzeng hzeng  7031 Oct  8 18:10 engineering_actual_teacher_config.json
+drwxrwxr-x 2 hzeng hzeng  4096 Oct  8 18:12 engineering_actual_teacher_training
+drwxrwxr-x 5 hzeng hzeng  4096 Oct  8 17:50 engineering_collection
+drwxrwxr-x 2 hzeng hzeng  4096 Oct  8 18:40 engineering_low_order_collection
+-rw-rw-r-- 1 hzeng hzeng  2773 Oct  8 18:12 engineering_low_order_config.json
+drwxrwxr-x 6 hzeng hzeng  4096 Oct  8 17:51 engineering_online_adapter
+drwxrwxr-x 2 hzeng hzeng  4096 Oct  8 17:50 engineering_small_teacher
+-r--r--r-- 1 hzeng hzeng  1807 Oct  8 17:49 i3_collection_cpu_leases_1008.py
+drwxrwxr-x 2 hzeng hzeng  4096 Oct  9 01:29 maskco
+-rw-rw-r-- 1 hzeng hzeng 21282 Oct  9 00:24 maskco_training_config.json
+drwxrwxr-x 2 hzeng hzeng  4096 Oct  9 01:29 maskco_training_job
+-rw-rw-r-- 1 hzeng hzeng 12788 Oct  9 00:16 merge_input.json
+drwxrwxr-x 2 hzeng hzeng  4096 Oct  9 00:24 merge_job
+drwxrwxr-x 2 hzeng hzeng  4096 Oct  9 01:30 online_20260926
+-rw-rw-r-- 1 hzeng hzeng  6757 Oct  9 01:30 online_config_20260926.json
+-- top-level file count: 41
+
+== [P2] server-wide search for the exact filename (depth<=9) ==
+(end of filename search)
+
+== [P3] any *STAGE_ACCEPTANCE* on the server ==
+(end)
+
+== [P4] corroborating artifacts named by the local trace: present on the server? ==
+MISS results/i3_registered_1008_v5/INDEPENDENT_128_ACTUAL_IDENTITY_CHECK_20261009.json
+OK   305  results/i3_registered_1008_v5/TEACHER_AUDIT_ACCEPTED.json
+OK   82634  results/i3_registered_1008_v5/SOURCE_MANIFEST.sha256
+OK   17823  results/i3_registered_1008_v5/teacher_merged/report.json
+OK   238999  results/i3_registered_1008_v5/maskco/train_report.json
+OK   215682  results/i3_registered_1008_v5/reconstruction_control/train_report.json
+MISS results/i3_online_recovery_1009_v1/INDEPENDENT_ACTUAL_ONLINE_END_IDENTITY_20261009.json
+OK   86414  results/i3_online_recovery_1009_v1/SOURCE_MANIFEST.sha256
+
+== [P5] does any server file carry the two embedded identities? (bounded) ==
+-- ac747189c1a2f02e...
+results/i3_registered_1008_v5/TEACHER_AUDIT_ACCEPTED.json
+results/i3_online_recovery_1009_v1/SOURCE_MANIFEST.sha256
+   (end)
+-- 9028f75770d2ac8d...
+results/i3_registered_1008_v5/reconstruction_control_training_config.json
+results/i3_registered_1008_v5/maskco_training_config.json
+results/i3_registered_1008_v5/reconstruction_control/train_report.json
+results/i3_registered_1008_v5/reconstruction_control/config.json
+results/i3_registered_1008_v5/reconstruction_control/submitted_config.json
+results/i3_registered_1008_v5/teacher_merged/report.json
+results/i3_registered_1008_v5/maskco/train_report.json
+results/i3_registered_1008_v5/maskco/config.json
+   (end)
+
+== [P6] offline archives on the server that might hold it ==
+DIR B_REPRO_CLEAN/results : no *128*ACCEPT* match
+DIR B_REPRO_CLEAN/repro_work : no *128*ACCEPT* match
+DIR results/correction_validation_1009_v2/recovered : absent
+DIR results/correction_validation_1009_v3/recovered : absent
+
+== DONE ==
+
