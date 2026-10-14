@@ -1,0 +1,127 @@
+{
+  "artifact": "D3_G0_Evidence_B3CG_submit_gate_spec",
+  "date": "2026-10-14",
+  "base_commit": "079ed7f",
+  "status": "READ-ONLY SPECIFICATION + STATE-MACHINE PROOF. Nothing implemented. No _commit change, no real install, no write-back, no science.",
+  "goal": "prove that NO action actually executed by D3 can bypass the safety certification it requires -- not to re-prove the lower bound",
+
+  "two_separate_falsifiable_propositions": {
+    "G-L_local_safety": {
+      "claim": "before EVERY commit, the current action and its plan suffix satisfy the currently checkable hard constraints; on failure NOTHING is committed",
+      "verdict": "NOT_ESTABLISHED",
+      "why": "no such gate exists on the D3 submission path; _commit and _plan_and_commit perform no feasibility check at all and 7 non-test paths bypass the composed gate, which itself has no production caller",
+      "blocking_gaps": ["F10 no unique writer", "F8 TOCTOU unverified"]
+    },
+    "G-C_continuous_safety": {
+      "claim": "after subsequent legal state changes and replanning the system still never executes an uncertified next action, and when complete certification is unavailable it takes a DEFINED safe degradation",
+      "verdict": "NOT_ESTABLISHED",
+      "why": "cannot be inferred from G-L; F10 and F9-unverified plus the degradation level is not declared",
+      "note": "G-L being true does NOT entail G-C"
+    }
+  },
+
+  "deliverable_A_presubmit_omega_qualification": [
+    {"id": "A-1", "check": "post-commit segment temperatures within hard_temperature_bounds_c", "current": "only COUNTED by _thermal_violations; _validate_state does not validate temperature; never refused"},
+    {"id": "A-2", "check": "every arrival <= tw_end", "current": "exists only in certify_route (plan time) and the terminal evaluator; absent on the submit path"},
+    {"id": "A-3", "check": "cumulative load <= shared_vehicle_capacity", "current": "same as A-2"},
+    {"id": "A-4", "check": "return arrival <= tw_end[0]", "current": "same as A-2; certify_plan never references tw_end[0]"},
+    {"id": "A-5", "check": "committed leg not revoked, each order picked exactly once", "current": "_commit validates nothing; relies on replanner discipline"},
+    {"id": "A-6", "check": "plan_vehicle_set / revealed_only / no_served_in_plan / no_duplicate_order", "current": "implemented as a short-circuit in d3_composed_certifier (B3-Q) but has NO production caller"},
+    {"id": "A-7", "check": "H(S) == H(C) == H(P) triple identity", "current": "implemented in B2 (d3_install_gate), no production caller"},
+    {"id": "A-8", "check": "decision deadline not exceeded", "current": "implemented as deadline_ok in B2"},
+    {"id": "A-9", "check": "capability gap (quality/salability) => BLOCK", "current": "CAPABILITY_GAP_BLOCKING => installable=False (D8 stays)"}
+  ],
+
+  "deliverable_B_certification_invalidation": {
+    "trigger": "any legal state change altering state_hash, contract_hash, effective_contract_hash, profile_hash or plan_digest_anchor_v1",
+    "concrete_triggers": ["a reveal clears every non-closed vehicle's mutable_suffix (strict_online_env.py:528)", "clock advance", "service completion", "return completion", "replanning that changes the plan"],
+    "granularity": "per (decision point, plan) -- NEVER per run; 'was certified once' must not mean 'is certified now'",
+    "mechanism": "recompute all three identities immediately before installation and compare; never trust a cache or a timestamp",
+    "relation_to_G_C": "necessary but NOT sufficient for G-C: it stops a changed state from being installed, but it does not create a unique writer"
+  },
+
+  "deliverable_C_failclosed_behaviour": {
+    "rule": "certification unavailable => DO NOT COMMIT, and enter a DECLARED safe degradation",
+    "degradation_levels": [
+      {"level": "D0", "behaviour": "do not commit; keep the currently committed state (mutable_suffix == [] = WAIT)", "status": "required default", "produces_real_state_change": false},
+      {"level": "D1", "behaviour": "commit the INCUMBENT baseline plan, whose certification is independent of the rejected candidate", "status": "allowed ONLY if the incumbent itself passes A-1..A-9, else fall back to D0"},
+      {"level": "D2", "behaviour": "commit and explicitly mark as NOT FULLY CERTIFIED, with the mark entering the receipt and later audit", "status": "NOT ALLOWED today (would unlock D8); registered as a pending adjudication only"}
+    ],
+    "hard_requirements": [
+      "fail-closed must be a REFUSAL, never an escaping exception",
+      "a missing certifier must NOT default to pass (the no_certifier refusal is the correct pattern)",
+      "no real state may be written while uncertified"
+    ]
+  },
+
+  "state_machine": {
+    "states": ["INIT", "CANDIDATE", "CERTIFIED", "STALE", "REFUSED", "DEGRADED", "COMMITTED", "EXECUTED"],
+    "invariants": {
+      "INV-L": "there is NO transition from CANDIDATE / STALE / DEGRADED to COMMITTED; the only precondition for COMMITTED is CERTIFIED on the CURRENT state version",
+      "INV-C": "any state change after COMMITTED makes the credential STALE, AND COMMITTED has exactly ONE writer (the gate itself)"
+    },
+    "transitions": [
+      {"from": "INIT", "to": "CANDIDATE", "guard": "candidate plan constructed"},
+      {"from": "CANDIDATE", "to": "CERTIFIED", "guard": "A-1..A-9 all pass AND no blocking capability gap", "on_failure": "REFUSED with the specific item recorded"},
+      {"from": "CANDIDATE", "to": "REFUSED", "guard": "any item fails / certifier missing / certification raises", "real_state_unchanged": true},
+      {"from": "CERTIFIED", "to": "COMMITTED", "guard": "CURRENT state version triple identity equals the credential AND deadline_ok AND credential structurally valid", "on_failure": "STALE"},
+      {"from": "CERTIFIED", "to": "STALE", "guard": "any identity component changed"},
+      {"from": "STALE", "to": "CERTIFIED", "guard": "re-certification on the NEW state version", "on_failure": "REFUSED / DEGRADED"},
+      {"from": "DEGRADED", "to": "COMMITTED", "guard": "FORBIDDEN -- this transition must not exist"},
+      {"from": "COMMITTED", "to": "EXECUTED", "guard": "advanced by the env; the gate does not participate"}
+    ]
+  },
+
+  "failure_paths": [
+    {"id": "F1", "path": "certifier missing", "requirement": "refuse", "status": "IMPLEMENTED (no_certifier pattern)"},
+    {"id": "F2", "path": "certification returns not-ok", "requirement": "refuse", "status": "IMPLEMENTED"},
+    {"id": "F3", "path": "identity mismatch (S/C/P)", "requirement": "refuse", "status": "IMPLEMENTED (no production caller)"},
+    {"id": "F4", "path": "decision deadline exceeded", "requirement": "refuse", "status": "IMPLEMENTED"},
+    {"id": "F5", "path": "certification raises", "requirement": "refuse, never escape", "status": "IMPLEMENTED (_guard)"},
+    {"id": "F6", "path": "apply raises", "requirement": "refuse with no partial install", "status": "STRUCTURAL (apply_action builds new objects); state-level rollback NOT implemented"},
+    {"id": "F7", "path": "capability gap (quality)", "requirement": "block installable", "status": "IMPLEMENTED (D8)"},
+    {"id": "F8", "path": "TOCTOU: state changes between certification and commit", "requirement": "must refuse", "status": "NOT VERIFIED -- needs re-verification on the same version immediately before the write, or atomicity"},
+    {"id": "F9", "path": "replanning after certification", "requirement": "credential invalid, re-certify", "status": "mechanism IMPLEMENTED; NOT verified on the real replanning path"},
+    {"id": "F10", "path": "bypass: a write path that skips the gate", "requirement": "the gate must be the ONLY writer", "status": "FALSE TODAY -- _commit/_plan_and_commit validate nothing, 7 non-test paths bypass the composed gate, and the gate has no production caller"},
+    {"id": "F11", "path": "the gate itself raises", "requirement": "refuse + record", "status": "IMPLEMENTED"},
+    {"id": "F12", "path": "stale credential reused", "requirement": "refuse", "status": "IMPLEMENTED (structural validation + identity comparison)"}
+  ],
+
+  "separately_registered_simulator_semantics_defect": {
+    "name": "_force_return_all unload-time vs cold-chain-advance inconsistency",
+    "anchors": ["strict_online_env.py:658-664", "strict_online_env.py:272", "strict_online_env.py:273", "coldchain_state.py:391-402"],
+    "detail": "it sets v.return_finish = depart + travel (:273) while advancing the cold chain only to depart (:272), then closes the cargo at `finish` with depart_time = arrival_time = service_finish = finish",
+    "consequence": "the RECORDED unload happens at departure, early by the return travel time, so the recorded delivered_quality is MORE optimistic than the physics; conservative for the lower bound but it WEAKENS any cross-check that uses delivered records (e.g. BND)",
+    "handling_rules": [
+      "register separately; do not merge into the lower-bound discussion",
+      "do NOT close the risk because the call count is zero in the current sample (0 calls here, max return arrival 15.97 h vs tw_end[0] = 24 h -- untriggered, not proven safe)",
+      "do NOT silently modify the historical physics; any fix must be a new versioned implementation with its own acceptance"
+    ]
+  },
+
+  "erratum": {
+    "file": "B3CG_TAU_ERRATUM.md",
+    "correction_1": "dQ_LB/dtau_max = -k*Q_LB < 0, so TIGHTENING tau_max RAISES the bound and can only make certification EASIER; it can never create a new unsalable refusal. 'The payoff must come from a tighter tau' holds only for the usability meaning (fewer false refusals), not for discrimination.",
+    "correction_1_strengthened": "tau_max = tw_end[0]-now is the LOOSEST SOUND duration bound and T_max = hard_upper is the HIGHEST SOUND temperature, so Q_LB is already the smallest value this FORM can soundly take. If it does not bind now, NO sound (T_max, tau_max) makes it bind -- a binding certification needs a DIFFERENT functional form (plan/state-conditional), which trades coverage for tightness.",
+    "correction_2": "for an already-loaded lot the correct segmented argument accumulates only the REMAINING decay from now to delivery (t_delivery - now <= tau_max), not the full in-cargo time; for a not-yet-picked order t_load >= now makes the same tau_max apply. This matches the code's Q_start choice.",
+    "measured": {"class_0": {"threshold": 0.8, "ratios": {"24h": 0.9316, "12h": 0.9652, "6h": 0.9824, "1h": 0.9971, "0.1h": 0.9997}}, "class_1": {"threshold": 0.85, "ratios": {"24h": 0.9413, "12h": 0.9702, "6h": 0.9850, "1h": 0.9975, "0.1h": 0.9997}}, "class_2": {"threshold": 0.9, "ratios": {"24h": 0.9754, "12h": 0.9876, "6h": 0.9938, "1h": 0.9990, "0.1h": 0.9999}}}
+  },
+
+  "priority_after_this_round": {
+    "P0": ["D3 unique submit gate: read-only spec and state-machine proof (this document's implementation phase)", "erratum recorded as a separate appendix (done)"],
+    "P1": ["targeted safety counterexamples A-c4..A-c9, starting with copy-level diagnostics of _force_return_all, thermal excursion and an infeasible suffix", "D-B3A-7 contract transform verifier"],
+    "deferred": ["tighter tau as a PERFORMANCE (usability) optimisation", "D-B3A-3 admittance", "B3b real installation", "D-B3A-6 removal of the historical bypass paths"],
+    "explicit_instruction": "do not develop the submit gate, the lower-bound optimisation and the real installation simultaneously in one round; freeze a mechanically checkable submit state machine first"
+  },
+
+  "unchanged_research_position": {
+    "D8": "blocked",
+    "CONSERVATIVENESS_NOT_ESTABLISHED": "retained",
+    "D3_G0": "NOT passed",
+    "G1_G2": "not started",
+    "attributable_F_minus_D_gain": "not established",
+    "I3": "negative result retained",
+    "old_D2": "not_qualified retained",
+    "stable_online_gain": false
+  }
+}
