@@ -107,6 +107,69 @@ def main():
     ck('契约接地：c0_marginal_energy / certify_plan 签名与规格一致', *[_contract_grounding()])
     ck('契约接地的**反面**：签名漂移必须被抓到', *[_contract_grounding_negative()])
 
+    # ---------- 候选评估核心 decide_candidate（全注入 ⇒ 离线可测）----------
+    # 用一个最小 order 替身 + 注入的四个函数，避免依赖 env / 项目模块。
+    class _O:
+        order_id = 7
+
+    o = _O()
+    plan = {'plan': 'stub'}
+    B = 100.0
+    # Ĵ: 预算越少价值越低 ⇒ λ_B > 0：J(b)=b 时 λ_B = (B-(B-e))/e = 1
+    jhat = lambda b: float(b)
+    cert_ok = lambda p: (True, 5.0)
+    mn_fn = lambda _o: 3.0            # myopic_net = 3
+    e_fn = lambda _o: 5.0             # e_o = 5 ⇒ 机会成本 = 1*5 = 5 ⇒ 3−5 = −2 ⇒ 拒
+    acc, d = rc.decide_candidate(order=o, candidate_plan=plan, budget_B=B,
+                                myopic_net_fn=mn_fn, marginal_energy_fn=e_fn,
+                                future_value_fn=jhat, certify_fn=cert_ok)
+    ck('decide_candidate：λ_B=1、机会成本=5 ⇒ 净 −2 ⇒ 拒单',
+       acc is False and abs(d['lambda_B'] - 1.0) < 1e-9
+       and abs(d['opportunity_cost'] - 5.0) < 1e-9, d)
+
+    acc, d = rc.decide_candidate(order=o, candidate_plan=plan, budget_B=B,
+                                myopic_net_fn=mn_fn, marginal_energy_fn=e_fn,
+                                future_value_fn=jhat, certify_fn=cert_ok,
+                                ablate_opportunity_cost=True)
+    ck('decide_candidate：A 版（λ_B 强制 0）⇒ 3 > 0 ⇒ 接单，且 lambda_source 标为消融',
+       acc is True and d['lambda_B'] == 0.0
+       and d['lambda_diag']['lambda_source'] == 'ablate_opportunity_cost', d)
+
+    acc, d = rc.decide_candidate(order=o, candidate_plan=plan, budget_B=B,
+                                myopic_net_fn=mn_fn, marginal_energy_fn=e_fn,
+                                future_value_fn=jhat, certify_fn=cert_ok,
+                                ablate_lookahead=True)
+    ck('decide_candidate：去前瞻 ⇒ λ_B 也只能是 0，且 lambda_source 标为 ablate_lookahead',
+       acc is True and d['lambda_B'] == 0.0
+       and d['lambda_diag']['lambda_source'] == 'ablate_lookahead', d)
+    ck('★ 两个消融**机制不同但 λ_B 都为 0**（诊断可区分，故 B−A 不被混淆）',
+       d['lambda_diag']['lambda_source'] != 'ablate_opportunity_cost')
+
+    acc, d = rc.decide_candidate(order=o, candidate_plan=plan, budget_B=B,
+                                myopic_net_fn=lambda _o: 1e9, marginal_energy_fn=e_fn,
+                                future_value_fn=jhat, certify_fn=lambda p: (False, 999.0))
+    ck('decide_candidate：certify 不过 ⇒ 净收益再大也拒单',
+       acc is False and 'certify_plan 未通过' in d['reject_reason'], d)
+
+    # ---------- 与写入器的集成：接受/拒绝都能落盘并通过审计 ----------
+    import role_c_decision_log as rlog
+    lg = rlog.DecisionLogger(B)
+    acc, d = rc.decide_candidate(order=o, candidate_plan=plan, budget_B=B,
+                                myopic_net_fn=mn_fn, marginal_energy_fn=e_fn,
+                                future_value_fn=jhat, certify_fn=cert_ok,
+                                ablate_opportunity_cost=True)
+    rc.log_decision(lg, d, inst_idx=0, day_id=0, clock=2.0, info_max_reveal=2.0,
+                    decision_hash='d0')
+    acc2, d2 = rc.decide_candidate(order=o, candidate_plan=plan, budget_B=B,
+                                  myopic_net_fn=mn_fn, marginal_energy_fn=e_fn,
+                                  future_value_fn=jhat, certify_fn=cert_ok)
+    rc.log_decision(lg, d2, inst_idx=0, day_id=0, clock=3.0, info_max_reveal=3.0,
+                    decision_hash='d1')
+    r = lg.audit(log_repeat=[dict(x) for x in lg.records])
+    ck('集成：decide_candidate → log_decision → 审计全过（接单+拒单各一）',
+       r['passed'] is True and r['problems'] == []
+       and [x['action'] for x in lg.records] == ['accept', 'reject'], r['problems'])
+
     passed = sum(1 for _n, ok, _d in cases if ok)
     for n, ok, detail in cases:
         print(('  PASS ' if ok else '  FAIL ') + n + ('' if ok else ('   ← ' + str(detail))))

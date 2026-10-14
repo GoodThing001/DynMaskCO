@@ -101,3 +101,69 @@ def decide(*, myopic_net, e_o, lambda_B, certify_ok,
 def myopic_net(revenue, fuel, reject_loss):
     """`revenue − fuel − reject_loss`（规格 §2.1 左式；**不得**在此再扣机会成本）。"""
     return float(revenue) - float(fuel) - float(reject_loss)
+
+
+def decide_candidate(*, order, candidate_plan, budget_B,
+                     myopic_net_fn, marginal_energy_fn, future_value_fn, certify_fn,
+                     ablate_opportunity_cost=False, ablate_lookahead=False):
+    """**Role C 的候选评估核心**（规格 §2.1 + §2.4 的"候选评估 → certify → 提交"）。
+
+    环境相关的部分**全部注入**（`myopic_net_fn` / `marginal_energy_fn` /
+    `future_value_fn` / `certify_fn`），因此本函数**不依赖 env、不跑实验**，可完全离线单测；
+    真实 runner 只需把项目实现传进来。
+
+    ⚠️ **两个消融开关并不独立（重要，2026-10-14 发现）**：
+
+      * `ablate_opportunity_cost`（A 版）= **保留**场景前瞻，但令 `λ_B ≡ 0`
+        ⇒ 判据退化为 `myopic_net > 0 ∧ certify_ok`（"可行即接"）；
+      * `ablate_lookahead`     = **去掉**场景前瞻 ⇒ `Ĵ` 无从估计 ⇒ `λ_B` **必然也只能是 0**。
+
+    ⇒ 二者**都会**让 `λ_B = 0`，区别在于 **A 版仍持有场景机制**。因此 A–F 表里的
+    **A 版必须定义为"有场景 + `λ_B` 强制为 0"**，而**不是**"去掉前瞻" ——
+    否则 `B − A` 会把"去掉前瞻"与"去掉机会成本"两件事**混淆**（confound）。
+    本函数在诊断里用 `lambda_source` 区分两者，便于 T2/T3 分别归因。
+
+    返回 `(result_dict, diag)`；`result_dict['accept']` 为最终判决。
+    """
+    e_o = float(marginal_energy_fn(order))
+    if ablate_lookahead:
+        lam, lam_diag = 0.0, {'lambda_raw': 0.0, 'lambda_B': 0.0, 'e_o': e_o,
+                              'lambda_source': 'ablate_lookahead',
+                              'reason': '无前瞻 ⇒ Ĵ 无从估计 ⇒ λ_B 置 0（与 A 版同为 0，但机制不同）'}
+    else:
+        lam, lam_diag = shadow_price_budget(budget_B, e_o, future_value_fn)
+        lam_diag['lambda_source'] = ('opportunity_cost' if not ablate_opportunity_cost
+                                     else 'ablate_opportunity_cost')
+    mn = float(myopic_net_fn(order))
+    # §2.4 顺序：候选评估（含 λ_B）→ 认证 → 提交
+    certify_ok, certify_energy = certify_fn(candidate_plan)
+    accept, diag = decide(myopic_net=mn, e_o=e_o, lambda_B=lam, certify_ok=certify_ok,
+                          ablate_opportunity_cost=ablate_opportunity_cost)
+    diag.update({
+        'lambda_diag': lam_diag,
+        'certify_energy': certify_energy,
+        'budget_B': float(budget_B),
+        'ablate_lookahead': bool(ablate_lookahead),
+        # 供写入器/审计器直接使用；`info_max_reveal` 由调用方按真实信息边界填写
+        'log_fields': {'order_id': getattr(order, 'order_id', None),
+                       'action': 'accept' if accept else 'reject',
+                       'certified': bool(certify_ok),
+                       'certify_energy': certify_energy},
+    })
+    return accept, diag
+
+
+def log_decision(logger, diag, *, inst_idx, day_id, clock, info_max_reveal, decision_hash):
+    """把 `decide_candidate` 的结果写进 `DecisionLogger`（写入即校验）。
+
+    ⚠️ 拒单也**必须**记录 `certified`（写入器要求 bool）：拒单不需要认证，
+    故按"认证状态未知/未认证"记为 `False`，**不**伪造 True。
+    """
+    fields = diag['log_fields']
+    return logger.log_event(inst_idx=inst_idx, day_id=day_id, clock=clock,
+                            info_max_reveal=info_max_reveal,
+                            action=fields['action'], certified=fields['certified'],
+                            decision_hash=decision_hash,
+                            order_id=(fields['order_id'] if fields['action'] == 'accept' else None),
+                            certify_energy=(fields['certify_energy']
+                                            if fields['action'] == 'accept' else None))
