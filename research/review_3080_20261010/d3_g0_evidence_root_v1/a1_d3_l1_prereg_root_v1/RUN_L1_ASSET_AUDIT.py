@@ -24,7 +24,7 @@ import pathlib
 import pickle
 import re
 
-REPO = pathlib.Path(__file__).resolve().parents[3]
+REPO = pathlib.Path(__file__).resolve().parents[4]
 EXT = REPO / 'C-VRP_Cold-chainVehicleRoutingProblem'
 OUTDIR = pathlib.Path(__file__).resolve().parent
 STATE_FIELDS = ('clock', 'served_mask', 'mutable_suffix', 'mutable_suffix_len', 'needs_replan',
