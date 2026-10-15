@@ -94,3 +94,9 @@
 /P1A_C1C4缺口ABC修复_模块身份与接口diff_*.md text eol=lf
 /tools/_superseded_test_role_c_sidecar_recorder_v2_*.py text eol=lf
 /tools/role_c_sidecar_archive_recheck.py text eol=lf
+# --- 对比方法总表四状态重分类（用户 2026-10-14 裁定）---
+/P1A_对比方法总表_四状态重分类_只读_*.md text eol=lf
+# ⚠️ `docs/a1_development_comparison/A-v1对比方法总表.md` 与 `读表注意与已知限定.md`
+#    **故意没有条目**：它们在 `ARTIFACT_MANIFEST.json` 里登记的是**工作树 raw SHA**
+#    （总表 = CRLF 78970 字节 / `7d94a4d7…`）。加 `eol=lf` 会把工作树转成 LF（78515）
+#    ⇒ 直接破坏已登记字节身份。**不 renormalize**；分层整理一律走**新版本文件**。
