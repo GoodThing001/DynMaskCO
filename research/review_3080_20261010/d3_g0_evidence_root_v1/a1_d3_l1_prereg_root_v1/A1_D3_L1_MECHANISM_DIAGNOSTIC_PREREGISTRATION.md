@@ -195,3 +195,15 @@ JAX 首次编译与模型初始化**单独计时并保留**；L1 可区分初始
 ### 5.5 研究主线（不变）
 
 可恢复的共同状态 → 真实 F 评分 → 同掩码 F−D-Geo 动作归因 → L2 合法决策质量 → L3 在线效用。
+
+### 5.6 追加记录之二（2026-10-14，用户复核后）
+
+- **裁定标签**：任务 A 方法路线 `COLLECTION_METHOD_APPROVED`，**执行版预登记 `EXECUTION_PREREG_NOT_FROZEN`**
+  （待 R1/K、开发日、预算冻结）。执行参数补全件：`A1_D3_L1_RECOLLECTION_EXEC_PARAMS.md`。
+- **backbone 标签不批准提升**：原建议的 `TRAINING_BACKBONE_VERIFIED_BY_COMMAND_RECORD` **撤回**；
+  改标 `BACKBONE_PATH_DOCUMENTED_IN_SCRIPT` / `TRAINING_EXECUTION_BINDING_UNVERIFIED`，
+  保留 `HISTORICAL_BACKBONE_SHA_UNVERIFIED`。理由：`_run_mpre_seed.sh`（09-23 08:41）**晚于**
+  s42-clean 运行（09-22 11:11），见 `A1_D3_L1_BACKBONE_PROVENANCE_REVIEW_OPINION.md`。
+  因此 §5.3 中"标签仍待用户批准"的表述以本条为准：**该建议标签已被否决**。
+- §1 要素① 中"运行前可冻结 `day_id` × **事件位置序号**，实际 `event_id` 采集后按预冻结规则物化登记"这一措辞修正，
+  已写入 `A1_D3_L1_RECOLLECTION_EXEC_PARAMS.md` §1；**不得**声称完整 `event_id` 清单在运行前生成。

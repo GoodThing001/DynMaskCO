@@ -110,3 +110,15 @@ L1 冻结契约（全部必须在运行前核对）：
 - 在标签获批前，§4 的 `F_LOADED_AND_SCORED` 即使通过，也只能表述为
   `F_RECONSTRUCTED_WITH_CURRENT_BACKBONE / HISTORICAL_BACKBONE_UNVERIFIED`，
   不得称为"历史训练 F 的精确复现"，不得用于正式学习贡献归因。
+
+---
+
+## 8. 追加记录之二（2026-10-14，用户复核后）
+
+§7 中"建议标签 `TRAINING_BACKBONE_VERIFIED_BY_COMMAND_RECORD` 仍需用户批准"**已被否决**：
+用户查明 `_run_mpre_seed.sh`（mtime 2026-09-23 08:41）**晚于** s42-clean 运行
+（2026-09-22 11:11，见该次运行自身日志 `_mpre_clean.log` 的 09:47:23 时间戳与结束行），
+故该脚本不能绑定 s42 的执行。现行标签为
+`BACKBONE_PATH_DOCUMENTED_IN_SCRIPT` / `TRAINING_EXECUTION_BINDING_UNVERIFIED` +
+`HISTORICAL_BACKBONE_SHA_UNVERIFIED`；详见
+`A1_D3_L1_BACKBONE_PROVENANCE_REVIEW_OPINION.md`。§3 的两条身份缺口结论**不变**。

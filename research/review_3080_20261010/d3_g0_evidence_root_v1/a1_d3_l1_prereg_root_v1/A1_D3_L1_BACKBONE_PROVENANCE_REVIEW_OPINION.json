@@ -1,0 +1,57 @@
+{
+  "type": "independent review opinion (new file; the original provenance record is NOT overwritten)",
+  "round": "A1-D3-L1-MECHANISM-PREREG",
+  "trigger": "user review found a timeline contradiction in A1_D3_L1_BACKBONE_PROVENANCE.md 2.1",
+  "retracted": ["TRAINING_BACKBONE_VERIFIED_BY_COMMAND_RECORD"],
+  "corrected_labels": {
+    "CURRENT_BACKBONE_CANDIDATE": true,
+    "BACKBONE_PATH_DOCUMENTED_IN_SCRIPT": true,
+    "TRAINING_EXECUTION_BINDING_UNVERIFIED": true,
+    "HISTORICAL_BACKBONE_SHA_UNVERIFIED": true,
+    "TRAINING_BACKBONE_SHA_RECORDED_IN_RUN": false,
+    "TRAINING_BACKBONE_VERIFIED": false
+  },
+  "my_error": "the original report called the script mtime (2026-09-23 08:41) 'before the run'; the checkpoint was written 2026-09-22 11:11, so the script postdates the s42 run by about 21 hours",
+  "corrected_timeline_server": [
+    {"when": "2026-09-20 20:12:16 +0800", "evidence": "MASKCO_code/ckpts/cvrp100.ckpt mtime", "meaning": "backbone file present and unchanged since then (still valid despite the script contradiction)"},
+    {"when": "2026-09-22 09:47:23", "evidence": "XLA timestamp inside _mpre_clean.log", "meaning": "the s42-clean run started"},
+    {"when": "2026-09-22 09:47:09", "evidence": "mpre_reinforce_s42_clean/state_manifest.json mtime", "meaning": "state manifest written (256 points / 64 instances)"},
+    {"when": "2026-09-22 11:11:34", "evidence": "model.ckpt + summary.json + end of _mpre_clean.log", "meaning": "run finished 1000 updates"},
+    {"when": "2026-09-22 11:15:53", "evidence": "training_identity.json mtime", "meaning": "identity file written"},
+    {"when": "2026-09-23 08:41:42", "evidence": "_run_mpre_seed.sh mtime", "meaning": "current script content POSTDATES the s42 run"},
+    {"when": "2026-09-23 11:27:31 / 11:28:25", "evidence": "mpre_reinforce_s43_clean/, s44_clean/", "meaning": "later seed runs"}
+  ],
+  "run_log_evidence": {
+    "file": "results/m0_scale/_mpre_clean.log (the s42-clean run's own log; note the name has no seed)",
+    "head": "collected 256 decision points across 64 instances; s_TRAIN=0.1334",
+    "tail": "done: 1000 updates, final_loss=-0.0357, s_TRAIN=0.1334 / saved: results/m0_scale/mpre_reinforce_s42_clean/model.ckpt + summary.json",
+    "argv_recorded": false,
+    "argv_probe": "grep -l 'cvrp|train_mpre_reinforce|--data' _mpre*.log -> no matches",
+    "implication": "the log confirms when the s42 run happened and its scale, but python stdout cannot bind the backbone"
+  },
+  "contradiction_explanation": [
+    "the script redirects to _mpre_s${SEED}_clean.log and exactly such logs exist for s43 (09-23 11:27) and s44 (09-23 11:28)",
+    "the s42-clean log is named _mpre_clean.log, which does NOT match the script's redirect template",
+    "the script mtime (09-23 08:41) is before the s43/s44 runs and after the s42 run",
+    "therefore the current script most plausibly belongs to the s43/s44 launches; s42's command form was not preserved",
+    "the script's --out template does match the s42 directory name, which shows recipe consistency only, not execution binding"
+  ],
+  "shell_history": {
+    "lines": 1962,
+    "mtime": "2026-10-04 16:26",
+    "matches_for_mpre_reinforce": 0,
+    "note": "history may not be retained (rotation temp file present), so absence is not proof either"
+  },
+  "still_valid_facts": [
+    "the backbone file has not changed since 2026-09-20 (server mtime, before the s42 run)",
+    "local and server cvrp100.ckpt are byte-identical (sha256 03615b08...c6d38db)",
+    "local and server training_identity.json are byte-identical (sha256 e8ede390...)",
+    "the server model.ckpt sha256 equals the registered f5acf83f..."
+  ],
+  "remaining_open_checks": [
+    "pre-2026-09-22 backup/upload manifests binding a SHA to that path",
+    "rotated shell history or tmux captures holding the actual s42 command line"
+  ],
+  "recommended_next_step": "do not block the project indefinitely: separately authorise an engineering-level load and scoring-interface verification of F_RECONSTRUCTED_WITH_CURRENT_BACKBONE (no F-vs-D-Geo comparison), always labelled HISTORICAL_BACKBONE_UNVERIFIED, never used as a formal learning-contribution proof; establishing a new identity-complete F requires its own pre-registration and retrained weights must never silently replace the historical main model",
+  "not_a_claim": "This opinion only corrects the strength of identity evidence. It asserts nothing about F quality or about F versus D-Geo, and it changes no qualification."
+}

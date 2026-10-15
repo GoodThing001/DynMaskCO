@@ -105,3 +105,19 @@ CUDA_VISIBLE_DEVICES="$GPU" XLA_PYTHON_CLIENT_PREALLOCATE=false \
 2. 未执行任何训练、未构造模型、未前向；不含 F−D-Geo 比较。
 3. 服务器只读查询由项目既有 `tools/_srv.py` 完成；未在服务器写入任何文件。
 4. I3 正式负结果、D2 `not_qualified`、D3 G0、D8、E2 与 `stable_online_gain=False` 均不变。
+
+---
+
+## 7. 撤回与独立审查意见（2026-10-14，用户复核后；不改写上文）
+
+**§2.1 的"脚本 mtime（2026-09-23 08:41）早于训练运行"是错的**：s42-clean 的 checkpoint 生成于
+**2026-09-22 11:11**，脚本晚于它约 21 小时。因此**不能**用现有脚本绑定 s42 的执行。
+
+- §1 表中建议的 `TRAINING_BACKBONE_VERIFIED_BY_COMMAND_RECORD` **已撤回**（用户不批准）；
+  改标 **`BACKBONE_PATH_DOCUMENTED_IN_SCRIPT` / `TRAINING_EXECUTION_BINDING_UNVERIFIED`**，
+  并保留 **`HISTORICAL_BACKBONE_SHA_UNVERIFIED`**。
+- 完整时间线、矛盾解释（脚本日志模板匹配 s43/s44 而非 s42；s42 日志为 `_mpre_clean.log`；
+  history 无命中）与剩余缺口见独立审查意见：
+  `A1_D3_L1_BACKBONE_PROVENANCE_REVIEW_OPINION.md` / `.json`（**新增文件，不覆盖本记录**）。
+- 仍然有效、不因撤回而失效：backbone 文件自 2026-09-20 起未变；本地与服务器 `cvrp100.ckpt`、
+  `training_identity.json` 逐字节相同；服务器 `model.ckpt` sha 等于登记值。
