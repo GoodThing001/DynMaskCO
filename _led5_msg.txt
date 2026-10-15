@@ -1,0 +1,15 @@
+Ledger + status: V1.21 runtime dependency freeze closure recorded; engineering expansion stops here
+
+Records the fifth closure in the cross-session ledger and both authoritative status entries, and
+states the stopping point explicitly: with the freeze closed, no further non-essential engineering
+work is to be invented. The deliverable is the V1.21 signable execution evidence package.
+
+The entries carry the substance a successor needs: the 30-source-file closure derived from the real
+execution path, the four previously unregistered modules plus the typed_bytes definer, the new
+cross-check that makes a freeze missing a closure file report NOT_READY, the 34/34 sweep, and the
+fact that the V1.20 identity now correctly reports NOT_READY (14 frozen vs 30 derived) instead of
+silently passing.
+
+Nothing here changes the science: budgets 60/10/180 s, 64 states and 129 calls are untouched, and
+the real F batch count remains zero because filling a non-empty `approved_by` is not human
+authorisation -- that requires an explicit user decision.

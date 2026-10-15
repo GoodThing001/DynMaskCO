@@ -9,6 +9,21 @@
 
 ## 0. 最近收束（新会话从这里续接）
 
+### 0.0000 本轮第五阶段：运行期源码依赖冻结闭环（V1.21，7/7）
+
+审查发现 `IDENTITY_TARGETS` 的 14 条 watch 路径**漏登记**真实执行路径实际 import 的模块：
+`d3_l1_v118_authorization.py`、`d3_l1_v120_execution_context.py`、`d3_l1_v116_forward_control.py`、`d3_l1_v112_phase_journal.py`；追查 `typed_bytes`（**逐位重复**判定的定义者）指向 `d3_l1_v18_readonly_audit.py`，**同类漏登记**。实测闭包为 **30 个源码文件**，不是 9 个。
+
+**加固**：watch 集**不再手写，而是导出**。`scripts/data/d3_l1_v121_dependency_closure.py` 以执行路径的 seed 模块为起点，按 `import`/`from`（**含函数体内导入**）在本项目 `scripts/` 树内迭代到不动点求传递闭包；被排除的工具**逐条记录理由**；所有路径以**同一规范形式**报告。identity 模块再追加 4 项非源码资产（权重/数据/profile 以扩展根为基准、backbone 以仓库根为基准，**逐项显式指定根**）。`--readiness` 新增 **`runtime_watch_covers_closure`** 交叉检查：冻结集若漏掉闭包中任一文件即 `NOT_READY` 并列出缺项。**冻结与冻结校验来自同一处。**
+
+**反例（`v121_evidence/D3_V121_FREEZE_CLOSURE_ACCEPTANCE.json` = 7/7 PASS）**：F1 四个漏登记模块**与 `typed_bytes` 定义者**均在导出 watch 集内且闭包干净（30 源码路径、无未解析 seed、无意外排除）；F2 V1.21 身份携带**完整 34 条** watch 集、逐路径 SHA 一致；F3 readiness `READY_FOR_USER_SIGNATURE` + `runtime_watch_covers_closure=true` + `real_F_forward_executed=false`；**F4/F5 每个漏登记模块各自隔离篡改 ⇒ NOT_READY、还原 ⇒ READY**（含 `readonly_audit`）；**F6 全量扫掠：34 条路径逐条篡改、逐条检出**（无路径未被检验）；F7 **仅传递可达**的文件也在冻结集内且其篡改被检出；F8 V1.18/V1.19/V1.20 证据目录**仍在且未被改写**。
+
+**旧身份在新门禁下的正确行为**：V1.20 运行目录现报 `NOT_READY`、`runtime_watch_covers_closure=false`（冻结 14 / 导出 30）—— 正是「运行期源码变更必须产生新执行身份」，而不是静默通过。
+
+**新执行身份** `d3l1-real-f-forward-20261015-v121` + 预登记 `…_V1_21.md`（**取代 V1.20 作为签署对象**）+ 授权模板；V1.18–V1.20 全部原件保留。`--readiness = READY_FOR_USER_SIGNATURE`（34/34 路径、0 漂移），模板与直接 `--worker` 均被真实入口拒绝，`ZERO_REAL_F_WORK_AUDIT` = **7/7**。回归：V1.16 6/6、V1.18 e2e 9/9、V1.19 25/25、V1.20 12/12。预算 60/10/180 s、64 状态、129 次调用不变。
+
+**本阶段为冻结闭环的最后一轮**：不再新增非必要工程任务，交付可签署的 V1.21 执行证据包。
+
 ### 0.000 本轮第四阶段：执行入口绕过闭合（V1.20，12/12）
 
 独立审查发现 `main()` 接受直接 `--worker`（`if args.worker: return worker(...)`），该路径**未过人类授权、未过一次性消费、未过监督器**，却能加载真实 F 权重并评分 —— blocker 1 的整套授权装置可被**一个参数**绕过；`--synthetic-command` 是第二个开口。
