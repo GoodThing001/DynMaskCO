@@ -128,7 +128,7 @@ def review_record(rec):
         put('identity_chain_hash_level', 'NOT_VERIFIABLE',
             'gate 里只有**路径**（%s），无哈希 ⇒ 无法仅从该 gate 校验 runner/权重身份；'
             '矩阵侧另有 identity 块（%s），两者不是同一证据源'
-            % (path_only, rec.get('identity_keys')[:6]))
+            % (path_only, (rec.get('identity_keys') or [])[:6]))
     else:
         put('identity_chain_hash_level', 'NOT_VERIFIABLE', 'gate 里没有身份字段')
     put('identity_problems_from_matrix',
