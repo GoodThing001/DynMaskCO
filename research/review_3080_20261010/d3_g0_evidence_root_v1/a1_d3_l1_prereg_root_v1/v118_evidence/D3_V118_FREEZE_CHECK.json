@@ -1,6 +1,6 @@
 {
-  "fail": 1,
-  "pass": 3,
+  "fail": 0,
+  "pass": 4,
   "records": {
     "identities": {
       "backbone": {
@@ -34,9 +34,8 @@
     },
     "readiness": {
       "missing_before_signature": [
-        "the 64-state manifest rows could not be located/parsed from the archive",
-        "a frozen new run_id isolated from V1.11 (not yet created)",
-        "per-state forward call counts and initialization/slot/batch wall-clock budgets (not yet frozen for the NEW run)",
+        "a frozen new run_id isolated from V1.11 (not yet created); the V1.9 observed slot/day budgets above are provenance, not a freeze for the new run",
+        "per-state forward call counts and initialization/slot/batch wall-clock budgets frozen for the NEW run",
         "the Windows new-destination persistence acceptance executed on the REAL F worker",
         "the independent read-only verifier frozen against the new run identity"
       ],
@@ -50,14 +49,68 @@
       "verdict": "NOT_READY"
     },
     "state_asset": {
-      "candidates_scanned": 2,
-      "n_rows": 0,
-      "source": null,
-      "with_state_hash": 0
+      "budget_observed": {
+        "day_rollout_wall_s": {
+          "max": 0.5190811157226562,
+          "median": 0.4184911251068115,
+          "min": 0.30624818801879883,
+          "n": 16
+        },
+        "slot_span_wall_s": {
+          "max": 3.327999999979511,
+          "median": 1.4219999997876585,
+          "min": 0.625,
+          "n": 64
+        },
+        "source": "measured by the V1.9 collector; provenance only -- the new run needs its own freeze"
+      },
+      "errors": [],
+      "events": {
+        "ATTEMPT_STARTED": 64,
+        "DAY_COMPLETED": 16,
+        "DAY_ROLLOUT_FINISHED": 16,
+        "DAY_ROLLOUT_STARTED": 16,
+        "DAY_WORKER_STARTED": 16,
+        "PUBLISHED": 64,
+        "SLOT_FINISHED": 64
+      },
+      "expected_original_hashes": 128,
+      "first_rows": [
+        {
+          "day_id": 0,
+          "position": 1,
+          "state_hash": "e024dc09308c1cde"
+        },
+        {
+          "day_id": 0,
+          "position": 2,
+          "state_hash": "ab98e0626c441736"
+        },
+        {
+          "day_id": 0,
+          "position": 3,
+          "state_hash": "72b9d8e3a4103fa5"
+        }
+      ],
+      "frozen_order_matches_ledger": true,
+      "integrity_failures": [],
+      "ledger": "v19_evidence/formal_collection/STATE_LEDGER.jsonl",
+      "n_ledger_rows": 256,
+      "n_mismatches": 0,
+      "n_published": 64,
+      "n_rows": 64,
+      "order_keys_unique": true,
+      "root": "v19_evidence/formal_collection",
+      "root_exists": true,
+      "run_ids": [
+        "d3l1-formal-20261015-v19-once"
+      ],
+      "verified_against_originals": 128,
+      "with_state_hash": 64
     },
     "summary": {
-      "fail": 1,
-      "pass": 3,
+      "fail": 0,
+      "pass": 4,
       "rows": 4
     },
     "supervisor_wiring": {
@@ -74,5 +127,5 @@
     }
   },
   "rows": 4,
-  "tool_sha256": "08dcaa244b79b775e52bba5f683f0a2143856ded27f8f2a0d6bd139698bc106e"
+  "tool_sha256": "0bdcc7bafc82d29a09e421c1a64781ed55233e831c39021dddf09c7b65c17cb7"
 }

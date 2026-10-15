@@ -48,24 +48,104 @@ def ck(name, ok, detail=None):
                              json.dumps(detail, default=repr, sort_keys=True)[:250]))
 
 
-def find_state_manifest():
-    """Locate the archived 64-state manifest without assuming a filename."""
-    cands = []
-    for pat in ('**/*64*.json', '**/*STATE*.json', '**/*MANIFEST*.json', '**/*collection*.json'):
-        cands += list(EV.glob(pat))
-    seen, out = set(), []
-    for c in cands:
-        if c in seen or 'v117' in str(c) or 'v116' in str(c):
-            continue
-        seen.add(c)
-        try:
-            d = json.loads(c.read_text(encoding='utf-8'))
-        except Exception:
-            continue
-        s = json.dumps(d)[:200000]
-        if 'state_hash' in s and ('position' in s or 'day_id' in s):
-            out.append((c, d))
-    return out
+def load_states():
+    """Locate the archived 64-state asset in the REAL V1.9 collection layout and re-verify it.
+
+    The ledger is an append-only event log; a state record is its ``event == 'PUBLISHED'`` line.
+    Authoritative order = publication order, which must already be the canonical (day_id, position)
+    order: nothing is re-sorted here, because the pre-registration freezes "ledger order" and a
+    re-sorted read would silently freeze a different object than the collector published.
+    The same read also harvests the OBSERVED per-slot / per-day wall-clock budgets, so the new run's
+    budgets can be derived from real measurements instead of invented numbers.
+    """
+    root = EV / 'v19_evidence/formal_collection'
+    info = {'root': root.relative_to(EV).as_posix(), 'root_exists': root.is_dir(),
+            'ledger': None, 'n_ledger_rows': 0, 'n_published': 0, 'n_rows': 0,
+            'with_state_hash': 0, 'verified_against_originals': 0,
+            'expected_original_hashes': 0, 'order_keys_unique': False,
+            'frozen_order_matches_ledger': False, 'first_rows': [], 'errors': [],
+            'integrity_failures': [], 'events': {}, 'run_ids': [], 'budget_observed': {}}
+    ledger = root / 'STATE_LEDGER.jsonl'
+    if ledger.is_file():
+        info['ledger'] = ledger.relative_to(EV).as_posix()
+    else:
+        info['errors'].append('STATE_LEDGER.jsonl missing under %s' % info['root'])
+    rows = []
+    if ledger.is_file():
+        for i, line in enumerate(ledger.read_text(encoding='utf-8').splitlines(), 1):
+            if not line.strip():
+                continue
+            try:
+                rows.append(json.loads(line))
+            except Exception as exc:
+                info['errors'].append('ledger line %d unparsable: %s: %s'
+                                      % (i, type(exc).__name__, exc))
+    for r in rows:
+        if isinstance(r, dict):
+            info['events'][str(r.get('event'))] = info['events'].get(str(r.get('event')), 0) + 1
+    info['run_ids'] = sorted({str(r.get('run_id')) for r in rows if isinstance(r, dict)})
+    published = [r for r in rows if isinstance(r, dict) and r.get('event') == 'PUBLISHED']
+    attempts = [r for r in rows if isinstance(r, dict) and r.get('event') == 'ATTEMPT_STARTED']
+    info['n_ledger_rows'] = len(rows)
+    info['n_published'] = len(published)
+    info['n_rows'] = len(published)
+    info['with_state_hash'] = sum(1 for r in published if r.get('state_hash'))
+    keys = [(r.get('day_id'), r.get('position')) for r in published]
+    info['order_keys_unique'] = len(set(keys)) == len(keys)
+    info['frozen_order_matches_ledger'] = bool(published) and info['order_keys_unique'] \
+        and keys == sorted(keys)
+    # per-row integrity bits the collector itself asserted at publication time
+    for r in published:
+        for flag in ('bitwise_parity_ok', 'projection_causal', 'suffix_boundary_sha_equal'):
+            if r.get(flag) is not True:
+                info['integrity_failures'].append('PUBLISHED %s/%s %s=%r'
+                                                  % (r.get('day_id'), r.get('position'), flag,
+                                                     r.get(flag)))
+    for r in attempts:
+        for flag in ('ledger_integrity_ok', 'registered_before_capture'):
+            if r.get(flag) is not True:
+                info['integrity_failures'].append('ATTEMPT_STARTED %s/%s %s=%r'
+                                                  % (r.get('day_id'), r.get('position'), flag,
+                                                     r.get(flag)))
+    verified, missing_pairs = 0, []
+    for r in published:
+        for sha_field, path_field in (('snapshot_sha256', 'snapshot_path'),
+                                      ('validation_sha256', 'validation_path')):
+            rel = r.get(path_field)
+            if not rel:
+                missing_pairs.append('%s@%s/%s absent' % (path_field, r.get('day_id'),
+                                                          r.get('position')))
+                continue
+            q = Path(rel)
+            if not q.is_absolute():
+                q = root / rel
+            if not q.is_file():
+                q = EV / rel
+            if q.is_file() and sha(q) == r.get(sha_field):
+                verified += 1
+            else:
+                missing_pairs.append('%s@%s/%s mismatch' % (path_field, r.get('day_id'),
+                                                            r.get('position')))
+    info['verified_against_originals'] = verified
+    info['expected_original_hashes'] = 2 * len(published)
+    info['first_rows'] = [{'day_id': r.get('day_id'), 'position': r.get('position'),
+                           'state_hash': (r.get('state_hash') or '')[:16]}
+                          for r in published[:3]]
+    def _nums(rs, field):
+        vals = sorted(float(r[field]) for r in rs
+                      if isinstance(r, dict) and isinstance(r.get(field), (int, float)))
+        if not vals:
+            return None
+        return {'n': len(vals), 'min': vals[0], 'median': vals[len(vals) // 2], 'max': vals[-1]}
+    info['budget_observed'] = {
+        'slot_span_wall_s': _nums(published, 'slot_span_wall_s'),
+        'day_rollout_wall_s': _nums([r for r in rows if isinstance(r, dict)
+                                     and r.get('event') == 'DAY_ROLLOUT_FINISHED'],
+                                    'day_rollout_wall_s'),
+        'source': 'measured by the V1.9 collector; provenance only -- the new run needs its own freeze'}
+    info['errors'] += missing_pairs[:8]
+    info['n_mismatches'] = len(missing_pairs)
+    return info
 
 
 def main():
@@ -110,29 +190,18 @@ def main():
         ck('V118-2 the effective contract hash recomputes to the frozen value', False,
            REC['identities']['effective_contract'])
 
-    # 64-state manifest
-    found = find_state_manifest()
-    recs = None
-    for path, d in found:
-        for key in ('rows', 'states', 'records', 'slots', 'results'):
-            v = d.get(key) if isinstance(d, dict) else None
-            if isinstance(v, list) and len(v) >= 32:
-                recs, src = v, '%s:%s' % (path.relative_to(EV), key)
-                break
-        if recs:
-            break
-    REC['state_asset'] = {'candidates_scanned': len(found),
-                          'source': (src if recs else None),
-                          'n_rows': (len(recs) if recs else 0),
-                          'with_state_hash': (sum(1 for r in (recs or [])
-                                                  if isinstance(r, dict)
-                                                  and (r.get('state_hash') or
-                                                       (r.get('record') or {}).get('state_hash')))
-                                              if recs else 0)}
-    ck('V118-3 the archived state asset is found and every row carries a state_hash (64 rows, frozen '
-       'order preserved)',
-       bool(recs) and len(recs) >= 64
-       and REC['state_asset']['with_state_hash'] >= 64, REC['state_asset'])
+    # 64-state manifest (real V1.9 collection archive, ledger order preserved)
+    REC['state_asset'] = load_states()
+    ck('V118-3 the archived 64 states are located in FROZEN ORDER (STATE_LEDGER.jsonl append order, '
+       'which is already the canonical (day_id, position) order -- never re-sorted), every row '
+       'carries a state_hash, and all 128 snapshot+validation originals still match their recorded SHA',
+       REC['state_asset']['n_rows'] == 64
+       and REC['state_asset']['with_state_hash'] == 64
+       and REC['state_asset']['expected_original_hashes'] == 128
+       and REC['state_asset']['verified_against_originals'] == 128
+       and REC['state_asset']['frozen_order_matches_ledger']
+       and not REC['state_asset']['integrity_failures']
+       and len(REC['state_asset']['run_ids']) == 1, REC['state_asset'])
 
     # supervisor + phase journal wiring
     wire = {}
@@ -153,11 +222,14 @@ def main():
            k: (v if not isinstance(v, dict) else v.get('found')) for k, v in wire.items()})
 
     missing = []
-    if not (recs and len(recs) >= 64):
-        missing.append('the 64-state manifest rows could not be located/parsed from the archive')
-    missing += ['a frozen new run_id isolated from V1.11 (not yet created)',
+    if REC['state_asset']['n_rows'] != 64:
+        missing.append('the 64 published state records could not be located/parsed from the archive')
+    if not REC['state_asset']['frozen_order_matches_ledger']:
+        missing.append('the archived 64 states are not readable in frozen ledger order')
+    missing += ['a frozen new run_id isolated from V1.11 (not yet created); the V1.9 observed '
+                'slot/day budgets above are provenance, not a freeze for the new run',
                 'per-state forward call counts and initialization/slot/batch wall-clock budgets '
-                '(not yet frozen for the NEW run)',
+                'frozen for the NEW run',
                 'the Windows new-destination persistence acceptance executed on the REAL F worker',
                 'the independent read-only verifier frozen against the new run identity']
     REC['readiness'] = {'verdict': 'READY_FOR_USER_SIGNATURE' if not missing else 'NOT_READY',
