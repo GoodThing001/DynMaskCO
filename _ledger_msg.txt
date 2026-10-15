@@ -1,0 +1,22 @@
+Ledger: V1.18 READY_FOR_USER_SIGNATURE, L1 protocol closed, D8 receipt, exhaustive C0 budget search
+
+Records this session's completed work packages in the cross-session ledger and the two
+authoritative status entries (项目当前状态.md, 执行进度表.md), so a new session resumes without
+redoing anything:
+
+  * V1.18 real-F forward engineering qualification is complete and computes
+    READY_FOR_USER_SIGNATURE from the artifacts on disk (no hand-set flag), while still recording
+    real_F_forward_executed = false -- that one execution is the single item awaiting signature.
+  * The L1 two-arm protocol is closed (10/10 scenarios, independent audit 17/17); its only hard
+    remaining gate is the V1.18 forward, not the protocol.
+  * D8: durable install receipt + independent read-back (7/7) closes G0 gap A-5c.
+  * C0: the exhaustive bounded provenance search closes the SEARCH half
+    (SEARCH_EXHAUSTIVE_NO_REGISTERED_PROTOCOL_BUDGET_FOUND); the ruling stays with the user, and
+    a first-pass classifier over-claim (29 doc mentions promoted to "registered budget") is kept
+    in the report's corrected_from block rather than deleted.
+
+Also updated: .gitattributes freezes the new byte containers (v118_evidence/**, the L1 two-arm
+gates, and the two new pre-registrations) so the registered sha256 values survive a fresh checkout.
+
+No real F forward, no F-vs-D-Geo comparison, no training, no L2/L3, no install into a live state.
+stable_online_gain stays False; G0/D8/E2/I3/D2 all unchanged.

@@ -1,0 +1,2135 @@
+{
+  "by_class": {
+    "DOC_MENTION": 165,
+    "NON_PORTABLE_FIXTURE": 7,
+    "TEST_LOCAL": 12
+  },
+  "corrected_from": {
+    "disposition": "the first classification is recorded here rather than deleted, and the matcher/classifier above is the corrected one",
+    "first_pass_verdict": "REGISTERED_PROTOCOL_BUDGET_FOUND",
+    "why_it_was_wrong": "the first classifier keyed off the word \"protocol\" in the surrounding text, so 29 documentation MENTIONS of the historical CAL fixture value were swept into REGISTERED_PROTOCOL_BUDGET"
+  },
+  "excluded_from_d3_identity": {
+    "n_hits": 0,
+    "note": "the CC_Compare audit directory is explicitly excluded from D3 source identity; a budget constant found there is NOT a D3 registered budget and is reported separately so it can never be mistaken for one",
+    "root": "cc_compare_audit_EXCLUDED_FROM_D3_IDENTITY"
+  },
+  "historical_cal_fixture": {
+    "declaration": {
+      "line": 45,
+      "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0"
+    },
+    "file": "scripts/tests/test_d3_b2_certification.py"
+  },
+  "hits": [
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 1,
+      "name": "B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/docs/\u5f53\u524d\u89c4\u5212/\u7ed3\u679c\u4e0e\u8fdb\u5ea6/\u6267\u884c\u8fdb\u5ea6\u8868.md",
+      "root": "extension_docs",
+      "text": "> **2026-10-15 D3-L1 V1.16\u2013V1.20\uff1a\u6574\u8f6e\u64a4\u9500\u8bed\u4e49\u95ed\u5408\uff1bG0 \u63a5\u53e3\u5c42\u4ee5\u53ef\u6267\u884c\u53cd\u4f8b\u590d\u9a8c\uff1b\u7ec4\u5408\u8ba4\u8bc1\u5668\u5df2\u771f\u5b9e\u6267\u884c\uff1bC0 \u9884\u7b97\u5f85\u88c1\u5b9a\u3002** V1.16 \u76d1\u7763\u5668\u5728\u9010\u69fd PASS \u843d\u76d8\u540e\u82e5\u5c3e\u90e8\u8eab\u4efd\u8bb0\u5f55\u5931\u8d25\u5373**\u6574\u8f6e\u64a4\u9500**\uff08\u5408\u6210\u9a8c\u6536 6/6\uff1a\u5c3e\u90e8\u5220\u9664 64\u21920\u3001\u5c3e",
+      "value": "300.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "mapping",
+      "line": 5,
+      "name": "REGISTERED_PROTOCOL_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"REGISTERED_PROTOCOL_BUDGET\": 29",
+      "value": "29"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "mapping",
+      "line": 5,
+      "name": "REGISTERED_PROTOCOL_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"REGISTERED_PROTOCOL_BUDGET\": 29",
+      "value": "29"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 15,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\"",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 15,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\"",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 27,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"- **\\u672a\\u627e\\u5230**\\u9002\\u7528\\u4e8e\\u8fd9 64 \\u4e2a dev_check \\u72b6\\u6001\\u7684**\\u5df2\\u6ce8\\u518c C0 \\u9884\\u7b97**\\uff1b",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 27,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"- **\\u672a\\u627e\\u5230**\\u9002\\u7528\\u4e8e\\u8fd9 64 \\u4e2a dev_check \\u72b6\\u6001\\u7684**\\u5df2\\u6ce8\\u518c C0 \\u9884\\u7b97**\\uff1b",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 37,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"- **\\u672a\\u627e\\u5230**\\u9002\\u7528\\u4e8e\\u8fd9 64 \\u4e2a dev_check \\u72b6\\u6001\\u7684**\\u5df2\\u6ce8\\u518c C0 \\u9884\\u7b97**\\uff1b",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 37,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"- **\\u672a\\u627e\\u5230**\\u9002\\u7528\\u4e8e\\u8fd9 64 \\u4e2a dev_check \\u72b6\\u6001\\u7684**\\u5df2\\u6ce8\\u518c C0 \\u9884\\u7b97**\\uff1b",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 47,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\uff08\\u8bf4\\u660e\\uff1a\\u672c\\u8f6e\\u5b57\\u7b26\\u4e32\\u68c0\\u7d22\\u672a\\u5728\\u8be5\\u6587\\u4ef6\\u4e2d\\u547d\\u4e2d `B_BUDGET = 300`",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 47,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\uff08\\u8bf4\\u660e\\uff1a\\u672c\\u8f6e\\u5b57\\u7b26\\u4e32\\u68c0\\u7d22\\u672a\\u5728\\u8be5\\u6587\\u4ef6\\u4e2d\\u547d\\u4e2d `B_BUDGET = 300`",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 57,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\uff08\\u8bf4\\u660e\\uff1a\\u672c\\u8f6e\\u5b57\\u7b26\\u4e32\\u68c0\\u7d22\\u672a\\u5728\\u8be5\\u6587\\u4ef6\\u4e2d\\u547d\\u4e2d `B_BUDGET = 300`",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 57,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\uff08\\u8bf4\\u660e\\uff1a\\u672c\\u8f6e\\u5b57\\u7b26\\u4e32\\u68c0\\u7d22\\u672a\\u5728\\u8be5\\u6587\\u4ef6\\u4e2d\\u547d\\u4e2d `B_BUDGET = 300`",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 67,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"`CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0`), the historical CAL fixture constant\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 67,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"`CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0`), the historical CAL fixture constant\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 77,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"'old_v119_matcher_would_miss_it': bool(exact) and \\\"B_BUDGET = 300\\\" not in exact['text'],\",",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 77,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"'old_v119_matcher_would_miss_it': bool(exact) and \\\"B_BUDGET = 300\\\" not in exact['text'],\",",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 87,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 87,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 97,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 97,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 107,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 107,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 117,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 117,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 127,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 127,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 137,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 137,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 147,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 147,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 157,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 157,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 167,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 167,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 177,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 177,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 187,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 187,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 197,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 197,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 207,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"rec_b['historical_fixture_budget_300_present'] = 'B_BUDGET = 300' in txt\",",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 207,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"rec_b['historical_fixture_budget_300_present'] = 'B_BUDGET = 300' in txt\",",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 217,
+      "name": "CALL_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CALL_BUDGET = 1 baseline rollout (+1 perturbation rollout for the causality gate) + per slot:\",",
+      "value": "1"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 217,
+      "name": "CALL_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CALL_BUDGET = 1 baseline rollout (+1 perturbation rollout for the causality gate) + per slot:\",",
+      "value": "1"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 227,
+      "name": "CALL_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CALL_BUDGET = 1 baseline rollout (+1 perturbation rollout for the causality gate) + per slot:\",",
+      "value": "1"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 227,
+      "name": "CALL_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"CALL_BUDGET = 1 baseline rollout (+1 perturbation rollout for the causality gate) + per slot:\",",
+      "value": "1"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 247,
+      "name": "NODE_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"NODE_BUDGET = 400000\",",
+      "value": "400000"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 247,
+      "name": "NODE_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"NODE_BUDGET = 400000\",",
+      "value": "400000"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 267,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 267,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 267,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 267,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 277,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 277,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 277,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 277,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 287,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 287,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 287,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 287,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 297,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 297,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 297,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 297,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 307,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\u5386\\u53f2 CAL \\u5939\\u5177 `B_BUDGET = 300.0`\\uff08`test_d3_b2_certification.py:45`\\uff0c\\u5143\\u7ec4\\u8d4b\\u503c\\uff09\\u4e0e\",",
+      "value": "300.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 307,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\u5386\\u53f2 CAL \\u5939\\u5177 `B_BUDGET = 300.0`\\uff08`test_d3_b2_certification.py:45`\\uff0c\\u5143\\u7ec4\\u8d4b\\u503c\\uff09\\u4e0e\",",
+      "value": "300.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 317,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\u5386\\u53f2 CAL \\u5939\\u5177 `B_BUDGET = 300.0`\\uff08`test_d3_b2_certification.py:45`\\uff0c\\u5143\\u7ec4\\u8d4b\\u503c\\uff09\\u4e0e\",",
+      "value": "300.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 317,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\u5386\\u53f2 CAL \\u5939\\u5177 `B_BUDGET = 300.0`\\uff08`test_d3_b2_certification.py:45`\\uff0c\\u5143\\u7ec4\\u8d4b\\u503c\\uff09\\u4e0e\",",
+      "value": "300.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 327,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\"\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 327,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\"\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 337,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\"\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 337,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\"\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 347,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"`CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0`), the historical CAL fixture constant\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 347,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"`CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0`), the historical CAL fixture constant\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 357,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"`CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0`), the historical CAL fixture constant\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 357,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"`CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0`), the historical CAL fixture constant\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 367,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 367,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 377,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 377,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 387,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 387,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 397,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 397,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 407,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 407,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 417,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 417,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 427,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 427,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 437,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 437,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 447,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 447,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 457,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 457,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 467,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 467,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 477,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 477,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 487,
+      "name": "CALL_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CALL_BUDGET = 1 baseline rollout (+1 perturbation rollout for the causality gate) + per slot:\\\",\",",
+      "value": "1"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 487,
+      "name": "CALL_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CALL_BUDGET = 1 baseline rollout (+1 perturbation rollout for the causality gate) + per slot:\\\",\",",
+      "value": "1"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 497,
+      "name": "CALL_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CALL_BUDGET = 1 baseline rollout (+1 perturbation rollout for the causality gate) + per slot:\\\",\",",
+      "value": "1"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 497,
+      "name": "CALL_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CALL_BUDGET = 1 baseline rollout (+1 perturbation rollout for the causality gate) + per slot:\\\",\",",
+      "value": "1"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 507,
+      "name": "NODE_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"NODE_BUDGET = 400000\\\",\",",
+      "value": "400000"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 507,
+      "name": "NODE_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"NODE_BUDGET = 400000\\\",\",",
+      "value": "400000"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 517,
+      "name": "NODE_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"NODE_BUDGET = 400000\\\",\",",
+      "value": "400000"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 517,
+      "name": "NODE_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"NODE_BUDGET = 400000\\\",\",",
+      "value": "400000"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 527,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\"\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 527,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\"\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 537,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\"\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 537,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\"\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 559,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 559,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 559,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 559,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 569,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 569,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 569,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 569,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"| `test_d3_b2_certification.py` \\u5b9e\\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\\u6210\\u7acb**\\u3002V1.19 \\u7",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 579,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\u5386\\u53f2 CAL \\u5939\\u5177 `B_BUDGET = 300.0`\\uff08`test_d3_b2_certification.py:45`\\uff0c\\u5143\\u7ec4\\u8d4b\\u503c\\uff09\\u4e0e\",",
+      "value": "300.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 579,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\u5386\\u53f2 CAL \\u5939\\u5177 `B_BUDGET = 300.0`\\uff08`test_d3_b2_certification.py:45`\\uff0c\\u5143\\u7ec4\\u8d4b\\u503c\\uff09\\u4e0e\",",
+      "value": "300.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 589,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\"\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 589,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\"\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 599,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"`CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0`), the historical CAL fixture constant\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 599,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"`CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0`), the historical CAL fixture constant\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 609,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 609,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 619,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 619,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 629,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 629,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/C0_BUDGET_PROVENANCE_SEARCH.json",
+      "root": "research_root",
+      "text": "\"text\": \"\\\"text\\\": \\\"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\\\",\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 51,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/D3_V119_G0_INVARIANT_AND_ERRATUM.md",
+      "root": "d3_evidence_root",
+      "text": "- **\u672a\u627e\u5230**\u9002\u7528\u4e8e\u8fd9 64 \u4e2a dev_check \u72b6\u6001\u7684**\u5df2\u6ce8\u518c C0 \u9884\u7b97**\uff1b`test_d3_b2_certification.py` \u4e2d\u7684 `B_BUDGET=300` \u5c5e**\u5386\u53f2 CAL \u8ba4\u8bc1\u5939\u5177**\uff0c",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 51,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/D3_V119_G0_INVARIANT_AND_ERRATUM.md",
+      "root": "research_root",
+      "text": "- **\u672a\u627e\u5230**\u9002\u7528\u4e8e\u8fd9 64 \u4e2a dev_check \u72b6\u6001\u7684**\u5df2\u6ce8\u518c C0 \u9884\u7b97**\uff1b`test_d3_b2_certification.py` \u4e2d\u7684 `B_BUDGET=300` \u5c5e**\u5386\u53f2 CAL \u8ba4\u8bc1\u5939\u5177**\uff0c",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 53,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/D3_V119_G0_INVARIANT_AND_ERRATUM.md",
+      "root": "d3_evidence_root",
+      "text": "\uff08\u8bf4\u660e\uff1a\u672c\u8f6e\u5b57\u7b26\u4e32\u68c0\u7d22\u672a\u5728\u8be5\u6587\u4ef6\u4e2d\u547d\u4e2d `B_BUDGET = 300` \u7684\u7cbe\u786e\u5199\u6cd5\uff0c\u6545**\u4e0d\u58f0\u79f0**\u8be5\u5939\u5177\u5fc5\u7136\u5b58\u5728\u6216\u4e0d\u542b\u8be5\u5e38\u91cf\u2014\u2014\u6b64\u4e3a\u68c0\u7d22\u5c40\u9650\u3002\uff09",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 53,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/D3_V119_G0_INVARIANT_AND_ERRATUM.md",
+      "root": "research_root",
+      "text": "\uff08\u8bf4\u660e\uff1a\u672c\u8f6e\u5b57\u7b26\u4e32\u68c0\u7d22\u672a\u5728\u8be5\u6587\u4ef6\u4e2d\u547d\u4e2d `B_BUDGET = 300` \u7684\u7cbe\u786e\u5199\u6cd5\uff0c\u6545**\u4e0d\u58f0\u79f0**\u8be5\u5939\u5177\u5fc5\u7136\u5b58\u5728\u6216\u4e0d\u542b\u8be5\u5e38\u91cf\u2014\u2014\u6b64\u4e3a\u68c0\u7d22\u5c40\u9650\u3002\uff09",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 14,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/D3_V120_FIRST_F_AND_ERRATUM.md",
+      "root": "d3_evidence_root",
+      "text": "| `test_d3_b2_certification.py` \u5b9e\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\u6210\u7acb**\u3002V1.19 \u7528\u7cbe\u786e\u4e32 `'B_BUDGET = 300'` \u5339\u914d \u2192 \u9519\u62a5 `fals",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 14,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/D3_V120_FIRST_F_AND_ERRATUM.md",
+      "root": "d3_evidence_root",
+      "text": "| `test_d3_b2_certification.py` \u5b9e\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\u6210\u7acb**\u3002V1.19 \u7528\u7cbe\u786e\u4e32 `'B_BUDGET = 300'` \u5339\u914d \u2192 \u9519\u62a5 `fals",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 14,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/D3_V120_FIRST_F_AND_ERRATUM.md",
+      "root": "research_root",
+      "text": "| `test_d3_b2_certification.py` \u5b9e\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\u6210\u7acb**\u3002V1.19 \u7528\u7cbe\u786e\u4e32 `'B_BUDGET = 300'` \u5339\u914d \u2192 \u9519\u62a5 `fals",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 14,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/D3_V120_FIRST_F_AND_ERRATUM.md",
+      "root": "research_root",
+      "text": "| `test_d3_b2_certification.py` \u5b9e\u542b `CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0` | **\u6210\u7acb**\u3002V1.19 \u7528\u7cbe\u786e\u4e32 `'B_BUDGET = 300'` \u5339\u914d \u2192 \u9519\u62a5 `fals",
+      "value": "300"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 45,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/D3_V120_FIRST_F_AND_ERRATUM.md",
+      "root": "d3_evidence_root",
+      "text": "\u5386\u53f2 CAL \u5939\u5177 `B_BUDGET = 300.0`\uff08`test_d3_b2_certification.py:45`\uff0c\u5143\u7ec4\u8d4b\u503c\uff09\u4e0e",
+      "value": "300.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 45,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/D3_V120_FIRST_F_AND_ERRATUM.md",
+      "root": "research_root",
+      "text": "\u5386\u53f2 CAL \u5939\u5177 `B_BUDGET = 300.0`\uff08`test_d3_b2_certification.py:45`\uff0c\u5143\u7ec4\u8d4b\u503c\uff09\u4e0e",
+      "value": "300.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 9,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\"",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 9,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\"",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 16,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"`CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0`), the historical CAL fixture constant\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 16,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "research_root",
+      "text": "\"text\": \"`CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0`), the historical CAL fixture constant\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 23,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 23,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 30,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 30,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 37,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 37,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 44,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 44,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 51,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 51,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 58,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 58,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\",",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 65,
+      "name": "CALL_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CALL_BUDGET = 1 baseline rollout (+1 perturbation rollout for the causality gate) + per slot:\",",
+      "value": "1"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 65,
+      "name": "CALL_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "research_root",
+      "text": "\"text\": \"CALL_BUDGET = 1 baseline rollout (+1 perturbation rollout for the causality gate) + per slot:\",",
+      "value": "1"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 72,
+      "name": "NODE_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"NODE_BUDGET = 400000\",",
+      "value": "400000"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 72,
+      "name": "NODE_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "research_root",
+      "text": "\"text\": \"NODE_BUDGET = 400000\",",
+      "value": "400000"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 164,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "d3_evidence_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\"",
+      "value": "50.0"
+    },
+    {
+      "class": "DOC_MENTION",
+      "kind": "kwarg",
+      "line": 164,
+      "name": "B_BUDGET",
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_READINESS.json",
+      "root": "research_root",
+      "text": "\"text\": \"CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0\"",
+      "value": "50.0"
+    },
+    {
+      "class": "NON_PORTABLE_FIXTURE",
+      "kind": "kwarg",
+      "line": 13,
+      "name": "B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/d3_l1_v120_forward_and_l1_readiness.py",
+      "root": "extension_scripts",
+      "text": "`CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0`), the historical CAL fixture constant",
+      "value": "50.0"
+    },
+    {
+      "class": "NON_PORTABLE_FIXTURE",
+      "kind": "kwarg",
+      "line": 70,
+      "name": "B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/d3_l1_v120_forward_and_l1_readiness.py",
+      "root": "extension_scripts",
+      "text": "'old_v119_matcher_would_miss_it': bool(exact) and \"B_BUDGET = 300\" not in exact['text'],",
+      "value": "300"
+    },
+    {
+      "class": "NON_PORTABLE_FIXTURE",
+      "kind": "tuple",
+      "line": 49,
+      "name": "CAPACITY, NUM_VEHICLES, B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at1_transaction.py",
+      "root": "extension_scripts",
+      "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+      "value": "50.0, 25, 300.0"
+    },
+    {
+      "class": "NON_PORTABLE_FIXTURE",
+      "kind": "kwarg",
+      "line": 49,
+      "name": "B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at1_transaction.py",
+      "root": "extension_scripts",
+      "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+      "value": "50.0"
+    },
+    {
+      "class": "NON_PORTABLE_FIXTURE",
+      "kind": "tuple",
+      "line": 53,
+      "name": "CAPACITY, NUM_VEHICLES, B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at2a_coordinator.py",
+      "root": "extension_scripts",
+      "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+      "value": "50.0, 25, 300.0"
+    },
+    {
+      "class": "NON_PORTABLE_FIXTURE",
+      "kind": "kwarg",
+      "line": 53,
+      "name": "B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at2a_coordinator.py",
+      "root": "extension_scripts",
+      "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+      "value": "50.0"
+    },
+    {
+      "class": "NON_PORTABLE_FIXTURE",
+      "kind": "kwarg",
+      "line": 196,
+      "name": "B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_g0_invariants_v119.py",
+      "root": "extension_scripts",
+      "text": "rec_b['historical_fixture_budget_300_present'] = 'B_BUDGET = 300' in txt",
+      "value": "300"
+    },
+    {
+      "class": "TEST_LOCAL",
+      "kind": "tuple",
+      "line": 45,
+      "name": "CAPACITY, NUM_VEHICLES, B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b2_certification.py",
+      "root": "extension_scripts",
+      "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+      "value": "50.0, 25, 300.0"
+    },
+    {
+      "class": "TEST_LOCAL",
+      "kind": "kwarg",
+      "line": 45,
+      "name": "B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b2_certification.py",
+      "root": "extension_scripts",
+      "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+      "value": "50.0"
+    },
+    {
+      "class": "TEST_LOCAL",
+      "kind": "tuple",
+      "line": 57,
+      "name": "CAPACITY, NUM_VEHICLES, B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3ac_gate_refusal.py",
+      "root": "extension_scripts",
+      "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+      "value": "50.0, 25, 300.0"
+    },
+    {
+      "class": "TEST_LOCAL",
+      "kind": "kwarg",
+      "line": 57,
+      "name": "B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3ac_gate_refusal.py",
+      "root": "extension_scripts",
+      "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+      "value": "50.0"
+    },
+    {
+      "class": "TEST_LOCAL",
+      "kind": "tuple",
+      "line": 51,
+      "name": "CAPACITY, NUM_VEHICLES, B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at2g_container.py",
+      "root": "extension_scripts",
+      "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+      "value": "50.0, 25, 300.0"
+    },
+    {
+      "class": "TEST_LOCAL",
+      "kind": "kwarg",
+      "line": 51,
+      "name": "B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3at2g_container.py",
+      "root": "extension_scripts",
+      "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+      "value": "50.0"
+    },
+    {
+      "class": "TEST_LOCAL",
+      "kind": "tuple",
+      "line": 42,
+      "name": "CAPACITY, NUM_VEHICLES, B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3q_quality_projection.py",
+      "root": "extension_scripts",
+      "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+      "value": "50.0, 25, 300.0"
+    },
+    {
+      "class": "TEST_LOCAL",
+      "kind": "kwarg",
+      "line": 42,
+      "name": "B_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_b3q_quality_projection.py",
+      "root": "extension_scripts",
+      "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+      "value": "50.0"
+    },
+    {
+      "class": "TEST_LOCAL",
+      "kind": "assignment",
+      "line": 14,
+      "name": "CALL_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_l1_collector_gates.py",
+      "root": "extension_scripts",
+      "text": "CALL_BUDGET = 1 baseline rollout (+1 perturbation rollout for the causality gate) + per slot:",
+      "value": "1"
+    },
+    {
+      "class": "TEST_LOCAL",
+      "kind": "tuple",
+      "line": 14,
+      "name": "CALL_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_l1_collector_gates.py",
+      "root": "extension_scripts",
+      "text": "CALL_BUDGET = 1 baseline rollout (+1 perturbation rollout for the causality gate) + per slot:",
+      "value": "1 baseline rollout (+1 perturbation rollout for the causality gate) + per slot:"
+    },
+    {
+      "class": "TEST_LOCAL",
+      "kind": "assignment",
+      "line": 43,
+      "name": "NODE_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_l1_resume_parity_attribution.py",
+      "root": "extension_scripts",
+      "text": "",
+      "value": "400000"
+    },
+    {
+      "class": "TEST_LOCAL",
+      "kind": "kwarg",
+      "line": 44,
+      "name": "NODE_BUDGET",
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_d3_l1_resume_parity_attribution.py",
+      "root": "extension_scripts",
+      "text": "NODE_BUDGET = 400000",
+      "value": "400000"
+    }
+  ],
+  "isolation_fixtures": [],
+  "matcher_patterns": {
+    "assignment": "(?m)^\\s*([A-Za-z_][A-Za-z0-9_]*(?:BUDGET|BUDGET_[A-Za-z0-9_]*|_BUDGET[A-Za-z0-9_]*))\\s*(?::[^=\\n]*)?=\\s*([0-9][0-9.eE+_]*)",
+    "kwarg": "(?m)\\b([A-Za-z_][A-Za-z0-9_]*(?:BUDGET|BUDGET_[A-Za-z0-9_]*|_BUDGET[A-Za-z0-9_]*))\\s*=\\s*([0-9][0-9.eE+_]*)",
+    "mapping": "(?m)[\"\\']([A-Za-z_][A-Za-z0-9_]*(?:BUDGET|BUDGET_[A-Za-z0-9_]*|_BUDGET[A-Za-z0-9_]*))[\"\\']\\s*[:=]\\s*([0-9][0-9.eE+_]*)",
+    "tuple": "(?m)^\\s*([A-Za-z_,\\s]*[A-Za-z_][A-Za-z0-9_]*(?:BUDGET|BUDGET_[A-Za-z0-9_]*|_BUDGET[A-Za-z0-9_]*)[A-Za-z_,\\s]*)\\s*=\\s*([^\\n]*)$"
+  },
+  "n_hits": 184,
+  "registered_protocol_budget_for_the_64_dev_check_states": {
+    "candidates": [],
+    "definition": "a Python declaration reachable from a formal protocol path, not labelled synthetic/fixture/isolation-only, bound to the 64 dev_check states by a registration artifact",
+    "found": false,
+    "n_candidates": 0,
+    "n_state_bound": 0,
+    "state_bound_hits": []
+  },
+  "roots": {
+    "cc_compare_audit_EXCLUDED_FROM_D3_IDENTITY": {
+      "exists": true,
+      "n_hits": 0,
+      "n_skipped": 0,
+      "path": "D:\\PyCharm_\\MASKCO-Main\\CC_Compare\\audit"
+    },
+    "d3_evidence_root": {
+      "exists": true,
+      "n_hits": 82,
+      "n_skipped": 0,
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\d3_g0_evidence_root_v1"
+    },
+    "extension_data": {
+      "exists": true,
+      "n_hits": 0,
+      "n_skipped": 0,
+      "path": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\data"
+    },
+    "extension_docs": {
+      "exists": true,
+      "n_hits": 1,
+      "n_skipped": 0,
+      "path": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\docs"
+    },
+    "extension_scripts": {
+      "exists": true,
+      "n_hits": 19,
+      "n_skipped": 0,
+      "path": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts"
+    },
+    "research_root": {
+      "exists": true,
+      "n_hits": 82,
+      "n_skipped": 248,
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research"
+    }
+  },
+  "ruling_status": "AWAITING_USER_BUDGET_RULING",
+  "schema": "c0_budget_provenance_search",
+  "skipped": [
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_head_execution_chain_preparation_root_v1\\INPUTS.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\action_head_independent_replay_preparation_root_v1\\INPUTS.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\actual_action_head_execution_root_v1\\downloaded\\INDEPENDENT_ACTION_HEAD_AUDIT.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\actual_action_head_execution_root_v1\\downloaded\\INPUTS.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\actual_action_head_execution_root_v1\\INPUTS.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\directed_action_chain_root_v1\\ACTION_CHAINS.jsonl",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\family2_remaining_action_diagnosis_root_v1\\OBSERVED_ACTION_RECORDS.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\insertable_teacher_engineering_root_v3\\RESULT.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\loaded_identity_guard_boundary_root_v1\\DOWNLOAD_PREFLIGHT_20261013T054457112620Z.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\loaded_identity_guard_boundary_root_v1\\downloaded\\01_normal.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\loaded_identity_guard_boundary_root_v1\\downloaded\\02_new_presealed_module.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\loaded_identity_guard_boundary_root_v1\\downloaded\\03_origin_rebound.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\loaded_identity_guard_boundary_root_v1\\downloaded\\04_parameter_rebound.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\loaded_identity_guard_boundary_root_v1\\downloaded\\05_unsealed_module.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\loaded_identity_guard_boundary_root_v1\\downloaded\\06_loaded_byte_changed.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\loaded_identity_guard_boundary_root_v1\\downloaded\\07_unloaded_tree_changed.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\loaded_identity_guard_boundary_root_v1\\downloaded\\08_actual_native_load.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\loaded_identity_guard_boundary_root_v1\\downloaded\\INDEPENDENT_LOADED_GUARD_AUDIT.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\loaded_identity_guard_boundary_root_v1\\INSPECTION_20261013T054421665681Z.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\multistep_full_gradient_audit_root_v1\\downloaded\\INDEPENDENT_FULL_GRADIENT_ADJUDICATION.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\multistep_full_gradient_root_v2\\downloaded\\MATCHED_TENSORS.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\multistep_full_gradient_root_v2\\STATES.jsonl",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\multistep_insertable_family2_data_audit_root_v2\\inspection_20261011T111137553714Z\\INDEPENDENT_FAMILY2_DATA_ACCEPTANCE.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\multistep_insertable_family2_root_v1\\downloaded\\STATES.jsonl",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\multistep_insertable_teacher_engineering_root_v1\\STATES.jsonl",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\multistep_insertable_teacher_engineering_root_v2\\STATES.jsonl",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\multistep_optimizer_audit_root_v2\\downloaded\\INDEPENDENT_OPTIMIZER_ADJUDICATION.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\parallel_identity_collection_root_v1\\DOWNLOAD_PREFLIGHT_20261013T051911581410Z.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\parallel_identity_collection_root_v1\\downloaded\\INDEPENDENT_IDENTITY_AUDIT.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\parallel_identity_collection_root_v1\\INSPECTION_20261013T051855645441Z.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\remote_final_model_budget_bundle_root_v2\\downloaded\\RESULT.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\remote_final_model_budget_bundle_root_v3\\downloaded\\RESULT.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\remote_finite_research_root_v2\\teacher_downloaded\\TEACHER_STATES.jsonl",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\remote_fresh_development_root_v1\\downloaded\\RESULT.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\remote_model_budget_bundle_root_v1\\downloaded\\RESULT.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\retained_edge_teacher_engineering_root_v2\\RESULT.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\server_teacher_boundary_audit_root_v1\\downloaded\\INDEPENDENT_SERVER_TEACHER_BOUNDARY.json",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\server_teacher_boundary_root_v1\\downloaded\\ANSWERS.jsonl",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\server_teacher_boundary_root_v2\\downloaded\\ANSWERS.jsonl",
+      "reason": "oversize",
+      "root": "research_root"
+    },
+    {
+      "path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\delivery\\server_teacher_boundary_root_v3\\downloaded\\ANSWERS.jsonl",
+      "reason": "oversize",
+      "root": "research_root"
+    }
+  ],
+  "source_sha256": {
+    "coldchain_contract": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+    "d3_geo_adapter": "099c3517472d886ece4ea3e929df2ec54d0e459b2a2e2e07da5b658acc07adc5",
+    "self": "7276a89aadb78be4e800ba1db7a8748f544cda180c602422648e810b70d43ac3"
+  },
+  "verdict": "SEARCH_EXHAUSTIVE_NO_REGISTERED_PROTOCOL_BUDGET_FOUND",
+  "what_this_does_not_do": [
+    "it does not choose a formal C0 budget",
+    "it does not promote a test fixture or an isolation sentinel to a formal budget",
+    "it does not change any frozen contract, tree, gate or published result"
+  ]
+}
