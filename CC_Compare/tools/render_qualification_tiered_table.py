@@ -117,6 +117,44 @@ PYVRP_IDENTITY = {
     'identity_evidence_status': 'REPORTED / HISTORICAL_RUNTIME_NOT_INDEPENDENTLY_VERIFIED',
 }
 
+#: 历史运行身份**逐项**只读核验结果（用户 2026-10-14 授权 3：只读历史日志与环境证据）
+#: 词表：`AVAILABLE` / `MISSING` / `NOT_VERIFIABLE` / `NOT_APPLICABLE`
+PYVRP_IDENTITY_EVIDENCE = [
+    ('历史启动命令（修复腿）', 'AVAILABLE',
+     '`CC_Compare/_formal_v2_pyvrp_fix.sh` 在库中（第 28 行给解释器，第 51-53 行给调用）'),
+    ('历史启动命令（修复前，错误解释器）', 'MISSING',
+     '`_formal_v2_cpuC.sh` 只有一次提交 `b2c5d52`，入库时**已是**「按 solver 选解释器」的修正版 '
+     '⇒ 错误版本未保留'),
+    ('解释器绝对路径', 'AVAILABLE',
+     '`/home/hzeng/envs/MASKCO_env/bin/python`'
+     '（`_formal_v2_pyvrp_fix.sh:28`；`_formal_v2_cpuC.sh:26` 同值）'),
+    ('原始日志（存在性）', 'AVAILABLE',
+     '服务器 `/tmp/xformal_v2/pyvrp_fix.done` **仍存在**（2026-10-13），含 `DONE_pyvrp_fix 0`'),
+    ('原始日志（版本证据力）', 'NOT_VERIFIABLE',
+     '该日志里的「pyvrp 0.11.3」是**脚本自己 echo 的自述文本**，'
+     '**不含**任何版本探针输出 ⇒ 属自述，**不是**独立核验'),
+    ('环境清单 / pip freeze', 'MISSING',
+     '`CC_Compare/results/a1_compare_table/freeze_v2_{start,mid,end,check}.json` 只含'
+     '**源码文件 SHA**；对这四个文件 grep `pyvrp|python|interpreter|envs/` **零命中**'),
+    ('package / wheel SHA', 'MISSING',
+     '全库（含服务器项目树）未找到该腿的 wheel 或包版本记录'),
+    ('gate.json 是否记录解释器/包版本', 'NOT_APPLICABLE',
+     '修复腿 `results/a1_ext_formal2/pyvrp/gate.json` 的键仅 `config/seeds/budget/results/note`；'
+     '对全文 grep `envs/` **零命中** ⇒ 身份链**不含**解释器（设计如此）'),
+    ('当前环境反推', 'NOT_APPLICABLE',
+     '**明令禁止**：未执行任何 `import pyvrp` / 版本查询（用户 2026-10-14 裁定 3）'),
+]
+
+#: 只读核验所用的命令（可复现；**均不运行求解器、不重算效用**）
+PYVRP_IDENTITY_PROBE_COMMANDS = [
+    "ls -la /tmp/xformal_v2/",
+    "cat /tmp/xformal_v2/pyvrp_fix.done",
+    ("cd CC_Compare/results/a1_compare_table && "
+     "grep -l -i -E 'pyvrp|python|interpreter|envs/' freeze_v2_*.json"),
+    ("python3 -c \"import json;d=json.load(open("
+     "'results/a1_ext_formal2/pyvrp/gate.json'));print(list(d.keys()))\""),
+]
+
 
 # ------------------------------------------------------------------ IO helpers
 def _sha_bytes(b):
@@ -381,6 +419,27 @@ def md_report(enriched, meta):
     A('> 出处：`读表注意与已知限定.md` §2.5、`docs/a1_development_comparison/README.md` §13.3、'
       '`audit/INDEPENDENT_READONLY_ADJUDICATION_2026-10-14.md`。')
     A('')
+    A('### 5.1 逐项**只读**核验结果（词表：`AVAILABLE` / `MISSING` / '
+      '`NOT_VERIFIABLE` / `NOT_APPLICABLE`）')
+    A('')
+    A('| 证据项 | 状态 | 依据 |')
+    A('|---|---|---|')
+    for name, st, why in PYVRP_IDENTITY_EVIDENCE:
+        A('| %s | **%s** | %s |' % (name, st, why))
+    A('')
+    A('**结论**：`0.11.3` 属 **REPORTED**（脚本注释 + done-marker **自述** + README），'
+      '**不是**独立核验；`package`/`wheel`/`pip freeze` 均 `MISSING`，'
+      '`gate.json` 的设计**不含**解释器。⇒ 保持 '
+      '`REPORTED / HISTORICAL_RUNTIME_NOT_INDEPENDENTLY_VERIFIED`，'
+      '**不**由当前环境倒推。')
+    A('')
+    A('**本次只读核验所用命令**（均不运行求解器、不重算效用）：')
+    A('')
+    A('```bash')
+    for c in PYVRP_IDENTITY_PROBE_COMMANDS:
+        A(c)
+    A('```')
+    A('')
     A('## 6. 机制不匹配（**未适配**，无任何数值）')
     A('')
     A('| 方法 | 原因 |')
@@ -490,6 +549,18 @@ def display_selfcheck(old_text, old_rows, new_text, enriched, meta, mx):
     c('reference_tier_used_only_for_reference',
       [r['old_idx'] for r in enriched if r['tier'] == 'REFERENCE'] == [1],
       'reference rows=%s' % [r['old_idx'] for r in enriched if r['tier'] == 'REFERENCE'])
+    # ⑧ PyVRP 只读核验：不明来源的版本断言必须留 NOT_VERIFIABLE
+    ev = {n: s for n, s, _ in PYVRP_IDENTITY_EVIDENCE}
+    c('pyvrp_history_version_not_claimed_verified',
+      PYVRP_IDENTITY['identity_evidence_status']
+      == 'REPORTED / HISTORICAL_RUNTIME_NOT_INDEPENDENTLY_VERIFIED',
+      PYVRP_IDENTITY['identity_evidence_status'])
+    c('pyvrp_package_evidence_recorded_missing',
+      ev.get('package / wheel SHA') == 'MISSING'
+      and ev.get('环境清单 / pip freeze') == 'MISSING',
+      'pkg=%s freeze=%s' % (ev.get('package / wheel SHA'),
+                            ev.get('环境清单 / pip freeze')))
+    c('pyvrp_probe_commands_recorded', len(PYVRP_IDENTITY_PROBE_COMMANDS) >= 4)
     return chk
 
 
@@ -556,6 +627,14 @@ def main(argv=None):
             for r in enriched
         ],
         'pyvrp_identity': PYVRP_IDENTITY,
+        'pyvrp_identity_evidence': [
+            {'item': n, 'status': s, 'basis': w} for n, s, w in PYVRP_IDENTITY_EVIDENCE],
+        'pyvrp_identity_probe_commands': list(PYVRP_IDENTITY_PROBE_COMMANDS),
+        'pyvrp_identity_evidence_note': (
+            '只读核验（用户 2026-10-14 授权 3）：**未**运行求解器、**未**重算效用、'
+            '**未**执行任何 `import pyvrp` 版本查询。'
+            '`0.11.3` 为 REPORTED；package/wheel/pip freeze 均 MISSING；'
+            'gate.json 身份链按设计不含解释器 ⇒ **不得**由当前环境倒推历史运行时。'),
         'preserved_negative_results': [
             '主档同批 I3 − cond_hist = −144.680 [−191.109, −100.125]（同批 cond_hist=600.997）',
             'I3 对 warmstart / reconstruction control 的配对 CI 跨零 ⇒ 未建立独立增益',

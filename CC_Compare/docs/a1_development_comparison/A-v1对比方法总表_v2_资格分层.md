@@ -104,6 +104,31 @@
 > 若历史未封存包版本 ⇒ 保持「**报告称 0.11.3、历史环境未独立核验**」。
 > 出处：`读表注意与已知限定.md` §2.5、`docs/a1_development_comparison/README.md` §13.3、`audit/INDEPENDENT_READONLY_ADJUDICATION_2026-10-14.md`。
 
+### 5.1 逐项**只读**核验结果（词表：`AVAILABLE` / `MISSING` / `NOT_VERIFIABLE` / `NOT_APPLICABLE`）
+
+| 证据项 | 状态 | 依据 |
+|---|---|---|
+| 历史启动命令（修复腿） | **AVAILABLE** | `CC_Compare/_formal_v2_pyvrp_fix.sh` 在库中（第 28 行给解释器，第 51-53 行给调用） |
+| 历史启动命令（修复前，错误解释器） | **MISSING** | `_formal_v2_cpuC.sh` 只有一次提交 `b2c5d52`，入库时**已是**「按 solver 选解释器」的修正版 ⇒ 错误版本未保留 |
+| 解释器绝对路径 | **AVAILABLE** | `/home/hzeng/envs/MASKCO_env/bin/python`（`_formal_v2_pyvrp_fix.sh:28`；`_formal_v2_cpuC.sh:26` 同值） |
+| 原始日志（存在性） | **AVAILABLE** | 服务器 `/tmp/xformal_v2/pyvrp_fix.done` **仍存在**（2026-10-13），含 `DONE_pyvrp_fix 0` |
+| 原始日志（版本证据力） | **NOT_VERIFIABLE** | 该日志里的「pyvrp 0.11.3」是**脚本自己 echo 的自述文本**，**不含**任何版本探针输出 ⇒ 属自述，**不是**独立核验 |
+| 环境清单 / pip freeze | **MISSING** | `CC_Compare/results/a1_compare_table/freeze_v2_{start,mid,end,check}.json` 只含**源码文件 SHA**；对这四个文件 grep `pyvrp|python|interpreter|envs/` **零命中** |
+| package / wheel SHA | **MISSING** | 全库（含服务器项目树）未找到该腿的 wheel 或包版本记录 |
+| gate.json 是否记录解释器/包版本 | **NOT_APPLICABLE** | 修复腿 `results/a1_ext_formal2/pyvrp/gate.json` 的键仅 `config/seeds/budget/results/note`；对全文 grep `envs/` **零命中** ⇒ 身份链**不含**解释器（设计如此） |
+| 当前环境反推 | **NOT_APPLICABLE** | **明令禁止**：未执行任何 `import pyvrp` / 版本查询（用户 2026-10-14 裁定 3） |
+
+**结论**：`0.11.3` 属 **REPORTED**（脚本注释 + done-marker **自述** + README），**不是**独立核验；`package`/`wheel`/`pip freeze` 均 `MISSING`，`gate.json` 的设计**不含**解释器。⇒ 保持 `REPORTED / HISTORICAL_RUNTIME_NOT_INDEPENDENTLY_VERIFIED`，**不**由当前环境倒推。
+
+**本次只读核验所用命令**（均不运行求解器、不重算效用）：
+
+```bash
+ls -la /tmp/xformal_v2/
+cat /tmp/xformal_v2/pyvrp_fix.done
+cd CC_Compare/results/a1_compare_table && grep -l -i -E 'pyvrp|python|interpreter|envs/' freeze_v2_*.json
+python3 -c "import json;d=json.load(open('results/a1_ext_formal2/pyvrp/gate.json'));print(list(d.keys()))"
+```
+
 ## 6. 机制不匹配（**未适配**，无任何数值）
 
 | 方法 | 原因 |
