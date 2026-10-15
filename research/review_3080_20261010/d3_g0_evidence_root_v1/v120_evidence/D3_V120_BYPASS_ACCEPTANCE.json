@@ -1,0 +1,442 @@
+{
+  "F_D_Geo_comparisons": 0,
+  "F_forward_calls_on_real_model": 0,
+  "bypass_closed": "the real F worker now requires an execution context published by the supervisor after a human-approved credential was validated and consumed one-shot; `--worker` and `--synthetic-command` can no longer start real F work",
+  "execution_context_module_sha256": "71a7a80661ce697a62787e6f8c64b42428963f52e4eb47f1c0e6d4e3bdd4a2dd",
+  "guard_conditions": [
+    "context exists and parses",
+    "private 0600 secret",
+    "HMAC verifies",
+    "run id and run dir bound",
+    "one-shot consumption receipt present and for this run",
+    "credential still hashes to the consumed digest"
+  ],
+  "n_fail": 0,
+  "n_pass": 12,
+  "n_rows": 12,
+  "not_run": [
+    "the real F 64-state batch",
+    "any F-vs-D-Geo comparison",
+    "any training",
+    "L2/L3",
+    "the 40-day batch",
+    "the final test"
+  ],
+  "results": {
+    "N1 direct --worker": {
+      "artifacts": {
+        "FIRST_FAILURE": 0,
+        "MODEL_LOAD": 0,
+        "SCORES": 0,
+        "SLOT_day": 0,
+        "WARMUP": 0,
+        "WORKER_FAILURE": 0,
+        "WORKER_RESULT": 0,
+        "guard_refusals": 1,
+        "phase_records": 0
+      },
+      "returncode": 1,
+      "stderr_tail": "t_env :: {\"env_var\": \"D3_L1_EXECUTION_CONTEXT\", \"note\": \"the real F worker may only be started by the supervisor, which publishes an authorization context after consuming a human-approved credential\"}",
+      "wall_s": 2.203999999910593
+    },
+    "N10 authorization plus synthetic-command": {
+      "artifacts": {
+        "FIRST_FAILURE": 0,
+        "MODEL_LOAD": 0,
+        "SCORES": 0,
+        "SLOT_day": 0,
+        "WARMUP": 0,
+        "WORKER_FAILURE": 0,
+        "WORKER_RESULT": 0,
+        "guard_refusals": 0,
+        "phase_records": 0
+      },
+      "consumption_records": 0,
+      "refusal_record": {
+        "granted": false,
+        "refused": "refusing to combine an authorization with --synthetic-command",
+        "required": false
+      },
+      "returncode": 1,
+      "wall_s": 1.9369999999180436
+    },
+    "N2 context env missing file": {
+      "artifacts": {
+        "FIRST_FAILURE": 0,
+        "MODEL_LOAD": 0,
+        "SCORES": 0,
+        "SLOT_day": 0,
+        "WARMUP": 0,
+        "WORKER_FAILURE": 0,
+        "WORKER_RESULT": 0,
+        "guard_refusals": 1,
+        "phase_records": 0
+      },
+      "returncode": 1,
+      "stderr_tail": "EXECUTION CONTEXT REFUSED: context_env_missing_file :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\nope.json\"}",
+      "wall_s": 1.9369999999180436
+    },
+    "N3 guard probe without context": {
+      "returncode": 1,
+      "stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"REFUSED\",\n \"reason\": \"no_context_env :: {\\\"env_var\\\": \\\"D3_L1_EXECUTION_CONTEXT\\\", \\\"note\\\": \\\"the real F worker may only be started by the supervisor",
+      "wall_s": 1.8130000000819564
+    },
+    "N4 hand-written context": {
+      "artifacts": {
+        "FIRST_FAILURE": 0,
+        "MODEL_LOAD": 0,
+        "SCORES": 0,
+        "SLOT_day": 0,
+        "WARMUP": 0,
+        "WORKER_FAILURE": 0,
+        "WORKER_RESULT": 0,
+        "guard_refusals": 1,
+        "phase_records": 0
+      },
+      "guard_reason": "consumption_receipt_missing :: {\"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\forged_consumption.json\", \"note\": \"no one-shot consumption exists, so no human-approved credential was spent on this run\"}",
+      "returncode": 1,
+      "stderr_tail": "\"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\forged_consumption.json\", \"note\": \"no one-shot consumption exists, so no human-approved credential was spent on this run\"}",
+      "wall_s": 1.9059999999590218
+    },
+    "N5 context edited (run_dir)": {
+      "artifacts": {
+        "FIRST_FAILURE": 0,
+        "MODEL_LOAD": 0,
+        "SCORES": 0,
+        "SLOT_day": 0,
+        "WARMUP": 0,
+        "WORKER_FAILURE": 0,
+        "WORKER_RESULT": 0,
+        "guard_refusals": 1,
+        "phase_records": 0
+      },
+      "guard_reason": "hmac_mismatch :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\N5_edited_rundir\\\\EXECUTION_CONTEXT_cd290f38748f7a74502131f6f227b9ae.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
+      "returncode": 1,
+      "stderr_tail": "c\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\N5_edited_rundir\\\\EXECUTION_CONTEXT_cd290f38748f7a74502131f6f227b9ae.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
+      "wall_s": 1.9059999999590218
+    },
+    "N6 context edited (digest)": {
+      "artifacts": {
+        "FIRST_FAILURE": 0,
+        "MODEL_LOAD": 0,
+        "SCORES": 0,
+        "SLOT_day": 0,
+        "WARMUP": 0,
+        "WORKER_FAILURE": 0,
+        "WORKER_RESULT": 0,
+        "guard_refusals": 1,
+        "phase_records": 0
+      },
+      "guard_reason": "hmac_mismatch :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\N6_edited_digest\\\\EXECUTION_CONTEXT_ace4d767284a4e4b59d4bb354a11f504.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
+      "returncode": 1,
+      "stderr_tail": "c\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\N6_edited_digest\\\\EXECUTION_CONTEXT_ace4d767284a4e4b59d4bb354a11f504.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
+      "wall_s": 1.9690000000409782
+    },
+    "N7 receipt names another run": {
+      "artifacts": {
+        "FIRST_FAILURE": 0,
+        "MODEL_LOAD": 0,
+        "SCORES": 0,
+        "SLOT_day": 0,
+        "WARMUP": 0,
+        "WORKER_FAILURE": 0,
+        "WORKER_RESULT": 0,
+        "guard_refusals": 1,
+        "phase_records": 0
+      },
+      "guard_reason": "consumption_run_id_mismatch :: {\"receipt_run\": \"d3l1-real-f-forward-99999999-v999\", \"context_run\": \"d3l1-real-f-forward-20261015-v120\"}",
+      "returncode": 1,
+      "stderr_tail": "EXECUTION CONTEXT REFUSED: consumption_run_id_mismatch :: {\"receipt_run\": \"d3l1-real-f-forward-99999999-v999\", \"context_run\": \"d3l1-real-f-forward-20261015-v120\"}",
+      "wall_s": 1.9370000001508743
+    },
+    "N8 credential edited after consumption": {
+      "artifacts": {
+        "FIRST_FAILURE": 0,
+        "MODEL_LOAD": 0,
+        "SCORES": 0,
+        "SLOT_day": 0,
+        "WARMUP": 0,
+        "WORKER_FAILURE": 0,
+        "WORKER_RESULT": 0,
+        "guard_refusals": 1,
+        "phase_records": 0
+      },
+      "guard_reason": "credential_digest_changed_after_consumption :: {\"note\": \"the credential bytes no longer produce the digest that was consumed\"}",
+      "returncode": 1,
+      "stderr_tail": "EXECUTION CONTEXT REFUSED: credential_digest_changed_after_consumption :: {\"note\": \"the credential bytes no longer produce the digest that was consumed\"}",
+      "wall_s": 2.0629999998491257
+    },
+    "N9 synthetic-command smuggling": {
+      "artifacts": {
+        "FIRST_FAILURE": 0,
+        "MODEL_LOAD": 0,
+        "SCORES": 0,
+        "SLOT_day": 0,
+        "WARMUP": 0,
+        "WORKER_FAILURE": 0,
+        "WORKER_RESULT": 0,
+        "guard_refusals": 1,
+        "phase_records": 0
+      },
+      "context_record": {
+        "published": false,
+        "real_run": false
+      },
+      "context_records_on_disk": 0,
+      "guard_probe_returncode": 1,
+      "guard_probe_stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"REFUSED\",\n \"reason\": \"context_env_missing_file :: {\\\"context_path\\\": \\\"C:\\\\\\\\Users\\\\\\\\mmc\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\v120_acc_kr9tbdjv\\\\\\\\N9_smugg",
+      "returncode": 1,
+      "wall_s": 3.594000000040978
+    },
+    "P1 guard accepts the supervised context": {
+      "consumption_exists": true,
+      "premature_refusal": "refusing to publish an execution context without a consumed credential: the context is the proof of consumption, so it cannot precede it",
+      "probe_returncode": 0,
+      "probe_stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"PASSED\",\n \"run_id\": \"d3l1-real-f-forward-20261015-v120\",\n \"nonce\": \"523af54c6442e843b8e71bffe6cb4718\",\n \"supervisor_pid\": 39664,\n \"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\consumption_p1\\\\authorization_consumption_5fbd93e2df6dfb1d717a9a7d6867de59ec4f708029a48aa9ea948791a592c4eb.json\",\n \"credential_content_sha256\"",
+      "secret_created_owner_only_via": "os.open(O_CREAT|O_EXCL, 0o600)",
+      "secret_mode": "0o666",
+      "secret_mode_is_enforceable_here": false,
+      "wall_s": 1.8590000001713634
+    },
+    "P2 supervised synthetic path": {
+      "context_record_published": false,
+      "execution_context_records": 0,
+      "n_rows_qualified": 64,
+      "returncode": 0,
+      "round_status": "ROUND_PASS",
+      "verdict": "REAL_F_FORWARD_ENGINEERING_PASS",
+      "wall_s": 4.437999999849126
+    }
+  },
+  "rows": [
+    {
+      "detail": {
+        "artifacts": {
+          "FIRST_FAILURE": 0,
+          "MODEL_LOAD": 0,
+          "SCORES": 0,
+          "SLOT_day": 0,
+          "WARMUP": 0,
+          "WORKER_FAILURE": 0,
+          "WORKER_RESULT": 0,
+          "guard_refusals": 1,
+          "phase_records": 0
+        },
+        "returncode": 1,
+        "stderr_tail": "t_env :: {\"env_var\": \"D3_L1_EXECUTION_CONTEXT\", \"note\": \"the real F worker may only be started by the supervisor, which publishes an authorization context after consuming a human-approved credential\"}"
+      },
+      "name": "N1 `--worker` invoked DIRECTLY refuses before loading anything: 0 model loads, 0 warm-ups, 0 slot rows, 0 scores",
+      "ok": true
+    },
+    {
+      "detail": {
+        "artifacts": {
+          "FIRST_FAILURE": 0,
+          "MODEL_LOAD": 0,
+          "SCORES": 0,
+          "SLOT_day": 0,
+          "WARMUP": 0,
+          "WORKER_FAILURE": 0,
+          "WORKER_RESULT": 0,
+          "guard_refusals": 1,
+          "phase_records": 0
+        },
+        "returncode": 1,
+        "stderr_tail": "EXECUTION CONTEXT REFUSED: context_env_missing_file :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\nope.json\"}"
+      },
+      "name": "N2 `--worker` with the context variable pointing at a MISSING file refuses",
+      "ok": true
+    },
+    {
+      "detail": {
+        "returncode": 1,
+        "stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"REFUSED\",\n \"reason\": \"no_context_env :: {\\\"env_var\\\": \\\"D3_L1_EXECUTION_CONTEXT\\\", \\\"note\\\": \\\"the real F worker may only be started by the supervisor"
+      },
+      "name": "N3 the guard probe reports REFUSED without a context",
+      "ok": true
+    },
+    {
+      "detail": {
+        "artifacts": {
+          "FIRST_FAILURE": 0,
+          "MODEL_LOAD": 0,
+          "SCORES": 0,
+          "SLOT_day": 0,
+          "WARMUP": 0,
+          "WORKER_FAILURE": 0,
+          "WORKER_RESULT": 0,
+          "guard_refusals": 1,
+          "phase_records": 0
+        },
+        "guard_reason": "consumption_receipt_missing :: {\"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\forged_consumption.json\", \"note\": \"no one-shot consumption exists, so no human-approved credential was spent on this run\"}",
+        "returncode": 1,
+        "stderr_tail": "\"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\forged_consumption.json\", \"note\": \"no one-shot consumption exists, so no human-approved credential was spent on this run\"}"
+      },
+      "name": "N4 a HAND-WRITTEN context with a self-made HMAC is refused: inventing a nonce proves nothing, because the one-shot consumption receipt cannot be fabricated",
+      "ok": true
+    },
+    {
+      "detail": {
+        "artifacts": {
+          "FIRST_FAILURE": 0,
+          "MODEL_LOAD": 0,
+          "SCORES": 0,
+          "SLOT_day": 0,
+          "WARMUP": 0,
+          "WORKER_FAILURE": 0,
+          "WORKER_RESULT": 0,
+          "guard_refusals": 1,
+          "phase_records": 0
+        },
+        "guard_reason": "hmac_mismatch :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\N5_edited_rundir\\\\EXECUTION_CONTEXT_cd290f38748f7a74502131f6f227b9ae.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
+        "returncode": 1,
+        "stderr_tail": "c\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\N5_edited_rundir\\\\EXECUTION_CONTEXT_cd290f38748f7a74502131f6f227b9ae.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}"
+      },
+      "name": "N5 a context EDITED after signing (run_dir changed) is refused by the HMAC",
+      "ok": true
+    },
+    {
+      "detail": {
+        "artifacts": {
+          "FIRST_FAILURE": 0,
+          "MODEL_LOAD": 0,
+          "SCORES": 0,
+          "SLOT_day": 0,
+          "WARMUP": 0,
+          "WORKER_FAILURE": 0,
+          "WORKER_RESULT": 0,
+          "guard_refusals": 1,
+          "phase_records": 0
+        },
+        "guard_reason": "hmac_mismatch :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\N6_edited_digest\\\\EXECUTION_CONTEXT_ace4d767284a4e4b59d4bb354a11f504.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
+        "returncode": 1,
+        "stderr_tail": "c\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\N6_edited_digest\\\\EXECUTION_CONTEXT_ace4d767284a4e4b59d4bb354a11f504.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}"
+      },
+      "name": "N6 a context EDITED after signing (credential digest changed) is refused by the HMAC",
+      "ok": true
+    },
+    {
+      "detail": {
+        "artifacts": {
+          "FIRST_FAILURE": 0,
+          "MODEL_LOAD": 0,
+          "SCORES": 0,
+          "SLOT_day": 0,
+          "WARMUP": 0,
+          "WORKER_FAILURE": 0,
+          "WORKER_RESULT": 0,
+          "guard_refusals": 1,
+          "phase_records": 0
+        },
+        "guard_reason": "consumption_run_id_mismatch :: {\"receipt_run\": \"d3l1-real-f-forward-99999999-v999\", \"context_run\": \"d3l1-real-f-forward-20261015-v120\"}",
+        "returncode": 1,
+        "stderr_tail": "EXECUTION CONTEXT REFUSED: consumption_run_id_mismatch :: {\"receipt_run\": \"d3l1-real-f-forward-99999999-v999\", \"context_run\": \"d3l1-real-f-forward-20261015-v120\"}"
+      },
+      "name": "N7 a consumption receipt naming ANOTHER run id is refused",
+      "ok": true
+    },
+    {
+      "detail": {
+        "artifacts": {
+          "FIRST_FAILURE": 0,
+          "MODEL_LOAD": 0,
+          "SCORES": 0,
+          "SLOT_day": 0,
+          "WARMUP": 0,
+          "WORKER_FAILURE": 0,
+          "WORKER_RESULT": 0,
+          "guard_refusals": 1,
+          "phase_records": 0
+        },
+        "guard_reason": "credential_digest_changed_after_consumption :: {\"note\": \"the credential bytes no longer produce the digest that was consumed\"}",
+        "returncode": 1,
+        "stderr_tail": "EXECUTION CONTEXT REFUSED: credential_digest_changed_after_consumption :: {\"note\": \"the credential bytes no longer produce the digest that was consumed\"}"
+      },
+      "name": "N8 a credential EDITED after consumption is refused (the consumed digest no longer matches the file)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "artifacts": {
+          "FIRST_FAILURE": 0,
+          "MODEL_LOAD": 0,
+          "SCORES": 0,
+          "SLOT_day": 0,
+          "WARMUP": 0,
+          "WORKER_FAILURE": 0,
+          "WORKER_RESULT": 0,
+          "guard_refusals": 1,
+          "phase_records": 0
+        },
+        "context_record": {
+          "published": false,
+          "real_run": false
+        },
+        "context_records_on_disk": 0,
+        "guard_probe_returncode": 1,
+        "guard_probe_stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"REFUSED\",\n \"reason\": \"context_env_missing_file :: {\\\"context_path\\\": \\\"C:\\\\\\\\Users\\\\\\\\mmc\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\v120_acc_kr9tbdjv\\\\\\\\N9_smugg",
+        "returncode": 1
+      },
+      "name": "N9 smuggling the real worker through `--synthetic-command` yields 0 real-F artifacts, the supervisor records that NO context was published, and the guard refuses",
+      "ok": true
+    },
+    {
+      "detail": {
+        "artifacts": {
+          "FIRST_FAILURE": 0,
+          "MODEL_LOAD": 0,
+          "SCORES": 0,
+          "SLOT_day": 0,
+          "WARMUP": 0,
+          "WORKER_FAILURE": 0,
+          "WORKER_RESULT": 0,
+          "guard_refusals": 0,
+          "phase_records": 0
+        },
+        "consumption_records": 0,
+        "refusal_record": {
+          "granted": false,
+          "refused": "refusing to combine an authorization with --synthetic-command",
+          "required": false
+        },
+        "returncode": 1
+      },
+      "name": "N10 `--supervise` with a real authorization AND `--synthetic-command` is refused BEFORE the credential is consumed (0 consumption receipts) and before anything is launched",
+      "ok": true
+    },
+    {
+      "detail": {
+        "consumption_exists": true,
+        "premature_refusal": "refusing to publish an execution context without a consumed credential: the context is the proof of consumption, so it cannot precede it",
+        "probe_returncode": 0,
+        "probe_stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"PASSED\",\n \"run_id\": \"d3l1-real-f-forward-20261015-v120\",\n \"nonce\": \"523af54c6442e843b8e71bffe6cb4718\",\n \"supervisor_pid\": 39664,\n \"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_kr9tbdjv\\\\consumption_p1\\\\authorization_consumption_5fbd93e2df6dfb1d717a9a7d6867de59ec4f708029a48aa9ea948791a592c4eb.json\",\n \"credential_content_sha256\"",
+        "secret_created_owner_only_via": "os.open(O_CREAT|O_EXCL, 0o600)",
+        "secret_mode": "0o666",
+        "secret_mode_is_enforceable_here": false
+      },
+      "name": "P1 the guard cannot be published before consumption, and it ACCEPTS exactly the context the supervisor produces (separate process, nothing loaded)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "context_record_published": false,
+        "execution_context_records": 0,
+        "n_rows_qualified": 64,
+        "returncode": 0,
+        "round_status": "ROUND_PASS",
+        "verdict": "REAL_F_FORWARD_ENGINEERING_PASS"
+      },
+      "name": "P2 the supervised SYNTHETIC path still works end to end (64 rows, ROUND_PASS) and publishes no execution context",
+      "ok": true
+    }
+  ],
+  "run_id": "d3l1-real-f-forward-20261015-v120",
+  "runner_sha256": "9dc180b5e6b09c4ba767dbdbf60bbc6430ce94508dbbbde835a5b88c052d7d3d",
+  "schema": "d3_l1_v120_bypass_acceptance",
+  "science_ready": false,
+  "stable_online_gain": false,
+  "tool_sha256": "57bfa064cae081d1d91c4af53a98f88caa32ad22e28c0722d1e88dc2ca1ccd0d",
+  "training_runs": 0,
+  "verdict": "EXECUTION_ENTRY_BYPASS_CLOSED",
+  "wall_s": 27.640999999828637
+}

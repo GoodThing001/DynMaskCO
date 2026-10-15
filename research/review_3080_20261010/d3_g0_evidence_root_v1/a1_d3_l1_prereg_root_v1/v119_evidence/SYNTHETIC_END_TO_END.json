@@ -21,6 +21,7 @@
         "new_destination_names": [
           "AUTHORIZATION",
           "CONTROL",
+          "EXECUTION",
           "FORWARD",
           "FREEZE",
           "IDENTITY",
@@ -29,8 +30,7 @@
           "ROUND",
           "RUN",
           "SCORES",
-          "SLOT",
-          "SUPERVISION"
+          "SLOT"
         ],
         "returncode": 0,
         "round_status": "ROUND_PASS",
@@ -40,7 +40,7 @@
       },
       "name": "S1 64 verified rows with readers holding every record open -> ROUND_PASS",
       "ok": true,
-      "wall_s": 5.077999999979511
+      "wall_s": 4.655999999959022
     },
     {
       "detail": {
@@ -56,7 +56,7 @@
       },
       "name": "S2 a transient Windows sharing denial is retried and the record is still read",
       "ok": true,
-      "wall_s": 0.06200000015087426
+      "wall_s": 0.0779999999795109
     },
     {
       "detail": {
@@ -68,7 +68,7 @@
       },
       "name": "S3 a corrupt record is a HARD bounded error on both the reader and the supervisor path",
       "ok": true,
-      "wall_s": 4.0939999998081475
+      "wall_s": 3.75
     },
     {
       "detail": {
@@ -76,7 +76,7 @@
           "cleanup_ok": true,
           "kill_reap_seconds": 0.015999999828636646,
           "mechanism": "TerminateJobObject",
-          "pid": 38948,
+          "pid": 15900,
           "returncode": 137,
           "tree_active_after": 0,
           "tree_active_before": 1
@@ -89,11 +89,11 @@
           "REVOKED_NOT_ATTEMPTED_AFTER_TERMINATION": 62
         },
         "tree_active_after": 0,
-        "worker_control_wall_s": 4.077999999979511
+        "worker_control_wall_s": 4.0
       },
       "name": "S4 a blocked slot is killed by the real supervisor deadline -> round revoked",
       "ok": true,
-      "wall_s": 6.422000000020489
+      "wall_s": 6.202999999979511
     },
     {
       "detail": {
@@ -101,9 +101,9 @@
         "control_reason": "worker_error",
         "kill_report": {
           "cleanup_ok": true,
-          "kill_reap_seconds": 0.015999999828636646,
+          "kill_reap_seconds": 0.01600000006146729,
           "mechanism": "TerminateJobObject",
-          "pid": 696,
+          "pid": 23112,
           "returncode": 137,
           "tree_active_after": 0,
           "tree_active_before": 1
@@ -118,13 +118,13 @@
       },
       "name": "S5 a real forced process-tree kill mid-slot -> round revoked",
       "ok": true,
-      "wall_s": 6.563000000081956
+      "wall_s": 6.391000000061467
     },
     {
       "detail": {
         "control_reason": "HARD_STOP_IDENTITY_END",
         "identity_payload_problems": [
-          "path digest changed: C:\\Users\\mmc\\AppData\\Local\\Temp\\v118_acc_jgtfgbkt\\WATCHED_IDENTITY.txt"
+          "path digest changed: C:\\Users\\mmc\\AppData\\Local\\Temp\\v118_acc_lmuxgwlu\\WATCHED_IDENTITY.txt"
         ],
         "n_rows_qualified": 0,
         "reason": "TAIL_IDENTITY_MISSING_OR_INVALID",
@@ -133,7 +133,7 @@
       },
       "name": "S6 a trailing identity record that disagrees with the frozen files -> round revoked",
       "ok": true,
-      "wall_s": 4.5
+      "wall_s": 4.125
     },
     {
       "detail": {
@@ -146,7 +146,7 @@
       },
       "name": "S7 a missing trailing identity record -> round revoked",
       "ok": true,
-      "wall_s": 4.030999999959022
+      "wall_s": 3.7339999999385327
     },
     {
       "detail": {
@@ -160,7 +160,7 @@
       },
       "name": "S8 63 of 64 rows -> ROUND_REVOKED (INCOMPLETE_ROWS)",
       "ok": true,
-      "wall_s": 4.483999999938533
+      "wall_s": 4.125
     },
     {
       "detail": {
@@ -174,11 +174,11 @@
       },
       "name": "S9 a row whose score length contradicts the ordered legal length -> verification FAIL",
       "ok": true,
-      "wall_s": 4.422000000020489
+      "wall_s": 4.188000000081956
     }
   ],
   "run_id": "d3l1-real-f-forward-20261015-v118",
-  "runner_sha256": "b21419541c8f3d17e5ec9ba1fe9ee1988a07560e94ce452b33caf51246505d72",
+  "runner_sha256": "2f59cf2db151159d873a358d6e62da0494622ac28ffb9e008f19a0204dd06ddf",
   "schema": "d3_l1_v118_synthetic_end_to_end",
   "science_ready": false,
   "scorer": "SYNTHETIC_SCORER_NOT_F -- the F model is deliberately not loaded here",

@@ -206,6 +206,28 @@ def _failure_reason_for(failed_checks):
 def worker(out_dir):
     journal, _, persistence, identity_mod, targets = load_helpers()
     out_dir = Path(out_dir)
+
+    # =========================================================================================
+    # EXECUTION-CONTEXT GUARD -- the FIRST thing the real worker does.
+    # Nothing below this point may run without it: no frozen-identity read, no JAX import, no
+    # checkpoint load, no scorer call.  `--worker` invoked directly, or smuggled in through
+    # `--synthetic-command`, has no authorization context and therefore refuses here.
+    # =========================================================================================
+    import d3_l1_v120_execution_context as execctx
+    try:
+        context = execctx.validate_execution_context(run_dir=out_dir)
+    except execctx.ExecutionContextRefused as exc:
+        refusal = {'run_id': None, 'stage': 'execution_context_guard', 'refused': True,
+                   'reason': str(exc), 'argv': sys.argv, 'pid': os.getpid(),
+                   'note': 'the real F worker may only be started by the supervisor, after a '
+                           'human-approved credential has been validated and consumed one-shot'}
+        try:
+            persistence.publish_new(out_dir, 'WORKER_GUARD_REFUSED', refusal)
+        except Exception:                                                  # noqa: BLE001
+            pass
+        print('EXECUTION CONTEXT REFUSED: %s' % exc, file=sys.stderr)
+        return 1
+
     frozen = load_frozen(out_dir)
     ident, fwd, idt = frozen['identity'], frozen['forward'], frozen['identity_targets']
     run_id = ident['run_id']
@@ -213,7 +235,9 @@ def worker(out_dir):
     journal_obj = journal.PhaseJournal(phases)
     publish = persistence.publish_new
     record = {'schema': 'd3_l1_v118_worker', 'run_id': run_id, 'pid': os.getpid(),
-              'argv': sys.argv}
+              'argv': sys.argv, 'execution_context_nonce': context.get('nonce'),
+              'execution_context_hmac_sha256': context.get('hmac_sha256'),
+              'supervisor_pid': context.get('supervisor_pid')}
     started = time.monotonic()
     try:
         # ---- identity, start -------------------------------------------------------------
@@ -449,6 +473,15 @@ def supervise(out_dir, *, authorization, dry_command=None, caps_override=None,
     authorization_evidence = {'required': dry_command is None, 'granted': False,
                               'credential_path': str(authorization) if authorization else None,
                               'consumption': None, 'detail': None}
+    if authorization is not None and dry_command is not None:
+        # A real authorization must never be spent on a SUBSTITUTED worker: the substituted process
+        # is not the guarded real worker, so the consumption would buy nothing while permanently
+        # burning a one-shot credential.  The synthetic harness runs without one.
+        authorization_evidence['refused'] = ('refusing to combine an authorization with '
+                                             '--synthetic-command')
+        persistence.publish_new(out_dir, 'AUTHORIZATION_REFUSED', authorization_evidence)
+        raise SystemExit('refusing to combine an authorization with --synthetic-command: a '
+                         'one-shot credential must not be spent on a substituted worker')
     if dry_command is None:
         if not authorization:
             raise SystemExit('refusing to run the real F worker without an authorization file')
@@ -468,6 +501,7 @@ def supervise(out_dir, *, authorization, dry_command=None, caps_override=None,
             raise SystemExit('AUTHORIZATION REFUSED: %s' % exc)
         authorization_evidence.update(granted=True, detail=granted['detail'],
                                       consumption=granted['consumption'],
+                                      credential_path=str(authorization),
                                       credential_content_sha256=granted[
                                           'credential_content_sha256'])
         if authorization_record is not None:
@@ -475,7 +509,7 @@ def supervise(out_dir, *, authorization, dry_command=None, caps_override=None,
                 json.dumps(authorization_evidence, indent=2, sort_keys=True, default=repr),
                 encoding='utf-8')
     elif authorization is not None:
-        # the synthetic harness may point at a credential, but it is NOT used to authorise anything
+        # unreachable: the combination above is refused, kept as a belt-and-braces branch
         authorization_evidence['detail'] = ('ignored: the synthetic harness never authorises '
                                             'a real execution')
     persistence.publish_new(out_dir, 'AUTHORIZATION_EVIDENCE', authorization_evidence)
@@ -484,6 +518,35 @@ def supervise(out_dir, *, authorization, dry_command=None, caps_override=None,
     freeze_report = json.loads((out_dir / 'FREEZE_REPORT.json').read_text(encoding='utf-8'))
     identity = {path: digest for path, digest in watched.items()}
     target_by_key = {(int(r['day_id']), int(r['position'])): r for r in fwd['rows']}
+
+    # The environment the worker process is launched with.  For a REAL run it carries the
+    # execution-context variables, which the worker's first action verifies: that is what stops
+    # `--worker` (or a smuggled real worker behind `--synthetic-command`) from loading the model.
+    worker_env = dict(os.environ, JAX_PLATFORMS='cpu', PYTHONIOENCODING='utf-8')
+    execution_context_evidence = {'published': False, 'real_run': dry_command is None}
+    if dry_command is None:
+        import d3_l1_v120_execution_context as execctx
+        try:
+            published = execctx.publish_execution_context(out_dir, authorization_result=granted)
+        except execctx.ExecutionContextRefused as exc:
+            execution_context_evidence['refused'] = str(exc)
+            persistence.publish_new(out_dir, 'EXECUTION_CONTEXT_REFUSED',
+                                    execution_context_evidence)
+            raise SystemExit('EXECUTION CONTEXT REFUSED: %s' % exc)
+        worker_env.update(published['env'])
+        execution_context_evidence.update(published=True, nonce=published['nonce'],
+                                          hmac_sha256=published['hmac_sha256'],
+                                          context_path=published['context_path'],
+                                          env_vars=sorted(published['env']))
+        # A real run may NEVER substitute the worker process: the substituted process would not be
+        # the guarded real worker, and `--synthetic-command` exists only for the acceptance harness.
+        if dry_command is not None:
+            raise SystemExit('refusing to combine an authorization with --synthetic-command')
+    else:
+        execution_context_evidence['detail'] = (
+            'no execution context is published for a substituted worker: the synthetic harness '
+            'runs no real F work, and the real worker refuses to start without a context')
+    persistence.publish_new(out_dir, 'EXECUTION_CONTEXT_EVIDENCE', execution_context_evidence)
 
     if dry_command is not None:
         command = list(dry_command)
@@ -514,7 +577,7 @@ def supervise(out_dir, *, authorization, dry_command=None, caps_override=None,
     control_result = control.run_contained(
         command, out_dir, identity, init_cap=float(caps['initialize_compile_s']),
         slot_cap=float(caps['slot_span_s']), batch_cap=float(caps['batch_s']),
-        env=dict(os.environ, JAX_PLATFORMS='cpu', PYTHONIOENCODING='utf-8'),
+        env=worker_env,
         tail_publisher=tail_publisher, ready_probe=_make_ready_probe(out_dir))
     tail_path = (control_result.get('tail_publication') or {}).get('path')
     rows = control.reconcile_rows(out_dir, control_result, verify_record=verify_record,
@@ -624,7 +687,14 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument('--freeze-identity', action='store_true')
     ap.add_argument('--supervise', action='store_true')
-    ap.add_argument('--worker', action='store_true')
+    ap.add_argument('--worker', action='store_true',
+                    help='the real F worker.  Requires an execution context published by the '
+                         'supervisor after a human-approved credential was consumed; invoked '
+                         'directly it refuses BEFORE loading anything')
+    ap.add_argument('--guard-probe', action='store_true',
+                    help='run ONLY the execution-context guard and report its verdict, loading '
+                         'nothing: this is how a supervised positive path is proven without '
+                         'touching the model')
     ap.add_argument('--readiness', action='store_true')
     ap.add_argument('--out-dir')
     ap.add_argument('--run-id')
@@ -693,6 +763,25 @@ def main(argv=None):
                     'cannot be generated by the process that consumes it',
             'this_template_alone_is_not_an_authorization': True}, indent=1, default=repr))
         return 1 if any(not sealed.get(f) for f in authorization_mod.HUMAN_FIELDS) else 0
+    if args.guard_probe:
+        import d3_l1_v120_execution_context as execctx
+        try:
+            context = execctx.validate_execution_context(run_dir=Path(args.out_dir))
+        except execctx.ExecutionContextRefused as exc:
+            print(json.dumps({'stage': 'execution_context_guard', 'guard': 'REFUSED',
+                              'reason': str(exc), 'argv': sys.argv}, indent=1, default=repr))
+            return 1
+        print(json.dumps({'stage': 'execution_context_guard', 'guard': 'PASSED',
+                          'run_id': context.get('run_id'), 'nonce': context.get('nonce'),
+                          'supervisor_pid': context.get('supervisor_pid'),
+                          'consumption_path': context.get('consumption_path'),
+                          'credential_content_sha256': context.get(
+                              'credential_content_sha256'),
+                          'loaded_anything': False,
+                          'note': 'the guard passed and NOTHING was loaded: no JAX import, no '
+                                  'checkpoint read, no scorer call'},
+                         indent=1, default=repr))
+        return 0
     if args.worker:
         return worker(args.out_dir)
     if args.supervise:

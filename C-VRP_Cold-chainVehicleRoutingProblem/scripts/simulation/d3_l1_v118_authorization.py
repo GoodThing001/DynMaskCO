@@ -303,6 +303,7 @@ def load_credential(path):
         raise AuthorizationRefused('authorization file is not a non-empty JSON object')
     credential = dict(credential)
     credential['_file_sha256'] = _digest(raw)
+    credential['_source_path'] = str(p.resolve())
     return credential
 
 
@@ -327,4 +328,5 @@ def authorize(credential, *, identity, forward_targets, output_dir, preregistrat
             detail['problems'], default=repr))
     record = consume(credential, run_dir=run_dir, root=consumption_root)
     return {'ok': True, 'detail': detail, 'consumption': record,
+            'credential_path': str(Path(credential.get('_source_path') or '')),
             'credential_content_sha256': content_digest(credential)}
