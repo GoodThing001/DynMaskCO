@@ -71,7 +71,8 @@ def timeline_check(out, started, ended, slot_cap):
             'ok': not errors}
 
 
-def run_contained(command, out, identity, *, init_cap=60., slot_cap=10., batch_cap=180., env=None):
+def run_contained(command, out, identity, *, init_cap=60., slot_cap=10., batch_cap=180., env=None,
+                  tail_publisher=None):
     """One process attempt per directory, authentic monotonic deadlines and independent end identity."""
     out = Path(out)
     out.mkdir(parents=True, exist_ok=True)
@@ -138,7 +139,13 @@ def run_contained(command, out, identity, *, init_cap=60., slot_cap=10., batch_c
             result['returncode'] = process.returncode
     result['end_identity'] = identity_check(identity)
     try:
-        publish(out / 'CONTROL_IDENTITY_END.json', result['end_identity'])
+        if tail_publisher is None:
+            publish(out / 'CONTROL_IDENTITY_END.json', result['end_identity'])
+        else:
+            # V1.18: the trailing identity record may be published to a FRESH destination name so
+            # that no fixed name is ever replaced while something might hold it open.  The legacy
+            # fixed-name publication above is kept byte-identically for the V1.16 acceptance.
+            result['tail_publication'] = tail_publisher(result['end_identity'])
     except OSError as exc:
         result['tail_identity_persist_error'] = repr(exc)
     if not result['end_identity']['ok']:
@@ -159,11 +166,24 @@ def run_contained(command, out, identity, *, init_cap=60., slot_cap=10., batch_c
     return result
 
 
-def reconcile_rows(out, control, *, verify_record):
+def reconcile_rows(out, control, *, verify_record, rows_dir=None, row_glob=None):
     """Each durable row requires a matching durable phase finish and independent verification.
     NOTE: the per-row verdicts below are PROVISIONAL.  Call round_verdict() afterwards -- the round
-    is only qualified if the trailing identity record is valid and the control result is ok."""
+    is only qualified if the trailing identity record is valid and the control result is ok.
+
+    `rows_dir` selects the directory the row artifacts live in, RELATIVE to `out`.  Its historical
+    default is `scores`, which is where the V1.16 harness writes them; passing `'.'` reads rows
+    that sit directly in the run root, which is what the V1.11 layout did.
+
+    `row_glob` is a format string with `{day}` and `{pos}` placeholders.  Its default reproduces the
+    historical FIXED file name `day%02d_pos%d.json`.  V1.18 passes a glob instead, because a
+    uniquely named immutable record (never a fixed name that can be replaced under a reader) cannot
+    be located by an exact name.  Exactly one match is required: zero matches is "not attempted"
+    and more than one is an error -- a duplicate row record must never be silently merged.
+    """
     out = Path(out)
+    rows_root = out / (rows_dir if rows_dir is not None else 'scores')
+    pattern = row_glob or 'day{day:02d}_pos{pos}.json'
     timeline = control.get('timeline') or {}
     finished = {(r['day_id'], r['position']) for r in timeline.get('finished', [])}
     opened = {tuple(k) for k in timeline.get('opened', [])}
@@ -181,8 +201,13 @@ def reconcile_rows(out, control, *, verify_record):
         for pos in range(1, 5):
             key = (day, pos)
             row = {'day_id': day, 'position': pos, 'qualified': False}
-            path = out / ('scores/day%02d_pos%d.json' % key)
-            if not path.exists():
+            matches = sorted(rows_root.glob(pattern.format(day=day, pos=pos)))
+            path = matches[0] if len(matches) == 1 else None
+            if len(matches) > 1:
+                row.update(status='FAILED_DUPLICATE_ROW_RECORDS',
+                           error='%d records match the row pattern' % len(matches),
+                           matches=[p.name for p in matches[:8]])
+            elif path is None:
                 row['status'] = 'FAILED_TERMINATED_MID_SLOT' if key in opened else 'NOT_ATTEMPTED_AFTER_TERMINATION'
             else:
                 try:
@@ -198,7 +223,7 @@ def reconcile_rows(out, control, *, verify_record):
     return rows
 
 
-def round_verdict(out, control, rows, *, expected_rows=64):
+def round_verdict(out, control, rows, *, expected_rows=64, tail_path=None):
     """ROUND-LEVEL adjudication with revocation.
 
     The per-slot PASS files stay on disk as immutable evidence, but they are NOT the qualification.
@@ -209,13 +234,14 @@ def round_verdict(out, control, rows, *, expected_rows=64):
     ROUND_REVOKED.json is published, so a tail failure can never leave a passing round behind.
     """
     out = Path(out)
+    tail_target = Path(tail_path) if tail_path is not None else (out / 'CONTROL_IDENTITY_END.json')
     report = {'expected_rows': expected_rows,
               'rows_qualified_provisionally': sum(1 for r in rows if r.get('qualified')),
-              'tail_path': str(out / 'CONTROL_IDENTITY_END.json'), 'revoked': False, 'reason': None,
+              'tail_path': str(tail_target), 'revoked': False, 'reason': None,
               'control_ok': bool((control or {}).get('ok')),
               'control_reason': (control or {}).get('reason')}
     try:
-        tail = json.loads((out / 'CONTROL_IDENTITY_END.json').read_text())
+        tail = json.loads(tail_target.read_text())
         report['tail_present'] = True
         report['tail_ok'] = bool(tail.get('ok')) and bool(tail.get('rows'))
         report['tail_rows'] = sorted(tail.get('rows', {}))

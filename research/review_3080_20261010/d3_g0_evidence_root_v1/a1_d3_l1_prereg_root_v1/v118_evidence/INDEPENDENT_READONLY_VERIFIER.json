@@ -1,0 +1,148 @@
+{
+  "executed_rows": 0,
+  "fail": 0,
+  "n_frozen_checks": 6,
+  "n_frozen_checks_pass": 6,
+  "not_executed_checks": [
+    "V1-8 (NOT_EXECUTED) no trailing identity record exists yet, so it is recorded as NOT EXECUTED rather than PASS or FAIL",
+    "V1-9 (NOT_EXECUTED) no supervision result has been published yet, so it is recorded as NOT EXECUTED rather than PASS or FAIL"
+  ],
+  "pass": 9,
+  "records": {
+    "architecture_probe": {
+      "caps": {
+        "batch_s": 180.0,
+        "initialize_compile_s": 60.0,
+        "slot_span_s": 10.0
+      },
+      "caps_match": true,
+      "max_forward_calls": 129,
+      "max_forward_calls_match": true,
+      "n_states": 64,
+      "state_binding_match": true,
+      "state_binding_sha256": "f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1"
+    },
+    "budget_rederivation": {
+      "init_plus_warmup_inside_init_cap": true,
+      "init_s": 6.344000000040978,
+      "n_observed_states": 22,
+      "observed_batch_s": 19.561999999918044,
+      "projected_full_schedule_s": 70.03263636363079,
+      "projected_inside_batch_cap": true,
+      "slot_max_inside_slot_cap": true,
+      "slot_span_max_s": 0.3440000000409782,
+      "warmup_s": 6.7810000001918525
+    },
+    "claim_limits": [
+      "this verifier never loads F and never scores a state",
+      "VERIFIED_NOT_EXECUTED is not a PASS: it means the frozen architecture checks out and the real F forward has not happened",
+      "a SYNTHETIC verdict is an engineering statement about the harness, never about F",
+      "no F-vs-D-Geo comparison, no training, no utility or significance claim is made here"
+    ],
+    "expected_run_id": "d3l1-real-f-forward-20261015-v118",
+    "frozen_constants": {
+      "budget_caps": {
+        "batch_s": 180.0,
+        "initialize_compile_s": 60.0,
+        "slot_span_s": 10.0
+      },
+      "identities": {
+        "backbone": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+        "dev_check_npz": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+        "f_ckpt": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5",
+        "profile_file": "63e56212174c9ce371b8a5b1fada6a549d7bc47527fdd1b0b13a7bbe90db57e8",
+        "state_ledger": null,
+        "state_manifest": "2340cc56c83da49cb27e0eaffa7db7c21d37a3ecc6af34793820a020081a294d"
+      },
+      "max_forward_calls": 129,
+      "per_slot_calls": 2,
+      "rows": 64,
+      "run_id": "d3l1-real-f-forward-20261015-v118",
+      "targets_sha256": "37e23f7567e3391a4a3360203a3d58e77c2e16b32c7e3514c65c8aa15d5ade08"
+    },
+    "on_disk_identities": {
+      "backbone": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+      "dev_check_npz": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+      "f_ckpt": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5",
+      "profile_file": "63e56212174c9ce371b8a5b1fada6a549d7bc47527fdd1b0b13a7bbe90db57e8",
+      "state_ledger": "4de96c18ed5a6f2d8977ac3a4f05c50f2277ea76b5ae787311af643c735760d0",
+      "state_manifest": "2340cc56c83da49cb27e0eaffa7db7c21d37a3ecc6af34793820a020081a294d"
+    },
+    "row_state": {
+      "disagreements": [],
+      "expected_rows": 64,
+      "n_agree": 0,
+      "n_cross_checked": 0,
+      "n_disagree": 0,
+      "n_independently_ok": 0,
+      "n_missing_target": 0,
+      "n_parsed": 0,
+      "n_row_records": 0,
+      "n_unparsable_names": 0,
+      "targets_available": 64,
+      "unparsable_sample": []
+    },
+    "run_dir": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v118_evidence\\run_v118",
+    "run_dir_state": {
+      "budget_caps_in_identity": {
+        "batch_s": 180.0,
+        "initialize_compile_s": 60.0,
+        "slot_span_s": 10.0
+      },
+      "calls_match": true,
+      "caps_match": true,
+      "max_forward_calls_in_identity": 129,
+      "n_identity_targets": 1,
+      "n_run_identity": 1,
+      "n_target_rows": 64,
+      "n_targets": 1,
+      "run_id": "d3l1-real-f-forward-20261015-v118",
+      "run_id_matches": true,
+      "targets_match": true,
+      "targets_sha256": "37e23f7567e3391a4a3360203a3d58e77c2e16b32c7e3514c65c8aa15d5ade08"
+    },
+    "selftest": false,
+    "state_list": {
+      "all_have_state_hash": true,
+      "ledger_sha256": "4de96c18ed5a6f2d8977ac3a4f05c50f2277ea76b5ae787311af643c735760d0",
+      "manifest_sha256": "2340cc56c83da49cb27e0eaffa7db7c21d37a3ecc6af34793820a020081a294d",
+      "n_manifest_hash_mismatches": 0,
+      "n_published": 64,
+      "order_equals_canonical": true,
+      "order_keys_unique": true,
+      "state_binding_sha256": "f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1"
+    },
+    "summary": {
+      "executed_rows": 0,
+      "fail": 0,
+      "n_frozen_checks": 6,
+      "n_frozen_checks_pass": 6,
+      "not_executed_checks": [
+        "V1-8 (NOT_EXECUTED) no trailing identity record exists yet, so it is recorded as NOT EXECUTED rather than PASS or FAIL",
+        "V1-9 (NOT_EXECUTED) no supervision result has been published yet, so it is recorded as NOT EXECUTED rather than PASS or FAIL"
+      ],
+      "pass": 9,
+      "rows": 9,
+      "synthetic_run_dir": false
+    },
+    "supervision": {
+      "n_round_records": 0,
+      "n_rows_qualified": null,
+      "n_supervision_records": 0,
+      "round_status": null,
+      "science_ready": null,
+      "stable_online_gain": null,
+      "verdict": null
+    },
+    "synthetic_expected": false,
+    "tail_identity": {
+      "n_identity_end_records": 0
+    },
+    "verdict": "VERIFIED_NOT_EXECUTED"
+  },
+  "rows": 9,
+  "selftest": false,
+  "synthetic_run_dir": false,
+  "tool_sha256": "4e4fedf333fb9653adb9a3813d08a728973d6657d3df2b8b00ac7da2de5f7558",
+  "verdict": "VERIFIED_NOT_EXECUTED"
+}
