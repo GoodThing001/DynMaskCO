@@ -1,0 +1,271 @@
+{
+  "F_D_Geo_scientific_comparisons": 0,
+  "algorithmic_gain_claim": "none",
+  "arms": {
+    "D-Geo": "registered geo_score = -incremental_distance",
+    "F": "synthetic deterministic logits (SYNTHETIC_F_NOT_REAL_F)"
+  },
+  "data_sha256": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+  "geo_adapter_sha256": "099c3517472d886ece4ea3e929df2ec54d0e459b2a2e2e07da5b658acc07adc5",
+  "n_fail": 0,
+  "n_pass": 10,
+  "n_rows": 10,
+  "not_run": [
+    "the real F forward over the 64 states (awaiting the user signature)",
+    "the real F-vs-D-Geo comparison",
+    "any training",
+    "any install"
+  ],
+  "protocol_sha256": "440b936e8be57f99cf99f4fcb49e5587744302334cdaa37c7e5960de352ca7e0",
+  "rows": [
+    {
+      "detail": {
+        "d_action": 2,
+        "f_action": 1,
+        "first_step_legal_identical": true,
+        "legal_identity_from_arm_path": "recomputed by the caller-supplied legal_fn on the same plans + mask the arms start from",
+        "legal_sha256": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f",
+        "mask_order": [
+          1,
+          2
+        ],
+        "n_legal": 21,
+        "replay_digest": "434115046ff32b395655e6789569e7e911340385755cac7ae94c63f98f924283",
+        "replay_stable": true,
+        "shared_input_sha256": "4efef859f877d577eaab96a4057341b80a46c73f834783b11599c2036ae4b3a8",
+        "shared_input_sha256_repeat": "4efef859f877d577eaab96a4057341b80a46c73f834783b11599c2036ae4b3a8",
+        "single_factor_ok": true,
+        "state_unchanged_both_arms": true,
+        "v1": "DIVERGENT",
+        "v2_both": true,
+        "v3": "NOT_RUN"
+      },
+      "name": "C1 single factor: one shared state, both arms, first-step legal identity, replayable",
+      "ok": true,
+      "wall_s": 0.9219999997876585
+    },
+    {
+      "detail": {
+        "failures": {
+          "D-Geo": null,
+          "F": null
+        },
+        "legal_trace_len": {
+          "D-Geo": 0,
+          "F": 0
+        },
+        "mask_order": [],
+        "n_legal": 0,
+        "plan_unchanged": true,
+        "steps": {
+          "D-Geo": 0,
+          "F": 0
+        },
+        "v1": "NOT_APPLICABLE_EMPTY_MASK",
+        "v1_reason": "the B mask pool is empty, so no first step exists to compare; this state stays in the denominator as an empty-pool entry",
+        "v2": {
+          "D-Geo": {
+            "failure_reason": null,
+            "full_repair_completed": true,
+            "n_steps": 0,
+            "returned_original_plan": false
+          },
+          "F": {
+            "failure_reason": null,
+            "full_repair_completed": true,
+            "n_steps": 0,
+            "returned_original_plan": false
+          },
+          "both_completed": true
+        }
+      },
+      "name": "C2 empty B pool -> the state stays in the denominator as an empty-pool entry",
+      "ok": true,
+      "wall_s": 0.0470000000204891
+    },
+    {
+      "detail": {
+        "found": null,
+        "probe_limit": 64,
+        "reason": "NO_SUCH_CUSTOMER",
+        "scenario_status": "NOT_EXERCISED",
+        "states_probed": 64
+      },
+      "name": "C2b a mask with NO legal action -> no_legal and the ORIGINAL plan is returned",
+      "ok": true,
+      "wall_s": 2.6410000000614673
+    },
+    {
+      "detail": {
+        "d_failure": null,
+        "f_failure": "score_len",
+        "f_returned_original": true,
+        "n_legal": 21,
+        "score_contract": {
+          "len_scores": 20,
+          "n_legal": 21,
+          "violation": "len(scores) != len(legal)"
+        }
+      },
+      "name": "C3 score_len: a short score vector is refused, never silently prefix-argmaxed",
+      "ok": true,
+      "wall_s": 0.06199999991804361
+    },
+    {
+      "detail": {
+        "f_failure": "score_shape",
+        "f_returned_original": true,
+        "score_contract": {
+          "n_legal": 21,
+          "ndim": 2,
+          "shape": [
+            1,
+            21
+          ],
+          "violation": "ndim != 1"
+        }
+      },
+      "name": "C4 score_shape: a 2-D score vector is refused, never flattened",
+      "ok": true,
+      "wall_s": 0.07800000021234155
+    },
+    {
+      "detail": {
+        "d_action": {
+          "customer": 2,
+          "incremental_distance": 0.06423409283161163,
+          "position": 0,
+          "predecessor": 0,
+          "slot_anchor": -4,
+          "slot_kind": "anchored",
+          "successor": 16,
+          "vehicle_id": 3
+        },
+        "f_action": {
+          "customer": 2,
+          "incremental_distance": 0.170382559299469,
+          "position": 0,
+          "predecessor": 0,
+          "slot_anchor": -1,
+          "slot_kind": "new_route",
+          "successor": 0,
+          "vehicle_id": 5
+        },
+        "failures": {
+          "D-Geo": null,
+          "F": null
+        },
+        "first_step_legal_identical": true,
+        "n_steps": {
+          "D-Geo": 2,
+          "F": 2
+        },
+        "plans_differ": true,
+        "post_fork_legal_sha256": {
+          "D-Geo": [
+            "7af2d18ec464c17f35ee251ed97ffa0a4aa766c8fa40485da265fed5110894a5"
+          ],
+          "F": [
+            "b84d219a939970b6e1725b1b7944654369ace23d2eb7ad27411975df9e258241"
+          ]
+        },
+        "shared_legal_sha256": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f",
+        "v1": "DIVERGENT",
+        "v2_both": true
+      },
+      "name": "C5 post-fork legal: the fork is recorded; post-fork legal lists are never compared",
+      "ok": true,
+      "wall_s": 0.06299999984912574
+    },
+    {
+      "detail": {
+        "certifier_calls": 2,
+        "f_certified": true,
+        "f_certified_plan_hash": "cc5ba713dffd64b1",
+        "f_failure": "cert_fail",
+        "f_returned_original": true,
+        "v2_f": false,
+        "v3": {
+          "D-Geo": {
+            "certified_executable_plan": false,
+            "certified_plan_hash": "cc5ba713dffd64b1",
+            "certifier": "__main__.c6_cert_failure.<locals>.failing_certifier",
+            "failure_reason": "cert_fail"
+          },
+          "F": {
+            "certified_executable_plan": false,
+            "certified_plan_hash": "cc5ba713dffd64b1",
+            "certifier": "__main__.c6_cert_failure.<locals>.failing_certifier",
+            "failure_reason": "cert_fail"
+          },
+          "any_certified": false
+        }
+      },
+      "name": "C6 cert failure -> cert_fail, V3 False, original plan returned",
+      "ok": true,
+      "wall_s": 0.06200000015087426
+    },
+    {
+      "detail": {
+        "d_failure": null,
+        "f_failure": "timeout",
+        "f_returned_original": true,
+        "f_timed_out": true,
+        "v2_f": false,
+        "v3": "NOT_RUN"
+      },
+      "name": "C7 timeout -> timeout, never a normal completion",
+      "ok": true,
+      "wall_s": 0.10999999986961484
+    },
+    {
+      "detail": {
+        "installs": 0,
+        "ledger_events": [
+          {
+            "action": "exception",
+            "reason": "exception:ValueError"
+          },
+          {
+            "action": "rollback",
+            "candidate_discarded": true,
+            "committed_state_restored": false,
+            "reason": "exception:ValueError",
+            "rollback_unverified": true
+          }
+        ],
+        "n_refusals": 0,
+        "n_rollbacks": 1,
+        "n_state_restorations": 0,
+        "raised_out_of_protocol": "ValueError: synthetic scorer failure",
+        "transaction_installed": false
+      },
+      "name": "C8 scorer exception is contained and no install path is reachable",
+      "ok": true,
+      "wall_s": 0.030999999959021807
+    },
+    {
+      "detail": {
+        "has_full_reports": true,
+        "has_shared_identity": true,
+        "trace_path": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\A1_D3_L1_TWO_ARM_TRACES.json",
+        "trace_sha256": "a064f7561dd70481c655afb64376bfb67e9812733fe571f7752417b5d7c3687c",
+        "traces": [
+          "baseline",
+          "forced_fork"
+        ]
+      },
+      "name": "T1 the full two-arm reports are emitted for independent re-adjudication",
+      "ok": true,
+      "wall_s": 0.10900000017136335
+    }
+  ],
+  "schema": "d3_l1_two_arm_protocol_acceptance",
+  "science_ready": false,
+  "stable_online_gain": false,
+  "tool_sha256": "d3c74cc88d63349d66e942902e500cfad53a11d036568b3a703f62242bc6bf08",
+  "trace_path": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\A1_D3_L1_TWO_ARM_TRACES.json",
+  "trace_sha256": "a064f7561dd70481c655afb64376bfb67e9812733fe571f7752417b5d7c3687c",
+  "v110_materializer_sha256": "a9f4078db0340105db9b1b122c876843f73a28a0218a377250bd4626d27122a1",
+  "verdict": "L1_TWO_ARM_PROTOCOL_ENGINEERING_ACCEPTED"
+}

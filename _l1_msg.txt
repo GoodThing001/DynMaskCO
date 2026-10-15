@@ -1,0 +1,40 @@
+L1 two-arm mechanism protocol: shared input, three separate verdicts, six counterexamples (10/10 + independent audit 17/17)
+
+Closes the V1.17 gap "only L1-1 shared-input constructibility passed; the two-arm protocol and the
+six synthetic counterexamples are not implemented". Nothing here compares F with D-Geo: the F arm
+is a SYNTHETIC deterministic scorer, because the real F forward is the single item awaiting the
+user's signature.
+
+New modules:
+  scripts/simulation/d3_l1_two_arm_protocol.py  -- shared input, the two arms, V1/V2/V3
+  scripts/tests/d3_l1_two_arm_acceptance.py     -- 10 scenarios on one REAL frozen state
+  scripts/tests/d3_l1_two_arm_readonly_audit.py -- independent re-adjudication (does not import
+                                                   the protocol, the geo adapter or the harness)
+
+Single factor, mechanised: both arms receive the SAME state object; the state digest is recomputed
+before and after each arm and must equal the shared value three ways; DECLARED_VARYING_FIELDS is
+('scorer_id',) and nothing else. The ordered legal list is fingerprinted once (legal_fingerprint)
+and used both for the shared identity and for each arm's per-step trace, so the comparison is
+between the same object rather than between two encoders.
+
+Three verdicts kept separate: V1 first-step divergence (six-field action, first_divergence_position
+can only be 0), V2 full-repair completion per arm, V3 certified executable plan per arm (NOT_RUN
+when no certifier is supplied -- an absent check is neither True nor False). An empty B pool is
+NOT_APPLICABLE_EMPTY_MASK, never "identical".
+
+Scenarios: C1 single factor + replay, C2 empty B pool, C2b no-legal probe (NOT_EXERCISED: across
+all 64 frozen states every visible order has a feasible insertion, so that branch cannot be
+triggered naturally here -- reported honestly, not converted into a pass), C3 score_len, C4
+score_shape, C5 post-fork legal, C6 cert failure, C7 timeout, C8 scorer exception (contained by
+run_repair_transaction with zero installs), T1 full-report emission.
+
+Independent audit re-derives V1/V2/V3 from the raw step lists alone and checks the fork discipline,
+the empty-pool discipline and the absence of any smuggled science claim: 17/17 PASS. It also
+cross-checks that the acceptance summary's trace digest equals the trace actually on disk.
+
+The seven-element L1 execution pre-registration is
+A1_D3_L1_TWO_ARM_EXECUTION_PREREGISTRATION_V1_18.md; its remaining hard gate is the V1.18 real-F
+forward, not the protocol.
+
+No real F forward, no F-vs-D-Geo comparison, no training, no install, no state collection.
+stable_online_gain stays False; G0/D8/E2/I3/D2 all unchanged.

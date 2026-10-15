@@ -1,0 +1,317 @@
+{
+  "n_fail": 0,
+  "n_pass": 17,
+  "n_rows": 17,
+  "records": {
+    "acceptance_path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\A1_D3_L1_TWO_ARM_PROTOCOL_ACCEPTANCE.json",
+    "acceptance_sha256": "64654b9d4c0239e516350b638cbef74a5ebd8c191a02e6958f83b02960362382",
+    "acceptance_trace_sha256": "a064f7561dd70481c655afb64376bfb67e9812733fe571f7752417b5d7c3687c",
+    "acceptance_verdict": "L1_TWO_ARM_PROTOCOL_ENGINEERING_ACCEPTED",
+    "claim_limits": [
+      "this audit re-adjudicates the ENGINEERING protocol only; it scores nothing and loads no F",
+      "the F arm in these traces is a SYNTHETIC scorer, so no F-vs-D-Geo scientific result exists",
+      "no gain, significance or online-utility claim is made or checked into the record"
+    ],
+    "per_trace": {
+      "baseline": {
+        "v1": "DIVERGENT",
+        "v2": {
+          "D-Geo": {
+            "failure_reason": null,
+            "full_repair_completed": true,
+            "n_steps": 2,
+            "returned_original_plan": false
+          },
+          "F": {
+            "failure_reason": null,
+            "full_repair_completed": true,
+            "n_steps": 2,
+            "returned_original_plan": false
+          },
+          "both_completed": true
+        },
+        "v3": {
+          "any_certified": "NOT_RUN"
+        }
+      },
+      "forced_fork": {
+        "v1": "DIVERGENT",
+        "v2": {
+          "D-Geo": {
+            "failure_reason": null,
+            "full_repair_completed": true,
+            "n_steps": 2,
+            "returned_original_plan": false
+          },
+          "F": {
+            "failure_reason": null,
+            "full_repair_completed": true,
+            "n_steps": 2,
+            "returned_original_plan": false
+          },
+          "both_completed": true
+        },
+        "v3": {
+          "any_certified": "NOT_RUN"
+        }
+      }
+    },
+    "traces": [
+      "baseline",
+      "forced_fork"
+    ],
+    "traces_path": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\A1_D3_L1_TWO_ARM_TRACES.json",
+    "traces_sha256": "a064f7561dd70481c655afb64376bfb67e9812733fe571f7752417b5d7c3687c"
+  },
+  "rows": [
+    {
+      "detail": {
+        "legal_sha256": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f",
+        "shared_input_sha256": "4efef859f877d577eaab96a4057341b80a46c73f834783b11599c2036ae4b3a8",
+        "state_key_sha256": "1aaf85ded73b6874d50cbc2172c371e24b05fa66c7a90785187c0d3a04c00658"
+      },
+      "name": "baseline/A1 the shared-input and legal digests are well formed",
+      "ok": true
+    },
+    {
+      "detail": {
+        "diverging_fields": [
+          "customer",
+          "position",
+          "predecessor",
+          "successor"
+        ],
+        "first_divergence_position": 0,
+        "recomputed": "DIVERGENT",
+        "recorded": "DIVERGENT"
+      },
+      "name": "baseline/A2 V1 recomputes to the recorded first-step divergence verdict",
+      "ok": true
+    },
+    {
+      "detail": {
+        "recomputed": {
+          "D-Geo": {
+            "failure_reason": null,
+            "full_repair_completed": true,
+            "n_steps": 2,
+            "returned_original_plan": false
+          },
+          "F": {
+            "failure_reason": null,
+            "full_repair_completed": true,
+            "n_steps": 2,
+            "returned_original_plan": false
+          },
+          "both_completed": true
+        },
+        "recorded": {
+          "D-Geo": {
+            "failure_reason": null,
+            "full_repair_completed": true,
+            "n_steps": 2,
+            "returned_original_plan": false
+          },
+          "F": {
+            "failure_reason": null,
+            "full_repair_completed": true,
+            "n_steps": 2,
+            "returned_original_plan": false
+          }
+        }
+      },
+      "name": "baseline/A3 V2 recomputes to the recorded full-repair verdicts",
+      "ok": true
+    },
+    {
+      "detail": {
+        "recomputed_any_certified": "NOT_RUN",
+        "recorded_any_certified": "NOT_RUN"
+      },
+      "name": "baseline/A4 V3 recomputes to the recorded certification verdict",
+      "ok": true
+    },
+    {
+      "detail": {
+        "first_step_legal": {
+          "D-Geo": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f",
+          "F": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f"
+        },
+        "scorer_ids": {
+          "D-Geo": "geo_unified_minimum",
+          "F": "restored_maskco_logits"
+        },
+        "shared_legal": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f",
+        "state_after": {
+          "D-Geo": "1aaf85ded73b6874d50cbc2172c371e24b05fa66c7a90785187c0d3a04c00658",
+          "F": "1aaf85ded73b6874d50cbc2172c371e24b05fa66c7a90785187c0d3a04c00658"
+        },
+        "state_before": {
+          "D-Geo": "1aaf85ded73b6874d50cbc2172c371e24b05fa66c7a90785187c0d3a04c00658",
+          "F": "1aaf85ded73b6874d50cbc2172c371e24b05fa66c7a90785187c0d3a04c00658"
+        }
+      },
+      "name": "baseline/A5 the single factor holds: one shared state digest, one legal fingerprint, and the arms differ in scorer_id only",
+      "ok": true
+    },
+    {
+      "detail": {
+        "note": "post-fork lists may differ by construction",
+        "post_fork_legal": {
+          "D-Geo": [
+            "7af2d18ec464c17f35ee251ed97ffa0a4aa766c8fa40485da265fed5110894a5"
+          ],
+          "F": [
+            "7cfe2d3463a57b11b95e920e0a0dd81319d3a67f961237619fc1dc596d83f3d0"
+          ]
+        }
+      },
+      "name": "baseline/A6 the fork discipline is respected (first-step legal identity preserved; post-fork lists compared only when no fork exists)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "skipped": "this trace has a non-empty mask"
+      },
+      "name": "baseline/A7 an empty mask is NOT_APPLICABLE, zero steps, no legal call",
+      "ok": true
+    },
+    {
+      "detail": {
+        "claim_limit": "L1 only reports whether attributable ACTION DIVERGENCE exists. It is not a gain, a significance test, or an online-utility claim, and a first-step divergence is NOT a different executable plan."
+      },
+      "name": "baseline/A8 no gain / significance / utility claim is present in the report",
+      "ok": true
+    },
+    {
+      "detail": {
+        "legal_sha256": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f",
+        "shared_input_sha256": "4efef859f877d577eaab96a4057341b80a46c73f834783b11599c2036ae4b3a8",
+        "state_key_sha256": "1aaf85ded73b6874d50cbc2172c371e24b05fa66c7a90785187c0d3a04c00658"
+      },
+      "name": "forced_fork/A1 the shared-input and legal digests are well formed",
+      "ok": true
+    },
+    {
+      "detail": {
+        "diverging_fields": [
+          "vehicle_id",
+          "slot_kind",
+          "slot_anchor",
+          "successor"
+        ],
+        "first_divergence_position": 0,
+        "recomputed": "DIVERGENT",
+        "recorded": "DIVERGENT"
+      },
+      "name": "forced_fork/A2 V1 recomputes to the recorded first-step divergence verdict",
+      "ok": true
+    },
+    {
+      "detail": {
+        "recomputed": {
+          "D-Geo": {
+            "failure_reason": null,
+            "full_repair_completed": true,
+            "n_steps": 2,
+            "returned_original_plan": false
+          },
+          "F": {
+            "failure_reason": null,
+            "full_repair_completed": true,
+            "n_steps": 2,
+            "returned_original_plan": false
+          },
+          "both_completed": true
+        },
+        "recorded": {
+          "D-Geo": {
+            "failure_reason": null,
+            "full_repair_completed": true,
+            "n_steps": 2,
+            "returned_original_plan": false
+          },
+          "F": {
+            "failure_reason": null,
+            "full_repair_completed": true,
+            "n_steps": 2,
+            "returned_original_plan": false
+          }
+        }
+      },
+      "name": "forced_fork/A3 V2 recomputes to the recorded full-repair verdicts",
+      "ok": true
+    },
+    {
+      "detail": {
+        "recomputed_any_certified": "NOT_RUN",
+        "recorded_any_certified": "NOT_RUN"
+      },
+      "name": "forced_fork/A4 V3 recomputes to the recorded certification verdict",
+      "ok": true
+    },
+    {
+      "detail": {
+        "first_step_legal": {
+          "D-Geo": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f",
+          "F": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f"
+        },
+        "scorer_ids": {
+          "D-Geo": "geo_unified_minimum",
+          "F": "restored_maskco_logits"
+        },
+        "shared_legal": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f",
+        "state_after": {
+          "D-Geo": "1aaf85ded73b6874d50cbc2172c371e24b05fa66c7a90785187c0d3a04c00658",
+          "F": "1aaf85ded73b6874d50cbc2172c371e24b05fa66c7a90785187c0d3a04c00658"
+        },
+        "state_before": {
+          "D-Geo": "1aaf85ded73b6874d50cbc2172c371e24b05fa66c7a90785187c0d3a04c00658",
+          "F": "1aaf85ded73b6874d50cbc2172c371e24b05fa66c7a90785187c0d3a04c00658"
+        }
+      },
+      "name": "forced_fork/A5 the single factor holds: one shared state digest, one legal fingerprint, and the arms differ in scorer_id only",
+      "ok": true
+    },
+    {
+      "detail": {
+        "note": "post-fork lists may differ by construction",
+        "post_fork_legal": {
+          "D-Geo": [
+            "7af2d18ec464c17f35ee251ed97ffa0a4aa766c8fa40485da265fed5110894a5"
+          ],
+          "F": [
+            "b84d219a939970b6e1725b1b7944654369ace23d2eb7ad27411975df9e258241"
+          ]
+        }
+      },
+      "name": "forced_fork/A6 the fork discipline is respected (first-step legal identity preserved; post-fork lists compared only when no fork exists)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "skipped": "this trace has a non-empty mask"
+      },
+      "name": "forced_fork/A7 an empty mask is NOT_APPLICABLE, zero steps, no legal call",
+      "ok": true
+    },
+    {
+      "detail": {
+        "claim_limit": "L1 only reports whether attributable ACTION DIVERGENCE exists. It is not a gain, a significance test, or an online-utility claim, and a first-step divergence is NOT a different executable plan."
+      },
+      "name": "forced_fork/A8 no gain / significance / utility claim is present in the report",
+      "ok": true
+    },
+    {
+      "detail": {
+        "n_fail": 0,
+        "trace_sha256_match": true,
+        "verdict": "L1_TWO_ARM_PROTOCOL_ENGINEERING_ACCEPTED"
+      },
+      "name": "L1-A9 the acceptance summary points at exactly this trace digest and reports 0 failures",
+      "ok": true
+    }
+  ],
+  "tool_sha256": "df9e6e88304136634fe28240dce139faa084ec0f4667d37829b61376df25e237",
+  "verdict": "L1_TWO_ARM_PROTOCOL_INDEPENDENTLY_AUDITED"
+}
