@@ -13,8 +13,8 @@
         "install_index_recorded": 1,
         "n_receipts": 1,
         "producer_readback_ok": true,
-        "receipt_name": "receipt_000000000_4fc2b89d5379446585f4e646023e0ee2.json",
-        "receipt_sha256": "b5dd744a8b22031e3623f271129cde9957eb4235518ddcb94296de416260cb5d",
+        "receipt_name": "receipt_000000000_42475d13e0214916bb340c6f776f086c.json",
+        "receipt_sha256": "cbf3da82fcc87d61ec49ee14537fada43fbe65c1570a2f11ade0c4eeb9b266ea",
         "separate_process_ok": true,
         "separate_process_stdout": {
           "installed_plan_hash": "87f8c00d2d321e6f",
@@ -26,7 +26,7 @@
       },
       "name": "R1 a receipted install is re-read by a SEPARATE process and reproduces its plan hash",
       "ok": true,
-      "wall_s": 0.35999999986961484
+      "wall_s": 0.3279999999795109
     },
     {
       "detail": {
@@ -68,8 +68,8 @@
     },
     {
       "detail": {
-        "new_sha256": "67af8344c8c11f6b68347ec8dd200c159a593b65151b06ad2ec040836cf21659",
-        "original_sha256": "5686bcfb74233d76625e144e0ff085aad4b5b607e26c2472dcc30e62e0cc1e3d",
+        "new_sha256": "27fbd3b1119a2b2addca67efe2c50178cf75ee778f40f6d6a3484025dd745191",
+        "original_sha256": "ccf18664424e7bbabc4e081d29b3bd932608802a9325fc73ce4946e4c809cbfc",
         "problems": [
           "receipt digest differs from the recorded digest",
           "the receipt's installed and certified plan hashes differ",
@@ -92,7 +92,7 @@
       },
       "name": "R5 an altered plan value no longer reproduces the recorded plan hash",
       "ok": true,
-      "wall_s": 0.0
+      "wall_s": 0.01600000006146729
     },
     {
       "detail": {
@@ -104,13 +104,13 @@
         "hashes_differ": true,
         "n_receipts": 2,
         "names": [
-          "receipt_000000000_0edb6db913f249f5b5a17bab91a87778.json",
-          "receipt_000000001_d20318c73c754420b095c059eb25185a.json"
+          "receipt_000000000_e137fdaeab8c40658bb6d814e8ef1e66.json",
+          "receipt_000000001_425ef0d45eb44b0787b9e54502b8e131.json"
         ]
       },
       "name": "R6 two installs produce two distinct, independently readable receipts",
       "ok": true,
-      "wall_s": 0.01500000013038516
+      "wall_s": 0.0
     },
     {
       "detail": {

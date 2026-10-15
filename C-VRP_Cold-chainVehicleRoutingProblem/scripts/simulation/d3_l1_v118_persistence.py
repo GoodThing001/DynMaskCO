@@ -89,10 +89,18 @@ def publish_new(directory, prefix, payload, *, verify=True, retries=5):
     """
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=True)
-    raw = payload if isinstance(payload, (bytes, bytearray)) else \
-        json.dumps(payload, indent=2, sort_keys=True, default=repr).encode('utf-8')
-    raw = bytes(raw)
     started = time.monotonic()
+    if isinstance(payload, (bytes, bytearray)):
+        raw = bytes(payload)
+    else:
+        # EVERY JSON record carries its own publication clock.  Without it the reader's
+        # (published_mono, name) ordering falls back to file-name order, which is arbitrary: the
+        # run directory legitimately holds several immutable records of the same family (one per
+        # verification run, because a record is never overwritten), so "latest" would otherwise be
+        # whichever uuid happens to sort last.
+        payload = dict(payload)
+        payload.setdefault('published_mono', time.monotonic())
+        raw = json.dumps(payload, indent=2, sort_keys=True, default=repr).encode('utf-8')
     last = None
     for attempt in range(1, int(retries) + 1):
         dest = directory / ('%s_%s.json' % (prefix, uuid.uuid4().hex))
