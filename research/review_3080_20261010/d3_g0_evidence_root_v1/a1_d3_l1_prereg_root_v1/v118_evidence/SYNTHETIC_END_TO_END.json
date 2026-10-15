@@ -40,7 +40,7 @@
       },
       "name": "S1 64 verified rows with readers holding every record open -> ROUND_PASS",
       "ok": true,
-      "wall_s": 4.655999999959022
+      "wall_s": 4.812000000150874
     },
     {
       "detail": {
@@ -56,7 +56,7 @@
       },
       "name": "S2 a transient Windows sharing denial is retried and the record is still read",
       "ok": true,
-      "wall_s": 0.06300000008195639
+      "wall_s": 0.07899999991059303
     },
     {
       "detail": {
@@ -68,15 +68,15 @@
       },
       "name": "S3 a corrupt record is a HARD bounded error on both the reader and the supervisor path",
       "ok": true,
-      "wall_s": 4.0
+      "wall_s": 4.436999999918044
     },
     {
       "detail": {
         "cleanup": {
           "cleanup_ok": true,
-          "kill_reap_seconds": 0.014999999897554517,
+          "kill_reap_seconds": 0.01500000013038516,
           "mechanism": "TerminateJobObject",
-          "pid": 35268,
+          "pid": 38880,
           "returncode": 137,
           "tree_active_after": 0,
           "tree_active_before": 1
@@ -89,11 +89,11 @@
           "REVOKED_NOT_ATTEMPTED_AFTER_TERMINATION": 62
         },
         "tree_active_after": 0,
-        "worker_control_wall_s": 4.062999999849126
+        "worker_control_wall_s": 4.140999999828637
       },
       "name": "S4 a blocked slot is killed by the real supervisor deadline -> round revoked",
       "ok": true,
-      "wall_s": 6.375
+      "wall_s": 6.469000000040978
     },
     {
       "detail": {
@@ -103,7 +103,7 @@
           "cleanup_ok": true,
           "kill_reap_seconds": 0.01600000006146729,
           "mechanism": "TerminateJobObject",
-          "pid": 28016,
+          "pid": 25996,
           "returncode": 137,
           "tree_active_after": 0,
           "tree_active_before": 1
@@ -118,13 +118,13 @@
       },
       "name": "S5 a real forced process-tree kill mid-slot -> round revoked",
       "ok": true,
-      "wall_s": 6.561999999918044
+      "wall_s": 6.594000000040978
     },
     {
       "detail": {
         "control_reason": "HARD_STOP_IDENTITY_END",
         "identity_payload_problems": [
-          "path digest changed: C:\\Users\\mmc\\AppData\\Local\\Temp\\v118_acc_6yq2wedr\\WATCHED_IDENTITY.txt"
+          "path digest changed: C:\\Users\\mmc\\AppData\\Local\\Temp\\v118_acc_r2nve86j\\WATCHED_IDENTITY.txt"
         ],
         "n_rows_qualified": 0,
         "reason": "TAIL_IDENTITY_MISSING_OR_INVALID",
@@ -133,7 +133,7 @@
       },
       "name": "S6 a trailing identity record that disagrees with the frozen files -> round revoked",
       "ok": true,
-      "wall_s": 4.469000000040978
+      "wall_s": 4.468000000109896
     },
     {
       "detail": {
@@ -146,7 +146,7 @@
       },
       "name": "S7 a missing trailing identity record -> round revoked",
       "ok": true,
-      "wall_s": 4.047000000020489
+      "wall_s": 4.077999999979511
     },
     {
       "detail": {
@@ -160,7 +160,7 @@
       },
       "name": "S8 63 of 64 rows -> ROUND_REVOKED (INCOMPLETE_ROWS)",
       "ok": true,
-      "wall_s": 4.452999999979511
+      "wall_s": 4.453999999910593
     },
     {
       "detail": {
@@ -174,7 +174,7 @@
       },
       "name": "S9 a row whose score length contradicts the ordered legal length -> verification FAIL",
       "ok": true,
-      "wall_s": 4.422000000020489
+      "wall_s": 4.483999999938533
     }
   ],
   "run_id": "d3l1-real-f-forward-20261015-v118",

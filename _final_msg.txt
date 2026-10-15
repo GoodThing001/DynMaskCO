@@ -1,0 +1,17 @@
+Final verification pass: all six suites re-run green on the final code state
+
+Re-ran every suite after the last code change so the committed evidence matches the committed code:
+
+  V1.18 synthetic end-to-end (real worker/supervisor path)   9/9 PASS
+  V1.16 forward-control regression                           6/6 PASS
+  V1.18 independent read-only verifier                      9/9 PASS -> VERIFIED_NOT_EXECUTED
+  V1.18 readiness                                            READY_FOR_USER_SIGNATURE,
+                                                             real_F_forward_executed = false
+  L1 two-arm acceptance                                      10/10 PASS
+  L1 two-arm independent audit                               17/17 PASS
+  D8 durable install receipt                                 7/7 PASS
+  C0 budget provenance search (idempotent)                   SEARCH_EXHAUSTIVE_
+                                                             NO_REGISTERED_PROTOCOL_BUDGET_FOUND
+
+Also removes the three temporary commit-message files that a previous commit accidentally picked
+up (they were transient scratch input to tools/git_deliver.py, never deliverables).

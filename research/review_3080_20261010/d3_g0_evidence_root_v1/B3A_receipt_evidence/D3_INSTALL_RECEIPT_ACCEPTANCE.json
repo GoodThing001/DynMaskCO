@@ -13,8 +13,8 @@
         "install_index_recorded": 1,
         "n_receipts": 1,
         "producer_readback_ok": true,
-        "receipt_name": "receipt_000000000_1617abeddbc24f0da4f74d0be29b6931.json",
-        "receipt_sha256": "3632f8f3c63caf6c9b1de2ea1e8d4417f91fdb6bd1fe68c42caf2c4440e4d2d6",
+        "receipt_name": "receipt_000000000_c9a7db0565474fa59cdb3e72a2015f21.json",
+        "receipt_sha256": "dec71afcf2044b1018d72923d1ce47e4b56a781426d1eb9921008767d94dca74",
         "separate_process_ok": true,
         "separate_process_stdout": {
           "installed_plan_hash": "87f8c00d2d321e6f",
@@ -26,7 +26,7 @@
       },
       "name": "R1 a receipted install is re-read by a SEPARATE process and reproduces its plan hash",
       "ok": true,
-      "wall_s": 0.2970000000204891
+      "wall_s": 0.3279999999795109
     },
     {
       "detail": {
@@ -64,12 +64,12 @@
       },
       "name": "R3 a plan that is not the certified one is refused and writes no receipt",
       "ok": true,
-      "wall_s": 0.01600000006146729
+      "wall_s": 0.0
     },
     {
       "detail": {
-        "new_sha256": "85936e759b11a749c0150c5186f11269677b6df2f700033abbe65e013324ed31",
-        "original_sha256": "67e84e8cd20ac32b006dc4ea2534cce139f065d5ccc1428f8f2dacd1f82c23fd",
+        "new_sha256": "59da2e03f1bf5b3593227dccdd37b84e956c7b7e34a511ca68619cbf64eb27a6",
+        "original_sha256": "2c0646b218a57d180719bebd7db13acc76c86bc968514bff0821337a478fe75c",
         "problems": [
           "receipt digest differs from the recorded digest",
           "the receipt's installed and certified plan hashes differ",
@@ -104,13 +104,13 @@
         "hashes_differ": true,
         "n_receipts": 2,
         "names": [
-          "receipt_000000000_af60299672ef4ee5a853d012d19a8fed.json",
-          "receipt_000000001_cba9e096d0e94593825d4b2216746db9.json"
+          "receipt_000000000_df894037cad849a28d8f95821ce49bdf.json",
+          "receipt_000000001_07f5e5d7f93441f988ab46ead3f9e0f1.json"
         ]
       },
       "name": "R6 two installs produce two distinct, independently readable receipts",
       "ok": true,
-      "wall_s": 0.0
+      "wall_s": 0.01600000006146729
     },
     {
       "detail": {
@@ -144,7 +144,7 @@
       },
       "name": "R7 the full boundary reuses the FROZEN gate and an ALLOW alone is never an install",
       "ok": true,
-      "wall_s": 0.014999999897554517
+      "wall_s": 0.0
     }
   ],
   "schema": "d3_install_receipt_acceptance",
