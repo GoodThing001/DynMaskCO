@@ -9,6 +9,18 @@
 
 ## 0. 最近收束（新会话从这里续接）
 
+### 0.000 本轮第四阶段：执行入口绕过闭合（V1.20，12/12）
+
+独立审查发现 `main()` 接受直接 `--worker`（`if args.worker: return worker(...)`），该路径**未过人类授权、未过一次性消费、未过监督器**，却能加载真实 F 权重并评分 —— blocker 1 的整套授权装置可被**一个参数**绕过；`--synthetic-command` 是第二个开口。
+
+**加固**：监督器成为**唯一**可启动真实 F 工作的组件。人类批准凭据经**逐字段比对**并**一次性消费之后**，监督器才发布**执行上下文**（私有 256-bit secret + 一次性 nonce + run_id/目录绑定 + 已消费凭据摘要与回执路径 + HMAC(secret, 载荷)）。真实 worker 的**第一条动作**即校验该上下文，位于**一切加载之前**（不 import JAX、不读 checkpoint、不调用 scorer）：C1 文件可解析 / C2 secret 存在且私有 / C3 HMAC 通过 / C4 run 绑定 / C5 **一次性消费回执**存在且属本 run / C6 凭据**在消费后**仍哈希到同一摘要。**C5/C6 是关键**：单有 nonce 不能证明任何事（谁都能编），但只有监督器 `authorize()` 能造出、且绑定人类已批准凭据的回执，**无法由被闸门保护的进程自己伪造**。另加：**授权 + `--synthetic-command` 组合直接拒绝**，一次性凭据不得消耗在被替换进程上。
+
+**反例（`v120_evidence/D3_V120_BYPASS_ACCEPTANCE.json` = 12/12 PASS）**：N1 直接 `--worker` REFUSED 且 0 MODEL_LOAD/0 WARMUP/0 槽行/0 评分；N2 上下文指向不存在文件 REFUSED；N3 guard 探针无上下文 REFUSED；N4 **手写上下文+自造 HMAC** REFUSED（`consumption_receipt_missing`）；N5/N6 签名后编辑（run_dir / 凭据摘要）REFUSED（`hmac_mismatch`）；N7 回执改成另一 run id REFUSED；N8 凭据在消费后被编辑 REFUSED；N9 `--synthetic-command` **指向真实 worker** ⇒ 0 真实 F 工件 + 监督器记录 `published=false` + guard 探针 REFUSED；N10 合法授权 + synthetic ⇒ REFUSED 且 **0 条消费回执**；**P1** 上下文**无法先于消费**发布，且 guard 在**独立进程**中接受监督器实际产出的上下文（什么都不加载）；**P2** 合成路径端到端 64 行 `ROUND_PASS` 且**未发布任何执行上下文**。
+
+**如实记录平台限制**：`os.chmod` 在 Windows 上无法表达「仅所有者」（stat mode 由只读位合成，普通文件恒为 `0o666`），故 0600 检查**仅在 POSIX 生效**；Windows 侧私有性来自运行目录 ACL，以及 secret **既不进入命令行也不写入任何记录**。该限制在 P1 产物中显式标注。
+
+**新执行身份** `d3l1-real-f-forward-20261015-v120` + 预登记 `…_V1_20.md`（**取代 V1.19 作为签署对象**）+ 授权模板（人工字段留空，被真实入口拒绝）；V1.18/V1.19 预登记与证据目录**未改写**。`--readiness = READY_FOR_USER_SIGNATURE`，`runtime_watch_closed = true`，`real_F_forward_executed = false`；`ZERO_REAL_F_WORK_AUDIT` = **7/7** `ZERO_REAL_F_WORK_CONFIRMED`。回归：V1.16 6/6、V1.18 e2e 9/9、V1.19 25/25。
+
 ### 0.00 本轮第三阶段：三个正式执行阻断闭合（V1.19，新执行身份）
 
 独立审查在 V1.18 执行路径上发现三个阻断。**全部由可执行反例闭合**，证据
