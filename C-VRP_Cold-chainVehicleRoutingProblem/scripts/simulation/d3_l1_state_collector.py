@@ -87,7 +87,8 @@ def reveal_event_times(env, inst_idx):
 class RevealSlotCollector:
     """snapshot_hook-compatible collector for R1 = the first K reveal events."""
 
-    def __init__(self, env, inst_idx, K, capture=True, clock_eps=1e-6):
+    def __init__(self, env, inst_idx, K, capture=True, clock_eps=1e-6, pre_capture=None):
+        self.pre_capture = pre_capture
         self.env = env
         self.inst_idx = int(inst_idx)
         self.K = int(K)
@@ -132,6 +133,9 @@ class RevealSlotCollector:
                   'plan_fingerprint': _plan_fingerprint(vehicles), 'reject_reason': reject}
         if slot is not None and self.capture:
             from recourse_snapshot import capture_recourse_snapshot
+            if self.pre_capture is not None:
+                # the ledger is written (and fsynced) BEFORE the capture happens
+                self.pre_capture(slot, clock, int(event_id), int(reveal_idx))
             t0 = time.time()
             snap = capture_recourse_snapshot(env, int(inst_idx), clock, int(event_id),
                                             int(reveal_idx), vehicles, traces, served_mask,

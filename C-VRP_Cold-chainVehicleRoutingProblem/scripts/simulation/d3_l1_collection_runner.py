@@ -288,31 +288,39 @@ def collect_day(args):
                                   ObjectiveProfile(**{k: v for k, v in prof.items()
                                                       if k in flds}))
     day = int(args.day_id)
-    # ---- blocker 1: register every pre-registered slot BEFORE any capture -----------------
-    for position in range(1, 5):
-        if not ok_led:
+    # ---- blocker 1 fix (V1.7): registration happens INSIDE the real reveal hook ----------
+    if not ok_led:
+        for position in range(1, 5):
             append_jsonl(ledger_p, {'event': 'SKIPPED_LEDGER_CORRUPT', 'day_id': day,
                                     'position': position, 'run_id': args.run_id})
-            continue
-        allowed, ev = may_attempt(led, day, position)
-        if allowed:
-            append_jsonl(ledger_p, {'event': 'ATTEMPT_STARTED', 'day_id': day,
-                                    'position': position, 'run_id': args.run_id,
-                                    'registered_before_capture': True,
-                                    'ledger_integrity_ok': True})
-        else:
+        return 0
+    registered = {}
+
+    def _pre_capture(slot, clock, event_id, reveal_idx):
+        allowed, ev = may_attempt(read_ledger(ledger_p), day, slot)
+        if not allowed:
             append_jsonl(ledger_p, {'event': 'SKIPPED_ALREADY_ATTEMPTED', 'day_id': day,
-                                    'position': position, 'previous_event': ev,
+                                    'position': slot, 'previous_event': ev,
                                     'run_id': args.run_id})
+            raise RuntimeError('slot %d already attempted (%s)' % (slot, ev))
+        append_jsonl(ledger_p, {'event': 'ATTEMPT_STARTED', 'day_id': day, 'position': slot,
+                                'run_id': args.run_id, 'clock': float(clock),
+                                'event_id': int(event_id), 'reveal_idx': int(reveal_idx),
+                                'registered_before_capture': True, 'ledger_integrity_ok': True})
+        registered[slot] = time.time()
     led = read_ledger(ledger_p)
     env = build_env(data, 50.0, 25, 1.0, make_replanner(50.0, 24.0, eff)[0], eff, 24.0)
     t_day = time.time()
-    col = RevealSlotCollector(env, day, 4)
-    run_baseline_rollout(env, day, hook=col)          # captures happen inside this rollout
+    append_jsonl(ledger_p, {'event': 'DAY_ROLLOUT_STARTED', 'day_id': day, 'run_id': args.run_id})
+    col = RevealSlotCollector(env, day, 4, pre_capture=_pre_capture)
+    roll = run_baseline_rollout(env, day, hook=col)
+    orig_traces, orig_served = roll['result']
+    append_jsonl(ledger_p, {'event': 'DAY_ROLLOUT_FINISHED', 'day_id': day,
+                            'run_id': args.run_id, 'day_rollout_wall_s': time.time() - t_day})
     shots = {r['slot']: r for r in col.slots}
     day_report = {'day_id': day, 'rollout_seconds': time.time() - t_day, 'slots_found': len(shots)}
-    for position in range(1, 5):
-        ev, _ = slot_state(led, day, position)
+    for position in sorted(registered):
+        ev, _ = slot_state(read_ledger(ledger_p), day, position)   # V1.7: fresh read after rollout
         if ev != 'ATTEMPT_STARTED':
             continue
         r = shots.get(position)
@@ -320,8 +328,11 @@ def collect_day(args):
             append_jsonl(ledger_p, {'event': 'FAILED', 'day_id': day, 'position': position,
                                     'reason': 'insufficient_events', 'run_id': args.run_id})
             continue
-        t0 = time.time()
+        t0 = registered.get(position, time.time())
+        par = {}
         try:
+            if args.inject_block_s > 0 and position == min(registered):
+                time.sleep(args.inject_block_s)          # E6: force the supervisor's kill path
             snap = r['snapshot']
             h1, h2 = snapshot_state_hash(snap), snapshot_state_hash(snap)
             restored = restore_recourse_snapshot(snap)
@@ -347,8 +358,18 @@ def collect_day(args):
                 par['suffix_boundary'] = bool(rows_snap == rows_rest)
                 par['suffix_rows_from_snapshot'] = rows_snap
                 par['suffix_rows_from_restored'] = rows_rest
-            par['visible_mask'] = bitwise_equal(np.asarray(snap['visible_mask']),
-                                                np.asarray(snap['visible_mask']))[0]
+            # E2: real full-resume parity against the ORIGINAL terminal rollout
+            from recourse_snapshot import validate_snapshot_against_env
+            env_r = build_env(data, 50.0, 25, 1.0, make_replanner(50.0, 24.0, eff)[0], eff, 24.0)
+            validate_snapshot_against_env(env_r, snap)
+            resumed = env_r.run_resumed(snap)
+            res_traces, res_served = (resumed if isinstance(resumed, tuple) else (resumed, None))
+            par['full_resume_served_mask'] = bitwise_equal(np.asarray(orig_served),
+                                                           np.asarray(res_served))[0] \
+                if res_served is not None else 'NOT_VERIFIABLE'
+            par['full_resume_traces'] = bitwise_equal(orig_traces, res_traces)[0]
+            par['full_resume_parity'] = (par['full_resume_served_mask'] == 'EQUAL'
+                                         and par['full_resume_traces'] == 'EQUAL')
             # ---- blocker 3: lossless snapshot persistence + round trip --------------------
             blob = pickle.dumps(snap, protocol=4)
             snap_path = outdir / 'snapshots' / ('day%02d_pos%d.pkl' % (day, position))
@@ -371,8 +392,13 @@ def collect_day(args):
             bnd = (p_orig.get('planned_suffix_sha_boundary')
                    == p_pert.get('planned_suffix_sha_boundary'))
             flat_same = (p_orig.get('planned_suffix_sha') == p_pert.get('planned_suffix_sha'))
-            parity_ok = all(v == 'EQUAL' for k, v in par.items() if k != 'suffix_boundary') \
-                and par.get('suffix_boundary') is True
+            # E1: only the array-comparison verdicts are strings; the structural checks are
+            # booleans and must be tested as booleans.
+            bit_keys = ('served_mask', 'full_resume_served_mask', 'full_resume_traces')
+            parity_ok = (all(par.get(k) == 'EQUAL' for k in bit_keys)
+                         and par.get('suffix_boundary') is True
+                         and par.get('serialization_roundtrip') is True
+                         and par.get('full_resume_parity') is True)
             ent = {'run_id': args.run_id, 'day_id': day, 'position': position, 'clock': r['clock'],
                    'event_id': r['event_id'], 'reveal_idx': r['reveal_idx'],
                    'state_hash': h1, 'state_hash_repeat_equal': (h1 == h2),
@@ -403,6 +429,7 @@ def collect_day(args):
                       'bitwise_parity_failed' if 'bitwise_parity' in msg else 'exception')
             append_jsonl(ledger_p, {'event': 'FAILED', 'day_id': day, 'position': position,
                                     'run_id': args.run_id, 'reason': reason, 'error': msg,
+                                    'bitwise_parity': par,
                                     'slot_span_wall_s': time.time() - t0})
         if (time.time() - t0) > args.slot_cap_s:
             append_jsonl(ledger_p, {'event': 'SLOT_OVER_CAP', 'day_id': day,
@@ -449,7 +476,9 @@ def supervise(args):
         cmd = [sys.executable, str(Path(__file__)), '--role', 'worker', '--run-id', args.run_id,
                '--outdir', str(outdir), '--dataset', args.dataset, '--day-id', str(day),
                '--identity', args.identity, '--slot-cap-s', str(args.slot_cap_s),
-               '--day-cap-s', str(args.day_cap_s), '--batch-cap-s', str(args.batch_cap_s)]
+               '--day-cap-s', str(args.day_cap_s), '--batch-cap-s', str(args.batch_cap_s),
+               '--inject-block-s', str(args.inject_block_s),
+               '--day-rollout-cap-s', str(args.day_rollout_cap_s)]
         t = time.time()
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         status, out, err = 'completed', '', ''
@@ -460,10 +489,21 @@ def supervise(args):
                     status = 'completed' if p.returncode == 0 else 'worker_error'
                     break
                 now = time.time()
-                if (now - t) > args.day_cap_s:
-                    p.kill(); out, err = p.communicate(); status = 'day_deadline_killed'
-                    append_jsonl(ledger_p, {'event': 'DAY_DEADLINE_KILLED', 'day_id': day,
-                                            'run_id': args.run_id, 'day_cap_s': args.day_cap_s})
+                _led = read_ledger(ledger_p)
+                _started = [x.get('ts') for x in _led
+                            if x.get('event') == 'DAY_ROLLOUT_STARTED' and x.get('day_id') == day]
+                _done = any(x.get('event') == 'DAY_ROLLOUT_FINISHED' and x.get('day_id') == day
+                            for x in _led)
+                if _started and not _done and (now - _started[-1]) > args.day_rollout_cap_s:
+                    p.kill(); out, err = p.communicate(); status = 'rollout_deadline_killed'
+                    append_jsonl(ledger_p, {'event': 'ROLLOUT_DEADLINE_KILLED', 'day_id': day,
+                                            'run_id': args.run_id,
+                                            'day_rollout_cap_s': args.day_rollout_cap_s})
+                    break
+                if (now - t) > args.day_cap_s + args.batch_cap_s:
+                    p.kill(); out, err = p.communicate(); status = 'lifetime_guard_killed'
+                    append_jsonl(ledger_p, {'event': 'LIFETIME_GUARD_KILLED', 'day_id': day,
+                                            'run_id': args.run_id})
                     break
                 if (now - t0) > args.batch_cap_s:
                     p.kill(); out, err = p.communicate(); status = 'batch_deadline_killed'
@@ -676,6 +716,12 @@ def main():
     ap.add_argument('--day-cap-s', type=float, default=DAY_CAP_S)
     ap.add_argument('--batch-cap-s', type=float, default=BATCH_CAP_S)
     ap.add_argument('--runtime-closure', action='store_true')
+    ap.add_argument('--inject-block-s', type=float, default=0.0)
+    ap.add_argument('--day-rollout-cap-s', type=float, default=DAY_CAP_S)
+    ap.add_argument('--expect-runner-sha256', default=None)
+    ap.add_argument('--expect-profile-sha256', default=None)
+    ap.add_argument('--expect-effective-contract', default=None)
+    ap.add_argument('--runtime-identity', default=None)
     args = ap.parse_args()
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
