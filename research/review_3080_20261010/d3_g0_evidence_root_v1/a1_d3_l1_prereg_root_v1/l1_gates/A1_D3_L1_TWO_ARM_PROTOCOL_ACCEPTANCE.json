@@ -42,7 +42,7 @@
       },
       "name": "C1 single factor: one shared state, both arms, first-step legal identity, replayable",
       "ok": true,
-      "wall_s": 0.9689999998081475
+      "wall_s": 1.0620000001508743
     },
     {
       "detail": {
@@ -81,7 +81,7 @@
       },
       "name": "C2 empty B pool -> the state stays in the denominator as an empty-pool entry",
       "ok": true,
-      "wall_s": 0.0779999999795109
+      "wall_s": 0.04699999978765845
     },
     {
       "detail": {
@@ -93,7 +93,7 @@
       },
       "name": "C2b a mask with NO legal action -> no_legal and the ORIGINAL plan is returned",
       "ok": true,
-      "wall_s": 2.8600000001024455
+      "wall_s": 2.625
     },
     {
       "detail": {
@@ -109,7 +109,7 @@
       },
       "name": "C3 score_len: a short score vector is refused, never silently prefix-argmaxed",
       "ok": true,
-      "wall_s": 0.06199999991804361
+      "wall_s": 0.06300000008195639
     },
     {
       "detail": {
@@ -127,7 +127,7 @@
       },
       "name": "C4 score_shape: a 2-D score vector is refused, never flattened",
       "ok": true,
-      "wall_s": 0.06300000008195639
+      "wall_s": 0.0470000000204891
     },
     {
       "detail": {
@@ -242,14 +242,14 @@
       },
       "name": "C8 scorer exception is contained and no install path is reachable",
       "ok": true,
-      "wall_s": 0.030999999959021807
+      "wall_s": 0.0470000000204891
     },
     {
       "detail": {
         "has_full_reports": true,
         "has_shared_identity": true,
         "trace_path": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\A1_D3_L1_TWO_ARM_TRACES.json",
-        "trace_sha256": "848983068fba8329c0d811f96b0b4ecb4784e758c456b66424a80dfc6afa85f4",
+        "trace_sha256": "83d9d8eae09e8f19758329387e879faea68b32a911b91dce8a58fa0fd4ba43b9",
         "traces": [
           "baseline",
           "forced_fork"
@@ -257,7 +257,7 @@
       },
       "name": "T1 the full two-arm reports are emitted for independent re-adjudication",
       "ok": true,
-      "wall_s": 0.11000000010244548
+      "wall_s": 0.10899999993853271
     }
   ],
   "schema": "d3_l1_two_arm_protocol_acceptance",
@@ -265,7 +265,7 @@
   "stable_online_gain": false,
   "tool_sha256": "d3c74cc88d63349d66e942902e500cfad53a11d036568b3a703f62242bc6bf08",
   "trace_path": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\A1_D3_L1_TWO_ARM_TRACES.json",
-  "trace_sha256": "848983068fba8329c0d811f96b0b4ecb4784e758c456b66424a80dfc6afa85f4",
+  "trace_sha256": "83d9d8eae09e8f19758329387e879faea68b32a911b91dce8a58fa0fd4ba43b9",
   "v110_materializer_sha256": "a9f4078db0340105db9b1b122c876843f73a28a0218a377250bd4626d27122a1",
   "verdict": "L1_TWO_ARM_PROTOCOL_ENGINEERING_ACCEPTED"
 }
