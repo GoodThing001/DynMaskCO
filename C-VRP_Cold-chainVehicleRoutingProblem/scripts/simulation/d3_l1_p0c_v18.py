@@ -1,4 +1,4 @@
-"""V1.8 execution identity and independent process supervisor (no scientific policy)."""
+"""V1.8 supervisor; V1.9 adds scoped human-authorization consumption for one pass."""
 import ctypes
 import dataclasses
 import hashlib
@@ -100,6 +100,54 @@ def comparable(identity):
                  if k == 'modules' else value) for k, value in identity.items()}
 
 
+def authorization_errors(R, args):
+    """Formal execution requires the recorded human instruction and a pinned scope.
+
+    This checks an explicit input artifact; it never manufactures user approval.
+    The supervisor consumes its one-pass token, while workers only verify it.
+    """
+    errors = []
+    path = getattr(args, 'authorization', None)
+    expected = getattr(args, 'expect_authorization_sha256', None)
+    if not path or not expected or R.sha_file(path) != expected:
+        return ['FORMAL_AUTHORIZATION_MISSING_OR_CHANGED']
+    try:
+        auth = json.loads(Path(path).read_text(encoding='utf-8'))
+        if auth.get('authority') != 'human_user_conditional_instruction':
+            errors.append('FORMAL_AUTHORITY_NOT_HUMAN_INSTRUCTION')
+        if not auth.get('user_quote') or not auth.get('prior_request_scope'):
+            errors.append('FORMAL_AUTHORIZATION_PROVENANCE_MISSING')
+        if auth.get('authorized_action') != 'ONE_F_FREE_16_DAY_4_SLOT_COLLECTION':
+            errors.append('FORMAL_AUTHORIZATION_SCOPE_MISMATCH')
+        if auth.get('dataset_sha256') != R.DEV_CHECK_SHA or auth.get('parameters') != FROZEN_PARAMETERS:
+            errors.append('FORMAL_AUTHORIZATION_FROZEN_PARAMETERS_MISMATCH')
+        if auth.get('platform') != sys.platform or auth.get('python') != sys.version:
+            errors.append('FORMAL_AUTHORIZATION_RUNTIME_MISMATCH')
+        if auth.get('runtime_identity_sha256') != R.sha_file(args.runtime_identity):
+            errors.append('FORMAL_AUTHORIZATION_SOURCE_IDENTITY_MISMATCH')
+        if Path(auth['output_directory']).resolve() != Path(args.outdir).resolve():
+            errors.append('FORMAL_AUTHORIZATION_OUTPUT_MISMATCH')
+        for review in auth.get('required_reviews', []):
+            review_path = Path(path).parent / review['path']
+            if R.sha_file(review_path) != review['sha256']:
+                errors.append('FORMAL_AUTHORIZATION_REVIEW_CHANGED')
+            else:
+                reviewed = json.loads(review_path.read_text(encoding='utf-8'))
+                key, expected_value = review['pass_key'], review['pass_value']
+                if key not in ('n_fail', 'ok') or type(reviewed.get(key)) is not type(expected_value) \
+                        or reviewed.get(key) != expected_value:
+                    errors.append('FORMAL_AUTHORIZATION_REVIEW_NOT_PASSED')
+        if len(auth.get('required_reviews', [])) < 2:
+            errors.append('FORMAL_AUTHORIZATION_REVIEW_MISSING')
+        if args.days != 16 or not 0 <= args.day_id < 16:
+            errors.append('FORMAL_AUTHORIZATION_DAY_SCOPE_MISMATCH')
+        if args.fault != 'none' or args.inject_block_s != 0:
+            errors.append('FORMAL_AUTHORIZATION_FAULT_INJECTION_FORBIDDEN')
+    except (ValueError, OSError, KeyError, TypeError) as exc:
+        errors.append('FORMAL_AUTHORIZATION_UNREADABLE:%s' % type(exc).__name__)
+    return errors
+
+
 def identity_gate(R, args, end=False):
     try:
         expected = json.loads(Path(args.runtime_identity).read_text(encoding='utf-8'))
@@ -125,8 +173,7 @@ def identity_gate(R, args, end=False):
         if args.purpose == 'engineering' and (args.days != 1 or args.day_id != 0):
             mismatches.append('engineering_dev_day0_only')
         if args.purpose == 'formal':
-            # No formal authorization exists in V1.8. Signing is a separate user action.
-            mismatches.append('FORMAL_COLLECTION_NOT_AUTHORIZED')
+            mismatches.extend(authorization_errors(R, args))
         return {'ok': not mismatches, 'mismatches': mismatches, 'identity': actual,
                 'runtime_identity_sha256': R.sha_file(args.runtime_identity), 'end_check': end}
     except Exception as exc:
@@ -242,6 +289,32 @@ def day_blocked(R, rows, day):
                ('DAY_TERMINATED', 'DAY_COMPLETED', 'DAY_WORKER_STARTED') for r in rows)
 
 
+def worker_command(R, args, day, go):
+    cmd = [sys.executable, str(R.HERE / 'd3_l1_collection_runner.py'), '--role', 'worker',
+           '--outdir', str(Path(args.outdir)), '--run-id', args.run_id, '--day-id', str(day),
+           '--days', str(args.days if args.purpose == 'formal' else 1),
+           '--dataset', args.dataset, '--identity', args.identity,
+           '--runtime-identity', args.runtime_identity, '--purpose', args.purpose,
+           '--supervisor-go', str(go), '--fault', args.fault,
+           '--inject-block-s', str(args.inject_block_s)]
+    if args.purpose == 'formal':
+        cmd.extend(['--authorization', args.authorization, '--expect-authorization-sha256',
+                    args.expect_authorization_sha256])
+    return cmd
+
+
+def claim_authorization(R, args, gate):
+    token = Path(args.authorization).with_suffix('.CONSUMED.json')
+    with open(token, 'x', encoding='utf-8') as fh:
+        json.dump({'run_id': args.run_id, 'output_directory': str(Path(args.outdir).resolve()),
+                   'authorization_sha256': R.sha_file(args.authorization),
+                   'runtime_identity_sha256': gate['runtime_identity_sha256'],
+                   'started_at_utc_epoch': time.time(), 'one_pass_only': True}, fh,
+                  indent=2, sort_keys=True)
+        fh.flush()
+        os.fsync(fh.fileno())
+
+
 def supervise(R, args, synthetic_command=None):
     """An OS-owned lock prevents competing supervisors from spending the same pass."""
     out = Path(args.outdir)
@@ -286,6 +359,8 @@ def _supervise(R, args, synthetic_command=None):
     """Same loop for production and isolated synthetic acceptance; never runs a 64-slot batch."""
     out = Path(args.outdir)
     out.mkdir(parents=True, exist_ok=True)
+    if args.purpose == 'formal' and synthetic_command is not None:
+        raise ValueError('formal collection cannot use a synthetic command')
     start = time.monotonic()
     ledger = out / 'STATE_LEDGER.jsonl'
     run_archive = out / 'runs' / args.run_id
@@ -299,6 +374,14 @@ def _supervise(R, args, synthetic_command=None):
         save('SUPERVISOR_RESULT.json', {'verdict': 'HARD_STOP_IDENTITY',
                    'identity': gate, 'workers_started': 0, 'slots_in_denominator': 64})
         return 2
+    if args.purpose == 'formal':
+        # This token is global to the authorization, not to a changeable run_id/outdir.
+        try:
+            claim_authorization(R, args, gate)
+        except FileExistsError:
+            save('SUPERVISOR_RESULT.json', {'verdict': 'HARD_STOP_AUTHORIZATION_ALREADY_CONSUMED',
+                  'workers_started': 0, 'slots_in_denominator': 64})
+            return 2
     results, stop = [], None
     existing = R.read_ledger(ledger)
     if R.ledger_integrity(existing)[0]:
@@ -324,13 +407,7 @@ def _supervise(R, args, synthetic_command=None):
             stop = 'HARD_STOP_IDENTITY'
             break
         go = out / ('GO_DAY%02d' % day)
-        cmd = (synthetic_command(day, go) if synthetic_command else
-               [sys.executable, str(R.HERE / 'd3_l1_collection_runner.py'), '--role', 'worker',
-                '--outdir', str(out), '--run-id', args.run_id, '--day-id', str(day), '--days', '1',
-                '--dataset', args.dataset, '--identity', args.identity,
-                '--runtime-identity', args.runtime_identity, '--purpose', args.purpose,
-                '--supervisor-go', str(go), '--fault', args.fault,
-                '--inject-block-s', str(args.inject_block_s)])
+        cmd = synthetic_command(day, go) if synthetic_command else worker_command(R, args, day, go)
         R.append_jsonl(ledger, {'event': 'DAY_WORKER_STARTED', 'day_id': day,
                                 'run_id': args.run_id, 'command': cmd})
         status, cleanup = 'worker_error', None
@@ -437,7 +514,9 @@ def _supervise(R, args, synthetic_command=None):
               'days': results, 'batch_wall_s': time.monotonic() - start,
               'caps': {'rollout': args.day_rollout_cap_s, 'slot': args.slot_cap_s,
                        'batch': args.batch_cap_s}, 'source_stable': end['ok'],
-              'model_identity': 'F_FREE_NO_MODEL', 'formal_slots_collected': 0}
+              'model_identity': 'F_FREE_NO_MODEL',
+              'formal_slots_collected': len(published) if args.purpose == 'formal' else 0,
+              'authorization_sha256': R.sha_file(args.authorization) if args.purpose == 'formal' else None}
     result['source_stability'] = {
         name: {'sha256_at_start': row['sha256'],
                'sha256_at_end': end.get('identity', {}).get('modules', {}).get(name, {}).get('sha256'),

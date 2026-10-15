@@ -1,0 +1,73 @@
+{
+  "authority": "human_user_conditional_instruction",
+  "authorized_action": "ONE_F_FREE_16_DAY_4_SLOT_COLLECTION",
+  "dataset_sha256": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+  "forbidden_actions": [
+    "F-D-Geo comparison",
+    "training",
+    "L2/L3",
+    "40-day science batch",
+    "final test seeds"
+  ],
+  "interpretation": "Human conditional permission to proceed after independent review; not an agent signature.",
+  "output_directory": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v19_evidence\\formal_collection",
+  "parameters": {
+    "K": 4,
+    "batch_cap_s": 3600.0,
+    "booking_horizon": 24.0,
+    "capacity": 50.0,
+    "day_rollout_cap_s": 120.0,
+    "days": 16,
+    "denominator": 64,
+    "model_identity": "F_FREE_NO_MODEL",
+    "num_vehicles": 25,
+    "scalar_encoding": "lossless_scalar_v18",
+    "slot_cap_s": 60.0,
+    "tw_speed": 1.0
+  },
+  "platform": "win32",
+  "prior_request_scope": "\u4e0a\u4e00\u6761\u660e\u786e\u7533\u8bf7\uff1a\u6309V1.8\u5728\u5c01\u5b58\u672c\u5730\u73af\u5883\u6267\u884c\u4e00\u6b2116\u65e5\u00d74\u69fdF-free\u91c7\u96c6\uff0c\u672a\u7b7e\u7f72\u524d\u786c\u963b\u65ad\u3002",
+  "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]",
+  "required_reviews": [
+    {
+      "pass_key": "n_fail",
+      "pass_value": 0,
+      "path": "V18_INDEPENDENT_REVIEW_BEFORE_CHANGES.json",
+      "sha256": "62dd95ef811a920e198f2654177e3143c329de224205e588e965895f936b9bdb"
+    },
+    {
+      "pass_key": "ok",
+      "pass_value": true,
+      "path": "V18_ORIGINAL_BYTES_REVIEW.json",
+      "sha256": "465db064533eaca742d568b5813e6bda71972d8d8c32b8bb04d3bd81250b6276"
+    },
+    {
+      "pass_key": "n_fail",
+      "pass_value": 0,
+      "path": "engineering_release/ACCEPTANCE.json",
+      "sha256": "d7c72717ec203a65ccaca8cf04c863a40beedeeb089de5cb2041a05a10795605"
+    },
+    {
+      "pass_key": "n_fail",
+      "pass_value": 0,
+      "path": "kill_release/KILL_E2E.json",
+      "sha256": "1d804e045c96bd8d3d714376527f05cab0545c25d7e7f0d15528dc4da7f15769"
+    },
+    {
+      "pass_key": "n_fail",
+      "pass_value": 0,
+      "path": "authorization_release/AUTHORIZATION_GATE.json",
+      "sha256": "4aed2a3adaaec7a721132e28c0ee7ac082bf391191dd0cabab1f52d1e139b309"
+    },
+    {
+      "pass_key": "n_fail",
+      "pass_value": 0,
+      "path": "REGRESSION.json",
+      "sha256": "9d837490daa3bd7d2fb1751b1ce17a107772d45cbb9ffd46ef8de4f612ce5495"
+    }
+  ],
+  "runtime_identity_sha256": "7f1b18613c0c59504e24cd14d30dcdbc5fd14e0e231b2c03776528bacbbaf4c5",
+  "runtime_source_archive_sha256": "5569153ab4e0904c209a962546c467d4199069668a0294d367f47d19d3ba0bce",
+  "source_base_commit_before_preparation": "50721fb6dee348c5ff37b6319d80060c40577fe1",
+  "user_quote": "\u4f60\u81ea\u5df1\u5224\u5b9a\u6838\u67e5 \u901a\u8fc7\u5219\u7ee7\u7eed\u6267\u884c \u4f60\u9700\u8981\u6bcf\u4e00\u6b21\u5de5\u4f5c\u548c\u6211\u6c47\u62a5\u5f53\u524d\u8fdb\u5ea6 \u548c\u5269\u4f59\u5de5\u4f5c\n\u603b\u76ee\u6807\u4e3a\u5b9e\u73b0\u6b63\u5411\u7a33\u5b9a\u589e\u76ca"
+}

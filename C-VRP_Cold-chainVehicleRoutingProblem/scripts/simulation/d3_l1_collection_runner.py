@@ -353,6 +353,7 @@ def collect_day(args):
         t0 = registered[position]
         par = {}
         snap_path = None
+        res_traces, res_served = None, None
         timings = {'capture_s': r.get('capture_seconds', 0.0)}
         try:
             if args.inject_block_s > 0 and position == min(registered):
@@ -510,11 +511,21 @@ def collect_day(args):
                                     'n_invisible_modified': prep.get('n_invisible_modified')})
         except BaseException as exc:
             msg = '%s: %s' % (type(exc).__name__, str(exc)[:300])
+            # A failed new day/slot must remain diagnosable without recollecting it.
+            failure_path = outdir / 'failed' / ('day%02d_pos%d.pkl' % (day, position))
+            failure_blob = pickle.dumps({'snapshot': r.get('snapshot'),
+                'original_traces': orig_traces, 'original_served': orig_served,
+                'resumed_traces': res_traces, 'resumed_served': res_served,
+                'bitwise_parity': par, 'exception_type': type(exc).__name__,
+                'exception_message': str(exc)}, protocol=4)
+            atomic_write_bytes(failure_path, failure_blob)
             reason = ('causal_violation' if 'causal_violation' in msg else
                       'bitwise_parity_failed' if 'bitwise_parity' in msg else 'exception')
             append_jsonl(ledger_p, {'event': 'FAILED', 'day_id': day, 'position': position,
                                     'run_id': args.run_id, 'reason': reason, 'error': msg,
                                     'bitwise_parity': par,
+                                    'failure_evidence_path': str(failure_path.relative_to(outdir)),
+                                    'failure_evidence_sha256': hashlib.sha256(failure_blob).hexdigest(),
                                     'snapshot_staged_or_orphan': str(snap_path) if snap_path else None,
                                     'slot_span_wall_s': time.monotonic() - t0})
         # PUBLISHED is observable by the parent before append_jsonl's fsync returns.
@@ -702,6 +713,8 @@ def main():
     ap.add_argument('--expect-effective-contract', default=None)
     ap.add_argument('--runtime-identity', default=None)
     ap.add_argument('--purpose', choices=('engineering', 'formal'), default='engineering')
+    ap.add_argument('--authorization', default=None)
+    ap.add_argument('--expect-authorization-sha256', default=None)
     ap.add_argument('--supervisor-go', default=None)
     ap.add_argument('--fault', default='none', choices=('none', 'type', 'dtype', 'signed_zero',
                         'nan_payload', 'vehicle_boundary', 'restore_error', 'write_error'))
@@ -722,7 +735,8 @@ def main():
         if identity['origin_errors'] or not all(identity['frozen_checks'].values()):
             raise RuntimeError('identity registration failed frozen/origin checks')
         # Registration is an explicit versioned artifact; supervisor never self-freezes.
-        dest = outdir / 'RUNTIME_IDENTITY_V18.json'
+        dest = outdir / ('RUNTIME_IDENTITY_V19.json' if args.purpose == 'formal'
+                         else 'RUNTIME_IDENTITY_V18.json')
         with open(dest, 'x', encoding='utf-8') as fh:
             json.dump(identity, fh, indent=2, sort_keys=True)
             fh.flush()

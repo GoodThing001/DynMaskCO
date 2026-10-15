@@ -1,0 +1,48 @@
+{
+  "argv": [
+    "scripts/tests/d3_l1_v19_prepare_formal.py"
+  ],
+  "authorization_sha256": "42ae1138703e7497dab727d59c0e4dac0089443288d54afc35594eaf8a4c73d7",
+  "formal_collection_started": false,
+  "ok": true,
+  "required_reviews": [
+    {
+      "pass_key": "n_fail",
+      "pass_value": 0,
+      "path": "V18_INDEPENDENT_REVIEW_BEFORE_CHANGES.json",
+      "sha256": "62dd95ef811a920e198f2654177e3143c329de224205e588e965895f936b9bdb"
+    },
+    {
+      "pass_key": "ok",
+      "pass_value": true,
+      "path": "V18_ORIGINAL_BYTES_REVIEW.json",
+      "sha256": "465db064533eaca742d568b5813e6bda71972d8d8c32b8bb04d3bd81250b6276"
+    },
+    {
+      "pass_key": "n_fail",
+      "pass_value": 0,
+      "path": "engineering_release/ACCEPTANCE.json",
+      "sha256": "d7c72717ec203a65ccaca8cf04c863a40beedeeb089de5cb2041a05a10795605"
+    },
+    {
+      "pass_key": "n_fail",
+      "pass_value": 0,
+      "path": "kill_release/KILL_E2E.json",
+      "sha256": "1d804e045c96bd8d3d714376527f05cab0545c25d7e7f0d15528dc4da7f15769"
+    },
+    {
+      "pass_key": "n_fail",
+      "pass_value": 0,
+      "path": "authorization_release/AUTHORIZATION_GATE.json",
+      "sha256": "4aed2a3adaaec7a721132e28c0ee7ac082bf391191dd0cabab1f52d1e139b309"
+    },
+    {
+      "pass_key": "n_fail",
+      "pass_value": 0,
+      "path": "REGRESSION.json",
+      "sha256": "9d837490daa3bd7d2fb1751b1ce17a107772d45cbb9ffd46ef8de4f612ce5495"
+    }
+  ],
+  "runtime_identity_sha256": "7f1b18613c0c59504e24cd14d30dcdbc5fd14e0e231b2c03776528bacbbaf4c5",
+  "source_archive_sha256": "5569153ab4e0904c209a962546c467d4199069668a0294d367f47d19d3ba0bce"
+}

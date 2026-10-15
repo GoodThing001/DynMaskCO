@@ -1,0 +1,39 @@
+{
+  "authority": "human_user_conditional_instruction",
+  "authorized_action": "ONE_F_FREE_16_DAY_4_SLOT_COLLECTION",
+  "dataset_sha256": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+  "output_directory": "D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v19_evidence\\authorization_release\\not_executed",
+  "parameters": {
+    "K": 4,
+    "batch_cap_s": 3600.0,
+    "booking_horizon": 24.0,
+    "capacity": 50.0,
+    "day_rollout_cap_s": 120.0,
+    "days": 16,
+    "denominator": 64,
+    "model_identity": "F_FREE_NO_MODEL",
+    "num_vehicles": 25,
+    "scalar_encoding": "lossless_scalar_v18",
+    "slot_cap_s": 60.0,
+    "tw_speed": 1.0
+  },
+  "platform": "win32",
+  "prior_request_scope": "synthetic gate test only",
+  "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]",
+  "required_reviews": [
+    {
+      "pass_key": "n_fail",
+      "pass_value": 0,
+      "path": "review0.json",
+      "sha256": "c5f840ab3b064a90ac2c61f65ef54c86088bc0100818921c1f5637caccefd49d"
+    },
+    {
+      "pass_key": "ok",
+      "pass_value": true,
+      "path": "review1.json",
+      "sha256": "c3a4ad9c0f3106622e2e2075778e36d6a33b8bd1ef979fcd29aeacb6e6d28518"
+    }
+  ],
+  "runtime_identity_sha256": "a557c8b4dc9ce6e6fddd253a0cbce2d30043f7a8de205b839a1744045dfe33a8",
+  "user_quote": ""
+}
