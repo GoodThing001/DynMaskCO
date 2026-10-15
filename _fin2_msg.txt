@@ -1,0 +1,9 @@
+Final: stage the latest readiness record and stop tracking transient commit-message scratch files
+
+The readiness re-run published a new immutable READINESS_<uuid>.json (the runner never overwrites a
+record, so each verification leaves its own artifact); it is staged here as evidence.
+
+The `_*_msg.txt` files are scratch input to tools/git_deliver.py. Previous commits staged them
+because they existed on disk at `git add -A` time and were deleted immediately afterwards, which
+turned them into tracked files. They are removed from the index here so the tracked tree contains
+only deliverables.
