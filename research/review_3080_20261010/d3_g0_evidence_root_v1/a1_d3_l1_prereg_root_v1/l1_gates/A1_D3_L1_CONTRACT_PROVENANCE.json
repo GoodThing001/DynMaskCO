@@ -1,0 +1,148 @@
+{
+  "chain": {
+    "C_calibration_hash": "0f00af5d197cf35368b1b2e807bcaf53d9b58a1cd425a7f53ec66091f6acce28",
+    "C_effective_from_base_current": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+    "C_effective_from_calibration": "67e0fc7bab65e19d6c5c56bd0b3d6f4a173961a3e0cae9b9cb3a3487ae5ec607",
+    "effective_hashes_equal": false,
+    "profile_hash_declared": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6"
+  },
+  "corrected_criterion": {
+    "a3_original_failure_preserved": true,
+    "correct_criteria": [
+      "the calibration source must be independently recoverable and hash-verifiable",
+      "the profile application relation must be recomputable: C_base + profile -> C_effective with a recorded hash",
+      "the L1 protocol must NAME which base contract it uses, and must not silently mix the calibration source with the current default"
+    ],
+    "verdict": "CALIBRATION_SOURCE_RECOVERED",
+    "why_wrong": "C_calibration is the contract the profile was CALIBRATED under (freeze_coldchain_scale.py:200-201 loads it, :251 writes its hash into provenance); C_effective_current is that profile APPLIED to a contract. They are different stages and may legitimately differ.",
+    "wrong_previous_criterion": "C_calibration == C_effective_current"
+  },
+  "field_diff_calibration_vs_base_current": [
+    {
+      "a": false,
+      "b": true,
+      "kind": "missing",
+      "path": "C.thermal.dispatch_delay_hour"
+    },
+    {
+      "a": false,
+      "b": true,
+      "kind": "missing",
+      "path": "C.thermal.diurnal_amplitude_c"
+    },
+    {
+      "a": false,
+      "b": true,
+      "kind": "missing",
+      "path": "C.thermal.diurnal_phase_hour"
+    },
+    {
+      "a": false,
+      "b": true,
+      "kind": "missing",
+      "path": "C.thermal.precool_energy_per_unit_per_c"
+    },
+    {
+      "a": false,
+      "b": true,
+      "kind": "missing",
+      "path": "C.thermal.precool_min_temp_class"
+    },
+    {
+      "a": false,
+      "b": true,
+      "kind": "missing",
+      "path": "C.thermal.precool_station_discount"
+    },
+    {
+      "a": false,
+      "b": true,
+      "kind": "missing",
+      "path": "C.thermal.precooled"
+    },
+    {
+      "a": false,
+      "b": true,
+      "kind": "missing",
+      "path": "C.thermal.use_station"
+    }
+  ],
+  "identities": {
+    "C_base_current": "32124bfd4ef73169164c7e5d8965ac7019c30ba0afd721f7d5a7273255e130b0",
+    "C_base_current_definition": "default_pilot_contract() of the CURRENT scripts/coldchain/coldchain_contract.py",
+    "C_calibration_declared": "0f00af5d197cf35368b1b2e807bcaf53d9b58a1cd425a7f53ec66091f6acce28",
+    "calibration_source_sha256_declared": "abf97d9789f60450fdd58ea79205cd5b32534ab460b18af1431a86e4cfbca601",
+    "current_source_sha256": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+    "stages_are_distinct_by_definition": true,
+    "target_hash": "0f00af5d197cf35368b1b2e807bcaf53d9b58a1cd425a7f53ec66091f6acce28"
+  },
+  "recovery": {
+    "recovered_calibration_source_file": "archive\\\u8bca\u65ad\u4e0e\u4f5c\u5e9f\u51bb\u7ed3\u5305\\o0cc_devgate_2dfff7ae_20260908\\source\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py",
+    "verdict": "CONTRACT_RECOVERED"
+  },
+  "route_R1_manifests": [
+    {
+      "contract_keys": [
+        "contract_hash"
+      ],
+      "file": "results\\o0cc\\scale_v2\\manifest.json",
+      "has_full_contract_section": false,
+      "sha256": "347245a53295b0645cfd720a333c534574046b8849c9d0ddcb5291a8e2e9357f"
+    },
+    {
+      "contract_keys": [
+        "contract_hash"
+      ],
+      "file": "results\\o0cc\\service_audit\\manifest.json",
+      "has_full_contract_section": false,
+      "sha256": "9fd08a48f69840d1cd6143e0bc13e0a40c9ed4d9fcdc62eea146f40b5a2338ea"
+    },
+    {
+      "contract_keys": [],
+      "file": "results\\o0cc\\dev_gate_v4_official\\pre_run_manifest.json",
+      "has_full_contract_section": false,
+      "sha256": "6deb051eafea3544ee92ac6b4d4cd53389724940b21e68df76b629e9a0ccd2e1"
+    },
+    {
+      "contract_keys": [],
+      "file": "results\\o0cc\\dev_gate_v4_official\\c1_02\\summary.json",
+      "has_full_contract_section": false,
+      "sha256": "a9dd619261163e55c0aba97d422a73282e2e259e1d97ce85cfd165d7bc90672d"
+    },
+    {
+      "contract_keys": [],
+      "file": "results\\o0cc\\dev_gate_v4_official\\c1_05\\summary.json",
+      "has_full_contract_section": false,
+      "sha256": "2e24f4f9872264cec3bbdb04bbf7998dc36ce7f944273b0ea00f2e67b34240fd"
+    }
+  ],
+  "route_R2_archived_source": {
+    "attempts": [
+      {
+        "matches_target": true,
+        "recomputed_hash": "0f00af5d197cf35368b1b2e807bcaf53d9b58a1cd425a7f53ec66091f6acce28",
+        "route": "archived_module",
+        "source": "archive\\\u6b63\u5f0f\u51bb\u7ed3\u5305\\O0-CC_DEV-GATE\\o0cc_devgate_2dfff7ae_20260908_v4\\source\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py"
+      },
+      {
+        "matches_target": true,
+        "recomputed_hash": "0f00af5d197cf35368b1b2e807bcaf53d9b58a1cd425a7f53ec66091f6acce28",
+        "route": "archived_module",
+        "source": "archive\\\u8bca\u65ad\u4e0e\u4f5c\u5e9f\u51bb\u7ed3\u5305\\frozen_version_v1\\source\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py"
+      },
+      {
+        "matches_target": true,
+        "recomputed_hash": "0f00af5d197cf35368b1b2e807bcaf53d9b58a1cd425a7f53ec66091f6acce28",
+        "route": "archived_module",
+        "source": "archive\\\u8bca\u65ad\u4e0e\u4f5c\u5e9f\u51bb\u7ed3\u5305\\o0cc_devgate_2dfff7ae_20260908\\source\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py"
+      }
+    ],
+    "files_with_calibration_sha": [
+      "archive\\\u6b63\u5f0f\u51bb\u7ed3\u5305\\O0-CC_DEV-GATE\\o0cc_devgate_2dfff7ae_20260908_v4\\source\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py",
+      "archive\\\u8bca\u65ad\u4e0e\u4f5c\u5e9f\u51bb\u7ed3\u5305\\frozen_version_v1\\source\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py",
+      "archive\\\u8bca\u65ad\u4e0e\u4f5c\u5e9f\u51bb\u7ed3\u5305\\o0cc_devgate_2dfff7ae_20260908\\source\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py",
+      "archive\\\u8bca\u65ad\u4e0e\u4f5c\u5e9f\u51bb\u7ed3\u5305\\o0cc_devgate_2dfff7ae_20260908_v2\\source\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py",
+      "archive\\\u8bca\u65ad\u4e0e\u4f5c\u5e9f\u51bb\u7ed3\u5305\\o0cc_devgate_2dfff7ae_20260908_v3\\source\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py"
+    ]
+  }
+}
