@@ -9,7 +9,53 @@
 
 ## 0. 最近收束（新会话从这里续接）
 
-### 0.1 本轮（2026-10-15，V1.18 + L1 自主续接）**全部完成**
+### 0.0 本轮第二阶段（同一会话续接）：G0 反例可执行化 + 两份预登记草案 + L2/L3 草案
+
+在 §0.1 之后继续，全部已 push：
+
+| commit | 内容 |
+|---|---|
+| `3b6afe75` | **G0 残余风险反例可执行化**：8 个最小反例跑在**当前代码**上，区分 `FIX_CONFIRMED`（风险已关闭）与 `RISK_CONFIRMED_OPEN`（风险经执行确认**仍开放**）⇒ **7 FIX_CONFIRMED / 1 RISK_CONFIRMED_OPEN** |
+| `3993e34e` | **E2 训练预登记草案**（`A1_D3_L1_E2_TRAINING_PREREGISTRATION_V1_18.md`，**不执行**） |
+| `b336f6e6` | **`P_after_install` 四字段前瞻采集预登记草案**（**不执行**） |
+| `4c3fb5bb` | **L2/L3 层级升级预登记草案**（**不执行**） |
+
+**G0 反例结论（逐条，可复核 `D3_G0_RESIDUAL_RISK_COUNTEREXAMPLES.json`）**
+
+| 风险 | 反例 | 判定 |
+|---|---|---|
+| A-2 | 无认证器的事务 | **FIX_CONFIRMED**：`no_certifier` 拒绝、0 次安装 |
+| A-2 | 认证 A 安装 B | **FIX_CONFIRMED**：`certified_plan_identity_mismatch` 拒绝 |
+| A-4b | 安装后改动调用方计划对象 | **FIX_CONFIRMED**：台账存**值拷贝**，记录不被改写 |
+| A-4b | 计划身份不可计算 | **FIX_CONFIRMED**：拒绝，不以 `None` 身份安装 |
+| A-5d | 无 `rollback_fn` | **FIX_CONFIRMED**：记 `rollback_unverified`，**不**记"已恢复" |
+| A-5d | 有 `rollback_fn` | **FIX_CONFIRMED**：`committed_state_restored=True`，恰好调用 1 次 |
+| A-5b | 重复 `finish` | **FIX_CONFIRMED**：第二次 `already_finished` 拒绝，总数 1 次安装 |
+| **A-3b** | 掩码含**已提交**客户 | **RISK_CONFIRMED_OPEN**：采样器**照做**（计划中已提交客户被移动），适配器**无**已执行前缀守卫；真正的守卫在 `VehicleState` + B 池 |
+
+**如实留档的自身缺陷**：A-3b 第一版反例把探针绕经安装门，产生了**无关失败导致的假"detected"**；
+该次运行**不作为证据保留**，已改写为**直接机制检查**，并在产物里把 A-3b 单列为
+`RISK_CONFIRMED_STILL_OPEN`，**不计入已关闭项**。
+
+**三份草案的实质内容**
+
+- **E2**：单因素 = backbone 初始权重来源。新增 **E2-7（已对源码核实，不是假设）**：
+  `mpre_trained.py` 的 `c_adapter` / `delta_head` 都是 `MLP(..., zero_last=True)`，末层
+  kernel/bias 为 `zeros_init()`、隐藏层取自 rngs 流 ⇒ 若 E2-rand 只随机化 backbone 而两层初始化
+  不同，则"预训练 vs 随机"会与"零末层 vs 随机初始化""seed A vs seed B"**同时**变化。规格**强制**
+  两层在两侧使用**同一初始化器与同一 seed**，并要求**参数名/形状/dtype 逐项相等**的机械证据。
+  同时重述 `--seed` **不是** E2（backbone 仍载入预训练）。
+- **`P_after_install`**：回执通道已闭合（7/7），`P_after_install` **只**允许来自通过独立重读的回执，
+  **禁止**由 `P_certified`/`P_proposed` 推算；并如实列出**未闭合**三项：环境自身 `_plan_and_commit`
+  不可观测、`A-3b` 仍开放、状态级回滚未被回执证明。
+- **L2/L3**：三层不可跳级逐层写死前置门；质量口径**三列分离**（`candidate`/`accepted`/`closed_loop`，
+  `candidate` **不得**称"部署"）；L2 完整 C0 认证**依赖用户裁定 B**；L3 需**新鲜开发日** + 等预算
+  + 冻结统计计划。
+
+**仍未完成、且本轮未做**：2×2 统一场景输入适配器**设计**（最小清单第 7 项，纯设计）；
+32 状态确定性重采集（最小清单第 3 项，本身是一次新执行，需另行授权）。
+
+### 0.1 本轮第一阶段（V1.18 + L1 + D8 + C0 搜索）**全部完成**
 
 自 `f73d2c88` 续接，**V1.18 达到 `READY_FOR_USER_SIGNATURE`，L1 工程协议闭合**。三项已 push：
 
@@ -116,6 +162,10 @@
 | **L1 两臂协议** | 10/10 + 独立审计 17/17 | `l1_gates/A1_D3_L1_TWO_ARM_*.json` |
 | **D8 持久安装回执** | A-5c 关闭；7/7 | `B3A_receipt_evidence/D3_INSTALL_RECEIPT_ACCEPTANCE.json` |
 | **C0 预算溯源穷举** | `SEARCH_EXHAUSTIVE_NO_REGISTERED_PROTOCOL_BUDGET_FOUND` | `C0_BUDGET_PROVENANCE_SEARCH.json` |
+| **G0 残余风险反例可执行化** | 7 FIX_CONFIRMED / 1 RISK_CONFIRMED_OPEN（A-3b 仍开放） | `D3_G0_RESIDUAL_RISK_COUNTEREXAMPLES.json` |
+| **E2 预登记草案** | 规格已交付（含 E2-7 零末层强制项，源码已核）；**未训练** | `A1_D3_L1_E2_TRAINING_PREREGISTRATION_V1_18.md` |
+| **`P_after_install` 采集预登记草案** | 规格已交付；回执通道 7/7，**未采集** | `A1_D3_L1_P_AFTER_INSTALL_COLLECTION_PREREGISTRATION_V1_18.md` |
+| **L2/L3 升级预登记草案** | 规格已交付；**未执行** | `A1_D3_L1_L2_L3_ESCALATION_PREREGISTRATION_V1_18.md` |
 
 ## 4. 重要失败与真实分母（原件保留，未改写）
 
@@ -127,6 +177,10 @@
 - `reconcile_rows` 本轮新增可选 `rows_dir` / `row_glob`（默认值复现历史行为，V1.16 6/6 通过）；
   **一次实现错误（默认 `rows_dir` 从 `'scores'` 误改为 `out`）已被 V1.16 回归当场抓住并修正**，
   未隐藏。
+- **A-3b 反例第一版**把探针绕经安装门，得出**无关失败导致的假"detected"**；该次运行**不作为证据保留**，
+  已改写为直接机制检查，并把 A-3b 在产物中单列为 `RISK_CONFIRMED_STILL_OPEN`。
+- **C0 搜索第一版分类器**按"上下文含 protocol 一词"判类，把 29 处**文档提及**误升为注册预算；
+  已在报告 `corrected_from` 中原样保留并给出更正分类器。
 - 较早：P0-B 首版把 float64 与 float32 计算路径差异误判为"外部路网矩阵"（V1.4 已更正）。
 
 ## 5. 下一个可自动执行任务（无需用户授权）
@@ -138,7 +192,15 @@
    冻结，不得引用 V1.9 计时。
 3. **D8 受限三问**：G-L 状态认证；G-C 真实写入唯一性；品质保守保证（回执已不再是缺口）。
 4. **E2/L2/L3 与 A1/A2/A3 预登记草案**（不训练、不跑批次）。
-5. 若需扩充 `no_legal` 覆盖：需先有**非活跃**且无可行插入的订单来源，并保持 strict-online 因果
+   —— **已完成**：E2 → `A1_D3_L1_E2_TRAINING_PREREGISTRATION_V1_18.md`；
+   `P_after_install` → `A1_D3_L1_P_AFTER_INSTALL_COLLECTION_PREREGISTRATION_V1_18.md`；
+   L2/L3 → `A1_D3_L1_L2_L3_ESCALATION_PREREGISTRATION_V1_18.md`（**均未执行**）。
+5. **2×2 统一场景输入适配器设计**（最小清单第 7 项，纯设计；Role C 现绕 cond_hist 场景流，
+   接 MaskCO 须走**一条**决策代码路径）。
+6. **32 状态确定性重采集**（最小清单第 3 项）：**本身是一次新执行**，须先获授权并冻结清单/预算；
+   合同/profile 身份须在该预登记内显式记录（本轮已把 `effective_contract_hash` 与 `profile_hash`
+   写入 V1.18/L1/E2 身份块，不再以"缺口"表述）。
+7. 若需扩充 `no_legal` 覆盖：需先有**非活跃**且无可行插入的订单来源，并保持 strict-online 因果
    （本数据集不可自然触发，已如实记录）。
 
 ## 6. 需要用户签署的事项（唯一清单）
