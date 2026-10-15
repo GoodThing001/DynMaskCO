@@ -1,0 +1,362 @@
+{
+  "algorithmic_gain_claim": "none",
+  "budgets": {
+    "caps": {
+      "batch_s": 180.0,
+      "initialize_compile_s": 60.0,
+      "slot_span_s": 10.0
+    },
+    "derivation": {
+      "batch_s": {
+        "headroom_vs_projected": 2.5702302433023534,
+        "observed_batch_s": 19.561999999918044,
+        "observed_per_state_s": 0.8891818181780929,
+        "observed_states": 22,
+        "projected_full_schedule_s": 70.03263636363079,
+        "projection_note": "linear extrapolation of the OBSERVED 22-state batch wall clock; a projection, labelled as such, not a measurement",
+        "rule": "V1.11 fixed batch ceiling; extrapolated observed cost for the full 64-state schedule must sit inside it"
+      },
+      "initialize_compile_s": {
+        "headroom_vs_observed": 4.571428571347477,
+        "observed_compile_warmup_s": 6.7810000001918525,
+        "observed_init_plus_warmup_s": 13.12500000023283,
+        "observed_model_init_s": 6.344000000040978,
+        "rule": "V1.11 fixed engineering ceiling; covers measured model init + first compiled forward"
+      },
+      "slot_span_s": {
+        "claim_limit": "engineering interface ceiling only; it is NOT evidence that the L3 full 8+2 s online publication gate is met",
+        "headroom_vs_observed_max": 29.069767438397598,
+        "observed_max_s": 0.3440000000409782,
+        "observed_median_s": 0.2339999999385327,
+        "observed_n": 22,
+        "rule": "V1.11 fixed engineering ceiling for this protocol; NOT widened in V1.18"
+      }
+    },
+    "not_evidence_for": [
+      "the L3 complete 8+2 s online publication gate",
+      "any F-vs-D-Geo comparison",
+      "any scientific claim"
+    ],
+    "verdict": "FROZEN_FROM_MEASURED_V111_F_EVIDENCE"
+  },
+  "call_schedule": {
+    "calls_per_state": 2,
+    "derived_from": "V1.11 pre-registration \"\u6bcf\u72b6\u6001\u5b8c\u5168\u76f8\u540c\u8f93\u5165\u6070\u597d\u4e24\u6b21\u524d\u5411\uff0c\u6700\u591a129\u6b21\" (1 warmup + 64 states x 2 exact-repeat forwards)",
+    "max_forward_calls": 129,
+    "n_states": 64,
+    "warmup_calls": 1
+  },
+  "contract": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+  "dataset_identity": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+  "dependency_identity_sha256": "57fb96e941870b595ce601ac344f5c724786870bdb865e783ea5d132a5e0bb9e",
+  "identity_match": {
+    "ok": true,
+    "rows": {
+      "backbone": {
+        "actual": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+        "expected": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+        "ok": true,
+        "path": "MASKCO_code/ckpts/cvrp100.ckpt"
+      },
+      "contract_protocol_identity": {
+        "actual": "f44e3456db5fac67c85829e5f28648174b4c50b81d1af85a288dc78a7795172c",
+        "expected": "f44e3456db5fac67c85829e5f28648174b4c50b81d1af85a288dc78a7795172c",
+        "ok": true,
+        "path": "research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\A1_D3_L1_CONTRACT_PROTOCOL_IDENTITY.json"
+      },
+      "contracts": {
+        "effective": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+        "ok": true
+      },
+      "dev_check_npz": {
+        "actual": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+        "expected": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+        "ok": true,
+        "path": "data\\m0_scale\\dcc_50_r1_edod05_dev_check_teacher.npz"
+      },
+      "f_ckpt": {
+        "actual": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5",
+        "expected": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5",
+        "ok": true,
+        "path": "results\\m0_scale\\mpre_reinforce_s42_clean\\model.ckpt"
+      },
+      "profile_file": {
+        "actual": "63e56212174c9ce371b8a5b1fada6a549d7bc47527fdd1b0b13a7bbe90db57e8",
+        "expected": "63e56212174c9ce371b8a5b1fada6a549d7bc47527fdd1b0b13a7bbe90db57e8",
+        "ok": true,
+        "path": "results\\o0cc\\scale_v2\\objective_profile.json"
+      },
+      "runtime_identity_v19": {
+        "actual": "7f1b18613c0c59504e24cd14d30dcdbc5fd14e0e231b2c03776528bacbbaf4c5",
+        "expected": "7f1b18613c0c59504e24cd14d30dcdbc5fd14e0e231b2c03776528bacbbaf4c5",
+        "ok": true,
+        "path": "research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v19_evidence\\RUNTIME_IDENTITY_V19.json"
+      },
+      "state_list": {
+        "n_mismatches": 0,
+        "n_states": 64,
+        "ok": true
+      },
+      "state_manifest": {
+        "actual": "2340cc56c83da49cb27e0eaffa7db7c21d37a3ecc6af34793820a020081a294d",
+        "expected": "2340cc56c83da49cb27e0eaffa7db7c21d37a3ecc6af34793820a020081a294d",
+        "ok": true,
+        "path": "research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v19_evidence\\STATE_MANIFEST_64_V19.json"
+      }
+    }
+  },
+  "n_target_rows": 64,
+  "no_execution_authorised_here": true,
+  "published_mono": 1241138.906,
+  "readiness": {
+    "checks": {
+      "budgets_frozen": true,
+      "identity_bound": true,
+      "independent_verifier": true,
+      "independent_verifier_note": "the real F forward has not run yet, so the verifier reports VERIFIED_NOT_EXECUTED; this is a statement about the FROZEN architecture, not a PASS on any F result",
+      "independent_verifier_selftest": true,
+      "independent_verifier_verdict": "VERIFIED_NOT_EXECUTED",
+      "persistence_acceptance": true,
+      "published_run_id": "d3l1-real-f-forward-20261015-v122",
+      "real_F_forward_executed": false,
+      "run_id_isolated": true,
+      "runtime_watch": {
+        "drifted": [
+          "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_v120_execution_context.py"
+        ],
+        "n_drifted": 1,
+        "n_paths": 34
+      },
+      "runtime_watch_closed": false,
+      "runtime_watch_closure_diff": {
+        "excluded_reachable": [],
+        "missing_from_freeze": [],
+        "n_derived_matched_in_freeze": 30,
+        "n_derived_source": 30,
+        "n_frozen_total": 34,
+        "non_source_assets": [
+          "results/m0_scale/mpre_reinforce_s42_clean/model.ckpt",
+          "MASKCO_code/ckpts/cvrp100.ckpt",
+          "data/m0_scale/dcc_50_r1_edod05_dev_check_teacher.npz",
+          "results/o0cc/scale_v2/objective_profile.json"
+        ]
+      },
+      "runtime_watch_covers_closure": true,
+      "synthetic_end_to_end": true,
+      "verifier_selftest_verifier": "SELFTEST_SUPERVISED_VERIFIED"
+    },
+    "missing_before_signature": [
+      "the runtime source/asset watch set has DRIFTED for 1 path(s): this run identity is stale and a NEW run identity version is required before signature (the worker would refuse at startup)"
+    ],
+    "not_run_and_not_authorised_here": [
+      "no real F forward over the 64 states (this is the single item awaiting signature)",
+      "no F-vs-D-Geo comparison",
+      "no training",
+      "no L2/L3",
+      "no 40-day batch",
+      "no final test",
+      "no install into any production state"
+    ],
+    "note": "the verdict is computed from artifacts on disk; there is no hand-set ready flag",
+    "verdict": "NOT_READY"
+  },
+  "run_dir": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v122_evidence\\run_v122",
+  "run_id": "d3l1-real-f-forward-20261015-v122",
+  "runtime_watch": {
+    "basis": "derived execution-path closure (scripts/data/d3_l1_v121_dependency_closure.py)",
+    "closure_diff": {
+      "excluded_reachable": [],
+      "missing_from_freeze": [],
+      "n_derived_matched_in_freeze": 30,
+      "n_derived_source": 30,
+      "n_frozen_total": 34,
+      "non_source_assets": [
+        "results/m0_scale/mpre_reinforce_s42_clean/model.ckpt",
+        "MASKCO_code/ckpts/cvrp100.ckpt",
+        "data/m0_scale/dcc_50_r1_edod05_dev_check_teacher.npz",
+        "results/o0cc/scale_v2/objective_profile.json"
+      ]
+    },
+    "covers_closure": true,
+    "n_paths": 34,
+    "paths": {
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\data\\m0_scale\\dcc_50_r1_edod05_dev_check_teacher.npz": {
+        "current": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+        "frozen": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\results\\m0_scale\\mpre_reinforce_s42_clean\\model.ckpt": {
+        "current": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5",
+        "frozen": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\results\\o0cc\\scale_v2\\objective_profile.json": {
+        "current": "63e56212174c9ce371b8a5b1fada6a549d7bc47527fdd1b0b13a7bbe90db57e8",
+        "frozen": "63e56212174c9ce371b8a5b1fada6a549d7bc47527fdd1b0b13a7bbe90db57e8",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py": {
+        "current": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+        "frozen": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_state.py": {
+        "current": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e",
+        "frozen": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\data\\coldchain_visible_features.py": {
+        "current": "76f1d1e13a9432153554298565e7ed53e60f5667515a5dd9466505372cb227b0",
+        "frozen": "76f1d1e13a9432153554298565e7ed53e60f5667515a5dd9466505372cb227b0",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\data\\repair_state.py": {
+        "current": "daf1d8ea6b5b7ace865fc130c8be85879567fa6fc7d7642bc8a1241b28511148",
+        "frozen": "daf1d8ea6b5b7ace865fc130c8be85879567fa6fc7d7642bc8a1241b28511148",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\models\\cvrptw_utils.py": {
+        "current": "1fd6aa427bd242227963972c9a439dd94c5b6ca3cb5dbcef37bda3f2f315a73f",
+        "frozen": "1fd6aa427bd242227963972c9a439dd94c5b6ca3cb5dbcef37bda3f2f315a73f",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\models\\dynmaskco_cc_graph.py": {
+        "current": "0101e7c31ab8c95eefbc0daa9dd41e5a7df5ec4552a69744a8847f4f9bfba93d",
+        "frozen": "0101e7c31ab8c95eefbc0daa9dd41e5a7df5ec4552a69744a8847f4f9bfba93d",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\models\\mpre.py": {
+        "current": "585f0296e31fc98060f393cad023a6c028c70bbbdb8bcc0c6d27f46f03b3e57c",
+        "frozen": "585f0296e31fc98060f393cad023a6c028c70bbbdb8bcc0c6d27f46f03b3e57c",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\models\\mpre_trained.py": {
+        "current": "c19352745e6e246dc855a3ac2b0f7827b188edb829e2104b428ed0a1c0d545f2",
+        "frozen": "c19352745e6e246dc855a3ac2b0f7827b188edb829e2104b428ed0a1c0d545f2",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\project_paths.py": {
+        "current": "3afd25befe673c05318489b83ae259971b0da8b894a8efe7b88e1c8ad84f6658",
+        "frozen": "3afd25befe673c05318489b83ae259971b0da8b894a8efe7b88e1c8ad84f6658",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\action_contract.py": {
+        "current": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b",
+        "frozen": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\cc_lns_replanner.py": {
+        "current": "ae634f5323595aafda85aaf8e99eb4e240173106d60b2523bb033ae603e22f25",
+        "frozen": "ae634f5323595aafda85aaf8e99eb4e240173106d60b2523bb033ae603e22f25",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_p0c_v18.py": {
+        "current": "1d897b8c0d0b65fe09c8230c4e506e157466a24cde157215479b7c10520f50f7",
+        "frozen": "1d897b8c0d0b65fe09c8230c4e506e157466a24cde157215479b7c10520f50f7",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_v118_authorization.py": {
+        "current": "80d5e470a2a7e75dd9cd3bf4341a41bad4d6116c1b4c22844c26fe417274d4dc",
+        "frozen": "80d5e470a2a7e75dd9cd3bf4341a41bad4d6116c1b4c22844c26fe417274d4dc",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_v118_forward_runner.py": {
+        "current": "34c3b51279453fef247a41087d2e581a562937dc4ff7debb48b98777a4b3cc69",
+        "frozen": "34c3b51279453fef247a41087d2e581a562937dc4ff7debb48b98777a4b3cc69",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_v118_persistence.py": {
+        "current": "3ccbf94a336bec14863542a613419a9071fbf7045526ee9b19a1740252c961f7",
+        "frozen": "3ccbf94a336bec14863542a613419a9071fbf7045526ee9b19a1740252c961f7",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_v118_run_identity.py": {
+        "current": "9c9f787fa8e3210a45156dd4608713a0104714f96e4e64cc00e194a096cc8ec3",
+        "frozen": "9c9f787fa8e3210a45156dd4608713a0104714f96e4e64cc00e194a096cc8ec3",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_v118_targets.py": {
+        "current": "bfff7d14c8f865fa1876e3f742aae75c49a60b7ac41a42f5e865479f5bb37ba0",
+        "frozen": "bfff7d14c8f865fa1876e3f742aae75c49a60b7ac41a42f5e865479f5bb37ba0",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_v120_execution_context.py": {
+        "current": "677b58ddde1192e08e5eb060cbf322a471f3056d6b12ce769d8017325c334a97",
+        "frozen": "71a7a80661ce697a62787e6f8c64b42428963f52e4eb47f1c0e6d4e3bdd4a2dd",
+        "ok": false
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\dynmaskco_cc_context.py": {
+        "current": "4eebb2a51a024a9e881ce7100bbe568219e1afa5ac8c6d33c707924a36ff1685",
+        "frozen": "4eebb2a51a024a9e881ce7100bbe568219e1afa5ac8c6d33c707924a36ff1685",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\jf1h_repair.py": {
+        "current": "233f8439536a2af676fe389b012b74c4fa8cf458fde7aef226b084342ca089ee",
+        "frozen": "233f8439536a2af676fe389b012b74c4fa8cf458fde7aef226b084342ca089ee",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\joint_fleet.py": {
+        "current": "7dafcd6d82bc7cc602d5353b8fd3afdd790c1fec6b8aefd449988652be707935",
+        "frozen": "7dafcd6d82bc7cc602d5353b8fd3afdd790c1fec6b8aefd449988652be707935",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\mpre_policy.py": {
+        "current": "5b03e4cae812fa20785e68ce837be3a615aadb44ab29b7dbdc4b95f104a4a191",
+        "frozen": "5b03e4cae812fa20785e68ce837be3a615aadb44ab29b7dbdc4b95f104a4a191",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\mpre_replanner.py": {
+        "current": "0f879d85e9ed3e6ce55dfa40b5582e427a4f05e8215670115d50a2c5d9163ea0",
+        "frozen": "0f879d85e9ed3e6ce55dfa40b5582e427a4f05e8215670115d50a2c5d9163ea0",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\mtrained_replanner.py": {
+        "current": "8bc177c1da57b3420537609e5f0b7fa69f489754fac88997fb8731ea6202f777",
+        "frozen": "8bc177c1da57b3420537609e5f0b7fa69f489754fac88997fb8731ea6202f777",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\recourse_snapshot.py": {
+        "current": "a2c13f75566e383312b369fd8cf9453a41a22c7eeeb8f4cd38021c8baa965537",
+        "frozen": "a2c13f75566e383312b369fd8cf9453a41a22c7eeeb8f4cd38021c8baa965537",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\strict_online_env.py": {
+        "current": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6",
+        "frozen": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\visible_state.py": {
+        "current": "710fe75ca1fc08aedf59bf46e263c6de62ae24315e873aa41b2547d42e57e046",
+        "frozen": "710fe75ca1fc08aedf59bf46e263c6de62ae24315e873aa41b2547d42e57e046",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\tests\\d3_l1_v112_phase_journal.py": {
+        "current": "b89954ad298c0b937e7b93055a2abddcb5c12b5a2282e4b5252edebb54891a2f",
+        "frozen": "b89954ad298c0b937e7b93055a2abddcb5c12b5a2282e4b5252edebb54891a2f",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\tests\\d3_l1_v116_forward_control.py": {
+        "current": "e082f672147b5cfc3a2ee16e689a03653d94d5665081f352f57397fb0aae8cf4",
+        "frozen": "e082f672147b5cfc3a2ee16e689a03653d94d5665081f352f57397fb0aae8cf4",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\tests\\d3_l1_v18_readonly_audit.py": {
+        "current": "5d03ef0711dff196a1f1e7bbcc80632d4fa5091b53dfbdc10ba731485f130fad",
+        "frozen": "5d03ef0711dff196a1f1e7bbcc80632d4fa5091b53dfbdc10ba731485f130fad",
+        "ok": true
+      },
+      "D:\\PyCharm_\\MASKCO-Main\\MASKCO_code\\ckpts\\cvrp100.ckpt": {
+        "current": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+        "frozen": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+        "ok": true
+      }
+    }
+  },
+  "schema": "d3_l1_v118_readiness",
+  "science_ready": false,
+  "stable_online_gain": false,
+  "state_binding_sha256": "f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1",
+  "targets_ok": true,
+  "targets_sha256": "37e23f7567e3391a4a3360203a3d58e77c2e16b32c7e3514c65c8aa15d5ade08",
+  "verdict": "NOT_READY"
+}

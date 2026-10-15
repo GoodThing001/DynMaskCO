@@ -1,7 +1,7 @@
 {
   "F_D_Geo_comparisons": 0,
   "F_forward_calls_on_real_model": 0,
-  "authorization_module_sha256": "4a9a8350cece956f5b96c06e01ed9c1b39b3a03b3498f3bec899955dc7f527db",
+  "authorization_module_sha256": "80d5e470a2a7e75dd9cd3bf4341a41bad4d6116c1b4c22844c26fe417274d4dc",
   "blockers": {
     "1": "the authorization credential must bind the real execution identity",
     "2": "the READY state and the supervisor deadline semantics must agree",
@@ -23,13 +23,13 @@
   "n_rows": 25,
   "results": {
     "_wall": {
-      "blocker1": 2.906999999890104,
-      "blocker2": 138.51499999989755,
-      "blocker3": 17.594000000040978
+      "blocker1": 2.452999999979511,
+      "blocker2": 138.01500000013039,
+      "blocker3": 16.937999999849126
     },
     "blocker1": {
-      "consumption_dir": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_ubniur0k\\consumption_b1",
-      "frozen": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_ubniur0k\\B1_base",
+      "consumption_dir": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_6lycwakm\\consumption_b1",
+      "frozen": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_6lycwakm\\B1_base",
       "n_consumption_records": 1
     },
     "blocker2": {
@@ -47,15 +47,15 @@
           "n_records": 1,
           "probe": "immutable READY record",
           "problems": [],
-          "published_name": "READY_6905f380442d401d8ca28f2e6db53897.json",
+          "published_name": "READY_22c349bc1603445daf668b6b52ded91e.json",
           "ready": true,
-          "run_dir": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_ubniur0k\\B2a_ready_then_slow_batch",
+          "run_dir": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_6lycwakm\\B2a_ready_then_slow_batch",
           "run_id": "d3l1-real-f-forward-20261015-v119"
         },
         "returncode": 0,
         "round_status": "ROUND_PASS",
         "rows_qualified": 64,
-        "worker_control_wall_s": 72.20299999997951
+        "worker_control_wall_s": 72.0930000001099
       },
       "B2-b": {
         "control_reason": "initialization_compile_deadline",
@@ -64,14 +64,14 @@
           "probe": "immutable READY record",
           "ready": false,
           "reason": "absent",
-          "run_dir": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_ubniur0k\\B2b_slow_init"
+          "run_dir": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_6lycwakm\\B2b_slow_init"
         },
         "returncode": 1,
         "round_status": "ROUND_REVOKED",
         "rows_qualified": 0,
         "slot_records": 0,
         "tree_active_after": 0,
-        "wall_s": 61.17199999978766
+        "wall_s": 61.10900000017136
       }
     },
     "blocker3": {
@@ -160,7 +160,7 @@
   "rows": [
     {
       "detail": {
-        "refused": "authorization file does not exist: C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_ubniur0k\\does_not_exist.json"
+        "refused": "authorization file does not exist: C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_6lycwakm\\does_not_exist.json"
       },
       "name": "B1-a an ABSENT authorization file is refused",
       "ok": true
@@ -261,17 +261,17 @@
         "consumption": {
           "approved_by": "USER (synthetic acceptance fixture)",
           "approved_utc": "2026-10-15T00:00:00Z",
-          "consumed_mono": 1240027.609,
-          "consumed_utc": "2026-10-15T14:13:15Z",
-          "consumer_pid": 29816,
-          "credential_content_sha256": "15cc709a0b7b87e4d932cefeb7750ad75ebd49b4a5f26328f6d37bec8f67d660",
-          "credential_file_sha256": "b9c90c173380eda488c6fd17b465d97c0a613f7a2cb0fbdd34258271574a119e",
+          "consumed_mono": 1240890.687,
+          "consumed_utc": "2026-10-15T14:27:38Z",
+          "consumer_pid": 30992,
+          "credential_content_sha256": "d8ec0187258d94e9bd0beb62b037087b989c4d51392fa6462a6c7acb9bdfb891",
+          "credential_file_sha256": "dec08ed1b47ddb7389345fe9b5136137eaaa7df346f5e7daa0a74810316ca75e",
           "maximum_forward_calls": 129,
           "note": "this record is the ONLY permitted evidence of consumption; the credential may not be used again for any run",
           "one_shot": true,
-          "path": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_ubniur0k\\consumption_b1\\authorization_consumption_15cc709a0b7b87e4d932cefeb7750ad75ebd49b4a5f26328f6d37bec8f67d660.json",
+          "path": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_6lycwakm\\consumption_b1\\authorization_consumption_d8ec0187258d94e9bd0beb62b037087b989c4d51392fa6462a6c7acb9bdfb891.json",
           "preregistration_sha256": "331b360c3592cc80b3fe350abb8c46a959f220538fd2684342203bbb2ceab67d",
-          "run_dir": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_ubniur0k\\B1_base",
+          "run_dir": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_6lycwakm\\B1_base",
           "run_id": "d3l1-real-f-forward-20261015-v119",
           "schema": "d3_l1_authorization_consumption_v1"
         }
@@ -281,7 +281,7 @@
     },
     {
       "detail": {
-        "refused": "this credential has ALREADY been consumed (one-shot): {\"run_id\": \"d3l1-real-f-forward-20261015-v119\", \"consumed_utc\": \"2026-10-15T14:13:15Z\", \"consumer_pid\": 29816, \"run_dir\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v119_acc_ubniur0k\\\\B1_base\"}"
+        "refused": "this credential has ALREADY been consumed (one-shot): {\"run_id\": \"d3l1-real-f-forward-20261015-v119\", \"consumed_utc\": \"2026-10-15T14:27:38Z\", \"consumer_pid\": 30992, \"run_dir\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v119_acc_6lycwakm\\\\B1_base\"}"
       },
       "name": "B1-i the SAME credential used a SECOND time is refused (one-shot replay)",
       "ok": true
@@ -308,15 +308,15 @@
           "n_records": 1,
           "probe": "immutable READY record",
           "problems": [],
-          "published_name": "READY_6905f380442d401d8ca28f2e6db53897.json",
+          "published_name": "READY_22c349bc1603445daf668b6b52ded91e.json",
           "ready": true,
-          "run_dir": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_ubniur0k\\B2a_ready_then_slow_batch",
+          "run_dir": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_6lycwakm\\B2a_ready_then_slow_batch",
           "run_id": "d3l1-real-f-forward-20261015-v119"
         },
         "returncode": 0,
         "round_status": "ROUND_PASS",
         "rows_qualified": 64,
-        "worker_control_wall_s": 72.20299999997951
+        "worker_control_wall_s": 72.0930000001099
       },
       "name": "B2-a a batch that outlives the FROZEN 60 s INITIALIZATION cap (but not the 180 s batch cap) is NOT killed, and the supervisor observed the immutable READY record",
       "ok": true
@@ -338,14 +338,14 @@
           "probe": "immutable READY record",
           "ready": false,
           "reason": "absent",
-          "run_dir": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_ubniur0k\\B2b_slow_init"
+          "run_dir": "C:\\Users\\mmc\\AppData\\Local\\Temp\\v119_acc_6lycwakm\\B2b_slow_init"
         },
         "returncode": 1,
         "round_status": "ROUND_REVOKED",
         "rows_qualified": 0,
         "slot_records": 0,
         "tree_active_after": 0,
-        "wall_s": 61.17199999978766
+        "wall_s": 61.10900000017136
       },
       "name": "B2-b a REAL initialization overrun is killed at the initialization deadline and recorded",
       "ok": true
@@ -464,5 +464,5 @@
   "tool_sha256": "10a62c9390f53ed63501e20a1d9bc5da23bc175e8093ea88302a443dfbb2f35d",
   "training_runs": 0,
   "verdict": "THREE_BLOCKERS_CLOSED",
-  "wall_s": 159.10999999986961
+  "wall_s": 157.5
 }

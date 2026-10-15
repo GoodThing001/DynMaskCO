@@ -1,0 +1,151 @@
+{
+  "claim_limits": [
+    "this proves no real F work happened in THIS run directory; it does not prove anything about any other directory",
+    "a zero-work state is not a pass: it is the state a signature would authorise leaving",
+    "the readiness verdict is read back and re-adjudicated, never taken on trust"
+  ],
+  "independence": "this audit imports no runner, no supervisor and no scorer; it counts artifacts on disk and re-hashes the frozen watch set",
+  "n_fail": 0,
+  "n_pass": 7,
+  "n_rows": 7,
+  "records": {
+    "absent_counts": {
+      "first_failure_records": 0,
+      "identity_end_records": 0,
+      "identity_start_records": 0,
+      "model_load_records": 0,
+      "phase_journal_records": 0,
+      "raw_score_artifacts": 0,
+      "round_records": 0,
+      "slot_row_records": 0,
+      "supervision_results": 0,
+      "warmup_records": 0,
+      "worker_failures": 0,
+      "worker_results": 0
+    },
+    "absent_samples": {
+      "first_failure_records": [],
+      "identity_end_records": [],
+      "identity_start_records": [],
+      "model_load_records": [],
+      "phase_journal_records": [],
+      "raw_score_artifacts": [],
+      "round_records": [],
+      "slot_row_records": [],
+      "supervision_results": [],
+      "warmup_records": [],
+      "worker_failures": [],
+      "worker_results": []
+    },
+    "consumption_for_this_run": [],
+    "expect_run_id": "d3l1-real-f-forward-20261015-v122",
+    "n_target_rows": 64,
+    "readiness": {
+      "missing_before_signature": [],
+      "n_records": 51,
+      "real_F_forward_executed": false,
+      "verdict": "READY_FOR_USER_SIGNATURE"
+    },
+    "refusal_records": [
+      "AUTHORIZATION_REFUSED_30d38d81e8da44309a850a114de884a2.json"
+    ],
+    "run_dir": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v122_evidence\\run_v122",
+    "run_id": "d3l1-real-f-forward-20261015-v122",
+    "runtime_watch": {
+      "drifted": [],
+      "n_drifted": 0,
+      "n_paths": 34
+    },
+    "template": {
+      "credential_sha256": "3511dd8a474583bb77a28edd0bc6ea433063dc69c1c2517bd17422adcee07ec7",
+      "human_fields_empty": [
+        "approved_by",
+        "approved_utc",
+        "approval_statement"
+      ],
+      "path": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v122_evidence\\AUTHORIZATION_TEMPLATE_V122.json"
+    }
+  },
+  "rows": [
+    {
+      "detail": {
+        "n_identity": 1,
+        "n_identity_targets": 1,
+        "n_targets": 1
+      },
+      "name": "Z1 the run directory carries exactly one run identity, one forward-target list and one identity-target list",
+      "ok": true
+    },
+    {
+      "detail": {
+        "n_target_rows": 64,
+        "run_id": "d3l1-real-f-forward-20261015-v122",
+        "targets_sha256": "37e23f7567e3391a4a3360203a3d58e77c2e16b32c7e3514c65c8aa15d5ade08"
+      },
+      "name": "Z2 the run identity is the expected run and the target list has 64 pre-qualified rows",
+      "ok": true
+    },
+    {
+      "detail": {
+        "drifted": [],
+        "n_drifted": 0,
+        "n_paths": 34
+      },
+      "name": "Z3 every path in the frozen runtime watch set still hashes to its frozen digest",
+      "ok": true
+    },
+    {
+      "detail": {
+        "first_failure_records": 0,
+        "identity_end_records": 0,
+        "identity_start_records": 0,
+        "model_load_records": 0,
+        "phase_journal_records": 0,
+        "raw_score_artifacts": 0,
+        "round_records": 0,
+        "slot_row_records": 0,
+        "supervision_results": 0,
+        "warmup_records": 0,
+        "worker_failures": 0,
+        "worker_results": 0
+      },
+      "name": "Z4 the run directory contains NO artifact that only a real forward could produce (slot rows, raw scores, phase records, model load, warm-up, identity tail, supervision)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "consumption_dir": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v122_evidence\\consumption",
+        "n_for_this_run": 0
+      },
+      "name": "Z5 no authorization credential for THIS run id has ever been consumed",
+      "ok": true
+    },
+    {
+      "detail": {
+        "human_fields_empty": [
+          "approved_by",
+          "approved_utc",
+          "approval_statement"
+        ],
+        "n_refusal_records": 1
+      },
+      "name": "Z6 the authorization template exists, its human approval fields are EMPTY, and the gate left a refusal record on disk",
+      "ok": true
+    },
+    {
+      "detail": {
+        "missing_before_signature": [],
+        "n_records": 51,
+        "real_F_forward_executed": false,
+        "verdict": "READY_FOR_USER_SIGNATURE"
+      },
+      "name": "Z7 the readiness record reports READY_FOR_USER_SIGNATURE while recording that the real F forward has NOT been executed, and both are consistent with Z4/Z5",
+      "ok": true
+    }
+  ],
+  "run_dir": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v122_evidence\\run_v122",
+  "run_id": "d3l1-real-f-forward-20261015-v122",
+  "schema": "d3_l1_v119_zero_f_audit",
+  "tool_sha256": "1deed6acd04395d699e023740b549a07e3e4d9c1fd7ad5e61f661e0ede433e09",
+  "verdict": "ZERO_REAL_F_WORK_CONFIRMED"
+}

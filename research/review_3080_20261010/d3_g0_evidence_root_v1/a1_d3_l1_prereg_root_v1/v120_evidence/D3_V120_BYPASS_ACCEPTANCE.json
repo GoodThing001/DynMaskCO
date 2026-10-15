@@ -37,7 +37,7 @@
       },
       "returncode": 1,
       "stderr_tail": "t_env :: {\"env_var\": \"D3_L1_EXECUTION_CONTEXT\", \"note\": \"the real F worker may only be started by the supervisor, which publishes an authorization context after consuming a human-approved credential\"}",
-      "wall_s": 2.702999999979511
+      "wall_s": 2.594000000040978
     },
     "N10 authorization plus synthetic-command": {
       "artifacts": {
@@ -58,7 +58,7 @@
         "required": false
       },
       "returncode": 1,
-      "wall_s": 2.202999999979511
+      "wall_s": 2.265000000130385
     },
     "N2 context env missing file": {
       "artifacts": {
@@ -73,13 +73,13 @@
         "phase_records": 0
       },
       "returncode": 1,
-      "stderr_tail": "EXECUTION CONTEXT REFUSED: context_env_missing_file :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\nope.json\"}",
-      "wall_s": 2.4379999998491257
+      "stderr_tail": "EXECUTION CONTEXT REFUSED: context_env_missing_file :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\nope.json\"}",
+      "wall_s": 2.2339999999385327
     },
     "N3 guard probe without context": {
       "returncode": 1,
       "stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"REFUSED\",\n \"reason\": \"no_context_env :: {\\\"env_var\\\": \\\"D3_L1_EXECUTION_CONTEXT\\\", \\\"note\\\": \\\"the real F worker may only be started by the supervisor",
-      "wall_s": 2.1410000000614673
+      "wall_s": 2.155999999959022
     },
     "N4 hand-written context": {
       "artifacts": {
@@ -93,10 +93,10 @@
         "guard_refusals": 1,
         "phase_records": 0
       },
-      "guard_reason": "consumption_receipt_missing :: {\"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\forged_consumption.json\", \"note\": \"no one-shot consumption exists, so no human-approved credential was spent on this run\"}",
+      "guard_reason": "consumption_receipt_missing :: {\"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\forged_consumption.json\", \"note\": \"no one-shot consumption exists, so no human-approved credential was spent on this run\"}",
       "returncode": 1,
-      "stderr_tail": "\"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\forged_consumption.json\", \"note\": \"no one-shot consumption exists, so no human-approved credential was spent on this run\"}",
-      "wall_s": 2.280999999959022
+      "stderr_tail": "\"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\forged_consumption.json\", \"note\": \"no one-shot consumption exists, so no human-approved credential was spent on this run\"}",
+      "wall_s": 2.2350000001024455
     },
     "N5 context edited (run_dir)": {
       "artifacts": {
@@ -110,10 +110,10 @@
         "guard_refusals": 1,
         "phase_records": 0
       },
-      "guard_reason": "hmac_mismatch :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\N5_edited_rundir\\\\EXECUTION_CONTEXT_eb05c0cfc8037dcbedcc05e9514b7c33.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
+      "guard_reason": "hmac_mismatch :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\N5_edited_rundir\\\\EXECUTION_CONTEXT_9c25ecfbd71a5012a4c6c57a3cb37e8f.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
       "returncode": 1,
-      "stderr_tail": "c\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\N5_edited_rundir\\\\EXECUTION_CONTEXT_eb05c0cfc8037dcbedcc05e9514b7c33.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
-      "wall_s": 2.2339999999385327
+      "stderr_tail": "c\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\N5_edited_rundir\\\\EXECUTION_CONTEXT_9c25ecfbd71a5012a4c6c57a3cb37e8f.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
+      "wall_s": 2.280999999959022
     },
     "N6 context edited (digest)": {
       "artifacts": {
@@ -127,10 +127,10 @@
         "guard_refusals": 1,
         "phase_records": 0
       },
-      "guard_reason": "hmac_mismatch :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\N6_edited_digest\\\\EXECUTION_CONTEXT_5a001100ef83c44c95c8e508558369da.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
+      "guard_reason": "hmac_mismatch :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\N6_edited_digest\\\\EXECUTION_CONTEXT_63534012d308d59b7e1025c2951d9dce.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
       "returncode": 1,
-      "stderr_tail": "c\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\N6_edited_digest\\\\EXECUTION_CONTEXT_5a001100ef83c44c95c8e508558369da.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
-      "wall_s": 2.25
+      "stderr_tail": "c\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\N6_edited_digest\\\\EXECUTION_CONTEXT_63534012d308d59b7e1025c2951d9dce.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
+      "wall_s": 2.2339999999385327
     },
     "N7 receipt names another run": {
       "artifacts": {
@@ -147,7 +147,7 @@
       "guard_reason": "consumption_run_id_mismatch :: {\"receipt_run\": \"d3l1-real-f-forward-99999999-v999\", \"context_run\": \"d3l1-real-f-forward-20261015-v120\"}",
       "returncode": 1,
       "stderr_tail": "EXECUTION CONTEXT REFUSED: consumption_run_id_mismatch :: {\"receipt_run\": \"d3l1-real-f-forward-99999999-v999\", \"context_run\": \"d3l1-real-f-forward-20261015-v120\"}",
-      "wall_s": 2.2350000001024455
+      "wall_s": 2.2660000000614673
     },
     "N8 credential edited after consumption": {
       "artifacts": {
@@ -164,7 +164,7 @@
       "guard_reason": "credential_digest_changed_after_consumption :: {\"note\": \"the credential bytes no longer produce the digest that was consumed\"}",
       "returncode": 1,
       "stderr_tail": "EXECUTION CONTEXT REFUSED: credential_digest_changed_after_consumption :: {\"note\": \"the credential bytes no longer produce the digest that was consumed\"}",
-      "wall_s": 2.3119999999180436
+      "wall_s": 2.25
     },
     "N9 synthetic-command smuggling": {
       "artifacts": {
@@ -184,19 +184,19 @@
       },
       "context_records_on_disk": 0,
       "guard_probe_returncode": 1,
-      "guard_probe_stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"REFUSED\",\n \"reason\": \"context_env_missing_file :: {\\\"context_path\\\": \\\"C:\\\\\\\\Users\\\\\\\\mmc\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\v120_acc_tukowncr\\\\\\\\N9_smugg",
+      "guard_probe_stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"REFUSED\",\n \"reason\": \"context_env_missing_file :: {\\\"context_path\\\": \\\"C:\\\\\\\\Users\\\\\\\\mmc\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\v120_acc_0kxz4n7r\\\\\\\\N9_smugg",
       "returncode": 1,
-      "wall_s": 3.8910000000614673
+      "wall_s": 3.922000000020489
     },
     "P1 guard accepts the supervised context": {
       "consumption_exists": true,
       "premature_refusal": "refusing to publish an execution context without a consumed credential: the context is the proof of consumption, so it cannot precede it",
       "probe_returncode": 0,
-      "probe_stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"PASSED\",\n \"run_id\": \"d3l1-real-f-forward-20261015-v120\",\n \"nonce\": \"5d03f0a9f4d66c0d03f5ec3cde55b20e\",\n \"supervisor_pid\": 25880,\n \"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\consumption_p1\\\\authorization_consumption_993ba4ad557c8ae003adeb80e1059840cc5614c661322c9939d3afeccd77b026.json\",\n \"credential_content_sha256\"",
+      "probe_stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"PASSED\",\n \"run_id\": \"d3l1-real-f-forward-20261015-v120\",\n \"nonce\": \"e5c874ed253cecdd83924bcbc7753a13\",\n \"supervisor_pid\": 4488,\n \"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\consumption_p1\\\\authorization_consumption_7b4e03ea13fe14d3330fb7e51613ab2f7bde535216aba508c607e6a227295aa9.json\",\n \"credential_content_sha256\":",
       "secret_created_owner_only_via": "os.open(O_CREAT|O_EXCL, 0o600)",
       "secret_mode": "0o666",
       "secret_mode_is_enforceable_here": false,
-      "wall_s": 2.1870000001508743
+      "wall_s": 2.156999999890104
     },
     "P2 supervised synthetic path": {
       "context_record_published": false,
@@ -205,7 +205,7 @@
       "returncode": 0,
       "round_status": "ROUND_PASS",
       "verdict": "REAL_F_FORWARD_ENGINEERING_PASS",
-      "wall_s": 4.952999999979511
+      "wall_s": 4.905999999959022
     }
   },
   "rows": [
@@ -242,7 +242,7 @@
           "phase_records": 0
         },
         "returncode": 1,
-        "stderr_tail": "EXECUTION CONTEXT REFUSED: context_env_missing_file :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\nope.json\"}"
+        "stderr_tail": "EXECUTION CONTEXT REFUSED: context_env_missing_file :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\nope.json\"}"
       },
       "name": "N2 `--worker` with the context variable pointing at a MISSING file refuses",
       "ok": true
@@ -268,9 +268,9 @@
           "guard_refusals": 1,
           "phase_records": 0
         },
-        "guard_reason": "consumption_receipt_missing :: {\"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\forged_consumption.json\", \"note\": \"no one-shot consumption exists, so no human-approved credential was spent on this run\"}",
+        "guard_reason": "consumption_receipt_missing :: {\"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\forged_consumption.json\", \"note\": \"no one-shot consumption exists, so no human-approved credential was spent on this run\"}",
         "returncode": 1,
-        "stderr_tail": "\"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\forged_consumption.json\", \"note\": \"no one-shot consumption exists, so no human-approved credential was spent on this run\"}"
+        "stderr_tail": "\"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\forged_consumption.json\", \"note\": \"no one-shot consumption exists, so no human-approved credential was spent on this run\"}"
       },
       "name": "N4 a HAND-WRITTEN context with a self-made HMAC is refused: inventing a nonce proves nothing, because the one-shot consumption receipt cannot be fabricated",
       "ok": true
@@ -288,9 +288,9 @@
           "guard_refusals": 1,
           "phase_records": 0
         },
-        "guard_reason": "hmac_mismatch :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\N5_edited_rundir\\\\EXECUTION_CONTEXT_eb05c0cfc8037dcbedcc05e9514b7c33.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
+        "guard_reason": "hmac_mismatch :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\N5_edited_rundir\\\\EXECUTION_CONTEXT_9c25ecfbd71a5012a4c6c57a3cb37e8f.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
         "returncode": 1,
-        "stderr_tail": "c\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\N5_edited_rundir\\\\EXECUTION_CONTEXT_eb05c0cfc8037dcbedcc05e9514b7c33.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}"
+        "stderr_tail": "c\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\N5_edited_rundir\\\\EXECUTION_CONTEXT_9c25ecfbd71a5012a4c6c57a3cb37e8f.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}"
       },
       "name": "N5 a context EDITED after signing (run_dir changed) is refused by the HMAC",
       "ok": true
@@ -308,9 +308,9 @@
           "guard_refusals": 1,
           "phase_records": 0
         },
-        "guard_reason": "hmac_mismatch :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\N6_edited_digest\\\\EXECUTION_CONTEXT_5a001100ef83c44c95c8e508558369da.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
+        "guard_reason": "hmac_mismatch :: {\"context_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\N6_edited_digest\\\\EXECUTION_CONTEXT_63534012d308d59b7e1025c2951d9dce.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}",
         "returncode": 1,
-        "stderr_tail": "c\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\N6_edited_digest\\\\EXECUTION_CONTEXT_5a001100ef83c44c95c8e508558369da.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}"
+        "stderr_tail": "c\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\N6_edited_digest\\\\EXECUTION_CONTEXT_63534012d308d59b7e1025c2951d9dce.json\", \"note\": \"the context was hand-written or edited after the supervisor signed it\"}"
       },
       "name": "N6 a context EDITED after signing (credential digest changed) is refused by the HMAC",
       "ok": true
@@ -374,7 +374,7 @@
         },
         "context_records_on_disk": 0,
         "guard_probe_returncode": 1,
-        "guard_probe_stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"REFUSED\",\n \"reason\": \"context_env_missing_file :: {\\\"context_path\\\": \\\"C:\\\\\\\\Users\\\\\\\\mmc\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\v120_acc_tukowncr\\\\\\\\N9_smugg",
+        "guard_probe_stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"REFUSED\",\n \"reason\": \"context_env_missing_file :: {\\\"context_path\\\": \\\"C:\\\\\\\\Users\\\\\\\\mmc\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\v120_acc_0kxz4n7r\\\\\\\\N9_smugg",
         "returncode": 1
       },
       "name": "N9 smuggling the real worker through `--synthetic-command` yields 0 real-F artifacts, the supervisor records that NO context was published, and the guard refuses",
@@ -409,7 +409,7 @@
         "consumption_exists": true,
         "premature_refusal": "refusing to publish an execution context without a consumed credential: the context is the proof of consumption, so it cannot precede it",
         "probe_returncode": 0,
-        "probe_stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"PASSED\",\n \"run_id\": \"d3l1-real-f-forward-20261015-v120\",\n \"nonce\": \"5d03f0a9f4d66c0d03f5ec3cde55b20e\",\n \"supervisor_pid\": 25880,\n \"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_tukowncr\\\\consumption_p1\\\\authorization_consumption_993ba4ad557c8ae003adeb80e1059840cc5614c661322c9939d3afeccd77b026.json\",\n \"credential_content_sha256\"",
+        "probe_stdout": "{\n \"stage\": \"execution_context_guard\",\n \"guard\": \"PASSED\",\n \"run_id\": \"d3l1-real-f-forward-20261015-v120\",\n \"nonce\": \"e5c874ed253cecdd83924bcbc7753a13\",\n \"supervisor_pid\": 4488,\n \"consumption_path\": \"C:\\\\Users\\\\mmc\\\\AppData\\\\Local\\\\Temp\\\\v120_acc_0kxz4n7r\\\\consumption_p1\\\\authorization_consumption_7b4e03ea13fe14d3330fb7e51613ab2f7bde535216aba508c607e6a227295aa9.json\",\n \"credential_content_sha256\":",
         "secret_created_owner_only_via": "os.open(O_CREAT|O_EXCL, 0o600)",
         "secret_mode": "0o666",
         "secret_mode_is_enforceable_here": false
@@ -438,5 +438,5 @@
   "tool_sha256": "57bfa064cae081d1d91c4af53a98f88caa32ad22e28c0722d1e88dc2ca1ccd0d",
   "training_runs": 0,
   "verdict": "EXECUTION_ENTRY_BYPASS_CLOSED",
-  "wall_s": 31.906999999890104
+  "wall_s": 31.57799999997951
 }

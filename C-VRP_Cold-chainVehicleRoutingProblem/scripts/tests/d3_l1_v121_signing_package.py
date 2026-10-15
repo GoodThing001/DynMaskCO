@@ -30,6 +30,7 @@ import hashlib
 import json
 import subprocess
 import sys
+import os
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -43,17 +44,18 @@ import d3_l1_v118_persistence as persistence                                 # n
 
 RUNNER = EXT / 'scripts/simulation/d3_l1_v118_forward_runner.py'
 EV = REPO / 'research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1'
-RUN_ID = 'd3l1-real-f-forward-20261015-v121'
-RUN_DIR = EV / 'v121_evidence/run_v121'
-PREREG = EV / 'A1_D3_L1_REAL_F_FORWARD_EXECUTION_PREREGISTRATION_V1_21.md'
-TEMPLATE = EV / 'v121_evidence/AUTHORIZATION_TEMPLATE_V121.json'
+RUN_ID = os.environ.get('V_SIGN_RUN_ID', 'd3l1-real-f-forward-20261015-v122')
+RUN_DIR = EV / os.environ.get('V_SIGN_RUN_DIR', 'v122_evidence/run_v122')
+PREREG = EV / os.environ.get(
+    'V_SIGN_PREREG', 'A1_D3_L1_REAL_F_FORWARD_EXECUTION_PREREGISTRATION_V1_22.md')
+TEMPLATE = EV / os.environ.get('V_SIGN_TEMPLATE', 'v122_evidence/AUTHORIZATION_TEMPLATE_V122.json')
 STATE_LEDGER = EV / 'v19_evidence/formal_collection/STATE_LEDGER.jsonl'
-V121_ACC = EV / 'v121_evidence/D3_V121_FREEZE_CLOSURE_ACCEPTANCE.json'
-V121_ZERO = EV / 'v121_evidence/ZERO_REAL_F_WORK_AUDIT.json'
+V121_ACC = EV / 'v122_evidence/D3_V121_FREEZE_CLOSURE_ACCEPTANCE.json'
+V121_ZERO = EV / 'v122_evidence/ZERO_REAL_F_WORK_AUDIT.json'
 V120_BYPASS = EV / 'v120_evidence/D3_V120_BYPASS_ACCEPTANCE.json'
 V119_BLOCKERS = EV / 'v119_evidence/D3_V119_BLOCKER_ACCEPTANCE.json'
-V118_E2E = EV / 'v121_evidence/SYNTHETIC_END_TO_END.json'
-V121_VERIFIER = EV / 'v121_evidence/INDEPENDENT_READONLY_VERIFIER.json'
+V118_E2E = EV / 'v122_evidence/SYNTHETIC_END_TO_END.json'
+V121_VERIFIER = EV / 'v122_evidence/INDEPENDENT_READONLY_VERIFIER.json'
 
 
 def sha(path):

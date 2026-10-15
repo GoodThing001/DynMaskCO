@@ -98,13 +98,22 @@ def content_digest(credential):
 
 
 def consumption_dir(root=None):
-    """Where one-shot consumption records live.  Deliberately NOT inside the run directory."""
+    """Where one-shot consumption records live.  Deliberately NOT inside the run directory.
+
+    The path is resolved to an ABSOLUTE one.  A relative `--consumption-root` is interpreted against
+    whatever the process working directory happens to be when `consume()` runs, so a relative path
+    written for one directory and used from another made the exclusive create fail with
+    FileNotFoundError.  That crash happened BEFORE any F work and left the credential unconsumed, but
+    it is still a defect: the one-shot receipt must be findable deterministically for the whole life
+    of the run, and "the receipt directory could not be created" must never be conflated with "the
+    credential was spent".
+    """
     if root is not None:
-        return Path(root)
+        return Path(root).expanduser().resolve()
     env = os.environ.get('D3_AUTH_CONSUMPTION_DIR')
     if env:
-        return Path(env)
-    return Path(__file__).resolve().parents[2] / 'results' / 'd3_authorization_receipts'
+        return Path(env).expanduser().resolve()
+    return (Path(__file__).resolve().parents[2] / 'results' / 'd3_authorization_receipts').resolve()
 
 
 # ---------------------------------------------------------------------------------------------

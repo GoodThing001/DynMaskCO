@@ -1,0 +1,202 @@
+{
+  "F_D_Geo_comparisons": 0,
+  "F_forward_calls_on_real_model": 0,
+  "n_fail": 0,
+  "n_pass": 9,
+  "n_rows": 9,
+  "not_a_substitute_for": "the real F 64-state forward, which remains the single item awaiting the user signature",
+  "persistence_sha256": "3ccbf94a336bec14863542a613419a9071fbf7045526ee9b19a1740252c961f7",
+  "read_diagnostics": {
+    "exhausted_permission_errors": 0,
+    "quarantined": 0,
+    "records_read": 28,
+    "transient_permission_errors": 3,
+    "verify_rereads": 26
+  },
+  "rows": [
+    {
+      "detail": {
+        "held_readers": 4,
+        "n_rows_qualified": 64,
+        "new_destination_names": [
+          "AUTHORIZATION",
+          "CONTROL",
+          "EXECUTION",
+          "FORWARD",
+          "FREEZE",
+          "IDENTITY",
+          "MODEL",
+          "READY",
+          "ROUND",
+          "RUN",
+          "SCORES",
+          "SLOT"
+        ],
+        "returncode": 0,
+        "round_status": "ROUND_PASS",
+        "stderr_tail": "",
+        "tail_ok": true,
+        "tail_publication_verified": true
+      },
+      "name": "S1 64 verified rows with readers holding every record open -> ROUND_PASS",
+      "ok": true,
+      "wall_s": 5.233999999938533
+    },
+    {
+      "detail": {
+        "injected_denials": 3,
+        "read_diagnostics": {
+          "exhausted_permission_errors": 0,
+          "quarantined": 0,
+          "records_read": 28,
+          "transient_permission_errors": 3,
+          "verify_rereads": 26
+        },
+        "recovered": true
+      },
+      "name": "S2 a transient Windows sharing denial is retried and the record is still read",
+      "ok": true,
+      "wall_s": 0.07800000021234155
+    },
+    {
+      "detail": {
+        "control_ok": false,
+        "control_reason": "supervisor_io_or_protocol_error",
+        "reader_error": "TransientReadError: corrupt record REC_ffffffffffffffffffffffffffffffff.json: JSONDecodeError('Expecting property name enclosed in double quotes: line 1 column 3 (char 2)')",
+        "returncode": 1,
+        "round_status": "ROUND_REVOKED"
+      },
+      "name": "S3 a corrupt record is a HARD bounded error on both the reader and the supervisor path",
+      "ok": true,
+      "wall_s": 4.390999999828637
+    },
+    {
+      "detail": {
+        "cleanup": {
+          "cleanup_ok": true,
+          "kill_reap_seconds": 0.01500000013038516,
+          "mechanism": "TerminateJobObject",
+          "pid": 34544,
+          "returncode": 137,
+          "tree_active_after": 0,
+          "tree_active_before": 1
+        },
+        "control_reason": "slot_span_deadline",
+        "round_status": "ROUND_REVOKED",
+        "statuses": {
+          "REVOKED_DURABLE_ROW_VERIFIED": 1,
+          "REVOKED_FAILED_TERMINATED_MID_SLOT": 1,
+          "REVOKED_NOT_ATTEMPTED_AFTER_TERMINATION": 62
+        },
+        "tree_active_after": 0,
+        "worker_control_wall_s": 4.078999999910593
+      },
+      "name": "S4 a blocked slot is killed by the real supervisor deadline -> round revoked",
+      "ok": true,
+      "wall_s": 6.812000000150874
+    },
+    {
+      "detail": {
+        "cleanup": null,
+        "control_reason": "worker_error",
+        "kill_report": {
+          "cleanup_ok": true,
+          "kill_reap_seconds": 0.01500000013038516,
+          "mechanism": "TerminateJobObject",
+          "pid": 17184,
+          "returncode": 137,
+          "tree_active_after": 0,
+          "tree_active_before": 1
+        },
+        "killed": true,
+        "round_status": "ROUND_REVOKED",
+        "statuses": [
+          "REVOKED_FAILED_TERMINATED_MID_SLOT",
+          "REVOKED_NOT_ATTEMPTED_AFTER_TERMINATION"
+        ],
+        "tree_active_after": 0
+      },
+      "name": "S5 a real forced process-tree kill mid-slot -> round revoked",
+      "ok": true,
+      "wall_s": 7.156999999890104
+    },
+    {
+      "detail": {
+        "control_reason": "HARD_STOP_IDENTITY_END",
+        "identity_payload_problems": [
+          "path digest changed: C:\\Users\\mmc\\AppData\\Local\\Temp\\v118_acc_144axo3k\\WATCHED_IDENTITY.txt"
+        ],
+        "n_rows_qualified": 0,
+        "reason": "TAIL_IDENTITY_MISSING_OR_INVALID",
+        "returncode": 1,
+        "round_status": "ROUND_REVOKED"
+      },
+      "name": "S6 a trailing identity record that disagrees with the frozen files -> round revoked",
+      "ok": true,
+      "wall_s": 5.077999999979511
+    },
+    {
+      "detail": {
+        "identity_payload_problems": [
+          "no identity_end record was published in the phase journal"
+        ],
+        "reason": "TAIL_IDENTITY_PAYLOAD_INVALID",
+        "returncode": 1,
+        "round_status": "ROUND_REVOKED"
+      },
+      "name": "S7 a missing trailing identity record -> round revoked",
+      "ok": true,
+      "wall_s": 4.562000000150874
+    },
+    {
+      "detail": {
+        "reason": "INCOMPLETE_ROWS",
+        "returncode": 1,
+        "round_status": "ROUND_REVOKED",
+        "rows_status_counts": {
+          "REVOKED_DURABLE_ROW_VERIFIED": 63,
+          "REVOKED_NOT_ATTEMPTED_AFTER_TERMINATION": 1
+        }
+      },
+      "name": "S8 63 of 64 rows -> ROUND_REVOKED (INCOMPLETE_ROWS)",
+      "ok": true,
+      "wall_s": 4.875
+    },
+    {
+      "detail": {
+        "n_rows_qualified": 0,
+        "returncode": 1,
+        "round_status": "ROUND_REVOKED",
+        "rows_status_counts": {
+          "REVOKED_DURABLE_ROW_VERIFIED": 63,
+          "REVOKED_FAILED_ROW_OR_PUBLICATION": 1
+        }
+      },
+      "name": "S9 a row whose score length contradicts the ordered legal length -> verification FAIL",
+      "ok": true,
+      "wall_s": 4.875
+    }
+  ],
+  "run_id": "d3l1-real-f-forward-20261015-v118",
+  "runner_sha256": "34c3b51279453fef247a41087d2e581a562937dc4ff7debb48b98777a4b3cc69",
+  "schema": "d3_l1_v118_synthetic_end_to_end",
+  "science_ready": false,
+  "scorer": "SYNTHETIC_SCORER_NOT_F -- the F model is deliberately not loaded here",
+  "stable_online_gain": false,
+  "synthetic_worker_sha256": "eb87823dc728f7fdc25d901cb387ef6278f427db54f7ca3e61c1a36f99614018",
+  "targets_sha256": "bfff7d14c8f865fa1876e3f742aae75c49a60b7ac41a42f5e865479f5bb37ba0",
+  "tool_sha256": "27f2a12dd216f40c407743145af5384947bb146b7ff4ab1e61a3344ce5ca8b28",
+  "training_runs": 0,
+  "verdict": "NEW_DESTINATION_PERSISTENCE_ACCEPTED",
+  "what_is_real": [
+    "d3_l1_v118_forward_runner.supervise (the production supervisor entry)",
+    "V1.16 run_contained / reconcile_rows / round_verdict",
+    "V1.18 publish_new(verify=True) new-destination persistence",
+    "V1.18 verify_slot_record / verify_identity target verifier",
+    "the V1.14 phase journal"
+  ],
+  "what_is_synthetic": [
+    "the F model forward (replaced by a deterministic scorer)",
+    "the score values themselves"
+  ]
+}
