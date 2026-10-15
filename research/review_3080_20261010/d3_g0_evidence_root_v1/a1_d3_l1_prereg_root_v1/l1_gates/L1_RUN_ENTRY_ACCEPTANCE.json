@@ -1,0 +1,147 @@
+{
+  "n_fail": 0,
+  "n_pass": 5,
+  "n_rows": 5,
+  "not_run": [
+    "the real F-vs-D-Geo comparison",
+    "training",
+    "L2",
+    "L3",
+    "the 40-day batch",
+    "the final test"
+  ],
+  "results": {
+    "E1": {
+      "budget": {
+        "batch_wall_clock_s": 180.0,
+        "initialize_compile_s": 60.0,
+        "mask_steps_m": 2,
+        "per_arm_per_state_scorer_calls": 2,
+        "per_arm_total_scorer_calls": 128,
+        "per_state_wall_clock_s": 10.0
+      },
+      "n_states": 64,
+      "n_watch": 34,
+      "returncode": 0,
+      "run_id": "d3l1-l1-two-arm-20261015-l1v1",
+      "state_binding_sha256": "f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1"
+    },
+    "E2": {
+      "V1_counts": {
+        "DIVERGENT": 2,
+        "IDENTICAL": 1,
+        "NOT_APPLICABLE_EMPTY_MASK": 0,
+        "NOT_COMPARABLE": 0
+      },
+      "n_records": 3,
+      "returncode": 0,
+      "scope": "SYNTHETIC ACCEPTANCE ONLY: three states, synthetic scorer, no scientific reading"
+    },
+    "E3": {
+      "artifacts": [],
+      "returncode": 1,
+      "stderr_tail": "NTEXT\", \"note\": \"the real F worker may only be started by the supervisor, which publishes an authorization context after consuming a human-approved credential\"}"
+    },
+    "E4": {
+      "V1_counts": {
+        "DIVERGENT": 48,
+        "IDENTICAL": 16,
+        "NOT_APPLICABLE_EMPTY_MASK": 0,
+        "NOT_COMPARABLE": 0
+      },
+      "V3": "NOT_RUN for every state (no certifier was supplied; no plan was installed)",
+      "all_ledgers_cross_checked": true,
+      "n_records": 64,
+      "reason": null,
+      "returncode": 0,
+      "supervision_ok": true,
+      "worker_control_wall_s": 6.687999999849126
+    },
+    "E5": {
+      "context_published": true,
+      "n_contexts": 1,
+      "n_receipts": 1
+    }
+  },
+  "rows": [
+    {
+      "detail": {
+        "budget": {
+          "batch_wall_clock_s": 180.0,
+          "initialize_compile_s": 60.0,
+          "mask_steps_m": 2,
+          "per_arm_per_state_scorer_calls": 2,
+          "per_arm_total_scorer_calls": 128,
+          "per_state_wall_clock_s": 10.0
+        },
+        "n_states": 64,
+        "n_watch": 34,
+        "returncode": 0,
+        "run_id": "d3l1-l1-two-arm-20261015-l1v1",
+        "state_binding_sha256": "f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1"
+      },
+      "name": "E1 freeze materialises the L1 identity: 64 states, the 34-path watch set, the frozen budget and the state binding",
+      "ok": true
+    },
+    {
+      "detail": {
+        "artifacts": [],
+        "returncode": 1,
+        "stderr_tail": "NTEXT\", \"note\": \"the real F worker may only be started by the supervisor, which publishes an authorization context after consuming a human-approved credential\"}"
+      },
+      "name": "E3 a direct `--worker` start REFUSES before loading anything (no execution context)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "V1_counts": {
+          "DIVERGENT": 48,
+          "IDENTICAL": 16,
+          "NOT_APPLICABLE_EMPTY_MASK": 0,
+          "NOT_COMPARABLE": 0
+        },
+        "V3": "NOT_RUN for every state (no certifier was supplied; no plan was installed)",
+        "all_ledgers_cross_checked": true,
+        "n_records": 64,
+        "reason": null,
+        "returncode": 0,
+        "supervision_ok": true,
+        "worker_control_wall_s": 6.687999999849126
+      },
+      "name": "E4 the full supervised path runs: authorize -> one-shot consume -> execution context -> contained worker -> 64 per-state records -> adjudication with V3 = NOT_RUN",
+      "ok": true
+    },
+    {
+      "detail": {
+        "context_published": true,
+        "n_contexts": 1,
+        "n_receipts": 1
+      },
+      "name": "E5 the supervised path leaves exactly ONE consumption receipt and a published execution context (so the single real opportunity is accounted for)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "V1_counts": {
+          "DIVERGENT": 2,
+          "IDENTICAL": 1,
+          "NOT_APPLICABLE_EMPTY_MASK": 0,
+          "NOT_COMPARABLE": 0
+        },
+        "n_records": 3,
+        "returncode": 0,
+        "scope": "SYNTHETIC ACCEPTANCE ONLY: three states, synthetic scorer, no scientific reading"
+      },
+      "name": "E2 the standalone synthetic acceptance runs both arms on three states and labels the record SYNTHETIC",
+      "ok": true
+    }
+  ],
+  "run_id": "d3l1-l1-two-arm-20261015-l1v1",
+  "runner_sha256": "36ad34c679f92988d74af310c44b5e387f1ca6569fc21bc857d4f55d6331066e",
+  "schema": "d3_l1_run_entry_acceptance",
+  "science_ready": false,
+  "scorer": "SYNTHETIC_SCORER_NOT_F -- this acceptance says nothing about MaskCO or D-Geo",
+  "stable_online_gain": false,
+  "tool_sha256": "80a957d21bb34a25e7bc5ee07e8000512b00ddd228b39bd13edb1830a5291734",
+  "verdict": "L1_RUN_ENTRY_ACCEPTED"
+}

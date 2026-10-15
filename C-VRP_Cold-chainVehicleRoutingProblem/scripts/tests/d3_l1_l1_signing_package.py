@@ -316,6 +316,28 @@ def main():
             'what_it_does_NOT_prove': 'it is ONE state, so it makes no L1 divergence claim and '
                                       'cannot answer the L1 question',
         },
+        'run_entry': {
+            'module': 'scripts/simulation/d3_l1_l1_formal_run.py',
+            'sha256': sha(EXT / 'scripts/simulation/d3_l1_l1_formal_run.py'),
+            'modes': ['--freeze-identity', '--supervise', '--worker', '--synthetic-run',
+                      '--guard-probe'],
+            'acceptance': {
+                'file': 'l1_gates/L1_RUN_ENTRY_ACCEPTANCE.json',
+                'sha256': sha(L1 / 'L1_RUN_ENTRY_ACCEPTANCE.json'),
+                'verdict': (load(L1 / 'L1_RUN_ENTRY_ACCEPTANCE.json') or {}).get('verdict'),
+                'n_pass': (load(L1 / 'L1_RUN_ENTRY_ACCEPTANCE.json') or {}).get('n_pass'),
+                'n_fail': (load(L1 / 'L1_RUN_ENTRY_ACCEPTANCE.json') or {}).get('n_fail'),
+                'what_it_proves': 'freeze materialises 64 states / the 34-path watch set / the '
+                                  'frozen budget; a direct --worker REFUSES before loading anything; '
+                                  'the full supervised path runs authorize -> one-shot consume -> '
+                                  'execution context -> contained worker -> 64 per-state records -> '
+                                  'adjudication with V3 = NOT_RUN; exactly one consumption receipt '
+                                  'and one execution context are produced',
+                'scorer': 'SYNTHETIC: the acceptance says nothing about MaskCO or D-Geo',
+            },
+            'guard': 'shared with the V1.22 F path (d3_l1_v120_execution_context): a real L1 run '
+                     'cannot start without a consumed, identity-bound credential',
+        },
         'execution_command': (
             'python scripts/simulation/d3_l1_l1_formal_run.py '
             '--run-id d3l1-l1-two-arm-20261015-l1v1 --manifest <frozen manifest> '
