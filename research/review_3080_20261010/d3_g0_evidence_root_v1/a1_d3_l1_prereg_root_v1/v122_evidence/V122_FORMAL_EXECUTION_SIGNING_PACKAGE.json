@@ -1,19 +1,11 @@
 {
   "1_git": {
     "branch_sync": true,
-    "dirty_entries": [
-      "M C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_l1_v118_authorization.py",
-      " M C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/d3_l1_v121_signing_package.py",
-      " M research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V119_BLOCKER_ACCEPTANCE.json",
-      " M research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v120_evidence/D3_V120_BYPASS_ACCEPTANCE.json",
-      " M research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v121_evidence/v116_regression/A1_D3_L1_V116_FORWARD_CONTROL_ACCEPTANCE.json",
-      "?? _make_credential.py",
-      "?? research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/A1_D3_L1_REAL_F_FORWARD_EXECUTION_PREREGISTRATION_V1_22.md",
-      "?? research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v121_evidence/AUTHORIZATION_V121_APPROVED.json"
-    ],
-    "head": "52aa4ad67307cf544ecb63a934629f88e13daf5c",
-    "origin_main": "52aa4ad67307cf544ecb63a934629f88e13daf5c",
-    "worktree_clean_except_known_gitlink": false
+    "dirty_entries": [],
+    "head": "b10734e743c882b08dcf6784c65e26a6283ab1f5",
+    "note": "the git block is stamped with the commit that CARRIES this artifact",
+    "origin_main": "b10734e743c882b08dcf6784c65e26a6283ab1f5",
+    "worktree_clean_except_known_gitlink": true
   },
   "2_run": {
     "pre_registration": {
@@ -620,10 +612,10 @@
     },
     "consumption_for_this_run": [],
     "file": "research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v122_evidence\\ZERO_REAL_F_WORK_AUDIT.json",
-    "n_fail": 1,
-    "n_pass": 6,
-    "sha256": "5d17d4e0cb9cc9100213f2fdcdf09c7ef19c0ce57e13e8772bd397a7e39cbaa2",
-    "verdict": "ZERO_F_CLAIM_REJECTED"
+    "n_fail": 0,
+    "n_pass": 7,
+    "sha256": "8d01c5edabb46fa8ebc6ad3adc6c029df7711d60f52c9857b4ab57cbab884ef5",
+    "verdict": "ZERO_REAL_F_WORK_CONFIRMED"
   },
   "9_authorization_template": {
     "binding_detail": {
@@ -752,7 +744,7 @@
   },
   "blocking_for_this_stage": "none: the C0 formal budget is NOT required for a scoring-interface pass, because no plan is installed",
   "consumption_rule": "PASS, FAIL, timeout or a mid-batch kill all consume the single opportunity: no re-run, no filling missing states, and never splicing V1.11's 42 missing records",
-  "generated_utc_git_head": "52aa4ad67307cf544ecb63a934629f88e13daf5c",
+  "generated_utc_git_head": "b10734e743c882b08dcf6784c65e26a6283ab1f5",
   "schema": "d3_l1_v121_formal_execution_signing_package",
   "tool_sha256": "4613abefee627773d508d2e1ffae4fca9db810b4f95c82b5b240ff97c595983c",
   "what_a_signature_authorises": [
