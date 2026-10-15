@@ -120,4 +120,6 @@
 
 ---
 
-_生成器：`CC_Compare/tools/render_qualification_tiered_table.py`；源提交 `b02989623fce6b818b62b99a17dc10827929a3fb`；旧总表工作树 SHA `7d94a4d783f60a21`。_
+_生成器：`CC_Compare/tools/render_qualification_tiered_table.py`；旧总表工作树 SHA `7d94a4d783f60a21`。_
+
+> **可复现性**：本件是「旧总表解析 + 资格矩阵」的**纯函数**（页脚**不含**生成时的 commit），因此重跑生成器必须得到**逐字节相同**的 SHA。生成时的来源提交只记在 `ARTIFACT_MANIFEST_v2_资格分层.json` 的 `source_commit` 字段。

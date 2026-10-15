@@ -399,8 +399,11 @@ def md_report(enriched, meta):
     A('---')
     A('')
     A('_生成器：`CC_Compare/tools/render_qualification_tiered_table.py`；'
-      '源提交 `%s`；旧总表工作树 SHA `%s`。_'
-      % (meta['source_commit'], meta['old_table_worktree_sha256'][:16]))
+      '旧总表工作树 SHA `%s`。_' % meta['old_table_worktree_sha256'][:16])
+    A('')
+    A('> **可复现性**：本件是「旧总表解析 + 资格矩阵」的**纯函数**'
+      '（页脚**不含**生成时的 commit），因此重跑生成器必须得到**逐字节相同**的 SHA。'
+      '生成时的来源提交只记在 `%s` 的 `source_commit` 字段。' % NEW_MANIFEST_NAME)
     return '\n'.join(L) + '\n'
 
 
@@ -518,6 +521,10 @@ def main(argv=None):
         'qualification_matrix_source': ('CC_Compare/audit/'
                                         'BASELINE_QUALIFICATION_MATRIX_2026-10-14.json'),
         'qualification_matrix_sha256': _sha_bytes(_read_bytes(MATRIX)),
+        'reproducibility': ('`%s` 是「旧总表解析 + 资格矩阵」的**纯函数**'
+                            '（页脚不含生成时 commit）⇒ 重跑生成器必须得到逐字节相同的 '
+                            '`new_sha256`。生成时的来源提交只记在本 manifest 的 '
+                            '`source_commit`。' % NEW_NAME),
         'field_adjustments': [
             '新增 pairing_group（A/B/NONE）：配对范围与证据资格**分开**',
             '新增 evidence_tier（%s）：机械判定，顺序即优先级' % ' / '.join(EVIDENCE_TIERS),

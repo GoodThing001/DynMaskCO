@@ -115,8 +115,8 @@
   ],
   "kind": "development-display-package-v2-qualification-tiered",
   "new_path": "CC_Compare/docs/a1_development_comparison/A-v1对比方法总表_v2_资格分层.md",
-  "new_sha256": "df785e993d4b4651de02fcc8d41d97cfa1f880ef86c603e556513cb525af5bef",
-  "new_size": 14773,
+  "new_sha256": "7bf58fd50d96644e2df801361e0d4b3b34f49b5bd3949e853ad256994dce5e79",
+  "new_size": 15012,
   "note": "**版本化展示件**。旧总表与旧 `ARTIFACT_MANIFEST.json` **逐字节保留、不被覆盖**。本 manifest 只描述**新增**的 v2 展示件。",
   "old_manifest_path": "CC_Compare/docs/a1_development_comparison/ARTIFACT_MANIFEST.json",
   "old_manifest_sha256": "626dfbd1524b88f1bbfe39f37a5dc1dc6f59a8105c4ee39991b588791d79277b",
@@ -148,6 +148,7 @@
   },
   "qualification_matrix_sha256": "932a8fbf006f301f606de648ee74aa87dd84970f87f18a258eab608ddf21cdb7",
   "qualification_matrix_source": "CC_Compare/audit/BASELINE_QUALIFICATION_MATRIX_2026-10-14.json",
+  "reproducibility": "`A-v1对比方法总表_v2_资格分层.md` 是「旧总表解析 + 资格矩阵」的**纯函数**（页脚不含生成时 commit）⇒ 重跑生成器必须得到逐字节相同的 `new_sha256`。生成时的来源提交只记在本 manifest 的 `source_commit`。",
   "rows": [
     {
       "arm": "cond_hist",
@@ -657,5 +658,5 @@
     }
   ],
   "selfcheck_ok": true,
-  "source_commit": "b02989623fce6b818b62b99a17dc10827929a3fb"
+  "source_commit": "1aa9a63562cc9a7dcdfae8b5024ebef1147cf064"
 }
