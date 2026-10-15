@@ -7,6 +7,22 @@
 - 当前 HEAD（最近一次本账本更新时）：见 §1「已消费正式实验」与最后一次 commit。
 - 权威顺序：最新用户复核 > `项目当前状态.md` > 进度表顶部 > 本账本 > 历史报告。
 
+## 0. 最近收束（新会话从这里续接）
+
+- **V1.18(A) 归档资产冻结已闭合（commit `52362db`）**：`scripts/tests/d3_l1_v118_freeze_check.py`
+  已改为读**真实** V1.9 采集归档 `v19_evidence/formal_collection/STATE_LEDGER.jsonl`
+  （行语义 = `event == 'PUBLISHED'`，不是 `status`）：64 行按**发布顺序**（= 规范 `(day_id, position)` 顺序，
+  绝不重排）、64/64 带 `state_hash`、128/128 snapshot+validation 原始文件 SHA 现场复算一致、
+  完整性位（`bitwise_parity_ok`/`projection_causal`/`suffix_boundary_sha_equal`/
+  `ledger_integrity_ok`/`registered_before_capture`）全为真、`run_id` 唯一。
+  证据 `v118_evidence/D3_V118_FREEZE_CHECK.json` = **4 行 / 4 PASS / 0 FAIL**。
+- 同时**实测**采集预算（仅作溯源，**不是**新运行冻结值）：`slot_span_wall_s` min/median/max =
+  0.625 / 1.422 / 3.328 s（n=64）；`day_rollout_wall_s` max = 0.519 s（n=16）。
+- 事故与恢复（如实记录，未隐藏、未降低强度）：一次工作树补丁损坏了该脚本（丢失 `main()`、argparse 与
+  V118-1/2 身份检查）；已从 `1b2bc9b` **逐字节恢复**并只重放定位器改写。
+- **仍为 `NOT_READY`，未产生任何新科学结论**：缺隔离新 `run_id`、新运行自身的预算冻结、
+  真实 F worker 上的 Windows 新目标持久化验收、绑定新 run 身份的只读独立复核器。
+
 ## 1. 已消费的正式实验次数（**不得复用、不得重跑**）
 
 | 实验 | 次数 | 状态 | 证据 |
