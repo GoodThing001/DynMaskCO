@@ -1,0 +1,160 @@
+{
+  "closes_gap": "A-5c no durable P_after_install receipt (in-memory receipts only)",
+  "geo_adapter_sha256": "099c3517472d886ece4ea3e929df2ec54d0e459b2a2e2e07da5b658acc07adc5",
+  "n_fail": 0,
+  "n_pass": 7,
+  "n_rows": 7,
+  "no_live_install": true,
+  "receipt_module_sha256": "af14abd02dac74e04cc1dbefb423bc162d65c5777a40652091b53032eec40da7",
+  "rows": [
+    {
+      "detail": {
+        "in_process_ok": true,
+        "install_index_recorded": 1,
+        "n_receipts": 1,
+        "producer_readback_ok": true,
+        "receipt_name": "receipt_000000000_1617abeddbc24f0da4f74d0be29b6931.json",
+        "receipt_sha256": "3632f8f3c63caf6c9b1de2ea1e8d4417f91fdb6bd1fe68c42caf2c4440e4d2d6",
+        "separate_process_ok": true,
+        "separate_process_stdout": {
+          "installed_plan_hash": "87f8c00d2d321e6f",
+          "ok": true,
+          "plan_reproduced": "87f8c00d2d321e6f",
+          "problems": [],
+          "schema_ok": true
+        }
+      },
+      "name": "R1 a receipted install is re-read by a SEPARATE process and reproduces its plan hash",
+      "ok": true,
+      "wall_s": 0.2970000000204891
+    },
+    {
+      "detail": {
+        "installed": false,
+        "ledger_events": [
+          {
+            "action": "rollback",
+            "candidate_discarded": true,
+            "committed_state_restored": false,
+            "reason": "cert_fail",
+            "rollback_unverified": true
+          }
+        ],
+        "ledger_refusals": 0,
+        "n_receipts": 0,
+        "reader_on_absent": {
+          "ok": false,
+          "problems": [
+            "receipt file is absent"
+          ]
+        }
+      },
+      "name": "R2 a refused install writes NO receipt and the reader reports the gap",
+      "ok": true,
+      "wall_s": 0.0
+    },
+    {
+      "detail": {
+        "gate_installed": false,
+        "gate_refusal_reason": "certified_plan_identity_mismatch",
+        "installs_in_env": 0,
+        "n_receipts": 0,
+        "receipt_producer_installed": false,
+        "receipt_producer_refused": "the ledger installed nothing; no receipt is written"
+      },
+      "name": "R3 a plan that is not the certified one is refused and writes no receipt",
+      "ok": true,
+      "wall_s": 0.01600000006146729
+    },
+    {
+      "detail": {
+        "new_sha256": "85936e759b11a749c0150c5186f11269677b6df2f700033abbe65e013324ed31",
+        "original_sha256": "67e84e8cd20ac32b006dc4ea2534cce139f065d5ccc1428f8f2dacd1f82c23fd",
+        "problems": [
+          "receipt digest differs from the recorded digest",
+          "the receipt's installed and certified plan hashes differ",
+          "the receipt's plan value does not reproduce the recorded plan hash"
+        ],
+        "reader_ok": false
+      },
+      "name": "R4 tampered receipt bytes are detected by the digest check",
+      "ok": true,
+      "wall_s": 0.0
+    },
+    {
+      "detail": {
+        "plan_reproduced": "59e668a6e02d580c",
+        "problems": [
+          "the receipt's plan value does not reproduce the recorded plan hash"
+        ],
+        "reader_ok": false,
+        "recorded": "87f8c00d2d321e6f"
+      },
+      "name": "R5 an altered plan value no longer reproduces the recorded plan hash",
+      "ok": true,
+      "wall_s": 0.0
+    },
+    {
+      "detail": {
+        "a_ok": true,
+        "a_problems": [],
+        "b_ok": true,
+        "b_problems": [],
+        "distinct_names": true,
+        "hashes_differ": true,
+        "n_receipts": 2,
+        "names": [
+          "receipt_000000000_af60299672ef4ee5a853d012d19a8fed.json",
+          "receipt_000000001_cba9e096d0e94593825d4b2216746db9.json"
+        ]
+      },
+      "name": "R6 two installs produce two distinct, independently readable receipts",
+      "ok": true,
+      "wall_s": 0.0
+    },
+    {
+      "detail": {
+        "full_gate_decision": "ALLOW_PENDING_B3_INSTALL_RESULT",
+        "full_stages": {
+          "gate_allow": true,
+          "ledger_installed": true,
+          "receipt_durable": true,
+          "receipt_read_back": true
+        },
+        "gate_module": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_install_gate.py",
+        "gate_object_identity_reused": true,
+        "ledger_installed": true,
+        "n_receipts": 1,
+        "no_install_refused": "the frozen gate allowed, but the ledger installed nothing -- a gate ALLOW is not an install",
+        "no_install_stages": {
+          "gate_allow": true,
+          "ledger_installed": false,
+          "receipt_durable": false,
+          "receipt_read_back": false
+        },
+        "refusing_refusals": [
+          "deadline_exceeded"
+        ],
+        "refusing_stages": {
+          "gate_allow": false,
+          "ledger_installed": false,
+          "receipt_durable": false,
+          "receipt_read_back": false
+        }
+      },
+      "name": "R7 the full boundary reuses the FROZEN gate and an ALLOW alone is never an install",
+      "ok": true,
+      "wall_s": 0.014999999897554517
+    }
+  ],
+  "schema": "d3_install_receipt_acceptance",
+  "science_ready": false,
+  "stable_online_gain": false,
+  "still_open": [
+    "the environment's own commit is not observable from here (_plan_and_commit)",
+    "state-level rollback is not proven by a receipt",
+    "no quality / C0-energy property of the installed plan is claimed"
+  ],
+  "tool_sha256": "69cc8f1ee3cf8b82af7c541d3e53167b440dba664b105514caa40f1432d8db53",
+  "verdict": "DURABLE_INSTALL_RECEIPT_ACCEPTED"
+}
