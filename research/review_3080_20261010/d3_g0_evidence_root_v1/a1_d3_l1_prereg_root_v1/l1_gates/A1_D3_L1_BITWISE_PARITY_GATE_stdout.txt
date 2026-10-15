@@ -1,0 +1,5 @@
+[PASS] P0-A the corrected bitwise comparator passes every counterexample, including the four the user supplied (array data, float32 vs float64, int64 vs float64, list vs tuple) plus signed zero, NaN payloads, dtype, shape and missing keys :: {"all": "matched"}
+[FAIL] P0-B the perturbation is a deterministic pure function: n_invisible_modified > 0, the preservation rule holds, a repeat call yields an identical report, and the input snapshot is untouched :: {"deterministic": true, "fields": [], "n_invisible_modified": 0, "preserved": true, "verdict": "NOT_VERIFIABLE"}
+
+=== 2 rows, 1 PASS, 1 FAIL | BITWISE_COMPARATOR_QUALIFICATION=ESTABLISHED ===
+WROTE ..\research\review_3080_20261010\d3_g0_evidence_root_v1\a1_d3_l1_prereg_root_v1\l1_gates\A1_D3_L1_BITWISE_PARITY_GATE.json
