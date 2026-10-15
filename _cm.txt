@@ -1,5 +1,0 @@
-Remove the transient commit-message scratch file from the tree and the index
-
-`_cleanup_msg.txt` is scratch input to tools/git_deliver.py, not a deliverable. The previous commit
-staged it (as a rename of a deleted sibling) before it was deleted on disk; this commit records the
-deletion so the tracked tree stops carrying a scratch file. No deliverable content changes.

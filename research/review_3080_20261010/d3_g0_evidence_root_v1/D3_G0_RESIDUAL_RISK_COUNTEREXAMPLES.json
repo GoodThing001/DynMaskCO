@@ -1,0 +1,228 @@
+{
+  "by_risk": {
+    "A-2": {
+      "kinds": [
+        "FIX_CONFIRMED"
+      ],
+      "n": 2,
+      "n_confirmed": 2,
+      "status": "CLOSED_FIX_CONFIRMED"
+    },
+    "A-3b": {
+      "kinds": [
+        "RISK_CONFIRMED_OPEN"
+      ],
+      "n": 1,
+      "n_confirmed": 0,
+      "status": "RISK_CONFIRMED_STILL_OPEN"
+    },
+    "A-4b": {
+      "kinds": [
+        "FIX_CONFIRMED"
+      ],
+      "n": 2,
+      "n_confirmed": 2,
+      "status": "CLOSED_FIX_CONFIRMED"
+    },
+    "A-5b": {
+      "kinds": [
+        "FIX_CONFIRMED"
+      ],
+      "n": 1,
+      "n_confirmed": 1,
+      "status": "CLOSED_FIX_CONFIRMED"
+    },
+    "A-5d": {
+      "kinds": [
+        "FIX_CONFIRMED"
+      ],
+      "n": 2,
+      "n_confirmed": 2,
+      "status": "CLOSED_FIX_CONFIRMED"
+    }
+  },
+  "g0_note": "G0 is NOT qualified by this file: the remaining open items are the state certification (G-L), the real-write uniqueness (G-C), the conservative quality guarantee and the confirmed A-3b absence of a committed-prefix guard inside the adapter; and a receipt still cannot observe the environment's own commit",
+  "g0_qualified": false,
+  "geo_adapter_sha256": "099c3517472d886ece4ea3e929df2ec54d0e459b2a2e2e07da5b658acc07adc5",
+  "n_fix_confirmed": 7,
+  "n_risk_confirmed_open": 1,
+  "n_rows": 8,
+  "not_run": [
+    "any live install",
+    "any F forward",
+    "any comparison",
+    "any training"
+  ],
+  "results": [
+    {
+      "detail": {
+        "installs": 0,
+        "ledger_reason": "no_certifier",
+        "n_pre_sampling_refusals": 1,
+        "returned": false
+      },
+      "kind": "FIX_CONFIRMED",
+      "name": "a transaction with NO certifier refuses and installs nothing",
+      "observation_confirmed": true,
+      "risk": "A-2"
+    },
+    {
+      "detail": {
+        "certified_hash": "87f8c00d2d321e6f",
+        "installed_hash": "715e4d3333d7a51d",
+        "installs": 0,
+        "ledger_reason": "certified_plan_identity_mismatch",
+        "returned": false
+      },
+      "kind": "FIX_CONFIRMED",
+      "name": "\"certified A, installed B\" is refused (identity-bound certification)",
+      "observation_confirmed": true,
+      "risk": "A-2"
+    },
+    {
+      "detail": {
+        "adapter_exposes_a_committed_prefix_check": false,
+        "committed_customer_moved": false,
+        "failure_reason": null,
+        "plan_after": {
+          "0": [
+            5,
+            1
+          ],
+          "1": []
+        },
+        "plan_before": {
+          "0": [
+            5,
+            1
+          ],
+          "1": []
+        },
+        "steps": [
+          {
+            "customer": 1,
+            "incremental_distance": 1.0,
+            "position": 1,
+            "predecessor": 5,
+            "slot_anchor": 0,
+            "slot_kind": "anchored",
+            "successor": 0,
+            "vehicle_id": 0
+          }
+        ],
+        "where_the_real_guard_lives": "VehicleState + mask_candidate_pool / build_pool_B; the P0 audit recorded that adding a same-named fake field to the adapter would NOT fix this"
+      },
+      "kind": "RISK_CONFIRMED_OPEN",
+      "name": "the sampler moves a committed customer: the adapter has no committed-prefix guard, so the guard must live on the vehicle + pool layer",
+      "observation_confirmed": false,
+      "risk": "A-3b"
+    },
+    {
+      "detail": {
+        "after_caller_mutation": {
+          "0": [
+            1,
+            3,
+            77
+          ],
+          "1": [
+            3,
+            77
+          ],
+          "2": [
+            77
+          ]
+        },
+        "before": {
+          "0": [
+            1,
+            3
+          ],
+          "1": [
+            3
+          ],
+          "2": []
+        },
+        "installed": true,
+        "ledger_story_unchanged": true,
+        "recorded_plan_hash": "87f8c00d2d321e6f",
+        "stored_in_ledger": {
+          "0": [
+            1,
+            3
+          ],
+          "1": [
+            3
+          ],
+          "2": []
+        }
+      },
+      "kind": "FIX_CONFIRMED",
+      "name": "the ledger keeps a VALUE COPY: mutating the caller plan afterwards cannot change what was recorded",
+      "observation_confirmed": true,
+      "risk": "A-4b"
+    },
+    {
+      "detail": {
+        "installs": 0,
+        "reason": "certified_plan_identity_mismatch",
+        "returned": false
+      },
+      "kind": "FIX_CONFIRMED",
+      "name": "an unhashable plan is refused instead of installed on a None identity",
+      "observation_confirmed": true,
+      "risk": "A-4b"
+    },
+    {
+      "detail": {
+        "event": {
+          "action": "rollback",
+          "candidate_discarded": true,
+          "committed_state_restored": false,
+          "reason": "cert_fail",
+          "rollback_unverified": true
+        },
+        "n_rollback_unverified": 1,
+        "n_rollbacks": 1,
+        "n_state_restorations": 0
+      },
+      "kind": "FIX_CONFIRMED",
+      "name": "a failure with no rollback_fn is reported as rollback_UNVERIFIED, not as a completed restoration",
+      "observation_confirmed": true,
+      "risk": "A-5d"
+    },
+    {
+      "detail": {
+        "event": {
+          "action": "rollback",
+          "candidate_discarded": true,
+          "committed_state_restored": true,
+          "reason": "cert_fail",
+          "rollback_unverified": false
+        },
+        "n_state_restorations": 1,
+        "rollback_calls": 1
+      },
+      "kind": "FIX_CONFIRMED",
+      "name": "a failure WITH a rollback_fn is reported as committed_state_restored",
+      "observation_confirmed": true,
+      "risk": "A-5d"
+    },
+    {
+      "detail": {
+        "first": true,
+        "installs": 1,
+        "second": false,
+        "second_refusal": "already_finished"
+      },
+      "kind": "FIX_CONFIRMED",
+      "name": "a second finish on the same ledger is refused, so no double install",
+      "observation_confirmed": true,
+      "risk": "A-5b"
+    }
+  ],
+  "schema": "d3_g0_residual_risk_counterexamples",
+  "stable_online_gain": false,
+  "wall_s": 0.030999999959021807,
+  "what_this_is": "executable confirmation, on the CURRENT code, of the residual risks the P0 audit named -- not a re-statement of the audit"
+}
