@@ -1,0 +1,78 @@
+{
+  "fail": 1,
+  "pass": 3,
+  "records": {
+    "identities": {
+      "backbone": {
+        "label": "HISTORICAL_BACKBONE_UNVERIFIED",
+        "matches": true,
+        "path": "MASKCO_code/ckpts/cvrp100.ckpt",
+        "registered": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+        "sha256": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db"
+      },
+      "dev_check_npz": {
+        "matches": true,
+        "registered": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+        "sha256": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89"
+      },
+      "effective_contract": {
+        "matches": true,
+        "recomputed": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+        "registered": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833"
+      },
+      "f_ckpt": {
+        "matches": true,
+        "path": "results\\m0_scale\\mpre_reinforce_s42_clean\\model.ckpt",
+        "registered": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5",
+        "sha256": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5"
+      },
+      "profile": {
+        "matches": true,
+        "profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
+        "sha256": "63e56212174c9ce371b8a5b1fada6a549d7bc47527fdd1b0b13a7bbe90db57e8"
+      }
+    },
+    "readiness": {
+      "missing_before_signature": [
+        "the 64-state manifest rows could not be located/parsed from the archive",
+        "a frozen new run_id isolated from V1.11 (not yet created)",
+        "per-state forward call counts and initialization/slot/batch wall-clock budgets (not yet frozen for the NEW run)",
+        "the Windows new-destination persistence acceptance executed on the REAL F worker",
+        "the independent read-only verifier frozen against the new run identity"
+      ],
+      "not_run_here": [
+        "no F forward",
+        "no F-vs-D-Geo comparison",
+        "no training",
+        "no L2/L3",
+        "no final test"
+      ],
+      "verdict": "NOT_READY"
+    },
+    "state_asset": {
+      "candidates_scanned": 2,
+      "n_rows": 0,
+      "source": null,
+      "with_state_hash": 0
+    },
+    "summary": {
+      "fail": 1,
+      "pass": 3,
+      "rows": 4
+    },
+    "supervisor_wiring": {
+      "d3_l1_v112_phase_journal": {
+        "found": true,
+        "sha256": "b89954ad298c0b937e7b93055a2abddcb5c12b5a2282e4b5252edebb54891a2f"
+      },
+      "d3_l1_v116_forward_control": {
+        "found": true,
+        "sha256": "4499aa33e8683d68fba584a34bf88bd711bd6aa1055468931925b4ab7e2b3bdf"
+      },
+      "round_verdict_present": true,
+      "run_contained_present": true
+    }
+  },
+  "rows": 4,
+  "tool_sha256": "08dcaa244b79b775e52bba5f683f0a2143856ded27f8f2a0d6bd139698bc106e"
+}
