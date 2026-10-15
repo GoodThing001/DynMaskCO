@@ -1,0 +1,7517 @@
+{
+  "algorithmic_gain_claim": "none",
+  "argv": [
+    "scripts/tests/d3_l1_v19_formal_readonly_audit.py",
+    "--root",
+    "../research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v19_evidence/formal_collection",
+    "--runtime-identity",
+    "../research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v19_evidence/RUNTIME_IDENTITY_V19.json",
+    "--authorization",
+    "../research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v19_evidence/USER_CONDITIONAL_AUTHORIZATION.json",
+    "--out",
+    "../research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v19_evidence/FORMAL_64_INDEPENDENT_AUDIT.json"
+  ],
+  "auditor_sha256": "293a5ce6fa3ebc3535a91803de11a9534a94c4b5727c876004f3df19e6cf575e",
+  "authorization_sha256": "42ae1138703e7497dab727d59c0e4dac0089443288d54afc35594eaf8a4c73d7",
+  "classification": "independent_readonly_formal_64_slot_audit",
+  "denominator": 64,
+  "errors": [],
+  "failed_or_missing_slots": [],
+  "n_fail": 0,
+  "n_pass": 1498,
+  "qualified_slots": 64,
+  "rows": [
+    {
+      "detail": null,
+      "name": "dataset_bytes_pinned",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source:action_contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source:coldchain_contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source:coldchain_state",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source:cvrptw_utils",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source:d3_l1_bitwise_parity",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source:d3_l1_causal_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source:d3_l1_collection_runner",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source:d3_l1_p0c_v18",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source:d3_l1_state_collector",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source:dynmaskco_cc_context",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source:jf1h_repair",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source:joint_fleet",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source:recourse_snapshot",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source:strict_online_env",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "formal_scope",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "formal_summary_pass",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "batch_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "no_model",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "source_stable",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "human_authorization_binding",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "one_pass_token_binding",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "SUPERVISOR_IDENTITY_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "SUPERVISOR_IDENTITY_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day0/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day1/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day2/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day3/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day4/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day5/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day6/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day7/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day8/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day9/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day10/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day11/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day12/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day13/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day14/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15:one_rollout",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15:rollout_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15:identity_START",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15:identity_END",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot1:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot2:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot3:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:one_terminal",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:wal_before_publication",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:durable_and_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:manifest_one",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:snapshot_sha_bytes",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:state_hash",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:contract",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:R1_first_four_reveals",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:visible_mask",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:validation_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:full_trace_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:served_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:serialization_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:recapture_exact",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:two_independent_calls",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:no_projection_errors",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:visible_inputs_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:legal_candidates_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:planned_suffix_sha",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:planned_suffix_sha_boundary",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:valid_perturbation",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "day15/slot4:reported_call_budget",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "64_unique_registered_slots",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "formal_summary_count",
+      "ok": true
+    }
+  ],
+  "runtime_identity_sha256": "7f1b18613c0c59504e24cd14d30dcdbc5fd14e0e231b2c03776528bacbbaf4c5",
+  "stable_online_gain": false
+}
