@@ -1,0 +1,34 @@
+{
+  "batch_wall_s": 3.3909999998286366,
+  "caps": {
+    "batch": 3.0,
+    "rollout": 0.6,
+    "slot": 0.4
+  },
+  "days": [
+    {
+      "cleanup": {
+        "cleanup_ok": true,
+        "kill_reap_seconds": 0.015999999828636646,
+        "mechanism": "TerminateJobObject",
+        "pid": 16092,
+        "returncode": 137,
+        "tree_active_after": 0,
+        "tree_active_before": 2
+      },
+      "day_id": 0,
+      "pid": 16092,
+      "returncode": 137,
+      "seconds": 2.2339999999385327,
+      "status": "batch_deadline_killed"
+    }
+  ],
+  "formal_slots_collected": 0,
+  "model_identity": "F_FREE_NO_MODEL",
+  "purpose": "synthetic",
+  "run_id": "v18-kill-batch",
+  "slots_in_denominator": 64,
+  "slots_published": 0,
+  "source_stable": true,
+  "verdict": "batch_deadline"
+}

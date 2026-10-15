@@ -1,0 +1,930 @@
+{
+  "computed_at": "2026-10-15 17:44:01",
+  "edges": [
+    {
+      "from": "d3_l1_state_collector",
+      "internal": false,
+      "line": 22,
+      "to": "hashlib"
+    },
+    {
+      "from": "d3_l1_state_collector",
+      "internal": false,
+      "line": 23,
+      "to": "inspect"
+    },
+    {
+      "from": "d3_l1_state_collector",
+      "internal": false,
+      "line": 24,
+      "to": "json"
+    },
+    {
+      "from": "d3_l1_state_collector",
+      "internal": false,
+      "line": 25,
+      "to": "sys"
+    },
+    {
+      "from": "d3_l1_state_collector",
+      "internal": false,
+      "line": 26,
+      "to": "time"
+    },
+    {
+      "from": "d3_l1_state_collector",
+      "internal": false,
+      "line": 27,
+      "to": "pathlib"
+    },
+    {
+      "from": "d3_l1_state_collector",
+      "internal": false,
+      "line": 29,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_state_collector",
+      "internal": true,
+      "line": 176,
+      "to": "jf1h_repair"
+    },
+    {
+      "from": "d3_l1_state_collector",
+      "internal": true,
+      "line": 193,
+      "to": "strict_online_env"
+    },
+    {
+      "from": "d3_l1_state_collector",
+      "internal": true,
+      "line": 137,
+      "to": "recourse_snapshot"
+    },
+    {
+      "from": "recourse_snapshot",
+      "internal": false,
+      "line": 14,
+      "to": "hashlib"
+    },
+    {
+      "from": "recourse_snapshot",
+      "internal": false,
+      "line": 15,
+      "to": "struct"
+    },
+    {
+      "from": "recourse_snapshot",
+      "internal": false,
+      "line": 16,
+      "to": "dataclasses"
+    },
+    {
+      "from": "recourse_snapshot",
+      "internal": false,
+      "line": 17,
+      "to": "numpy"
+    },
+    {
+      "from": "recourse_snapshot",
+      "internal": true,
+      "line": 19,
+      "to": "strict_online_env"
+    },
+    {
+      "from": "recourse_snapshot",
+      "internal": true,
+      "line": 425,
+      "to": "coldchain_state"
+    },
+    {
+      "from": "recourse_snapshot",
+      "internal": true,
+      "line": 439,
+      "to": "coldchain_state"
+    },
+    {
+      "from": "coldchain_state",
+      "internal": false,
+      "line": 8,
+      "to": "__future__"
+    },
+    {
+      "from": "coldchain_state",
+      "internal": false,
+      "line": 10,
+      "to": "math"
+    },
+    {
+      "from": "coldchain_state",
+      "internal": false,
+      "line": 11,
+      "to": "dataclasses"
+    },
+    {
+      "from": "coldchain_state",
+      "internal": true,
+      "line": 13,
+      "to": "coldchain_contract"
+    },
+    {
+      "from": "coldchain_contract",
+      "internal": false,
+      "line": 8,
+      "to": "__future__"
+    },
+    {
+      "from": "coldchain_contract",
+      "internal": false,
+      "line": 10,
+      "to": "hashlib"
+    },
+    {
+      "from": "coldchain_contract",
+      "internal": false,
+      "line": 11,
+      "to": "json"
+    },
+    {
+      "from": "coldchain_contract",
+      "internal": false,
+      "line": 12,
+      "to": "dataclasses"
+    },
+    {
+      "from": "coldchain_contract",
+      "internal": false,
+      "line": 13,
+      "to": "typing"
+    },
+    {
+      "from": "strict_online_env",
+      "internal": false,
+      "line": 21,
+      "to": "os"
+    },
+    {
+      "from": "strict_online_env",
+      "internal": false,
+      "line": 22,
+      "to": "sys"
+    },
+    {
+      "from": "strict_online_env",
+      "internal": false,
+      "line": 24,
+      "to": "numpy"
+    },
+    {
+      "from": "strict_online_env",
+      "internal": false,
+      "line": 25,
+      "to": "dataclasses"
+    },
+    {
+      "from": "strict_online_env",
+      "internal": true,
+      "line": 33,
+      "to": "coldchain_state"
+    },
+    {
+      "from": "strict_online_env",
+      "internal": true,
+      "line": 580,
+      "to": "recourse_snapshot"
+    },
+    {
+      "from": "jf1h_repair",
+      "internal": true,
+      "line": 18,
+      "to": "strict_online_env"
+    },
+    {
+      "from": "jf1h_repair",
+      "internal": true,
+      "line": 19,
+      "to": "joint_fleet"
+    },
+    {
+      "from": "jf1h_repair",
+      "internal": true,
+      "line": 21,
+      "to": "action_contract"
+    },
+    {
+      "from": "jf1h_repair",
+      "internal": false,
+      "line": 358,
+      "to": "collections"
+    },
+    {
+      "from": "action_contract",
+      "internal": false,
+      "line": 25,
+      "to": "hashlib"
+    },
+    {
+      "from": "action_contract",
+      "internal": false,
+      "line": 26,
+      "to": "dataclasses"
+    },
+    {
+      "from": "action_contract",
+      "internal": false,
+      "line": 27,
+      "to": "typing"
+    },
+    {
+      "from": "action_contract",
+      "internal": false,
+      "line": 29,
+      "to": "numpy"
+    },
+    {
+      "from": "action_contract",
+      "internal": true,
+      "line": 31,
+      "to": "strict_online_env"
+    },
+    {
+      "from": "action_contract",
+      "internal": false,
+      "line": 290,
+      "to": "collections"
+    },
+    {
+      "from": "joint_fleet",
+      "internal": false,
+      "line": 19,
+      "to": "numpy"
+    },
+    {
+      "from": "joint_fleet",
+      "internal": false,
+      "line": 20,
+      "to": "dataclasses"
+    },
+    {
+      "from": "joint_fleet",
+      "internal": false,
+      "line": 21,
+      "to": "typing"
+    },
+    {
+      "from": "joint_fleet",
+      "internal": true,
+      "line": 23,
+      "to": "strict_online_env"
+    },
+    {
+      "from": "joint_fleet",
+      "internal": false,
+      "line": 170,
+      "to": "jax"
+    },
+    {
+      "from": "joint_fleet",
+      "internal": false,
+      "line": 143,
+      "to": "jax"
+    },
+    {
+      "from": "joint_fleet",
+      "internal": false,
+      "line": 144,
+      "to": "jax"
+    },
+    {
+      "from": "joint_fleet",
+      "internal": true,
+      "line": 159,
+      "to": "cvrptw_utils"
+    },
+    {
+      "from": "cvrptw_utils",
+      "internal": false,
+      "line": 12,
+      "to": "jax"
+    },
+    {
+      "from": "cvrptw_utils",
+      "internal": false,
+      "line": 97,
+      "to": "helpers"
+    },
+    {
+      "from": "cvrptw_utils",
+      "internal": false,
+      "line": 117,
+      "to": "helpers"
+    },
+    {
+      "from": "d3_l1_bitwise_parity",
+      "internal": false,
+      "line": 26,
+      "to": "argparse"
+    },
+    {
+      "from": "d3_l1_bitwise_parity",
+      "internal": false,
+      "line": 27,
+      "to": "dataclasses"
+    },
+    {
+      "from": "d3_l1_bitwise_parity",
+      "internal": false,
+      "line": 28,
+      "to": "hashlib"
+    },
+    {
+      "from": "d3_l1_bitwise_parity",
+      "internal": false,
+      "line": 29,
+      "to": "json"
+    },
+    {
+      "from": "d3_l1_bitwise_parity",
+      "internal": false,
+      "line": 30,
+      "to": "struct"
+    },
+    {
+      "from": "d3_l1_bitwise_parity",
+      "internal": false,
+      "line": 31,
+      "to": "sys"
+    },
+    {
+      "from": "d3_l1_bitwise_parity",
+      "internal": false,
+      "line": 32,
+      "to": "pathlib"
+    },
+    {
+      "from": "d3_l1_bitwise_parity",
+      "internal": false,
+      "line": 193,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_bitwise_parity",
+      "internal": false,
+      "line": 194,
+      "to": "copy"
+    },
+    {
+      "from": "d3_l1_bitwise_parity",
+      "internal": false,
+      "line": 267,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_bitwise_parity",
+      "internal": true,
+      "line": 317,
+      "to": "d3_l1_state_collector"
+    },
+    {
+      "from": "d3_l1_bitwise_parity",
+      "internal": true,
+      "line": 319,
+      "to": "coldchain_contract"
+    },
+    {
+      "from": "d3_l1_bitwise_parity",
+      "internal": false,
+      "line": 352,
+      "to": "traceback"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 31,
+      "to": "argparse"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 32,
+      "to": "copy"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 33,
+      "to": "dataclasses"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 34,
+      "to": "hashlib"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 35,
+      "to": "json"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 36,
+      "to": "struct"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 37,
+      "to": "sys"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 38,
+      "to": "pathlib"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 67,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 86,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 93,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 130,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 143,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 254,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": true,
+      "line": 255,
+      "to": "recourse_snapshot"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": false,
+      "line": 315,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": true,
+      "line": 321,
+      "to": "coldchain_contract"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": true,
+      "line": 323,
+      "to": "d3_l1_state_collector"
+    },
+    {
+      "from": "d3_l1_causal_perturbation",
+      "internal": true,
+      "line": 277,
+      "to": "dynmaskco_cc_context"
+    },
+    {
+      "from": "dynmaskco_cc_context",
+      "internal": false,
+      "line": 14,
+      "to": "numpy"
+    },
+    {
+      "from": "dynmaskco_cc_context",
+      "internal": true,
+      "line": 16,
+      "to": "strict_online_env"
+    },
+    {
+      "from": "dynmaskco_cc_context",
+      "internal": true,
+      "line": 17,
+      "to": "recourse_snapshot"
+    },
+    {
+      "from": "dynmaskco_cc_context",
+      "internal": true,
+      "line": 18,
+      "to": "action_contract"
+    },
+    {
+      "from": "dynmaskco_cc_context",
+      "internal": false,
+      "line": 194,
+      "to": "collections"
+    },
+    {
+      "from": "dynmaskco_cc_context",
+      "internal": true,
+      "line": 69,
+      "to": "recourse_snapshot"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 11,
+      "to": "argparse"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 12,
+      "to": "ast"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 13,
+      "to": "copy"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 14,
+      "to": "hashlib"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 15,
+      "to": "json"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 16,
+      "to": "os"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 17,
+      "to": "pickle"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 18,
+      "to": "subprocess"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 19,
+      "to": "sys"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 20,
+      "to": "time"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 21,
+      "to": "uuid"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 22,
+      "to": "pathlib"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 48,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 68,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 262,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 263,
+      "to": "struct"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 278,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 279,
+      "to": "dataclasses"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": true,
+      "line": 280,
+      "to": "coldchain_contract"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": true,
+      "line": 282,
+      "to": "d3_l1_bitwise_parity"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": true,
+      "line": 283,
+      "to": "d3_l1_causal_perturbation"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": true,
+      "line": 284,
+      "to": "d3_l1_state_collector"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": true,
+      "line": 286,
+      "to": "recourse_snapshot"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": true,
+      "line": 287,
+      "to": "d3_l1_p0c_v18"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": true,
+      "line": 545,
+      "to": "d3_l1_p0c_v18"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 552,
+      "to": "numpy"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": true,
+      "line": 554,
+      "to": "d3_l1_collection_runner"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": false,
+      "line": 555,
+      "to": "dataclasses"
+    },
+    {
+      "from": "d3_l1_collection_runner",
+      "internal": true,
+      "line": 556,
+      "to": "coldchain_contract"
+    }
+  ],
+  "entry_points": {
+    "acceptance": "scripts/simulation/d3_l1_collection_runner.py",
+    "runner_sha256_at_start": "b09a0b7dd976e5eef6af29097c4e8b741bbc467769a21c593721cc35dde79ce9",
+    "supervisor": "scripts/simulation/d3_l1_collection_runner.py",
+    "worker": "scripts/simulation/d3_l1_collection_runner.py"
+  },
+  "external_sample": [],
+  "modules": {
+    "action_contract": {
+      "import_origin": "reached from the seeds",
+      "path": "scripts/simulation/action_contract.py",
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\action_contract.py",
+      "runtime_matches_scan": true,
+      "runtime_sha256": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b",
+      "sha256_at_scan": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b"
+    },
+    "coldchain_contract": {
+      "import_origin": "reached from the seeds",
+      "path": "scripts/coldchain/coldchain_contract.py",
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py",
+      "runtime_matches_scan": true,
+      "runtime_sha256": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+      "sha256_at_scan": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2"
+    },
+    "coldchain_state": {
+      "import_origin": "reached from the seeds",
+      "path": "scripts/coldchain/coldchain_state.py",
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_state.py",
+      "runtime_matches_scan": true,
+      "runtime_sha256": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e",
+      "sha256_at_scan": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e"
+    },
+    "cvrptw_utils": {
+      "import_origin": "reached from the seeds",
+      "path": "scripts/models/cvrptw_utils.py",
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\models\\cvrptw_utils.py",
+      "runtime_matches_scan": true,
+      "runtime_sha256": "1fd6aa427bd242227963972c9a439dd94c5b6ca3cb5dbcef37bda3f2f315a73f",
+      "sha256_at_scan": "1fd6aa427bd242227963972c9a439dd94c5b6ca3cb5dbcef37bda3f2f315a73f"
+    },
+    "d3_l1_bitwise_parity": {
+      "import_origin": "reached from the seeds",
+      "path": "scripts/tests/d3_l1_bitwise_parity.py",
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\tests\\d3_l1_bitwise_parity.py",
+      "runtime_matches_scan": true,
+      "runtime_sha256": "eafb83ab602640d8ce9cc17ebbda26d9aadc1f0e9aeb829eba5e225081ee1228",
+      "sha256_at_scan": "eafb83ab602640d8ce9cc17ebbda26d9aadc1f0e9aeb829eba5e225081ee1228"
+    },
+    "d3_l1_causal_perturbation": {
+      "import_origin": "reached from the seeds",
+      "path": "scripts/simulation/d3_l1_causal_perturbation.py",
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_causal_perturbation.py",
+      "runtime_matches_scan": true,
+      "runtime_sha256": "d11e3a08f7d494595dfef97aa8ef134bfacf23aafd0f1ef09f10ff6caf606d5a",
+      "sha256_at_scan": "d11e3a08f7d494595dfef97aa8ef134bfacf23aafd0f1ef09f10ff6caf606d5a"
+    },
+    "d3_l1_collection_runner": {
+      "import_origin": "reached from the seeds",
+      "path": "scripts/simulation/d3_l1_collection_runner.py",
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_collection_runner.py",
+      "runtime_matches_scan": true,
+      "runtime_sha256": "b09a0b7dd976e5eef6af29097c4e8b741bbc467769a21c593721cc35dde79ce9",
+      "sha256_at_scan": "b09a0b7dd976e5eef6af29097c4e8b741bbc467769a21c593721cc35dde79ce9"
+    },
+    "d3_l1_p0c_v18": {
+      "import_origin": "reached from the seeds",
+      "path": "scripts/simulation/d3_l1_p0c_v18.py",
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_p0c_v18.py",
+      "runtime_matches_scan": true,
+      "runtime_sha256": "d5f92ad9935165c291935a13a6e20571eca51454b05d736d307052a0ff96a200",
+      "sha256_at_scan": "d5f92ad9935165c291935a13a6e20571eca51454b05d736d307052a0ff96a200"
+    },
+    "d3_l1_state_collector": {
+      "import_origin": "reached from the seeds",
+      "path": "scripts/simulation/d3_l1_state_collector.py",
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_state_collector.py",
+      "runtime_matches_scan": true,
+      "runtime_sha256": "fff9158855ca75c1469025a99432ca9c6eb6369147f5ec42aeb5bf1cf96230c4",
+      "sha256_at_scan": "fff9158855ca75c1469025a99432ca9c6eb6369147f5ec42aeb5bf1cf96230c4"
+    },
+    "dynmaskco_cc_context": {
+      "import_origin": "reached from the seeds",
+      "path": "scripts/simulation/dynmaskco_cc_context.py",
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\dynmaskco_cc_context.py",
+      "runtime_matches_scan": true,
+      "runtime_sha256": "4eebb2a51a024a9e881ce7100bbe568219e1afa5ac8c6d33c707924a36ff1685",
+      "sha256_at_scan": "4eebb2a51a024a9e881ce7100bbe568219e1afa5ac8c6d33c707924a36ff1685"
+    },
+    "jf1h_repair": {
+      "import_origin": "reached from the seeds",
+      "path": "scripts/simulation/jf1h_repair.py",
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\jf1h_repair.py",
+      "runtime_matches_scan": true,
+      "runtime_sha256": "233f8439536a2af676fe389b012b74c4fa8cf458fde7aef226b084342ca089ee",
+      "sha256_at_scan": "233f8439536a2af676fe389b012b74c4fa8cf458fde7aef226b084342ca089ee"
+    },
+    "joint_fleet": {
+      "import_origin": "reached from the seeds",
+      "path": "scripts/simulation/joint_fleet.py",
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\joint_fleet.py",
+      "runtime_matches_scan": true,
+      "runtime_sha256": "7dafcd6d82bc7cc602d5353b8fd3afdd790c1fec6b8aefd449988652be707935",
+      "sha256_at_scan": "7dafcd6d82bc7cc602d5353b8fd3afdd790c1fec6b8aefd449988652be707935"
+    },
+    "recourse_snapshot": {
+      "import_origin": "reached from the seeds",
+      "path": "scripts/simulation/recourse_snapshot.py",
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\recourse_snapshot.py",
+      "runtime_matches_scan": true,
+      "runtime_sha256": "a2c13f75566e383312b369fd8cf9453a41a22c7eeeb8f4cd38021c8baa965537",
+      "sha256_at_scan": "a2c13f75566e383312b369fd8cf9453a41a22c7eeeb8f4cd38021c8baa965537"
+    },
+    "strict_online_env": {
+      "import_origin": "reached from the seeds",
+      "path": "scripts/simulation/strict_online_env.py",
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\strict_online_env.py",
+      "runtime_matches_scan": true,
+      "runtime_sha256": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6",
+      "sha256_at_scan": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+    }
+  },
+  "n_internal": 14,
+  "runtime_closure": true,
+  "runtime_import_origins": {
+    "action_contract": {
+      "matches_scan": true,
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\action_contract.py",
+      "runtime_sha256": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b"
+    },
+    "coldchain_contract": {
+      "matches_scan": true,
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py",
+      "runtime_sha256": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2"
+    },
+    "coldchain_state": {
+      "matches_scan": true,
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_state.py",
+      "runtime_sha256": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e"
+    },
+    "cvrptw_utils": {
+      "matches_scan": true,
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\models\\cvrptw_utils.py",
+      "runtime_sha256": "1fd6aa427bd242227963972c9a439dd94c5b6ca3cb5dbcef37bda3f2f315a73f"
+    },
+    "d3_l1_bitwise_parity": {
+      "matches_scan": true,
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\tests\\d3_l1_bitwise_parity.py",
+      "runtime_sha256": "eafb83ab602640d8ce9cc17ebbda26d9aadc1f0e9aeb829eba5e225081ee1228"
+    },
+    "d3_l1_causal_perturbation": {
+      "matches_scan": true,
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_causal_perturbation.py",
+      "runtime_sha256": "d11e3a08f7d494595dfef97aa8ef134bfacf23aafd0f1ef09f10ff6caf606d5a"
+    },
+    "d3_l1_collection_runner": {
+      "matches_scan": true,
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_collection_runner.py",
+      "runtime_sha256": "b09a0b7dd976e5eef6af29097c4e8b741bbc467769a21c593721cc35dde79ce9"
+    },
+    "d3_l1_p0c_v18": {
+      "matches_scan": true,
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_p0c_v18.py",
+      "runtime_sha256": "d5f92ad9935165c291935a13a6e20571eca51454b05d736d307052a0ff96a200"
+    },
+    "d3_l1_state_collector": {
+      "matches_scan": true,
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_state_collector.py",
+      "runtime_sha256": "fff9158855ca75c1469025a99432ca9c6eb6369147f5ec42aeb5bf1cf96230c4"
+    },
+    "dynmaskco_cc_context": {
+      "matches_scan": true,
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\dynmaskco_cc_context.py",
+      "runtime_sha256": "4eebb2a51a024a9e881ce7100bbe568219e1afa5ac8c6d33c707924a36ff1685"
+    },
+    "jf1h_repair": {
+      "matches_scan": true,
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\jf1h_repair.py",
+      "runtime_sha256": "233f8439536a2af676fe389b012b74c4fa8cf458fde7aef226b084342ca089ee"
+    },
+    "joint_fleet": {
+      "matches_scan": true,
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\joint_fleet.py",
+      "runtime_sha256": "7dafcd6d82bc7cc602d5353b8fd3afdd790c1fec6b8aefd449988652be707935"
+    },
+    "recourse_snapshot": {
+      "matches_scan": true,
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\recourse_snapshot.py",
+      "runtime_sha256": "a2c13f75566e383312b369fd8cf9453a41a22c7eeeb8f4cd38021c8baa965537"
+    },
+    "strict_online_env": {
+      "matches_scan": true,
+      "runtime_file": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\strict_online_env.py",
+      "runtime_sha256": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+    }
+  },
+  "seeds": [
+    "d3_l1_collection_runner",
+    "d3_l1_causal_perturbation",
+    "d3_l1_bitwise_parity",
+    "d3_l1_state_collector"
+  ],
+  "sha_stability": {
+    "runner_sha256_at_end": "b09a0b7dd976e5eef6af29097c4e8b741bbc467769a21c593721cc35dde79ce9",
+    "stable": true
+  }
+}

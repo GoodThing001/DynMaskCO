@@ -1,27 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""D3-L1 P0-C revised runner (V1.6): worker + independent supervisor + runtime closure + a
-replayable acceptance entry.  F-free; no formal collection is performed here.
+"""D3-L1 P0-C V1.8. F-free development qualification and a fail-closed worker.
 
-Fixes for the nine blockers found by the independent source review:
-  1  ATTEMPT_STARTED is now written for every pre-registered slot of the day BEFORE
-     run_baseline_rollout() (i.e. before any capture), so the ledger precedes capture.
-  2  the worker runs a REAL bitwise parity check (d3_l1_bitwise_parity.bitwise_equal) on the
-     restored payload arrays and on the vehicle suffixes, and records its verdict.
-  3  snapshots are persisted LOSSLESSLY (pickle protocol 4) instead of json.dumps(default=repr),
-     and the reloaded snapshot must reproduce snapshot_state_hash (round-trip evidence).
-  4  the supervisor independently enforces all three deadlines with its own clock and a polling
-     loop: day cap, batch cap and a SLOT cap driven by ledger timestamps.
-  5  the identity gate requires the registered dev_check dataset SHA explicitly, instead of
-     trusting a data field that only lists cal.
-  6  the closure records RUNTIME import origins (module __file__) and start/end SHA stability.
-  7  the formal planned-suffix comparison uses the vehicle-boundary identity, and requires both
-     the boundary-aware and the flattened keys to agree.
-  8  a corrupt ledger line now BLOCKS all further attempts (fail-closed), so a corrupted record
-     can never bypass the one-pass rule.
-  9  `--role accept` is an independently replayable acceptance entry: N1-N7 plus new end-to-end
-     negative cases (N8 killed worker, N9 lossless serialisation, N10 supervisor slot kill,
-     N11 dev_check identity expectation, N12 corrupt-ledger blocking).
+Real reveal hooks write/fsync WAL before capture. Opt-in scalar encoding preserves
+the original runtime types and bits; the frozen comparator is unchanged.
+The supervisor enforces source/data/contract identity, monotonic rollout/slot/batch
+windows, real process-tree containment, and one pass with a fixed denominator.
+Formal collection is blocked pending a separate user signature.
 """
 import argparse
 import ast
@@ -38,7 +23,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 EXT = HERE.parents[1]
-for p in ('scripts', 'scripts/simulation', 'scripts/coldchain', 'scripts/data', 'scripts/tests'):
+for p in ('scripts', 'scripts/simulation', 'scripts/coldchain', 'scripts/data', 'scripts/tests',
+          'scripts/models'):
     sys.path.insert(0, str(EXT / p))
 
 FORBIDDEN = ('mpre', 'mpre_trained', 'mpre_policy', 'mtrained_replanner', 'd3_geo_adapter')
@@ -125,6 +111,7 @@ def atomic_write_bytes(path, data):
 def append_jsonl(path, record):
     record = dict(record)
     record.setdefault('ts', time.time())
+    record.setdefault('mono', time.monotonic())
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, 'a', encoding='utf-8') as fh:
@@ -156,8 +143,11 @@ def ledger_integrity(ledger):
 
 
 def slot_state(ledger, day_id, position):
+    lifecycle = {'ATTEMPT_STARTED', 'PUBLISHED', 'FAILED', 'SKIPPED_ALREADY_ATTEMPTED',
+                 'SKIPPED_LEDGER_CORRUPT', 'NOT_ATTEMPTED_DUE_TO_TERMINATION'}
     for rec in reversed(ledger):
-        if rec.get('day_id') == day_id and rec.get('position') == position:
+        if (rec.get('day_id') == day_id and rec.get('position') == position
+                and rec.get('event') in lifecycle):
             return rec.get('event'), rec
     return None, None
 
@@ -170,16 +160,18 @@ def may_attempt(ledger, day_id, position):
     return ev is None, ev
 
 
-def open_slots(ledger, now=None, slot_cap=SLOT_CAP_S):
+def open_slots(ledger, now=None, slot_cap=SLOT_CAP_S, monotonic=False):
     """Slots whose ATTEMPT_STARTED has no terminal record yet (used by the supervisor watchdog)."""
     now = time.time() if now is None else now
     started, terminal = {}, set()
     for r in ledger:
         key = (r.get('day_id'), r.get('position'))
         if r.get('event') == 'ATTEMPT_STARTED':
-            started[key] = r.get('ts', now)
-        elif r.get('event') in ('PUBLISHED', 'FAILED', 'SKIPPED_ALREADY_ATTEMPTED',
-                                'SKIPPED_LEDGER_CORRUPT', 'NOT_ATTEMPTED_DUE_TO_TERMINATION'):
+            started[key] = r.get('mono' if monotonic else 'ts', now)
+        elif r.get('event') in (('SLOT_FINISHED', 'SKIPPED_ALREADY_ATTEMPTED',
+                                 'SKIPPED_LEDGER_CORRUPT', 'NOT_ATTEMPTED_DUE_TO_TERMINATION')
+                                if monotonic else ('PUBLISHED', 'FAILED', 'SKIPPED_ALREADY_ATTEMPTED',
+                                'SKIPPED_LEDGER_CORRUPT', 'NOT_ATTEMPTED_DUE_TO_TERMINATION')):
             terminal.add(key)
     return [(k, now - t, t) for k, t in started.items()
             if k not in terminal and (now - t) > slot_cap]
@@ -265,6 +257,23 @@ def closure(seeds, runtime=False):
 
 
 # --------------------------------------------------------------------------- worker
+def inject_parity_fault(fault, traces, served):
+    """Engineering negative controls only. Alters the resumed branch before the REAL gate."""
+    import numpy as np
+    import struct
+    if fault == 'type':
+        traces[0].services[0].arrival_time = float(traces[0].services[0].arrival_time)
+    elif fault == 'dtype':
+        served.dtype = np.uint8
+    elif fault == 'signed_zero':
+        traces[0].return_segment_thermal_violation_duration_h = -0.0
+    elif fault == 'nan_payload':
+        traces[0].return_segment_thermal_violation_duration_h = struct.unpack(
+            '>d', bytes.fromhex('7ff8000000000001'))[0]
+    elif fault == 'vehicle_boundary':
+        traces[0].vehicle_id = 1
+
+
 def collect_day(args):
     import numpy as np
     import dataclasses
@@ -275,9 +284,17 @@ def collect_day(args):
     from d3_l1_state_collector import (RevealSlotCollector, build_env, make_replanner,
                                        run_baseline_rollout)
     from recourse_snapshot import restore_recourse_snapshot, snapshot_state_hash
+    from d3_l1_p0c_v18 import identity_gate, write_json, day_blocked
     assert_f_free()
     outdir = Path(args.outdir)
     ledger_p = outdir / 'STATE_LEDGER.jsonl'
+    start_identity = identity_gate(sys.modules[__name__], args)
+    write_json(sys.modules[__name__], outdir / ('WORKER_IDENTITY_START_DAY%02d.json' % args.day_id),
+               start_identity)
+    if not start_identity['ok']:
+        append_jsonl(ledger_p, {'event': 'HARD_STOP_IDENTITY', 'day_id': args.day_id,
+                                'run_id': args.run_id, 'identity': start_identity})
+        return 2
     led = read_ledger(ledger_p)
     ok_led, n_bad = ledger_integrity(led)
     data = dict(np.load(args.dataset))
@@ -289,11 +306,12 @@ def collect_day(args):
                                                       if k in flds}))
     day = int(args.day_id)
     # ---- blocker 1 fix (V1.7): registration happens INSIDE the real reveal hook ----------
-    if not ok_led:
-        for position in range(1, 5):
-            append_jsonl(ledger_p, {'event': 'SKIPPED_LEDGER_CORRUPT', 'day_id': day,
-                                    'position': position, 'run_id': args.run_id})
-        return 0
+    if not ok_led or any(not may_attempt(led, day, pos)[0] for pos in range(1, 5)) or any(
+            r.get('day_id') == day and r.get('event') in ('DAY_TERMINATED', 'DAY_COMPLETED')
+            for r in led):
+        append_jsonl(ledger_p, {'event': 'DAY_REFUSED_ONE_PASS', 'day_id': day,
+                                'run_id': args.run_id, 'ledger_integrity': ok_led})
+        return 1
     registered = {}
 
     def _pre_capture(slot, clock, event_id, reveal_idx):
@@ -307,17 +325,21 @@ def collect_day(args):
                                 'run_id': args.run_id, 'clock': float(clock),
                                 'event_id': int(event_id), 'reveal_idx': int(reveal_idx),
                                 'registered_before_capture': True, 'ledger_integrity_ok': True})
-        registered[slot] = time.time()
+        registered[slot] = time.monotonic()
     led = read_ledger(ledger_p)
     env = build_env(data, 50.0, 25, 1.0, make_replanner(50.0, 24.0, eff)[0], eff, 24.0)
     t_day = time.time()
     append_jsonl(ledger_p, {'event': 'DAY_ROLLOUT_STARTED', 'day_id': day, 'run_id': args.run_id})
-    col = RevealSlotCollector(env, day, 4, pre_capture=_pre_capture)
+    col = RevealSlotCollector(env, day, 4, pre_capture=_pre_capture, preserve_scalar_types=True)
     roll = run_baseline_rollout(env, day, hook=col)
     orig_traces, orig_served = roll['result']
     append_jsonl(ledger_p, {'event': 'DAY_ROLLOUT_FINISHED', 'day_id': day,
                             'run_id': args.run_id, 'day_rollout_wall_s': time.time() - t_day})
     shots = {r['slot']: r for r in col.slots}
+    for position in range(1, 5):
+        if position not in registered:
+            append_jsonl(ledger_p, {'event': 'FAILED', 'day_id': day, 'position': position,
+                                    'reason': 'insufficient_events', 'run_id': args.run_id})
     day_report = {'day_id': day, 'rollout_seconds': time.time() - t_day, 'slots_found': len(shots)}
     for position in sorted(registered):
         ev, _ = slot_state(read_ledger(ledger_p), day, position)   # V1.7: fresh read after rollout
@@ -328,14 +350,23 @@ def collect_day(args):
             append_jsonl(ledger_p, {'event': 'FAILED', 'day_id': day, 'position': position,
                                     'reason': 'insufficient_events', 'run_id': args.run_id})
             continue
-        t0 = registered.get(position, time.time())
+        t0 = registered[position]
         par = {}
+        snap_path = None
+        timings = {'capture_s': r.get('capture_seconds', 0.0)}
         try:
             if args.inject_block_s > 0 and position == min(registered):
                 time.sleep(args.inject_block_s)          # E6: force the supervisor's kill path
             snap = r['snapshot']
+            if position == 1 and args.fault == 'restore_error':
+                snap = copy.deepcopy(snap)
+                snap['state_hash'] = '0' * 64
+            stage_start = time.monotonic()
             h1, h2 = snapshot_state_hash(snap), snapshot_state_hash(snap)
+            timings['hash_twice_s'] = time.monotonic() - stage_start
+            stage_start = time.monotonic()
             restored = restore_recourse_snapshot(snap)
+            timings['restore_s'] = time.monotonic() - stage_start
             objs = restored if isinstance(restored, tuple) else (restored,)
             vehicles = next((o for o in objs if isinstance(o, list) and o
                              and hasattr(o[0], 'vehicle_id')), None)
@@ -362,28 +393,49 @@ def collect_day(args):
             from recourse_snapshot import validate_snapshot_against_env
             env_r = build_env(data, 50.0, 25, 1.0, make_replanner(50.0, 24.0, eff)[0], eff, 24.0)
             validate_snapshot_against_env(env_r, snap)
+            recap = []
+            def recapture(e, i, clock, event_id, reveal_idx, vs, ts, sm, universe):
+                if not recap:
+                    from recourse_snapshot import capture_recourse_snapshot
+                    recap.append(capture_recourse_snapshot(e, i, clock, event_id, reveal_idx,
+                                 vs, ts, sm, all_customers=universe, preserve_scalar_types=True))
+            env_r.snapshot_hook = recapture
+            stage_start = time.monotonic()
             resumed = env_r.run_resumed(snap)
+            timings['resume_s'] = time.monotonic() - stage_start
             res_traces, res_served = (resumed if isinstance(resumed, tuple) else (resumed, None))
+            par['recapture_state_hash_equal'] = bool(recap and snapshot_state_hash(recap[0]) == h1)
+            if position == 1:
+                inject_parity_fault(args.fault, res_traces, res_served)
+            stage_start = time.monotonic()
             par['full_resume_served_mask'] = bitwise_equal(np.asarray(orig_served),
                                                            np.asarray(res_served))[0] \
                 if res_served is not None else 'NOT_VERIFIABLE'
-            par['full_resume_traces'] = bitwise_equal(orig_traces, res_traces)[0]
+            par['full_resume_traces'], par['full_resume_trace_diffs'] = bitwise_equal(orig_traces, res_traces)
             par['full_resume_parity'] = (par['full_resume_served_mask'] == 'EQUAL'
                                          and par['full_resume_traces'] == 'EQUAL')
+            timings['full_parity_s'] = time.monotonic() - stage_start
             # ---- blocker 3: lossless snapshot persistence + round trip --------------------
+            stage_start = time.monotonic()
             blob = pickle.dumps(snap, protocol=4)
-            snap_path = outdir / 'snapshots' / ('day%02d_pos%d.pkl' % (day, position))
+            snap_path = outdir / 'staged' / ('day%02d_pos%d.pkl' % (day, position))
             atomic_write_bytes(snap_path, blob)
             with open(snap_path, 'rb') as fh:
                 reloaded = pickle.load(fh)
             par['serialization_roundtrip'] = (snapshot_state_hash(reloaded) == h1)
+            par['serialization_exact'] = bitwise_equal(snap, reloaded)[0]
+            timings['serialization_roundtrip_s'] = time.monotonic() - stage_start
             # ---- causal projections (blocker 7: boundary-aware suffix identity) ----------
+            stage_start = time.monotonic()
             p_orig = decision_projection(env, snap, make_replanner(50.0, 24.0, eff)[0], day)
+            timings['project_original_s'] = time.monotonic() - stage_start
             p_data, prep = perturb(data, snap, day, position)
             if p_data is None:
                 raise RuntimeError('perturbation not valid: %s' % prep.get('verdict'))
             env_p = build_env(p_data, 50.0, 25, 1.0, make_replanner(50.0, 24.0, eff)[0], eff, 24.0)
+            stage_start = time.monotonic()
             p_pert = decision_projection(env_p, snap, make_replanner(50.0, 24.0, eff)[0], day)
+            timings['project_perturbed_s'] = time.monotonic() - stage_start
             for side, src in ((p_orig, snap), (p_pert, snap)):
                 if side.get('planned_suffix') is not None:
                     side['planned_suffix_sha_boundary'] = hashlib.sha256(json.dumps(
@@ -398,6 +450,8 @@ def collect_day(args):
             parity_ok = (all(par.get(k) == 'EQUAL' for k in bit_keys)
                          and par.get('suffix_boundary') is True
                          and par.get('serialization_roundtrip') is True
+                         and par.get('serialization_exact') == 'EQUAL'
+                         and par.get('recapture_state_hash_equal') is True
                          and par.get('full_resume_parity') is True)
             ent = {'run_id': args.run_id, 'day_id': day, 'position': position, 'clock': r['clock'],
                    'event_id': r['event_id'], 'reveal_idx': r['reveal_idx'],
@@ -409,17 +463,48 @@ def collect_day(args):
                    'replanner_calls': (p_orig.get('replanner_calls', 0)
                                        + p_pert.get('replanner_calls', 0)),
                    'n_invisible_modified': prep.get('n_invisible_modified')}
+            ent.update(timings=timings, slot_active_compute_s=sum(timings.values()),
+                       original_projection=p_orig, perturbed_projection=p_pert,
+                       capture_calls=1, explicit_restore_calls=1, hash_calls=2,
+                       full_resume_calls=1, recapture_calls=len(recap))
             if not parity_ok:
                 raise RuntimeError('bitwise_parity_failed: %s' % par)
             if not ck1 or not bnd:
                 raise RuntimeError('causal_violation: %s boundary_equal=%s' % (reasons, bnd))
+            if len(objs) != 3 or h1 != h2 or h1 != snap['state_hash']:
+                raise RuntimeError('restore_or_hash_mismatch')
+            if ent['replanner_calls'] != 2:
+                raise RuntimeError('projection_call_count_mismatch')
+            if time.monotonic() - t0 > args.slot_cap_s:
+                raise RuntimeError('slot_timeout_before_publish')
+            # A staged object has no publication status. Only a validated object is promoted.
+            final_path = outdir / 'snapshots' / snap_path.name
+            atomic_write_bytes(final_path, blob)
+            snap_path = final_path
+            if position == 1 and args.fault == 'write_error':
+                raise OSError('injected manifest write failure after object persistence')
+            evidence_path = outdir / 'validation' / snap_path.name
+            evidence_blob = pickle.dumps({'original_traces': orig_traces,
+                'resumed_traces': res_traces, 'original_served': orig_served,
+                'resumed_served': res_served, 'recaptured_snapshot': recap[0],
+                'reloaded_snapshot': reloaded, 'original_projection': p_orig,
+                'perturbed_projection': p_pert}, protocol=4)
+            atomic_write_bytes(evidence_path, evidence_blob)
+            ent.update(validation_path=str(evidence_path.relative_to(outdir)),
+                       validation_sha256=hashlib.sha256(evidence_blob).hexdigest())
+            append_jsonl(outdir / 'STATE_MANIFEST.jsonl', dict(ent,
+                         snapshot_path=str(snap_path.relative_to(outdir)), bytes=len(blob),
+                         snapshot_sha256=hashlib.sha256(blob).hexdigest(), status='VALIDATED_CANDIDATE'))
             append_jsonl(ledger_p, {'event': 'PUBLISHED', 'day_id': day, 'position': position,
                                     'run_id': args.run_id, 'state_hash': h1,
                                     'snapshot_path': str(snap_path.relative_to(outdir)),
                                     'bytes': len(blob),
                                     'snapshot_sha256': hashlib.sha256(blob).hexdigest(),
+                                    'validation_path': ent['validation_path'],
+                                    'validation_sha256': ent['validation_sha256'],
                                     'serialization': 'pickle-protocol4-lossless',
-                                    'slot_span_wall_s': time.time() - t0,
+                                    'slot_span_wall_s': time.monotonic() - t0,
+                                    'validation': ent,
                                     'bitwise_parity_ok': True, 'projection_causal': True,
                                     'suffix_boundary_sha_equal': True,
                                     'n_invisible_modified': prep.get('n_invisible_modified')})
@@ -430,139 +515,35 @@ def collect_day(args):
             append_jsonl(ledger_p, {'event': 'FAILED', 'day_id': day, 'position': position,
                                     'run_id': args.run_id, 'reason': reason, 'error': msg,
                                     'bitwise_parity': par,
-                                    'slot_span_wall_s': time.time() - t0})
-        if (time.time() - t0) > args.slot_cap_s:
+                                    'snapshot_staged_or_orphan': str(snap_path) if snap_path else None,
+                                    'slot_span_wall_s': time.monotonic() - t0})
+        # PUBLISHED is observable by the parent before append_jsonl's fsync returns.
+        # Keep the slot watchdog open until that durable write has actually completed.
+        append_jsonl(ledger_p, {'event': 'SLOT_FINISHED', 'day_id': day, 'position': position,
+                                'run_id': args.run_id, 'slot_span_wall_s': time.monotonic() - t0})
+        if (time.monotonic() - t0) > args.slot_cap_s:
             append_jsonl(ledger_p, {'event': 'SLOT_OVER_CAP', 'day_id': day,
-                                    'position': position, 'slot_span_wall_s': time.time() - t0})
-        if (time.time() - t_day) > args.day_cap_s:
-            append_jsonl(ledger_p, {'event': 'DAY_OVER_CAP', 'day_id': day,
-                                    'day_rollout_wall_s': time.time() - t_day})
-            break
+                                    'position': position, 'slot_span_wall_s': time.monotonic() - t0})
     day_report['day_seconds'] = time.time() - t_day
     status = {'run_id': args.run_id, 'role': 'worker', 'day_id': day, 'day_report': day_report,
               'f_free': assert_f_free(), 'source_sha256': sha_file(Path(__file__))}
     atomic_write_bytes(outdir / 'RUN_STATUS.json',
                        json.dumps(status, indent=2, default=repr, sort_keys=True).encode())
+    end_identity = identity_gate(sys.modules[__name__], args, end=True)
+    end_identity['ok'] = (end_identity['ok'] and end_identity['runtime_identity_sha256']
+                           == start_identity['runtime_identity_sha256'])
+    write_json(sys.modules[__name__], outdir / ('WORKER_IDENTITY_END_DAY%02d.json' % day), end_identity)
     print(json.dumps(status, default=repr, sort_keys=True))
-    return 0
+    if not end_identity['ok']:
+        return 2
+    return 1 if any(r.get('event') == 'FAILED' and r.get('day_id') == day
+                    for r in read_ledger(ledger_p)) else 0
 
 
 # --------------------------------------------------------------------------- supervisor
 def supervise(args):
-    outdir = Path(args.outdir)
-    outdir.mkdir(parents=True, exist_ok=True)
-    t0 = time.time()
-    idc = identity_check(args.identity, args.dataset, args.expect_dataset_sha256)
-    atomic_write_bytes(outdir / 'SUPERVISOR_IDENTITY.json',
-                       json.dumps(idc, indent=2, default=repr, sort_keys=True).encode())
-    if not idc['ok']:
-        res = {'run_id': args.run_id, 'verdict': 'HARD_STOP_IDENTITY', 'identity': idc}
-        atomic_write_bytes(outdir / 'SUPERVISOR_RESULT.json',
-                           json.dumps(res, indent=2, default=repr, sort_keys=True).encode())
-        print(json.dumps(res, default=repr, sort_keys=True))
-        return 2
-    ledger_p = outdir / 'STATE_LEDGER.jsonl'
-    results, killed = [], None
-    for day in range(args.days):
-        led = read_ledger(ledger_p)
-        ok_led, n_bad = ledger_integrity(led)
-        if not ok_led:
-            results.append({'day_id': day, 'skipped': 'LEDGER_CORRUPT', 'corrupt_lines': n_bad})
-            killed = 'ledger_corrupt'
-            break
-        if all(not may_attempt(led, day, p)[0] for p in range(1, 5)):
-            results.append({'day_id': day, 'skipped': 'all four slots already attempted'})
-            continue
-        cmd = [sys.executable, str(Path(__file__)), '--role', 'worker', '--run-id', args.run_id,
-               '--outdir', str(outdir), '--dataset', args.dataset, '--day-id', str(day),
-               '--identity', args.identity, '--slot-cap-s', str(args.slot_cap_s),
-               '--day-cap-s', str(args.day_cap_s), '--batch-cap-s', str(args.batch_cap_s),
-               '--inject-block-s', str(args.inject_block_s),
-               '--day-rollout-cap-s', str(args.day_rollout_cap_s)]
-        t = time.time()
-        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        status, out, err = 'completed', '', ''
-        try:
-            while True:
-                if p.poll() is not None:
-                    out, err = p.communicate()
-                    status = 'completed' if p.returncode == 0 else 'worker_error'
-                    break
-                now = time.time()
-                _led = read_ledger(ledger_p)
-                _started = [x.get('ts') for x in _led
-                            if x.get('event') == 'DAY_ROLLOUT_STARTED' and x.get('day_id') == day]
-                _done = any(x.get('event') == 'DAY_ROLLOUT_FINISHED' and x.get('day_id') == day
-                            for x in _led)
-                if _started and not _done and (now - _started[-1]) > args.day_rollout_cap_s:
-                    p.kill(); out, err = p.communicate(); status = 'rollout_deadline_killed'
-                    append_jsonl(ledger_p, {'event': 'ROLLOUT_DEADLINE_KILLED', 'day_id': day,
-                                            'run_id': args.run_id,
-                                            'day_rollout_cap_s': args.day_rollout_cap_s})
-                    break
-                if (now - t) > args.day_cap_s + args.batch_cap_s:
-                    p.kill(); out, err = p.communicate(); status = 'lifetime_guard_killed'
-                    append_jsonl(ledger_p, {'event': 'LIFETIME_GUARD_KILLED', 'day_id': day,
-                                            'run_id': args.run_id})
-                    break
-                if (now - t0) > args.batch_cap_s:
-                    p.kill(); out, err = p.communicate(); status = 'batch_deadline_killed'
-                    append_jsonl(ledger_p, {'event': 'BATCH_DEADLINE_KILLED', 'day_id': day,
-                                            'run_id': args.run_id,
-                                            'batch_cap_s': args.batch_cap_s})
-                    killed = 'batch'
-                    break
-                slow = open_slots(read_ledger(ledger_p), now, args.slot_cap_s)
-                if slow:
-                    p.kill(); out, err = p.communicate(); status = 'slot_deadline_killed'
-                    for (d_, pos), age, _ts in slow:
-                        append_jsonl(ledger_p, {'event': 'SLOT_DEADLINE_KILLED', 'day_id': d_,
-                                                'position': pos, 'run_id': args.run_id,
-                                                'slot_cap_s': args.slot_cap_s, 'age_s': age})
-                        append_jsonl(ledger_p, {'event': 'FAILED', 'day_id': d_, 'position': pos,
-                                                'run_id': args.run_id,
-                                                'reason': 'terminated_mid_slot'})
-                    killed = 'slot'
-                    break
-                time.sleep(min(0.5, args.slot_cap_s / 4.0 if args.slot_cap_s > 0 else 0.05))
-        except BaseException as exc:
-            status, err = 'supervisor_exception', '%s: %s' % (type(exc).__name__, exc)
-        if status in ('day_deadline_killed', 'slot_deadline_killed', 'batch_deadline_killed'):
-            led2 = read_ledger(ledger_p)
-            for pos in range(1, 5):
-                ev, _ = slot_state(led2, day, pos)
-                if ev is None:
-                    append_jsonl(ledger_p, {'event': 'NOT_ATTEMPTED_DUE_TO_TERMINATION',
-                                            'day_id': day, 'position': pos,
-                                            'run_id': args.run_id})
-                elif ev == 'ATTEMPT_STARTED':
-                    append_jsonl(ledger_p, {'event': 'FAILED', 'day_id': day, 'position': pos,
-                                            'run_id': args.run_id,
-                                            'reason': 'terminated_mid_slot'})
-        results.append({'day_id': day, 'status': status, 'seconds': time.time() - t,
-                        'stdout_tail': out[-300:], 'stderr_tail': err[-300:]})
-        atomic_write_bytes(outdir / ('WORKER_DAY%02d.json' % day),
-                           json.dumps(results[-1], indent=2, default=repr,
-                                      sort_keys=True).encode())
-        if killed == 'batch':
-            break
-    led = read_ledger(ledger_p)
-    published = [r for r in led if r.get('event') == 'PUBLISHED']
-    ok_led, n_bad = ledger_integrity(led)
-    res = {'run_id': args.run_id,
-           'verdict': 'BATCH_COMPLETE' if ok_led else 'LEDGER_CORRUPT',
-           'slots_published': len(published), 'slots_in_denominator': 64,
-           'batch_wall_s': time.time() - t0, 'killed': killed, 'corrupt_lines': n_bad,
-           'caps': {'day': args.day_cap_s, 'slot': args.slot_cap_s, 'batch': args.batch_cap_s},
-           'days': results,
-           'identity': {k: idc[k] for k in ('ok', 'dataset_sha256',
-                                            'dataset_matches_expected_dev_check')}}
-    atomic_write_bytes(outdir / 'SUPERVISOR_RESULT.json',
-                       json.dumps(res, indent=2, default=repr, sort_keys=True).encode())
-    print(json.dumps({k: res[k] for k in ('run_id', 'verdict', 'slots_published',
-                                          'slots_in_denominator', 'killed')},
-                     default=repr, sort_keys=True))
-    return 0
+    from d3_l1_p0c_v18 import supervise as run_supervisor
+    return run_supervisor(sys.modules[__name__], args)
 
 
 # --------------------------------------------------------------------------- acceptance
@@ -581,10 +562,7 @@ def acceptance(args):
     from recourse_snapshot import snapshot_state_hash
     outdir = Path(args.outdir)
     scratch = outdir / 'accept'
-    if scratch.exists():
-        import shutil
-        shutil.rmtree(scratch)
-    scratch.mkdir(parents=True, exist_ok=True)
+    scratch.mkdir(parents=True, exist_ok=False)  # never overwrite earlier acceptance evidence
     rows = []
 
     def ck(n, ok, d=None):
@@ -704,14 +682,15 @@ def acceptance(args):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--role', required=True, choices=('worker', 'supervisor', 'closure', 'accept'))
+    ap.add_argument('--role', required=True, choices=('worker', 'supervisor', 'closure', 'accept',
+                                                      'register-identity'))
     ap.add_argument('--run-id', default='local')
     ap.add_argument('--outdir', required=True)
     ap.add_argument('--identity', default=DEFAULT_IDENTITY)
     ap.add_argument('--dataset', default=DEFAULT_DATASET)
     ap.add_argument('--expect-dataset-sha256', default=DEV_CHECK_SHA)
     ap.add_argument('--day-id', type=int, default=0)
-    ap.add_argument('--days', type=int, default=16)
+    ap.add_argument('--days', type=int, default=1)
     ap.add_argument('--slot-cap-s', type=float, default=SLOT_CAP_S)
     ap.add_argument('--day-cap-s', type=float, default=DAY_CAP_S)
     ap.add_argument('--batch-cap-s', type=float, default=BATCH_CAP_S)
@@ -722,9 +701,34 @@ def main():
     ap.add_argument('--expect-profile-sha256', default=None)
     ap.add_argument('--expect-effective-contract', default=None)
     ap.add_argument('--runtime-identity', default=None)
+    ap.add_argument('--purpose', choices=('engineering', 'formal'), default='engineering')
+    ap.add_argument('--supervisor-go', default=None)
+    ap.add_argument('--fault', default='none', choices=('none', 'type', 'dtype', 'signed_zero',
+                        'nan_payload', 'vehicle_boundary', 'restore_error', 'write_error'))
     args = ap.parse_args()
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
+    if args.supervisor_go:
+        deadline = time.monotonic() + 10
+        while not Path(args.supervisor_go).exists():
+            if time.monotonic() > deadline:
+                return 3
+            time.sleep(0.01)
+    if args.purpose != 'engineering' and (args.fault != 'none' or args.inject_block_s):
+        raise ValueError('fault injection is engineering only')
+    if args.role == 'register-identity':
+        from d3_l1_p0c_v18 import execution_identity
+        identity = execution_identity(sys.modules[__name__], args)
+        if identity['origin_errors'] or not all(identity['frozen_checks'].values()):
+            raise RuntimeError('identity registration failed frozen/origin checks')
+        # Registration is an explicit versioned artifact; supervisor never self-freezes.
+        dest = outdir / 'RUNTIME_IDENTITY_V18.json'
+        with open(dest, 'x', encoding='utf-8') as fh:
+            json.dump(identity, fh, indent=2, sort_keys=True)
+            fh.flush()
+            os.fsync(fh.fileno())
+        print(str(dest))
+        return 0
     if args.role == 'worker':
         return collect_day(args)
     if args.role == 'supervisor':

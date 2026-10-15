@@ -1,0 +1,409 @@
+{
+  "argv": [
+    "scripts/tests/d3_l1_v18_kill_acceptance.py",
+    "--outdir",
+    "../research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v18_evidence/kill_revised"
+  ],
+  "formal_slots_collected": 0,
+  "n_fail": 0,
+  "production_defaults": {
+    "K": 4,
+    "batch_cap_s": 3600.0,
+    "booking_horizon": 24.0,
+    "capacity": 50.0,
+    "day_rollout_cap_s": 120.0,
+    "days": 16,
+    "denominator": 64,
+    "model_identity": "F_FREE_NO_MODEL",
+    "num_vehicles": 25,
+    "scalar_encoding": "lossless_scalar_v18",
+    "slot_cap_s": 60.0,
+    "tw_speed": 1.0
+  },
+  "purpose": "synthetic_real_process_tree_acceptance",
+  "rows": [
+    {
+      "checks": {
+        "bounded_test": true,
+        "exit_nonzero": true,
+        "expected_deadline_window": true,
+        "fixed_denominator": true,
+        "new_run_cannot_recapture": true,
+        "next_day_continues_except_batch": true,
+        "no_false_batch_complete": true,
+        "real_kill_and_reap": true,
+        "terminal_accounting": true
+      },
+      "elapsed": 2.875,
+      "first_run_result": {
+        "batch_wall_s": 2.875,
+        "caps": {
+          "batch": 15.0,
+          "rollout": 0.6,
+          "slot": 0.4
+        },
+        "days": [
+          {
+            "cleanup": {
+              "cleanup_ok": true,
+              "kill_reap_seconds": 0.031999999890103936,
+              "mechanism": "TerminateJobObject",
+              "pid": 23084,
+              "returncode": 137,
+              "tree_active_after": 0,
+              "tree_active_before": 2
+            },
+            "day_id": 0,
+            "pid": 23084,
+            "returncode": 137,
+            "seconds": 0.875,
+            "status": "rollout_deadline_killed"
+          },
+          {
+            "cleanup": null,
+            "day_id": 1,
+            "pid": 4488,
+            "returncode": 0,
+            "seconds": 0.2649999998975545,
+            "status": "completed"
+          }
+        ],
+        "formal_slots_collected": 0,
+        "model_identity": "F_FREE_NO_MODEL",
+        "purpose": "synthetic",
+        "run_id": "v18-kill-before_capture",
+        "slots_in_denominator": 64,
+        "slots_published": 4,
+        "source_stable": true,
+        "verdict": "BATCH_FAILED"
+      },
+      "new_run_id_exit": 1,
+      "ok": true,
+      "stage": "before_capture",
+      "terminal_states": [
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION"
+      ]
+    },
+    {
+      "checks": {
+        "bounded_test": true,
+        "exit_nonzero": true,
+        "expected_deadline_window": true,
+        "fixed_denominator": true,
+        "new_run_cannot_recapture": true,
+        "next_day_continues_except_batch": true,
+        "no_false_batch_complete": true,
+        "real_kill_and_reap": true,
+        "terminal_accounting": true
+      },
+      "elapsed": 2.469000000040978,
+      "first_run_result": {
+        "batch_wall_s": 2.469000000040978,
+        "caps": {
+          "batch": 15.0,
+          "rollout": 0.6,
+          "slot": 0.4
+        },
+        "days": [
+          {
+            "cleanup": {
+              "cleanup_ok": true,
+              "kill_reap_seconds": 0.04699999978765845,
+              "mechanism": "TerminateJobObject",
+              "pid": 35068,
+              "returncode": 137,
+              "tree_active_after": 0,
+              "tree_active_before": 2
+            },
+            "day_id": 0,
+            "pid": 35068,
+            "returncode": 137,
+            "seconds": 0.6089999999385327,
+            "status": "slot_deadline_killed"
+          },
+          {
+            "cleanup": null,
+            "day_id": 1,
+            "pid": 22320,
+            "returncode": 0,
+            "seconds": 0.2190000000409782,
+            "status": "completed"
+          }
+        ],
+        "formal_slots_collected": 0,
+        "model_identity": "F_FREE_NO_MODEL",
+        "purpose": "synthetic",
+        "run_id": "v18-kill-capture",
+        "slots_in_denominator": 64,
+        "slots_published": 4,
+        "source_stable": true,
+        "verdict": "BATCH_FAILED"
+      },
+      "new_run_id_exit": 1,
+      "ok": true,
+      "stage": "capture",
+      "terminal_states": [
+        "FAILED",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION"
+      ]
+    },
+    {
+      "checks": {
+        "bounded_test": true,
+        "exit_nonzero": true,
+        "expected_deadline_window": true,
+        "fixed_denominator": true,
+        "new_run_cannot_recapture": true,
+        "next_day_continues_except_batch": true,
+        "no_false_batch_complete": true,
+        "real_kill_and_reap": true,
+        "terminal_accounting": true
+      },
+      "elapsed": 2.2660000000614673,
+      "first_run_result": {
+        "batch_wall_s": 2.25,
+        "caps": {
+          "batch": 15.0,
+          "rollout": 0.6,
+          "slot": 0.4
+        },
+        "days": [
+          {
+            "cleanup": {
+              "cleanup_ok": true,
+              "kill_reap_seconds": 0.03100000019185245,
+              "mechanism": "TerminateJobObject",
+              "pid": 10940,
+              "returncode": 137,
+              "tree_active_after": 0,
+              "tree_active_before": 2
+            },
+            "day_id": 0,
+            "pid": 10940,
+            "returncode": 137,
+            "seconds": 0.5779999999795109,
+            "status": "slot_deadline_killed"
+          },
+          {
+            "cleanup": null,
+            "day_id": 1,
+            "pid": 4556,
+            "returncode": 0,
+            "seconds": 0.2660000000614673,
+            "status": "completed"
+          }
+        ],
+        "formal_slots_collected": 0,
+        "model_identity": "F_FREE_NO_MODEL",
+        "purpose": "synthetic",
+        "run_id": "v18-kill-parity",
+        "slots_in_denominator": 64,
+        "slots_published": 4,
+        "source_stable": true,
+        "verdict": "BATCH_FAILED"
+      },
+      "new_run_id_exit": 1,
+      "ok": true,
+      "stage": "parity",
+      "terminal_states": [
+        "FAILED",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION"
+      ]
+    },
+    {
+      "checks": {
+        "bounded_test": true,
+        "exit_nonzero": true,
+        "expected_deadline_window": true,
+        "fixed_denominator": true,
+        "new_run_cannot_recapture": true,
+        "next_day_continues_except_batch": true,
+        "no_false_batch_complete": true,
+        "real_kill_and_reap": true,
+        "terminal_accounting": true
+      },
+      "elapsed": 2.5160000000614673,
+      "first_run_result": {
+        "batch_wall_s": 2.5,
+        "caps": {
+          "batch": 15.0,
+          "rollout": 0.6,
+          "slot": 0.4
+        },
+        "days": [
+          {
+            "cleanup": {
+              "cleanup_ok": true,
+              "kill_reap_seconds": 0.01600000006146729,
+              "mechanism": "TerminateJobObject",
+              "pid": 19916,
+              "returncode": 137,
+              "tree_active_after": 0,
+              "tree_active_before": 2
+            },
+            "day_id": 0,
+            "pid": 19916,
+            "returncode": 137,
+            "seconds": 0.5620000001508743,
+            "status": "slot_deadline_killed"
+          },
+          {
+            "cleanup": null,
+            "day_id": 1,
+            "pid": 37488,
+            "returncode": 0,
+            "seconds": 0.25,
+            "status": "completed"
+          }
+        ],
+        "formal_slots_collected": 0,
+        "model_identity": "F_FREE_NO_MODEL",
+        "purpose": "synthetic",
+        "run_id": "v18-kill-publish",
+        "slots_in_denominator": 64,
+        "slots_published": 4,
+        "source_stable": true,
+        "verdict": "BATCH_FAILED"
+      },
+      "new_run_id_exit": 1,
+      "ok": true,
+      "stage": "publish",
+      "terminal_states": [
+        "FAILED",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION"
+      ]
+    },
+    {
+      "checks": {
+        "bounded_test": true,
+        "exit_nonzero": true,
+        "expected_deadline_window": true,
+        "fixed_denominator": true,
+        "new_run_cannot_recapture": true,
+        "next_day_continues_except_batch": true,
+        "no_false_batch_complete": true,
+        "real_kill_and_reap": true,
+        "terminal_accounting": true
+      },
+      "elapsed": 1.8899999998975545,
+      "first_run_result": {
+        "batch_wall_s": 1.8899999998975545,
+        "caps": {
+          "batch": 15.0,
+          "rollout": 0.6,
+          "slot": 0.4
+        },
+        "days": [
+          {
+            "cleanup": {
+              "cleanup_ok": true,
+              "kill_reap_seconds": 0.0,
+              "mechanism": "TerminateJobObject",
+              "pid": 39004,
+              "returncode": 17,
+              "tree_active_after": 0,
+              "tree_active_before": 1
+            },
+            "day_id": 0,
+            "pid": 39004,
+            "returncode": 17,
+            "seconds": 0.1720000000204891,
+            "status": "worker_error"
+          },
+          {
+            "cleanup": null,
+            "day_id": 1,
+            "pid": 32132,
+            "returncode": 0,
+            "seconds": 0.25,
+            "status": "completed"
+          }
+        ],
+        "formal_slots_collected": 0,
+        "model_identity": "F_FREE_NO_MODEL",
+        "purpose": "synthetic",
+        "run_id": "v18-kill-worker_error",
+        "slots_in_denominator": 64,
+        "slots_published": 4,
+        "source_stable": true,
+        "verdict": "BATCH_FAILED"
+      },
+      "new_run_id_exit": 1,
+      "ok": true,
+      "stage": "worker_error",
+      "terminal_states": [
+        "FAILED",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION"
+      ]
+    },
+    {
+      "checks": {
+        "bounded_test": true,
+        "exit_nonzero": true,
+        "expected_deadline_window": true,
+        "fixed_denominator": true,
+        "new_run_cannot_recapture": true,
+        "next_day_continues_except_batch": true,
+        "no_false_batch_complete": true,
+        "real_kill_and_reap": true,
+        "terminal_accounting": true
+      },
+      "elapsed": 3.3909999998286366,
+      "first_run_result": {
+        "batch_wall_s": 3.3909999998286366,
+        "caps": {
+          "batch": 3.0,
+          "rollout": 0.6,
+          "slot": 0.4
+        },
+        "days": [
+          {
+            "cleanup": {
+              "cleanup_ok": true,
+              "kill_reap_seconds": 0.015999999828636646,
+              "mechanism": "TerminateJobObject",
+              "pid": 16092,
+              "returncode": 137,
+              "tree_active_after": 0,
+              "tree_active_before": 2
+            },
+            "day_id": 0,
+            "pid": 16092,
+            "returncode": 137,
+            "seconds": 2.2339999999385327,
+            "status": "batch_deadline_killed"
+          }
+        ],
+        "formal_slots_collected": 0,
+        "model_identity": "F_FREE_NO_MODEL",
+        "purpose": "synthetic",
+        "run_id": "v18-kill-batch",
+        "slots_in_denominator": 64,
+        "slots_published": 0,
+        "source_stable": true,
+        "verdict": "batch_deadline"
+      },
+      "new_run_id_exit": 1,
+      "ok": true,
+      "stage": "batch",
+      "terminal_states": [
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION",
+        "NOT_ATTEMPTED_DUE_TO_TERMINATION"
+      ]
+    }
+  ],
+  "test_sha256": "8548b6f8c4d644f62c57d7fd53ee2fe560c5b77444d6707d77aa0d3f4a2fd4da"
+}

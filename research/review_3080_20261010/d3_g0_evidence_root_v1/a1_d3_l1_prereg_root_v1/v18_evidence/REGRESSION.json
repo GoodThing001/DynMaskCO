@@ -1,0 +1,327 @@
+{
+  "argv": [
+    "scripts/tests/d3_l1_v18_regression.py",
+    "--out",
+    "../research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v18_evidence/REGRESSION.json"
+  ],
+  "classification": "synthetic_shared_snapshot_and_C0_regressions",
+  "excluded": "VAL and final seeds; existing real-data snapshot tests not invoked",
+  "n_fail": 0,
+  "n_pass": 38,
+  "rows": [
+    {
+      "detail": {
+        "capacity_rejected": true,
+        "zone_load": [
+          10.0,
+          0.0,
+          15.0
+        ]
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "capacity_and_zone_load_conservation"
+    },
+    {
+      "detail": {
+        "capacity_reason": "shared_total_capacity_exceeded",
+        "temperature_reason": "unsupported_temperature_class"
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "coldchain_action_certificate_rejects"
+    },
+    {
+      "detail": {
+        "baseline_cost": 17.983400858149267,
+        "feasible_actions": 2,
+        "incumbent_delta": 0.0
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "coldchain_counterfactual_teacher"
+    },
+    {
+      "detail": {
+        "load": 0.0,
+        "preconditioning_kwh": 0.5
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "dispatch_empty_and_preconditioned"
+    },
+    {
+      "detail": {
+        "door_heat_kwh": 0.035,
+        "recovery_energy_kwh": 3.1647679324894513
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "door_event_adds_heat"
+    },
+    {
+      "detail": {
+        "joules_to_kwh": 1.0,
+        "kw_times_h": 7.0
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "energy_unit_conversions"
+    },
+    {
+      "detail": {
+        "masked_temp_class": [
+          0,
+          1,
+          -1,
+          -1
+        ],
+        "visible_mask": [
+          true,
+          true,
+          false,
+          false
+        ]
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "future_coldchain_visibility_invariance"
+    },
+    {
+      "detail": {
+        "data_aliases": true,
+        "decoder_non_authoritative": true,
+        "dynamic_run_non_authoritative": true,
+        "normalized_temp_fixed": true,
+        "rolling_non_authoritative": true
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "legacy_proxy_sources_explicitly_isolated"
+    },
+    {
+      "detail": {
+        "exact_fields": [
+          "distance_km",
+          "quality_loss",
+          "energy_kwh",
+          "coldchain_cost",
+          "num_unsalable",
+          "thermal_violation_count",
+          "contract_hash"
+        ],
+        "schema": "c0-static-pickup-route-replay-v1"
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "legacy_route_wrapper_unified_parity"
+    },
+    {
+      "detail": {
+        "old_independent_transition_rejected": true
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "legacy_segment_physics_retired"
+    },
+    {
+      "detail": {
+        "coldchain_cost": 2.7872795421920293,
+        "contract_hash": "32124bfd4ef73169164c7e5d8965ac7019c30ba0afd721f7d5a7273255e130b0",
+        "provenance_entries": 23
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "objective_hash_and_provenance"
+    },
+    {
+      "detail": {
+        "inbound_quality_loss": 0.0,
+        "pickup_finish": 2.0,
+        "zone_load": [
+          0.0,
+          4.0,
+          0.0
+        ]
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "pickup_enters_at_service_finish"
+    },
+    {
+      "detail": {
+        "exposure_time_units": 2.0,
+        "quality_loss": 0.007460566901408061
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "quality_clock_service_finish_to_return"
+    },
+    {
+      "detail": {
+        "high_loss_early": 0.006835809251015679,
+        "high_loss_late": 0.005280949475567676,
+        "loss_1h": 0.0015640212468048809,
+        "loss_2h": 0.0037302834507040306,
+        "loss_hot": 0.011263978756008042
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "quality_monotonicity_and_pickup_order"
+    },
+    {
+      "detail": {
+        "distance_km": 5.0,
+        "energy_kwh": 8.27390556262503,
+        "quality_loss": 0.012006700337641063
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "return_edge_distance_energy_quality"
+    },
+    {
+      "detail": {
+        "delivered": 1,
+        "reload_rejected": true
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "return_unloads_closes_forbids_reload"
+    },
+    {
+      "detail": {
+        "same_metrics": true,
+        "same_states": true,
+        "schema": "recourse_snapshot_v3_cc",
+        "snapshot_clock": 0.5
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "snapshot_v3_resume_parity"
+    },
+    {
+      "detail": {
+        "quality_loss": 0.03406608298471103,
+        "schema": "c0-static-pickup-route-replay-v1",
+        "vehicle_count": 2
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "static_route_replay_pickup_clock"
+    },
+    {
+      "detail": {
+        "distance_cost": 10.0,
+        "enabled_vehicles": 2,
+        "energy_kwh": 79.34504678249588,
+        "quality_loss": 0.04889617989967754
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "strict_online_trace_evaluator_parity"
+    },
+    {
+      "detail": {
+        "energy_kwh": 0.0,
+        "state_equal": true
+      },
+      "status": "PASS",
+      "suite": "test_coldchain_contract",
+      "test": "zero_duration_no_event_identity"
+    },
+    {
+      "detail": "snapshots=6 fails=0",
+      "status": "PASS",
+      "suite": "test_recourse_snapshot",
+      "test": "asymmetric_parity"
+    },
+    {
+      "detail": "snapshots=7 fails=0 seen={'initial': 1, 'reveal': 6, 'committed': 1, 'wait': 1, 'returning': 1}",
+      "status": "PASS",
+      "suite": "test_recourse_snapshot",
+      "test": "wait_returning_scenario"
+    },
+    {
+      "detail": "snapshots=4 fails=0 seen={'initial': 1, 'exhaustion': 2, 'wait': 1}",
+      "status": "PASS",
+      "suite": "test_recourse_snapshot",
+      "test": "exhaustion_scenario"
+    },
+    {
+      "detail": "deterministic=True order_sensitive=True independent=True",
+      "status": "PASS",
+      "suite": "test_recourse_snapshot",
+      "test": "clone_and_hash"
+    },
+    {
+      "detail": [],
+      "status": "PASS",
+      "test": "typed_scalar_NoneType_None"
+    },
+    {
+      "detail": [],
+      "status": "PASS",
+      "test": "typed_scalar_bool_True"
+    },
+    {
+      "detail": [],
+      "status": "PASS",
+      "test": "typed_scalar_int_17"
+    },
+    {
+      "detail": [],
+      "status": "PASS",
+      "test": "typed_scalar_float_0.0"
+    },
+    {
+      "detail": [],
+      "status": "PASS",
+      "test": "typed_scalar_float_-0.0"
+    },
+    {
+      "detail": [],
+      "status": "PASS",
+      "test": "typed_scalar_float_nan"
+    },
+    {
+      "detail": [],
+      "status": "PASS",
+      "test": "typed_scalar_float32_-0.0"
+    },
+    {
+      "detail": [],
+      "status": "PASS",
+      "test": "typed_scalar_float64_nan"
+    },
+    {
+      "detail": [],
+      "status": "PASS",
+      "test": "typed_scalar_int64_12"
+    },
+    {
+      "detail": [],
+      "status": "PASS",
+      "test": "typed_scalar_bool__True"
+    },
+    {
+      "detail": [],
+      "status": "PASS",
+      "test": "legacy_array_projection_unchanged_slot1"
+    },
+    {
+      "detail": [],
+      "status": "PASS",
+      "test": "legacy_array_projection_unchanged_slot2"
+    },
+    {
+      "detail": [],
+      "status": "PASS",
+      "test": "legacy_array_projection_unchanged_slot3"
+    },
+    {
+      "detail": [],
+      "status": "PASS",
+      "test": "legacy_array_projection_unchanged_slot4"
+    }
+  ]
+}

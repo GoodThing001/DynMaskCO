@@ -12,6 +12,7 @@ P0-S：RecourseSnapshotV2 —— 可精确恢复的 strict-online 决策点快�
 schema_version = 'recourse_snapshot_v2'
 """
 import hashlib
+import struct
 from dataclasses import asdict
 import numpy as np
 
@@ -20,6 +21,47 @@ from strict_online_env import StrictOnlineEnv, VehicleState, VehicleTrace, Servi
 SNAPSHOT_SCHEMA_VERSION = 'recourse_snapshot_v2'
 CC_SNAPSHOT_SCHEMA_VERSION = 'recourse_snapshot_v3_cc'
 PAD = -1
+
+
+def _scalar_archive(objects):
+    """V1.8 opt-in lossless scalar encoding; never infer a type from a padded array.
+
+    The old array schema loses mixed Python/NumPy scalar types (and None/NaN).
+    Keep type AND bytes at capture, so restoration reconstructs the original
+    runtime values. This is serialization, not a comparison projection.
+    """
+    def encode(x):
+        if isinstance(x, np.generic):
+            return ('numpy', x.dtype.str, x.tobytes().hex())
+        if type(x) is float:
+            return ('float', struct.pack('>d', x).hex())
+        if type(x) in (int, bool) or x is None:
+            return ('python', x)
+        return None
+
+    return [{k: enc for k, v in vars(obj).items() if (enc := encode(v)) is not None}
+            for obj in objects]
+
+
+def _restore_scalars(objects, archive):
+    if len(objects) != len(archive):
+        raise ValueError('V1.8 scalar archive length mismatch')
+    for obj, fields in zip(objects, archive):
+        for key, enc in fields.items():
+            if key not in vars(obj):
+                raise ValueError('V1.8 scalar archive unknown field: %s' % key)
+            if enc[0] == 'numpy':
+                value = np.frombuffer(bytes.fromhex(enc[2]), dtype=np.dtype(enc[1]))
+                if value.size != 1:
+                    raise ValueError('V1.8 scalar archive is not scalar')
+                value = value[0]
+            elif enc[0] == 'float':
+                value = struct.unpack('>d', bytes.fromhex(enc[1]))[0]
+            elif enc[0] == 'python':
+                value = enc[1]
+            else:
+                raise ValueError('unknown V1.8 scalar encoding')
+            setattr(obj, key, value)
 
 
 def _deep(x):
@@ -78,7 +120,7 @@ def snapshot_state_hash(snapshot):
 
 
 def capture_recourse_snapshot(env, inst_idx, clock, event_id, reveal_idx, vehicles, traces,
-                              served_mask, all_customers=None):
+                              served_mask, all_customers=None, preserve_scalar_types=False):
     """在决策点（_plan_and_commit 之前）捕获完整可恢复状态。"""
     K = len(vehicles)
     N = env.num_nodes
@@ -207,6 +249,13 @@ def capture_recourse_snapshot(env, inst_idx, clock, event_id, reveal_idx, vehicl
                 for tr in traces
             ],
         })
+    if preserve_scalar_types:
+        snap['runtime_scalar_encoding'] = 'lossless_scalar_v18'
+        snap['runtime_scalars_v18'] = {
+            'vehicles': _scalar_archive(vehicles),
+            'traces': _scalar_archive(traces),
+            'services': [_scalar_archive(tr.services) for tr in traces],
+        }
     snap['state_hash'] = snapshot_state_hash(snap)
     return snap
 
@@ -311,6 +360,16 @@ def restore_recourse_snapshot(snapshot):
             ))
         traces.append(tr)
 
+    if snapshot.get('runtime_scalar_encoding') is not None:
+        if snapshot['runtime_scalar_encoding'] != 'lossless_scalar_v18':
+            raise ValueError('unsupported runtime scalar encoding')
+        raw = snapshot['runtime_scalars_v18']
+        _restore_scalars(vehicles, raw['vehicles'])
+        _restore_scalars(traces, raw['traces'])
+        if len(raw['services']) != len(traces):
+            raise ValueError('V1.8 services archive length mismatch')
+        for tr, fields in zip(traces, raw['services']):
+            _restore_scalars(tr.services, fields)
     served_mask = snapshot['served_mask'].copy()
     return vehicles, traces, served_mask
 

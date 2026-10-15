@@ -1,0 +1,141 @@
+{
+  "identity": {
+    "end_check": false,
+    "identity": {
+      "base_contract_hash": "32124bfd4ef73169164c7e5d8965ac7019c30ba0afd721f7d5a7273255e130b0",
+      "dataset_sha256": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+      "effective_contract_hash": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+      "frozen_checks": {
+        "base": true,
+        "dataset": true,
+        "effective": true,
+        "historical_identity": true,
+        "profile_file": true,
+        "profile_hash": true
+      },
+      "historical_identity_sha256": "f44e3456db5fac67c85829e5f28648174b4c50b81d1af85a288dc78a7795172c",
+      "modules": {
+        "action_contract": {
+          "path": "scripts/simulation/action_contract.py",
+          "resolved_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\action_contract.py",
+          "sha256": "9d64273aa3df98cb931c0c8c4b0d0112c134c13e080d3b4f1615b8ae06d2b53b",
+          "spec_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\action_contract.py"
+        },
+        "coldchain_contract": {
+          "path": "scripts/coldchain/coldchain_contract.py",
+          "resolved_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py",
+          "sha256": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+          "spec_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py"
+        },
+        "coldchain_state": {
+          "path": "scripts/coldchain/coldchain_state.py",
+          "resolved_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_state.py",
+          "sha256": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e",
+          "spec_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_state.py"
+        },
+        "cvrptw_utils": {
+          "path": "scripts/models/cvrptw_utils.py",
+          "resolved_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\models\\cvrptw_utils.py",
+          "sha256": "1fd6aa427bd242227963972c9a439dd94c5b6ca3cb5dbcef37bda3f2f315a73f",
+          "spec_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\models\\cvrptw_utils.py"
+        },
+        "d3_l1_bitwise_parity": {
+          "path": "scripts/tests/d3_l1_bitwise_parity.py",
+          "resolved_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\tests\\d3_l1_bitwise_parity.py",
+          "sha256": "eafb83ab602640d8ce9cc17ebbda26d9aadc1f0e9aeb829eba5e225081ee1228",
+          "spec_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\tests\\d3_l1_bitwise_parity.py"
+        },
+        "d3_l1_causal_perturbation": {
+          "path": "scripts/simulation/d3_l1_causal_perturbation.py",
+          "resolved_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_causal_perturbation.py",
+          "sha256": "d11e3a08f7d494595dfef97aa8ef134bfacf23aafd0f1ef09f10ff6caf606d5a",
+          "spec_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_causal_perturbation.py"
+        },
+        "d3_l1_collection_runner": {
+          "path": "scripts/simulation/d3_l1_collection_runner.py",
+          "resolved_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_collection_runner.py",
+          "sha256": "b09a0b7dd976e5eef6af29097c4e8b741bbc467769a21c593721cc35dde79ce9",
+          "spec_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_collection_runner.py"
+        },
+        "d3_l1_p0c_v18": {
+          "path": "scripts/simulation/d3_l1_p0c_v18.py",
+          "resolved_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_p0c_v18.py",
+          "sha256": "d5f92ad9935165c291935a13a6e20571eca51454b05d736d307052a0ff96a200",
+          "spec_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_p0c_v18.py"
+        },
+        "d3_l1_state_collector": {
+          "path": "scripts/simulation/d3_l1_state_collector.py",
+          "resolved_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_state_collector.py",
+          "sha256": "fff9158855ca75c1469025a99432ca9c6eb6369147f5ec42aeb5bf1cf96230c4",
+          "spec_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_state_collector.py"
+        },
+        "dynmaskco_cc_context": {
+          "path": "scripts/simulation/dynmaskco_cc_context.py",
+          "resolved_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\dynmaskco_cc_context.py",
+          "sha256": "4eebb2a51a024a9e881ce7100bbe568219e1afa5ac8c6d33c707924a36ff1685",
+          "spec_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\dynmaskco_cc_context.py"
+        },
+        "jf1h_repair": {
+          "path": "scripts/simulation/jf1h_repair.py",
+          "resolved_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\jf1h_repair.py",
+          "sha256": "233f8439536a2af676fe389b012b74c4fa8cf458fde7aef226b084342ca089ee",
+          "spec_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\jf1h_repair.py"
+        },
+        "joint_fleet": {
+          "path": "scripts/simulation/joint_fleet.py",
+          "resolved_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\joint_fleet.py",
+          "sha256": "7dafcd6d82bc7cc602d5353b8fd3afdd790c1fec6b8aefd449988652be707935",
+          "spec_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\joint_fleet.py"
+        },
+        "recourse_snapshot": {
+          "path": "scripts/simulation/recourse_snapshot.py",
+          "resolved_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\recourse_snapshot.py",
+          "sha256": "a2c13f75566e383312b369fd8cf9453a41a22c7eeeb8f4cd38021c8baa965537",
+          "spec_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\recourse_snapshot.py"
+        },
+        "strict_online_env": {
+          "path": "scripts/simulation/strict_online_env.py",
+          "resolved_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\strict_online_env.py",
+          "sha256": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6",
+          "spec_origin": "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\strict_online_env.py"
+        }
+      },
+      "origin_errors": [],
+      "packages": {
+        "flax": "0.10.4",
+        "jax": "0.5.0",
+        "jaxlib": "0.5.0",
+        "numpy": "1.26.4"
+      },
+      "parameters": {
+        "K": 4,
+        "batch_cap_s": 3600.0,
+        "booking_horizon": 24.0,
+        "capacity": 50.0,
+        "day_rollout_cap_s": 120.0,
+        "days": 16,
+        "denominator": 64,
+        "model_identity": "F_FREE_NO_MODEL",
+        "num_vehicles": 25,
+        "scalar_encoding": "lossless_scalar_v18",
+        "slot_cap_s": 60.0,
+        "tw_speed": 1.0
+      },
+      "platform": "win32",
+      "profile_file_sha256": "63e56212174c9ce371b8a5b1fada6a549d7bc47527fdd1b0b13a7bbe90db57e8",
+      "profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
+      "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]",
+      "runner_sha256": "b09a0b7dd976e5eef6af29097c4e8b741bbc467769a21c593721cc35dde79ce9",
+      "schema": "p0c_execution_identity_v18",
+      "teacher_manifest_sha256": "b84e171676f8afc02e5ac416538965dda224671d719863a1412f659464bcaf04"
+    },
+    "mismatches": [
+      "dataset_sha256"
+    ],
+    "ok": false,
+    "runtime_identity_sha256": "3cb9e058160dad1f3bc8774b15da726a7c0e722cf0432964ff2d7790968ef088"
+  },
+  "slots_in_denominator": 64,
+  "verdict": "HARD_STOP_IDENTITY",
+  "workers_started": 0
+}
