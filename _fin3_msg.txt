@@ -1,0 +1,7 @@
+Untrack the last transient commit-message scratch file
+
+_fin2_msg.txt is scratch input to tools/git_deliver.py, not a deliverable. It was staged by the
+previous commit because it existed on disk at `git add -A` time and was deleted immediately after.
+This commit records its removal from the index; the tracked tree then contains only deliverables.
+
+No deliverable content changes. HEAD afterwards: nothing pending except this deletion.
