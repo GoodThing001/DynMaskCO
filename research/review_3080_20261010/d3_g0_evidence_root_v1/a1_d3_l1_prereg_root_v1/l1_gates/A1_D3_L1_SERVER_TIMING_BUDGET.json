@@ -1,0 +1,53 @@
+
+{
+  "registered_before_run": true,
+  "K": 2,
+  "TOTAL_CAP_S": 1800.0,
+  "PER_SLOT_CAP_S": 600.0,
+  "calls": {
+    "rollout": 1,
+    "per_slot": [
+      "capture",
+      "restore",
+      "hash",
+      "parity"
+    ]
+  },
+  "no_retry_loop": true,
+  "no_budget_relaxation_after_results": true,
+  "machine": {
+    "platform": "Linux-6.17.0-41-generic-x86_64-with-glibc2.42",
+    "python": "3.10.19",
+    "cpu_count": 96,
+    "hostname": "user",
+    "env": {
+      "CUDA_VISIBLE_DEVICES": "",
+      "XLA_FLAGS": null,
+      "OMP_NUM_THREADS": null,
+      "MKL_NUM_THREADS": null,
+      "XLA_PYTHON_CLIENT_PREALLOCATE": null,
+      "CONDA_DEFAULT_ENV": null,
+      "loadavg": [
+        0.18701171875,
+        0.08984375,
+        0.083984375
+      ]
+    },
+    "gpus": [
+      "NVIDIA GeForce RTX 5090, 0 %, 673 MiB",
+      "NVIDIA GeForce RTX 5090, 0 %, 21 MiB"
+    ]
+  },
+  "argv": [
+    "scripts/tests/d3_l1_server_timing_qualification.py",
+    "--identity",
+    "../research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/l1_gates/A1_D3_L1_CONTRACT_PROTOCOL_IDENTITY.json",
+    "--outdir",
+    "/tmp/l1_timing",
+    "--K",
+    "2"
+  ],
+  "cwd": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem",
+  "started_at": "2026-10-15 13:55:59"
+}
+

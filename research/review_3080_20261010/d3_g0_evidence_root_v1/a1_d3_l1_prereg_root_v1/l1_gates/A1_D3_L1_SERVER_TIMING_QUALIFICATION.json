@@ -1,0 +1,111 @@
+
+{
+  "causal": {
+    "horizon_original": 24.0,
+    "slot_assertions": {
+      "each_slot_captured_exactly_once": true,
+      "non_reveal_events_never_occupy_a_slot": true,
+      "one_slot_per_reveal_clock": true,
+      "slots_are_prefix_of_declared_reveals": true,
+      "slots_match_declared_reveal_times": true,
+      "t0_never_occupies_a_slot": true
+    },
+    "slots": [
+      {
+        "clock": 0.1465623676776886,
+        "event_id": 1,
+        "reveal_idx": 0,
+        "slot": 1
+      },
+      {
+        "clock": 0.49480384588241577,
+        "event_id": 2,
+        "reveal_idx": 1,
+        "slot": 2
+      }
+    ]
+  },
+  "contract": {
+    "base_hash": "32124bfd4ef73169164c7e5d8965ac7019c30ba0afd721f7d5a7273255e130b0",
+    "effective_hash": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+    "horizon": 24.0,
+    "profile_hash": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6"
+  },
+  "gates": {
+    "Q_budget": true,
+    "Q_causal": true,
+    "Q_contract": true,
+    "Q_identity": false,
+    "Q_recovery": true
+  },
+  "identity": {
+    "current": {
+      "coldchain_contract": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+      "coldchain_state": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e",
+      "d3_l1_state_collector": "849667e4d572e8250041913eee8d59ce9d376b8119f777179ab5a99f9b71e86f",
+      "dataset": "c35fa6834b8007922160f7979680c1fb8c6dda4d93309cd5ef509b57d83f20f1",
+      "profile": "63e56212174c9ce371b8a5b1fada6a549d7bc47527fdd1b0b13a7bbe90db57e8",
+      "recourse_snapshot": "0af3535acaf6a84956104c0f1c8788c04e02499a087b6faa3d264239a19f27f8",
+      "strict_online_env": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+    },
+    "frozen_source_sha256": null,
+    "identity_file_supplied": "../research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/l1_gates/A1_D3_L1_CONTRACT_PROTOCOL_IDENTITY.json",
+    "mismatches": {}
+  },
+  "rollout": {
+    "entry": "run",
+    "expected_first_K": [
+      0.1465623676776886,
+      0.49480384588241577
+    ],
+    "n_slots": 2,
+    "seconds": 0.5805683135986328
+  },
+  "timing": {
+    "PER_SLOT_CAP_S": 600.0,
+    "TOTAL_CAP_S": 1800.0,
+    "machine": {
+      "cpu_count": 96,
+      "env": {
+        "CONDA_DEFAULT_ENV": null,
+        "CUDA_VISIBLE_DEVICES": "",
+        "MKL_NUM_THREADS": null,
+        "OMP_NUM_THREADS": null,
+        "XLA_FLAGS": null,
+        "XLA_PYTHON_CLIENT_PREALLOCATE": null,
+        "loadavg": [
+          0.18701171875,
+          0.08984375,
+          0.083984375
+        ]
+      },
+      "gpus": [
+        "NVIDIA GeForce RTX 5090, 0 %, 673 MiB",
+        "NVIDIA GeForce RTX 5090, 0 %, 21 MiB"
+      ],
+      "hostname": "user",
+      "platform": "Linux-6.17.0-41-generic-x86_64-with-glibc2.42",
+      "python": "3.10.19"
+    },
+    "rollout_seconds": 0.5805683135986328,
+    "slots_completed": 2,
+    "slots_jsonl": "/tmp/l1_timing/A1_D3_L1_SERVER_TIMING_SLOTS.jsonl",
+    "total_seconds": 2.386337995529175
+  },
+  "verdict": {
+    "Q_server": "NOT_PASSED",
+    "algorithmic_gain_claim": "none",
+    "formal_collection_released": false,
+    "formula": "Q_identity AND Q_contract AND Q_recovery AND Q_causal AND Q_budget",
+    "gate_details": {
+      "Q_budget": true,
+      "Q_causal": true,
+      "Q_contract": true,
+      "Q_identity": false,
+      "Q_recovery": true
+    },
+    "note": "this is a timing/identity qualification on cal instance 0 only; it is NOT the formal dev_check x K=4 collection and NOT an F-vs-D-Geo comparison",
+    "states_collected_for_L1": 0
+  }
+}
+
