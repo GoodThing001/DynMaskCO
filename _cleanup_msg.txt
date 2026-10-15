@@ -1,0 +1,5 @@
+Remove the transient commit-message scratch file left in the tree
+
+_d8_msg.txt / _l1_msg.txt / _ledger_msg.txt were already removed in the previous commit; this
+removes the last one (_final_msg.txt), which git_deliver.py had picked up as an addition before it
+was deleted. No deliverable changes: it is scratch input to the delivery tool, never evidence.
