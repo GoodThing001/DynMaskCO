@@ -1,0 +1,76 @@
+{
+  "adjudication_of_the_timing_round": {
+    "formal_collection_authorization": "NOT_AUTHORIZED",
+    "posthoc_identity_verification": "MATCH",
+    "recorded_Q_server": "NOT_PASSED",
+    "server_timing_evidence": "ACCEPTED_FOR_BUDGET_PLANNING",
+    "timing_sample_rerun": "NO"
+  },
+  "algorithmic_gain_claim": "none",
+  "caps": {
+    "basis": "server sample 0.58 s rollout / 0.822 s max slot / 2.386 s total, with large safety factors; the sample does NOT qualify the 64-slot resource gate",
+    "full_rollout_per_day_s": 120,
+    "per_slot_from_capture_s": 60,
+    "whole_batch_s": 3600
+  },
+  "gap_fixes": [
+    "the collector must hard-stop if the frozen identity file is missing or any field mismatches",
+    "feature-level causal perturbation per slot, not only R1 slot rules",
+    "per-slot timing starts at the capture call",
+    "resume_parity precision per the pre-registration (bitwise), with minimal counterexamples required before the batch"
+  ],
+  "not_authorized": [
+    "actual collection",
+    "F-vs-D-Geo comparison",
+    "L2/L3",
+    "retraining"
+  ],
+  "persistence": {
+    "flush_and_fsync": true,
+    "per_slot_snapshot_files": true,
+    "resume_requires_new_run_id": true,
+    "run_status_json": true,
+    "state_manifest_jsonl_append": true,
+    "tmux_is_not_persistence": true
+  },
+  "server_computed_data_identity_20261015": {
+    "M0_TEACHER_MANIFEST_json": "b84e171676f8afc02e5ac416538965dda224671d719863a1412f659464bcaf04",
+    "cal_npz_CONTRAST_ONLY": "c35fa6834b8007922160f7979680c1fb8c6dda4d93309cd5ef509b57d83f20f1",
+    "dev_check_npz": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+    "must_not_reuse_cal_sha_as_dev_check": true,
+    "server_and_local_byte_identical": true,
+    "train_npz_registered_only": "c70258c4fde86e5ebfb08c17e4f8ccacac5f1b18319dc180eaa048e8ae771d01"
+  },
+  "slots": {
+    "days": 16,
+    "insufficient_events_expected": 0,
+    "materialised_at_collection": [
+      "event_id",
+      "reveal_idx",
+      "clock",
+      "reveal_time"
+    ],
+    "max_slots": 64,
+    "positions": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "reveal_events_per_day_measured_locally": 25,
+    "rule": "R1: first 4 real reveal events per development day"
+  },
+  "source_identity": {
+    "coldchain_contract": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2",
+    "coldchain_state": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e",
+    "d3_l1_state_collector": "849667e4d572e8250041913eee8d59ce9d376b8119f777179ab5a99f9b71e86f",
+    "frozen_identity_file": "f44e3456db5fac67c85829e5f28648174b4c50b81d1af85a288dc78a7795172c",
+    "jf1h_repair": "233f8439536a2af676fe389b012b74c4fa8cf458fde7aef226b084342ca089ee",
+    "l1_base_contract": "32124bfd4ef73169164c7e5d8965ac7019c30ba0afd721f7d5a7273255e130b0",
+    "l1_effective_contract": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+    "objective_profile": "df1f7a6e935f00a02f00be8e66abec64abcbb13c1021006fc1f6c1701eb325b6",
+    "recourse_snapshot": "0af3535acaf6a84956104c0f1c8788c04e02499a087b6faa3d264239a19f27f8",
+    "strict_online_env": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+  },
+  "states_collected_for_L1": 0
+}
