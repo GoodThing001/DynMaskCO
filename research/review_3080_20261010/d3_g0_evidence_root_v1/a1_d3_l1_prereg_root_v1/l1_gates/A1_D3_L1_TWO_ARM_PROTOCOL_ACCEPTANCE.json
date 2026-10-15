@@ -42,7 +42,7 @@
       },
       "name": "C1 single factor: one shared state, both arms, first-step legal identity, replayable",
       "ok": true,
-      "wall_s": 1.1089999999385327
+      "wall_s": 1.1410000000614673
     },
     {
       "detail": {
@@ -81,7 +81,7 @@
       },
       "name": "C2 empty B pool -> the state stays in the denominator as an empty-pool entry",
       "ok": true,
-      "wall_s": 0.0470000000204891
+      "wall_s": 0.06199999991804361
     },
     {
       "detail": {
@@ -93,7 +93,7 @@
       },
       "name": "C2b a mask with NO legal action -> no_legal and the ORIGINAL plan is returned",
       "ok": true,
-      "wall_s": 2.625
+      "wall_s": 2.8590000001713634
     },
     {
       "detail": {
@@ -109,7 +109,7 @@
       },
       "name": "C3 score_len: a short score vector is refused, never silently prefix-argmaxed",
       "ok": true,
-      "wall_s": 0.06200000015087426
+      "wall_s": 0.06299999984912574
     },
     {
       "detail": {
@@ -127,7 +127,7 @@
       },
       "name": "C4 score_shape: a 2-D score vector is refused, never flattened",
       "ok": true,
-      "wall_s": 0.06299999984912574
+      "wall_s": 0.06200000015087426
     },
     {
       "detail": {
@@ -175,7 +175,7 @@
       },
       "name": "C5 post-fork legal: the fork is recorded; post-fork legal lists are never compared",
       "ok": true,
-      "wall_s": 0.06200000015087426
+      "wall_s": 0.06299999984912574
     },
     {
       "detail": {
@@ -203,7 +203,7 @@
       },
       "name": "C6 cert failure -> cert_fail, V3 False, original plan returned",
       "ok": true,
-      "wall_s": 0.07899999991059303
+      "wall_s": 0.10900000017136335
     },
     {
       "detail": {
@@ -216,7 +216,7 @@
       },
       "name": "C7 timeout -> timeout, never a normal completion",
       "ok": true,
-      "wall_s": 0.10899999993853271
+      "wall_s": 0.10999999986961484
     },
     {
       "detail": {
@@ -242,14 +242,14 @@
       },
       "name": "C8 scorer exception is contained and no install path is reachable",
       "ok": true,
-      "wall_s": 0.030999999959021807
+      "wall_s": 0.0470000000204891
     },
     {
       "detail": {
         "has_full_reports": true,
         "has_shared_identity": true,
         "trace_path": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\A1_D3_L1_TWO_ARM_TRACES.json",
-        "trace_sha256": "573724c43e5feda586f5310aa7817ba029a6f139da49448d128ceee0bb5157ff",
+        "trace_sha256": "55b006d0df293f69cec6ae5a6d3d6fac18587c8a92b13fbeba4cd2198e0a0d64",
         "traces": [
           "baseline",
           "forced_fork"
@@ -257,7 +257,7 @@
       },
       "name": "T1 the full two-arm reports are emitted for independent re-adjudication",
       "ok": true,
-      "wall_s": 0.1410000000614673
+      "wall_s": 0.10899999993853271
     }
   ],
   "schema": "d3_l1_two_arm_protocol_acceptance",
@@ -265,7 +265,7 @@
   "stable_online_gain": false,
   "tool_sha256": "d3c74cc88d63349d66e942902e500cfad53a11d036568b3a703f62242bc6bf08",
   "trace_path": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\A1_D3_L1_TWO_ARM_TRACES.json",
-  "trace_sha256": "573724c43e5feda586f5310aa7817ba029a6f139da49448d128ceee0bb5157ff",
+  "trace_sha256": "55b006d0df293f69cec6ae5a6d3d6fac18587c8a92b13fbeba4cd2198e0a0d64",
   "v110_materializer_sha256": "a9f4078db0340105db9b1b122c876843f73a28a0218a377250bd4626d27122a1",
   "verdict": "L1_TWO_ARM_PROTOCOL_ENGINEERING_ACCEPTED"
 }
