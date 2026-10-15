@@ -1,0 +1,58 @@
+V1.19: three formal-execution blockers closed by executable counterexamples (25/25)
+
+Independent review found three blockers on the V1.18 execution path. All three are now reproduced
+by counterexamples and fixed; the V1.18 pre-registration and v118_evidence archive are untouched.
+
+Blocker 1 -- the authorization credential did not bind the execution identity
+  `supervise()` accepted any parseable JSON and compared an OPTIONAL field against the file's own
+  digest, so `{}` was a valid "authorization" and no credential could say what it approved.
+  New `scripts/simulation/d3_l1_v118_authorization.py` requires a HUMAN-AUTHORED credential that
+  declares run_id, pre-registration, F checkpoint, backbone, data, profile, effective contract,
+  state binding, state order, forward-targets digest, dependency identity, warm-up/per-state/max
+  call counts, all three budget caps, the output directory, and `approved_by`/`approved_utc`/
+  `approval_statement`. Every binding is compared field by field against the frozen identity.
+  `credential_sha256` covers the payload (not the whole file, which would be an uncomputable fixed
+  point). Consumption is one-shot and lives OUTSIDE the run directory, so the fact and time of use
+  survive the run. 13 counterexamples: absent file, empty `{}`, unfilled template, wrong run_id,
+  wrong weight/backbone/data/contract/state-binding/targets digest, wrong call count, widened
+  budget, wrong output directory, tampering after sealing, replay, and a changed pre-registration
+  file -- all REFUSED.
+
+Blocker 2 -- READY semantics disagreed between worker and supervisor
+  The supervisor looked for a FIXED `READY.json` while the V1.18 worker publishes a UNIQUELY named
+  immutable READY record (it cannot publish a fixed name: that replacement under a reader is the
+  V1.11 WinError 5 failure). The supervisor therefore never saw readiness.
+  `run_contained` now takes an injectable `ready_probe`; its historical default (`None`) still means
+  "fixed READY.json exists", so the V1.16 interface and its acceptance are unchanged (6/6). V1.19
+  passes a probe bound to one run directory that validates the immutable record's kind, run_id,
+  warm-up call count, warm-up score digest and clock.
+  Counterexamples: a real batch that outlives the FROZEN 60 s initialization cap by 10 s while
+  staying 110 s inside the 180 s batch cap is NOT killed and reports ready=true; a real 61 s
+  initialization overrun IS killed at the initialization deadline with 0 READY records, 0 slot
+  records and a revoked round; and no fixed READY.json exists on this path at all.
+
+Blocker 3 -- a FAILED slot did not stop later scoring
+  The worker recorded FAILED_CHECKS and kept looping, contradicting V1.18 pre-registration §5.
+  It now stops at the first failing slot: the row record is published first, then FIRST_FAILURE,
+  then the trailing identity record (so the V1.16 revocation can adjudicate), then a non-zero exit.
+  Counterexamples for finite / shape / repeat / length defects: exactly 1 row record, 63 rows
+  NOT_ATTEMPTED_AFTER_TERMINATION, round REVOKED, verdict BLOCKED, 0 qualified -- and the defect is
+  caught by the PRODUCTION worker's own check set, not by a harness assertion.
+
+Also fixed a gate that would have let the above be bypassed: `--readiness` compared only asset
+hashes (weights/data/profile/contract), which a code edit does not change, so an edited runtime
+source could still report ready. A runtime watch closure check now re-derives every path in the
+run's frozen IDENTITY_TARGETS, so drift makes the identity STALE and requires a new version. The
+V1.18 run directory correctly reports NOT_READY (2 drifted paths: runner, run_identity) under the
+fixed source, which is exactly the required behaviour rather than a silent pass.
+
+New execution identity V1.19 (`d3l1-real-f-forward-20261015-v119`) with its own frozen identity,
+its own pre-registration (A1_D3_L1_REAL_F_FORWARD_EXECUTION_PREREGISTRATION_V1_19.md, which
+supersedes V1.18 as the signing object) and its own authorization template. Readiness:
+READY_FOR_USER_SIGNATURE. The unfilled template is refused by the real entry point, and the run
+directory proves zero real F work: 0 slot records, 0 phase records, 0 model loads, 0 warm-ups,
+0 consumption receipts.
+
+Regressions all green on the final code: V1.16 6/6, V1.18 e2e 9/9, L1 10/10, L1 audit 17/17,
+G0 counterexamples 7 fixed / 1 open, D8 receipt 7/7, C0 search unchanged. No real F forward, no
+F-vs-D-Geo comparison, no training, no L2/L3, no final test.

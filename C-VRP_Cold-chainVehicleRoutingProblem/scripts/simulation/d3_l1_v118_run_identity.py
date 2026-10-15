@@ -407,6 +407,33 @@ def compute_missing_items(run_dir, identity, extra=None):
         missing.append('one or more registered identities (model / backbone / data / profile / '
                        'contract / dependency) do not match the frozen bytes')
 
+    # RUNTIME watch closure.  The registered identities above are asset hashes that a code edit
+    # cannot change, so on their own they would let a MODIFIED RUNNER still report ready -- and the
+    # worker would then die at startup on the watched-path comparison.  The readiness gate must
+    # therefore also re-derive every path in the run's frozen IDENTITY_TARGETS from disk, which is
+    # what makes "edited the runtime source" produce a NEW execution identity instead of a ready one.
+    try:
+        import d3_l1_v118_persistence as _persistence_mod
+        targets_record = _persistence_mod.VerifiedReader(run_dir).latest('IDENTITY_TARGETS')
+    except Exception:                                                    # noqa: BLE001
+        targets_record = None
+    if not targets_record or not targets_record.get('paths'):
+        checks['runtime_watch_closed'] = False
+        checks['runtime_watch'] = {'reason': 'no IDENTITY_TARGETS record in the run directory'}
+        missing.append('the run directory has no frozen runtime watch set (IDENTITY_TARGETS), so '
+                       'the code identity of the execution cannot be checked')
+    else:
+        watch = {p: {'frozen': want, 'current': sha(p), 'ok': sha(p) == want}
+                 for p, want in targets_record['paths'].items()}
+        drifted = sorted(p for p, r in watch.items() if not r['ok'])
+        checks['runtime_watch_closed'] = not drifted
+        checks['runtime_watch'] = {'n_paths': len(watch), 'n_drifted': len(drifted),
+                                   'drifted': drifted[:10]}
+        if drifted:
+            missing.append('the runtime source/asset watch set has DRIFTED for %d path(s): this run '
+                           'identity is stale and a NEW run identity version is required before '
+                           'signature (the worker would refuse at startup)' % len(drifted))
+
     try:
         import d3_l1_v118_persistence as _persistence
         published_run_id = (_persistence.VerifiedReader(run_dir).latest('RUN_IDENTITY') or {}).get(

@@ -13,8 +13,8 @@
         "install_index_recorded": 1,
         "n_receipts": 1,
         "producer_readback_ok": true,
-        "receipt_name": "receipt_000000000_f6ed209e983e4df5a885dcf89103ce10.json",
-        "receipt_sha256": "6841c9176aa7e454ead51e37008bcdcfc4576cc4f6b86e5c575a619fbd7489ca",
+        "receipt_name": "receipt_000000000_4fc2b89d5379446585f4e646023e0ee2.json",
+        "receipt_sha256": "b5dd744a8b22031e3623f271129cde9957eb4235518ddcb94296de416260cb5d",
         "separate_process_ok": true,
         "separate_process_stdout": {
           "installed_plan_hash": "87f8c00d2d321e6f",
@@ -26,7 +26,7 @@
       },
       "name": "R1 a receipted install is re-read by a SEPARATE process and reproduces its plan hash",
       "ok": true,
-      "wall_s": 0.3589999999385327
+      "wall_s": 0.35999999986961484
     },
     {
       "detail": {
@@ -64,12 +64,12 @@
       },
       "name": "R3 a plan that is not the certified one is refused and writes no receipt",
       "ok": true,
-      "wall_s": 0.01600000006146729
+      "wall_s": 0.0
     },
     {
       "detail": {
-        "new_sha256": "bcd07f841c59da2838bad10f45303534d29be08c5dfd931d508d1687389af9df",
-        "original_sha256": "a066e277389e0106200098296d8586737ff77ecd90a38591aae779285a588cec",
+        "new_sha256": "67af8344c8c11f6b68347ec8dd200c159a593b65151b06ad2ec040836cf21659",
+        "original_sha256": "5686bcfb74233d76625e144e0ff085aad4b5b607e26c2472dcc30e62e0cc1e3d",
         "problems": [
           "receipt digest differs from the recorded digest",
           "the receipt's installed and certified plan hashes differ",
@@ -104,13 +104,13 @@
         "hashes_differ": true,
         "n_receipts": 2,
         "names": [
-          "receipt_000000000_fe12e7d38d0c4cd8a55488187039f5f2.json",
-          "receipt_000000001_bc827f06143348a3b8d5484de7e019f6.json"
+          "receipt_000000000_0edb6db913f249f5b5a17bab91a87778.json",
+          "receipt_000000001_d20318c73c754420b095c059eb25185a.json"
         ]
       },
       "name": "R6 two installs produce two distinct, independently readable receipts",
       "ok": true,
-      "wall_s": 0.014999999897554517
+      "wall_s": 0.01500000013038516
     },
     {
       "detail": {

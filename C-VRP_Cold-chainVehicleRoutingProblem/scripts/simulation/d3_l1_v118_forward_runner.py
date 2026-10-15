@@ -152,8 +152,52 @@ def load_frozen(run_dir):
             'targets_mod': targets}
 
 
-def _unused_placeholder():                                             # pragma: no cover
-    return None
+def _make_ready_probe(out_dir):
+    """V1.18 READY semantics: an IMMUTABLE, uniquely named READY record must exist AND verify.
+
+    The worker can never publish a fixed `READY.json` -- replacing a fixed destination name under a
+    reader is exactly the V1.11 `WinError 5` failure -- so the supervisor must not look for one
+    either.  The record is accepted only when it is retrievable through the verified reader and its
+    payload is a well-formed readiness statement carrying the run id, the warm-up call count and the
+    warm-up score digest, so "ready" cannot be forged by an empty or truncated file.  The probe is
+    bound to ONE run directory, so it can never read another run's READY record.
+    """
+    import d3_l1_v118_persistence as persistence
+    reader = persistence.VerifiedReader(Path(out_dir))
+
+    def probe(_out):
+        record = reader.latest('READY')
+        if record is None:
+            return {'ready': False, 'probe': 'immutable READY record', 'reason': 'absent',
+                    'run_dir': str(out_dir)}
+        problems = []
+        if record.get('kind') != 'initialization_and_compilation_finished':
+            problems.append('kind is %r' % record.get('kind'))
+        if not record.get('run_id'):
+            problems.append('run_id absent')
+        if record.get('n_warmup_calls') != 1:
+            problems.append('n_warmup_calls is %r' % record.get('n_warmup_calls'))
+        if not record.get('warmup_scores_sha256'):
+            problems.append('warmup_scores_sha256 absent')
+        if not isinstance(record.get('mono'), (int, float)):
+            problems.append('mono absent')
+        return {'ready': not problems, 'probe': 'immutable READY record',
+                'published_name': record.get('published_name'), 'run_id': record.get('run_id'),
+                'n_records': reader.count('READY'), 'problems': problems,
+                'run_dir': str(out_dir)}
+    return probe
+
+
+def _failure_reason_for(failed_checks):
+    """Map the failed checks to the frozen failure vocabulary (first match wins)."""
+    for check, reason in (('shape_matches_ordered_legal', 'score_shape'),
+                          ('all_finite', 'nan'),
+                          ('repeat_exact_type_dtype_shape_bytes', 'score_len'),
+                          ('first_argmax_rule', 'score_shape'),
+                          ('span_within_slot_cap', 'timeout')):
+        if check in failed_checks:
+            return reason
+    return 'score_shape'
 
 
 # =============================================================================================
@@ -238,16 +282,23 @@ def worker(out_dir):
                        'day_id': first['day_id'], 'position': first['position'],
                        'input_sha256': first['input_sha256']}
         publish(out_dir, 'WARMUP', warm_report)
-        publish(out_dir, 'READY', {'run_id': run_id, 'mono': time.monotonic(),
-                                   'initialize_and_compile_s': time.monotonic() - started})
+        ready_record = {'run_id': run_id, 'mono': time.monotonic(),
+                        'initialize_and_compile_s': time.monotonic() - started,
+                        'kind': 'initialization_and_compilation_finished',
+                        'worker_pid': os.getpid(),
+                        'warmup_scores_sha256': warm_report['scores_sha256'],
+                        'n_warmup_calls': 1}
+        publish(out_dir, 'READY', ready_record)
 
         # ---- the 64 slots, frozen order, all kept in the denominator ----------------------
+        # V1.18 pre-registration §5: a slot whose checks FAIL is a TERMINAL condition.  The loop
+        # stops immediately, no later state may be scored, and the round is revoked.  The first
+        # failing slot's record is published BEFORE the stop so the reason is durable.
+        first_failure = None
         for row in fwd['rows']:
             day, pos = int(row['day_id']), int(row['position'])
             slot_started = time.monotonic()
             journal_obj.publish('slot', day_id=day, position=pos)
-            raw_rel = 'scores/day%02d_pos%d.pkl' % (day, pos)
-            json_rel = 'scores/day%02d_pos%d.json' % (day, pos)
             try:
                 derived = EV / 'v110_evidence' / row['derived_relpath']
                 if sha256_file(derived) != row['derived_sha256']:
@@ -276,6 +327,7 @@ def worker(out_dir):
                 }
                 status = ('FORWARD_CHECKS_PASS' if all(checks.values())
                           else 'FAILED_CHECKS')
+                failed_checks = sorted(k for k, v in checks.items() if not v)
                 raw_pub = publish(out_dir / 'scores', 'SCORES',
                                   pickle.dumps({'scores_first': a, 'scores_repeat': b,
                                                 'input_sha256': input_sha,
@@ -286,8 +338,9 @@ def worker(out_dir):
                                   verify=True)
                 slot_record = {
                     'run_id': run_id, 'day_id': day, 'position': pos, 'status': status,
-                    'checks': checks, 'failure_reason': None if status == 'FORWARD_CHECKS_PASS'
-                    else 'score_shape',
+                    'checks': checks, 'failed_checks': failed_checks,
+                    'failure_reason': None if status == 'FORWARD_CHECKS_PASS'
+                    else _failure_reason_for(failed_checks),
                     'raw_relpath': str(Path(raw_pub['path']).relative_to(out_dir)
                                        .as_posix()),
                     'raw_sha256': raw_pub['sha256'],
@@ -304,6 +357,17 @@ def worker(out_dir):
                 json_pub = publish(out_dir / 'scores',
                                    'SLOT_day%02d_pos%d' % (day, pos), slot_record)
                 slot_record = dict(slot_record, published_name=json_pub['name'])
+                journal_obj.publish('slot_finished', day_id=day, position=pos, status=status)
+                if status != 'FORWARD_CHECKS_PASS':
+                    first_failure = {'day_id': day, 'position': pos, 'status': status,
+                                     'failed_checks': failed_checks,
+                                     'failure_reason': slot_record['failure_reason'],
+                                     'row_index': int(row['index'])}
+                    publish(out_dir, 'FIRST_FAILURE',
+                            dict(first_failure, run_id=run_id,
+                                 policy='terminal: no later state may be scored; the round is '
+                                        'revoked by the supervisor'))
+                    break
             except Exception as exc:                                  # noqa: BLE001
                 slot_record = {'run_id': run_id, 'day_id': day, 'position': pos,
                                'status': 'FAILED_EXCEPTION', 'exception_type': type(exc).__name__,
@@ -314,8 +378,26 @@ def worker(out_dir):
                                'scores_first_hex': None, 'scores_repeat_hex': None}
                 publish(out_dir / 'scores', 'SLOT_day%02d_pos%d' % (day, pos), slot_record)
                 journal_obj.publish('slot_finished', day_id=day, position=pos, status='FAILED')
+                publish(out_dir, 'FIRST_FAILURE',
+                        {'run_id': run_id, 'day_id': day, 'position': pos,
+                         'status': 'FAILED_EXCEPTION', 'exception_type': type(exc).__name__,
+                         'error': str(exc),
+                         'policy': 'terminal: no later state may be scored'})
                 raise
-            journal_obj.publish('slot_finished', day_id=day, position=pos, status=status)
+
+        if first_failure is not None:
+            # The round is over, but the trailing identity record is STILL published: the V1.16
+            # revocation needs a tail to adjudicate, and its absence would be reported as a
+            # missing tail rather than as the slot failure that actually happened.
+            watched_now = {str(p): sha256_file(p) for p in idt['paths']}
+            publish(phases, 'identity_end',
+                    {'stage': 'identity_end', 'run_id': run_id, 'paths': watched_now,
+                     'worker_ended_mono': time.monotonic(),
+                     'ended_because': 'slot_failure', 'first_failure': first_failure})
+            record.update(ok=False, terminated_on_first_failure=True, first_failure=first_failure,
+                          worker_wall_s=time.monotonic() - started)
+            publish(out_dir, 'WORKER_RESULT', record)
+            return 1
 
         # ---- trailing identity ------------------------------------------------------------
         watched_now = {str(p): sha256_file(p) for p in idt['paths']}
@@ -339,15 +421,22 @@ def worker(out_dir):
 # =============================================================================================
 # supervisor
 # =============================================================================================
-def supervise(out_dir, *, authorization, dry_command=None, caps_override=None):
+def supervise(out_dir, *, authorization, dry_command=None, caps_override=None,
+              preregistration=None, consumption_root=None, authorization_record=None):
     """Drive the worker through the V1.16 contained supervisor, then adjudicate the round.
 
     `dry_command` exists ONLY for the synthetic acceptance harness: it substitutes the worker
     process so the persistence / deadline / kill / revocation semantics can be exercised without
     loading F.  `caps_override` is refused unless `dry_command` is given, so the FROZEN budgets can
     never be relaxed by a real run.
+
+    AUTHORIZATION (blocker 1): a real run requires a credential that declares the run id, the
+    pre-registration, the weights, the data, the contract, the 64-state order, the call counts, the
+    budgets and the output directory, is compared to the frozen identity field by field, and is
+    consumed ONCE with an auditable receipt.  A parseable JSON file is not an authorization.
     """
     journal, control, persistence, identity_mod, targets = load_helpers()
+    import d3_l1_v118_authorization as authorization_mod
     out_dir = Path(out_dir)
     frozen = load_frozen(out_dir)
     ident, fwd, idt = frozen['identity'], frozen['forward'], frozen['identity_targets']
@@ -356,14 +445,40 @@ def supervise(out_dir, *, authorization, dry_command=None, caps_override=None):
     if caps_override is not None and dry_command is None:
         raise SystemExit('refusing a budget override for a real F run: the frozen caps are '
                          'binding (only the synthetic acceptance harness may shorten them)')
-    if authorization is not None:
-        auth = json.loads(Path(authorization).read_text(encoding='utf-8'))
-        declared = auth.get('authorization_sha256')
-        actual = sha256_file(authorization)
-        if declared is not None and declared != actual:
-            raise SystemExit('authorization file digest does not match its declared value')
-    elif dry_command is None:
-        raise SystemExit('refusing to run the real F worker without an authorization file')
+
+    authorization_evidence = {'required': dry_command is None, 'granted': False,
+                              'credential_path': str(authorization) if authorization else None,
+                              'consumption': None, 'detail': None}
+    if dry_command is None:
+        if not authorization:
+            raise SystemExit('refusing to run the real F worker without an authorization file')
+        if not preregistration:
+            raise SystemExit('refusing to run the real F worker without --preregistration: the '
+                             'credential binds a pre-registration digest, and that file must be '
+                             'present to check it')
+        try:
+            credential = authorization_mod.load_credential(authorization)
+            granted = authorization_mod.authorize(
+                credential, identity=ident, forward_targets=fwd, output_dir=out_dir,
+                preregistration_path=Path(preregistration), run_dir=out_dir,
+                consumption_root=consumption_root)
+        except authorization_mod.AuthorizationRefused as exc:
+            authorization_evidence['refused'] = str(exc)
+            persistence.publish_new(out_dir, 'AUTHORIZATION_REFUSED', authorization_evidence)
+            raise SystemExit('AUTHORIZATION REFUSED: %s' % exc)
+        authorization_evidence.update(granted=True, detail=granted['detail'],
+                                      consumption=granted['consumption'],
+                                      credential_content_sha256=granted[
+                                          'credential_content_sha256'])
+        if authorization_record is not None:
+            Path(authorization_record).write_text(
+                json.dumps(authorization_evidence, indent=2, sort_keys=True, default=repr),
+                encoding='utf-8')
+    elif authorization is not None:
+        # the synthetic harness may point at a credential, but it is NOT used to authorise anything
+        authorization_evidence['detail'] = ('ignored: the synthetic harness never authorises '
+                                            'a real execution')
+    persistence.publish_new(out_dir, 'AUTHORIZATION_EVIDENCE', authorization_evidence)
 
     watched = {str(p): sha256_file(p) for p in idt['paths']}
     freeze_report = json.loads((out_dir / 'FREEZE_REPORT.json').read_text(encoding='utf-8'))
@@ -400,7 +515,7 @@ def supervise(out_dir, *, authorization, dry_command=None, caps_override=None):
         command, out_dir, identity, init_cap=float(caps['initialize_compile_s']),
         slot_cap=float(caps['slot_span_s']), batch_cap=float(caps['batch_s']),
         env=dict(os.environ, JAX_PLATFORMS='cpu', PYTHONIOENCODING='utf-8'),
-        tail_publisher=tail_publisher)
+        tail_publisher=tail_publisher, ready_probe=_make_ready_probe(out_dir))
     tail_path = (control_result.get('tail_publication') or {}).get('path')
     rows = control.reconcile_rows(out_dir, control_result, verify_record=verify_record,
                                   rows_dir='scores', row_glob=targets.SLOT_RECORD_GLOB)
@@ -514,6 +629,14 @@ def main(argv=None):
     ap.add_argument('--out-dir')
     ap.add_argument('--run-id')
     ap.add_argument('--authorization')
+    ap.add_argument('--preregistration',
+                    help='the pre-registration file whose sha256 the credential binds')
+    ap.add_argument('--consumption-root',
+                    help='directory for one-shot consumption receipts (defaults outside the run '
+                         'directory so the fact of use survives the run)')
+    ap.add_argument('--authorization-record')
+    ap.add_argument('--write-authorization-template',
+                    help='write a credential skeleton (HUMAN FIELDS LEFT EMPTY) and exit')
     ap.add_argument('--now-utc')
     # NOTE: `--synthetic-command` is declared with argparse.REMAINDER, so it MUST be the last
     # option on the command line; anything after it belongs to the substituted process.  Putting
@@ -547,15 +670,42 @@ def main(argv=None):
                           'n_target_rows': report['n_target_rows'],
                           'budgets': report['budgets']}, indent=1, default=repr))
         return 0 if report['targets_ok'] and report['identity_match_ok'] else 1
+    if args.write_authorization_template:
+        import d3_l1_v118_authorization as authorization_mod
+        if not args.preregistration:
+            raise SystemExit('--write-authorization-template requires --preregistration')
+        frozen_t = load_frozen(args.out_dir)
+        template = authorization_mod.build_template(
+            frozen_t['identity'], frozen_t['forward'],
+            preregistration_sha256=sha256_file(args.preregistration), output_dir=args.out_dir)
+        sealed = authorization_mod.seal_template(template)
+        dest = Path(args.write_authorization_template)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_text(json.dumps(sealed, indent=2, sort_keys=True, default=repr),
+                        encoding='utf-8')
+        print(json.dumps({
+            'template': str(dest), 'run_id': sealed['run_id'],
+            'credential_sha256': sealed['credential_sha256'],
+            'human_fields_left_empty': [f for f in authorization_mod.HUMAN_FIELDS
+                                        if not sealed.get(f)],
+            'next': 'a HUMAN must fill approved_by / approved_utc / approval_statement and then '
+                    're-seal with d3_l1_v118_authorization.content_digest, because an approval '
+                    'cannot be generated by the process that consumes it',
+            'this_template_alone_is_not_an_authorization': True}, indent=1, default=repr))
+        return 1 if any(not sealed.get(f) for f in authorization_mod.HUMAN_FIELDS) else 0
     if args.worker:
         return worker(args.out_dir)
     if args.supervise:
         override = ({'slot_span_s': float(args.synthetic_slot_cap)}
                     if args.synthetic_slot_cap else None)
         return supervise(args.out_dir, authorization=args.authorization,
-                         dry_command=args.synthetic_command or None, caps_override=override)
+                         dry_command=args.synthetic_command or None, caps_override=override,
+                         preregistration=args.preregistration,
+                         consumption_root=args.consumption_root,
+                         authorization_record=args.authorization_record)
     raise SystemExit('HOLD: this module executes nothing unless --freeze-identity, --supervise, '
-                     '--worker or --readiness is passed explicitly')
+                     '--worker, --readiness or --write-authorization-template is passed '
+                     'explicitly')
 
 
 if __name__ == '__main__':

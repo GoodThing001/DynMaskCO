@@ -71,9 +71,38 @@ def timeline_check(out, started, ended, slot_cap):
             'ok': not errors}
 
 
+def default_ready_probe(out):
+    """Historical READY semantics: the FIXED name `READY.json` exists (V1.11 layout)."""
+    return (Path(out) / 'READY.json').exists()
+
+
+def _ready_state(out, ready_probe):
+    """`(ready, probe_report)`.  A probe that raises is NOT ready and says why."""
+    if ready_probe is None:
+        return default_ready_probe(out), {'probe': 'default READY.json existence', 'ready': None}
+    try:
+        report = ready_probe(out)
+    except Exception as exc:                                              # noqa: BLE001
+        return False, {'probe': getattr(ready_probe, '__qualname__', repr(ready_probe)),
+                       'error': '%s: %s' % (type(exc).__name__, exc), 'ready': False}
+    if isinstance(report, dict):
+        return bool(report.get('ready')), report
+    return bool(report), {'probe': getattr(ready_probe, '__qualname__', repr(ready_probe)),
+                          'ready': bool(report)}
+
+
 def run_contained(command, out, identity, *, init_cap=60., slot_cap=10., batch_cap=180., env=None,
-                  tail_publisher=None):
-    """One process attempt per directory, authentic monotonic deadlines and independent end identity."""
+                  tail_publisher=None, ready_probe=None):
+    """One process attempt per directory, authentic monotonic deadlines and independent end identity.
+
+    `ready_probe(out) -> bool | {'ready': bool, ...}` decides whether initialization/compilation is
+    over.  Its historical default (`None`) reproduces the V1.11/V1.16 semantics EXACTLY: the fixed
+    file `READY.json` exists.  V1.18+ passes a probe that verifies an IMMUTABLE, uniquely named
+    READY event instead, because the V1.18 worker can never publish a fixed name (that fixed name
+    being replaced under a reader is precisely the V1.11 `WinError 5` failure).  The probe is
+    therefore a parameter and not a rewrite: the legacy interface and its acceptance tests keep
+    their exact behaviour.
+    """
     out = Path(out)
     out.mkdir(parents=True, exist_ok=True)
     token = out / 'CONTROL_STARTED.json'
@@ -85,7 +114,8 @@ def run_contained(command, out, identity, *, init_cap=60., slot_cap=10., batch_c
     result = {'start_identity': start_identity, 'command': command,
         'caps': {'initialize': init_cap, 'slot': slot_cap, 'batch': batch_cap},
         'started_mono': started, 'pid': None, 'reason': None, 'cleanup': None,
-        'returncode': None, 'tree_active_after': None, 'timeline': None}
+        'returncode': None, 'tree_active_after': None, 'timeline': None,
+        'ready_state': None}
     publish(out / 'CONTROL_IDENTITY_START.json', start_identity)
     if not start_identity['ok']:
         result.update(reason='HARD_STOP_IDENTITY', end_identity=identity_check(identity), ok=False)
@@ -104,9 +134,13 @@ def run_contained(command, out, identity, *, init_cap=60., slot_cap=10., batch_c
                 now = time.monotonic()  # includes the bounded phase-read wait
                 if now - started > batch_cap:
                     result['reason'] = 'batch_deadline'
-                elif not (out / 'READY.json').exists() and now - started > init_cap:
-                    result['reason'] = 'initialization_compile_deadline'
-                elif current.get('stage') == 'slot' and now - current['mono'] > slot_cap:
+                else:
+                    ready, probe_report = _ready_state(out, ready_probe)
+                    result['ready_state'] = probe_report
+                    if not ready and now - started > init_cap:
+                        result['reason'] = 'initialization_compile_deadline'
+                if result['reason'] is None and current.get('stage') == 'slot' \
+                        and now - current['mono'] > slot_cap:
                     result['reason'] = 'slot_span_deadline'
                 if result['reason']:
                     result['cleanup'] = tree.terminate()

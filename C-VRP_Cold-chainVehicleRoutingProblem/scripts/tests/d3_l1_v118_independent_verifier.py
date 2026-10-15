@@ -258,7 +258,16 @@ def main():
     ap.add_argument('--selftest-supervised', action='store_true',
                     help='like --selftest but driven through the production supervisor, so the '
                          'supervision and round verdicts are also exercised')
+    # The run-scoped constants below are FROZEN defaults.  A new execution identity (V1.19) may
+    # override them explicitly, so one frozen verifier can check whichever identity is being
+    # signed, without editing the tool's hard-coded expectations.
+    ap.add_argument('--expect-run-id', default=None)
+    ap.add_argument('--expect-targets-sha256', default=None)
     args = ap.parse_args()
+    if args.expect_run_id:
+        globals()['EXPECTED_RUN_ID'] = args.expect_run_id
+    if args.expect_targets_sha256:
+        globals()['EXPECTED_TARGETS_SHA256'] = args.expect_targets_sha256
     import shutil
     import tempfile
     cleanup = None
