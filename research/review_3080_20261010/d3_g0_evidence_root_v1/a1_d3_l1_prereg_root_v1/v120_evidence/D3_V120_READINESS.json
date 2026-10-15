@@ -1,0 +1,224 @@
+{
+  "n_fail": 1,
+  "n_pass": 2,
+  "n_rows": 3,
+  "records": {
+    "budget_provenance": {
+      "b2_fixture_declaration": {
+        "line": 45,
+        "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0"
+      },
+      "hits": [
+        {
+          "file": "scripts/tests/d3_l1_v120_forward_and_l1_readiness.py",
+          "line": 13,
+          "name": "B_BUDGET",
+          "text": "`CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0`), the historical CAL fixture constant",
+          "value": "50.0"
+        },
+        {
+          "file": "scripts/tests/test_d3_b2_certification.py",
+          "line": 45,
+          "name": "B_BUDGET",
+          "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+          "value": "50.0"
+        },
+        {
+          "file": "scripts/tests/test_d3_b3ac_gate_refusal.py",
+          "line": 57,
+          "name": "B_BUDGET",
+          "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+          "value": "50.0"
+        },
+        {
+          "file": "scripts/tests/test_d3_b3at1_transaction.py",
+          "line": 49,
+          "name": "B_BUDGET",
+          "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+          "value": "50.0"
+        },
+        {
+          "file": "scripts/tests/test_d3_b3at2a_coordinator.py",
+          "line": 53,
+          "name": "B_BUDGET",
+          "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+          "value": "50.0"
+        },
+        {
+          "file": "scripts/tests/test_d3_b3at2g_container.py",
+          "line": 51,
+          "name": "B_BUDGET",
+          "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+          "value": "50.0"
+        },
+        {
+          "file": "scripts/tests/test_d3_b3q_quality_projection.py",
+          "line": 42,
+          "name": "B_BUDGET",
+          "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0",
+          "value": "50.0"
+        },
+        {
+          "file": "scripts/tests/test_d3_l1_collector_gates.py",
+          "line": 14,
+          "name": "CALL_BUDGET",
+          "text": "CALL_BUDGET = 1 baseline rollout (+1 perturbation rollout for the causality gate) + per slot:",
+          "value": "1"
+        },
+        {
+          "file": "scripts/tests/test_d3_l1_resume_parity_attribution.py",
+          "line": 44,
+          "name": "NODE_BUDGET",
+          "text": "NODE_BUDGET = 400000",
+          "value": "400000"
+        }
+      ],
+      "labels": {
+        "historical_cal_fixture": [
+          "scripts/tests/test_d3_b2_certification.py"
+        ],
+        "isolation_fixture_1e9": [],
+        "registered_protocol_budget_for_the_64_dev_check_states": null
+      },
+      "matcher": "(?:^|[,(]\\s*|\\s)([A-Za-z_]*BUDGET[A-Za-z_]*)\\s*(?::[^=]*)?=\\s*([0-9.eE+]+)",
+      "n_hits": 9,
+      "old_v119_matcher_would_miss_it": true,
+      "verdict": "ARCHIVED_BUDGET_GAP_CONFIRMED / CURRENT_PROVENANCE_NOT_EXHAUSTIVELY_SEARCHED"
+    },
+    "capability_gaps": [
+      "quality_salability"
+    ],
+    "compose_call": {
+      "budget_label": "SYNTHETIC_ONLY_NOT_A_FORMAL_C0_BUDGET",
+      "clock": 0.27298226952552795,
+      "env_type": "StrictOnlineEnv",
+      "inst_idx": 0,
+      "mask_set": [
+        5
+      ],
+      "n_vehicles": 25,
+      "synthetic_B": 300.0
+    },
+    "compose_result": {
+      "detail": {
+        "installable": false,
+        "ok": false,
+        "reasons": [
+          "full_partition_failed",
+          "legality_short_circuit:full_partition",
+          "repair_plan_unverifiable"
+        ]
+      },
+      "keys": [
+        "blocking_capability_gaps",
+        "certification_schema",
+        "checks",
+        "components",
+        "contract_hash_used_for_energy",
+        "installable",
+        "legality_gates",
+        "legality_ok",
+        "note",
+        "ok",
+        "quality",
+        "reasons"
+      ]
+    },
+    "compose_signature": "(env, inst_idx, clock, vehicles, served_mask, plans, *, mask_set, protected=frozenset(), deferred=frozenset(), B, contract, base_plans=None, mutable_ids=None, quality_check_fn=None, project_quality=True, stress_quality_schedule=False)",
+    "l1_readiness": {
+      "d_geo_scorer": "geo_score = -incremental_distance (registered)",
+      "f_label": "F_RECONSTRUCTED_WITH_CURRENT_BACKBONE / HISTORICAL_BACKBONE_UNVERIFIED",
+      "f_scorer": "restored MaskCO logits -- NOT RUN in this round (forbidden)",
+      "not_run": [
+        "F-vs-D-Geo comparison",
+        "any F forward on the 64 states"
+      ],
+      "shared_clock": 0.27298226952552795,
+      "shared_contract": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+      "shared_state_hash": "7218e36011f5866ae9fbab96c0bfa81163fa86dfacf3d271709fd256a62c3e1c",
+      "three_outputs": [
+        "first_step_divergence",
+        "full_repair_completed",
+        "certified_executable_plan"
+      ]
+    },
+    "summary": {
+      "fail": 1,
+      "no_new_scientific_runs": true,
+      "open": [
+        "V1.18 signable execution pre-registration (draft only)",
+        "L1 signable pre-registration (draft only)",
+        "C0 formal budget ruling (user)",
+        "D8 confined unblocking: state certification / credential binding / constraint propagation through execution",
+        "E2 pre-registration (no training)"
+      ],
+      "pass": 2,
+      "rows": 3
+    }
+  },
+  "rows": [
+    {
+      "detail": {
+        "b2": {
+          "line": 45,
+          "text": "CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0"
+        },
+        "n_hits": 9,
+        "verdict": "ARCHIVED_BUDGET_GAP_CONFIRMED / CURRENT_PROVENANCE_NOT_EXHAUSTIVELY_SEARCHED"
+      },
+      "name": "B1 the corrected matcher finds the historical CAL fixture budget that V1.19 missed (tuple assignment), and the gap stays labelled as an archived gap with a non-exhaustive provenance search",
+      "ok": true
+    },
+    {
+      "detail": {
+        "detail": {
+          "installable": false,
+          "ok": false,
+          "reasons": [
+            "full_partition_failed",
+            "legality_short_circuit:full_partition",
+            "repair_plan_unverifiable"
+          ]
+        },
+        "keys": [
+          "blocking_capability_gaps",
+          "certification_schema",
+          "checks",
+          "components",
+          "contract_hash_used_for_energy",
+          "installable",
+          "legality_gates",
+          "legality_ok",
+          "note",
+          "ok",
+          "quality",
+          "reasons"
+        ]
+      },
+      "name": "G0-06a EXECUTED (not just declared): compose_certification runs on a REAL day-0 state and returns installable=False because the quality/salability capability gap is blocking",
+      "ok": false
+    },
+    {
+      "detail": {
+        "d_geo_scorer": "geo_score = -incremental_distance (registered)",
+        "f_label": "F_RECONSTRUCTED_WITH_CURRENT_BACKBONE / HISTORICAL_BACKBONE_UNVERIFIED",
+        "f_scorer": "restored MaskCO logits -- NOT RUN in this round (forbidden)",
+        "not_run": [
+          "F-vs-D-Geo comparison",
+          "any F forward on the 64 states"
+        ],
+        "shared_clock": 0.27298226952552795,
+        "shared_contract": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+        "shared_state_hash": "7218e36011f5866ae9fbab96c0bfa81163fa86dfacf3d271709fd256a62c3e1c",
+        "three_outputs": [
+          "first_step_divergence",
+          "full_repair_completed",
+          "certified_executable_plan"
+        ]
+      },
+      "name": "L1-1 the L1 shared inputs are constructible from the frozen 64-state asset (contract, state_hash, clock, registered D-Geo scorer) without running F",
+      "ok": true
+    }
+  ],
+  "tool_sha256": "70668e0c6af3f2e14a0b03890af4dd7416cb2bf204404e58c3c076a29de68e71"
+}
