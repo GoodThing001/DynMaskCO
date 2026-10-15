@@ -1,0 +1,11 @@
+{
+  "error": "[WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PyCharm_\\\\MASKCO-Main\\\\research\\\\review_3080_20261010\\\\d3_g0_evidence_root_v1\\\\a1_d3_l1_prereg_root_v1\\\\v111_evidence\\\\STAGE.json.tmp' -> 'D:\\\\PyCharm_\\\\MASKCO-Main\\\\research\\\\review_3080_20261010\\\\d3_g0_evidence_root_v1\\\\a1_d3_l1_prereg_root_v1\\\\v111_evidence\\\\STAGE.json'",
+  "stage": {
+    "day_id": 5,
+    "mono": 1227774.64,
+    "position": 2,
+    "stage": "slot"
+  },
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\tests\\d3_l1_v111_real_f_forward.py\", line 93, in worker\n    stage('slot', day_id=day, position=pos)\n  File \"D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\tests\\d3_l1_v111_real_f_forward.py\", line 38, in stage\n    write(OUT / 'STAGE.json', dict(stage=name, mono=time.monotonic(), **extra))\n  File \"D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\tests\\d3_l1_v111_real_f_forward.py\", line 34, in write\n    os.replace(temp, path)\nPermissionError: [WinError 5] \u62d2\u7edd\u8bbf\u95ee\u3002: 'D:\\\\PyCharm_\\\\MASKCO-Main\\\\research\\\\review_3080_20261010\\\\d3_g0_evidence_root_v1\\\\a1_d3_l1_prereg_root_v1\\\\v111_evidence\\\\STAGE.json.tmp' -> 'D:\\\\PyCharm_\\\\MASKCO-Main\\\\research\\\\review_3080_20261010\\\\d3_g0_evidence_root_v1\\\\a1_d3_l1_prereg_root_v1\\\\v111_evidence\\\\STAGE.json'\n",
+  "type": "PermissionError"
+}
