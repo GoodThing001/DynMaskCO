@@ -1,0 +1,286 @@
+{
+  "n_fail": 0,
+  "n_pass": 8,
+  "n_rows": 8,
+  "records": {
+    "G0_01": {
+      "installs": "0",
+      "pre_sampling_refusals": "1",
+      "returned": "False"
+    },
+    "G0_02": {
+      "ndim2": {
+        "failure_reason": "score_shape",
+        "n_steps": 0,
+        "violation": "ndim != 1"
+      },
+      "too_long": {
+        "failure_reason": "score_len",
+        "n_steps": 0,
+        "violation": "len(scores) != len(legal)"
+      },
+      "too_short": {
+        "failure_reason": "score_len",
+        "n_steps": 0,
+        "violation": "len(scores) != len(legal)"
+      }
+    },
+    "G0_03": {
+      "events": "[{'action': 'refuse', 'reason': 'certified_plan_identity_mismatch', 'installed_plan_hash': 'f9111c60a3926d5f', 'certified_plan_hash': 'deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef', 'certifier': 'test-certifier', 'candidate_discarded': True, 'committed_state_restored': True, 'rollback_unverified': False}]",
+      "returned": "False"
+    },
+    "G0_04": {
+      "events": "[{'action': 'install', 'reason': None, 'plan_hash': 'f9111c60a3926d5f', 'certified_plan_hash': 'f9111c60a3926d5f', 'certifier': 'test-certifier', 'candidate_discarded': False, 'committed_state_restored': False, 'rollback_unverified': False}, {'action': 'refuse', 'reason': 'already_finished', 'candidate_discarded': True, 'committed_state_restored': True, 'rollback_unverified': False}]",
+      "first": "True",
+      "installs": "1",
+      "second": "False"
+    },
+    "G0_05": {
+      "no_rollback_fn": {
+        "n_pre_sampling_refusals": "0",
+        "n_rollback_unverified": "1",
+        "n_state_restorations": "0"
+      },
+      "pre_sampling": {
+        "n_pre_sampling_refusals": "1",
+        "n_rollback_unverified": "0",
+        "n_state_restorations": "0"
+      },
+      "with_rollback_fn": {
+        "n_pre_sampling_refusals": "0",
+        "n_rollback_unverified": "0",
+        "n_state_restorations": "1"
+      }
+    },
+    "G0_06": {
+      "capability_lines": [
+        "# ---- quality / salability: three-state, never a default pass ---------------------------",
+        "'unsalable_orders': projection['unsalable_orders'],",
+        "'why': ('no CONSERVATIVE decision-time quality/salability certification exists. '",
+        "CAPABILITY_GAPS = ('quality_salability',)",
+        "blocking_gaps = list(CAPABILITY_GAPS)",
+        "from d3_credential import (QUALITY_CAPABILITY_GAP, QUALITY_FAILED, QUALITY_OK)"
+      ],
+      "certification_signatures": {
+        "compose_certification": "(env, inst_idx, clock, vehicles, served_mask, plans, *, mask_set, protected=frozenset(), deferred=frozenset(), B, contract, base_plans=None, mutable_ids=None, quality_check_fn=None, project_quality=True, stress_quality_schedule=False)"
+      },
+      "declared_capability_gaps": [
+        "quality_salability"
+      ],
+      "module": "scripts\\simulation\\d3_composed_certifier.py",
+      "quality_salability_mentioned": true
+    },
+    "already_implemented_and_accepted_history": {
+      "note": "G0-Safety batch 1 interfaces are implemented AND covered by the historical suites; the remaining work is the EVIDENCE batch (real-state composition, write uniqueness, persistent install receipt, D8 hard constraints, quality capability).",
+      "test_assets": [
+        "test_d3_g0_green_phase.py",
+        "test_d3_g0_invariants_v119.py",
+        "test_d3_g0_red_phase.py",
+        "test_d3_b3ac_gate_refusal.py",
+        "test_d3_b3ac_path_classification.py",
+        "test_d3_b3at1_transaction.py",
+        "test_d3_b3at2a_coordinator.py",
+        "test_d3_b3at2b1_wiring.py",
+        "test_d3_b3at2b2a_write_exclusion.py",
+        "test_d3_b3at2g_container.py",
+        "test_d3_b3at2h_write_inventory.py",
+        "test_d3_b3cf_submit_failures.py",
+        "test_d3_b3q_quality_projection.py",
+        "test_d3_b3qc_lower_bound.py",
+        "test_d3_b3qp_closure.py",
+        "test_d3_b1_state_level.py",
+        "test_d3_b2_certification.py"
+      ]
+    },
+    "budget_provenance": {
+      "file": "scripts\\tests\\test_d3_b2_certification.py",
+      "historical_fixture_budget_300_present": false,
+      "registered_budget_for_the_64_dev_check_states": null
+    },
+    "identity": {
+      "FAILURE_REASONS": [
+        null,
+        "no_legal",
+        "nan",
+        "timeout",
+        "rollback",
+        "cert_fail",
+        "score_shape",
+        "score_len",
+        "geo_len",
+        "no_certifier"
+      ],
+      "INSTALL_REQUIRES_CERTIFICATION": true,
+      "REFUSAL_REASONS": [
+        "already_finished",
+        "certification_missing",
+        "certified_plan_hash_missing",
+        "certified_plan_identity_mismatch",
+        "certifier_identity_missing",
+        "decision_deadline_exceeded"
+      ],
+      "d3_geo_adapter_sha256": "099c3517472d886ece4ea3e929df2ec54d0e459b2a2e2e07da5b658acc07adc5"
+    },
+    "summary": {
+      "closed_by_executable_counterexample": [
+        "G0-01 NEGATIVE (no certify_fn): the transaction refuses before sampling -- zero installs and a pre-sampling refusal, not a silent uncertified install",
+        "G0-02 NEGATIVE (score vector): a 2-D vector fails closed with score_shape and a wrong-length vector with score_len -- and neither produces a step (no silent prefix scoring)",
+        "G0-03 NEGATIVE (identity mismatch): a certified plan hash that does not match the plan to install is refused with certifier identity bound, zero installs",
+        "G0-04 POSITIVE then NEGATIVE (idempotency): the first correctly certified install succeeds exactly once and a second finish() on the same ledger refuses with already_finished",
+        "G0-05 the three outcomes stay DISTINCT: an unverified rollback is counted separately from a real restoration, and a pre-sampling refusal is neither",
+        "G0-06a the composed certifier itself declares the quality/salability capability gap, so no \"fully certified\" receipt may be claimed from it",
+        "G0-06b NEGATIVE (budget): no registered C0 budget exists for the 64 dev_check states, so the budget question is BLOCKED/AWAITING_USER_BUDGET_RULING and must not be filled in by the agent"
+      ],
+      "fail": 0,
+      "no_new_runs": [
+        "no F batch",
+        "no F-vs-D-Geo",
+        "no training",
+        "no L2/L3",
+        "no 40-day batch",
+        "no final test"
+      ],
+      "open_items": [
+        "real-state composed certification",
+        "write uniqueness on real state",
+        "persistent install receipt P_before/P_proposed/P_certified/P_after_install",
+        "D8 hard constraints",
+        "quality/salability certification",
+        "C0 budget ruling"
+      ],
+      "pass": 8,
+      "rows": 8
+    }
+  },
+  "rows": [
+    {
+      "detail": {
+        "FAILURE_REASONS": [
+          null,
+          "no_legal",
+          "nan",
+          "timeout",
+          "rollback",
+          "cert_fail",
+          "score_shape",
+          "score_len",
+          "geo_len",
+          "no_certifier"
+        ],
+        "INSTALL_REQUIRES_CERTIFICATION": true,
+        "REFUSAL_REASONS": [
+          "already_finished",
+          "certification_missing",
+          "certified_plan_hash_missing",
+          "certified_plan_identity_mismatch",
+          "certifier_identity_missing",
+          "decision_deadline_exceeded"
+        ],
+        "d3_geo_adapter_sha256": "099c3517472d886ece4ea3e929df2ec54d0e459b2a2e2e07da5b658acc07adc5"
+      },
+      "name": "I0 the adapter exposes the certification requirement and the refusal/failure reason sets",
+      "ok": true
+    },
+    {
+      "detail": {
+        "installs": "0",
+        "pre_sampling_refusals": "1",
+        "returned": "False"
+      },
+      "name": "G0-01 NEGATIVE (no certify_fn): the transaction refuses before sampling -- zero installs and a pre-sampling refusal, not a silent uncertified install",
+      "ok": true
+    },
+    {
+      "detail": {
+        "ndim2": {
+          "failure_reason": "score_shape",
+          "n_steps": 0,
+          "violation": "ndim != 1"
+        },
+        "too_long": {
+          "failure_reason": "score_len",
+          "n_steps": 0,
+          "violation": "len(scores) != len(legal)"
+        },
+        "too_short": {
+          "failure_reason": "score_len",
+          "n_steps": 0,
+          "violation": "len(scores) != len(legal)"
+        }
+      },
+      "name": "G0-02 NEGATIVE (score vector): a 2-D vector fails closed with score_shape and a wrong-length vector with score_len -- and neither produces a step (no silent prefix scoring)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "events": "[{'action': 'refuse', 'reason': 'certified_plan_identity_mismatch', 'installed_plan_hash': 'f9111c60a3926d5f', 'certified_plan_hash': 'deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef', 'certifier': 'test-certifier', 'candidate_discarded': True, 'committed_state_restored': True, 'rollback_unverified': False}]",
+        "returned": "False"
+      },
+      "name": "G0-03 NEGATIVE (identity mismatch): a certified plan hash that does not match the plan to install is refused with certifier identity bound, zero installs",
+      "ok": true
+    },
+    {
+      "detail": {
+        "events": "[{'action': 'install', 'reason': None, 'plan_hash': 'f9111c60a3926d5f', 'certified_plan_hash': 'f9111c60a3926d5f', 'certifier': 'test-certifier', 'candidate_discarded': False, 'committed_state_restored': False, 'rollback_unverified': False}, {'action': 'refuse', 'reason': 'already_finished', 'candidate_discarded': True, 'committed_state_restored': True, 'rollback_unverified': False}]",
+        "first": "True",
+        "installs": "1",
+        "second": "False"
+      },
+      "name": "G0-04 POSITIVE then NEGATIVE (idempotency): the first correctly certified install succeeds exactly once and a second finish() on the same ledger refuses with already_finished",
+      "ok": true
+    },
+    {
+      "detail": {
+        "no_rollback_fn": {
+          "n_pre_sampling_refusals": "0",
+          "n_rollback_unverified": "1",
+          "n_state_restorations": "0"
+        },
+        "pre_sampling": {
+          "n_pre_sampling_refusals": "1",
+          "n_rollback_unverified": "0",
+          "n_state_restorations": "0"
+        },
+        "with_rollback_fn": {
+          "n_pre_sampling_refusals": "0",
+          "n_rollback_unverified": "0",
+          "n_state_restorations": "1"
+        }
+      },
+      "name": "G0-05 the three outcomes stay DISTINCT: an unverified rollback is counted separately from a real restoration, and a pre-sampling refusal is neither",
+      "ok": true
+    },
+    {
+      "detail": {
+        "capability_lines": [
+          "# ---- quality / salability: three-state, never a default pass ---------------------------",
+          "'unsalable_orders': projection['unsalable_orders'],",
+          "'why': ('no CONSERVATIVE decision-time quality/salability certification exists. '",
+          "CAPABILITY_GAPS = ('quality_salability',)",
+          "blocking_gaps = list(CAPABILITY_GAPS)",
+          "from d3_credential import (QUALITY_CAPABILITY_GAP, QUALITY_FAILED, QUALITY_OK)"
+        ],
+        "certification_signatures": {
+          "compose_certification": "(env, inst_idx, clock, vehicles, served_mask, plans, *, mask_set, protected=frozenset(), deferred=frozenset(), B, contract, base_plans=None, mutable_ids=None, quality_check_fn=None, project_quality=True, stress_quality_schedule=False)"
+        },
+        "declared_capability_gaps": [
+          "quality_salability"
+        ],
+        "module": "scripts\\simulation\\d3_composed_certifier.py",
+        "quality_salability_mentioned": true
+      },
+      "name": "G0-06a the composed certifier itself declares the quality/salability capability gap, so no \"fully certified\" receipt may be claimed from it",
+      "ok": true
+    },
+    {
+      "detail": {
+        "file": "scripts\\tests\\test_d3_b2_certification.py",
+        "historical_fixture_budget_300_present": false,
+        "registered_budget_for_the_64_dev_check_states": null
+      },
+      "name": "G0-06b NEGATIVE (budget): no registered C0 budget exists for the 64 dev_check states, so the budget question is BLOCKED/AWAITING_USER_BUDGET_RULING and must not be filled in by the agent",
+      "ok": true
+    }
+  ],
+  "tool_sha256": "fce4c0fbb9b855431e975296ba32d3c678b1be2aa1242171558494c85eec0190"
+}
