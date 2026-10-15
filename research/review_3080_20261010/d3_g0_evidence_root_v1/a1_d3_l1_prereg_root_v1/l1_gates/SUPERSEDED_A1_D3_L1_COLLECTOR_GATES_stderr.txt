@@ -1,0 +1,10 @@
+'nvidia-smi' is not recognized as an internal or external command,
+operable program or batch file.
+Traceback (most recent call last):
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\tests\test_d3_l1_collector_gates.py", line 299, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\PyCharm_\MASKCO-Main\C-VRP_Cold-chainVehicleRoutingProblem\scripts\tests\test_d3_l1_collector_gates.py", line 250, in main
+    'restore_non_none': e['restore_returns_dict']} for e in slot_report])
+                        ~^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'restore_returns_dict'

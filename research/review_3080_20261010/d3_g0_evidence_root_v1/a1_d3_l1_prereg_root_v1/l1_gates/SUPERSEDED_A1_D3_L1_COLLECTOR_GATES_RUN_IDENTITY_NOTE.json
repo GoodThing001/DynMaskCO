@@ -1,0 +1,6 @@
+{
+  "note": "These three artifacts are NOT one execution. The JSON is from the 2026-10-15 09:55:31 run (complete, 13 PASS / 1 FAIL); the stdout/stderr are from the 10:02:09 run, which died with KeyError: restore_returns_dict because I edited the assignment key while the R3 assertion still read the old one. The pairing is therefore void as a reproducible record. Bytes are preserved by renaming only; superseded by test_d3_l1_collector_qualification.py.",
+  "json_mtime": "2026-10-15 09:55:31",
+  "logs_mtime": "2026-10-15 10:02:09",
+  "cause": "my edit/commit defect, not a computation defect"
+}

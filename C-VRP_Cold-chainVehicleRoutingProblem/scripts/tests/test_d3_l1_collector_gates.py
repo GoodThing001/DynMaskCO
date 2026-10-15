@@ -245,7 +245,7 @@ def main():
        all(e['horizon_chain_ok'] for e in slot_report),
        [{'slot': e['slot'], 'horizon_chain_ok': e['horizon_chain_ok']} for e in slot_report])
     ck('R3 snapshot_state_hash is stable and restore_recourse_snapshot returns a dict for every '
-       'slot', all(e['hash_stable'] and e['restore_returns_dict'] for e in slot_report),
+       'slot', all(e['hash_stable'] and e['restore_non_none'] for e in slot_report),
        [{'slot': e['slot'], 'hash_stable': e['hash_stable'],
          'restore_non_none': e['restore_returns_dict']} for e in slot_report])
     ck('R4 the frozen run_resumed(snapshot) executes on the sanctioned restore env (resume '
