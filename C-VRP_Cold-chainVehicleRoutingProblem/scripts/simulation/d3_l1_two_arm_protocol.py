@@ -42,6 +42,7 @@ from __future__ import annotations
 import hashlib
 import json
 import sys
+import time
 from pathlib import Path
 
 import numpy as np
@@ -225,14 +226,89 @@ def arm_scorers(f_score_fn=None, *, geo_extract_fn=None, base_extract_fn=None,
     return {'scorers': scorers, 'extract_fn': geo_extract_fn, 'identities': identities}
 
 
+class BudgetGate(object):
+    """Per-arm resource ceiling with FAIL-CLOSED semantics.
+
+    Every unit is counted separately because the units are not interchangeable: a scorer CALL is not
+    a wall-clock second, and neither is a plan certification.  When a ceiling is crossed the arm
+    fails with `failure_reason='timeout'` (wall clock) or `'budget_calls'` (call count) and the
+    ORIGINAL plan is returned -- a run that overspends never yields a candidate.
+
+    The gate exists because the two arms have very different cost: D-Geo is a vector read while F is
+    a neural forward.  Without an explicit shared ceiling, "F got more time because it is slower"
+    would be an unregistered advantage.  The ceiling is therefore set per arm BEFORE the comparison
+    and is identical for both.
+    """
+
+    def __init__(self, *, max_scorer_calls=None, max_wall_seconds=None):
+        self.max_scorer_calls = max_scorer_calls
+        self.max_wall_seconds = max_wall_seconds
+        self.scorer_calls = 0
+        self.started = time.monotonic()
+        self.exceeded = None
+
+    def charge_call(self):
+        self.scorer_calls += 1
+        if self.max_scorer_calls is not None and self.scorer_calls > self.max_scorer_calls:
+            self.exceeded = 'budget_calls'
+        return self.exceeded
+
+    def charge_elapsed(self):
+        elapsed = time.monotonic() - self.started
+        if self.max_wall_seconds is not None and elapsed > self.max_wall_seconds:
+            self.exceeded = 'timeout'
+        return self.exceeded
+
+    def remaining_wall(self):
+        if self.max_wall_seconds is None:
+            return None
+        return max(0.0, self.max_wall_seconds - (time.monotonic() - self.started))
+
+    def snapshot(self):
+        return {'max_scorer_calls': self.max_scorer_calls,
+                'max_wall_seconds': self.max_wall_seconds,
+                'scorer_calls': self.scorer_calls,
+                'wall_seconds': round(time.monotonic() - self.started, 6),
+                'exceeded': self.exceeded}
+
+
+def _wrap_scorer_with_gate(arm, scorer, gate, on_step=None):
+    """Wrap a scorer so every call is charged and a crossed ceiling becomes a failure, not a crash."""
+    def gated(state):
+        if gate is None:
+            return scorer(state)
+        if gate.charge_call():
+            raise BudgetExceeded(arm, gate.exceeded)
+        if on_step is not None:
+            on_step(arm, state, gate)
+        if gate.charge_elapsed():
+            raise BudgetExceeded(arm, gate.exceeded)
+        return scorer(state)
+    return gated
+
+
+class BudgetExceeded(RuntimeError):
+    """Raised inside a gated scorer; `stepwise_sample_d3` converts it into a fail-closed rollback."""
+
+    def __init__(self, arm, reason):
+        super(BudgetExceeded, self).__init__('%s exceeded its %s ceiling' % (arm, reason))
+        self.arm = arm
+        self.reason = reason
+
+
 def run_arm(arm, shared, *, scorer, extract_fn, legal_fn, apply_fn, certify_fn=None,
-            wall_clock_limit_s=None, tie_break=GEO.TIE_BREAK_LEGAL_ORDER):
+            wall_clock_limit_s=None, tie_break=GEO.TIE_BREAK_LEGAL_ORDER, gate=None,
+            on_score_step=None):
     """Run ONE arm to completion (or failure) on the shared input.  Never mutates `shared`.
 
     The arm wraps `legal_fn` so that the ORDERED legal list is fingerprinted at EVERY step.  The
     first-step fingerprint is a shared-input identity (both arms must agree); after a fork the two
     arms legitimately enumerate different lists, so later fingerprints are recorded evidence only
     and are never used to declare an input mismatch.
+
+    `gate` (a `BudgetGate`) charges every scorer call and the elapsed wall clock, and `on_score_step`
+    observes `(arm, state, gate)` on each call -- the hook the L1 real-F arm uses to verify that the
+    logits it receives correspond to THIS step's ordered legal list rather than to a cached one.
     """
     transport = shared['transport']
     plans = transport['plans']
@@ -246,12 +322,21 @@ def run_arm(arm, shared, *, scorer, extract_fn, legal_fn, apply_fn, certify_fn=N
                             'legal_sha256': legal_fingerprint(legal)})
         return legal
 
-    plan, steps, records, failure_reason, diag = GEO.stepwise_sample_d3(
-        score_fn=scorer, extract_fn=extract_fn, legal_fn=traced_legal_fn, apply_fn=apply_fn,
-        plans=plans, mask_set=shared['common_conditions']['mask_order'],
-        mutable_ids=transport['mutable_ids'], selector=GEO.SELECTOR_HISTORICAL,
-        deterministic=True, certify_fn=certify_fn, budget=budget,
-        wall_clock_limit_s=wall_clock_limit_s, tie_break=tie_break)
+    gated_scorer = _wrap_scorer_with_gate(arm, scorer, gate, on_score_step)
+    try:
+        plan, steps, records, failure_reason, diag = GEO.stepwise_sample_d3(
+            score_fn=gated_scorer, extract_fn=extract_fn, legal_fn=traced_legal_fn,
+            apply_fn=apply_fn, plans=plans, mask_set=shared['common_conditions']['mask_order'],
+            mutable_ids=transport['mutable_ids'], selector=GEO.SELECTOR_HISTORICAL,
+            deterministic=True, certify_fn=certify_fn, budget=budget,
+            wall_clock_limit_s=wall_clock_limit_s, tie_break=tie_break)
+    except BudgetExceeded as exc:
+        # The gate crossed a ceiling: fail CLOSED with the original plan, exactly like a deadline.
+        plan, steps, records, failure_reason, diag = (
+            dict(plans), [], [], exc.reason,
+            {'budget_exceeded': exc.reason, 'n_steps': 0, 'certified': False, 'certifier': None,
+             'certified_plan_hash': None, 'deadline_ok': False,
+             'rollback': True, 'rollback_to': 'the original plans passed in by the caller'})
     first = records[0] if records else None
     out = {
         'arm': arm,
@@ -275,6 +360,7 @@ def run_arm(arm, shared, *, scorer, extract_fn, legal_fn, apply_fn, certify_fn=N
         'plan_after': {int(v): list(getattr(p, 'suffix', [])) for v, p in plan.items()},
         'plan_hash_after': GEO._plan_identity(plan),
         'returned_original_plan': bool(failure_reason is not None),
+        'budget_gate': (gate.snapshot() if gate is not None else None),
         'certified': diag.get('certified'),
         'certified_plan_hash': diag.get('certified_plan_hash'),
         'certifier': diag.get('certifier'),
@@ -286,19 +372,25 @@ def run_arm(arm, shared, *, scorer, extract_fn, legal_fn, apply_fn, certify_fn=N
 
 
 def run_two_arms(shared, arms, *, legal_fn, apply_fn, certify_fn=None, wall_clock_limit_s=None,
-                 certify_not_run_reason=None):
-    """Run both arms and produce the THREE SEPARATE verdicts plus the mechanical audit."""
+                 certify_not_run_reason=None, gates=None, on_score_step=None):
+    """Run both arms and produce the THREE SEPARATE verdicts plus the mechanical audit.
+
+    `gates` is `{arm: BudgetGate}`.  The gates are supplied BY THE CALLER, one per arm, with the
+    SAME ceilings for both: the protocol never grants an arm extra time because it is slower.
+    """
     import d3_geo_adapter as _geo
     if certify_fn is not None:
         shared['certifier']['run_certifier_identity'] = _geo._callable_identity(certify_fn)
     scorers = arms['scorers']
     extract_fn = arms['extract_fn']
+    gates = gates or {}
     results = {}
     for arm in ARMS:
         before = json_digest(shared['state'])
         results[arm] = run_arm(arm, shared, scorer=scorers[arm], extract_fn=extract_fn,
                                legal_fn=legal_fn, apply_fn=apply_fn, certify_fn=certify_fn,
-                               wall_clock_limit_s=wall_clock_limit_s)
+                               wall_clock_limit_s=wall_clock_limit_s, gate=gates.get(arm),
+                               on_score_step=on_score_step)
         # Refuse a run in which an arm mutated the shared state: that would break the single factor.
         after = json_digest(shared['state'])
         results[arm]['state_key_unchanged'] = bool(before == after)

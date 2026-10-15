@@ -1,0 +1,307 @@
+{
+  "F_calls_on_real_model_here": 2,
+  "ledger": {
+    "calls": [
+      {
+        "arm": "F",
+        "legal_sha256": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f",
+        "logits_dtype": "<f4",
+        "logits_len": 21,
+        "logits_sha256": "6392ddf39bc5c17615d648e7e865451b555e3b31381c21469a15d833af32145d",
+        "n_legal": 21,
+        "step_index": 0,
+        "wall_mono": 1249417.984
+      },
+      {
+        "arm": "F",
+        "legal_sha256": "4e21f69117940b8089a4b1b1f698f699bea14abf2469562df95aca26f16e1efe",
+        "logits_dtype": "<f4",
+        "logits_len": 8,
+        "logits_sha256": "d53782e6aacf8e3b06ff8786386a2ee615eb3a148dd62f5f08a3483d804cb723",
+        "n_legal": 8,
+        "step_index": 1,
+        "wall_mono": 1249418.14
+      },
+      {
+        "arm": "D-Geo",
+        "legal_sha256": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f",
+        "logits_dtype": "<f8",
+        "logits_len": 21,
+        "logits_sha256": "4fea01520299a00bdef0c501cfd755cd493bb7ee18c1f748ffdf21181b714a60",
+        "n_legal": 21,
+        "step_index": 0,
+        "wall_mono": 1249418.156
+      },
+      {
+        "arm": "D-Geo",
+        "legal_sha256": "7af2d18ec464c17f35ee251ed97ffa0a4aa766c8fa40485da265fed5110894a5",
+        "logits_dtype": "<f8",
+        "logits_len": 12,
+        "logits_sha256": "0bbfd03d5d99e6bd9552e964cd4f7fadc1d348a09d9e5158456952d862831b97",
+        "n_legal": 12,
+        "step_index": 1,
+        "wall_mono": 1249418.156
+      }
+    ],
+    "extracts": [
+      {
+        "legal_sha256": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f",
+        "n_legal": 21,
+        "step_index": 0,
+        "timestep": 1.0
+      },
+      {
+        "legal_sha256": "4e21f69117940b8089a4b1b1f698f699bea14abf2469562df95aca26f16e1efe",
+        "n_legal": 8,
+        "step_index": 1,
+        "timestep": 0.8888888888888888
+      },
+      {
+        "legal_sha256": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f",
+        "n_legal": 21,
+        "step_index": 2,
+        "timestep": 1.0
+      },
+      {
+        "legal_sha256": "7af2d18ec464c17f35ee251ed97ffa0a4aa766c8fa40485da265fed5110894a5",
+        "n_legal": 12,
+        "step_index": 3,
+        "timestep": 1.0
+      }
+    ]
+  },
+  "n_fail": 0,
+  "n_pass": 6,
+  "n_rows": 6,
+  "real_arm_module_sha256": "af73f788a615a7e8b29a2d6de4781de88ca39f4acba6f34d94a1b01c88fe1672",
+  "report": {
+    "V1": {
+      "d_geo_action": {
+        "customer": 2,
+        "incremental_distance": 0.06423409283161163,
+        "position": 0,
+        "predecessor": 0,
+        "slot_anchor": -4,
+        "slot_kind": "anchored",
+        "successor": 16,
+        "vehicle_id": 3
+      },
+      "diverging_fields": [
+        "customer",
+        "position",
+        "predecessor",
+        "successor"
+      ],
+      "explanation": "the first step of the mask sequence is the only position where the two arms provably received the same legal list; after a fork the partial plans differ and the legal lists may legitimately differ",
+      "f_action": {
+        "customer": 1,
+        "incremental_distance": 0.6514362692832947,
+        "position": 11,
+        "predecessor": 6,
+        "slot_anchor": -4,
+        "slot_kind": "anchored",
+        "successor": 0,
+        "vehicle_id": 3
+      },
+      "first_divergence_position": 0,
+      "first_step_legal_identical": true,
+      "first_step_legal_sha256": {
+        "D-Geo": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f",
+        "F": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f"
+      },
+      "mask_order": [
+        1,
+        2
+      ],
+      "post_fork_legal_not_compared": "after the first divergence the arms run different partial plans, so their subsequent legal lists are allowed to differ; this is a consequence of the policies, not an input identity mismatch",
+      "post_fork_legal_sha256": {
+        "D-Geo": [
+          "7af2d18ec464c17f35ee251ed97ffa0a4aa766c8fa40485da265fed5110894a5"
+        ],
+        "F": [
+          "4e21f69117940b8089a4b1b1f698f699bea14abf2469562df95aca26f16e1efe"
+        ]
+      },
+      "reason": null,
+      "verdict": "DIVERGENT"
+    },
+    "V2": {
+      "D-Geo": {
+        "failure_reason": null,
+        "full_repair_completed": true,
+        "n_steps": 2,
+        "returned_original_plan": false
+      },
+      "F": {
+        "failure_reason": null,
+        "full_repair_completed": true,
+        "n_steps": 2,
+        "returned_original_plan": false
+      },
+      "both_completed": true
+    },
+    "V3": {
+      "D-Geo": {
+        "certified_executable_plan": "NOT_RUN",
+        "reason": "no certifier was supplied"
+      },
+      "F": {
+        "certified_executable_plan": "NOT_RUN",
+        "reason": "no certifier was supplied"
+      },
+      "any_certified": "NOT_RUN"
+    },
+    "audit": {
+      "arm_identities": {
+        "D-Geo": {
+          "available": true,
+          "callable": "d3_geo_adapter.geo_score",
+          "label": "geo_score = -delta_d",
+          "scorer_id": "geo_unified_minimum"
+        },
+        "F": {
+          "available": true,
+          "callable": "d3_l1_real_arm.make_score_fn.<locals>.score_fn",
+          "label": "F_RECONSTRUCTED_WITH_CURRENT_BACKBONE / HISTORICAL_BACKBONE_UNVERIFIED",
+          "scorer_id": "restored_maskco_logits"
+        }
+      },
+      "certifier_identity": null,
+      "contract_hash": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+      "declared_varying_fields": [
+        "scorer_id"
+      ],
+      "legal_sha256": "0ffcd2289cf5966fa6e3ce75bf64d99322f25c2b6c9f124f4e8e701506382e6f",
+      "mask_sha256": "3a316d6d3226f84c1e46e4447fa8d5fd800bff4a1bc6498152523cd4a602b69b",
+      "schema": "d3_l1_two_arm_v1",
+      "shared_input_sha256": "e5b3173a8fc234cfb9655aaa7258902caa25090dd04ce1c544688b9f65a0b41e",
+      "single_factor_note": "both arms were given the SAME state object; the only declared difference is scorer_id",
+      "single_factor_ok": true,
+      "state_identity_agrees_both_arms": true,
+      "state_key_sha256": "1aaf85ded73b6874d50cbc2172c371e24b05fa66c7a90785187c0d3a04c00658",
+      "state_unchanged_both_arms": true
+    }
+  },
+  "rows": [
+    {
+      "detail": {
+        "M_max": 26,
+        "Nv_max": 30,
+        "backend": "cpu",
+        "n_other_leaves": 0,
+        "n_train_leaves": 83,
+        "restored_exact": true
+      },
+      "name": "R1 the REAL MaskCO checkpoint and backbone load and the 83 trained leaves restore bit-exactly",
+      "ok": true
+    },
+    {
+      "detail": {
+        "n_calls": 4,
+        "note": "each entry carries the step legal fingerprint, so a vector produced for one step can never be silently reused for another; the audit re-reads the fingerprints",
+        "per_arm_calls": {
+          "D-Geo": 2,
+          "F": 2
+        },
+        "per_arm_counts": {
+          "D-Geo": 2,
+          "F": 2
+        },
+        "problems": []
+      },
+      "name": "R2 every scorer call returned exactly as many logits as THAT step's ordered legal list",
+      "ok": true
+    },
+    {
+      "detail": {
+        "first_step_legal_identical": true,
+        "shared_input_sha256": "e5b3173a8fc234cfb9655aaa7258902caa25090dd04ce1c544688b9f65a0b41e",
+        "single_factor_ok": true,
+        "v1_verdict": "DIVERGENT"
+      },
+      "name": "R3 the two arms received a byte-identical initial input: one state digest and one first-step legal fingerprint on both arms",
+      "ok": true
+    },
+    {
+      "detail": {
+        "digests_distinct_per_arm": {
+          "D-Geo": true,
+          "F": true
+        },
+        "per_arm_calls": {
+          "D-Geo": 2,
+          "F": 2
+        },
+        "post_fork_legal": {
+          "D-Geo": [
+            "7af2d18ec464c17f35ee251ed97ffa0a4aa766c8fa40485da265fed5110894a5"
+          ],
+          "F": [
+            "4e21f69117940b8089a4b1b1f698f699bea14abf2469562df95aca26f16e1efe"
+          ]
+        },
+        "step_legal_fingerprints": {
+          "D-Geo": [
+            "0ffcd2289cf5",
+            "7af2d18ec464"
+          ],
+          "F": [
+            "0ffcd2289cf5",
+            "4e21f6911794"
+          ]
+        }
+      },
+      "name": "R4 each arm's per-step legal fingerprint and logits digest are recorded, and the logits digests are pairwise distinct across steps (so a cross-step reuse would be visible)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "d_geo": {
+          "available": true,
+          "callable": "d3_geo_adapter.geo_score",
+          "label": "geo_score = -delta_d",
+          "scorer_id": "geo_unified_minimum"
+        },
+        "f": {
+          "available": true,
+          "callable": "d3_l1_real_arm.make_score_fn.<locals>.score_fn",
+          "label": "F_RECONSTRUCTED_WITH_CURRENT_BACKBONE / HISTORICAL_BACKBONE_UNVERIFIED",
+          "scorer_id": "restored_maskco_logits"
+        }
+      },
+      "name": "R5 the D-Geo arm used only the registered distance vector: no model was loaded for it, and its scorer identity is the registered selector",
+      "ok": true
+    },
+    {
+      "detail": {
+        "V1": "DIVERGENT",
+        "V2_both_completed": true,
+        "V2_failures": {
+          "D-Geo": null,
+          "F": null
+        },
+        "V3": "NOT_RUN"
+      },
+      "name": "R6 the three verdicts are reported separately and V3 is NOT_RUN without a certifier (this single-state run makes NO L1 divergence claim)",
+      "ok": true
+    }
+  ],
+  "schema": "d3_l1_real_arm_acceptance",
+  "science_ready": false,
+  "scope_limit": "ONE state, engineering acceptance only: this cannot answer the L1 question and makes no divergence claim",
+  "stable_online_gain": false,
+  "state": {
+    "day_id": 0,
+    "mask": [
+      1,
+      2
+    ],
+    "n_legal_first_step": 21,
+    "n_mask": 2,
+    "position": 1,
+    "state_hash": "e024dc09308c1cde52850310ba8b9d6baf96705656db436168f7b1658d04e60a"
+  },
+  "tool_sha256": "8853562c49f8228ebe06862e5b4434bf9f7b034230ee7b06e7d2ed6a84e8633c",
+  "verdict": "L1_REAL_ARM_ENGINEERING_ACCEPTED",
+  "wall_s": 12.218000000109896
+}
