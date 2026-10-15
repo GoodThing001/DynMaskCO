@@ -16,7 +16,8 @@
         "预算点评估**进入**"
       ],
       "pre_declared_outputs": "无法直接观测的字段**必须**写 `NOT_VERIFIABLE`（如 hi/lo 的 `n_scenarios_entered/completed`），**不得**用推断值冒充事实，**不得**为补齐 schema 而改 `role_c_forward.py`",
-      "whitelist_eligibility": "分析侧**确实无法**拿到逐场景完成情况 ⇒ 符合\"先证明分析侧无法满足，再申请函数级白名单\"的前置条件；**但本轮不申请**，等用户裁定"
+      "whitelist_eligibility": "分析侧**确实无法**拿到逐场景完成情况 ⇒ 符合\"先证明分析侧无法满足，再申请函数级白名单\"的前置条件；用户 2026-10-14 裁定：**只批准起草更窄的函数级观测白名单**，**不批准**立即修改 `role_c_forward.py`",
+      "wording_correction": "⚠️ 用户 2026-10-14 指定措辞更正：`hi_nan_forward_invalid` 中**前瞻价值存在 NaN**，因此**最终 `lambda_B=None`**；**不得**把最终 `lambda_B` 写成 NaN。上一轮记录中的\"`λ_B` 为 NaN\"表述**已更正**。"
     },
     "not_modified": [
       "role_c_forward.py",
@@ -146,10 +147,21 @@
       "hard_deadline_exception": true
     },
     "fallback": {
+      "authoritative_commit_observed": false,
+      "decision_outcome_observed": true,
       "fallback_applied": null,
-      "fallback_kind": "FALLBACK_NOT_VERIFIABLE",
-      "reason": "未观察到权威提交 ⇒ 无法判定是否发生行为回退"
+      "fallback_kind": "b3_hard_deadline_retained_plan_unverified",
+      "reason": "已观察到**硬截止异常**（`exception_type=DecisionTimeout`），但**未**取得决策后实际保留的权威计划证据 ⇒ **不得**自动写成\"发生了终态计划回退\"",
+      "requires": [
+        "retained_plan_verified"
+      ],
+      "retained_plan_check": "证据种类不在册：None",
+      "retained_plan_evidence_kind": null,
+      "retained_plan_verified": false
     },
+    "frozen_input_sha256": "e22e25c5a35f55839da3231819318709503cbac29c6e32fa8a776ac74b5de2b2",
+    "frozen_input_unchanged": true,
+    "gap_a_note": "硬截止异常**已知**但**未**提供决策后实际保留计划的权威证据 ⇒ 分类结果为 b3_hard_deadline_retained_plan_unverified（`fallback_applied=None`）——**不得**写成\"发生了终态计划回退\"",
     "honesty": "桩调用**没有**真实提交 ⇒ `COMMIT_OBSERVED` 不可用；只能比较拟采纳计划",
     "input_decision_id": "5052680506246c27b28507505bef90febc9dfce2b14375766ba68ee8618a23df",
     "phases_walked": [

@@ -97,9 +97,15 @@ def demonstrate_with_stub():
                 'sampler': 'cond_hist', 'arm_seed': 7002, 'K': 10}
     did = sr.normalized_input_identity(protocol_identity='stub-proto',
                                        decision_point=0, input_snapshot=snapshot)
+    frozen = sr.freeze_input(protocol_identity='stub-proto',
+                             decision_point=0, input_snapshot=snapshot)
     accept, diag = stub_decide_fn(7, ctx)
     ea = (diag or {}).get('exception_audit')
-    fb = sr.classify_fallback(diag=diag, commit_observed=False, exception_audit=ea)
+    # 缺口 A：三个维度**分开**传；决策完成与权威提交不再混为一个布尔
+    fb = sr.classify_fallback(diag=diag,
+                              decision_outcome_observed=True,
+                              authoritative_commit_observed=False,
+                              exception_audit=ea)
     # 未提交 ⇒ 不能标 COMMIT_OBSERVED
     pv = sr.plan_variants(plan_before=snapshot['plan'],
                           candidate_plan={'1': [2, 3, 7]},
@@ -107,11 +113,18 @@ def demonstrate_with_stub():
                           commit_observed=False, action=None,
                           decision_outcome_observed=False)
     return {'phases_walked': list(WIRE_PHASES), 'calls': len(calls),
-            'input_decision_id': did, 'accept': bool(accept),
+            'input_decision_id': did,
+            'frozen_input_sha256': frozen.sha256,
+            'frozen_input_unchanged': frozen.assert_unchanged(snapshot),
+            'accept': bool(accept),
             'exception_audit_extracted': ea,
             'fallback': fb, 'commit_status': pv['commit_status'],
             'honesty': ('桩调用**没有**真实提交 ⇒ `COMMIT_OBSERVED` 不可用；'
-                        '只能比较拟采纳计划')}
+                        '只能比较拟采纳计划'),
+            'gap_a_note': ('硬截止异常**已知**但**未**提供决策后实际保留计划的'
+                           '权威证据 ⇒ 分类结果为 %s（`fallback_applied=%r`）'
+                           '——**不得**写成"发生了终态计划回退"'
+                           % (fb['fallback_kind'], fb['fallback_applied']))}
 
 
 def observability_proof():
@@ -194,6 +207,11 @@ def observability_proof():
                 'only_inferable': ['预算点评估**进入**'],
                 'not_verifiable_on_analysis_side': ['逐场景开始', '逐场景完成',
                                                     '返回时是否完成全部场景'],
+                'wording_correction': (
+                    '⚠️ 用户 2026-10-14 指定措辞更正：`hi_nan_forward_invalid` 中'
+                    '**前瞻价值存在 NaN**，因此**最终 `lambda_B=None`**；'
+                    '**不得**把最终 `lambda_B` 写成 NaN。'
+                    '上一轮记录中的"`λ_B` 为 NaN"表述**已更正**。'),
                 'pre_declared_outputs': ('无法直接观测的字段**必须**写 '
                                          '`NOT_VERIFIABLE`（如 hi/lo 的 '
                                          '`n_scenarios_entered/completed`），'
@@ -201,7 +219,9 @@ def observability_proof():
                                          '**不得**为补齐 schema 而改 `role_c_forward.py`'),
                 'whitelist_eligibility': ('分析侧**确实无法**拿到逐场景完成情况 ⇒ '
                                           '符合"先证明分析侧无法满足，再申请函数级白名单"'
-                                          '的前置条件；**但本轮不申请**，等用户裁定'),
+                                          '的前置条件；用户 2026-10-14 裁定：'
+                                          '**只批准起草更窄的函数级观测白名单**，'
+                                          '**不批准**立即修改 `role_c_forward.py`'),
             },
             'not_modified': ['role_c_forward.py', 'role_c_timing.py',
                              'role_c_harness.py', 'role_c_opportunity_cost.py']}

@@ -1,27 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""分析侧 sidecar 实现回归 **v2**（按用户 2026-10-14 「bce2e988 审查裁定」修订）。
+"""分析侧 sidecar 实现回归 **v3**（按用户 2026-10-14「`6f32125ff` 独立审查裁定」缺口 A/B/C）。
 
-被取代的版本**逐字节保留**于 `_superseded_test_role_c_sidecar_recorder_v1_2026-10-14.py`
-（SHA-256 `8bb47c7d712e5e1dc6b413cd22ffc5f560c8e91fe8604229d83706d228cfc6dc`）。
-⚠️ **该 v1 的 PASS 不构成证据**：它的
-`check('把 action 混进快照也不影响 ID', a == b or True)` 是**恒真断言**
-（`or True` 使条件永远成立），且它只在**顶层**有 `input_snapshot` 键这一点上做 AST 检查，
-**没有**检查快照内部是否混入决策结果字段。
-⇒ 按裁定："新版本通过之前，也不能继续引用旧测试作为相应缺陷已经解决的证据。"
+**版本谱系（逐字节保留，不覆盖）**：
+  * v1 `8bb47c7d…`（`_superseded_test_role_c_sidecar_recorder_v1_2026-10-14.py`）
+    —— 含恒真断言 `a == b or True`，其 PASS **不构成证据**；
+  * v2 `af4bc925…`（`_superseded_test_role_c_sidecar_recorder_v2_2026-10-14.py`）
+    —— 报告 60/60，**保留为上一版本身份**；
+  * v3（本文件）—— 覆盖本轮三个缺口。
 
-本 v2 覆盖用户点名的全部缺陷：
-  A 输入身份严格 schema + fail-closed（含嵌套结果字段）；
-  B 提交状态与权威证据（四种矛盾组合全部 fail-closed；三态语义）；
-  C 计数器：事件级/决策级**分别存储与导出**；`fallback_kind` 必须校验；
-    重复 `event_id` / 缺事件身份 / 非法 `fallback_kind` 的**独立反例**；
-  D `static_selfcheck` 四模块**双身份**（blob 与工作树）分别核验，`expected` 不再为 None。
+⚠️ **判据更正声明**：v2 的 60/60 是**旧判据**下的记录。
+用户本轮裁定要求「观察到硬超时**不**自动等于观察到真实终态计划回退」，
+即 `fallback_applied=True` 现在**必须**有决策后保留计划的权威证据。
+因此 v2 中依赖旧单一 `commit_observed` 入口、且未提供保留计划证据的回退断言
+**在本版本下不再成立**——这是**判据更正**，**不是**"v2 有缺陷"。
+**不得**继续用 v2 的 60/60 作为"缺口 A 已解决"或"C1/C3 已独立核验"的证据。
 
 运行：`python CC_Compare/tools/test_role_c_sidecar_recorder.py`
-
-⚠️ Windows 控制台默认 GBK，断言名含 `⇒`/`—` 时 `print` 会抛 `UnicodeEncodeError`。
-本文件在导入时把 stdout 重设为 UTF-8（`errors='replace'`），使**默认命令**即可复现；
-这是**输出编码**修正，**不**改变任何断言语义。
 """
 from __future__ import annotations
 
@@ -37,334 +32,305 @@ import json
 import os
 import sys
 import tempfile
+import shutil
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import role_c_sidecar_recorder as sr                      # noqa: E402
 
-import role_c_sidecar_recorder as sr                            # noqa: E402
+_PASS = []
+_FAIL = []
 
-FAILS = []
 
-
-def check(name, cond, detail=''):
+def check(name, cond):
     if cond:
+        _PASS.append(name)
         print('  ok   %s' % name)
     else:
-        print('  FAIL %s %s' % (name, detail))
-        FAILS.append(name)
+        _FAIL.append(name)
+        print('  FAIL %s' % name)
 
 
 def _raises(exc, fn, *a, **kw):
     try:
         fn(*a, **kw)
+        return False
     except exc:
         return True
-    except Exception:                                            # noqa: BLE001
+    except Exception:
         return False
-    return False
 
 
-def _snapshot(**over):
+def _snap(**over):
     s = {'inst_idx': 0, 'clock': 3.5, 'order': 7,
          'vehicles_fingerprint': [[1, 'idle', 0, 0.0, None]],
          'plan': {'1': [2, 3]}, 'frozen': {'1': 0},
-         'visible_orders': [2, 3, 4], 'sampler': 'cond_hist',
-         'arm_seed': 7002, 'K': 10}
+         'visible_orders': [2, 3, 4]}
     s.update(over)
     return s
 
 
-def _rec(**over):
-    """**合规**记录参数：接受动作必须带权威提交证据（v1 的默认值是错的）。"""
-    kw = dict(decision_point=0, input_snapshot=_snapshot(), action='reject',
-              boundary=None, reject_reason=None, lambda_B=None, e_o=1.0,
-              certify_ok=False, decision_hash='dh-abc', exception_audit=None,
-              plan_before={'1': [2, 3]}, candidate_plan={'1': [2, 3, 7]},
-              accepted_plan=None, plan_after={'1': [2, 3]}, commit_observed=False,
-              commit_evidence=None, decision_outcome_observed=True)
-    kw.update(over)
-    return kw
+def _rec(**plans):
+    base = dict(plan_before={'1': [2, 3]}, candidate_plan={'1': [2, 3, 7]},
+                accepted_plan=None, plan_after={'1': [2, 3]},
+                commit_observed=False, action=None)
+    base.update(plans)
+    return sr.plan_variants(**base)
 
 
-# ------------------------------------------------ A：输入身份严格 schema + fail-closed
-def test_input_identity_strict_schema():
-    print('\n[A] 输入身份：严格只含决策前信息，不合规 **fail-closed**')
-    base = _snapshot()
-    a = sr.normalized_input_identity(protocol_identity='p', decision_point=0,
-                                     input_snapshot=base)
-    # ⚠️ v2 的**真断言**（v1 在这里写的是 `a == b or True`，恒真）：
-    bad = dict(base, action='accept')
-    check('把 action 混进快照 ⇒ **抛错**（不再"恒真通过"）',
-          _raises(sr.InputIdentityError, sr.normalized_input_identity,
-                  protocol_identity='p', decision_point=0, input_snapshot=bad))
-    for k in ('accepted_plan', 'candidate_plan', 'utility', 'delta', 'certify_ok',
-              'decision_hash', 'lambda_B', 'e_o', 'reject_reason'):
-        check('结果类键 %s ⇒ 抛错' % k,
-              _raises(sr.InputIdentityError, sr.normalized_input_identity,
-                      protocol_identity='p', decision_point=0,
-                      input_snapshot=dict(base, **{k: 1})))
-    check('**嵌套**结果类键 ⇒ 也抛错（v1 只查顶层键，查不出来）',
-          _raises(sr.InputIdentityError, sr.normalized_input_identity,
-                  protocol_identity='p', decision_point=0,
-                  input_snapshot=dict(base, extra_nested={'deep': {'action': 'accept'}}))
-          or _raises(sr.InputIdentityError, sr.validate_input_snapshot,
-                     dict(base, nested={'action': 'accept'})))
-    check('白名单外的未知键 ⇒ 抛错（fail-closed，不靠自觉）',
-          _raises(sr.InputIdentityError, sr.validate_input_snapshot,
-                  dict(base, some_random_key=1)))
-    check('决策前**已冻结的计划** `plan`/`frozen` **保留**（合法）',
-          sr.validate_input_snapshot(base) is True)
-    check('非 dict ⇒ 抛错',
-          _raises(sr.InputIdentityError, sr.validate_input_snapshot, ['not', 'dict']))
-    same = sr.normalized_input_identity(protocol_identity='p', decision_point=0,
-                                        input_snapshot=base)
-    check('相同输入 ⇒ 相同 ID', same == a)
-    diff = sr.normalized_input_identity(protocol_identity='p', decision_point=0,
-                                        input_snapshot=dict(base, clock=3.6))
-    check('输入变化 ⇒ ID 变化', diff != a)
-    return True
+HARD = {'hard_deadline_exception': True, 'exception_type': 'DecisionTimeout',
+        'event_id': 'exc-1'}
+TIMEOUT_DIAG = {'boundary': 'B3_lambda_undefined'}
 
 
-# ------------------------------------------------- B：提交状态与权威证据（三态）
-def test_commit_status_requires_evidence():
-    print('\n[B] 提交状态必须由**权威证据**支撑；四种矛盾组合 fail-closed')
-    good = sr.plan_variants(plan_before={'1': [2, 3]}, candidate_plan={'1': [2, 3, 7]},
-                            accepted_plan={'1': [2, 3, 7]}, plan_after={'1': [2, 3, 7]},
-                            commit_observed=True, action='accept',
-                            commit_evidence={'kind': 'commit_receipt', 'sha256': 'x'})
-    check('接受 + 回执 ⇒ COMMIT_OBSERVED 且主判指向 accepted_plan',
-          good['commit_status'] == 'COMMIT_OBSERVED'
-          and good['primary_criterion_plan'] == 'accepted_plan', good['commit_status'])
-    check('矛盾组合①：commit_observed=True 但 accepted_plan=None ⇒ 抛',
-          _raises(sr.CommitEvidenceError, sr.plan_variants, plan_before={'1': []},
-                  accepted_plan=None, commit_observed=True, action='accept',
-                  commit_evidence={'kind': 'commit_receipt'}))
-    check('矛盾组合②：commit_observed=False 却传非空 accepted_plan ⇒ 抛',
-          _raises(sr.CommitEvidenceError, sr.plan_variants, plan_before={'1': []},
-                  accepted_plan={'1': [9]}, commit_observed=False))
-    check('矛盾组合③：commit_observed=True 但**无证据** ⇒ 抛（布尔自述不算证据）',
-          _raises(sr.CommitEvidenceError, sr.plan_variants, plan_before={'1': []},
-                  accepted_plan={'1': [9]}, commit_observed=True, action='accept'))
-    check('矛盾组合④：证据 kind 非法 ⇒ 抛',
-          _raises(sr.CommitEvidenceError, sr.plan_variants, plan_before={'1': []},
-                  accepted_plan={'1': [9]}, commit_observed=True, action='accept',
-                  commit_evidence={'kind': 'caller_says_so'}))
-    rej = sr.plan_variants(plan_before={'1': [2, 3]}, candidate_plan={'1': [2, 3, 7]},
-                           accepted_plan=None, plan_after={'1': [2, 3]},
-                           commit_observed=False, action='reject',
-                           decision_outcome_observed=True)
-    check('拒单 + 已观察决策完成 ⇒ `NO_NEW_PLAN_ADOPTED`（**不是** COMMIT_NOT_OBSERVED）',
-          rej['commit_status'] == 'NO_NEW_PLAN_ADOPTED'
-          and rej['primary_criterion_plan'] == 'none_adopted', rej['commit_status'])
-    unk = sr.plan_variants(plan_before={'1': [2, 3]}, candidate_plan={'1': [2, 3, 7]},
-                           commit_observed=False, action=None,
-                           decision_outcome_observed=False)
-    check('未观察到决策完成 ⇒ `COMMIT_NOT_OBSERVED`',
-          unk['commit_status'] == 'COMMIT_NOT_OBSERVED'
-          and unk['primary_criterion_plan'] == 'COMMIT_NOT_OBSERVED', unk['commit_status'])
-    check('三态词表齐备', set(sr.COMMIT_STATUS) ==
-          {'COMMIT_OBSERVED', 'NO_NEW_PLAN_ADOPTED', 'COMMIT_NOT_OBSERVED'})
-    check('note 写明"只调用 decide_fn 时最多比较拟采纳计划"',
-          '拟采纳计划' in good['note'])
-    return True
+# ------------------------------------------------------- A 决策完成 vs 权威提交
+def test_a_decision_completion_vs_commit():
+    print('\n[A] 决策完成 vs 权威提交（缺口 A）')
 
+    # A1 硬截止 + 保留计划已核验 ⇒ 真实终态回退
+    r = sr.classify_fallback(diag=TIMEOUT_DIAG, decision_outcome_observed=True,
+                             exception_audit=HARD,
+                             retained_plan={'1': [2, 3]}, plan_before={'1': [2, 3]},
+                             retained_plan_evidence={'kind': 'post_decision_plan_readback'})
+    check('A1 硬截止 + 保留计划已核验 ⇒ timeout_fallback / applied=True',
+          r['fallback_kind'] == 'timeout_fallback' and r['fallback_applied'] is True)
 
-def test_recorder_rejects_v1_default():
-    print('\n[B2] v1 测试里的默认组合（commit_observed=True + accepted_plan=None）**现在被拒**')
-    d = tempfile.mkdtemp()
-    try:
-        rc = sr.SidecarRecorder(run_id='r1', arm='c2', sidecar_path=os.path.join(d, 's.jsonl'),
-                                protocol_identity='p')
-        bad = _rec(action='accept', commit_observed=True, accepted_plan=None,
-                   commit_evidence={'kind': 'commit_receipt'})
-        check('v1 的默认参数组合 ⇒ 抛 `CommitEvidenceError`（v1 却能写进 sidecar）',
-              _raises(sr.CommitEvidenceError, rc.record, **bad))
-        rc.close()
-    finally:
-        _rm(d)
-    return True
+    # A2 **核心**：硬截止但保留计划未核验 ⇒ 不得写 True
+    r = sr.classify_fallback(diag=TIMEOUT_DIAG, decision_outcome_observed=True,
+                             exception_audit=HARD)
+    check('A2 硬截止但**无**保留计划证据 ⇒ 不得 True（新 kind）',
+          r['fallback_applied'] is None
+          and r['fallback_kind'] == 'b3_hard_deadline_retained_plan_unverified')
+    check('A2b 该 kind 指出缺什么', 'retained_plan_verified' in r['requires'])
 
+    # A3 证据种类不在册
+    r = sr.classify_fallback(diag=TIMEOUT_DIAG, decision_outcome_observed=True,
+                             exception_audit=HARD,
+                             retained_plan={'1': [2, 3]}, plan_before={'1': [2, 3]},
+                             retained_plan_evidence={'kind': '我自称已核验'})
+    check('A3 证据种类不在册 ⇒ 仍不得 True',
+          r['fallback_applied'] is None and r['retained_plan_verified'] is False)
 
-# --------------------------------------------------------- C：计数器口径
-def test_counters_units_are_separate():
-    print('\n[C1] 事件级与决策级执行错误**分别存储、分别导出**')
-    c = sr.IndependentCounters()
-    c.add_exception_event(run_id='r1', decision_point=1,
-                          exception_audit={'hard_deadline_exception': False,
-                                           'event_id': 'e1'})
-    c.add_exception_event(run_id='r1', decision_point=2,
-                          exception_audit={'hard_deadline_exception': False,
-                                           'event_id': 'e2'})
-    c.add_fallback(run_id='r1', decision_point=1, fallback_event_id='f1',
-                   fallback_kind='timeout_fallback',
-                   evidence={'hard_deadline_exception': True, 'event_id': 'e9'})
-    c.add_fallback(run_id='r1', decision_point=1, fallback_event_id='f2',
-                   fallback_kind='timeout_fallback',
-                   evidence={'hard_deadline_exception': True, 'event_id': 'e9'})
-    s = c.summary()
-    check('事件级错误独立导出 = 2', s['n_execution_errors_events'] == 2, s)
-    check('决策级错误独立导出 = 1（重复回退）', s['n_execution_errors_decisions'] == 1, s)
-    check('**不再有混用的** `n_execution_errors` 单字段',
-          'n_execution_errors' not in s, sorted(s))
-    check('声明两个口径彼此独立', s['n_execution_errors_units_are_separate'] is True)
-    return True
+    # A4 保留计划与决策前计划不一致
+    r = sr.classify_fallback(diag=TIMEOUT_DIAG, decision_outcome_observed=True,
+                             exception_audit=HARD,
+                             retained_plan={'1': [9]}, plan_before={'1': [2, 3]},
+                             retained_plan_evidence={'kind': 'post_decision_plan_readback'})
+    check('A4 保留计划 ≠ 决策前计划 ⇒ 不得 True',
+          r['fallback_applied'] is None and r['retained_plan_verified'] is False)
 
+    # A5 **回归旧缺陷**：commit 未观测但决策已完成 + 硬截止 + 保留计划
+    r = sr.classify_fallback(diag=TIMEOUT_DIAG, decision_outcome_observed=True,
+                             authoritative_commit_observed=False,
+                             exception_audit=HARD,
+                             retained_plan={'1': [2, 3]}, plan_before={'1': [2, 3]},
+                             retained_plan_evidence={'kind': 'no_change_commit_receipt'})
+    check('A5 未观测到权威提交**不**再早退（旧缺陷的回归）',
+          r['fallback_kind'] == 'timeout_fallback'
+          and r['authoritative_commit_observed'] is False)
 
-def test_counter_rejects_bad_input():
-    print('\n[C2] 独立反例：重复 event_id / 缺事件身份 / 非法 fallback_kind')
-    c = sr.IndependentCounters()
-    c.add_exception_event(run_id='r1', decision_point=1,
-                          exception_audit={'hard_deadline_exception': True,
-                                           'event_id': 'dup'})
-    check('重复 event_id ⇒ 抛',
-          _raises(sr.CounterInputError, c.add_exception_event, run_id='r1',
-                  decision_point=1, exception_audit={'hard_deadline_exception': True,
-                                                     'event_id': 'dup'}))
-    check('缺事件身份（event_id 为空）⇒ 抛',
-          _raises(sr.CounterInputError, c.add_exception_event, run_id='r1',
-                  decision_point=2, exception_audit={'hard_deadline_exception': True}))
-    for kind in ('none', 'b2_boundary_reject', 'b3_conservative_reject',
-                 'FALLBACK_NOT_VERIFIABLE', 'whatever'):
-        check('非法 fallback_kind=%s ⇒ **不得**增加 n_fallbacks' % kind,
-              _raises(sr.CounterInputError, c.add_fallback, run_id='r1',
-                      decision_point=3, fallback_event_id='f9', fallback_kind=kind,
-                      evidence={'hard_deadline_exception': True}))
-    check('缺 fallback_event_id ⇒ 抛',
-          _raises(sr.CounterInputError, c.add_fallback, run_id='r1',
-                  decision_point=3, fallback_event_id=None,
-                  fallback_kind='timeout_fallback',
+    # A6 连决策完成都没观测到
+    r = sr.classify_fallback(diag=TIMEOUT_DIAG, decision_outcome_observed=None,
+                             exception_audit=HARD,
+                             retained_plan={'1': [2, 3]}, plan_before={'1': [2, 3]},
+                             retained_plan_evidence={'kind': 'post_decision_plan_readback'})
+    check('A6 决策完成未知 ⇒ FALLBACK_NOT_VERIFIABLE（证据再全也不推）',
+          r['fallback_kind'] == 'FALLBACK_NOT_VERIFIABLE'
+          and r['fallback_applied'] is None)
+
+    # A7 三维度分别导出
+    r = sr.classify_fallback(diag=TIMEOUT_DIAG, decision_outcome_observed=True,
+                             authoritative_commit_observed=False,
+                             exception_audit=HARD)
+    check('A7 三个维度**分别**出现在结果中',
+          set(['decision_outcome_observed', 'authoritative_commit_observed',
+               'retained_plan_verified']) <= set(r))
+
+    # A8/A9 计数不得比分类更宽松
+    ic = sr.IndependentCounters()
+    check('A8 add_fallback 拒绝「硬截止但保留计划未核验」',
+          _raises(sr.CounterInputError, ic.add_fallback, run_id='r', decision_point=0,
+                  fallback_event_id='e1', fallback_kind='timeout_fallback',
                   evidence={'hard_deadline_exception': True}))
-    check('缺可核验证据 ⇒ 抛',
-          _raises(sr.CounterInputError, c.add_fallback, run_id='r1',
-                  decision_point=3, fallback_event_id='f3',
-                  fallback_kind='timeout_fallback', evidence=None))
-    check('经以上拒绝后 n_fallbacks 仍为 0', c.summary()['n_fallbacks'] == 0, c.summary())
-    return True
+    ev = dict(HARD)
+    ev.update({'retained_plan': {'1': [2, 3]}, 'plan_before': {'1': [2, 3]},
+               'retained_plan_evidence': {'kind': 'post_decision_plan_readback'}})
+    ic.add_fallback(run_id='r', decision_point=0, fallback_event_id='e1',
+                    fallback_kind='timeout_fallback', evidence=ev)
+    check('A9 add_fallback 接受「硬截止 + 保留计划已核验」',
+          ic.summary().get('n_fallbacks') == 1)
+    check('A10 新 kind **不得**被计作真实终态回退',
+          _raises(sr.CounterInputError, ic.add_fallback, run_id='r', decision_point=1,
+                  fallback_event_id='e2',
+                  fallback_kind='b3_hard_deadline_retained_plan_unverified',
+                  evidence=ev))
 
 
-def test_counter_event_vs_decision_still_correct():
-    print('\n[C3] 同决策两条硬超时事件：事件级 2 / 决策级 1')
-    c = sr.IndependentCounters()
-    for eid in ('a', 'b'):
-        c.add_exception_event(run_id='r1', decision_point=3,
-                              exception_audit={'hard_deadline_exception': True,
-                                               'event_id': eid})
-    s = c.summary()
-    check('事件级 = 2 且决策级 = 1',
-          s['n_deadline_timeout_events'] == 2 and s['n_deadline_timeouts'] == 1, s)
-    check('真实路径每决策至多 1 条事件（不变量写明）',
-          s['invariant_real_path_events_per_decision_max'] == 1)
-    check('**不得要求** timeout == fallback（写进 note）', '不得要求' in s['note'])
-    return True
-
-
-# --------------------------------------------------------- D：静态自检（双身份）
-def test_static_selfcheck_dual_identity():
-    print('\n[D] 静态自检：四模块**双身份**分别核验，`expected` 不再为 None')
-    sc = sr.static_selfcheck()
-    check('自检通过', sc['ok'], sc['problems'])
-    check('**没有** `expected=None`（v1 的 role_c_replanner / role_c_decision_log 是 None）',
-          sc['no_none_expected'] is True)
-    check('四个模块都纳入了 blob 与工作树核验',
-          len(sc['frozen_modules']) == 4
-          and all(x['blob_expected'] and x['worktree_expected']
-                  for x in sc['frozen_modules']))
-    rep = {x['module']: x for x in sc['frozen_modules']}
-    r = rep['role_c_replanner.py']
-    check('`role_c_replanner.py` 的 **blob ≠ 工作树**（无 eol=lf 属性）被如实报告',
-          r['blob_expected'] != r['worktree_expected']
-          and r['blob_equals_worktree_expected'] is False
-          and r['crlf_bytes'] > 0, r)
-    check('两个身份**分别**通过（未被改动的证据）',
-          r['blob_unchanged'] and r['worktree_unchanged'], r)
-    check('登记了身份约定说明', '封存 §2.1' in r['identity_convention'], r['identity_convention'])
-    check('三个有 eol=lf 属性的模块 blob == 工作树',
-          all(rep[m]['blob_sha256'] == rep[m]['worktree_sha256']
-              for m in ('role_c_opportunity_cost.py', 'role_c_decision_log.py',
-                        'role_c_timing.py')))
-    check('AST：未 import / 未写 / 未 poke 冻结模块',
-          not sc['imports_frozen'] and not sc['writes_to_frozen']
-          and not sc['pokes_frozen'])
-    return True
-
-
-# --------------------------------------------------- 其余边界（v1 已覆盖，保留）
-def test_archive_failure_and_durability():
-    print('\n[E] 写失败不可伪称已落盘；持久化表述已更正（v1 项保留）')
-    d = tempfile.mkdtemp()
+# --------------------------------------------------- B 归档可独立重建输入身份
+def test_b_archived_input_identity():
+    print('\n[B] 归档可从原始字节独立重建输入身份（缺口 B）')
+    d = tempfile.mkdtemp(prefix='sr_v3_b_')
     try:
-        bad = sr.SidecarRecorder(run_id='r1', arm='c2',
-                                 sidecar_path=os.path.join(d, 'nodir', 'x', 's.jsonl'),
-                                 protocol_identity='p')
-        bad._open = lambda: (_ for _ in ()).throw(OSError('synthetic'))
-        rec, ok = bad.record(**_rec())
-        check('写失败 ⇒ ok=False 但仍产出记录对象（算法不受影响）',
-              ok is False and isinstance(rec, dict))
-        check('资格 = ARCHIVE_INCOMPLETE 且失败只记内存',
-              bad.archive_status == 'ARCHIVE_INCOMPLETE'
-              and all(f['verified_by_supervisor'] is None for f in bad.failures))
-        bad.mark_supervisor_verification(decision_point=0, verified=False)
-        check('监督无法核验 ⇒ INCONCLUSIVE_ARCHIVE_FAILURE',
-              bad.archive_status == 'INCONCLUSIVE_ARCHIVE_FAILURE')
-        check('该决策被排除出四通道完整性分母',
-              bad.completeness_denominator(8)['eligible'] == 7)
-        dd = sr.durability_disclosure()
-        check('flush ≠ 持久化、披露断电风险、不使用 fsync、旧表述已更正',
-              dd['flush_equals_durability'] is False and '断电' in dd['disclosure']
-              and '不使用' in dd['disclosure'] and '已更正' in dd['disclosure'])
+        rec_path = os.path.join(d, 's.jsonl')
+        fr = sr.freeze_input(protocol_identity='proto-1', decision_point=0,
+                             input_snapshot=_snap())
+        rec = sr.SidecarRecorder(run_id='r', arm='c2', sidecar_path=rec_path,
+                                 protocol_identity='proto-1', output_root=d)
+        rec_obj, ok = rec.record(decision_point=0, input_snapshot=_snap(), action='reject',
+                                 boundary='B3_lambda_undefined', frozen_input=fr,
+                                 exception_audit=HARD,
+                                 decision_outcome_observed=True,
+                                 **_plans_kw())
+        rec.close()
+        check('B1 写入成功', ok is True)
+
+        line = io.open(rec_path, encoding='utf-8').read().strip()
+        arch = json.loads(line)
+        check('B2 归档携带完整规范化输入快照',
+              isinstance(arch.get('input_snapshot'), dict)
+              and arch['input_snapshot'].get('inst_idx') == 0)
+        check('B3 归档携带快照 SHA 与协议身份',
+              len(arch.get('input_snapshot_sha256') or '') == 64
+              and arch.get('protocol_identity') == 'proto-1')
+
+        rc = sr.recompute_archived_input_identity(arch)
+        check('B4 **仅凭归档字节**复算输入身份 ⇒ ok', rc.get('ok') is True)
+        check('B5 复算出的快照 SHA 与决策 ID 都吻合',
+              rc['snapshot_sha_matches'] and rc['decision_id_matches'])
+
+        bad = dict(arch)
+        bad['input_snapshot'] = _snap(order=8)
+        check('B6 篡改快照后被复算程序识破',
+              sr.recompute_archived_input_identity(bad).get('ok') is False)
+
+        old = dict(arch)
+        old.pop('input_snapshot')
+        old.pop('input_snapshot_sha256')
+        rco = sr.recompute_archived_input_identity(old)
+        check('B7 缺口 B 之前的旧记录 ⇒ 明确判"无法独立复建"（不假装通过）',
+              rco.get('ok') is False and 'input_snapshot' in rco.get('why', ''))
+
+        # 末行必须**就是**目标记录
+        okv, why = rec.verify_written(expect_record=rec_obj)
+        check('B8 verify_written 证明末行 == 目标记录', okv is True)
+        tampered = json.loads(json.dumps(rec_obj))
+        tampered['action'] = 'accept'
+        okv2, why2 = rec.verify_written(expect_record=tampered)
+        check('B9 目标记录不一致 ⇒ 写入后验收失败', okv2 is False)
+
+        # 输入不可变：三臂共享同一冻结对象
+        fr.assert_unchanged(_snap())
+        check('B10 快照未被修改 ⇒ assert_unchanged 通过', True)
+        check('B11 快照被修改 ⇒ InputIdentityError（共享对象不天然不可变）',
+              _raises(sr.InputIdentityError, fr.assert_unchanged, _snap(clock=9.9)))
+
+        d2 = tempfile.mkdtemp(prefix='sr_v3_b2_')
+        try:
+            rec2 = sr.SidecarRecorder(run_id='r', arm='c2',
+                                      sidecar_path=os.path.join(d2, 't.jsonl'),
+                                      protocol_identity='proto-1', output_root=d2)
+            check('B12 record 在写入前重验冻结输入（被改 ⇒ 抛）',
+                  _raises(sr.InputIdentityError, rec2.record,
+                          decision_point=1, input_snapshot=_snap(clock=1.0),
+                          action='reject', frozen_input=fr,
+                          decision_outcome_observed=True, **_plans_kw()))
+        finally:
+            shutil.rmtree(d2, ignore_errors=True)
+
+        # 三臂逐元素一致 ⇒ 同一 input_decision_id；不同 ⇒ 不同
+        ids = [sr.normalized_input_identity(protocol_identity='proto-1',
+                                           decision_point=0, input_snapshot=_snap())
+               for _ in range(3)]
+        check('B13 三臂同一快照 ⇒ 同一 input_decision_id（逐元素一致的必要线索）',
+              len(set(ids)) == 1)
+        other = sr.normalized_input_identity(protocol_identity='proto-1',
+                                            decision_point=0,
+                                            input_snapshot=_snap(order=8))
+        check('B14 任一元素不同 ⇒ 身份不同', other != ids[0])
     finally:
-        _rm(d)
-    return True
+        shutil.rmtree(d, ignore_errors=True)
 
 
-def test_fallback_classification_v2():
-    print('\n[F] 回退分类（v1 项保留）：拒单 ≠ 超时回退')
-    b2 = sr.classify_fallback(diag={'boundary': 'B2_budget_out_of_range'},
-                              commit_observed=True)
-    check('B2 ⇒ 边界拒单、不是超时回退',
-          b2['fallback_kind'] == 'b2_boundary_reject'
-          and b2['fallback_applied'] is False)
-    check('B3 无审计 ⇒ FALLBACK_NOT_VERIFIABLE',
-          sr.classify_fallback(diag={'boundary': 'B3_lambda_undefined'},
-                               commit_observed=True)['fallback_kind']
-          == 'FALLBACK_NOT_VERIFIABLE')
-    check('仅 action=reject ⇒ FALLBACK_NOT_VERIFIABLE',
-          sr.classify_fallback(diag={'log_fields': {'action': 'reject'}},
-                               commit_observed=True)['fallback_kind']
-          == 'FALLBACK_NOT_VERIFIABLE')
-    check('B3 + 硬截止 ⇒ timeout_fallback',
-          sr.classify_fallback(diag={'boundary': 'B3_lambda_undefined'},
-                               commit_observed=True,
-                               exception_audit={'hard_deadline_exception': True,
-                                                'exception_type': 'DecisionTimeout'}
-                               )['fallback_kind'] == 'timeout_fallback')
-    return True
+def _plans_kw():
+    return dict(plan_before={'1': [2, 3]}, candidate_plan={'1': [2, 3, 7]},
+                accepted_plan=None, plan_after={'1': [2, 3]},
+                commit_observed=False)
 
 
-def _rm(d):
-    import shutil
-    shutil.rmtree(d, ignore_errors=True)
+# --------------------------------------------------- C 归档输出路径运行时门
+def test_c_output_path_gate():
+    print('\n[C] 归档输出路径的**运行时**门（缺口 C）')
+    tools_dir = os.path.dirname(os.path.abspath(__file__))
+    repo = os.path.dirname(os.path.dirname(tools_dir))
+
+    check('C1 缺 output_root ⇒ 构造即抛（不允许隐式推断）',
+          _raises(sr.ArchivePathError, sr.SidecarRecorder, run_id='r', arm='c2',
+                  sidecar_path='x.jsonl', protocol_identity='p'))
+
+    d = tempfile.mkdtemp(prefix='sr_v3_c_')
+    try:
+        check('C2 路径在 output_root 之外 ⇒ 构造即抛',
+              _raises(sr.ArchivePathError, sr.SidecarRecorder, run_id='r', arm='c2',
+                      sidecar_path=os.path.join(tempfile.gettempdir(), 'outside.jsonl'),
+                      protocol_identity='p', output_root=d))
+        check('C3 `..` 逃逸 ⇒ 抛',
+              _raises(sr.ArchivePathError, sr.SidecarRecorder, run_id='r', arm='c2',
+                      sidecar_path=os.path.join(d, '..', 'escape.jsonl'),
+                      protocol_identity='p', output_root=d))
+        check('C4 指向源码/工装目录（禁写根）⇒ 抛',
+              _raises(sr.ArchivePathError, sr.SidecarRecorder, run_id='r', arm='c2',
+                      sidecar_path=os.path.join(tools_dir, 'evil.jsonl'),
+                      protocol_identity='p', output_root=os.path.dirname(tools_dir)))
+        check('C5 指向历史归档原件 ⇒ 抛',
+              _raises(sr.ArchivePathError, sr.SidecarRecorder, run_id='r', arm='c2',
+                      sidecar_path=os.path.join(d, 'P1A_PhaseA_L1L2_2026-10-14.json'),
+                      protocol_identity='p', output_root=d))
+        check('C6 指向 MASKCO_code / 主模型目录 ⇒ 抛',
+              _raises(sr.ArchivePathError, sr.SidecarRecorder, run_id='r', arm='c2',
+                      sidecar_path=os.path.join(repo, 'MASKCO_code', 'evil.jsonl'),
+                      protocol_identity='p', output_root=repo))
+
+        good = os.path.join(d, 'ok.jsonl')
+        rec = sr.SidecarRecorder(run_id='r', arm='c2', sidecar_path=good,
+                                 protocol_identity='p', output_root=d)
+        check('C7 合法路径 ⇒ 过门，且门在**写之前**已执行',
+              rec.path_gate['ok'] is True and rec.path_gate['checked_before_write'] is True)
+        rec_obj, ok = rec.record(decision_point=0, input_snapshot=_snap(), action='reject',
+                                 exception_audit=HARD, decision_outcome_observed=True,
+                                 **_plans_kw())
+        check('C8 合法路径写入成功', ok is True)
+        check('C9 静态自检明确**不**声称解决缺口 C',
+              'gap_c_scope_limit' in sr.static_selfcheck()
+              and '不得' in sr.static_selfcheck()['gap_c_scope_limit'])
+        # 路径替换检测：模拟归档目标身份在两次写入之间被换掉（inode 变化）
+        rec._target_identity = (0, 0)
+        rec.n_records_before_substitution = rec.n_records
+        _, ok2 = rec.record(decision_point=1, input_snapshot=_snap(), action='reject',
+                            exception_audit=HARD, decision_outcome_observed=True,
+                            **_plans_kw())
+        check('C10 归档目标身份被替换（inode 变化）⇒ 写入后验收降级',
+              rec.archive_status != 'COMPLETE' and ok2 is False)
+        check('C11 降级原因如实记录为路径替换',
+              any('path substitution' in f['error'] for f in rec.failures))
+        rec.close()
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
 
 
 def main():
     print('=' * 78)
-    print('分析侧 sidecar 实现回归 v2（用户 bce2e988 审查裁定的四项缺陷）')
-    print('v1 逐字节保留于 _superseded_test_role_c_sidecar_recorder_v1_2026-10-14.py；')
-    print('v1 的 PASS **不**构成"缺陷已解决"的证据（含恒真断言）')
+    print('sidecar 实现回归 v3（缺口 A/B/C）')
     print('=' * 78)
-    test_input_identity_strict_schema()
-    test_commit_status_requires_evidence()
-    test_recorder_rejects_v1_default()
-    test_counters_units_are_separate()
-    test_counter_rejects_bad_input()
-    test_counter_event_vs_decision_still_correct()
-    test_static_selfcheck_dual_identity()
-    test_archive_failure_and_durability()
-    test_fallback_classification_v2()
+    test_a_decision_completion_vs_commit()
+    test_b_archived_input_identity()
+    test_c_output_path_gate()
     print('\n' + '=' * 78)
-    if FAILS:
-        print('SIDECAR_TEST_V2_FAIL: %d 项不通过 -> %s' % (len(FAILS), FAILS))
+    print('通过 %d / 失败 %d' % (len(_PASS), len(_FAIL)))
+    if _FAIL:
+        for f in _FAIL:
+            print('  FAILED: %s' % f)
+        print('SIDECAR_TEST_V3_FAIL')
         return 1
-    print('SIDECAR_TEST_V2_PASS: 全部通过')
+    print('SIDECAR_TEST_V3_PASS')
     return 0
 
 

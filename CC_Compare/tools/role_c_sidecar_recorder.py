@@ -42,14 +42,53 @@ import sys
 __all__ = ['ARCHIVE_STATUS', 'FALLBACK_KINDS', 'PLAN_VARIANTS', 'FROZEN_MODULES',
            'FROZEN_SHA256', 'SidecarRecorder', 'IndependentCounters',
            'classify_fallback', 'plan_variants', 'normalized_input_identity',
-           'durability_disclosure', 'static_selfcheck']
+           'durability_disclosure', 'static_selfcheck',
+           'FrozenInput', 'freeze_input', 'recompute_archived_input_identity',
+           'ArchivePathError', 'RETAINED_PLAN_EVIDENCE_KINDS',
+           'default_forbidden_roots']
 
 #: 归档资格（**不把"写失败"当成"已记录失败"**）
 ARCHIVE_STATUS = ('COMPLETE', 'ARCHIVE_INCOMPLETE', 'INCONCLUSIVE_ARCHIVE_FAILURE')
 
 #: 回退分类（**拒单 ≠ 超时回退**）
+#: ⚠️ 本轮（用户 2026-10-14「6f32125ff 独立审查裁定」缺口 A）新增
+#: `b3_hard_deadline_retained_plan_unverified`：观察到硬超时**不足以**判定
+#: "发生了真实的终态计划回退"；**缺少保留计划的权威证据时 `fallback_applied` 不得写 True**。
 FALLBACK_KINDS = ('none', 'b2_boundary_reject', 'b3_conservative_reject',
-                  'timeout_fallback', 'FALLBACK_NOT_VERIFIABLE')
+                  'timeout_fallback', 'b3_hard_deadline_retained_plan_unverified',
+                  'FALLBACK_NOT_VERIFIABLE')
+
+#: 「决策后**实际保留**的权威计划」可接受的证据种类（缺口 A：必须与异常原因分开记录）
+RETAINED_PLAN_EVIDENCE_KINDS = ('post_decision_plan_readback',
+                                'no_change_commit_receipt')
+
+#: **历史归档原件**保护名单（缺口 C：这些原件不得被 sidecar 追加写）
+HISTORICAL_ARCHIVE_PROTECTED = (
+    'P1A_PhaseA_L1L2_*.json', 'P1A_PhaseA_L1L2_*.jsonl',
+    'P1A_C1C4分析侧实现_身份冻结_*.json',
+    'P1A_超时语义协议_C2身份冻结_*.json',
+    'P1A_资源门登记_*.json', 'P1A_资源门登记_字节身份_双记录_*.json',
+    'QUALIFICATION_MATRIX_RECOMPUTATION_*.json',
+)
+
+
+def default_forbidden_roots():
+    """默认禁写根：源码/工装目录（含四个冻结模块）+ 仓库根（冻结树）。
+
+    分析侧归档**必须**落在显式传入的 `output_root` 里；
+    默认禁用根只是兜底，**不替代** `output_root` 白名单。
+    """
+    repo = os.path.dirname(os.path.dirname(_HERE))          # CC_Compare 的父目录（仓库根）
+    return (_HERE,                                           # CC_Compare/tools（含冻结模块）
+            os.path.join(repo, 'C-VRP_Cold-chainVehicleRoutingProblem'),
+            os.path.join(repo, 'MASKCO_code'))
+
+
+def _glob_match(name, pattern):
+    """极简 glob（只支持 `*`）——避免为本用途引入额外依赖。"""
+    import fnmatch as _fn
+    return _fn.fnmatchcase(name, pattern)
+
 
 #: 四个**必须分开**的计划身份（用户第 2 条）
 PLAN_VARIANTS = ('plan_before', 'candidate_plan', 'accepted_plan', 'plan_after')
@@ -131,6 +170,11 @@ class CommitEvidenceError(ValueError):
 class CounterInputError(ValueError):
     """计数器输入不合规（非法 fallback_kind / 重复 event_id / 缺事件身份）。"""
 
+
+class ArchivePathError(ValueError):
+    """归档输出路径未过**运行时**路径门（缺口 C）⇒ **fail-closed**，一律不写。"""
+
+
 _HERE = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -200,6 +244,100 @@ def normalized_input_identity(*, protocol_identity, decision_point, input_snapsh
     return _sha_text(_canon(payload))
 
 
+class FrozenInput(object):
+    """**决策前**冻结的输入身份句柄（缺口 B：归档必须能从原始字节独立重建输入身份）。
+
+    用途：三臂（old / c2 / write_off）共享**同一个**冻结对象；
+    决策**前**与决策**后**分别调用 `assert_unchanged()`，
+    证明输入未被修改（共享同一对象**不天然**保证不可变）。
+    """
+
+    __slots__ = ('decision_point', 'protocol_identity', '_canonical',
+                 '_sha256', '_identity', '_copy')
+
+    def __init__(self, *, decision_point, protocol_identity, canonical, sha256,
+                 identity, snapshot_copy):
+        self.decision_point = int(decision_point)
+        self.protocol_identity = protocol_identity
+        self._canonical = canonical
+        self._sha256 = sha256
+        self._identity = identity
+        self._copy = snapshot_copy
+
+    # ---- 只读视图 ----
+    @property
+    def canonical(self):
+        return self._canonical
+
+    @property
+    def sha256(self):
+        return self._sha256
+
+    @property
+    def input_decision_id(self):
+        return self._identity
+
+    def snapshot_copy(self):
+        """返回冻结时的**独立副本**（调用方修改它不会影响归档身份）。"""
+        return json.loads(self._canonical)
+
+    def assert_unchanged(self, observed_snapshot):
+        """把**再观测**到的快照重新校验/规范化并与冻结值比对；不等 ⇒ 抛。"""
+        validate_input_snapshot(observed_snapshot)
+        now = _canon(observed_snapshot)
+        if now != self._canonical:
+            raise InputIdentityError(
+                '输入快照在冻结后被修改（decision_point=%s）：'
+                '冻结 sha256=%s，当前 sha256=%s'
+                % (self.decision_point, self._sha256, _sha_text(now)))
+        return True
+
+
+def freeze_input(*, protocol_identity, decision_point, input_snapshot):
+    """冻结输入身份（严格 schema + 深拷贝 + 规范化 + 摘要）。"""
+    validate_input_snapshot(input_snapshot)
+    canonical = _canon(input_snapshot)
+    return FrozenInput(decision_point=decision_point,
+                       protocol_identity=protocol_identity,
+                       canonical=canonical, sha256=_sha_text(canonical),
+                       identity=normalized_input_identity(
+                           protocol_identity=protocol_identity,
+                           decision_point=decision_point,
+                           input_snapshot=input_snapshot),
+                       snapshot_copy=json.loads(canonical))
+
+
+def recompute_archived_input_identity(record, *, protocol_identity=None):
+    """**只读**独立复算：仅凭归档记录字节重算输入身份与快照 SHA（缺口 B）。
+
+    不依赖记录器的任何内存状态。返回逐项比对结果。
+    """
+    if not isinstance(record, dict):
+        raise InputIdentityError('归档记录必须是 dict')
+    snap = record.get('input_snapshot')
+    if snap is None:
+        return {'ok': False, 'why': '归档记录**未保存** input_snapshot ⇒ 无法独立复建输入身份',
+                'backward_compatible_with': 'c1c4-v1（缺口 B 之前的版本）'}
+    pid = protocol_identity if protocol_identity is not None else record.get('protocol_identity')
+    if pid is None:
+        return {'ok': False, 'why': '归档记录缺 protocol_identity ⇒ 无法复算输入身份'}
+    validate_input_snapshot(snap)
+    sha = _sha_text(_canon(snap))
+    did = normalized_input_identity(protocol_identity=pid,
+                                    decision_point=record.get('decision_point'),
+                                    input_snapshot=snap)
+    return {
+        'ok': (sha == record.get('input_snapshot_sha256')
+               and did == record.get('input_decision_id')),
+        'recomputed_input_snapshot_sha256': sha,
+        'archived_input_snapshot_sha256': record.get('input_snapshot_sha256'),
+        'recomputed_input_decision_id': did,
+        'archived_input_decision_id': record.get('input_decision_id'),
+        'snapshot_sha_matches': sha == record.get('input_snapshot_sha256'),
+        'decision_id_matches': did == record.get('input_decision_id'),
+    }
+
+
 def plan_variants(*, plan_before, candidate_plan=None, accepted_plan=None,
                   plan_after=None, commit_observed=False, commit_evidence=None,
                   decision_outcome_observed=None, action=None):
@@ -264,40 +402,111 @@ def plan_variants(*, plan_before, candidate_plan=None, accepted_plan=None,
     }
 
 
-def classify_fallback(*, diag, commit_observed, exception_audit=None):
+def classify_fallback(*, diag, decision_outcome_observed,
+                      authoritative_commit_observed=None,
+                      exception_audit=None, retained_plan=None,
+                      plan_before=None, retained_plan_evidence=None):
     """回退分类。**拒单 ≠ 超时回退**；证据不足 ⇒ `FALLBACK_NOT_VERIFIABLE`。
 
-    判定只用**可观察的边界/异常**证据，**不**从 `action=reject` 反推回退。
+    ⚠️ **缺口 A 更正（用户 2026-10-14「6f32125ff 独立审查裁定」）**：
+    旧版开头 `if not commit_observed: return FALLBACK_NOT_VERIFIABLE` **前提错误**——
+    拒单**通常不产生**新计划的权威提交，但它**仍可以是一条已完成的决策**；
+    仅因 `commit_observed=False` 就早退，会在分类入口丢掉 B3 超时拒单这类已有证据的决策，
+    直接损害 **C1（异常证据）与 C3（回退计数）能否分别独立核验**。
+
+    现在把三个维度**分开**：
+
+    * `decision_outcome_observed`：是否取得**本次决策完成**及其动作证据；
+    * `authoritative_commit_observed`：是否取得**新计划实际采纳**的权威证据；
+    * `retained_plan_verified`（由 `retained_plan` + `plan_before` +
+      `retained_plan_evidence` 派生）：是否取得**决策后实际保留的权威计划**证据。
+
+    硬性规定：**观察到硬超时导致 B3 拒单 ≠ 观察到真实的终态计划回退**；
+    **缺少保留计划的权威证据时 `fallback_applied` 不得写 `True`**。
+    判定只用**可观察**证据，**不**从 `action=reject` 反推回退。
     """
     d = diag or {}
     rule = d.get('boundary') or ''
-    if not commit_observed:
-        return {'fallback_applied': None, 'fallback_kind': 'FALLBACK_NOT_VERIFIABLE',
-                'reason': '未观察到权威提交 ⇒ 无法判定是否发生行为回退'}
+    action = d.get('action') or (d.get('log_fields') or {}).get('action')
+    rpe = retained_plan_evidence or {}
+    verified = _retained_plan_verified(retained_plan=retained_plan,
+                                       plan_before=plan_before,
+                                       evidence=rpe)
+    base = {'decision_outcome_observed': (None if decision_outcome_observed is None
+                                          else bool(decision_outcome_observed)),
+            'authoritative_commit_observed': (
+                None if authoritative_commit_observed is None
+                else bool(authoritative_commit_observed)),
+            'retained_plan_verified': bool(verified[0]),
+            'retained_plan_evidence_kind': rpe.get('kind'),
+            'retained_plan_check': verified[1]}
+
+    def _out(applied, kind, reason, requires=()):
+        r = dict(base)
+        r.update({'fallback_applied': applied, 'fallback_kind': kind,
+                  'reason': reason, 'requires': list(requires)})
+        return r
+
+    # 维度 1：连"决策完成"都没观测到 ⇒ 不得往下推
+    if decision_outcome_observed is not True:
+        return _out(None, 'FALLBACK_NOT_VERIFIABLE',
+                    '未观察到**决策完成/动作**证据 ⇒ 无法判定是否发生行为回退',
+                    ('decision_outcome_observed',))
     if rule == 'B2_budget_out_of_range':
-        return {'fallback_applied': False, 'fallback_kind': 'b2_boundary_reject',
-                'reason': ('B2 预算越界是**事前边界规则的正常执行**，'
-                           '不是超时回退（用户第 4 条）')}
+        return _out(False, 'b2_boundary_reject',
+                    ('B2 预算越界是**事前边界规则的正常执行**，'
+                     '不是超时回退（用户第 4 条）'))
     if rule == 'B3_lambda_undefined':
         ea = exception_audit or {}
         if ea.get('hard_deadline_exception') is True:
-            return {'fallback_applied': True, 'fallback_kind': 'timeout_fallback',
-                    'reason': ('B3 由**硬截止异常**导致（`exception_type=%s`）'
-                               % ea.get('exception_type'))}
+            if verified[0]:
+                return _out(True, 'timeout_fallback',
+                            ('B3 由**硬截止异常**导致（`exception_type=%s`）'
+                             '**且**决策后保留的权威计划已核验 ⇒ 真实终态计划回退'
+                             % ea.get('exception_type')))
+            # 缺口 A 核心：硬超时已知，但**保留计划未核验** ⇒ 不得写 True
+            return _out(None, 'b3_hard_deadline_retained_plan_unverified',
+                        ('已观察到**硬截止异常**（`exception_type=%s`），'
+                         '但**未**取得决策后实际保留的权威计划证据 ⇒ '
+                         '**不得**自动写成"发生了终态计划回退"'
+                         % ea.get('exception_type')),
+                        ('retained_plan_verified',))
         if ea.get('hard_deadline_exception') is False:
-            return {'fallback_applied': False, 'fallback_kind': 'b3_conservative_reject',
-                    'reason': ('B3 由**非截止**异常或数值未定义导致'
-                               '（`exception_type=%s`）⇒ 保守拒单，不是超时回退'
-                               % ea.get('exception_type'))}
-        return {'fallback_applied': None, 'fallback_kind': 'FALLBACK_NOT_VERIFIABLE',
-                'reason': ('B3 但**没有** `exception_audit`（或类型不可用）⇒ '
-                           '**无法**区分"硬超时"与"数值未定义"；'
-                           '**不得**制造不存在的独立回退事件')}
-    if d.get('action') == 'reject' or (d.get('log_fields') or {}).get('action') == 'reject':
-        return {'fallback_applied': None, 'fallback_kind': 'FALLBACK_NOT_VERIFIABLE',
-                'reason': ('仅有 `action=reject`，**不足以**判定回退 '
-                           '（普通拒单 / B3 保守拒单 / 超时回退三者不可由 action 区分）')}
-    return {'fallback_applied': False, 'fallback_kind': 'none', 'reason': ''}
+            return _out(False, 'b3_conservative_reject',
+                        ('B3 由**非截止**异常或数值未定义导致'
+                         '（`exception_type=%s`）⇒ 保守拒单，不是超时回退'
+                         % ea.get('exception_type')))
+        return _out(None, 'FALLBACK_NOT_VERIFIABLE',
+                    ('B3 但**没有** `exception_audit`（或类型不可用）⇒ '
+                     '**无法**区分"硬超时"与"数值未定义"；'
+                     '**不得**制造不存在的独立回退事件'),
+                    ('exception_audit',))
+    if action == 'reject':
+        return _out(None, 'FALLBACK_NOT_VERIFIABLE',
+                    ('仅有 `action=reject`，**不足以**判定回退 '
+                     '（普通拒单 / B3 保守拒单 / 超时回退三者不可由 action 区分）'),
+                    ('boundary',))
+    return _out(False, 'none', '')
+
+
+def _retained_plan_verified(*, retained_plan, plan_before, evidence):
+    """`retained_plan_verified` 的**独立**判定（缺口 A）。
+
+    必须**同时**满足：证据种类在册，且保留计划与决策前计划内容相等。
+    """
+    kind = (evidence or {}).get('kind')
+    if kind not in RETAINED_PLAN_EVIDENCE_KINDS:
+        return False, '证据种类不在册：%r' % (kind,)
+    if retained_plan is None:
+        return False, '未提供 retained_plan'
+    if plan_before is None:
+        return False, '未提供 plan_before（无法比对"保留的是不是决策前那一份"）'
+    a = _canon(retained_plan)
+    b = _canon(plan_before)
+    if a != b:
+        return False, '保留计划与决策前计划**不一致**'
+    return True, 'ok'
+
 
 
 def durability_disclosure():
@@ -320,19 +529,37 @@ class SidecarRecorder(object):
 
     ⚠️ **写失败不写成"已记录失败"**：失败状态保存在**内存**并由返回值上报，
     **不假定**任何失败标志已可靠落盘（用户第 3 条）。
+
+    ⚠️ **缺口 C（用户 2026-10-14「6f32125ff 独立审查裁定」）**：
+    `static_selfcheck()` 的 AST 结论**不能**替代**运行时**写入路径隔离。
+    `output_root` 为**必填**；归档路径必须规范化后落在其内，且不得指向
+    源码/冻结树/历史归档原件；写入**前后**各验一次目标身份（`st_dev`/`st_ino`）。
     """
 
     def __init__(self, *, run_id, arm, sidecar_path, protocol_identity,
-                 decision_points_digest=None):
+                 output_root=None, decision_points_digest=None,
+                 forbidden_roots=None):
+        if output_root is None:
+            raise ArchivePathError(
+                '缺口 C：`output_root` 为**必填**参数；'
+                '**不允许**隐式推断归档输出目录（fail-closed）')
         self.run_id = run_id
         self.arm = arm
         self.sidecar_path = sidecar_path
         self.protocol_identity = protocol_identity
+        self.output_root = os.path.realpath(os.path.abspath(output_root))
         self.decision_points_digest = decision_points_digest
+        self.forbidden_roots = [os.path.realpath(os.path.abspath(p))
+                                for p in (forbidden_roots
+                                          if forbidden_roots is not None
+                                          else default_forbidden_roots())]
         self.archive_status = 'COMPLETE'
         self.failures = []                 # [{decision_point, error, verified_by_supervisor}]
         self.n_records = 0
         self._fh = None
+        self._target_identity = None       # (st_dev, st_ino) 写入前基线
+        # 构造时即过门 ⇒ 路径违规**在写任何字节之前**就暴露
+        self.path_gate = self._assert_output_path_allowed()
 
     # ---- 身份 ----
     def input_decision_id(self, *, decision_point, input_snapshot):
@@ -340,36 +567,104 @@ class SidecarRecorder(object):
                                         decision_point=decision_point,
                                         input_snapshot=input_snapshot)
 
+    # ---- 缺口 C：运行时输出路径门 ----
+    def _assert_output_path_allowed(self):
+        """规范化真实路径 + 目录白名单 + 禁源码/冻结树/历史归档原件 ⇒ 不过则抛。"""
+        raw = os.path.abspath(self.sidecar_path)
+        real = os.path.realpath(raw)
+        # 1) 非规范化路径若与规范化路径不同 ⇒ 可能存在符号链接/`..` 逃逸
+        if raw != real and not real.startswith(self.output_root + os.sep):
+            raise ArchivePathError('归档路径经规范化后逃出输出根：%s -> %s' % (raw, real))
+        # 2) 必须在 output_root 之内
+        if not (real == self.output_root or real.startswith(self.output_root + os.sep)):
+            raise ArchivePathError('归档路径不在指定输出根之内：%s（output_root=%s）'
+                                   % (real, self.output_root))
+        # 3) 不得落在任何禁写根（源码 / 冻结树 / 历史归档原件）
+        for fr in self.forbidden_roots:
+            if real == fr or real.startswith(fr + os.sep):
+                raise ArchivePathError('归档路径落在禁写根之内：%s（禁用根=%s）'
+                                       % (real, fr))
+        # 4) 历史归档原件文件名保护（登记在案的原件不得被追加写）
+        base = os.path.basename(real)
+        for pat in HISTORICAL_ARCHIVE_PROTECTED:
+            if _glob_match(base, pat):
+                raise ArchivePathError('归档路径命中**历史归档原件**保护名单：%s' % base)
+        return {'ok': True, 'real_path': real, 'output_root': self.output_root,
+                'forbidden_roots': list(self.forbidden_roots),
+                'checked_before_write': True}
+
+    def _target_identity_now(self):
+        try:
+            st = os.stat(self.sidecar_path)
+            return (st.st_dev, st.st_ino)
+        except OSError:
+            return None
+
     # ---- 写 ----
     def _open(self):
         if self._fh is None:
+            gate = self._assert_output_path_allowed()      # 每次打开都重过门
             d = os.path.dirname(os.path.abspath(self.sidecar_path))
             if d and not os.path.isdir(d):
                 os.makedirs(d, exist_ok=True)
+            self._target_identity = self._target_identity_now()
             self._fh = io.open(self.sidecar_path, 'a', encoding='utf-8', newline='\n')
+            self.path_gate = gate
         return self._fh
+
 
     def record(self, *, decision_point, input_snapshot, action, boundary=None,
                reject_reason=None, lambda_B=None, e_o=None, certify_ok=None,
-               decision_hash=None, exception_audit=None, **plans):
+               decision_hash=None, exception_audit=None,
+               decision_outcome_observed=None, retained_plan=None,
+               retained_plan_evidence=None, frozen_input=None, **plans):
         """写一条 sidecar 记录；返回 `(record, write_ok)`。
 
         写失败 ⇒ 归档资格降级（**不**伪造已落盘的失败标志），**算法行为不受影响**。
         `**plans` 透传给 `plan_variants`（`plan_before` / `candidate_plan` /
         `accepted_plan` / `plan_after` / `commit_observed`）。
+
+        **缺口 A**：`decision_outcome_observed` / `authoritative_commit_observed`
+        与 `retained_plan(+evidence)` 分开传入；
+        `authoritative_commit_observed` 缺省时回落到 `plans['commit_observed']`
+        （后者只表示"计划采纳"，**不**表示"决策完成"）。
+        **缺口 B**：记录内保存 `input_snapshot` + `input_snapshot_sha256`，
+        并（若传入 `frozen_input`）在写入前重验输入未被修改。
         """
-        pid = self.input_decision_id(decision_point=decision_point,
-                                     input_snapshot=input_snapshot)
+        if frozen_input is not None:
+            # 缺口 B：三臂共享同一对象**不**保证不可变 ⇒ 写入前重验
+            frozen_input.assert_unchanged(input_snapshot)
+            pid = frozen_input.input_decision_id
+            snap_canonical = frozen_input.canonical
+            snap_sha = frozen_input.sha256
+        else:
+            validate_input_snapshot(input_snapshot)
+            snap_canonical = _canon(input_snapshot)
+            snap_sha = _sha_text(snap_canonical)
+            pid = normalized_input_identity(protocol_identity=self.protocol_identity,
+                                            decision_point=decision_point,
+                                            input_snapshot=input_snapshot)
         pv = plan_variants(**plans)
+        if decision_outcome_observed is None:
+            decision_outcome_observed = (pv.get('commit_status') != 'COMMIT_NOT_OBSERVED')
         fb = classify_fallback(diag={'boundary': boundary,
                                      'log_fields': {'action': action}},
-                               commit_observed=bool(plans.get('commit_observed')),
-                               exception_audit=exception_audit)
+                               decision_outcome_observed=decision_outcome_observed,
+                               authoritative_commit_observed=bool(
+                                   plans.get('commit_observed')),
+                               exception_audit=exception_audit,
+                               retained_plan=retained_plan,
+                               plan_before=plans.get('plan_before'),
+                               retained_plan_evidence=retained_plan_evidence)
         rec = {
-            'sidecar_version': 'c1c4-v1',
+            'sidecar_version': 'c1c4-v2',
             'run_id': self.run_id, 'arm': self.arm,
+            'protocol_identity': self.protocol_identity,
             'decision_point': int(decision_point),
             'input_decision_id': pid,
+            # ---- 缺口 B：归档必须能从原始字节独立重建输入身份 ----
+            'input_snapshot': json.loads(snap_canonical),
+            'input_snapshot_sha256': snap_sha,
             'decision_hash': decision_hash,          # 历史日志字段（**保留**，不与上面混义）
             'decision_points_digest': self.decision_points_digest,
             'action': action, 'boundary': boundary, 'reject_reason': reject_reason,
@@ -390,7 +685,13 @@ class SidecarRecorder(object):
             self._note_failure(decision_point, err)
         if write_ok:
             self.n_records += 1
-            ok, why = self.verify_written()
+            # 缺口 C：写入**后**再验目标身份（防路径替换）
+            if (self._target_identity is not None
+                    and self._target_identity_now() not in (None, self._target_identity)):
+                self._note_failure(decision_point, 'archive target identity changed after write '
+                                                   '(path substitution)')
+                write_ok = False
+            ok, why = self.verify_written(expect_record=rec)
             if not ok:
                 self._note_failure(decision_point, 'write-back verification failed: %s' % why)
                 write_ok = False
@@ -411,20 +712,39 @@ class SidecarRecorder(object):
             self.archive_status = 'INCONCLUSIVE_ARCHIVE_FAILURE'
         return self.archive_status
 
-    def verify_written(self):
-        """**写入后验收**：文件非 0 字节、末行可解析、带 `input_decision_id`。"""
+    def verify_written(self, expect_record=None):
+        """**写入后验收**。
+
+        缺口 B 前：只检查文件非 0 字节、末行可解析、带 `input_decision_id`。
+        缺口 B 后（用户 2026-10-14 裁定）**追加证明**：
+
+          1. 末行**就是刚写入的目标记录**（传入 `expect_record` 时逐字节比对规范化行）；
+          2. 快照与 SHA **对应**：由归档的 `input_snapshot` 重算
+             `input_snapshot_sha256` 与 `input_decision_id`，与归档字段一致；
+          3. 归档**确实**携带完整规范化输入快照（否则独立复核不可能）。
+        """
         try:
             if not os.path.isfile(self.sidecar_path):
                 return False, '文件不存在'
             if os.path.getsize(self.sidecar_path) == 0:
                 return False, '0 字节'
             with io.open(self.sidecar_path, encoding='utf-8') as f:
-                lines = [x for x in f.read().splitlines() if x.strip()]
+                raw = f.read()
+            lines = [x for x in raw.splitlines() if x.strip()]
             if not lines:
                 return False, '无有效行'
+            if expect_record is not None:
+                want = _canon(expect_record)
+                if lines[-1] != want:
+                    return False, ('末行**不是**刚写入的目标记录'
+                                   '（规范化行逐字节比对失败）')
             last = json.loads(lines[-1])
             if 'input_decision_id' not in last:
                 return False, '末行缺 input_decision_id'
+            # 缺口 B：快照与 SHA 必须自洽，且快照必须真的落盘
+            rc = recompute_archived_input_identity(last)
+            if not rc.get('ok'):
+                return False, '输入身份/快照 SHA 复算失败：%s' % rc
             return True, ''
         except Exception as exc:                             # noqa: BLE001
             return False, '%s: %s' % (type(exc).__name__, exc)
@@ -498,17 +818,22 @@ class IndependentCounters(object):
                      fallback_kind, evidence=None):
         """**只有可核验的真实终态回退**才增加 `n_fallbacks`。
 
-        校验（用户逐条点名）：
+        校验（用户逐条点名 + 本轮缺口 A 强化）：
           * `fallback_kind` 必须 ∈ `REAL_TERMINAL_FALLBACK_KINDS`（当前仅 `timeout_fallback`）
             ⇒ `none` / `b2_boundary_reject` / `b3_conservative_reject` /
-            `FALLBACK_NOT_VERIFIABLE` **一律拒绝**（不得把边界拒单计作回退）；
-          * 必须有 `evidence`（如 `{'hard_deadline_exception': True, 'event_id': ...}`）；
+            `FALLBACK_NOT_VERIFIABLE` / `b3_hard_deadline_retained_plan_unverified`
+            **一律拒绝**（不得把边界拒单或"保留计划未核验"计作回退）；
+          * 必须有 `evidence`（`hard_deadline_exception=True`）；
+          * **缺口 A**：`evidence` 还必须提供**决策后实际保留的权威计划**证据——
+            `retained_plan_verified=True`，或可被本模块**独立复验**的三元组
+            (`retained_plan`, `plan_before`, `retained_plan_evidence`)。
+            ⇒ **计数不得比 C1 分类更宽松**；
           * `fallback_event_id` 不得为空。
         """
         if fallback_kind not in REAL_TERMINAL_FALLBACK_KINDS:
             raise CounterInputError(
                 '`fallback_kind=%r` **不是**可核验的真实终态回退（允许：%s）⇒ 拒绝计数：'
-                '正常边界拒单/保守拒单/不可核验 都**不得**计作终态 fallback'
+                '正常边界拒单/保守拒单/保留计划未核验/不可核验 都**不得**计作终态 fallback'
                 % (fallback_kind, REAL_TERMINAL_FALLBACK_KINDS))
         if fallback_event_id in (None, ''):
             raise CounterInputError('缺少 `fallback_event_id` ⇒ 无法去重，拒绝计数')
@@ -516,6 +841,20 @@ class IndependentCounters(object):
                 evidence.get('hard_deadline_exception') is not True:
             raise CounterInputError(
                 '缺少可核验证据（需 `hard_deadline_exception=True`）⇒ 拒绝计数')
+        # 缺口 A：计数口径不得比 C1 分类更宽松
+        if evidence.get('retained_plan_verified') is True:
+            pass
+        else:
+            ok_rp, why_rp = _retained_plan_verified(
+                retained_plan=evidence.get('retained_plan'),
+                plan_before=evidence.get('plan_before'),
+                evidence=evidence.get('retained_plan_evidence'))
+            if not ok_rp:
+                raise CounterInputError(
+                    '缺口 A：观察到硬超时**不足以**判定真实终态计划回退；'
+                    '缺少决策后**实际保留计划**的权威证据（%s）⇒ 拒绝计数'
+                    % why_rp)
+
         key = (run_id, int(decision_point))
         n = self._fallbacks.get(key, 0) + 1
         self._fallbacks[key] = n
@@ -652,6 +991,12 @@ def static_selfcheck(*, root=None):
     if not out['no_none_expected']:
         out['problems'].append('自检里仍有 `expected=None`（会让 unchanged 自动成立）')
     out['does_not_write_frozen'] = not (bad_writes or bad_poke)
+    # ⚠️ 缺口 C（用户 2026-10-14 裁定）：AST 结论**不能**替代运行时写入路径隔离
+    out['gap_c_scope_limit'] = (
+        '`does_not_write_frozen` 是**静态**结论：它只说明本模块源码里没有指向冻结模块的'
+        '**字面**写操作，**不能**证明**动态传入**的 `sidecar_path` 不会指向受保护源码。'
+        '缺口 C 的关闭证据只能是**运行时**路径门（`SidecarRecorder.path_gate`）的回归，'
+        '**不得**用本字段宣布缺口 C 已解决。')
     out['ok'] = not out['problems']
     return out
 
