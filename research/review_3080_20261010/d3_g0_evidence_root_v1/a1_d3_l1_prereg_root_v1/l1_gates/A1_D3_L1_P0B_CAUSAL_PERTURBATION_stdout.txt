@@ -1,0 +1,8 @@
+[PASS] B1 correct invisible-customer identification with n_invisible_modified > 0 counted from actual byte-level changes :: {"fields_changed": ["coords", "demands", "tw_start", "tw_end", "service_time"], "n_invisible_modified": 24, "per_customer_fields": [["4", ["coords", "demands", "service_time", "tw_end", "tw_start"]], ["6", ["coords", "demands", "service_time", "tw_end", "tw_start"]], ["8", ["coords", "demands", "service_time", "tw_end", "tw_start"]], ["10", ["coords", "demands", "service_time", "tw_end", "tw_start"]]]}
+[PASS] B2 the input dataset and snapshot are unchanged and two identical perturbations are bit-identical :: {"deterministic": true, "verdict": "NOT_VERIFIABLE"}
+[FAIL] B3 shapes, dtypes, order ids, reveal_time and committed state are preserved and the derived distance data stay consistent (visible-visible distances bit-identical; dist_mat rebuilt only when it is the Euclidean distance of coords) :: {}
+[FAIL] B4 both sides rebuild the decision projection independently (visible inputs, legal candidates, planned suffix) with the replanner calls counted :: {"notes": ["dist_mat is not the Euclidean distance of coords; a legal rebuild contract must be pre-declared before coords may be perturbed (no road-network == Euclidean assumption)"], "reason": "NOT_VERIFIABLE"}
+[FAIL] B5 outputs carry the first-difference path, projection SHAs and the changed customers/fields; incomplete comparisons return NOT_VERIFIABLE :: {"reason": "no valid perturbation"}
+
+=== 5 rows, 2 PASS, 3 FAIL ===
+WROTE ..\research\review_3080_20261010\d3_g0_evidence_root_v1\a1_d3_l1_prereg_root_v1\l1_gates\A1_D3_L1_P0B_CAUSAL_PERTURBATION.json

@@ -1,0 +1,391 @@
+{
+  "n_fail": 3,
+  "n_pass": 2,
+  "n_rows": 5,
+  "records": {
+    "F_side_caveat": "An F-free projection PASS only shows that this model-free decision information boundary is invariant under the declared perturbation family. The real F feature extractor must still be verified inside the F-vs-D-Geo mechanism gate; \"model features are causally safe\" is NOT established here.",
+    "dataset_keys": [
+      "coords",
+      "demands",
+      "dist_mat",
+      "energy_mat",
+      "initial_quality",
+      "legacy_delivery_reference_quality",
+      "legacy_edge_energy_proxy",
+      "opt_costs",
+      "quality_loss",
+      "reveal_time",
+      "routes",
+      "service_time",
+      "temp_class",
+      "tw_end",
+      "tw_start",
+      "visible_mask"
+    ],
+    "deterministic_repeat": true,
+    "perturbation_report": {
+      "categorical_not_perturbed": [
+        "temp_class"
+      ],
+      "customers_changed": [
+        4,
+        6,
+        8,
+        10,
+        15,
+        18,
+        19,
+        20,
+        23,
+        24,
+        25,
+        27,
+        28,
+        34,
+        35,
+        36,
+        37,
+        39,
+        41,
+        42,
+        44,
+        45,
+        46,
+        50
+      ],
+      "day_id": 0,
+      "dist_mat": {
+        "equals_euclidean_of_coords": false,
+        "present": true,
+        "shape": [
+          16,
+          51,
+          51
+        ]
+      },
+      "fields_changed": [
+        "coords",
+        "demands",
+        "tw_start",
+        "tw_end",
+        "service_time"
+      ],
+      "invisible_customers": [
+        4,
+        6,
+        8,
+        10,
+        15,
+        18,
+        19,
+        20,
+        23,
+        24,
+        25,
+        27,
+        28,
+        34,
+        35,
+        36,
+        37,
+        39,
+        41,
+        42,
+        44,
+        45,
+        46,
+        50
+      ],
+      "n_invisible_modified": 24,
+      "notes": [
+        "dist_mat is not the Euclidean distance of coords; a legal rebuild contract must be pre-declared before coords may be perturbed (no road-network == Euclidean assumption)"
+      ],
+      "per_customer_fields": {
+        "10": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "15": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "18": [
+          "coords",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "19": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "20": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "23": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "24": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "25": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "27": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "28": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "34": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "35": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "36": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "37": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "39": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "4": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "41": [
+          "coords",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "42": [
+          "coords",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "44": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "45": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "46": [
+          "coords",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "50": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "6": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ],
+        "8": [
+          "coords",
+          "demands",
+          "service_time",
+          "tw_end",
+          "tw_start"
+        ]
+      },
+      "position": 1,
+      "preservation": {},
+      "range_checks": {
+        "coords": {
+          "finite": true,
+          "max": 1.8031365871429443,
+          "min": 0.021776670590043068
+        },
+        "demands": {
+          "finite": true,
+          "max": 19.0,
+          "min": 0.0
+        },
+        "service_time": {
+          "finite": true,
+          "max": 0.9935935735702515,
+          "min": 0.0
+        },
+        "tw_end": {
+          "finite": true,
+          "max": 24.0,
+          "min": 3.2095980644226074
+        },
+        "tw_start": {
+          "finite": true,
+          "max": 13.538573265075684,
+          "min": 0.0
+        }
+      },
+      "schema": "per-field addressing",
+      "verdict": "NOT_VERIFIABLE"
+    }
+  },
+  "rows": [
+    {
+      "detail": {
+        "fields_changed": [
+          "coords",
+          "demands",
+          "tw_start",
+          "tw_end",
+          "service_time"
+        ],
+        "n_invisible_modified": 24,
+        "per_customer_fields": [
+          [
+            "4",
+            [
+              "coords",
+              "demands",
+              "service_time",
+              "tw_end",
+              "tw_start"
+            ]
+          ],
+          [
+            "6",
+            [
+              "coords",
+              "demands",
+              "service_time",
+              "tw_end",
+              "tw_start"
+            ]
+          ],
+          [
+            "8",
+            [
+              "coords",
+              "demands",
+              "service_time",
+              "tw_end",
+              "tw_start"
+            ]
+          ],
+          [
+            "10",
+            [
+              "coords",
+              "demands",
+              "service_time",
+              "tw_end",
+              "tw_start"
+            ]
+          ]
+        ]
+      },
+      "name": "B1 correct invisible-customer identification with n_invisible_modified > 0 counted from actual byte-level changes",
+      "ok": true
+    },
+    {
+      "detail": {
+        "deterministic": true,
+        "verdict": "NOT_VERIFIABLE"
+      },
+      "name": "B2 the input dataset and snapshot are unchanged and two identical perturbations are bit-identical",
+      "ok": true
+    },
+    {
+      "detail": {},
+      "name": "B3 shapes, dtypes, order ids, reveal_time and committed state are preserved and the derived distance data stay consistent (visible-visible distances bit-identical; dist_mat rebuilt only when it is the Euclidean distance of coords)",
+      "ok": false
+    },
+    {
+      "detail": {
+        "notes": [
+          "dist_mat is not the Euclidean distance of coords; a legal rebuild contract must be pre-declared before coords may be perturbed (no road-network == Euclidean assumption)"
+        ],
+        "reason": "NOT_VERIFIABLE"
+      },
+      "name": "B4 both sides rebuild the decision projection independently (visible inputs, legal candidates, planned suffix) with the replanner calls counted",
+      "ok": false
+    },
+    {
+      "detail": {
+        "reason": "no valid perturbation"
+      },
+      "name": "B5 outputs carry the first-difference path, projection SHAs and the changed customers/fields; incomplete comparisons return NOT_VERIFIABLE",
+      "ok": false
+    }
+  ],
+  "source_sha256_this_tool": "f40a319695061aac9dc1ba5eb25b0b63b7b8740bc41efebde779840df291bf86"
+}
