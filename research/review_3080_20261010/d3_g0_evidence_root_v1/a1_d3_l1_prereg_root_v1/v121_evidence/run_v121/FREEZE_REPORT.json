@@ -1,0 +1,191 @@
+{
+  "budgets": {
+    "caps": {
+      "batch_s": 180.0,
+      "initialize_compile_s": 60.0,
+      "slot_span_s": 10.0
+    },
+    "derivation": {
+      "batch_s": {
+        "headroom_vs_projected": 2.5702302433023534,
+        "observed_batch_s": 19.561999999918044,
+        "observed_per_state_s": 0.8891818181780929,
+        "observed_states": 22,
+        "projected_full_schedule_s": 70.03263636363079,
+        "projection_note": "linear extrapolation of the OBSERVED 22-state batch wall clock; a projection, labelled as such, not a measurement",
+        "rule": "V1.11 fixed batch ceiling; extrapolated observed cost for the full 64-state schedule must sit inside it"
+      },
+      "initialize_compile_s": {
+        "headroom_vs_observed": 4.571428571347477,
+        "observed_compile_warmup_s": 6.7810000001918525,
+        "observed_init_plus_warmup_s": 13.12500000023283,
+        "observed_model_init_s": 6.344000000040978,
+        "rule": "V1.11 fixed engineering ceiling; covers measured model init + first compiled forward"
+      },
+      "slot_span_s": {
+        "claim_limit": "engineering interface ceiling only; it is NOT evidence that the L3 full 8+2 s online publication gate is met",
+        "headroom_vs_observed_max": 29.069767438397598,
+        "observed_max_s": 0.3440000000409782,
+        "observed_median_s": 0.2339999999385327,
+        "observed_n": 22,
+        "rule": "V1.11 fixed engineering ceiling for this protocol; NOT widened in V1.18"
+      }
+    },
+    "not_evidence_for": [
+      "the L3 complete 8+2 s online publication gate",
+      "any F-vs-D-Geo comparison",
+      "any scientific claim"
+    ],
+    "verdict": "FROZEN_FROM_MEASURED_V111_F_EVIDENCE"
+  },
+  "call_schedule": {
+    "calls_per_state": 2,
+    "derived_from": "V1.11 pre-registration \"\u6bcf\u72b6\u6001\u5b8c\u5168\u76f8\u540c\u8f93\u5165\u6070\u597d\u4e24\u6b21\u524d\u5411\uff0c\u6700\u591a129\u6b21\" (1 warmup + 64 states x 2 exact-repeat forwards)",
+    "max_forward_calls": 129,
+    "n_states": 64,
+    "warmup_calls": 1
+  },
+  "created_utc": "2026-10-15T00:00:00Z",
+  "forward_targets": {
+    "attempts": 1,
+    "bytes": 40004,
+    "name": "FORWARD_TARGETS_879b910315b047048a0276041f4716f9.json",
+    "path": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v121_evidence\\run_v121\\FORWARD_TARGETS_879b910315b047048a0276041f4716f9.json",
+    "published_mono": 1239360.5,
+    "sha256": "eeb0ea8655dd2baf01978e8e6b5c11d81521d6ed9af65d8d62d035e2ebfccb9b",
+    "verified": true,
+    "wall_s": 0.0
+  },
+  "identity": {
+    "attempts": 1,
+    "bytes": 35993,
+    "name": "RUN_IDENTITY_97661777a562470b9ad9cd00e26c30f8.json",
+    "path": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v121_evidence\\run_v121\\RUN_IDENTITY_97661777a562470b9ad9cd00e26c30f8.json",
+    "published_mono": 1239360.484,
+    "sha256": "f79e4b1c0d68094827188d171da7fca72785974de748a82b5a76f10535d72ced",
+    "verified": true,
+    "wall_s": 0.0
+  },
+  "identity_match": {
+    "ok": true,
+    "rows": {
+      "backbone": {
+        "actual": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+        "expected": "03615b08a55125a8fe4a6dad1df9ab592b56f7ed9d21b54d2562070b3c6d38db",
+        "ok": true,
+        "path": "MASKCO_code/ckpts/cvrp100.ckpt"
+      },
+      "contract_protocol_identity": {
+        "actual": "f44e3456db5fac67c85829e5f28648174b4c50b81d1af85a288dc78a7795172c",
+        "expected": "f44e3456db5fac67c85829e5f28648174b4c50b81d1af85a288dc78a7795172c",
+        "ok": true,
+        "path": "research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\A1_D3_L1_CONTRACT_PROTOCOL_IDENTITY.json"
+      },
+      "contracts": {
+        "effective": "edc1b2ea3914ddbad0af1f415f842433133bf933d5bc78ab2e6e178421254833",
+        "ok": true
+      },
+      "dev_check_npz": {
+        "actual": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+        "expected": "66573ddc653c863f7ca74ff204134de8d91058e3fd825193f1001371dca39c89",
+        "ok": true,
+        "path": "data\\m0_scale\\dcc_50_r1_edod05_dev_check_teacher.npz"
+      },
+      "f_ckpt": {
+        "actual": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5",
+        "expected": "f5acf83fa2519020aeea274df5ecf740a6ad809b215d2d270209b7901903a7f5",
+        "ok": true,
+        "path": "results\\m0_scale\\mpre_reinforce_s42_clean\\model.ckpt"
+      },
+      "profile_file": {
+        "actual": "63e56212174c9ce371b8a5b1fada6a549d7bc47527fdd1b0b13a7bbe90db57e8",
+        "expected": "63e56212174c9ce371b8a5b1fada6a549d7bc47527fdd1b0b13a7bbe90db57e8",
+        "ok": true,
+        "path": "results\\o0cc\\scale_v2\\objective_profile.json"
+      },
+      "runtime_identity_v19": {
+        "actual": "7f1b18613c0c59504e24cd14d30dcdbc5fd14e0e231b2c03776528bacbbaf4c5",
+        "expected": "7f1b18613c0c59504e24cd14d30dcdbc5fd14e0e231b2c03776528bacbbaf4c5",
+        "ok": true,
+        "path": "research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v19_evidence\\RUNTIME_IDENTITY_V19.json"
+      },
+      "state_list": {
+        "n_mismatches": 0,
+        "n_states": 64,
+        "ok": true
+      },
+      "state_manifest": {
+        "actual": "2340cc56c83da49cb27e0eaffa7db7c21d37a3ecc6af34793820a020081a294d",
+        "expected": "2340cc56c83da49cb27e0eaffa7db7c21d37a3ecc6af34793820a020081a294d",
+        "ok": true,
+        "path": "research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v19_evidence\\STATE_MANIFEST_64_V19.json"
+      }
+    }
+  },
+  "identity_match_ok": true,
+  "identity_targets": {
+    "attempts": 1,
+    "bytes": 6300,
+    "name": "IDENTITY_TARGETS_4ccac78ffb984076a87bc10927d81289.json",
+    "path": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v121_evidence\\run_v121\\IDENTITY_TARGETS_4ccac78ffb984076a87bc10927d81289.json",
+    "published_mono": 1239361.421,
+    "sha256": "229422c3c8502fd101e18e530e3c26bf18ec6b2430b9053a98c857c07bb0f258",
+    "verified": true,
+    "wall_s": 0.01500000013038516
+  },
+  "n_target_rows": 64,
+  "not_run": [
+    "no F forward",
+    "no D-Geo",
+    "no comparison",
+    "no training",
+    "no install"
+  ],
+  "run_dir": "..\\research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\v121_evidence\\run_v121",
+  "run_id": "d3l1-real-f-forward-20261015-v121",
+  "schema": "d3_l1_v118_freeze",
+  "target_errors": [],
+  "targets_ok": true,
+  "targets_sha256": "37e23f7567e3391a4a3360203a3d58e77c2e16b32c7e3514c65c8aa15d5ade08",
+  "watched_paths": [
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_contract.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\coldchain\\coldchain_state.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\data\\coldchain_visible_features.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\data\\repair_state.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\models\\cvrptw_utils.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\models\\dynmaskco_cc_graph.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\models\\mpre.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\models\\mpre_trained.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\project_paths.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\action_contract.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\cc_lns_replanner.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_p0c_v18.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_v118_authorization.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_v118_forward_runner.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_v118_persistence.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_v118_run_identity.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_v118_targets.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_v120_execution_context.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\dynmaskco_cc_context.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\jf1h_repair.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\joint_fleet.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\mpre_policy.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\mpre_replanner.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\mtrained_replanner.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\recourse_snapshot.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\strict_online_env.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\visible_state.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\tests\\d3_l1_v112_phase_journal.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\tests\\d3_l1_v116_forward_control.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\tests\\d3_l1_v18_readonly_audit.py",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\results\\m0_scale\\mpre_reinforce_s42_clean\\model.ckpt",
+    "D:\\PyCharm_\\MASKCO-Main\\MASKCO_code\\ckpts\\cvrp100.ckpt",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\data\\m0_scale\\dcc_50_r1_edod05_dev_check_teacher.npz",
+    "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\results\\o0cc\\scale_v2\\objective_profile.json"
+  ],
+  "wrote": [
+    "RUN_IDENTITY_*.json",
+    "FORWARD_TARGETS_*.json",
+    "IDENTITY_TARGETS_*.json"
+  ]
+}

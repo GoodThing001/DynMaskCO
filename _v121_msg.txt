@@ -1,0 +1,47 @@
+V1.21: the runtime source-dependency freeze is closed by derivation, and drift is detected everywhere
+
+The gap: IDENTITY_TARGETS froze 14 paths, but the real F execution path also imports the authorizer,
+the execution context, the V1.16 forward control (and through it the V1.14 phase journal) and
+d3_l1_v18_readonly_audit.typed_bytes -- which computes the bitwise-repeat decision. The closure is
+30 source files, not 9. Editing any of the missing ones would have changed execution, identity
+checking, timing or the result decision while --readiness still printed READY.
+
+Fix: the watch set is no longer hand-written, it is DERIVED.
+  scripts/data/d3_l1_v121_dependency_closure.py builds the transitive local-import closure of the
+  execution path's seeds (top-level AND in-function imports, resolved across the extension's
+  scripts/ tree to a fixed point), excludes tooling with a recorded reason each, and reports every
+  path in ONE canonical repository-relative form. The identity module appends the four non-source
+  assets with an explicit root each -- weights/data/profile are extension-relative, the backbone is
+  repository-relative -- because spelling those inside the closure mixed two roots and silently
+  demoted the derived freeze back to the old 14-path list during development.
+
+  --readiness gained `runtime_watch_covers_closure`: the frozen set is cross-checked against the
+  derived closure, so a freeze that omits a file the execution path imports reports NOT_READY and
+  names the missing entries. The freeze and the freeze CHECK now come from one place.
+
+Evidence, v121_evidence/D3_V121_FREEZE_CLOSURE_ACCEPTANCE.json, 7/7:
+  F1 the four previously unregistered modules AND the typed_bytes definer are in the derived watch
+     set; the closure is clean (30 source paths, no unresolved seed, no unexpected exclusion)
+  F2 the frozen V1.21 identity carries the full 34-path watch set, every path hashing to its record
+  F3 readiness READY_FOR_USER_SIGNATURE with runtime_watch_covers_closure true and
+     real_F_forward_executed false
+  F4/F5 EACH previously unregistered module is INDIVIDUALLY tampered and INDIVIDUALLY detected
+     (readiness NOT_READY), and each restore returns readiness to READY -- including
+     d3_l1_v18_readonly_audit.py
+  F6 a FULL sweep: all 34 frozen paths are individually tampered and individually detected, so no
+     path in the freeze is unchecked
+  F7 files reachable ONLY transitively are in the freeze and their tampering is detected
+  F8 the V1.18/V1.19/V1.20 evidence directories are present and were not rewritten
+
+The pre-existing identities behave correctly under the new gate: the V1.20 run directory now reports
+NOT_READY with runtime_watch_covers_closure false (14 frozen vs 30 derived), which is precisely the
+"runtime source changed -> new execution identity required" behaviour rather than a silent pass.
+
+New identity d3l1-real-f-forward-20261015-v121 with its own pre-registration (which supersedes
+V1.20 as the signing object) and its own authorization template. Readiness READY_FOR_USER_SIGNATURE
+with 34/34 paths watched and 0 drift; the unfilled template and a direct `--worker` are both refused
+by the real entry point; the independent zero-real-F audit is 7/7 ZERO_REAL_F_WORK_CONFIRMED.
+
+Regressions all green on the final source: V1.16 6/6, V1.18 e2e 9/9, V1.19 blockers 25/25, V1.20
+bypass 12/12. Budgets (60/10/180 s), 64 states and 129 calls unchanged. No real F forward, no L1,
+no training, no L2/L3, no 40-day batch, no final test.

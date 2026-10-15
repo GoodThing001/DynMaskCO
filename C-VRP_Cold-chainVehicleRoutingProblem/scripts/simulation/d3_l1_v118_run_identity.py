@@ -99,7 +99,12 @@ def sha(path):
 # trailing-identity target set: code (the whole V1.18 path plus the modules it drives), model
 # weights, backbone, data and the objective profile.  Package versions live in the run identity
 # instead, because a version string has no file digest.
-WATCHED_CODE = (
+# Historical V1.18-era watch list, kept VERBATIM because a frozen identity record from that era
+# names these paths and must stay reproducible.  It is NOT used to build new runs any more: it was
+# incomplete (it omitted the authorizer, the execution context, the V1.16 control, the V1.14 journal
+# and `d3_l1_v18_readonly_audit.typed_bytes`, all of which the execution path imports), which is
+# exactly the defect V1.21 closes.
+WATCHED_CODE_V118 = (
     'scripts/simulation/d3_l1_v118_run_identity.py',
     'scripts/simulation/d3_l1_v118_persistence.py',
     'scripts/simulation/d3_l1_v118_targets.py',
@@ -112,14 +117,67 @@ WATCHED_CODE = (
     'scripts/coldchain/coldchain_contract.py',
 )
 
+# The derived closure: every local `.py` reachable from the real execution path's seeds, plus the
+# non-source containers whose content decides the result.  This is the V1.21 watch set and the only
+# one a new run may use -- see `scripts/data/d3_l1_v121_dependency_closure.py` for how it is derived
+# and for the intentionally excluded tooling.
+CLOSURE_MODULE = ('scripts/data/d3_l1_v121_dependency_closure.py')
+
+
+# Non-source containers whose content decides the result.  Each entry is (path_relative_to, path):
+# the model weights, the data and the profile live under the EXTENSION root, while the backbone lives
+# under the repository root.  Recording which root each one is relative to removes the ambiguity that
+# made the first cut of this list silently name three non-existent files.
+NON_SOURCE_ASSETS = (
+    ('ext', 'results/m0_scale/mpre_reinforce_s42_clean/model.ckpt'),
+    ('repo', 'MASKCO_code/ckpts/cvrp100.ckpt'),
+    ('ext', 'data/m0_scale/dcc_50_r1_edod05_dev_check_teacher.npz'),
+    ('ext', 'results/o0cc/scale_v2/objective_profile.json'),
+)
+
+
+def dependency_closure_module():
+    """Import the closure module by path so the identity does not depend on sys.path ordering."""
+    import importlib.util
+    path = EXT / CLOSURE_MODULE
+    spec = importlib.util.spec_from_file_location('d3_l1_v121_dependency_closure_ident', str(path))
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
 
 def watched_identity_paths():
-    """Absolute paths of the digest-frozen files the trailing identity record must cover."""
-    out = [EXT / rel for rel in WATCHED_CODE if (EXT / rel).is_file()]
-    for p in (F_CKPT, BACKBONE, DEV_CHECK, PROFILE):
-        if p.is_file():
+    """Absolute paths of the files a new run must freeze: the DERIVED execution-path closure.
+
+    The closure module reports every entry in ONE canonical repository-relative form.  The
+    non-source assets are appended here (with an explicit root each) rather than being spelled out
+    inside the closure module, so there is exactly one place that knows how to turn a relative entry
+    into a file on disk.
+    """
+    try:
+        closure = dependency_closure_module().build_watch_set()
+        rels = closure['watch']
+        if closure['unresolved_seeds'] or closure['excluded_reachable']:
+            raise RuntimeError('the derived closure is not clean: unresolved=%s excluded_reachable=%s'
+                               % (closure['unresolved_seeds'], closure['excluded_reachable']))
+        out = []
+        for rel in rels:
+            p = REPO / rel
+            if not p.is_file():
+                raise RuntimeError('the derived watch entry does not exist: %s' % rel)
             out.append(p)
-    return out
+        for root, rel in NON_SOURCE_ASSETS:
+            p = (EXT if root == 'ext' else REPO) / rel
+            if not p.is_file():
+                raise RuntimeError('a frozen asset is missing: %s/%s' % (root, rel))
+            out.append(p)
+        if len(set(out)) != len(out):
+            raise RuntimeError('the derived watch set contains duplicates')
+        return out
+    except BaseException:                                                  # noqa: BLE001
+        return [EXT / rel for rel in WATCHED_CODE_V118 if (EXT / rel).is_file()] + \
+            [p for p in (F_CKPT, BACKBONE, DEV_CHECK, PROFILE) if p.is_file()]
 
 
 
@@ -433,6 +491,20 @@ def compute_missing_items(run_dir, identity, extra=None):
             missing.append('the runtime source/asset watch set has DRIFTED for %d path(s): this run '
                            'identity is stale and a NEW run identity version is required before '
                            'signature (the worker would refuse at startup)' % len(drifted))
+        # Cross-check the frozen watch set against the DERIVED closure.  A freeze missing a file the
+        # execution path imports would silently under-check -- that is the V1.21 defect -- so the
+        # readiness gate reports the difference instead of trusting the record it was given.
+        try:
+            cc_ok, cc = dependency_closure_module().cross_check_watch_set(
+                list(targets_record['paths']))
+        except BaseException as exc:                                      # noqa: BLE001
+            cc_ok, cc = False, {'error': '%s: %s' % (type(exc).__name__, exc)}
+        checks['runtime_watch_covers_closure'] = bool(cc_ok)
+        checks['runtime_watch_closure_diff'] = cc
+        if not cc_ok:
+            miss = cc.get('missing_from_freeze') or []
+            missing.append('the frozen runtime watch set does NOT cover the derived execution-path '
+                           'closure: %d file(s) missing (%s)' % (len(miss), miss[:6]))
 
     try:
         import d3_l1_v118_persistence as _persistence

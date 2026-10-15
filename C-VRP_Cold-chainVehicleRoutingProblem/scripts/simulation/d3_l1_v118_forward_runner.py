@@ -660,6 +660,12 @@ def readiness_report(out_dir, *, run_id, acceptance=None, verifier=None, synthet
     readiness = identity_mod.compute_missing_items(out_dir, ident_record, extra=extra)
     match = identity_mod.identity_match_report(ident_record)
     fwd = persistence.VerifiedReader(out_dir).latest('FORWARD_TARGETS')
+    # The full watch list WITH per-file SHA, recomputed live.  Reporting only a count would let a
+    # reader believe the freeze covers something it does not; the paths and digests are the evidence
+    # a signer actually needs, and the audit re-derives them independently.
+    _watch_rec = persistence.VerifiedReader(out_dir).latest('IDENTITY_TARGETS') or {}
+    current_watch = {p: {'frozen': want, 'current': sha256_file(p), 'ok': sha256_file(p) == want}
+                     for p, want in (_watch_rec.get('paths') or {}).items()}
     report = {
         'schema': 'd3_l1_v118_readiness',
         'run_id': run_id,
@@ -674,6 +680,15 @@ def readiness_report(out_dir, *, run_id, acceptance=None, verifier=None, synthet
         'contract': ident_record['contracts']['effective_contract_hash'],
         'dependency_identity_sha256': ident_record['dependency_identity_sha256'],
         'state_binding_sha256': ident_record['state_binding_sha256'],
+        'runtime_watch': {
+            'basis': 'derived execution-path closure '
+                     '(scripts/data/d3_l1_v121_dependency_closure.py)',
+            'n_paths': len(current_watch),
+            'covers_closure': (readiness.get('checks') or {}).get(
+                'runtime_watch_covers_closure'),
+            'closure_diff': (readiness.get('checks') or {}).get('runtime_watch_closure_diff'),
+            'paths': current_watch,
+        },
         'readiness': readiness,
         'verdict': readiness['verdict'],
         'no_execution_authorised_here': True,
