@@ -9,7 +9,42 @@
 
 ## 0. 最近收束（新会话从这里续接）
 
-### 0.0 本轮第二阶段（同一会话续接）：G0 反例可执行化 + 两份预登记草案 + L2/L3 草案
+### 0.00 本轮第三阶段：三个正式执行阻断闭合（V1.19，新执行身份）
+
+独立审查在 V1.18 执行路径上发现三个阻断。**全部由可执行反例闭合**，证据
+`v119_evidence/D3_V119_BLOCKER_ACCEPTANCE.json` = **25/25 PASS**；V1.18 预登记与
+`v118_evidence/` 归档**未改写**。
+
+| 阻断 | 问题 | 修复 | 反例 |
+|---|---|---|---|
+| **1 授权未绑定身份** | `supervise()` 只要求 JSON 可解析、`authorization_sha256` **可选**且只是文件自身摘要 ⇒ `{}` 即"合法授权"，且无法表达批准了什么 | 新增 `d3_l1_v118_authorization.py`：人类撰写的凭据须逐项声明 run_id / 预登记 / 权重 / 骨干 / 数据 / profile / 有效合同 / 状态绑定 / 状态顺序 / 前向目标摘要 / 依赖身份 / 三种调用次数 / 三个预算上限 / 输出目录 / `approved_by`+`approved_utc`+`approval_statement`，并与冻结身份**逐字段比对**；`credential_sha256` 覆盖**载荷**（不是整文件自哈希这种不可计算的定点）；**一次性消费**且回执落在**运行目录之外** | 13 条全部 REFUSED：缺失、空 `{}`、未填人批准的模板、错 run_id、错权重/骨干/数据/合同/状态绑定/目标摘要、错调用次数、放宽预算、错输出目录、封装后篡改、**重放**、预登记已变更 |
+| **2 READY 语义不一致** | 监督器查**固定名** `READY.json`，worker 发布**唯一名** READY ⇒ 监督器**永远看不到就绪** | `run_contained` 新增可注入 `ready_probe`；**历史默认（`None`）= 固定名存在**，V1.16 接口与语义**逐字节不变**（6/6）；V1.19 传入绑定本运行目录、校验不可变 READY 事件（kind/run_id/warm-up 次数/评分摘要/时钟）的探针 | **B2-a** 批次运行 ~70 s（> 冻结 60 s 初始化上限、≪ 180 s 批上限）**未被误杀**且 `ready=true`、`ROUND_PASS`；**B2-b** 真实 61 s 初始化超限**被强杀**（0 READY、0 槽记录、`ROUND_REVOKED`）；**B2-c** 该路径**无**固定 `READY.json` |
+| **3 FAILED_CHECKS 不终止** | 失败槽只记状态后**继续循环**，与 V1.18 预登记 §5 不符 | 首个失败槽**立即停止**：先落盘该槽记录（含 `failed_checks` + 冻结词表内 `failure_reason`），再发布 `FIRST_FAILURE`，再发布**尾部身份记录**（使 V1.16 撤销可裁决），以**非零码**退出 | **B3-a..d**（finite / shape / repeat / len）：**恰好 1 条行记录**、**63 条 `NOT_ATTEMPTED_AFTER_TERMINATION`**、`ROUND_REVOKED`、verdict `BLOCKED`、`rows_qualified=0`，且由**生产 worker 自身检查集**判定 |
+
+**另修一处会让上述修复被绕过的门禁缺口**：`--readiness` 原先只比对**资产哈希**（权重/数据/profile/
+合同），**改代码不会失败**。新增 **runtime watch closure**：从运行目录 `IDENTITY_TARGETS` 逐路径重算，
+漂移即 `NOT_READY` 并把该运行身份标为**过期**。因此 V1.18 运行目录在修复后正确报 `NOT_READY`
+（漂移 2 条：runner + run_identity）——**这正是"运行期源码修改必须产生新执行身份"的行为**。
+
+**自身发现并修正的两处缺陷（留档）**：① 首版 `publish_new` 未给 JSON 记录盖 `published_mono`，
+读者排序退化为**文件名序**，而运行目录**合法地**存有同族多条不可变记录（从不覆盖）⇒
+`zero-F` 审计一度读到**错误的** readiness 记录；已让 `publish_new` 统一盖时间戳。
+② 该块修复改动了受 watch 的运行时路径，故 **V1.19 身份重新冻结**（新 RUN_IDENTITY /
+FORWARD_TARGETS / IDENTITY_TARGETS / 授权模板）。
+
+**新执行身份与签署对象**：`run_id = d3l1-real-f-forward-20261015-v119`；
+预登记 `A1_D3_L1_REAL_F_FORWARD_EXECUTION_PREREGISTRATION_V1_19.md`（**取代 V1.18 作为签署对象**）；
+授权模板 `v119_evidence/AUTHORIZATION_TEMPLATE_V119.json`（三个 `approved_*` **留空**，
+由**真实入口**拒绝：`AUTHORIZATION REFUSED: no_human_approval`）。
+**`--readiness` = `READY_FOR_USER_SIGNATURE`**，`runtime_watch_closed = true`（14/14），
+`real_F_forward_executed = false`。
+
+**真实 F 执行次数仍为 0 的独立证明**：`v119_evidence/ZERO_REAL_F_WORK_AUDIT.json` = **7/7 PASS** →
+`ZERO_REAL_F_WORK_CONFIRMED`。该审计**不导入** runner / 监督器 / scorer，只数"只有真实前向才会留下的工件"：
+槽行记录 0、原始评分 0、相位记录 0、MODEL_LOAD 0、WARMUP 0、尾部身份 0、监督结果 0、ROUND 0，
+且本 run_id 的**授权回执为 0**、模板人工字段为空、readiness 记录被**重判**而非采信。
+
+### 0.01 本轮第二阶段（G0 反例 + 三份预登记草案）
 
 在 §0.1 之后继续，全部已 push：
 
@@ -205,10 +240,14 @@
 
 ## 6. 需要用户签署的事项（唯一清单）
 
-1. **V1.18 真实 F 前向批次**（64 状态、`run_id=d3l1-real-f-forward-20261015-v118`、与 V1.11 完全隔离、
-   禁止拼接 42 条）——**唯一待批的科学执行**；
-2. **C0 正式预算**（`AWAITING_USER_BUDGET_RULING`，代理不得自定）；
-3. **L1 正式机制比较**（在 V1.18 通过、L1 预登记签署后）；
+1. **V1.19 真实 F 前向批次**（64 状态、`run_id=d3l1-real-f-forward-20261015-v119`、与 V1.11 完全隔离、
+   禁止拼接 42 条）——**唯一待批的科学执行**。签署方式：
+   ① 填写 `v119_evidence/AUTHORIZATION_TEMPLATE_V119.json` 的 `approved_by` / `approved_utc` /
+   `approval_statement`；② 用 `d3_l1_v118_authorization.content_digest` 重新封装 `credential_sha256`；
+   ③ 执行 `--supervise --authorization <填好的凭据> --preregistration <V1.19 预登记>`（**一次性消费**）。
+   **机器不能自我批准**：模板本身会被拒绝。
+2. **C0 正式预算**（`AWAITING_USER_BUDGET_RULING`，代理不得自定；搜索半边已穷举闭合）。
+3. **L1 正式机制比较**（在 V1.19 通过、L1 预登记签署后）。
 4. E2 训练、L2/L3、40 日批次与最终测试（各自独立授权）。
 
 ## 7. 硬约束（每次执行前自检）
