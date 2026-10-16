@@ -1,9 +1,35 @@
 # A1-D3-L1 L1-v2 只读机制差异分析方案（**仅分析已有记录**）
 
+> ## ⚠️ 数据可识别性更正（2026-10-16，在执行前核对真实字段后）
+>
+> 本方案的**初版假设 `L1_STATE_RECORDS.jsonl` 含完整 `steps` / `records` / `legal_trace`——该假设为假**。
+> 逐字段核对结果：**三者与 `timestep` 均不存在**于任何一条记录中。记录实际保留的是：
+> `V1.f_action` / `V1.d_geo_action`（两臂**各自选中**的首步动作，7 字段）、
+> `V1.first_step_legal_sha256`（**摘要**）、`n_legal_first_step`（**计数**）、
+> `n_mask`、`plan_hashes`（每臂 16-hex 计划身份）、`per_arm_budget`、`per_arm_n_steps`、
+> `ledger_cross_check`、`V2`、`V3`、`audit`、`v2_order_attribution`。
+>
+> 因此：
+> - **Q1 的廉价规则命中率 = `NOT_IDENTIFIABLE_FROM_ARCHIVED_RECORDS`**：没有完整有序候选表、
+>   没有逐候选规则特征，**摘要不可逆**、**计数不指名候选**，而**重新枚举环境被明令禁止**。
+>   **不生成任何命中率**；计划中的 90% 阈值标注为**事后制定的探索性标准**，**不是**原 L1 的正式预登记判据。
+> - **Q2 的 `timestep` 分层 = 不可识别**（未补造）；`n_mask` 分层**可算但退化**（64 状态恒为 2）；
+>   `n_legal_first_step` 与 `day_id` 分层可算，**每箱同时给出分母与分子**。
+> - **Q3 可算**，但**只能**用计划哈希做**相等/不等**判定；**不得**从哈希推断车辆数、客户移动数、
+>   路线或距离差。
+> - **Q4 部分可算**：异常状态的身份与异常逐字取用，掩码池 27 引自收束裁决的**已记录测量**；
+>   `n_legal_first_step` 在该记录中**为 null**，**如实保留 null，不插补、不外推**。
+> - **Q5 可算**：描述性计数 + **明确标注的算术外推**。
+>
+> 实际执行结果见 `l1_gates/L1_V2_READONLY_MECHANISM_ANALYSIS.json`，
+> 独立只读复核 `l1_gates/L1_V2_READONLY_MECHANISM_ANALYSIS_AUDIT.json` = **13/13**。
+> 下方为方案原文（保留，以显示假设与更正）。
+
+---
+
 - 依据：用户 2026-10-16 裁定 **方案 A**（接受 63/64 为 L1 已观察机制差异的最终诊断材料，**不授权方案 B**）
 - 输入：**已消费**的 L1-v2 运行目录 `l1_v2_execution_run/`（只读）+ 独立裁决 `l1_gates/L1_V2_EXECUTED_ROUND_ADJUDICATION.json`
 - 硬边界：**不进行任何新的真实评分、训练、在线 rollout 或计划安装**；不重跑、不补跑；不改任何冻结文件
-- 状态：**本文件是方案，尚未执行分析**
 
 ---
 

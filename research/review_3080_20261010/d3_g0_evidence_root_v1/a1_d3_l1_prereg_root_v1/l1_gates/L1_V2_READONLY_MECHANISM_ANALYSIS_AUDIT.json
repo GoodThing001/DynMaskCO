@@ -1,0 +1,263 @@
+{
+  "algorithmic_gain_claim": "none",
+  "audited": "research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\L1_V2_READONLY_MECHANISM_ANALYSIS.json",
+  "audited_sha256": "9ad294409c1c7dacc44f99457ad2640f627d6c9083cb31d97af90e11064ff0eb",
+  "independence": {
+    "audit_imports": [
+      "__future__",
+      "argparse",
+      "ast",
+      "collections",
+      "hashlib",
+      "json",
+      "pathlib",
+      "statistics",
+      "sys"
+    ],
+    "imports_the_analysis_tool": false,
+    "imports_the_modules_under_test": []
+  },
+  "n_fail": 0,
+  "n_pass": 13,
+  "n_rows": 13,
+  "not_run": [
+    "any new real F scoring",
+    "training",
+    "online rollout",
+    "plan installation",
+    "environment re-enumeration",
+    "result re-construction"
+  ],
+  "recomputed": {
+    "Q2_overall": {
+      "denominator": 63,
+      "numerator_DIVERGENT": 48
+    },
+    "Q3_cross_tab": {
+      "DIVERGENT_and_plan_differs": 47,
+      "DIVERGENT_and_plan_same_RECONVERGED": 1,
+      "IDENTICAL_and_plan_differs": 10,
+      "IDENTICAL_and_plan_same": 5
+    },
+    "Q5_first_arm_max_wall_s": 0.61,
+    "Q5_min_second_arm_remaining_s": 9.39
+  },
+  "rows": [
+    {
+      "detail": {
+        "all_bins_carry_denominator_and_numerator": true,
+        "day_bin_mismatches": [],
+        "legal_length_bin_mismatches": [],
+        "n_bins": {
+          "by_day_id": 16,
+          "by_mask_pool_size": 1,
+          "by_ordered_legal_length": 4,
+          "by_slot_kind_pair": 1
+        }
+      },
+      "name": "A1 every recomputed Q2 bin matches the analysis, and every bin carries BOTH a denominator and a numerator",
+      "ok": true
+    },
+    {
+      "detail": {
+        "analysis": {
+          "denominator": 63,
+          "numerator": 48,
+          "rate": 0.7619047619047619
+        },
+        "audit": {
+          "denominator": 63,
+          "numerator": 48,
+          "rate": 0.7619047619047619
+        },
+        "n_records_total": 64
+      },
+      "name": "A2 the overall divergence rate is recomputed and its denominator is EVERY comparable state",
+      "ok": true
+    },
+    {
+      "detail": {
+        "analysis_cross_tab": {
+          "DIVERGENT_and_plan_differs": 47,
+          "DIVERGENT_and_plan_same_RECONVERGED": 1,
+          "IDENTICAL_and_plan_differs": 10,
+          "IDENTICAL_and_plan_same": 5
+        },
+        "audit_cross_tab": {
+          "DIVERGENT_and_plan_differs": 47,
+          "DIVERGENT_and_plan_same_RECONVERGED": 1,
+          "IDENTICAL_and_plan_differs": 10,
+          "IDENTICAL_and_plan_same": 5
+        },
+        "plans_differ": 57,
+        "plans_identical": 6
+      },
+      "name": "A3 every recomputed Q3 figure matches, and the plan hashes are used ONLY as an equality test",
+      "ok": true
+    },
+    {
+      "detail": {
+        "explicitly_not_derived": [
+          "number of vehicles affected by the plan difference",
+          "number of customers moved",
+          "route or total-distance difference between the two plans"
+        ],
+        "n_declared": 3,
+        "no_hash_inversion_attempted": true,
+        "note": "a plan hash is used only for \"equal\"/\"not equal\""
+      },
+      "name": "A4 the analysis DECLARES what a hash cannot support instead of deriving it",
+      "ok": true
+    },
+    {
+      "detail": {
+        "analysis_status": "NOT_IDENTIFIABLE_FROM_ARCHIVED_RECORDS",
+        "candidate_list_keys_found": [],
+        "rate_produced": null,
+        "rule_feature_keys_found_in_raw_records": [],
+        "what_IS_archived_instead": [
+          "V1.first_step_legal_sha256 (a digest)",
+          "n_legal_first_step (a count)",
+          "V1.f_action / V1.d_geo_action (the two CHOSEN actions)"
+        ]
+      },
+      "name": "A5 Q1 non-identifiability is INDEPENDENTLY CONFIRMED from the raw field inventory: no candidate list, no per-candidate rule features, and NO rate is produced",
+      "ok": true
+    },
+    {
+      "detail": {
+        "declared_absent": [
+          "consequence",
+          "legal_trace",
+          "records",
+          "steps",
+          "timestep"
+        ],
+        "timestep_bins_in_output": 0,
+        "timestep_present_in_raw_records": false
+      },
+      "name": "A6 the timestep stratum is confirmed ABSENT from the raw records and no timestep-based bin was fabricated",
+      "ok": true
+    },
+    {
+      "detail": {
+        "defect_quantity_cited_from": "the closure ruling (a recorded measurement), not re-derived",
+        "imputation": false,
+        "interpolation": false,
+        "is_null_in_the_raw_record": true,
+        "n_legal_first_step_archived": null,
+        "state": [
+          0,
+          3
+        ]
+      },
+      "name": "A7 the unanswered state is reported VERBATIM with no imputation and no interpolation",
+      "ok": true
+    },
+    {
+      "detail": {
+        "distinct_n_mask_values_in_raw_records": [
+          2
+        ],
+        "stratum": [
+          {
+            "IDENTICAL": 15,
+            "bin": "2",
+            "degenerate": true,
+            "denominator": 63,
+            "numerator_DIVERGENT": 48,
+            "rate": 0.7619047619047619
+          }
+        ],
+        "why_it_matters": "a single-valued stratum carries no information; reporting it as a stratum without saying so would imply a comparison that does not exist"
+      },
+      "name": "A8 the mask-size stratum is reported as DEGENERATE, and it IS degenerate (every state has the same mask size)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "analysis_max_first_arm_wall_s": 0.61,
+        "analysis_min_remaining_s": 9.39,
+        "audit_max_first_arm_wall_s": 0.61,
+        "audit_min_remaining_s": 9.39,
+        "cap_s": 10.0,
+        "first_arm": "F",
+        "label": "ARITHMETIC EXTRAPOLATION from observed costs -- NOT a measurement and ",
+        "not_a_causal_claim": "this says nothing about what any conclusion would have been under a different budget; the observed run had zero timeouts and zero order-attributable states"
+      },
+      "name": "A9 the arithmetic extrapolation is LABELLED as extrapolation and its numbers recompute",
+      "ok": true
+    },
+    {
+      "detail": {
+        "banned_terms_found_unnegated": [],
+        "significance_field": "NOT_PERFORMED (development states; no test is run)",
+        "tests_performed": []
+      },
+      "name": "A10 no significance test, effect size or causal claim appears anywhere in the output",
+      "ok": true
+    },
+    {
+      "detail": {
+        "no_rate_reported_against_it": true,
+        "threshold_field": "EXPLORATORY_STANDARD_NOT_APPLIED -- set after the fact in the plan; it is NOT a formal L1 pre-registration criterion and no result is reported against it"
+      },
+      "name": "A11 the 90% threshold is labelled EXPLORATORY and is not used to report any result",
+      "ok": true
+    },
+    {
+      "detail": {
+        "analysis_forbidden_imports": [],
+        "analysis_imports": [
+          "__future__",
+          "argparse",
+          "ast",
+          "collections",
+          "hashlib",
+          "json",
+          "pathlib",
+          "statistics",
+          "sys"
+        ],
+        "audit_imports": [
+          "__future__",
+          "argparse",
+          "ast",
+          "collections",
+          "hashlib",
+          "json",
+          "pathlib",
+          "statistics",
+          "sys"
+        ],
+        "corrected_because": "counting pre-existing scoring artifacts as the analysis's output confused the executed run with the read-only review of it",
+        "forbidden_in_this_audit_process": [],
+        "new_files_since_the_analysis": [],
+        "pre_existing_scoring_artifacts_are_the_EXECUTION_not_the_analysis": [
+          "L1_READY_9c299605f59b48d6a9aee56585736a3e.json",
+          "L1_WARMUP_ea6bf72dd0e144e3bc111384499343f7.json"
+        ],
+        "run_dir_files_at_analysis": 151,
+        "run_dir_files_now": 151
+      },
+      "name": "A12 the analysis performed NO scoring: it imported no module under test and created NO NEW file in the run directory",
+      "ok": true
+    },
+    {
+      "detail": {
+        "identity_sha256_at_analysis": "6a2afd1852bb85c7dddc9027713bc0bbffbc1ee71a3abcaee97e1fa3a9e8acd3",
+        "identity_sha256_now": "6a2afd1852bb85c7dddc9027713bc0bbffbc1ee71a3abcaee97e1fa3a9e8acd3",
+        "note": "the analysis is read-only, so the bytes it read must still be the bytes on disk",
+        "records_sha256_at_analysis": "91e8768f23756249d1686fb2de3439b044c452bc729f71cd6aac3dc6c2529a3a",
+        "records_sha256_now": "91e8768f23756249d1686fb2de3439b044c452bc729f71cd6aac3dc6c2529a3a"
+      },
+      "name": "A13 the frozen records and the identity are UNCHANGED since the analysis read them",
+      "ok": true
+    }
+  ],
+  "schema": "d3_l1_v2_readonly_mechanism_analysis_audit",
+  "science_ready": false,
+  "stable_online_gain": false,
+  "tool_sha256": "1d4e48dd57b93aedfab994d202a168a751844d51c3134cd147ea00026f8084af",
+  "verdict": "L1_V2_READONLY_ANALYSIS_INDEPENDENTLY_AUDITED"
+}

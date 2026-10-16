@@ -1,0 +1,119 @@
+L1-v2 read-only mechanism analysis (identifiability first) + pre-commit leak prevention
+
+Two bounded pieces of work.  No new scoring, no re-run, no L2/L3, no training, no
+install, and no Git history rewrite.
+
+TASK 1 -- DATA IDENTIFIABILITY REVIEW, AND THE RESULTS THAT SURVIVE IT
+
+  I checked the REAL fields first instead of carrying the plan's assumption
+  forward, and the plan's assumption was WRONG: L1_STATE_RECORDS.jsonl does NOT
+  contain `steps`, `records`, `legal_trace` or `timestep`.  What it does keep is
+  the two CHOSEN first-step actions, the first-step legal DIGEST, the legal
+  COUNT, the mask size, the per-arm plan hash, the per-arm budget, the ledger
+  cross-check and the three verdicts.
+
+  Field -> source -> computability matrix, 22 rows, in
+  l1_gates/L1_V2_READONLY_MECHANISM_ANALYSIS.json:
+
+    Q1  NOT_IDENTIFIABLE_FROM_ARCHIVED_RECORDS.  No complete ordered candidate
+        list and no per-candidate rule features; a digest cannot be inverted and
+        a count does not name candidates.  NO cheap-rule hit rate is produced.
+        The 90% threshold is labelled EXPLORATORY_STANDARD_NOT_APPLIED -- set
+        after the fact, NOT a formal L1 pre-registration criterion, and no result
+        is reported against it.
+    Q2  COMPUTABLE, denominator + numerator per bin.  4 legal-length bins, 16 day
+        bins, a slot-kind pair table.  The timestep stratum is NOT identifiable
+        and was NOT fabricated.  The mask-size stratum IS computable but
+        DEGENERATE -- all 64 states have n_mask = 2 -- and is labelled so.
+    Q3  COMPUTABLE, but plan hashes are used ONLY as an equality test.  Explicitly
+        NOT derived: vehicles affected, customers moved, route or distance delta.
+    Q4  PARTIAL.  The unanswered state is taken verbatim; its mask pool of 27 is
+        CITED from the closure ruling's recorded measurement; its
+        n_legal_first_step is null in the record and STAYS null.
+    Q5  COMPUTABLE: labelled descriptive counts plus an explicitly labelled
+        arithmetic extrapolation.
+
+  PERMITTED READ-ONLY RESULTS
+    comparable states 63: DIVERGENT 48 / IDENTICAL 15 (rate 0.7619)
+    plan hashes: identical 6, different 57
+    cross tab: DIVERGENT and plan differs 47; DIVERGENT and plan SAME
+      (diverged then reconverged) 1; IDENTICAL and plan same 5;
+      IDENTICAL and plan DIFFERS 10
+    -> the 10 is substantive: an identical FIRST step does not imply an identical
+       plan after the two mask steps, because step 2 sees the arms' own scores
+    order attribution: every state NOT_ORDER_ATTRIBUTABLE
+    extrapolation: first arm observed max 0.61 s, so the second arm always kept
+      at least 9.39 s of the 10 s allowance -- labelled an extrapolation, with an
+      explicit "not a causal claim"
+
+  INDEPENDENT READ-ONLY AUDIT: l1_gates/L1_V2_READONLY_MECHANISM_ANALYSIS_AUDIT.json
+  = 13/13.  It recomputes every bin, independently confirms Q1's unidentifiability
+  and the absence of timestep, confirms no significance test or causal claim
+  appears, and confirms the frozen records are byte-identical before and after.
+  While writing it I found and fixed a flaw in MY OWN audit row A12: it counted
+  the run's pre-existing L1_READY_/L1_WARMUP_ artifacts (created by the real
+  execution) as the analysis's output.  It now proves the analysis added NO new
+  file, by diffing the run directory listing.
+
+TASK 2 -- PUBLIC-REPO ANTI-RECURRENCE
+
+  No history rewrite and no force push, as instructed.
+
+  CORRECTED ERROR IN THE CLEANUP REPORT (the one you flagged): `git filter-repo
+  --replace-text` does LITERAL text matching, so putting a secret's SHA-256 in
+  the rules file makes the tool search for a digest that appears in NO committed
+  file -- it would report success and change nothing.  That is a SILENT failure,
+  worse than an error.  The report now recommends `--path-glob ... --invert-paths`
+  (which never touches plaintext), states the content-replacement alternative
+  correctly (the rules file must hold the literal secret, live outside the repo
+  and be destroyed after use), and adds a per-commit verification loop, because
+  an exit code is not evidence.
+
+  DELIVERY-PATH CONTROL: tools/git_deliver.py now calls
+  tools/scan_staged_secrets.py after `git add` and before `commit`, and REFUSES
+  (exit 4) on a finding.  Rules: R1 secret-file path, R2 bare 64-hex value shape,
+  R3 credential assignment including the QUOTED-JSON key shape, R4 PEM header.
+  It scans the INDEX (what becomes public), reports PATH + LINE + RULE only and
+  NEVER a value, and adds R0: an exempted path whose content is not the redaction
+  stub is refused, so an exemption cannot be borrowed.
+
+  ISOLATED SYNTHETIC ACCEPTANCE 10/10 --
+  l1_gates/L1_PRECOMMIT_LEAK_PREVENTION_ACCEPTANCE.json -- in throwaway repos,
+  with no real secret anywhere.  It proves R1-R4 each refuse, that ordinary
+  evidence is accepted, that the stub stays committable, that the scan reads the
+  index rather than the worktree, and that no staged literal appears in output.
+
+  THREE SELF-INFLICTED DEFECTS FOUND AND FIXED while building it, recorded here
+  rather than hidden:
+    * the allow-glob `*/guard/execution_secret_*.txt` was TOO BROAD: it would
+      exempt any NEW file of that shape, which is exactly what R1 exists to catch.
+      Replaced by exact paths plus a content check.
+    * the benign-value regex was UNANCHORED, so `hunter2hunter2` was judged
+      harmless and R3 could never fire.
+    * a bare `\b` before the key name meant the QUOTED JSON form
+      ("pass...": "...") -- the likeliest real-world shape -- was never detected.
+    * and the scanner initially REFUSED ITS OWN source and fixtures, because the
+      detection literals appear in them; those literals are now split at string
+      boundaries.
+
+  REAL INDEX SCAN: 11 staged files, verdict STAGED_CONTENT_CLEAN.
+
+  NOT EXPOSED: .vscode/sftp.json is untracked.  My earlier "tracked: True" was my
+  own matching defect and is corrected.
+
+KNOWN LIMITS OF THE CONTROL (stated, not overstated): it is SHAPE-based, not
+entropy-based, so a secret embedded in a longer string or base64/split across
+lines can evade R1-R4; it only sees the index, so it does nothing about existing
+history; and it cannot stop someone bypassing git_deliver.py with a direct
+`git commit`.  A real pre-commit hook would be a new engineering task and is NOT
+started here.
+
+NOT RUN
+  any new real F scoring, re-run, top-up, L2, L3, training, online rollout or plan
+  installation; no Git history rewrite; no force push; no modification of the
+  existing closure ruling or any frozen artifact.
+
+UNCHANGED
+  stable_online_gain = false; HISTORICAL_BACKBONE_UNVERIFIED; I3 (-144.680,
+  95% CI [-191.109, -100.125]); D2 not_qualified; D3 G0 not passed;
+  D8 CAPABILITY_GAP_BLOCKING; C0 = NON_BLOCKING_UNRESOLVED; V3 = NOT_RUN.

@@ -26,6 +26,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -90,6 +91,9 @@ def main():
                          'use when the work is already committed and the remaining worktree '
                          'entries belong to another (concurrent) writer')
     ap.add_argument('--allow-concurrent', action='store_true')
+    ap.add_argument('--skip-secret-scan', action='store_true',
+                    help='SKIP the staged-content secret scan for a DELIBERATE, REVIEWED exception. '
+                         'Never use it to get past a finding you have not resolved.')
     ap.add_argument('--concurrent-window', type=int, default=90)
     ap.add_argument('--ignore-recent', nargs='*', default=[],
                     help='paths authored by the caller in this session (excluded from the '
@@ -164,6 +168,38 @@ def main():
             if any(s == e or s.startswith(e) for s in staged):
                 print('REFUSED: %s is staged; it must stay excluded' % e)
                 return 3
+
+        # SECRET-SHAPE SCAN -- the check whose ABSENCE let two 256-bit execution secrets reach the
+        # public repository inside raw run directories.  It runs on the STAGED content (the index is
+        # what becomes public, not the worktree) and it REFUSES rather than warns: a scan that only
+        # warns is the scan that was missing.  `--skip-secret-scan` exists for a case where the change
+        # is a deliberate, reviewed exception; it is recorded loudly when used.
+        if a.skip_secret_scan:
+            print('WARNING: --skip-secret-scan given; the staged secret scan is being SKIPPED.  '
+                  'This must be a deliberate, reviewed exception.')
+        else:
+            _scanner = root / 'tools' / 'scan_staged_secrets.py'
+            if not _scanner.is_file():
+                print('REFUSED: the staged secret scanner is missing (%s); refusing to commit '
+                      'without it' % _scanner)
+                return 4
+            _scan = subprocess.run([sys.executable, str(_scanner), '--repo', str(root)],
+                                   capture_output=True, text=True)
+            if _scan.returncode != 0:
+                print('REFUSED: the staged secret scan found credential-shaped content; the finding '
+                      'below names the PATH, the LINE and the RULE only -- never the value:')
+                print(_scan.stdout.strip())
+                print('A refusal is deliberate: this is the control that was missing when two '
+                      'execution secrets were published.  Remove or redact the offending content, '
+                      'or pass --skip-secret-scan for a reviewed exception.')
+                return 4
+            try:
+                _summary = json.loads(_scan.stdout)
+                print('secret scan: CLEAN (%d staged file(s) scanned, rules R1-R4)'
+                      % _summary.get('n_staged_scanned', 0))
+            except Exception:                                              # noqa: BLE001
+                print('secret scan: CLEAN')
+
         print('staged :', len(staged), 'file(s)')
         if not staged:
             print('nothing staged after add; proceeding to the push check')

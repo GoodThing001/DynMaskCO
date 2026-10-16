@@ -79,19 +79,46 @@
 
 **步骤 2**：执行历史清除（**建议先做完整镜像备份**，并在**私有**镜像上演练一次）：
 
+> ⚠️ **本报告初版的 `--replace-text` 用法是错的，已更正（2026-10-16，用户复查指出）。**
+> 初版把**密钥的 sha256** 当作替换规则的**匹配文本**。`git filter-repo --replace-text` 做的是
+> **原文匹配**（literal text match），不是"匹配摘要"：把摘要当匹配串，等于让工具去文件里寻找
+> **那串摘要字面量**——而摘要**从不出现在任何被提交的文件中**（§1 已证：全量扫描仅命中两个密钥
+> 文件自身）。结果会是"**替换成功、原文原封不动**"：命令返回 0，密钥仍留在历史里。这是**静默失败**，
+> 比报错更危险。
+>
+> **正确做法二选一**：
+> **(a) 按内容替换** —— 规则文件里必须放**真正的密钥字面量**（因此该规则文件**必须放在仓库外、
+> 权限收紧、用完即删**），filter-repo 才能在 blob 里匹配到它；
+> **(b) 按路径整文件删除（推荐）** —— 不接触明文，直接删掉这两个文件在全部历史中的存在。
+> 下面的 (b) 是推荐路径；(a) 仅在你需要保留"路径存在但内容被替换"的历史形状时使用。
+
 ```bash
 # 备份（含全部 refs 与 reflog），确认可完整恢复后再继续
 git clone --mirror https://github.com/GoodThing001/DynMaskCO.git DynMaskCO-backup.git
 
-# 用 git-filter-repo 替换两个文件的历史内容为脱敏存根（--replace-text 的规则文件须私有、勿提交）
-cat > /private/purge-rules.txt <<'EOF'
-f786b3c202870670226f892f5ace31aa4ff04c52087e47b3be29cc8dc443a389==>REDACTED-EXPOSED-EXECUTION-SECRET
-b9600f71696e70d27e75e68778cb65e21e000346f9813e1ad246076182215972==>REDACTED-EXPOSED-EXECUTION-SECRET
-EOF
-git filter-repo --replace-text /private/purge-rules.txt --force
+# ---------- 推荐 (b)：按路径从全部历史中移除，不接触明文 ----------
+git filter-repo --path-glob '*/guard/execution_secret_*.txt' --invert-paths --force
+# 代价：那两个 guard 目录在历史中不再有占位文件；公开树的当前版本仍保留脱敏存根（本次不做历史重写）
 
-# 或按路径整文件删除（代价：该次 run 的 guard 目录不再有占位）
-# git filter-repo --path-glob '*/guard/execution_secret_*.txt' --invert-paths --force
+# ---------- 备选 (a)：按内容替换（规则文件含明文，必须在仓库外，用完即删） ----------
+# 规则文件每一行形如  <要被替换的字面量>==><替换文本>
+# 注意：左侧必须是密钥本身，不是它的摘要。
+#   printf '%s==>REDACTED-EXPOSED-EXECUTION-SECRET\n' "$(cat /private/orig_secret_1.txt)" > /private/purge-rules.txt
+#   printf '%s==>REDACTED-EXPOSED-EXECUTION-SECRET\n' "$(cat /private/orig_secret_2.txt)" >> /private/purge-rules.txt
+#   git filter-repo --replace-text /private/purge-rules.txt --force
+#   shred -u /private/purge-rules.txt      # 规则文件本身是敏感件，用完立刻销毁
+```
+
+**无论走 (a) 还是 (b)**，都必须验证替换**真的生效**（不能只看退出码）：
+
+```bash
+# 逐历史提交确认两个密钥文件已不含 64-hex 单行内容（只输出计数，不输出内容）
+git log --all --format=%H | while read c; do
+  for f in $(git ls-tree -r --name-only "$c" | grep 'execution_secret_'); do
+    git show "$c:$f" | grep -qE '^[0-9a-f]{64}$' && echo "STILL PRESENT: $c $f"
+  done
+done | sort -u
+# 期望输出为空。任何一行都说明清除未完成。
 ```
 
 **步骤 3**：生成**旧→新 commit 映射**并作为**新证据**提交，使科研追溯链在重写后仍可对照：
@@ -135,10 +162,28 @@ git push --force-with-lease origin codex/o0cc-cal-phys
 1. **raw run 目录整体提交**把运行期临时密钥一并带入公开历史。防护：把 `guard/` 与
    任何 `secrets.token_hex` 产物加入 `.gitattributes`/`.gitignore` 白名单机制，
    **在 `git add -A` 之前**按"运行期临时材料"过滤。
-2. 本轮的交付脚本用 `git add -A`，**没有任何密钥形态检查**。建议在 `tools/git_deliver.py`
-   加一道**预提交扫描**：拒绝任何"64-hex 单行 txt"或匹配 `secret|passwd|token|BEGIN .*PRIVATE KEY`
-   的新增/修改文件，除非显式豁免。
-3. 该缺陷**由用户复查发现**，不是自检发现；说明交付链缺少密钥扫描这一环。
+2. 本轮的交付脚本用 `git add -A`，**没有任何密钥形态检查**。**已在 2026-10-16 补齐**：
+   `tools/git_deliver.py` 在 `git add` 之后、`commit` 之前调用
+   `tools/scan_staged_secrets.py`，命中即 **REFUSED（返回码 4，不提交）**；
+   `--skip-secret-scan` 仅供经复核的例外，且会**显式打出警告**。
+   扫描器覆盖 4 条规则：R1 密钥文件路径、R2 裸 64-hex 值形态、R3 凭据赋值（含 JSON/YAML 引号键形态）、
+   R4 PEM 私钥头；只扫**暂存区**（index 才是会被公开的东西），
+   **只报告路径 + 行号 + 规则号，绝不输出值**。隔离合成验收 **10/10**：
+   `l1_gates/L1_PRECOMMIT_LEAK_PREVENTION_ACCEPTANCE.json`。
+3. 该封装缺陷**由用户复查发现**，不是自检发现；说明交付链缺少密钥扫描这一环。
+4. **本报告初版的 `--replace-text` 用法同样是错的**（§4.2 已更正）：把**摘要**当**匹配文本**，
+   会让 filter-repo 去找一个从不存在的字面量，从而"成功但什么都没改"。**同由用户复查指出。**
+   两次都是"看起来完整的命令其实不生效"，故 §4.2 现在要求**逐历史提交验证**，不接受退出码作为证据。
+
+## 6b. 防复发控制的已知边界（如实记录，不夸大）
+
+- 扫描基于**形态**（路径名、整行 64-hex、赋值关键词、PEM 头），**不是熵检测**：
+  一个被包在更长字符串里的密钥、或经过 base64/分片/拼接的密钥，**不会被 R1–R4 命中**。
+  它是**提高门槛**，不是"以后不可能再泄漏"的证明。
+- 它扫**暂存内容**，故对**已被提交的历史**无效；历史治理是 §4 的事。
+- 它**不能**防止"用自己的脚本绕过 `git_deliver.py` 直接 `git commit`"。若要更强保证，
+  需装真正的 `pre-commit`/`pre-push` 钩子（`.git/hooks/`），但那属于新的工程任务，
+  **本轮不启动**（用户明确不新增工程审计战役）。
 
 ## 7. 边界
 

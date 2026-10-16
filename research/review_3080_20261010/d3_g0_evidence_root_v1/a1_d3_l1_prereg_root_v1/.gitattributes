@@ -71,3 +71,8 @@ l1_gates/L1_V2_CLOSURE_ADJUDICATION.json -text whitespace=cr-at-eol
 l1_gates/L1_EXPOSED_SECRET_REDACTION.json -text whitespace=cr-at-eol
 l1_v2_execution_run/guard/*.txt -text
 v122_evidence/run_v122/guard/*.txt -text
+# L1-v2 read-only analysis round: the identifiability matrix, the permitted read-only results, the
+# independent recomputation audit and the pre-commit leak-prevention acceptance are hashed as bytes.
+l1_gates/L1_V2_READONLY_MECHANISM_ANALYSIS.json -text whitespace=cr-at-eol
+l1_gates/L1_V2_READONLY_MECHANISM_ANALYSIS_AUDIT.json -text whitespace=cr-at-eol
+l1_gates/L1_PRECOMMIT_LEAK_PREVENTION_ACCEPTANCE.json -text whitespace=cr-at-eol
