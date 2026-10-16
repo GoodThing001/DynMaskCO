@@ -1,0 +1,6 @@
+Hygiene: untrack the temporary delivery-message file that git add -A picked up
+
+The delivery convention stages everything, so the scratch message file used for
+the previous commit was itself committed.  It is removed from the index (and from
+the worktree); nothing else changes, and no evidence, source or registration file
+is touched.
