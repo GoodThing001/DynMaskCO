@@ -5,6 +5,16 @@ dist/
 figs/
 datasets/
 
+# Session scratch authored at the repository ROOT.  `tools/git_deliver.py` takes its commit message
+# from a file, and a bare `git add -A` stages that file too -- which is how five of them
+# (_e2_msg.txt, _g0ce_msg.txt, _l2l3_msg.txt, _led2_msg.txt, _pafter_msg.txt) came to be committed,
+# each costing a separate "Hygiene: untrack the scratch delivery-message file" commit.  Their
+# content is in the commit log, so nothing is lost by keeping them out of the tree.  Root-anchored
+# on purpose: it must not touch `tools/_srv.py`, `CC_Compare/tools/_gpu3080_orchestrate.ps1`, the
+# cited provenance script `_run_step5.sh`, or the archived `COMMIT_MSG.txt` evidence files.
+/_*msg*.txt
+/_probe*
+
 *.so
 build/
 cython_merge.c
