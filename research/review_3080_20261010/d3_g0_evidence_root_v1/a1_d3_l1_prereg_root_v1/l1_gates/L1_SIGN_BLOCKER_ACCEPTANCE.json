@@ -87,9 +87,9 @@
           "A6_n_state_records": 0,
           "A6_returncode": 1,
           "A7_restored_guard_passed": true,
-          "frozen_sha256": "7ce803dd8f6398b6d4b8ba398bf461cfd5732660c010c9216b6769df8637b620",
+          "frozen_sha256": "284f3cbc32164fc4b8796580e7133df502003fab3d72e6042245d6b18cbd888e",
           "module": "d3_l1_l1_formal_run.py",
-          "tampered_sha256": "6082b20a2cc64114d1d987fd70f9f47e4de7dbe9cc77e770792c0da31154c342",
+          "tampered_sha256": "8c39ced63c6832b2456c85d371147d4d01ae8b268d29262765a17db5417225a7",
           "twin_path_exists": true
         },
         {
@@ -147,9 +147,9 @@
           "A6_fixture_receipts": 1,
           "A6_n_state_records": 0,
           "A6_returncode": 1,
-          "frozen_sha256": "6d539b555bd0fd79fbc7de15b72bbe0ca51e32bc6fcdac73c14966d32fc4693a",
+          "frozen_sha256": "1a10e8065d4744df3171cc7a4055657a604c9a8646101e9d546fbe45d87b693a",
           "module": "d3_l1_two_arm_protocol.py",
-          "tampered_sha256": "7b919369593f8cacbc7bce44f323ce87e124257c29f08db8d44cda965e3763a3",
+          "tampered_sha256": "821ee69aaba155751a60600c82d1e9636e5a5bf21456519a7143516b55a45903",
           "twin_path_exists": true
         },
         {
@@ -237,9 +237,9 @@
           "A6_fixture_receipts": 1,
           "A6_n_state_records": 0,
           "A6_returncode": 1,
-          "frozen_sha256": "6caa8d5f024a3299192e7693805c020af15ece98bb7a53fa94768b945cd9afa5",
+          "frozen_sha256": "abe3252afe2be867f86ece46f77675979893e8f699bcfc55822716f92803e30a",
           "module": "d3_l1_v118_authorization.py",
-          "tampered_sha256": "bbcb9126a63e13b621a9456c749590b6ba37131ca42eb6ac43a8acc7fab21429",
+          "tampered_sha256": "36d9d8dc9eacad2c9f4c7be85e58f72ea0431a922e1cf94fef6d78d00b50f617",
           "twin_path_exists": true
         },
         {
@@ -527,13 +527,13 @@
         "cleanup": null,
         "command": [
           "D:\\AA_Py\\A_Anaconda\\python.exe",
-          "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_1mvj0jrd\\b\\standin_worker.py",
+          "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_2qhn0oz3\\b\\standin_worker.py",
           "--out-dir",
-          "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_1mvj0jrd\\b\\standin_run_5aj7fwjr",
+          "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_2qhn0oz3\\b\\standin_run_38mi0xof",
           "--run-dir",
-          "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_1mvj0jrd\\b\\standin_run_5aj7fwjr",
+          "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_2qhn0oz3\\b\\standin_run_38mi0xof",
           "--states-json",
-          "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_1mvj0jrd\\b\\states.json",
+          "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_2qhn0oz3\\b\\states.json",
           "--entry",
           "D:\\PyCharm_\\MASKCO-Main\\C-VRP_Cold-chainVehicleRoutingProblem\\scripts\\simulation\\d3_l1_l1_formal_run.py",
           "--ready-sleep-s",
@@ -548,14 +548,14 @@
           "0.0"
         ],
         "ok": true,
-        "pid": 16308,
+        "pid": 30036,
         "ready_state": {
           "n_records": 1,
           "probe": "immutable L1_READY record",
           "problems": [],
-          "published_name": "L1_READY_453a7e998fca4b749a5e6049296dfcbd.json",
+          "published_name": "L1_READY_edf0a988ad72427da8fca83aae833835.json",
           "ready": true,
-          "run_dir": "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_1mvj0jrd\\b\\standin_run_5aj7fwjr",
+          "run_dir": "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_2qhn0oz3\\b\\standin_run_38mi0xof",
           "run_id": "standin"
         },
         "reason": null,
@@ -563,470 +563,470 @@
         "start_identity": {
           "ok": true,
           "rows": {
-            "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_1mvj0jrd\\b\\standin_worker.py": {
+            "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_2qhn0oz3\\b\\standin_worker.py": {
               "actual": "acaa3ea0d1d9c2fd85aa1b3ab334e483dc657664946150b7c43d1809f7127c76",
               "expected": "acaa3ea0d1d9c2fd85aa1b3ab334e483dc657664946150b7c43d1809f7127c76",
               "ok": true
             },
-            "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_1mvj0jrd\\b\\states.json": {
+            "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_2qhn0oz3\\b\\states.json": {
               "actual": "40ca12bb7b3f6c40fde2ffbaea6629f719c72fa0bc2a811518ed0701c3ffaba2",
               "expected": "40ca12bb7b3f6c40fde2ffbaea6629f719c72fa0bc2a811518ed0701c3ffaba2",
               "ok": true
             }
           }
         },
-        "started_mono": 1282284.031,
+        "started_mono": 1284901.765,
         "timeline": {
           "completed_phase": true,
           "errors": [],
           "finished": [
             {
               "day_id": 0,
-              "finish": 1282287.218,
+              "finish": 1284904.921,
               "position": 1,
-              "span_s": 1.0620000001508743,
-              "start": 1282286.156
+              "span_s": 1.046000000089407,
+              "start": 1284903.875
             },
             {
               "day_id": 0,
-              "finish": 1282288.265,
+              "finish": 1284905.984,
               "position": 2,
-              "span_s": 1.0469999997876585,
-              "start": 1282287.218
+              "span_s": 1.0629999998491257,
+              "start": 1284904.921
             },
             {
               "day_id": 0,
-              "finish": 1282289.328,
+              "finish": 1284907.031,
               "position": 3,
-              "span_s": 1.0630000000819564,
-              "start": 1282288.265
+              "span_s": 1.047000000020489,
+              "start": 1284905.984
             },
             {
               "day_id": 0,
-              "finish": 1282290.375,
+              "finish": 1284908.093,
               "position": 4,
               "span_s": 1.047000000020489,
-              "start": 1282289.328
+              "start": 1284907.046
             },
             {
               "day_id": 1,
-              "finish": 1282291.437,
+              "finish": 1284909.156,
               "position": 1,
-              "span_s": 1.047000000020489,
-              "start": 1282290.39
+              "span_s": 1.0629999998491257,
+              "start": 1284908.093
             },
             {
               "day_id": 1,
-              "finish": 1282292.5,
+              "finish": 1284910.203,
               "position": 2,
-              "span_s": 1.0630000000819564,
-              "start": 1282291.437
+              "span_s": 1.047000000020489,
+              "start": 1284909.156
             },
             {
               "day_id": 1,
-              "finish": 1282293.546,
+              "finish": 1284911.265,
               "position": 3,
-              "span_s": 1.046000000089407,
-              "start": 1282292.5
+              "span_s": 1.0469999997876585,
+              "start": 1284910.218
             },
             {
               "day_id": 1,
-              "finish": 1282294.609,
+              "finish": 1284912.328,
               "position": 4,
-              "span_s": 1.0629999998491257,
-              "start": 1282293.546
+              "span_s": 1.0630000000819564,
+              "start": 1284911.265
             },
             {
               "day_id": 2,
-              "finish": 1282295.671,
+              "finish": 1284913.375,
               "position": 1,
-              "span_s": 1.0620000001508743,
-              "start": 1282294.609
+              "span_s": 1.047000000020489,
+              "start": 1284912.328
             },
             {
               "day_id": 2,
-              "finish": 1282296.718,
+              "finish": 1284914.437,
               "position": 2,
               "span_s": 1.047000000020489,
-              "start": 1282295.671
+              "start": 1284913.39
             },
             {
               "day_id": 2,
-              "finish": 1282297.781,
+              "finish": 1284915.5,
               "position": 3,
-              "span_s": 1.0629999998491257,
-              "start": 1282296.718
+              "span_s": 1.0630000000819564,
+              "start": 1284914.437
             },
             {
               "day_id": 2,
-              "finish": 1282298.828,
-              "position": 4,
-              "span_s": 1.047000000020489,
-              "start": 1282297.781
-            },
-            {
-              "day_id": 3,
-              "finish": 1282299.89,
-              "position": 1,
-              "span_s": 1.0469999997876585,
-              "start": 1282298.843
-            },
-            {
-              "day_id": 3,
-              "finish": 1282300.953,
-              "position": 2,
-              "span_s": 1.0630000000819564,
-              "start": 1282299.89
-            },
-            {
-              "day_id": 3,
-              "finish": 1282302.0,
-              "position": 3,
-              "span_s": 1.047000000020489,
-              "start": 1282300.953
-            },
-            {
-              "day_id": 3,
-              "finish": 1282303.062,
-              "position": 4,
-              "span_s": 1.047000000020489,
-              "start": 1282302.015
-            },
-            {
-              "day_id": 4,
-              "finish": 1282304.125,
-              "position": 1,
-              "span_s": 1.0630000000819564,
-              "start": 1282303.062
-            },
-            {
-              "day_id": 4,
-              "finish": 1282305.171,
-              "position": 2,
-              "span_s": 1.046000000089407,
-              "start": 1282304.125
-            },
-            {
-              "day_id": 4,
-              "finish": 1282306.234,
-              "position": 3,
-              "span_s": 1.047000000020489,
-              "start": 1282305.187
-            },
-            {
-              "day_id": 4,
-              "finish": 1282307.296,
-              "position": 4,
-              "span_s": 1.0620000001508743,
-              "start": 1282306.234
-            },
-            {
-              "day_id": 5,
-              "finish": 1282308.343,
-              "position": 1,
-              "span_s": 1.047000000020489,
-              "start": 1282307.296
-            },
-            {
-              "day_id": 5,
-              "finish": 1282309.406,
-              "position": 2,
-              "span_s": 1.047000000020489,
-              "start": 1282308.359
-            },
-            {
-              "day_id": 5,
-              "finish": 1282310.468,
-              "position": 3,
-              "span_s": 1.0620000001508743,
-              "start": 1282309.406
-            },
-            {
-              "day_id": 5,
-              "finish": 1282311.515,
-              "position": 4,
-              "span_s": 1.0469999997876585,
-              "start": 1282310.468
-            },
-            {
-              "day_id": 6,
-              "finish": 1282312.578,
-              "position": 1,
-              "span_s": 1.047000000020489,
-              "start": 1282311.531
-            },
-            {
-              "day_id": 6,
-              "finish": 1282313.64,
-              "position": 2,
-              "span_s": 1.0619999999180436,
-              "start": 1282312.578
-            },
-            {
-              "day_id": 6,
-              "finish": 1282314.687,
-              "position": 3,
-              "span_s": 1.047000000020489,
-              "start": 1282313.64
-            },
-            {
-              "day_id": 6,
-              "finish": 1282315.75,
-              "position": 4,
-              "span_s": 1.047000000020489,
-              "start": 1282314.703
-            },
-            {
-              "day_id": 7,
-              "finish": 1282316.812,
-              "position": 1,
-              "span_s": 1.0619999999180436,
-              "start": 1282315.75
-            },
-            {
-              "day_id": 7,
-              "finish": 1282317.859,
-              "position": 2,
-              "span_s": 1.047000000020489,
-              "start": 1282316.812
-            },
-            {
-              "day_id": 7,
-              "finish": 1282318.921,
-              "position": 3,
-              "span_s": 1.0620000001508743,
-              "start": 1282317.859
-            },
-            {
-              "day_id": 7,
-              "finish": 1282319.968,
-              "position": 4,
-              "span_s": 1.047000000020489,
-              "start": 1282318.921
-            },
-            {
-              "day_id": 8,
-              "finish": 1282321.031,
-              "position": 1,
-              "span_s": 1.047000000020489,
-              "start": 1282319.984
-            },
-            {
-              "day_id": 8,
-              "finish": 1282322.093,
-              "position": 2,
-              "span_s": 1.0620000001508743,
-              "start": 1282321.031
-            },
-            {
-              "day_id": 8,
-              "finish": 1282323.14,
-              "position": 3,
-              "span_s": 1.0469999997876585,
-              "start": 1282322.093
-            },
-            {
-              "day_id": 8,
-              "finish": 1282324.203,
-              "position": 4,
-              "span_s": 1.0630000000819564,
-              "start": 1282323.14
-            },
-            {
-              "day_id": 9,
-              "finish": 1282325.265,
-              "position": 1,
-              "span_s": 1.0619999999180436,
-              "start": 1282324.203
-            },
-            {
-              "day_id": 9,
-              "finish": 1282326.312,
-              "position": 2,
-              "span_s": 1.047000000020489,
-              "start": 1282325.265
-            },
-            {
-              "day_id": 9,
-              "finish": 1282327.375,
-              "position": 3,
-              "span_s": 1.0630000000819564,
-              "start": 1282326.312
-            },
-            {
-              "day_id": 9,
-              "finish": 1282328.421,
+              "finish": 1284916.546,
               "position": 4,
               "span_s": 1.046000000089407,
-              "start": 1282327.375
+              "start": 1284915.5
             },
             {
-              "day_id": 10,
-              "finish": 1282329.484,
+              "day_id": 3,
+              "finish": 1284917.609,
               "position": 1,
               "span_s": 1.047000000020489,
-              "start": 1282328.437
+              "start": 1284916.562
             },
             {
-              "day_id": 10,
-              "finish": 1282330.546,
+              "day_id": 3,
+              "finish": 1284918.671,
               "position": 2,
               "span_s": 1.0620000001508743,
-              "start": 1282329.484
+              "start": 1284917.609
             },
             {
-              "day_id": 10,
-              "finish": 1282331.593,
+              "day_id": 3,
+              "finish": 1284919.718,
               "position": 3,
               "span_s": 1.047000000020489,
-              "start": 1282330.546
+              "start": 1284918.671
             },
             {
-              "day_id": 10,
-              "finish": 1282332.656,
+              "day_id": 3,
+              "finish": 1284920.781,
               "position": 4,
-              "span_s": 1.047000000020489,
-              "start": 1282331.609
+              "span_s": 1.0629999998491257,
+              "start": 1284919.718
             },
             {
-              "day_id": 11,
-              "finish": 1282333.718,
+              "day_id": 4,
+              "finish": 1284921.828,
               "position": 1,
-              "span_s": 1.0620000001508743,
-              "start": 1282332.656
+              "span_s": 1.047000000020489,
+              "start": 1284920.781
             },
             {
-              "day_id": 11,
-              "finish": 1282334.765,
+              "day_id": 4,
+              "finish": 1284922.89,
               "position": 2,
               "span_s": 1.0469999997876585,
-              "start": 1282333.718
+              "start": 1284921.843
             },
             {
-              "day_id": 11,
-              "finish": 1282335.828,
+              "day_id": 4,
+              "finish": 1284923.953,
               "position": 3,
-              "span_s": 1.047000000020489,
-              "start": 1282334.781
+              "span_s": 1.0630000000819564,
+              "start": 1284922.89
             },
             {
-              "day_id": 11,
-              "finish": 1282336.89,
+              "day_id": 4,
+              "finish": 1284925.015,
               "position": 4,
               "span_s": 1.0619999999180436,
-              "start": 1282335.828
+              "start": 1284923.953
             },
             {
-              "day_id": 12,
-              "finish": 1282337.937,
+              "day_id": 5,
+              "finish": 1284926.062,
               "position": 1,
               "span_s": 1.047000000020489,
-              "start": 1282336.89
+              "start": 1284925.015
             },
             {
-              "day_id": 12,
-              "finish": 1282339.0,
+              "day_id": 5,
+              "finish": 1284927.125,
               "position": 2,
-              "span_s": 1.047000000020489,
-              "start": 1282337.953
+              "span_s": 1.0630000000819564,
+              "start": 1284926.062
             },
             {
-              "day_id": 12,
-              "finish": 1282340.062,
+              "day_id": 5,
+              "finish": 1284928.171,
               "position": 3,
-              "span_s": 1.0619999999180436,
-              "start": 1282339.0
+              "span_s": 1.046000000089407,
+              "start": 1284927.125
             },
             {
-              "day_id": 12,
-              "finish": 1282341.109,
+              "day_id": 5,
+              "finish": 1284929.234,
               "position": 4,
               "span_s": 1.047000000020489,
-              "start": 1282340.062
+              "start": 1284928.187
             },
             {
-              "day_id": 13,
-              "finish": 1282342.171,
+              "day_id": 6,
+              "finish": 1284930.296,
+              "position": 1,
+              "span_s": 1.0620000001508743,
+              "start": 1284929.234
+            },
+            {
+              "day_id": 6,
+              "finish": 1284931.343,
+              "position": 2,
+              "span_s": 1.047000000020489,
+              "start": 1284930.296
+            },
+            {
+              "day_id": 6,
+              "finish": 1284932.406,
+              "position": 3,
+              "span_s": 1.047000000020489,
+              "start": 1284931.359
+            },
+            {
+              "day_id": 6,
+              "finish": 1284933.468,
+              "position": 4,
+              "span_s": 1.0620000001508743,
+              "start": 1284932.406
+            },
+            {
+              "day_id": 7,
+              "finish": 1284934.515,
+              "position": 1,
+              "span_s": 1.0469999997876585,
+              "start": 1284933.468
+            },
+            {
+              "day_id": 7,
+              "finish": 1284935.578,
+              "position": 2,
+              "span_s": 1.0630000000819564,
+              "start": 1284934.515
+            },
+            {
+              "day_id": 7,
+              "finish": 1284936.625,
+              "position": 3,
+              "span_s": 1.047000000020489,
+              "start": 1284935.578
+            },
+            {
+              "day_id": 7,
+              "finish": 1284937.687,
+              "position": 4,
+              "span_s": 1.047000000020489,
+              "start": 1284936.64
+            },
+            {
+              "day_id": 8,
+              "finish": 1284938.75,
+              "position": 1,
+              "span_s": 1.0630000000819564,
+              "start": 1284937.687
+            },
+            {
+              "day_id": 8,
+              "finish": 1284939.796,
+              "position": 2,
+              "span_s": 1.046000000089407,
+              "start": 1284938.75
+            },
+            {
+              "day_id": 8,
+              "finish": 1284940.859,
+              "position": 3,
+              "span_s": 1.047000000020489,
+              "start": 1284939.812
+            },
+            {
+              "day_id": 8,
+              "finish": 1284941.921,
+              "position": 4,
+              "span_s": 1.0620000001508743,
+              "start": 1284940.859
+            },
+            {
+              "day_id": 9,
+              "finish": 1284942.968,
+              "position": 1,
+              "span_s": 1.047000000020489,
+              "start": 1284941.921
+            },
+            {
+              "day_id": 9,
+              "finish": 1284944.031,
+              "position": 2,
+              "span_s": 1.047000000020489,
+              "start": 1284942.984
+            },
+            {
+              "day_id": 9,
+              "finish": 1284945.078,
+              "position": 3,
+              "span_s": 1.047000000020489,
+              "start": 1284944.031
+            },
+            {
+              "day_id": 9,
+              "finish": 1284946.14,
+              "position": 4,
+              "span_s": 1.0469999997876585,
+              "start": 1284945.093
+            },
+            {
+              "day_id": 10,
+              "finish": 1284947.203,
+              "position": 1,
+              "span_s": 1.0630000000819564,
+              "start": 1284946.14
+            },
+            {
+              "day_id": 10,
+              "finish": 1284948.25,
+              "position": 2,
+              "span_s": 1.047000000020489,
+              "start": 1284947.203
+            },
+            {
+              "day_id": 10,
+              "finish": 1284949.312,
+              "position": 3,
+              "span_s": 1.047000000020489,
+              "start": 1284948.265
+            },
+            {
+              "day_id": 10,
+              "finish": 1284950.375,
+              "position": 4,
+              "span_s": 1.0630000000819564,
+              "start": 1284949.312
+            },
+            {
+              "day_id": 11,
+              "finish": 1284951.421,
               "position": 1,
               "span_s": 1.046000000089407,
-              "start": 1282341.125
+              "start": 1284950.375
             },
             {
-              "day_id": 13,
-              "finish": 1282343.234,
+              "day_id": 11,
+              "finish": 1284952.484,
               "position": 2,
               "span_s": 1.0629999998491257,
-              "start": 1282342.171
+              "start": 1284951.421
             },
             {
-              "day_id": 13,
-              "finish": 1282344.281,
+              "day_id": 11,
+              "finish": 1284953.546,
               "position": 3,
-              "span_s": 1.047000000020489,
-              "start": 1282343.234
-            },
-            {
-              "day_id": 13,
-              "finish": 1282345.343,
-              "position": 4,
               "span_s": 1.0620000001508743,
-              "start": 1282344.281
+              "start": 1284952.484
             },
             {
-              "day_id": 14,
-              "finish": 1282346.406,
+              "day_id": 11,
+              "finish": 1284954.593,
+              "position": 4,
+              "span_s": 1.047000000020489,
+              "start": 1284953.546
+            },
+            {
+              "day_id": 12,
+              "finish": 1284955.656,
               "position": 1,
               "span_s": 1.0629999998491257,
-              "start": 1282345.343
+              "start": 1284954.593
             },
             {
-              "day_id": 14,
-              "finish": 1282347.453,
+              "day_id": 12,
+              "finish": 1284956.703,
               "position": 2,
               "span_s": 1.047000000020489,
-              "start": 1282346.406
+              "start": 1284955.656
             },
             {
-              "day_id": 14,
-              "finish": 1282348.515,
+              "day_id": 12,
+              "finish": 1284957.765,
               "position": 3,
-              "span_s": 1.0619999999180436,
-              "start": 1282347.453
+              "span_s": 1.0469999997876585,
+              "start": 1284956.718
             },
             {
-              "day_id": 14,
-              "finish": 1282349.562,
+              "day_id": 12,
+              "finish": 1284958.828,
               "position": 4,
-              "span_s": 1.047000000020489,
-              "start": 1282348.515
+              "span_s": 1.0630000000819564,
+              "start": 1284957.765
             },
             {
-              "day_id": 15,
-              "finish": 1282350.625,
+              "day_id": 13,
+              "finish": 1284959.875,
               "position": 1,
               "span_s": 1.047000000020489,
-              "start": 1282349.578
+              "start": 1284958.828
             },
             {
-              "day_id": 15,
-              "finish": 1282351.687,
+              "day_id": 13,
+              "finish": 1284960.937,
               "position": 2,
               "span_s": 1.0619999999180436,
-              "start": 1282350.625
+              "start": 1284959.875
             },
             {
-              "day_id": 15,
-              "finish": 1282352.734,
+              "day_id": 13,
+              "finish": 1284962.0,
+              "position": 3,
+              "span_s": 1.0630000000819564,
+              "start": 1284960.937
+            },
+            {
+              "day_id": 13,
+              "finish": 1284963.046,
+              "position": 4,
+              "span_s": 1.046000000089407,
+              "start": 1284962.0
+            },
+            {
+              "day_id": 14,
+              "finish": 1284964.109,
+              "position": 1,
+              "span_s": 1.0629999998491257,
+              "start": 1284963.046
+            },
+            {
+              "day_id": 14,
+              "finish": 1284965.171,
+              "position": 2,
+              "span_s": 1.0620000001508743,
+              "start": 1284964.109
+            },
+            {
+              "day_id": 14,
+              "finish": 1284966.218,
               "position": 3,
               "span_s": 1.047000000020489,
-              "start": 1282351.687
+              "start": 1284965.171
+            },
+            {
+              "day_id": 14,
+              "finish": 1284967.281,
+              "position": 4,
+              "span_s": 1.0629999998491257,
+              "start": 1284966.218
             },
             {
               "day_id": 15,
-              "finish": 1282353.796,
+              "finish": 1284968.328,
+              "position": 1,
+              "span_s": 1.047000000020489,
+              "start": 1284967.281
+            },
+            {
+              "day_id": 15,
+              "finish": 1284969.39,
+              "position": 2,
+              "span_s": 1.0469999997876585,
+              "start": 1284968.343
+            },
+            {
+              "day_id": 15,
+              "finish": 1284970.453,
+              "position": 3,
+              "span_s": 1.0630000000819564,
+              "start": 1284969.39
+            },
+            {
+              "day_id": 15,
+              "finish": 1284971.5,
               "position": 4,
-              "span_s": 1.0620000001508743,
-              "start": 1282352.734
+              "span_s": 1.047000000020489,
+              "start": 1284970.453
             }
           ],
           "n_events": 132,
@@ -1291,8 +1291,8 @@
           ]
         },
         "tree_active_after": 0,
-        "worker_control_wall_s": 69.82799999997951,
-        "worker_ended_mono": 1282353.828
+        "worker_control_wall_s": 69.81300000008196,
+        "worker_ended_mono": 1284971.546
       },
       "standin_worker_note": "the workers here are STAND-INS that publish exactly the production READY / phase protocol and load no model"
     },
@@ -1456,7 +1456,7 @@
           "probe": "immutable L1_READY record",
           "ready": false,
           "reason": "absent",
-          "run_dir": "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_1mvj0jrd\\b\\empty_run"
+          "run_dir": "D:\\PyCharm_\\MASKCO-Main\\.l1_blocker_acc_2qhn0oz3\\b\\empty_run"
         }
       },
       "name": "B1 the supervisor probe is the IMMUTABLE-record probe bound to one run dir, not the legacy `READY.json` default (which the V1.18+ worker can never publish)",
@@ -1489,9 +1489,9 @@
       "detail": {
         "cleanup": {
           "cleanup_ok": true,
-          "kill_reap_seconds": 0.030999999959021807,
+          "kill_reap_seconds": 0.015999999828636646,
           "mechanism": "TerminateJobObject",
-          "pid": 27516,
+          "pid": 15948,
           "returncode": 137,
           "tree_active_after": 0,
           "tree_active_before": 1
@@ -1542,7 +1542,7 @@
             "max_wall_seconds": 10.0,
             "scorer_calls": 0,
             "wall_origin_shared_across_arms": true,
-            "wall_seconds": 0.156
+            "wall_seconds": 0.157
           },
           "F": {
             "exceeded": null,
@@ -1550,7 +1550,7 @@
             "max_wall_seconds": 10.0,
             "scorer_calls": 0,
             "wall_origin_shared_across_arms": true,
-            "wall_seconds": 0.156
+            "wall_seconds": 0.157
           },
           "__independent_default_origin__": {
             "exceeded": null,
@@ -1702,12 +1702,12 @@
           {
             "arg_src": "records",
             "is_bare_list": true,
-            "line": 804
+            "line": 958
           },
           {
             "arg_src": "records",
             "is_bare_list": true,
-            "line": 942
+            "line": 1096
           }
         ],
         "call_sites_passing_a_filtered_list": [],
@@ -1719,12 +1719,12 @@
       "ok": true
     }
   ],
-  "run_id": "d3l1-l1-two-arm-20261015-l1v1",
-  "runner_sha256": "7ce803dd8f6398b6d4b8ba398bf461cfd5732660c010c9216b6769df8637b620",
+  "run_id": "d3l1-l1-two-arm-20261016-l1v2",
+  "runner_sha256": "284f3cbc32164fc4b8796580e7133df502003fab3d72e6042245d6b18cbd888e",
   "schema": "d3_l1_l1_sign_blocker_acceptance",
   "science_ready": false,
   "scorer": "NO SCORER AT ALL: the workers in this file are stand-ins that load no model and score nothing. This acceptance says nothing about MaskCO, D-Geo, or any scientific question.",
   "stable_online_gain": false,
-  "tool_sha256": "46fdd51dc267667562ce03b8ff1489b2f16a8910cf08f0b265a5484bc6252af3",
+  "tool_sha256": "dc94eb467e6d2187ed80c023208b78dfff97a466a37b13269f22e862fe8803d9",
   "verdict": "L1_SIGN_BLOCKERS_CLOSED"
 }

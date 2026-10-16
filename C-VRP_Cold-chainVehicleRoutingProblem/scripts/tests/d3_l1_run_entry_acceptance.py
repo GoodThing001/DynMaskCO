@@ -39,8 +39,8 @@ import d3_l1_v118_authorization as AUTH                                       # 
 
 RUNNER = EXT / 'scripts/simulation/d3_l1_l1_formal_run.py'
 PREREG = (REPO / 'research/review_3080_20261010/d3_g0_evidence_root_v1'
-          '/a1_d3_l1_prereg_root_v1/A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V1.md')
-RUN_ID = 'd3l1-l1-two-arm-20261015-l1v1'
+          '/a1_d3_l1_prereg_root_v1/A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V2.md')
+RUN_ID = 'd3l1-l1-two-arm-20261016-l1v2'
 ROWS = []
 
 

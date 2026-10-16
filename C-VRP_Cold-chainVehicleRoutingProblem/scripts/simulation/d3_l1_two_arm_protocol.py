@@ -479,6 +479,53 @@ def run_two_arms(shared, arms, *, legal_fn, apply_fn, certify_fn=None, wall_cloc
               'n_steps': results[a]['n_steps'],
               'returned_original_plan': results[a]['returned_original_plan']} for a in ARMS}
     v2['both_completed'] = all(v2[a]['full_repair_completed'] for a in ARMS)
+    # ---------------------------------------------------------------------------------------
+    # ARM ORDER AND THE SHARED WALL-CLOCK ALLOWANCE (fairness instrumentation)
+    #
+    # The arms run SEQUENTIALLY and, for L1, are charged from ONE monotonic origin, because the
+    # pre-registration fixes `per_state_wall_clock_s = 10.0` as the allowance for the STATE -- both
+    # arms together -- rather than for each arm.  A direct consequence is that the SECOND arm's
+    # remaining time is `10.0 s - (what the first arm spent)`, so the second arm's time budget
+    # depends on the first arm's COST.
+    #
+    # That is an instrumentation property, not a property of either scorer, and it must never be
+    # readable as a mechanism difference.  These fields make it explicit and mechanically separable
+    # WITHOUT relaxing any budget and WITHOUT changing either arm:
+    #   `wall_budget_source`   whether the clock origin was shared (one 10 s for the state) or
+    #                          private (one 10 s per arm -- the default gate semantics);
+    #   `order_sensitive`      TRUE when the gate's `timeout` is attributable to the SHARED origin,
+    #                          i.e. when the arm that timed out was charged for time it did not
+    #                          spend -- which can only be the second arm;
+    #   `arm_order_note`       the reason in one sentence, for the reader and for the adjudication.
+    # A first-arm timeout is NOT order-sensitive: nothing had run before it.
+    # ---------------------------------------------------------------------------------------
+    wall_source = ('shared_single_allowance'
+                   if any((results[a].get('budget_gate') or {}).get('wall_origin_shared_across_arms')
+                          for a in ARMS) else 'per_arm_private_allowance')
+    order_sensitive = [a for a in ARMS
+                       if v2[a]['failure_reason'] == 'timeout'
+                       and a != ARMS[0] and wall_source == 'shared_single_allowance']
+    v2['arm_order'] = list(ARMS)
+    v2['wall_budget_source'] = wall_source
+    v2['order_sensitive'] = bool(order_sensitive)
+    v2['order_sensitive_arms'] = list(order_sensitive)
+    v2['second_arm'] = ARMS[1]
+    if wall_source == 'shared_single_allowance':
+        v2['arm_order_note'] = (
+            'the arms ran in the frozen order %s and were charged from ONE monotonic origin, so the '
+            'second arm (%s) received "10.0 s minus what %s spent".  A `timeout` on %s is therefore '
+            'ATTRIBUTABLE TO THE SHARED ALLOWANCE AND THE ORDER, not to its scorer being slower or '
+            'worse, and may never be reported as a mechanism advantage for %s.  A `timeout` on the '
+            'FIRST arm (%s) is not order-sensitive: nothing had run before it.'
+            % (list(ARMS), ARMS[1], ARMS[0], ARMS[1] or 'the second arm', ARMS[0], ARMS[0]))
+    else:
+        v2['arm_order_note'] = (
+            'each arm held its OWN wall-clock allowance (the default per-gate origin), so no arm can '
+            'be charged for time another arm spent and the order carries no timing confound')
+    v2['v1_order_sensitivity'] = (
+        'V1 (the first-step comparison) is ORDER-INVARIANT BY CONSTRUCTION: no scorer call happens '
+        'before the first step, so at that point the second arm has spent nothing and no deadline can '
+        'have fired.  Only V2 can be order-sensitive, and only through the shared wall clock.')
 
     # ---- V3 certified executable plan ------------------------------------------------------
     if certify_fn is None:

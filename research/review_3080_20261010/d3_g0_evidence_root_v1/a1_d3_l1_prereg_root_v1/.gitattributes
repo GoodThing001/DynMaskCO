@@ -42,3 +42,13 @@ l1_gates/L1_SIGNING_IDENTITY_V1.json -text whitespace=cr-at-eol
 l1_gates/L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V2.json -text whitespace=cr-at-eol
 l1_gates/L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V1_INVALIDATION.json -text whitespace=cr-at-eol
 l1_gates/L1_RUN_ENTRY_ACCEPTANCE.json -text whitespace=cr-at-eol
+# L1-v2 signing round: the regenerated pre-registration pair, the arm-order acceptance, the re-run
+# blocker/synthetic evidence, the V3 package and the archived l1v1 artifacts are hashed as bytes --
+# the package records each one's sha256 and the audit re-reads them, so a line-ending rewrite on
+# checkout would break the chain.
+A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V2.md -text
+l1_gates/L1_V2_PREREGISTRATION_MANIFEST.json -text whitespace=cr-at-eol
+l1_gates/L1_ARM_ORDER_ACCEPTANCE.json -text whitespace=cr-at-eol
+l1_gates/L1_SIGNING_IDENTITY_V2.json -text whitespace=cr-at-eol
+l1_gates/L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V3.json -text whitespace=cr-at-eol
+l1_gates/SUPERSEDED_*.json -text whitespace=cr-at-eol

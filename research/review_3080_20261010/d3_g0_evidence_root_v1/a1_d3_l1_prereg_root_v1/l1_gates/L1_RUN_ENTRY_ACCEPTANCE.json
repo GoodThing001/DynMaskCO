@@ -26,7 +26,7 @@
       "n_states": 64,
       "n_watch": 42,
       "returncode": 0,
-      "run_id": "d3l1-l1-two-arm-20261015-l1v1",
+      "run_id": "d3l1-l1-two-arm-20261016-l1v2",
       "state_binding_sha256": "f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1",
       "watch_derivation": "transitive local-import closure seeded from the L1 formal entry"
     },
@@ -71,7 +71,7 @@
       "ready_check": {
         "legacy_default_probe_used": false,
         "recorded_probe": "immutable L1_READY record",
-        "recorded_published_name": "L1_READY_dcd9686456434341a07e7a4c9f85b0df.json",
+        "recorded_published_name": "L1_READY_39030b9024004e5da764af0341f2db02.json",
         "recorded_ready": true,
         "reprobe_n_records": 1,
         "reprobe_problems": [],
@@ -85,7 +85,7 @@
       "supervision_ok": true,
       "timeline_ok": null,
       "wall_clock_scope": null,
-      "worker_control_wall_s": 7.984000000171363
+      "worker_control_wall_s": 8.093000000109896
     },
     "E5": {
       "context_published": true,
@@ -110,7 +110,7 @@
         "n_states": 64,
         "n_watch": 42,
         "returncode": 0,
-        "run_id": "d3l1-l1-two-arm-20261015-l1v1",
+        "run_id": "d3l1-l1-two-arm-20261016-l1v2",
         "state_binding_sha256": "f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1",
         "watch_derivation": "transitive local-import closure seeded from the L1 formal entry"
       },
@@ -151,7 +151,7 @@
         "ready_check": {
           "legacy_default_probe_used": false,
           "recorded_probe": "immutable L1_READY record",
-          "recorded_published_name": "L1_READY_dcd9686456434341a07e7a4c9f85b0df.json",
+          "recorded_published_name": "L1_READY_39030b9024004e5da764af0341f2db02.json",
           "recorded_ready": true,
           "reprobe_n_records": 1,
           "reprobe_problems": [],
@@ -165,7 +165,7 @@
         "supervision_ok": true,
         "timeline_ok": null,
         "wall_clock_scope": null,
-        "worker_control_wall_s": 7.984000000171363
+        "worker_control_wall_s": 8.093000000109896
       },
       "name": "E4 the full supervised path runs: authorize -> one-shot consume -> execution context -> contained worker -> 64 per-state records -> adjudication with V3 = NOT_RUN, an immutable READY the supervisor actually SAW, and a matched per-state phase journal",
       "ok": true
@@ -196,12 +196,12 @@
       "ok": true
     }
   ],
-  "run_id": "d3l1-l1-two-arm-20261015-l1v1",
-  "runner_sha256": "7ce803dd8f6398b6d4b8ba398bf461cfd5732660c010c9216b6769df8637b620",
+  "run_id": "d3l1-l1-two-arm-20261016-l1v2",
+  "runner_sha256": "284f3cbc32164fc4b8796580e7133df502003fab3d72e6042245d6b18cbd888e",
   "schema": "d3_l1_run_entry_acceptance",
   "science_ready": false,
   "scorer": "SYNTHETIC_SCORER_NOT_F -- this acceptance says nothing about MaskCO or D-Geo",
   "stable_online_gain": false,
-  "tool_sha256": "8d9693a70bb2b7e4431009c4a6f3ace35b17102b4b22d8584331c2799014fc23",
+  "tool_sha256": "4f4c76a4845d46e5fa81eda633723f5a51fccf2b4b355b8068d6b04a9bb857b0",
   "verdict": "L1_RUN_ENTRY_ACCEPTED"
 }

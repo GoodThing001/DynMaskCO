@@ -1,0 +1,106 @@
+L1: new execution pre-registration V2 and a new run id; arm order / shared 10 s confound bounded
+
+Two signing-consistency problems, handled one at a time.  The three engineering
+blockers accepted last round were NOT re-opened and the V1.22 real-F batch was
+NOT re-run.
+
+1. THE PRE-REGISTRATION AND THE EXECUTION IDENTITY NOW AGREE
+
+   V1 §7 registered a 34-path F-ONLY watch set while the V2 signing package
+   froze 42 L1 paths.  A pre-registration that contradicts the identity cannot
+   be the basis of a signature, so a NEW version was created instead of editing
+   the old one.
+
+   * NEW pre-registration
+     A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V2.md
+       sha256 e02b98587682a42f9142104e6798b6e8ef4db4135e9ee0dc0eaf2aa749e449ba
+     §7 is GENERATED from the machine-readable manifest
+       l1_gates/L1_V2_PREREGISTRATION_MANIFEST.json  sha256 eafda3c3...
+     and registers the COMPLETE 42-path list with per-file SHA-256
+     (38 source files + 4 non-source assets), plus
+       source_identity_sha256 6139249946497ac1dde4848cda7531df85446667075fb50c012607c275d05d0c
+       state_binding_sha256   f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1
+       budgets 10 / 60 / 180 s and 128 / 2 / 2, and the single execution command.
+     The document and the manifest name each other by digest, so the PAIR
+     validates itself; re-running build+render+verify reproduces both digests
+     byte-for-byte (checked, not assumed).
+
+   * NEW run id  d3l1-l1-two-arm-20261016-l1v2.  The old id is not reused: the
+     identity, the watch set, the order rule and the pre-registration all
+     changed, so reusing it would present a new execution as the old one.
+
+   * build_l1_identity now PARSES the watch count out of §7 and REFUSES to
+     materialise when it differs from the frozen watch set, so the
+     disagreement that invalidated the V1 pairing cannot recur silently.
+     The identity carries a `preregistration` binding block (version, sha256,
+     superseded-v1 digest, n_watch_registered_here) and the credential gains a
+     `preregistration_version` binding field, so "this signature is issued
+     against THIS pre-registration" is mechanically checked.
+
+   * NEW signing package L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V3.json
+       sha256 1f74d7dcb04334847bda6ed00a96236b6aa14180587c3b01c104b76ccfb17bc1
+     M1-M11 all true, including a new M11 that requires the pre-registration,
+     the identity and the package to be ONE object (same watch count, same
+     source identity digest, same state binding, same budgets, no drift).
+
+2. THE ARM ORDER AND THE SHARED 10 s ALLOWANCE
+
+   The arms run sequentially in the frozen order ('F', 'D-Geo') and share ONE
+   monotonic origin, so the second arm's remaining time is
+   `10.0 s - (what the first arm spent)`.  That is an instrument property.
+
+   * V1 IS ORDER-INVARIANT and is proved so, not asserted: no scorer call
+     precedes the first step, so the second arm has spent nothing and no
+     deadline can have fired.  The counterexample runs the SAME state under two
+     different first arms and finds the same chosen actions and the same
+     first-step legal fingerprints.
+   * V2 CAN BE ORDER-SENSITIVE, and the counterexample pair isolates it: with
+     the state, mask, ordered legal lists, both arms' own costs and both call
+     ceilings held fixed, changing ONLY which arm runs first turns "both
+     complete" into "the second arm times out and falls back to the original
+     plan".
+   * A second, previously unstated consequence is now recorded: when the first
+     arm consumes the whole allowance, the second arm is refused at its FIRST
+     scorer call, so it produces no first step and V1 becomes NOT_COMPARABLE.
+     That is order-driven loss of comparability, not a scorer difference.
+   * MINIMAL FAIRNESS HANDLING, implemented rather than described: a
+     pre-registered interpretation rule plus the deterministic classifier
+     `classify_order_confound`, which labels each state
+     ORDER_ATTRIBUTABLE / ORDER_INDETERMINATE / NOT_ORDER_ATTRIBUTABLE.
+     The adjudication reports the counts and the affected states and states on
+     its face that such a difference "may NOT be read as a scorer mechanism
+     advantage".  No budget is widened, no arm is changed, no formal run is
+     added, and every affected state keeps its record and stays in the
+     64-state denominator.
+
+EVIDENCE (all under .../a1_d3_l1_prereg_root_v1/l1_gates/)
+  L1_ARM_ORDER_ACCEPTANCE.json                10/10
+  L1_SIGN_BLOCKER_ACCEPTANCE.json             21/21 (re-run under the new id)
+  L1_SIGN_BLOCKER_INDEPENDENT_AUDIT.json      21/21 (was 17/17; +R18-R21)
+  L1_SUPERVISED_SYNTHETIC_RUN.json            64/64, READY probe, 1 receipt
+  L1_RUN_ENTRY_ACCEPTANCE.json                5/5
+  L1_V2_PREREGISTRATION_MANIFEST.json         42 watched paths, 0 drift
+  L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V3.json M1-M11 all true
+
+SUPERSEDED, PRESERVED BYTE-INTACT (renamed only, never overwritten)
+  A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V1.md   2e73cac4...
+  L1_FORMAL_EXECUTION_SIGNING_PACKAGE.json             0b9336fa... (already annotated)
+  SUPERSEDED_L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V2_run_l1v1.json  3113d409...
+  SUPERSEDED_L1_SIGNING_IDENTITY_V1_run_l1v1.json
+  SUPERSEDED_L1_SIGN_BLOCKER_ACCEPTANCE_run_l1v1.json
+  SUPERSEDED_L1_SIGN_BLOCKER_INDEPENDENT_AUDIT_run_l1v1.json
+  SUPERSEDED_L1_SUPERVISED_SYNTHETIC_RUN_run_l1v1.json
+  each digest recorded in SUPERSEDED_L1_EVIDENCE_ARCHIVE_NOTE.json
+
+REGRESSION (synthetic only; no real F)
+  two-arm protocol acceptance 10/10 and its independent read-only audit 17/17
+  are unchanged by the protocol edit.
+
+UNCHANGED
+  the research question, the 64 states in original publication order, the two
+  arms, scorer_id as the sole varying factor, V3 = NOT_RUN, the 60/10/180 s and
+  128/2/2 budgets, C0 = NON_BLOCKING_UNRESOLVED, no plan installed, no utility
+  or learning claim.  No human approval field is filled by any tool here.
+
+science_ready = false, stable_online_gain = false, algorithmic_gain_claim = none.
+The real F-D-Geo comparison remains NOT authorised and NOT started.

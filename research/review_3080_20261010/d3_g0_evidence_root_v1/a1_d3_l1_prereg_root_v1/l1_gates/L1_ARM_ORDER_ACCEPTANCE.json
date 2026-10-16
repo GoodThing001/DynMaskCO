@@ -1,0 +1,205 @@
+{
+  "algorithmic_gain_claim": "none",
+  "arm_order": [
+    "F",
+    "D-Geo"
+  ],
+  "n_fail": 0,
+  "n_pass": 10,
+  "n_rows": 10,
+  "not_run": [
+    "the real F-vs-D-Geo comparison",
+    "training",
+    "L2",
+    "L3",
+    "the 40-day batch",
+    "the final test"
+  ],
+  "order_confound_rule": "a state whose ONLY inter-arm difference is a `timeout` on the SECOND arm, while the arms ran in the frozen sequential order under the shared per-state allowance, is classified as ORDER_ATTRIBUTABLE.  Its V2 difference is reported but may NOT be read as a scorer mechanism advantage: the second arm was charged for time it did not spend.  A `timeout` on the FIRST arm is never order-attributable.  Every affected state keeps its record and stays in the 64-state denominator; none is dropped, replaced or re-run.",
+  "protocol_sha256": "1a10e8065d4744df3171cc7a4055657a604c9a8646101e9d546fbe45d87b693a",
+  "rows": [
+    {
+      "detail": {
+        "entry_ARM_ORDER": [
+          "F",
+          "D-Geo"
+        ],
+        "gate_records_shared_origin": true,
+        "l1_run_passes_one_origin_to_both_gates": true,
+        "protocol_ARMS": [
+          "F",
+          "D-Geo"
+        ],
+        "wall_clock_scope": "per_state_both_arms_share_one_10s_allowance"
+      },
+      "name": "O1 the sequential arm order is FROZEN and the L1 run really constructs BOTH gates from ONE monotonic origin",
+      "ok": true
+    },
+    {
+      "detail": {
+        "D_Geo_failure": null,
+        "D_Geo_steps": 2,
+        "F_failure": null,
+        "F_steps": 2,
+        "first_arm": "F",
+        "order": [
+          "F",
+          "D-Geo"
+        ],
+        "second_arm": "D-Geo",
+        "shared_allowance_s": 1.0
+      },
+      "name": "O2 a state where the SECOND arm is cheap: BOTH arms complete (baseline for the pair)",
+      "ok": true
+    },
+    {
+      "detail": {
+        "D_Geo_failure": "timeout",
+        "D_Geo_returned_original_plan": true,
+        "F_failure": null,
+        "first_arm": "F",
+        "order": [
+          "F",
+          "D-Geo"
+        ],
+        "second_arm": "D-Geo",
+        "shared_allowance_s": 1.0,
+        "what_changed_between_O2_and_O3": "ONLY which arm ran first.  The state, the mask, the ordered legal lists, the scorers' own cost and both call ceilings are identical, so O3 is an instrument effect."
+      },
+      "name": "O3 the SAME state with a SLOW FIRST arm and a FAST SECOND arm: the SECOND arm times out -- the second arm paid for time the first arm spent",
+      "ok": true
+    },
+    {
+      "detail": {
+        "both_arms_delivered_a_first_step_in_both_orders": true,
+        "first_step_action_identical_across_orders": true,
+        "first_step_legal_fingerprint_identical_across_orders": true,
+        "loss_of_comparability_case": {
+          "reading": "NOT_COMPARABLE means exactly \"no usable first step existed on both arms\"; it is NOT a difference between the scorers",
+          "second_arm": "D-Geo",
+          "second_arm_failure": "timeout",
+          "second_arm_first_step": null,
+          "verdict": "NOT_COMPARABLE"
+        },
+        "order_D_Geo_then_F": {
+          "D-Geo": true,
+          "F": true
+        },
+        "order_F_then_D_Geo": {
+          "D-Geo": true,
+          "F": true
+        },
+        "why": "a scorer is a pure function of its step state, so the first call either happens or it does not; it is never different because another arm ran earlier"
+      },
+      "name": "O4 V1 is ORDER-INVARIANT when both arms deliver a first step (same chosen action and same first-step legal fingerprint under both orders), and order destroys COMPARABILITY -- not a scorer difference -- when the shared allowance kills the second arm before its first step",
+      "ok": true
+    },
+    {
+      "detail": {
+        "O2_state": "NOT_ORDER_ATTRIBUTABLE",
+        "O3_state": "ORDER_ATTRIBUTABLE",
+        "both_arms_timeout": "ORDER_INDETERMINATE",
+        "rule": "a state whose ONLY inter-arm difference is a `timeout` on the SECOND arm, while the arms ran in the frozen sequential order under the shared per-state allowance, is classified as O..."
+      },
+      "name": "O5 `classify_order_confound` is DETERMINISTIC and separates the three attributions, putting the O3 timeout on the SECOND arm only",
+      "ok": true
+    },
+    {
+      "detail": {
+        "first_arm": "F",
+        "first_arm_timeout": "NOT_ORDER_ATTRIBUTABLE",
+        "second_arm": "D-Geo"
+      },
+      "name": "O6 a `timeout` on the FIRST arm is NOT order-attributable -- nothing had run before it, so the shared allowance cannot have been consumed by anyone else",
+      "ok": true
+    },
+    {
+      "detail": {
+        "V1_verdict_of_the_flagged_state": {
+          "DIVERGENT": 63,
+          "IDENTICAL": 0,
+          "NOT_APPLICABLE_EMPTY_MASK": 0,
+          "NOT_ATTEMPTED": 0,
+          "NOT_COMPARABLE": 1
+        },
+        "clean_run_counts": {
+          "NOT_ORDER_ATTRIBUTABLE": 64,
+          "ORDER_ATTRIBUTABLE": 0,
+          "ORDER_INDETERMINATE": 0
+        },
+        "counts": {
+          "NOT_ORDER_ATTRIBUTABLE": 63,
+          "ORDER_ATTRIBUTABLE": 1,
+          "ORDER_INDETERMINATE": 0
+        },
+        "flagged_state": [
+          {
+            "day_id": 1,
+            "first_arm": "F",
+            "per_arm_failure": {
+              "D-Geo": "timeout",
+              "F": null
+            },
+            "position": 4,
+            "second_arm": "D-Geo"
+          }
+        ],
+        "must_not_be_read_as": "a V2 difference on an ORDER_ATTRIBUTABLE state is NOT evidence that either scorer repairs better or worse; it is a consequence of the sequential order competing for one pre-registered per-state allowance",
+        "status": "ADJUDICATED"
+      },
+      "name": "O7 an order-attributable V2 difference and a genuine mechanism difference are DISTINGUISHED: the state is flagged, its V1 verdict is untouched, and the record says the difference may not be read as a scorer advantage",
+      "ok": true
+    },
+    {
+      "detail": {
+        "denominator": 64,
+        "denominator_is_the_preregistered_list": true,
+        "n_timeout_states": 1,
+        "status": "ADJUDICATED"
+      },
+      "name": "O8 the order-affected state KEEPS its record and stays in the 64-state denominator; it is reported, not removed, and the round is still adjudicable",
+      "ok": true
+    },
+    {
+      "detail": {
+        "counterexample_allowance_s": 1.0,
+        "counterexample_only": "the shortened allowance is a local argument to this harness and is never written into any frozen constant or record",
+        "production_caps": {
+          "batch_wall_clock_s": 180.0,
+          "initialize_compile_s": 60.0,
+          "mask_steps_m": 2,
+          "per_arm_per_state_scorer_calls": 2,
+          "per_arm_total_scorer_calls": 128,
+          "per_state_wall_clock_s": 10.0
+        }
+      },
+      "name": "O9 the frozen 10 / 60 / 180 s and 128 / 2 / 2 are UNCHANGED; only the counterexamples use a SHORTER allowance so a rejection costs a second instead of ten",
+      "ok": true
+    },
+    {
+      "detail": {
+        "adjudication_reads_the_recorded_attribution": true,
+        "call_ceiling_unchanged": 128,
+        "classifier_is_pure": "no time./run_arm/score reference in classify_order_confound",
+        "mechanism": "the rule maps an already-recorded per-state outcome to an attribution; it adds no state, no arm, no repetition and no second opportunity",
+        "no_real_comparison_in_this_file": true
+      },
+      "name": "O10 no extra formal run is created: the classification is a PURE READING RULE over the single recorded run -- it calls no scorer, no arm and no clock",
+      "ok": true
+    }
+  ],
+  "runner_sha256": "284f3cbc32164fc4b8796580e7133df502003fab3d72e6042245d6b18cbd888e",
+  "schema": "d3_l1_l1_arm_order_acceptance",
+  "science_ready": false,
+  "scorer": "SYNTHETIC ONLY: this file runs no real F scorer and no real D-Geo arm and says nothing about MaskCO or D-Geo",
+  "stable_online_gain": false,
+  "tool_sha256": "ddf3b500128cb3cb95c05e137d23c89347bce037f3b5580fab1e4131a2bb5a73",
+  "v1_order_invariance_statement": "V1 compares the first step, and no scorer call precedes it, so the second arm has spent nothing and no deadline can have fired.  V1 is order-invariant by construction, and the O4 counterexample confirms it by running the same state under two different first arms.",
+  "v2_order_sensitivity_statement": "V2 compares per-arm completion, which is exactly what the shared deadline bounds, so a second-arm `timeout` may be caused by the order rather than by the scorer.  O2 and O3 are the counterexample pair: only the identity of the first arm changed.",
+  "verdict": "L1_ARM_ORDER_CONFOUND_BOUNDED",
+  "violations_of_the_claim_rule": {
+    "enforced_by": "classify_order_confound + adjudicate.arm_order (counts, the affected state list and `must_not_be_read_as`)",
+    "forbidden": "reading a V2 difference on an ORDER_ATTRIBUTABLE state as a scorer mechanism advantage"
+  },
+  "wall_clock_scope": "per_state_both_arms_share_one_10s_allowance"
+}

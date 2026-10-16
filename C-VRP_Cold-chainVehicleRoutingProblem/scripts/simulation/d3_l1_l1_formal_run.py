@@ -43,8 +43,16 @@ for _p in ('scripts', 'scripts/simulation', 'scripts/coldchain', 'scripts/data',
 EV = REPO / 'research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1'
 V122_RUN = EV / 'v122_evidence/run_v122'
 L1_GATES = EV / 'l1_gates'
-PREREG = EV / 'A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V1.md'
-RUN_ID = 'd3l1-l1-two-arm-20261015-l1v1'
+# The pre-registration the signature is issued against.  It MUST be the version whose §7 registers
+# the identity this entry actually freezes: V1 registered a 34-path F-ONLY watch set while the frozen
+# identity carries 42 L1 paths, so V1 can no longer be the basis of a signature.  V1 is preserved
+# byte-intact and superseded, never edited.
+PREREG = EV / 'A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V2.md'
+PREREG_VERSION = 'L1-v2'
+PREREG_SUPERSEDES = EV / 'A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V1.md'
+# A NEW run id.  The identity, the watch set, the order-confound rule and the pre-registration all
+# changed, so reusing the old id would present a new execution as the old one.
+RUN_ID = 'd3l1-l1-two-arm-20261016-l1v2'
 
 # The budget the pre-registration fixes.  Carried here as data so the identity, the credential and
 # the runtime all read one source.  These are the FROZEN 60 / 10 / 180 s caps: no fix below changes
@@ -65,6 +73,62 @@ BUDGET = {
 # declared "10 s", which is precisely the inconsistency that had to be removed rather than papered
 # over.  The per-arm CALL bound stays per arm because the pre-registration names it per arm.
 WALL_CLOCK_SCOPE = 'per_state_both_arms_share_one_10s_allowance'
+
+# THE ORDER CONFOUND, PRE-REGISTERED RATHER THAN DISCOVERED LATER.
+#
+# The arms run SEQUENTIALLY in the frozen order (`ARMS`), charged from one origin.  So the SECOND
+# arm's remaining time is `10.0 s - (what the first arm spent)`, and its budget therefore depends on
+# the first arm's COST.  A cheaper first arm leaves the second arm more room; a slower first arm
+# leaves it less.  That is a property of the instrument, not of either scorer, and the classification
+# below is what keeps it from being read as a mechanism difference:
+#
+#   * `V1` (the first-step comparison) is ORDER-INVARIANT BY CONSTRUCTION -- no scorer call happens
+#     before the first step, so the second arm has spent nothing and no deadline can have fired.
+#     V1 can never be order-sensitive, so this rule does not touch the primary verdict at all.
+#   * `V2` (per-arm completion) IS order-sensitive, and only through `timeout` on the SECOND arm.
+#
+# The rule is applied to the RECORDED OUTCOME, by a deterministic function, at adjudication time.  It
+# is not a post-hoc adjustment of any measurement: the measurement is reported unchanged, and what the
+# rule fixes is the INTERPRETATION -- which the pre-registration now states in advance, exactly as the
+# task requires ("不得事后依据结果调整").
+ORDER_CONFOUND_RULE = (
+    'a state whose ONLY inter-arm difference is a `timeout` on the SECOND arm, while the arms ran in '
+    'the frozen sequential order under the shared per-state allowance, is classified as '
+    'ORDER_ATTRIBUTABLE.  Its V2 difference is reported but may NOT be read as a scorer mechanism '
+    'advantage: the second arm was charged for time it did not spend.  A `timeout` on the FIRST arm '
+    'is never order-attributable.  Every affected state keeps its record and stays in the 64-state '
+    'denominator; none is dropped, replaced or re-run.')
+
+# The SEQUENTIAL execution order the protocol freezes (`d3_l1_two_arm_protocol.ARMS`).  Repeated here
+# as a constant because the order is now part of what the pre-registration states, and a record must be
+# readable without importing the protocol.  `blocker_acceptance` asserts the two agree.
+ARM_ORDER = ('F', 'D-Geo')
+
+
+def classify_order_confound(record):
+    """`str`: this state's V2 timing attribution.  Deterministic, computed from the record alone.
+
+    Returns one of:
+      `NOT_ORDER_ATTRIBUTABLE`   no timeout, or the first arm timed out, or the order is unknown;
+      `ORDER_ATTRIBUTABLE`       the second arm timed out and the first did not -- the shared
+                                 allowance consumed by the first arm is a viable cause, so the V2
+                                 difference may not be read as a mechanism difference;
+      `ORDER_INDETERMINATE`      BOTH arms timed out, so the state carries no usable completion
+                                 evidence under this budget and neither arm may be called better.
+    """
+    v2 = record.get('V2') or {}
+    order = v2.get('arm_order') or []
+    failures = record.get('per_arm_failure') or {}
+    if len(order) < 2 or not failures:
+        return 'NOT_ORDER_ATTRIBUTABLE'
+    first, second = order[0], order[1]
+    f_first = failures.get(first) == 'timeout'
+    f_second = failures.get(second) == 'timeout'
+    if f_first and f_second:
+        return 'ORDER_INDETERMINATE'
+    if f_second and not f_first:
+        return 'ORDER_ATTRIBUTABLE'
+    return 'NOT_ORDER_ATTRIBUTABLE'
 
 # The pre-registered denominator.  Every state in the frozen list keeps a record; a state that could
 # not be compared is REPORTED as such and is never deleted from the denominator.
@@ -104,6 +168,22 @@ def load_helpers():
 # ---------------------------------------------------------------------------------------------
 # identity
 # ---------------------------------------------------------------------------------------------
+def _registered_watch_count(prereg_path):
+    """`int | None`: the watch count the pre-registration's §7 STATES, parsed from the document.
+
+    The V2 pre-registration is generated from the identity manifest, so §7 carries the count in a
+    fixed form (`运行期 watch 集 = N 条**（S 个源码文件 + A 项非源码资产）`).  Reading it back here is
+    what turns "the document and the identity agree" into a checked precondition instead of a hope:
+    the identity refuses to materialise when the two numbers differ.
+    """
+    p = Path(prereg_path)
+    if not p.is_file():
+        return None
+    import re
+    m = re.search(r'运行期 watch 集 = (\d+) 条', p.read_text(encoding='utf-8'))
+    return int(m.group(1)) if m else None
+
+
 def build_l1_identity(run_id=RUN_ID, *, created_utc=None):
     """Freeze the L1 run: states, arms, watch set, budgets and the output-directory binding."""
     import d3_l1_closure as l1_closure
@@ -150,11 +230,39 @@ def build_l1_identity(run_id=RUN_ID, *, created_utc=None):
     if critical_missing:
         raise RuntimeError('the L1 watch set omits decision-relevant module(s): %s'
                            % critical_missing)
+    # The pre-registration must be PRESENT and must register the count this identity freezes.  If a
+    # signer is handed a document whose §7 says a different number, the two artifacts disagree and
+    # neither can authorise anything -- so this refuses rather than warning.
+    prereg_sha = sha(PREREG)
+    if prereg_sha is None:
+        raise RuntimeError('the execution pre-registration is absent: %s' % PREREG)
+    prereg_n = _registered_watch_count(PREREG)
+    if prereg_n is None:
+        raise RuntimeError('the pre-registration does not state a watch count in the expected '
+                           'machine-readable form; it cannot be checked against the identity')
+    if prereg_n != len(watch):
+        raise RuntimeError('the pre-registration registers %d watched path(s) but this identity '
+                           'freezes %d; a signature must never be issued across that disagreement'
+                           % (prereg_n, len(watch)))
+    prereg_binding = {
+        'path': str(PREREG.relative_to(REPO)),
+        'sha256': prereg_sha,
+        'version': PREREG_VERSION,
+        'supersedes': {'path': str(PREREG_SUPERSEDES.relative_to(REPO)),
+                       'sha256': sha(PREREG_SUPERSEDES),
+                       'reason': 'V1 §7 registered a 34-path F-ONLY watch set while this identity '
+                                 'freezes the L1 closure; an identity and a pre-registration that '
+                                 'disagree cannot share a signature',
+                       'not_edited': True, 'not_deleted': True},
+        'n_watch_registered_here': prereg_n,
+        'agrees_with_the_frozen_watch_set': prereg_n == len(watch),
+    }
     return {
         'schema': 'd3_l1_l1_run_identity',
         'run_id': run_id,
         'created_utc': created_utc or time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
         'supersedes_nothing': 'this is a NEW artifact; no V1.x run identity is overwritten',
+        'preregistration': prereg_binding,
         'reuses': {'run_id': v122_ident['run_id'],
                    'what': 'the 64 frozen states and the pre-qualified inputs, unchanged',
                    'why': 'L1 asks a mechanism question on the states whose F inputs are already '
@@ -376,7 +484,7 @@ def run_one_state(day, position, *, synthetic=False, scorer_bundle=None, wall_or
             ledger_problems.append({'arm': a, 'per_state_calls': per_arm_calls.get(a, 0),
                                     'cap': BUDGET['per_arm_per_state_scorer_calls']})
     ok_ledger = bool(ok_ledger and not ledger_problems)
-    return {
+    rec = {
         'day_id': day, 'position': position, 'state_hash': entry['state_hash'],
         'status': 'COMPLETED',
         'mask': mask, 'n_mask': len(mask),
@@ -385,6 +493,7 @@ def run_one_state(day, position, *, synthetic=False, scorer_bundle=None, wall_or
         'per_state_wall_clock_s': BUDGET['per_state_wall_clock_s'],
         'wall_clock_scope': WALL_CLOCK_SCOPE,
         'wall_origin_shared_across_arms': True,
+        'arm_order': list(protocol.ARMS),
         'V1': report['V1'], 'V2': report['V2'], 'V3': report['V3'],
         'audit': report['audit'],
         'ledger_cross_check': ledger_report, 'ledger_ok': ok_ledger,
@@ -396,6 +505,10 @@ def run_one_state(day, position, *, synthetic=False, scorer_bundle=None, wall_or
         'replay_digest': protocol.replay_digest(report),
         'synthetic': bool(synthetic),
     }
+    # the order/timing attribution is part of the RECORD, not a reading added later
+    rec['v2_order_attribution'] = classify_order_confound(rec)
+    rec['order_confound_rule'] = ORDER_CONFOUND_RULE
+    return rec
 
 
 def blank_state_record(day, position, *, state_hash=None, status, synthetic=False, **extra):
@@ -414,6 +527,7 @@ def blank_state_record(day, position, *, state_hash=None, status, synthetic=Fals
            'V2': {'both_completed': False, 'F': {'full_repair_completed': False},
                   'D-Geo': {'full_repair_completed': False}},
            'V3': {'verdict': 'NOT_RUN', 'reason': 'no certifier, no install'},
+           'arm_order': None, 'v2_order_attribution': 'NOT_ORDER_ATTRIBUTABLE',
            'audit': None, 'ledger_cross_check': {'n_calls': 0, 'per_arm_calls': {},
                                                  'problems': [], 'note': 'no scoring took place'},
            'ledger_ok': False, 'ledger_problems': [{'reason': 'no ledger: the state never scored'}],
@@ -511,6 +625,45 @@ def adjudicate(records, *, synthetic=False, expected_states=EXPECTED_STATES):
         'V2_counts': {'both_completed': both_complete, 'per_arm_completed': per_arm_complete,
                       'failures_by_reason': failures},
         'V3': 'NOT_RUN for every state (no certifier was supplied; no plan was installed)',
+        # ---- the arm-order / shared-allowance confound, reported and bounded -------------------
+        'arm_order': {'order': list(ARM_ORDER),
+                      'wall_clock_scope': WALL_CLOCK_SCOPE,
+                      'wall_clock_scope_s': BUDGET['per_state_wall_clock_s'],
+                      'consequence': 'the SECOND arm is charged for the time the FIRST arm spent, so '
+                                     'its remaining allowance is `10.0 s - first_arm_cost`',
+                      'rule': ORDER_CONFOUND_RULE,
+                      'v1_is_order_invariant': (
+                          'V1 compares the FIRST step, and no scorer call happens before it, so the '
+                          'second arm has spent nothing and no deadline can have fired.  V1 therefore '
+                          'cannot be order-sensitive and no V2 order effect can reach it.'),
+                      'v2_can_be_order_sensitive': (
+                          'V2 compares per-arm completion, which is exactly what the shared deadline '
+                          'bounds, so a second-arm `timeout` may be caused by the order rather than '
+                          'by the scorer'),
+                      'counts': {
+                          'ORDER_ATTRIBUTABLE': sum(
+                              1 for r in records
+                              if r.get('v2_order_attribution') == 'ORDER_ATTRIBUTABLE'),
+                          'ORDER_INDETERMINATE': sum(
+                              1 for r in records
+                              if r.get('v2_order_attribution') == 'ORDER_INDETERMINATE'),
+                          'NOT_ORDER_ATTRIBUTABLE': sum(
+                              1 for r in records
+                              if r.get('v2_order_attribution') == 'NOT_ORDER_ATTRIBUTABLE')},
+                      'order_attributable_states': [
+                          {'day_id': r['day_id'], 'position': r['position'],
+                           'first_arm': ARM_ORDER[0], 'second_arm': ARM_ORDER[1],
+                           'per_arm_failure': r.get('per_arm_failure')}
+                          for r in records
+                          if r.get('v2_order_attribution') == 'ORDER_ATTRIBUTABLE'],
+                      'must_not_be_read_as': (
+                          'a V2 difference on an ORDER_ATTRIBUTABLE state is NOT evidence that either '
+                          'scorer repairs better or worse; it is a consequence of the sequential order '
+                          'competing for one pre-registered per-state allowance'),
+                      'no_state_is_removed': (
+                          'every state affected by the order keeps its record and stays in the '
+                          '64-state denominator; nothing is dropped, replaced or re-run, and no '
+                          'forbidden retrospective adjustment is applied to any measurement')},
         'all_ledgers_cross_checked': not ledgers_bad,
         'ledgers_not_cross_checked': ledgers_bad,
         'single_factor_failures': identity_bad,
@@ -555,6 +708,7 @@ def authorization_identity_view(ident):
         'state_binding_sha256': ident['state_binding_sha256'],
         'dependency_identity_sha256': ident['dependency_identity_sha256'],
         'watch': ident.get('watch') or {},
+        'preregistration': ident.get('preregistration'),
         'call_schedule': {'warmup_calls': 1,
                           'calls_per_state': BUDGET['per_arm_per_state_scorer_calls'],
                           'max_forward_calls': BUDGET['per_arm_total_scorer_calls']},

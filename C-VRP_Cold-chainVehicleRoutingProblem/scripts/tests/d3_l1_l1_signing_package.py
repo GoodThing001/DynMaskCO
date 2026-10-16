@@ -54,12 +54,21 @@ L1 = EV / 'l1_gates'
 RUN_V122 = V122 / 'run_v122'
 
 # The L1 identity is materialised under its own name so a v1 package is never overwritten in place.
-RUN_ID = 'd3l1-l1-two-arm-20261015-l1v1'
-L1_IDENTITY_FILE = L1 / 'L1_SIGNING_IDENTITY_V1.json'
+RUN_ID = 'd3l1-l1-two-arm-20261016-l1v2'
+PREREG_V2 = EV / 'A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V2.md'
+PREREG_V1 = EV / 'A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V1.md'
+L1_IDENTITY_FILE = L1 / 'L1_SIGNING_IDENTITY_V2.json'
+L1_MANIFEST_FILE = L1 / 'L1_V2_PREREGISTRATION_MANIFEST.json'
 L1_BLOCKER_ACCEPTANCE_FILE = L1 / 'L1_SIGN_BLOCKER_ACCEPTANCE.json'
+L1_ORDER_ACCEPTANCE_FILE = L1 / 'L1_ARM_ORDER_ACCEPTANCE.json'
 L1_AUDIT_FILE = L1 / 'L1_SIGN_BLOCKER_INDEPENDENT_AUDIT.json'
 L1_SYNTHETIC_FILE = L1 / 'L1_SUPERVISED_SYNTHETIC_RUN.json'
-OLD_PACKAGE_FILE = L1 / 'L1_FORMAL_EXECUTION_SIGNING_PACKAGE.json'
+L1_RUN_ENTRY_FILE = L1 / 'L1_RUN_ENTRY_ACCEPTANCE.json'
+OLD_PACKAGE = L1 / 'L1_FORMAL_EXECUTION_SIGNING_PACKAGE.json'
+V2_PACKAGE = L1 / 'L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V2.json'
+V3_PACKAGE = L1 / 'L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V3.json'
+INVALIDATION = L1 / 'L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V1_INVALIDATION.json'
+PREREG_BUILDER = EXT / 'scripts/tests/d3_l1_l1_prereg_v2.py'
 
 
 def sha(path):
@@ -147,12 +156,37 @@ def l1_identity():
     module = importlib.util.module_from_spec(spec)
     sys.modules['l1_entry_for_signing'] = module
     spec.loader.exec_module(module)
-    ident = module.build_l1_identity(RUN_ID, created_utc='2026-10-15T00:00:00Z')
+    ident = module.build_l1_identity(RUN_ID, created_utc='2026-10-16T00:00:00Z')
     # a stable, on-disk copy of exactly the object the freeze uses, so the signer can read it back
     L1_IDENTITY_FILE.parent.mkdir(parents=True, exist_ok=True)
     L1_IDENTITY_FILE.write_text(json.dumps(ident, indent=2, sort_keys=True, default=repr),
                                 encoding='utf-8')
     return ident, module
+
+
+def source_identity_of(watch):
+    """The code binding, from the ONE module that defines it (d3_l1_v118_authorization).
+
+    Re-implementing this digest here would let the package and the credential disagree about what the
+    code binding IS while both looked correct, so it is imported rather than duplicated.
+    """
+    import d3_l1_v118_authorization as _auth
+    return _auth.source_identity_sha256({'watch': watch})
+
+
+def prereg_manifest():
+    """Re-derive the pre-registration manifest and report whether the document still agrees.
+
+    The manifest is GENERATED from the identity and the document is generated from the manifest, so a
+    disagreement here means one of the three was edited without the others -- which is exactly the
+    state a signature must never be issued from.
+    """
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('l1_prereg_builder', str(PREREG_BUILDER))
+    builder = importlib.util.module_from_spec(spec)
+    sys.modules['l1_prereg_builder'] = builder
+    spec.loader.exec_module(builder)
+    return load(L1_MANIFEST_FILE) or {}, builder, builder.verify()
 
 
 def blocker_acceptance():
@@ -172,6 +206,7 @@ def mechanical_acceptance(check_only=False):
 
     # THE L1 IDENTITY AND ITS DERIVED CLOSURE -- not the F-forward one
     ident, entry = l1_identity()
+    manifest, _builder, manifest_problems = prereg_manifest()
     watch = ident['watch']
     closure_info = l1_closure.build_watch_set()
     cc_ok, cc = l1_closure.cross_check_watch_set(list(watch))
@@ -318,7 +353,62 @@ def mechanical_acceptance(check_only=False):
                    'frozen_caps_unchanged': ident['budget'],
                    'budget_derivation_source': budget['source'],
                    'budget_derivation_gaps': budget['gaps']}}
-    return checks, ident, entry, closure_info, cc, fwd, blockers, audit, synthetic, budget, adj, states
+    # M11 -- TASK 1.  The pre-registration, the identity and this package must be ONE consistent
+    # object.  M7 could not catch a document that registers a DIFFERENT watch set from the one the
+    # identity freezes, and that disagreement is exactly what invalidated the V1 pairing.
+    order_acc = load(L1_ORDER_ACCEPTANCE_FILE) or {}
+    o_rows = order_acc.get('results', {}) if isinstance(order_acc.get('results'), dict) else {}
+    m11_ok = bool(manifest and not manifest_problems
+                  and manifest.get('n_watch_total') == len(ident['watch'])
+                  and manifest.get('source_identity_sha256')
+                  == source_identity_of(ident['watch'])
+                  and manifest.get('state_binding_sha256') == ident['state_binding_sha256']
+                  and manifest.get('budget') == ident['budget']
+                  and ident['preregistration']['sha256'] == sha(PREREG_V2)
+                  and ident['preregistration']['version'] == entry.PREREG_VERSION
+                  and ident['preregistration']['agrees_with_the_frozen_watch_set'] is True
+                  and ident['preregistration']['supersedes']['sha256'] == sha(PREREG_V1)
+                  and entry.PREREG.resolve() == PREREG_V2.resolve())
+    checks['M11_preregistration_identity_and_package_are_one_object'] = {
+        'ok': m11_ok,
+        'detail': {
+            'preregistration': {'path': str(PREREG_V2.relative_to(REPO)), 'version': entry.PREREG_VERSION,
+                                'sha256': sha(PREREG_V2),
+                                'run_id': RUN_ID,
+                                'n_watch_registered_in_§7': ident['preregistration']
+                                ['n_watch_registered_here']},
+            'superseded': {'path': str(PREREG_V1.relative_to(REPO)), 'sha256': sha(PREREG_V1),
+                           'bytes_intact': (sha(PREREG_V1)
+                                            == ident['preregistration']['supersedes']['sha256']),
+                           'reason': ident['preregistration']['supersedes']['reason']},
+            'identity_agrees': {
+                'n_watch_frozen': len(ident['watch']),
+                'n_watch_registered': ident['preregistration']['n_watch_registered_here'],
+                'agrees': ident['preregistration']['agrees_with_the_frozen_watch_set'],
+                'source_identity_sha256': manifest.get('source_identity_sha256'),
+                'source_identity_sha256_from_live_watch':
+                    source_identity_of(ident['watch']),
+                'state_binding_sha256': manifest.get('state_binding_sha256'),
+                'budget': manifest.get('budget')},
+            'manifest': {'path': str(L1_MANIFEST_FILE.relative_to(REPO)),
+                         'sha256': sha(L1_MANIFEST_FILE),
+                         'n_watch_total': manifest.get('n_watch_total'),
+                         'n_drifted_at_gate_time': manifest.get('n_drifted'),
+                         'problems': manifest_problems[:6]},
+            'entry_refuses_on_disagreement': (
+                'build_l1_identity parses the count out of §7 and RAISES when it differs from the '
+                'frozen watch set, so the disagreement cannot be materialised at all'),
+            'pre_fix_state': 'the V1 pre-registration registered 34 F-only paths while the identity '
+                             'froze 42 L1 paths, and nothing compared the two',
+            'budget_unchanged': ident['budget'],
+            'arm_order': {'order': list(entry.ARM_ORDER), 'wall_clock_scope': entry.WALL_CLOCK_SCOPE,
+                          'acceptance_verdict': order_acc.get('verdict'),
+                          'acceptance_n_pass': order_acc.get('n_pass'),
+                          'acceptance_n_fail': order_acc.get('n_fail')},
+            'order_confound_rule': entry.ORDER_CONFOUND_RULE,
+        }}
+    return (checks, ident, entry, closure_info, cc, fwd, blockers, audit, synthetic, budget, adj,
+            states, manifest, order_acc, manifest_problems)
 
 
 def main():
@@ -331,13 +421,13 @@ def main():
                          'never written at the signable path')
     args = ap.parse_args()
     (checks, ident, entry, closure_info, cc, fwd, blockers, audit, synthetic, budget,
-     adj, states) = mechanical_acceptance()
+     adj, states, manifest, order_acc, manifest_problems) = mechanical_acceptance()
     gates = {k: v['ok'] for k, v in checks.items()}
     ok = all(gates.values())
 
     package = {
         'schema': 'd3_l1_l1_formal_execution_preregistration_and_signing_package',
-        'package_version': 'L1_V2',
+        'package_version': 'L1_V3',
         'run_id': RUN_ID,
         '1_state_source': {
             'reuse': 'the 64 frozen V1.9 dev_check states, LEDGER PUBLICATION ORDER, unchanged',
@@ -422,10 +512,45 @@ def main():
             'critical_l1_sources': list(l1_closure.critical_l1_sources()),
             'state_binding_sha256': ident['state_binding_sha256'],
             'forward_targets_sha256': ident['forward_targets_sha256'],
+            'source_identity_sha256': source_identity_of(ident['watch']),
+            'preregistration': ident['preregistration'],
             'drift_at_package_time': [p for p, want in ident['watch'].items() if sha(p) != want],
             'live_recheck': ('the supervisor authorises over a LIVE re-derivation of every watched '
                              'path, so drift detected at consumption time refuses the credential '
                              'BEFORE the one-shot opportunity is spent'),
+        },
+        '6b_preregistration_manifest': {
+            'file': str(L1_MANIFEST_FILE.relative_to(REPO)),
+            'sha256': sha(L1_MANIFEST_FILE),
+            'n_watch_total': manifest.get('n_watch_total'),
+            'n_watch_source': manifest.get('n_watch_source'),
+            'n_watch_non_source_assets': manifest.get('n_watch_non_source_assets'),
+            'source_identity_sha256': manifest.get('source_identity_sha256'),
+            'state_binding_sha256': manifest.get('state_binding_sha256'),
+            'budget': manifest.get('budget'),
+            'verify_problems': manifest_problems,
+            'generated_from': 'the frozen identity; the V2 pre-registration markdown is generated '
+                              'FROM this manifest, so the document and the identity cannot disagree',
+        },
+        '6c_arm_order_and_shared_allowance': {
+            'arm_order': list(entry.ARM_ORDER),
+            'wall_clock_scope': entry.WALL_CLOCK_SCOPE,
+            'order_confound_rule': entry.ORDER_CONFOUND_RULE,
+            'v1_is_order_invariant': True,
+            'v1_order_invariance_basis': (
+                'V1 compares the FIRST step and no scorer call precedes it, so the second arm has '
+                'spent nothing and no deadline can have fired; counterexample row O4 re-runs the same '
+                'state under both orders and finds the same chosen actions and the same first-step '
+                'legal fingerprints'),
+            'v2_can_be_order_sensitive': True,
+            'fairness_handling': (
+                'the minimal handling is the PRE-REGISTERED interpretation rule plus the mechanical '
+                '`classify_order_confound` classifier.  No budget is widened, no arm is changed, no '
+                'formal run is added, and every affected state stays in the 64-state denominator.'),
+            'acceptance': {'file': str(L1_ORDER_ACCEPTANCE_FILE.relative_to(REPO)),
+                           'sha256': sha(L1_ORDER_ACCEPTANCE_FILE),
+                           'verdict': order_acc.get('verdict'),
+                           'n_pass': order_acc.get('n_pass'), 'n_fail': order_acc.get('n_fail')},
         },
         '7_mechanical_acceptance': checks,
         'signature_scope': {
@@ -458,15 +583,37 @@ def main():
         'evidence': {
             'l1_identity': {'file': str(L1_IDENTITY_FILE.relative_to(REPO)),
                             'sha256': sha(L1_IDENTITY_FILE)},
+            'preregistration': {'file': str(PREREG_V2.relative_to(REPO)),
+                                'sha256': sha(PREREG_V2), 'version': entry.PREREG_VERSION,
+                                'superseded_v1': {'file': str(PREREG_V1.relative_to(REPO)),
+                                                  'sha256': sha(PREREG_V1), 'bytes_intact': True}},
+            'arm_order_acceptance': {'file': str(L1_ORDER_ACCEPTANCE_FILE.relative_to(REPO)),
+                                     'sha256': sha(L1_ORDER_ACCEPTANCE_FILE),
+                                     'verdict': order_acc.get('verdict'),
+                                     'n_pass': order_acc.get('n_pass'),
+                                     'n_fail': order_acc.get('n_fail')},
             'blocker_acceptance': {'file': str(L1_BLOCKER_ACCEPTANCE_FILE.relative_to(REPO)),
                                    'sha256': sha(L1_BLOCKER_ACCEPTANCE_FILE),
                                    'verdict': blockers.get('verdict'),
                                    'n_pass': blockers.get('n_pass'), 'n_fail': blockers.get('n_fail'),
                                    'tool_sha256': blockers.get('tool_sha256')},
+            # NAMING THE ACHIEVABLE BINDING.  The package and the audit would otherwise each embed the
+            # other's rendered digest, which has NO fixed point: changing one changes the other.  The
+            # binding that carries meaning is the pre-registration pair plus the audit's own
+            # canonical content, so the audit is bound by verdict / row counts / tool digest, and the
+            # rendered artifact digest is recorded as `sha256_at_build` -- labelled a snapshot, never
+            # presented as an equality a reader could check and find broken.
             'independent_audit': {'file': str(L1_AUDIT_FILE.relative_to(REPO)),
-                                  'sha256': sha(L1_AUDIT_FILE),
+                                  'sha256_at_build': sha(L1_AUDIT_FILE),
+                                  'binding': 'canonical content, not the rendered file digest',
                                   'verdict': audit.get('verdict'), 'n_pass': audit.get('n_pass'),
-                                  'n_fail': audit.get('n_fail')},
+                                  'n_fail': audit.get('n_fail'),
+                                  'tool_sha256': audit.get('tool_sha256'),
+                                  'n_rows': audit.get('n_rows'),
+                                  'why_not_the_file_digest': 'the audit READS this package, so binding '
+                                                             'the package to the audit file digest '
+                                                             'and the audit to the package digest is '
+                                                             'a cycle with no fixed point'},
             'run_entry_acceptance': {
                 'file': 'l1_gates/L1_RUN_ENTRY_ACCEPTANCE.json',
                 'sha256': sha(L1 / 'L1_RUN_ENTRY_ACCEPTANCE.json'),
@@ -485,8 +632,8 @@ def main():
                                   'it makes no L1 divergence claim'},
         },
         'superseded': {
-            'invalidated_package': str(OLD_PACKAGE_FILE.relative_to(REPO)),
-            'invalidated_sha256': sha(OLD_PACKAGE_FILE),
+            'invalidated_package': str(OLD_PACKAGE.relative_to(REPO)),
+            'invalidated_sha256': sha(OLD_PACKAGE),
             'reason': 'three sign-blocking defects were found in independent source review and are '
                       'fixed in this package: (A) M7 gated on the F-FORWARD closure, so it read PASS '
                       'while l1_sources_in_closure was empty and none of the L1 decision modules was '
@@ -496,21 +643,35 @@ def main():
                       'before adjudication, silently shrinking the 64-state denominator',
             'not_deleted': 'the invalidated package is left BYTE-INTACT; this package supersedes it '
                            'explicitly instead of overwriting it',
+            'v2_package': {'path': str(V2_PACKAGE.relative_to(REPO)), 'sha256': sha(V2_PACKAGE),
+                           'status': 'superseded by THIS package: V2 was built under the OLD run id '
+                                     'and bound to the V1 pre-registration, whose §7 registered a '
+                                     '34-path F-only watch set that contradicts the 42-path identity '
+                                     'it was gating.  V2 is byte-intact and is NOT overwritten.',
+                           'bytes_intact': True},
+            'pre_registration_v1': {'path': str(PREREG_V1.relative_to(REPO)),
+                                    'sha256': sha(PREREG_V1), 'bytes_intact': True,
+                                    'status': 'superseded by the V2 pre-registration; §7 registered a '
+                                              '34-path F-only watch set'},
         },
         'execution_command': (
             'python scripts/simulation/d3_l1_l1_formal_run.py --supervise '
             '--out-dir <frozen L1 run directory> '
             '--authorization <signed credential> --preregistration '
-            '<A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V1.md>'),
+            'research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/'
+            'A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V2.md'),
         'conclusions_this_can_support': [
             'whether F and D-Geo produce different FIRST-STEP actions on the same ordered legal list',
-            'per arm, whether a complete repair was produced (uncertified)',
-            'the failure/empty-pool/timeout distribution, with every state kept in the denominator'],
+            'per arm, whether a complete repair was produced (uncertified), WITH the order/shared-'
+            'allowance attribution that separates a mechanism difference from an instrument effect',
+            'the failure/empty-pool/timeout distribution, with every state kept in the denominator',
+            'how many states are ORDER_ATTRIBUTABLE / ORDER_INDETERMINATE / NOT_ORDER_ATTRIBUTABLE'],
         'conclusions_this_cannot_support': [
             'that either repair was CERTIFIABLE (V3 is NOT_RUN)',
             'any decision-quality or online-utility difference',
             'any significance, learning contribution or MaskCO claim',
-            'any statement about the historical training backbone'],
+            'any statement about the historical training backbone',
+            'reading a V2 difference on an ORDER_ATTRIBUTABLE state as a scorer mechanism advantage'],
         'all_gates_pass': ok,
         'blocking_gates': [k for k, v in gates.items() if not v],
         'not_run': ['the L1 comparison itself', 'training', 'L2', 'L3', 'the 40-day batch',

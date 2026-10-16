@@ -59,7 +59,8 @@ CONSUMPTION_SCHEMA = 'd3_l1_authorization_consumption_v1'
 # directory -- and NOT ONE BYTE of the code that would execute.  A module edited after the freeze
 # therefore validated and the one-shot opportunity was still consumed for a program nobody approved.
 BINDING_FIELDS = (
-    'run_id', 'preregistration_sha256', 'f_ckpt_sha256', 'backbone_sha256', 'data_sha256',
+    'run_id', 'preregistration_version', 'preregistration_sha256',
+    'f_ckpt_sha256', 'backbone_sha256', 'data_sha256',
     'profile_file_sha256', 'profile_hash', 'effective_contract_hash', 'state_binding_sha256',
     'state_order_sha256', 'forward_targets_sha256', 'dependency_identity_sha256',
     'source_identity_sha256',
@@ -153,6 +154,9 @@ def build_template(identity, forward_targets, *, preregistration_sha256, output_
     return {
         'schema': CREDENTIAL_SCHEMA,
         'run_id': run_id or identity['run_id'],
+        # the pre-registration version AND its digest: the credential names which pre-registration it
+        # is issued against, so a signature can never drift onto a later or earlier version
+        'preregistration_version': (identity.get('preregistration') or {}).get('version'),
         'preregistration_sha256': preregistration_sha256,
         'f_ckpt_sha256': identity['identities']['f_ckpt']['sha256'],
         'backbone_sha256': identity['identities']['backbone']['sha256'],
@@ -210,6 +214,7 @@ def validate_credential(credential, *, identity, forward_targets, output_dir, pr
     sched = identity['call_schedule']
     expected = {
         'run_id': identity['run_id'],
+        'preregistration_version': (identity.get('preregistration') or {}).get('version'),
         'preregistration_sha256': preregistration_sha256,
         'f_ckpt_sha256': identity['identities']['f_ckpt']['sha256'],
         'backbone_sha256': identity['identities']['backbone']['sha256'],

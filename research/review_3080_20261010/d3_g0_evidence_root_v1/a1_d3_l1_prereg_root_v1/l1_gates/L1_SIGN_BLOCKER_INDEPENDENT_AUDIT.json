@@ -2,12 +2,12 @@
   "algorithmic_gain_claim": "none",
   "artifacts_read": {
     "C-VRP_Cold-chainVehicleRoutingProblem/scripts/data/d3_l1_closure.py": "32f80a20eb3fd12fa3682b9e4b0ca8314450e31f6e97fc60763ca79bf6a30a73",
-    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_l1_l1_formal_run.py": "7ce803dd8f6398b6d4b8ba398bf461cfd5732660c010c9216b6769df8637b620",
-    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_l1_two_arm_protocol.py": "6d539b555bd0fd79fbc7de15b72bbe0ca51e32bc6fcdac73c14966d32fc4693a",
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_l1_l1_formal_run.py": "284f3cbc32164fc4b8796580e7133df502003fab3d72e6042245d6b18cbd888e",
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_l1_two_arm_protocol.py": "1a10e8065d4744df3171cc7a4055657a604c9a8646101e9d546fbe45d87b693a",
     "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/l1_gates/L1_FORMAL_EXECUTION_SIGNING_PACKAGE.json": "0b9336fa8036a47fdeb50e4e4394bf90a2cd3d10edd8d5e670616afe81988cfe",
     "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/l1_gates/L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V1_INVALIDATION.json": "5877183919ff9fe9d35c7e1f50125acaf8cbe9e0e609713224d6c03a590221cc",
-    "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/l1_gates/L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V2.json": "3113d409bd95b47a2ed7d176f881451ce9b132f7a8c4ed7a040652924c12c056",
-    "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/l1_gates/L1_SIGN_BLOCKER_ACCEPTANCE.json": "79df7bc984ac80a98d6d86e692b8091277bebf508d3716593ff3de71654d53fc"
+    "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/l1_gates/L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V3.json": "1f74d7dcb04334847bda6ed00a96236b6aa14180587c3b01c104b76ccfb17bc1",
+    "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/l1_gates/L1_SIGN_BLOCKER_ACCEPTANCE.json": "02a85b65502e5d45e747fe4075373cd2d5d097347e864fe0f776692443e1c52f"
   },
   "expected_rows": [
     "R1 closure_module_seeds_the_l1_entry",
@@ -26,12 +26,16 @@
     "R14 counterexamples_really_exercised_drift",
     "R15 package_gates_on_the_l1_closure",
     "R16 invalidated_v1_package_intact_and_annotated",
-    "R17 audit_imports_none_of_the_modules_under_test"
+    "R17 audit_imports_none_of_the_modules_under_test",
+    "R18 preregistration_registers_the_frozen_watch_set",
+    "R19 preregistration_identity_and_package_are_one_object",
+    "R20 v1_preregistration_and_v2_package_archived_byte_intact",
+    "R21 arm_order_confound_is_bounded_and_classified"
   ],
   "independence": "imports none of: d3_l1_l1_formal_run, d3_l1_two_arm_protocol, d3_l1_real_arm, d3_geo_adapter, d3_l1_closure, d3_l1_v121_dependency_closure, d3_l1_v116_forward_control, d3_l1_v118_authorization",
   "n_fail": 0,
-  "n_pass": 17,
-  "n_rows": 17,
+  "n_pass": 21,
+  "n_rows": 21,
   "not_run": [
     "the L1 comparison itself",
     "training",
@@ -115,7 +119,7 @@
               "slot_cap",
               "tail_publisher"
             ],
-            "lineno": 900,
+            "lineno": 1054,
             "n_args": 3
           }
         ]
@@ -161,12 +165,12 @@
           {
             "arg_src": "records",
             "is_bare_records": true,
-            "line": 804
+            "line": 958
           },
           {
             "arg_src": "records",
             "is_bare_records": true,
-            "line": 942
+            "line": 1096
           }
         ],
         "failed_exception_filter_in_adjudicate": false,
@@ -225,8 +229,8 @@
         "n_fail": 0,
         "n_pass": 21,
         "n_rows": 21,
-        "runner_sha256": "7ce803dd8f6398b6d4b8ba398bf461cfd5732660c010c9216b6769df8637b620",
-        "tool_sha256": "46fdd51dc267667562ce03b8ff1489b2f16a8910cf08f0b265a5484bc6252af3",
+        "runner_sha256": "284f3cbc32164fc4b8796580e7133df502003fab3d72e6042245d6b18cbd888e",
+        "tool_sha256": "dc94eb467e6d2187ed80c023208b78dfff97a466a37b13269f22e862fe8803d9",
         "verdict": "L1_SIGN_BLOCKERS_CLOSED"
       },
       "name": "R13 blocker_acceptance_closed",
@@ -269,12 +273,12 @@
         "m7_n_watch_paths": 42,
         "m7_ok": true,
         "package_is_blocked_diagnostic_copy": false,
-        "package_read": "research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V2.json",
-        "package_sha256": "3113d409bd95b47a2ed7d176f881451ce9b132f7a8c4ed7a040652924c12c056",
-        "package_version": "L1_V2",
+        "package_read": "research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V3.json",
+        "package_sha256": "1f74d7dcb04334847bda6ed00a96236b6aa14180587c3b01c104b76ccfb17bc1",
+        "package_version": "L1_V3",
         "package_written_at_the_signable_path": true,
         "pre_fix": "M7 read PASS with l1_sources_in_closure == [] and n_watch_paths == 34",
-        "run_id": "d3l1-l1-two-arm-20261015-l1v1"
+        "run_id": "d3l1-l1-two-arm-20261016-l1v2"
       },
       "name": "R15 package_gates_on_the_l1_closure",
       "ok": true
@@ -313,11 +317,150 @@
       },
       "name": "R17 audit_imports_none_of_the_modules_under_test",
       "ok": true
+    },
+    {
+      "detail": {
+        "complete_rows_present_in_the_document": 42,
+        "manifest_verify_problems": [],
+        "n_watch_non_source_assets": 4,
+        "n_watch_source": 38,
+        "pre_fix_state": "V1 \u00a77 registered 34 F-only paths against a 42-path identity",
+        "preregistration": "research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V2.md",
+        "preregistration_sha256": "e02b98587682a42f9142104e6798b6e8ef4db4135e9ee0dc0eaf2aa749e449ba",
+        "run_id": "d3l1-l1-two-arm-20261016-l1v2",
+        "state_binding_sha256": "f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1",
+        "watch_count_in_manifest": 42,
+        "watch_count_parsed_from_\u00a77": 42
+      },
+      "name": "R18 preregistration_registers_the_frozen_watch_set",
+      "ok": true
+    },
+    {
+      "detail": {
+        "all_gates_pass": true,
+        "drift_at_package_time": [],
+        "m11_ok": true,
+        "manifest_verify_problems": [],
+        "package": "research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V3.json",
+        "package_version": "L1_V3",
+        "preregistration_sha256_in_package": "e02b98587682a42f9142104e6798b6e8ef4db4135e9ee0dc0eaf2aa749e449ba",
+        "preregistration_sha256_on_disk": "e02b98587682a42f9142104e6798b6e8ef4db4135e9ee0dc0eaf2aa749e449ba",
+        "run_id": "d3l1-l1-two-arm-20261016-l1v2",
+        "source_identity_sha256_in_manifest": "6139249946497ac1dde4848cda7531df85446667075fb50c012607c275d05d0c",
+        "source_identity_sha256_in_package": "6139249946497ac1dde4848cda7531df85446667075fb50c012607c275d05d0c",
+        "state_binding_sha256": "f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1",
+        "watch_paths": 42
+      },
+      "name": "R19 preregistration_identity_and_package_are_one_object",
+      "ok": true
+    },
+    {
+      "detail": {
+        "archive_note": "research\\review_3080_20261010\\d3_g0_evidence_root_v1\\a1_d3_l1_prereg_root_v1\\l1_gates\\SUPERSEDED_L1_EVIDENCE_ARCHIVE_NOTE.json",
+        "archived_files": [
+          {
+            "file": "SUPERSEDED_L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V2_run_l1v1.json",
+            "ok": true,
+            "present": true,
+            "sha256_now": "3113d409bd95b47a2ed7d176f881451ce9b132f7a8c4ed7a040652924c12c056",
+            "sha256_recorded": "3113d409bd95b47a2ed7d176f881451ce9b132f7a8c4ed7a040652924c12c056"
+          },
+          {
+            "file": "SUPERSEDED_L1_SIGNING_IDENTITY_V1_run_l1v1.json",
+            "ok": true,
+            "present": true,
+            "sha256_now": "1fd0e6ac636f2c7ca6ecbfd711dae8d530972d7893b86380381e969b27015181",
+            "sha256_recorded": null
+          },
+          {
+            "file": "SUPERSEDED_L1_SIGN_BLOCKER_ACCEPTANCE_run_l1v1.json",
+            "ok": true,
+            "present": true,
+            "sha256_now": "79df7bc984ac80a98d6d86e692b8091277bebf508d3716593ff3de71654d53fc",
+            "sha256_recorded": null
+          },
+          {
+            "file": "SUPERSEDED_L1_SIGN_BLOCKER_INDEPENDENT_AUDIT_run_l1v1.json",
+            "ok": true,
+            "present": true,
+            "sha256_now": "b5a194b7dccf34159a94bf8cae8f6d6325d7ea8491dff4d1a7a4a94e6cf6bd65",
+            "sha256_recorded": null
+          },
+          {
+            "file": "SUPERSEDED_L1_SUPERVISED_SYNTHETIC_RUN_run_l1v1.json",
+            "ok": true,
+            "present": true,
+            "sha256_now": "8a74364d6f5d23a07e9437acc9d952dc6c225534d559f1230454b8222c407fd2",
+            "sha256_recorded": null
+          }
+        ],
+        "invalidation_record_records_it": true,
+        "original_v1_package_sha256": "0b9336fa8036a47fdeb50e4e4394bf90a2cd3d10edd8d5e670616afe81988cfe",
+        "preregistration_v1_expected": "2e73cac4787b3ba4092d8cd4546332d2b63514724163cba5e1ba1a19dd82c54e",
+        "preregistration_v1_sha256": "2e73cac4787b3ba4092d8cd4546332d2b63514724163cba5e1ba1a19dd82c54e",
+        "v2_package_bytes_intact": true
+      },
+      "name": "R20 v1_preregistration_and_v2_package_archived_byte_intact",
+      "ok": true
+    },
+    {
+      "detail": {
+        "arm_order": [
+          "F",
+          "D-Geo"
+        ],
+        "attributions": [
+          "ORDER_ATTRIBUTABLE",
+          "ORDER_INDETERMINATE",
+          "NOT_ORDER_ATTRIBUTABLE"
+        ],
+        "caps_unchanged": {
+          "batch_wall_clock_s": 180.0,
+          "initialize_compile_s": 60.0,
+          "mask_steps_m": 2,
+          "per_arm_per_state_scorer_calls": 2,
+          "per_arm_total_scorer_calls": 128,
+          "per_state_wall_clock_s": 10.0
+        },
+        "classifier_present": true,
+        "fairness_handling_is_a_reading_rule": {
+          "claims_interpretation_rule": true,
+          "claims_no_budget_widened": true,
+          "claims_no_formal_run_added": true,
+          "claims_states_kept": true
+        },
+        "keys_in_the_order_acceptance": [
+          "O1 ",
+          "O10",
+          "O2 ",
+          "O3 ",
+          "O4 ",
+          "O5 ",
+          "O6 ",
+          "O7 ",
+          "O8 ",
+          "O9 "
+        ],
+        "no_added_run_or_reorder_knob": [],
+        "order_acceptance": "L1_ARM_ORDER_CONFOUND_BOUNDED",
+        "order_acceptance_n_fail": 0,
+        "order_acceptance_n_pass": 10,
+        "package_6c": {
+          "order": [
+            "F",
+            "D-Geo"
+          ],
+          "scope": "per_state_both_arms_share_one_10s_allowance",
+          "verdict": "L1_ARM_ORDER_CONFOUND_BOUNDED"
+        }
+      },
+      "name": "R21 arm_order_confound_is_bounded_and_classified",
+      "ok": true
     }
   ],
   "schema": "d3_l1_l1_sign_blocker_independent_audit",
   "science_ready": false,
   "stable_online_gain": false,
-  "tool_sha256": "309aa151484143746f99a6849fde033f0d3cacae8e92b7b03353576aacf2ca52",
+  "tool_sha256": "0d3d3881eacb43211a17748f1b7e1bb881d961d91db6588aa23504be0b5f8324",
   "verdict": "L1_SIGN_BLOCKERS_INDEPENDENTLY_AUDITED"
 }

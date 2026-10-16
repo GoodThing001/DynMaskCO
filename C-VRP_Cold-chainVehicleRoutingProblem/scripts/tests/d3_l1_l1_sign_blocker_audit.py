@@ -51,9 +51,16 @@ RUN_ENTRY = EXT / 'scripts/simulation/d3_l1_l1_formal_run.py'
 CLOSURE = EXT / 'scripts/data/d3_l1_closure.py'
 PROTOCOL = EXT / 'scripts/simulation/d3_l1_two_arm_protocol.py'
 BLOCKER_ACC = L1 / 'L1_SIGN_BLOCKER_ACCEPTANCE.json'
-PACKAGE = L1 / 'L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V2.json'
-PACKAGE_BLOCKED = L1 / 'L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V2.json.blocked'
+ORDER_ACC = L1 / 'L1_ARM_ORDER_ACCEPTANCE.json'
+PREREG_V2 = EV / 'A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V2.md'
+PREREG_V1 = EV / 'A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V1.md'
+MANIFEST = L1 / 'L1_V2_PREREGISTRATION_MANIFEST.json'
+PREREG_BUILDER = EXT / 'scripts/tests/d3_l1_l1_prereg_v2.py'
+PACKAGE = L1 / 'L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V3.json'
+PACKAGE_BLOCKED = L1 / 'L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V3.json.blocked'
 OLD_PACKAGE = L1 / 'L1_FORMAL_EXECUTION_SIGNING_PACKAGE.json'
+ARCHIVED_V2 = L1 / 'SUPERSEDED_L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V2_run_l1v1.json'
+ARCHIVE_NOTE = L1 / 'SUPERSEDED_L1_EVIDENCE_ARCHIVE_NOTE.json'
 INVALIDATION = L1 / 'L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V1_INVALIDATION.json'
 
 ROW_NAMES = (
@@ -74,6 +81,10 @@ ROW_NAMES = (
     'R15 package_gates_on_the_l1_closure',
     'R16 invalidated_v1_package_intact_and_annotated',
     'R17 audit_imports_none_of_the_modules_under_test',
+    'R18 preregistration_registers_the_frozen_watch_set',
+    'R19 preregistration_identity_and_package_are_one_object',
+    'R20 v1_preregistration_and_v2_package_archived_byte_intact',
+    'R21 arm_order_confound_is_bounded_and_classified',
 )
 
 # the modules the independent review named as decision-relevant
@@ -451,6 +462,177 @@ def main():
         'imports_declared_in_this_file': sorted(set(imports_mod)),
         'method': 'the audit reads source as text and parses with ast; it never imports or executes '
                   'the entry, the protocol, the real arm, the geo adapter or the closure'})
+
+    # R18 ------------------------------------------------------------------------------------
+    # TASK 1.  The pre-registration must register the watch set the identity actually freezes, with
+    # the COMPLETE per-file list.  The V1 pairing failed exactly here: §7 said 34, the identity froze
+    # 42, and nothing compared the two.
+    manifest = load(MANIFEST) or {}
+    md = PREREG_V2.read_text(encoding='utf-8') if PREREG_V2.is_file() else ''
+    n_md_count = None
+    m = __import__('re').search(r'运行期 watch 集 = (\d+) 条', md)
+    if m:
+        n_md_count = int(m.group(1))
+    manifest_watch = manifest.get('watch') or []
+    rows_in_md = sum(1 for e in manifest_watch
+                     if ('| `%s` | `%s` |' % (e.get('path'), e.get('sha256_frozen'))) in md)
+    try:
+        import importlib.util as _ilu
+        spec_pb = _ilu.spec_from_file_location('audit_prereg_builder', str(PREREG_BUILDER))
+        builder = _ilu.module_from_spec(spec_pb)
+        sys.modules['audit_prereg_builder'] = builder
+        spec_pb.loader.exec_module(builder)
+        builder_problems = builder.verify()
+    except BaseException as exc:                                          # noqa: BLE001
+        builder_problems = ['%s: %s' % (type(exc).__name__, exc)]
+    r18_ok = (bool(md) and n_md_count is not None and n_md_count == len(manifest_watch)
+              and len(manifest_watch) == manifest.get('n_watch_total') == 42
+              and rows_in_md == len(manifest_watch) and not builder_problems
+              and manifest.get('state_binding_sha256')
+              == 'f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1'
+              and manifest.get('run_id') == 'd3l1-l1-two-arm-20261016-l1v2')
+    ck(ROW_NAMES[17], r18_ok,
+       {'preregistration': str(PREREG_V2.relative_to(REPO)), 'preregistration_sha256': sha(PREREG_V2),
+        'watch_count_parsed_from_§7': n_md_count,
+        'watch_count_in_manifest': manifest.get('n_watch_total'),
+        'complete_rows_present_in_the_document': rows_in_md,
+        'manifest_verify_problems': builder_problems[:4],
+        'run_id': manifest.get('run_id'),
+        'state_binding_sha256': manifest.get('state_binding_sha256'),
+        'n_watch_source': manifest.get('n_watch_source'),
+        'n_watch_non_source_assets': manifest.get('n_watch_non_source_assets'),
+        'pre_fix_state': 'V1 §7 registered 34 F-only paths against a 42-path identity'})
+
+    # R19 ------------------------------------------------------------------------------------
+    # The package must bind the NEW pre-registration SHA, the source identity and the state identity,
+    # and its M11 must pass -- i.e. document, identity and package are ONE object.
+    m11 = ((package.get('7_mechanical_acceptance') or {})
+           .get('M11_preregistration_identity_and_package_are_one_object') or {})
+    m11d = m11.get('detail') or {}
+    freeze6 = package.get('6_identity_freeze') or {}
+    man6b = package.get('6b_preregistration_manifest') or {}
+    r19_ok = (package.get('run_id') == 'd3l1-l1-two-arm-20261016-l1v2'
+              and package.get('package_version') == 'L1_V3'
+              and m11.get('ok') is True
+              and (m11d.get('preregistration') or {}).get('sha256') == sha(PREREG_V2)
+              and (m11d.get('preregistration') or {}).get('version') == 'L1-v2'
+              and (freeze6.get('preregistration') or {}).get('sha256') == sha(PREREG_V2)
+              and freeze6.get('source_identity_sha256') == manifest.get('source_identity_sha256')
+              and freeze6.get('state_binding_sha256') == manifest.get('state_binding_sha256')
+              and man6b.get('verify_problems') == []
+              and freeze6.get('drift_at_package_time') == []
+              and (package.get('5_budget') or {}).get('frozen_caps', {}).get(
+                  'unchanged_by_the_blocker_fixes') is True)
+    ck(ROW_NAMES[18], r19_ok,
+       {'package': str(pkg_path.relative_to(REPO)), 'run_id': package.get('run_id'),
+        'package_version': package.get('package_version'),
+        'all_gates_pass': package.get('all_gates_pass'),
+        'm11_ok': m11.get('ok'),
+        'preregistration_sha256_in_package': (freeze6.get('preregistration') or {}).get('sha256'),
+        'preregistration_sha256_on_disk': sha(PREREG_V2),
+        'source_identity_sha256_in_package': freeze6.get('source_identity_sha256'),
+        'source_identity_sha256_in_manifest': manifest.get('source_identity_sha256'),
+        'state_binding_sha256': freeze6.get('state_binding_sha256'),
+        'watch_paths': freeze6.get('watch_paths'),
+        'drift_at_package_time': freeze6.get('drift_at_package_time'),
+        'manifest_verify_problems': man6b.get('verify_problems')})
+
+    # R20 ------------------------------------------------------------------------------------
+    # NOTE ON R17: `PREREG_BUILDER.verify()` imports the run entry, which would leave
+    # `d3_l1_l1_formal_run` in `sys.modules` and make the independence row read a leakage that this
+    # audit itself caused.  The module is therefore evicted again as soon as the row is done, and R17
+    # reports the state as it is at THAT point rather than trusting a claim.
+    for _leaked in list(sys.modules):
+        if _leaked in ('l1_entry_prereg', 'd3_l1_l1_formal_run', 'audit_prereg_builder',
+                       'l1_prereg_builder'):
+            del sys.modules[_leaked]
+    # Everything superseded must still be present and byte-intact, and the archive must say so.
+    note = load(ARCHIVE_NOTE) or {}
+    note_rows = {r.get('file'): r.get('sha256') for r in (note.get('archived') or [])}
+    archived_ok = True
+    archived_detail = []
+    for f, recorded in note_rows.items():
+        actual = sha(L1 / f)
+        same = (recorded is None) or (actual == recorded)
+        archived_ok = archived_ok and (L1 / f).is_file() and same
+        archived_detail.append({'file': f, 'present': (L1 / f).is_file(),
+                                'sha256_now': actual, 'sha256_recorded': recorded, 'ok': same})
+    inv = load(INVALIDATION) or {}
+    r20_ok = (archived_ok and note.get('archived') and note.get('no_state_or_result_was_rewritten')
+              is True and bool(note.get('note'))
+              and PREREG_V1.is_file()
+              and sha(PREREG_V1) == '2e73cac4787b3ba4092d8cd4546332d2b63514724163cba5e1ba1a19dd82c54e'
+              and sha(OLD_PACKAGE) == '0b9336fa8036a47fdeb50e4e4394bf90a2cd3d10edd8d5e670616afe81988cfe'
+              and inv.get('invalidated_package_sha256') == sha(OLD_PACKAGE)
+              and (package.get('superseded') or {}).get('v2_package', {}).get('bytes_intact')
+              is True)
+    ck(ROW_NAMES[19], r20_ok,
+       {'archive_note': str(ARCHIVE_NOTE.relative_to(REPO)),
+        'archived_files': archived_detail,
+        'preregistration_v1_sha256': sha(PREREG_V1),
+        'preregistration_v1_expected': '2e73cac4787b3ba4092d8cd4546332d2b63514724163cba5e1ba1a19dd82c54e',
+        'original_v1_package_sha256': sha(OLD_PACKAGE),
+        'invalidation_record_records_it': inv.get('invalidated_package_sha256') == sha(OLD_PACKAGE),
+        'v2_package_bytes_intact': (package.get('superseded') or {})
+        .get('v2_package', {}).get('bytes_intact')})
+
+    # R21 ------------------------------------------------------------------------------------
+    # TASK 2.  The order confound must be stated, bounded, and mechanically classified; the caps must
+    # be untouched and no formal run may be added by the handling.
+    order_acc = load(ORDER_ACC) or {}
+    o_rows = {r['name'][:3]: r for r in (order_acc.get('rows') or [])}
+    o6c = package.get('6c_arm_order_and_shared_allowance') or {}
+    entry_order = ''
+    if entry_tree is not None:
+        for node in entry_tree.body:
+            if isinstance(node, ast.Assign) and any(getattr(t, 'id', None) == 'ARM_ORDER'
+                                                    for t in node.targets):
+                entry_order = [e.value for e in node.value.elts
+                               if isinstance(e, ast.Constant)]
+    entry_txt = RUN_ENTRY.read_text(encoding='utf-8')
+    # TASK 2, and the load-bearing part: the fairness handling must be a READING RULE.  Asserted
+    # structurally rather than by substring -- the package must claim no budget widening, no arm
+    # change and no added run, AND the entry must not have gained a second opportunity, a rerun path
+    # or a reorder knob while adding the classifier.
+    added_run_markers = [m for m in ('--rerun', '--second-run', '--reorder', 'reversed_order',
+                                     'second_opportunity')
+                         if m in entry_txt]
+    o6c_fh = o6c.get('fairness_handling') or ''
+    r21_ok = (entry_order == ['F', 'D-Geo']
+              and 'per_state_both_arms_share_one_10s_allowance' in entry_txt
+              and 'def classify_order_confound' in entry_txt
+              and "ORDER_ATTRIBUTABLE" in entry_txt and "ORDER_INDETERMINATE" in entry_txt
+              # the wording spans a line break in the source, so the assertion is on the two halves
+              and 'may NOT be read as a scorer mechanism' in entry_txt
+              and 'advantage: the second arm was charged for time it did not spend' in entry_txt
+              and 'v2_order_attribution' in entry_txt
+              and order_acc.get('verdict') == 'L1_ARM_ORDER_CONFOUND_BOUNDED'
+              and order_acc.get('n_fail') == 0 and order_acc.get('n_rows') == 10
+              and o6c.get('v1_is_order_invariant') is True
+              and o6c.get('v2_can_be_order_sensitive') is True
+              and caps == want_caps
+              and 'publication/2026' not in o6c_fh
+              and 'interpretation rule' in o6c_fh
+              and 'No budget is widened' in o6c_fh
+              and 'no formal run is added' in o6c_fh
+              and 'stays in the 64-state denominator' in o6c_fh
+              and not added_run_markers)
+    ck(ROW_NAMES[20], r21_ok,
+       {'arm_order': entry_order, 'order_acceptance': order_acc.get('verdict'),
+        'order_acceptance_n_pass': order_acc.get('n_pass'),
+        'order_acceptance_n_fail': order_acc.get('n_fail'),
+        'classifier_present': 'def classify_order_confound' in entry_txt,
+        'attributions': ['ORDER_ATTRIBUTABLE', 'ORDER_INDETERMINATE', 'NOT_ORDER_ATTRIBUTABLE'],
+        'caps_unchanged': caps,
+        'no_added_run_or_reorder_knob': added_run_markers,
+        'fairness_handling_is_a_reading_rule': {
+            'claims_interpretation_rule': 'interpretation rule' in o6c_fh,
+            'claims_no_budget_widened': 'No budget is widened' in o6c_fh,
+            'claims_no_formal_run_added': 'no formal run is added' in o6c_fh,
+            'claims_states_kept': 'stays in the 64-state denominator' in o6c_fh},
+        'keys_in_the_order_acceptance': sorted(o_rows),
+        'package_6c': {'order': o6c.get('arm_order'), 'scope': o6c.get('wall_clock_scope'),
+                       'verdict': (o6c.get('acceptance') or {}).get('verdict')}})
 
     fails = [r for r in rows if not r['ok']]
     payload = {
