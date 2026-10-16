@@ -1,0 +1,91 @@
+{
+ "schema": "d3_l1_l1_round_adjudication",
+ "status": "BLOCKED",
+ "blocking_reasons": [
+  "1 state(s) failed the scorer-ledger cross-check (ledger_ok=false); a round with an unverified ledger is never a formal PASS",
+  "1 pre-registered state(s) raised an exception during the comparison"
+ ],
+ "n_states_in_denominator": 64,
+ "n_states_expected": 64,
+ "denominator_is_the_preregistered_list": true,
+ "duplicate_states": [],
+ "V1_counts": {
+  "DIVERGENT": 48,
+  "IDENTICAL": 15,
+  "NOT_COMPARABLE": 0,
+  "NOT_APPLICABLE_EMPTY_MASK": 0,
+  "NOT_ATTEMPTED": 1
+ },
+ "outcome_counts": {
+  "COMPLETED": 63,
+  "FAILED_EXCEPTION": 1,
+  "TIMEOUT": 0,
+  "EXEMPT_EMPTY_MASK": 0,
+  "NOT_ATTEMPTED": 1
+ },
+ "V2_counts": {
+  "both_completed": 63,
+  "per_arm_completed": {
+   "F": 63,
+   "D-Geo": 63
+  },
+  "failures_by_reason": {}
+ },
+ "V3": "NOT_RUN for every state (no certifier was supplied; no plan was installed)",
+ "arm_order": {
+  "order": [
+   "F",
+   "D-Geo"
+  ],
+  "wall_clock_scope": "per_state_both_arms_share_one_10s_allowance",
+  "wall_clock_scope_s": 10.0,
+  "consequence": "the SECOND arm is charged for the time the FIRST arm spent, so its remaining allowance is `10.0 s - first_arm_cost`",
+  "rule": "a state whose ONLY inter-arm difference is a `timeout` on the SECOND arm, while the arms ran in the frozen sequential order under the shared per-state allowance, is classified as ORDER_ATTRIBUTABLE.  Its V2 difference is reported but may NOT be read as a scorer mechanism advantage: the second arm was charged for time it did not spend.  A `timeout` on the FIRST arm is never order-attributable.  Every affected state keeps its record and stays in the 64-state denominator; none is dropped, replaced or re-run.",
+  "v1_is_order_invariant": "V1 compares the FIRST step, and no scorer call happens before it, so the second arm has spent nothing and no deadline can have fired.  V1 therefore cannot be order-sensitive and no V2 order effect can reach it.",
+  "v2_can_be_order_sensitive": "V2 compares per-arm completion, which is exactly what the shared deadline bounds, so a second-arm `timeout` may be caused by the order rather than by the scorer",
+  "counts": {
+   "ORDER_ATTRIBUTABLE": 0,
+   "ORDER_INDETERMINATE": 0,
+   "NOT_ORDER_ATTRIBUTABLE": 64
+  },
+  "order_attributable_states": [],
+  "must_not_be_read_as": "a V2 difference on an ORDER_ATTRIBUTABLE state is NOT evidence that either scorer repairs better or worse; it is a consequence of the sequential order competing for one pre-registered per-state allowance",
+  "no_state_is_removed": "every state affected by the order keeps its record and stays in the 64-state denominator; nothing is dropped, replaced or re-run, and no forbidden retrospective adjustment is applied to any measurement"
+ },
+ "all_ledgers_cross_checked": false,
+ "ledgers_not_cross_checked": [
+  {
+   "day_id": 0,
+   "position": 3,
+   "status": "FAILED_EXCEPTION",
+   "problems": [
+    {
+     "reason": "the state raised before its ledger could be cross-checked",
+     "exception": "ValueError"
+    }
+   ]
+  }
+ ],
+ "single_factor_failures": [],
+ "exception_states": [
+  {
+   "day_id": 0,
+   "position": 3,
+   "exception_type": "ValueError",
+   "error": "index can't contain negative values",
+   "phase": "state_comparison"
+  }
+ ],
+ "timeout_states": [],
+ "not_comparable_states": [],
+ "empty_pool_states": [],
+ "not_attempted_states": [
+  {
+   "day_id": 0,
+   "position": 3
+  }
+ ],
+ "synthetic": false,
+ "claim": "L1 reports attributable ACTION DIVERGENCE only; not a gain, not a significance test, not an online-utility claim, and no divergence is a certified plan",
+ "n_failed_exception": 1
+}

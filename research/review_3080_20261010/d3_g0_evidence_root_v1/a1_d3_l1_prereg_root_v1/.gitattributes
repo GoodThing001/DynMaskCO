@@ -52,3 +52,13 @@ l1_gates/L1_ARM_ORDER_ACCEPTANCE.json -text whitespace=cr-at-eol
 l1_gates/L1_SIGNING_IDENTITY_V2.json -text whitespace=cr-at-eol
 l1_gates/L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V3.json -text whitespace=cr-at-eol
 l1_gates/SUPERSEDED_*.json -text whitespace=cr-at-eol
+# L1-v2 EXECUTED round: the raw run directory, the pre-execution freeze, the one-shot credential and
+# consumption receipt, and the independent adjudication are hashed as bytes -- the adjudication
+# re-derives every number from these raw records, so a line-ending rewrite on checkout would break it.
+A1_D3_L1_L1_V2_EXECUTION_AND_ADJUDICATION.md -text
+l1_v2_execution_run/** -text whitespace=cr-at-eol
+l1_v2_supervise.log -text
+l1_v2_supervise.err -text
+l1_gates/L1_V2_EXECUTION_AUTHORIZATION.json -text whitespace=cr-at-eol
+l1_gates/L1_V2_EXECUTION_consumption/** -text whitespace=cr-at-eol
+l1_gates/L1_V2_EXECUTED_ROUND_ADJUDICATION.json -text whitespace=cr-at-eol
