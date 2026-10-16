@@ -1,0 +1,344 @@
+{
+  "schema": "m1b_q2fixt_trust_boundary_audit_v1",
+  "n_checks": 17,
+  "n_false_pass": 2,
+  "n_false_reject": 2,
+  "n_not_established": 5,
+  "results": [
+    {
+      "id": "T1-1",
+      "name": "arbitrary proof returning (True,{}) yields CONTINUOUS_OK",
+      "MINIMAL_INPUT": {
+        "continuous_extremum_proof": "lambda **k: (True, {})"
+      },
+      "EXPECTED": "a proof that carries no identity, domain or contract binding should NOT be able to assert continuous-time feasibility",
+      "ACTUAL": {
+        "THERMAL_CONTINUOUS_STATE": "THERMAL_CONTINUOUS_OK",
+        "THERMAL_CONTINUOUS_OK": true,
+        "composite_pass": true,
+        "final": "M1B_Q2FIX_ENGINEERING_CERTIFIED"
+      },
+      "VERDICT": "FALSE_PASS",
+      "SOURCE": "m1b_thermal_gate.py:251 cont_state = THERMAL_CONTINUOUS_OK if proven is True else ...",
+      "INSTALLABILITY_BLOCKER": true
+    },
+    {
+      "id": "T1-2",
+      "name": "the hook receives contract/bounds/samples/durations but is NOT identified",
+      "MINIMAL_INPUT": {
+        "hook": "spy capturing kwargs",
+        "received_kwargs": [
+          "active_zone_mask",
+          "bounds",
+          "contract",
+          "samples",
+          "segment_durations"
+        ]
+      },
+      "EXPECTED": "supplying the contract is NOT the same as VERIFYING that the proof was built for it",
+      "ACTUAL": {
+        "received_kwargs": [
+          "active_zone_mask",
+          "bounds",
+          "contract",
+          "samples",
+          "segment_durations"
+        ],
+        "any_sha256_check": false,
+        "any_domain_check": false,
+        "any_contract_binding_check": false,
+        "any_thermal_version_check": false,
+        "any_provenance_check": false,
+        "grep_evidence": "the certifier stores self.continuous_extremum_proof and forwards it verbatim (m1b_q2_certifier.py:106, :278); the gate only tests `proven is True` (m1b_thermal_gate.py:251)"
+      },
+      "VERDICT": "TRUST_BOUNDARY_NOT_ESTABLISHED",
+      "SOURCE": "m1b_q2_certifier.py:106,278 ; m1b_thermal_gate.py:246-252",
+      "INSTALLABILITY_BLOCKER": true
+    },
+    {
+      "id": "T1-3",
+      "name": "a lying hook overrides contradicting sampled evidence?",
+      "MINIMAL_INPUT": {
+        "hook": "returns True unconditionally",
+        "sampled envelope": "measured in the same run"
+      },
+      "EXPECTED": "the sampled level is measured independently, so a lying hook must not be able to turn a SAMPLED violation into a pass",
+      "ACTUAL": {
+        "THERMAL_SAMPLED_OK": true,
+        "THERMAL_CONTINUOUS_STATE": "THERMAL_CONTINUOUS_OK",
+        "composite_pass": true
+      },
+      "VERDICT": "OK",
+      "SOURCE": "m1b_thermal_gate.py:234-236 (violations short-circuit the continuous branch)",
+      "INSTALLABILITY_BLOCKER": false
+    },
+    {
+      "id": "T1-4",
+      "name": "lying hook + SAMPLED violation -> composite must still fail",
+      "MINIMAL_INPUT": {
+        "hook": "returns True",
+        "hard bounds": "(-50,-40) so sampling violates them"
+      },
+      "EXPECTED": "composite_pass must be False",
+      "ACTUAL": {
+        "THERMAL_SAMPLED_OK": false,
+        "THERMAL_CONTINUOUS_STATE": "THERMAL_CONTINUOUS_VIOLATED",
+        "composite_pass": false
+      },
+      "VERDICT": "OK",
+      "SOURCE": "m1b_thermal_gate.py:234-236",
+      "INSTALLABILITY_BLOCKER": false
+    },
+    {
+      "id": "T2-1",
+      "name": "_LegacyTimes tw_start=0.0 re-opens the A1 late-window case",
+      "MINIMAL_INPUT": {
+        "legacy register_service_times": "{5: 0.0}",
+        "true tw_start[5]": 20.0,
+        "T_end": 19.0,
+        "times= passed": false
+      },
+      "EXPECTED": "the legacy path must not be able to certify a plan that certify_route rejects",
+      "ACTUAL": {
+        "omega11_verdict": "OMEGA11_OK",
+        "omega11_return_arrival": 2.0,
+        "certify_route_reason": "return",
+        "certify_route_return_slack": -2.0,
+        "time_input_identity": "legacy-register-service-times-shim",
+        "REACHES_FIXED_COMPOSITE": false,
+        "why_not": "the certifier refuses at the time_inputs gate when `times` is None (OMEGA11_TIME_INPUT_UNAVAILABLE), so the legacy fallback cannot reach composite_pass; but any caller that calls certify_return_feasibility DIRECTLY without times= silently gets the optimistic replay"
+      },
+      "VERDICT": "FALSE_PASS",
+      "SOURCE": "m1b_return_feasibility.py:_LegacyServiceTimes.register (tw_start={n: 0.0}) and the times-is-None fallback in certify_return_feasibility; m1b_q2_certifier.py blocks the same fallback at the time_inputs gate",
+      "INSTALLABILITY_BLOCKER": true
+    },
+    {
+      "id": "T2-2",
+      "name": "legacy callables: does the candidate fish still get checked?",
+      "MINIMAL_INPUT": {
+        "legacy args": "temp_class_of/quantity_of/service_time_of/initial_quality_by_node",
+        "initial_quality_by_node[7]": 1.0,
+        "contract initial_value[1]": 9.0
+      },
+      "EXPECTED": "the coverage gate must still refuse an unverified candidate fish",
+      "ACTUAL": {
+        "composite": false,
+        "final": "M1B_Q2FIX_ENGINEERING_REFUSED",
+        "omega10_verdict": "OMEGA10_INITIAL_VALUE_MISMATCH",
+        "omega10_mirror": "OMEGA10_INITIAL_VALUE_MISMATCH"
+      },
+      "VERDICT": "OK",
+      "SOURCE": "m1b_q2_certifier.py:_legacy_attrs (iq.setdefault(n, 1.0) so the coverage gate REFUSES)",
+      "INSTALLABILITY_BLOCKER": false
+    },
+    {
+      "id": "T2-3",
+      "name": "_Receipt['THERMAL_HARD_OK'] read-only compatibility accessor",
+      "MINIMAL_INPUT": {
+        "receipt": "from a continuous-OK positive case"
+      },
+      "EXPECTED": "the legacy name must NOT be stored, and reading it must yield the SAMPLED level",
+      "ACTUAL": {
+        "subscript_value": true,
+        "attribute_value": true,
+        "key_stored_in_receipt": false,
+        "name_appears_in_serialised_receipt": false,
+        "THERMAL_SAMPLED_OK": true
+      },
+      "VERDICT": "OK",
+      "SOURCE": "m1b_q2_certifier.py:_Receipt.__missing__ / THERMAL_HARD_OK property",
+      "INSTALLABILITY_BLOCKER": false
+    },
+    {
+      "id": "T2-4",
+      "name": "check_omega10_initialization keeps pre-fix per-lot semantics",
+      "MINIMAL_INPUT": {
+        "legacy call with []": "no lots",
+        "legacy call with iq=1.0 lot": "mismatch",
+        "coverage call with candidate fish 7 iq=1.0": "must refuse"
+      },
+      "EXPECTED": "the legacy shim may keep its old semantics but MUST NOT be on the certification path",
+      "ACTUAL": {
+        "legacy_empty_ok": true,
+        "legacy_empty_verdict": "OMEGA10_NO_FISH_IN_SCOPE",
+        "legacy_bad_verdict": "OMEGA10_INITIAL_VALUE_MISMATCH",
+        "coverage_ok": false,
+        "coverage_verdict": "OMEGA10_INITIAL_VALUE_MISMATCH",
+        "shim_warning_present": true
+      },
+      "VERDICT": "OK",
+      "SOURCE": "m1b_quality_certificate.py:check_omega10_initialization (LEGACY SHIM) vs certify_omega10_coverage (certification path)",
+      "INSTALLABILITY_BLOCKER": false
+    },
+    {
+      "id": "T3-1",
+      "name": "getter refuses a node outside the declared set",
+      "MINIMAL_INPUT": {
+        "served_nodes": [
+          1
+        ],
+        "query": "temp_class_of(7)"
+      },
+      "EXPECTED": "PermissionError",
+      "ACTUAL": {
+        "refused": true
+      },
+      "VERDICT": "OK",
+      "SOURCE": "m1b_quality_certificate.py:PublicOrderAttributes._gate",
+      "INSTALLABILITY_BLOCKER": false
+    },
+    {
+      "id": "T3-2",
+      "name": "declared set + source identity are SELF-ASSERTED (no trusted validation)",
+      "MINIMAL_INPUT": {
+        "served_nodes": [
+          7
+        ],
+        "source_identity": "FORGED-NOT-A-REAL-SOURCE",
+        "revealed at clock=0.0": "nothing (reveal_time not consulted)"
+      },
+      "EXPECTED": "a declaration that reveals node 7 at clock 0 without any trusted source should not by itself authorise reading node 7",
+      "ACTUAL": {
+        "query_succeeded": true,
+        "any_registry_or_reveal_check": false,
+        "identity_is_free_text": true
+      },
+      "VERDICT": "TRUST_BOUNDARY_NOT_ESTABLISHED",
+      "SOURCE": "m1b_quality_certificate.py:PublicOrderAttributes.__init__ stores served_nodes and source_identity verbatim; nothing cross-checks them against reveal_time or a registry",
+      "INSTALLABILITY_BLOCKER": true
+    },
+    {
+      "id": "T3-3",
+      "name": "the full truth table is RETAINED inside the object",
+      "MINIMAL_INPUT": {
+        "constructor mapping": "nodes 1..7 with node 7 = 1.0",
+        "served_nodes": [
+          1
+        ]
+      },
+      "EXPECTED": "the gating getter may refuse, but the raw mapping is still reachable as an attribute",
+      "ACTUAL": {
+        "reachable_attributes": [
+          "_iq",
+          "_tc",
+          "_qty",
+          "served_nodes",
+          "source_identity"
+        ],
+        "_iq[7]": 1.0,
+        "gate_blocks_public_getter": true
+      },
+      "VERDICT": "TRUST_BOUNDARY_NOT_ESTABLISHED",
+      "SOURCE": "m1b_quality_certificate.py:PublicOrderAttributes keeps _iq/_tc/_qty as plain dicts with no __slots__ privacy; __slots__ is declared but the dicts themselves are readable and mutable",
+      "INSTALLABILITY_BLOCKER": false
+    },
+    {
+      "id": "T3-4",
+      "name": "the retained table is MUTABLE after construction",
+      "MINIMAL_INPUT": {
+        "before": 9.0,
+        "mutation": "_iq[7] = 1.0"
+      },
+      "EXPECTED": "a certificate input should be immutable once constructed",
+      "ACTUAL": {
+        "before": 9.0,
+        "after": 1.0,
+        "changed": true
+      },
+      "VERDICT": "TRUST_BOUNDARY_NOT_ESTABLISHED",
+      "SOURCE": "m1b_quality_certificate.py:PublicOrderAttributes.__slots__ lists _iq/_tc/_qty as dicts",
+      "INSTALLABILITY_BLOCKER": false
+    },
+    {
+      "id": "T3-5",
+      "name": "PublicTimeInputs: getter gates and __slots__ blocks new attrs, tables mutable",
+      "MINIMAL_INPUT": {
+        "revealed_nodes": [
+          7
+        ],
+        "query": "service_time_of(1)",
+        "then": "service_time[1] = 99.0 and an attempt to set a new attribute"
+      },
+      "EXPECTED": "the gate must refuse undeclared nodes; __slots__ should block new attributes; the retained dicts should ideally be immutable too",
+      "ACTUAL": {
+        "getter_refused_undeclared": true,
+        "slots_block_new_attribute": true,
+        "table_mutable_after_construction": true
+      },
+      "VERDICT": "OK",
+      "SOURCE": "m1b_timing.py:PublicTimeInputs (__slots__ enforced; service_time/tw_start/tw_end are plain dicts, so in-place mutation is possible)",
+      "INSTALLABILITY_BLOCKER": false
+    },
+    {
+      "id": "T3-6",
+      "name": "a declaration contradicting the environment is not cross-checked",
+      "MINIMAL_INPUT": {
+        "env.reveal_time[0,7]": 1000000000.0,
+        "clock": 0.0,
+        "provider served_nodes": [
+          7
+        ]
+      },
+      "EXPECTED": "the provider should refuse node 7 when the environment says it is unrevealed",
+      "ACTUAL": {
+        "temp_class_of(7)": 1,
+        "provider_consults_env": false,
+        "consequence": "a caller can declare any node visible and read its true attributes through this provider"
+      },
+      "VERDICT": "TRUST_BOUNDARY_NOT_ESTABLISHED",
+      "SOURCE": "m1b_quality_certificate.py:PublicOrderAttributes has no environment/reveal binding",
+      "INSTALLABILITY_BLOCKER": true
+    },
+    {
+      "id": "T4-1",
+      "name": "which old criteria the fix spec declares non-inheritable",
+      "MINIMAL_INPUT": {
+        "spec": "M1b_Q2Fix_修复规格_2026-10-16.md"
+      },
+      "EXPECTED": "the spec must name the non-inheritable criteria rather than leave it implicit",
+      "ACTUAL": {
+        "names_A2_A2b_silent_zero": true,
+        "names_no_time_inputs": false,
+        "names_continuous_fail_closed": true,
+        "names_legacy_divergence": false
+      },
+      "VERDICT": "OK",
+      "SOURCE": "M1b_Q2Fix_修复规格_2026-10-16.md §2 and §6",
+      "INSTALLABILITY_BLOCKER": false
+    },
+    {
+      "id": "T4-2",
+      "name": "idle-undispatched vehicle in a multi-vehicle state",
+      "MINIMAL_INPUT": {
+        "vehicle 1": "status='idle', coldchain_state=None"
+      },
+      "EXPECTED": "an idle vehicle that was never dispatched has no thermal state; whether that should block the WHOLE certification or only that vehicle is a design question",
+      "ACTUAL": {
+        "composite": false,
+        "v1_thermal_verdict": "THERMAL_REPLAY_STATE_MISSING",
+        "v0_thermal_verdict": "THERMAL_SAMPLED_OK",
+        "v2_thermal_verdict": "THERMAL_SAMPLED_OK"
+      },
+      "VERDICT": "FALSE_REJECT",
+      "SOURCE": "m1b_thermal_gate.py:replay_thermal_envelope returns THERMAL_REPLAY_STATE_MISSING when coldchain_state is None; the certifier requires ALL vehicles to be SAMPLED_OK",
+      "INSTALLABILITY_BLOCKER": true
+    },
+    {
+      "id": "T4-3",
+      "name": "ONE never-dispatched idle vehicle blocks the whole composite",
+      "MINIMAL_INPUT": {
+        "vehicle 1": "status='idle', coldchain_state=None, empty plan"
+      },
+      "EXPECTED": "an idle vehicle with nothing on board and no thermal state carries no thermal risk; refusing ALL certification because of it is a systematic FALSE_REJECT in realistic multi-vehicle days where some vehicles are never dispatched",
+      "ACTUAL": {
+        "composite": false,
+        "final": "M1B_Q2FIX_ENGINEERING_REFUSED",
+        "v1_verdict": "THERMAL_REPLAY_STATE_MISSING",
+        "reason": "THERMAL_REPLAY_STATE_MISSING for the idle vehicle"
+      },
+      "VERDICT": "FALSE_REJECT",
+      "SOURCE": "m1b_thermal_gate.py:replay_thermal_envelope (state is None -> STATE_MISSING); m1b_q2_certifier.py requires every vehicle to be THERMAL_SAMPLED_OK",
+      "INSTALLABILITY_BLOCKER": true
+    }
+  ]
+}
