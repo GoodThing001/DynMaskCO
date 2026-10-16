@@ -1,0 +1,289 @@
+{
+  "schema": "dynmaskco_cc_next_stage_qualification_matrix",
+  "created_utc": "2026-10-16",
+  "repository_head": "c69cf9afcd82d004b4257c401a5fa72e4053e4ea",
+  "branches_verified": ["main", "codex/o0cc-cal-phys"],
+  "purpose": "Machine-readable inventory of what each research layer has ESTABLISHED, its qualification level, and whether it may be used for the next-stage design. Produced by M0 (research design). No experiment was run.",
+  "layer_rule": "L1 mechanism / L2 certified decision quality / L3 strict-online utility are THREE INDEPENDENT propositions. Passing one does NOT constitute passing the next.",
+
+  "fact_tiers": {
+    "A_L1_observed_scorer_action_divergence": "ESTABLISHED on development states; a mechanism observation only",
+    "B_L2_certified_quality_improvement": "NOT ESTABLISHED (never measured)",
+    "C_L3_online_utility_improvement": "NOT ESTABLISHED (stable_online_gain = false)",
+    "D_historical_A1_A2_A3": "A2 locked positive; A1 not established; A3 formally qualified negative",
+    "E_I3_and_other_closed_negatives": "CLOSED negative"
+  },
+
+  "layers": [
+    {
+      "id": "L1",
+      "name": "mechanism layer - F vs D-Geo first-step action divergence",
+      "primary_comparison": "F (restored MaskCO logits) vs D-Geo (-incremental_distance) on the SAME ordered legal list",
+      "run_id": "d3l1-l1-two-arm-20261016-l1v2",
+      "preregistration": {
+        "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V2.md",
+        "sha256": "e02b98587682a42f9142104e6798b6e8ef4db4135e9ee0dc0eaf2aa749e449ba"
+      },
+      "denominator": {"registered": 64, "comparable": 63, "exception": 1, "unanswered_marker": "UNANSWERED_F_SHAPE_DEFECT"},
+      "V1": {"DIVERGENT": 48, "IDENTICAL": 15, "rate": 0.7619047619047619},
+      "V2": {"F_full_repair_completed": "63/63", "D_Geo_full_repair_completed": "63/63", "labelling": "UNCERTIFIED"},
+      "V3": {"value": "NOT_RUN", "certifier_supplied": false, "plan_installed": false},
+      "uncertified_final_plan_hashes": {"identical": 6, "different": 57},
+      "order_confound": {"ORDER_ATTRIBUTABLE": 0, "ORDER_INDETERMINATE": 0, "timeouts": 0},
+      "formal_batch_status": "BLOCKED",
+      "formal_batch_is_not": "PASS",
+      "opportunity": "CONSUMED",
+      "one_shot_receipts": 1,
+      "Q1_cheap_rule_reproduction_rate": "NOT_IDENTIFIABLE_FROM_ARCHIVED_RECORDS",
+      "qualification_level": "FORMAL_REGISTERED_RUN_ROUND_BLOCKED",
+      "evidence": {
+        "closure": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/l1_gates/L1_V2_CLOSURE_ADJUDICATION.json",
+        "execution": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/A1_D3_L1_L1_V2_EXECUTION_AND_ADJUDICATION.md",
+        "independent_adjudication": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/l1_gates/L1_V2_EXECUTED_ROUND_ADJUDICATION.json"
+      },
+      "may_be_used_for_new_design": "YES, as a mechanism observation on development states",
+      "may_be_used_as_formal_evidence": "NO - it is neither a quality nor a utility claim, and the round is BLOCKED",
+      "retroactively_grants_A1_A2_A3": false
+    },
+    {
+      "id": "A2",
+      "name": "conditional-information layer",
+      "primary_comparison": "cond_hist - uncond_hist, main tier p_c=(5,10,15), paired by day",
+      "preregistered_criterion": {"delta": 20.0, "ci": "day-clustered bootstrap 95% lower bound > 0", "hard_feasible_rate": 1.0, "multi_seed_rule": "two seeds must independently satisfy; no third seed added, no criterion changed"},
+      "sample": {"development_seeds": ["20260926", "20260930", "20261001"], "days_per_seed": 40, "train_history_seed": "20260925", "K": 10, "wall_clock_s_per_decision": 10, "final_test_reserved": ["20260927", "20260928"]},
+      "verdict": "PASSED_AND_LOCKED",
+      "headline": {"20260926": {"mean": 65.73, "ci95": [23.88, 105.66], "passed": true}, "20260930": {"mean": 71.21, "ci95": [19.48, 125.92], "passed": true}, "20261001": {"mean": 77.43, "ci95": [33.49, 121.57], "passed": true}},
+      "caveats": ["zero_timeout_ok = False for every batch (timeouts counted in utility)", "high-penalty tier (10,20,30) only 20261001 passed - not robust", "p_c=0 tier passed on all three seeds"],
+      "qualification_level": "FORMAL_REGISTERED_RUN_WITH_LOCK",
+      "evidence": {"lock": "C-VRP_Cold-chainVehicleRoutingProblem/results/A2_LOCK.json", "batch_dirs_present_locally": false, "note": "the A2 batch gate.json files are server-side; the local record of the verdict is A2_LOCK.json plus progress documents"},
+      "may_be_used_for_new_design": "YES",
+      "may_be_used_as_formal_evidence": "YES, within its stated limit",
+      "stated_limit": "A2 is a DEVELOPMENT-SET CONDITIONAL-INFORMATION RELATIVE gain. It may NOT be stated as absolute system utility or as a MaskCO gain.",
+      "closed": false
+    },
+    {
+      "id": "A1",
+      "name": "strong dynamic control layer",
+      "primary_comparison": "a1 arm - cond_hist, paired by day (arms a1_consensus, a1_rollout)",
+      "preregistered_criterion": {"numeric_delta": "ABSENT - no numeric threshold is stated for the A1 arms themselves; delta=20 belongs to A2 and delta3=20 to A3, and the A1 documents state those are not the A1 criterion"},
+      "sample": {"development_seeds": ["20260926"], "n_seeds": 1, "days": 40, "tiers": 3, "arms": 5, "V_weight_sha": "d66eb92b..."},
+      "verdict": "NOT_ESTABLISHED",
+      "headline": {"a1_consensus_main": {"mean": 7.0, "ci95": [-20.5, 35.9], "reading": "no demonstrated difference"}, "a1_rollout_main": {"mean": -558.3, "ci95": [-623.9, -498.4], "reading": "significantly worse"}, "a1_consensus_pc0": {"mean": 4.8, "ci95": [-12.8, 23.1]}, "a1_rollout_pc0": {"mean": -370.2, "ci95": [-411.8, -329.9]}, "a1_consensus_high": {"mean": 20.8, "ci95": [-7.9, 50.7]}, "a1_rollout_high": {"mean": -745.9, "ci95": [-832.6, -663.0]}},
+      "qualification_level": "FORMAL_REGISTERED_RUN_FOR_ONE_SEED",
+      "evidence": "C-VRP_Cold-chainVehicleRoutingProblem/01_取货线/文档/结果与进度/A1强动态对照正式裁决_2026-10-05.md",
+      "may_be_used_for_new_design": "YES, as the design basis for strong-control requirements",
+      "may_be_used_as_formal_evidence": "ONLY as a single-seed negative; it is explicitly not a three-seed strong-baseline conclusion",
+      "stated_limits": ["CI crossing zero means NO DEMONSTRATED DIFFERENCE, not statistical equivalence", "no equivalence bound was set", "shared source hash differs from the A2 batch, so it is not a same-version replication", "a3 preregistered control remains cond_hist - this is protocol continuity, NOT proof that cond_hist is strongest"],
+      "closed": false,
+      "remaining_work_stated": "add the other two development seeds for the consensus comparison; validate rollout action validity before registering a redesign"
+    },
+    {
+      "id": "A3",
+      "name": "MaskCO online comparison",
+      "primary_comparison": "MaskCO single-step (B) - strongest conditional non-learning baseline (cond_hist), paired by day",
+      "preregistered_criterion": {"delta3": 20.0, "ci": "day-clustered lower bound > 0", "hard_feasible_rate": 1.0, "all_days_adjudicable": true, "identity_qualified": true},
+      "sample": {"batches": 9, "development_seeds": ["20260926", "20260930", "20261001"], "tiers": 3, "days": 40, "K": 10, "wall_clock_s_per_decision": 10, "model_lineage": {"s_star": 200, "valid_NLL": 4.8151, "seed": 42, "dim": 128, "m_max": 200, "batch": 8, "lr": 1e-3}},
+      "verdict_original_nine_batches": {"status": "DEVELOPMENT_DIAGNOSTIC_ONLY", "reason": "identity_verified = false 9/9 (one shared file scenario_saa.py 36e08e06... vs rr3 tree c2a11c9e...)", "headline": {"20260926": [-158.47, -203.39, -114.68], "20260930": [-154.38, -200.66, -106.37], "20261001": [-175.88, -213.85, -135.05]}},
+      "verdict_same_source_readjudication": {"status": "FORMALLY_QUALIFIED_NEGATIVE", "formal_adjudicable": true, "n_batches": 9, "n_tier_comparisons": 27, "partial": false, "headline_main_tier_B_minus_cond_hist": {"20260926": [-137.70, -180.11, -96.04], "20260930": [-113.22, -160.52, -63.95], "20261001": [-138.14, -187.98, -82.91]}, "delta3_20_passed": false, "all_nine_main_CI_below_zero": true},
+      "ablations": {"B_minus_D_pretrained_vs_random": {"values": [219.91, 172.47, 206.02], "ci_lower_all_positive": true, "scoped_claim": "supports the pretrained value of the CURRENT training recipe only"}, "C_minus_B_iterative_minus_single": {"values": [-637.62, -696.40, -627.33], "usable_as": "CANNOT be read as a pure iteration effect - C changed both training and inference"}},
+      "qualification_level": "FORMAL_REGISTERED_NEGATIVE_AFTER_SAME_SOURCE_READJUDICATION",
+      "evidence": {"verdict": "C-VRP_Cold-chainVehicleRoutingProblem/01_取货线/文档/结果与进度/A3在线比较正式裁决_2026-10-06.md", "same_source": "C-VRP_Cold-chainVehicleRoutingProblem/01_取货线/文档/协议与审计/方向A_A3同源正式裁决与I3启动_2026-10-08.md", "preregistration": "C-VRP_Cold-chainVehicleRoutingProblem/01_取货线/文档/协议与审计/A3在线比较预声明_2026-10-01.md"},
+      "may_be_used_for_new_design": "YES",
+      "may_be_used_as_formal_evidence": "YES, as a qualified negative",
+      "stated_limits": ["do not claim the MaskCO architecture is infeasible - only that the current 200-day retrain recipe showed no online advantage", "C-B cannot be called an iteration-independent contribution; a same-weight single/iterative pairing or a full/partial x single/iterative 2x2 is required", "A2 does not fill the A3 identity gap"],
+      "delta3_inheritance": "delta3 = 20 is REGISTERED for A3 (2026-10-01). Whether a NEW L3 inherits it is a USER RULING; it must not be merged by default (different state days are mandatory, and the training lineage must be re-registered)."
+    },
+    {
+      "id": "I3",
+      "name": "decision-aware training, single step",
+      "primary_comparison": "I3 - cond_hist (four freshly run arms; old baseline day rows NOT reused)",
+      "preregistered_criterion": {"mean_ge": 20.0, "bootstrap": "2000 day-paired resamples, seed+777, 95% CI lower bound > 0", "hard": 1.0, "complete_finite_days": "40/40", "identity": "full"},
+      "sample": {"states": 128, "collection_days": 32, "training_days": "0..23 (96 states, 192 updates)", "teacher_holdout_days": "24..31 (32 states)", "valid_labels": {"total": 102, "positive": 47, "negative": 55}, "infeasible_action_states": 26, "small_difference_states": 16, "online": {"seed": "20260926", "days": 40, "arms": 4, "arm_days": 160}, "lineage_seed": "20260925"},
+      "verdict": "PRIMARY_GATE_FAIL",
+      "headline": {"I3_minus_cond_hist": {"mean": -144.68, "ci95": [-191.109, -100.125], "reading": "primary gate FAIL: mean below 20 and lower bound not above 0"}, "I3_minus_reconstruction_control": {"mean": -17.044, "ci95": [-47.283, 14.581], "reading": "decision-objective attribution NOT established; crossing zero does not prove equivalence"}, "I3_minus_warmstart": {"mean": 9.348, "ci95": [-33.396, 51.057], "reading": "no additional training benefit established; does not substitute the primary gate"}},
+      "arm_means": {"I3": 456.317, "warmstart": 446.969, "reconstruction_control": 473.361, "cond_hist": 600.997},
+      "qualification_level": "FORMAL_REGISTERED_RUN_GATE_FAILED",
+      "evidence": {"verdict": "C-VRP_Cold-chainVehicleRoutingProblem/01_取货线/文档/结果与进度/I3_首开发40日正式裁决与失败诊断_2026-10-09.md", "preregistration": "C-VRP_Cold-chainVehicleRoutingProblem/01_取货线/文档/协议与审计/I3固定教师决策训练_执行预声明_2026-10-08.md", "formal_dir": "results/i3_online_recovery_1009_v1"},
+      "may_be_used_for_new_design": "YES",
+      "may_be_used_as_formal_evidence": "YES, as a qualified negative",
+      "stated_limits": ["crossing zero is NOT statistical equivalence and NOT decision-term improvement", "the failure cannot be attributed to I3 having more timeouts (it had 5.375 FEWER than cond on average, 6.85 fewer than reconstruction, yet lower utility)", "no fish-unsalable and no budget violation in any arm, but this does NOT establish real cold-chain calibration - quality is still the registered C0 fixed reference rates", "the teacher-risk diagnostic is not causal proof and was not used for selection", "no mechanism may be written as an established root cause; this round added no mechanism experiment"],
+      "closed": true,
+      "closure_statement": "after the primary gate failed, seeds 20260930/20261001 and final tests 20260927/28 were NOT run; no re-tuning, no gate change, no weight selection, no re-run to chase the mean"
+    },
+    {
+      "id": "E2",
+      "name": "encoder/backbone single-factor ablation",
+      "verdict": "NO_QUALIFIED_RESULT",
+      "note": "E2 = backbone pretrained vs same-architecture random, as a single factor. Documented as non-existent / without a qualified result. Changing --seed is NOT E2.",
+      "may_be_used_as_formal_evidence": "NO - there is no result"
+    },
+    {
+      "id": "D2",
+      "name": "delivery line D2",
+      "verdict": "not_qualified",
+      "note": "unchanged by anything in this round"
+    },
+    {
+      "id": "G0_D8",
+      "name": "G0 residual risk / D8 install boundary",
+      "verdict": {"G0": "not passed", "D8": "CAPABILITY_GAP_BLOCKING"},
+      "note": "unchanged"
+    }
+  ],
+
+  "C0_CERTIFICATION_AND_BUDGET": {
+    "certify_plan": {"defined_at": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/evaluation/run_exp_energy_c0.py:154", "signature": "certify_plan(env, inst_idx, clock, vehicles, served_mask, plan, contract, B)", "scope": "ENERGY BUDGET ONLY, pure function", "hard_test": "run_exp_energy_c0.py:199 return total <= B + 1e-9, total"},
+    "composed_certifier": {"defined_at": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_composed_certifier.py:55", "checks": ["repair_plan", "full_partition", "route_feasible", "energy_budget"], "capability_gaps": ["quality_salability"], "installable": "bool(ok and not blocking_gaps) at :298"},
+    "checks": {"time_windows": "action_contract.py:184-187", "capacity": "action_contract.py:188-193 (accept side stricter at capacity - 1e-4, run_exp_energy_c0.py:253-254)", "return_to_depot": "action_contract.py:198-202", "temperature_zone": "action_contract.py:178-183", "energy": "c0_completion_energy at run_exp_energy_c0.py:112 then certify_plan:199", "quality_salability": "NOT a decision-time executable check: d3_composed_certifier.py:283-289 returns QUALITY_CAPABILITY_GAP and installable=False"},
+    "documented_silent_behaviour": {"id": "F1", "fact": "c0_completion_energy does NOT reject a time-window violation - run_exp_energy_c0.py:127-130 clamps depart = max(t, rev[o]) and sstart = max(arrive, tws[o])", "recorded_at": "d3_composed_certifier.py:17-19", "consequence": "time windows must be enforced by route_feasible, never by the energy certifier"},
+    "CERTIFIER_WIRING_GAP": {"fact": "compose_certification is called ONLY from scripts/tests/* - no production call site exists", "fact_2": "no production call site injects certify_fn=certify_plan or certify_fn=compose_certification; every non-None certify_fn is a test-only fake", "fact_3": "the L1 formal run passes certify_fn=None (d3_l1_l1_formal_run.py:469), which is the code-level reason V3 is NOT_RUN for all 64 states", "independently_reverified_by": "parent agent grep of scripts/**/*.py, 2026-10-16", "consequence": "L2 cannot claim 'complete C0 certification' until the certifier is actually wired on the production path"},
+    "budget_B": {
+      "status": "AWAITING_USER_BUDGET_RULING",
+      "ruling_is_the_users": true,
+      "agent_must_not_choose": true,
+      "search_verdict": "SEARCH_EXHAUSTIVE_NO_REGISTERED_PROTOCOL_BUDGET_FOUND",
+      "registered_budget_bound_to_the_64_dev_check_states": {"found": false, "n_candidates": 0, "n_state_bound": 0},
+      "values_found_and_why_each_is_unusable": [
+        {"value": 300.0, "where": "6 test files, CAPACITY, NUM_VEHICLES, B_BUDGET = 50.0, 25, 300.0", "class": "HISTORICAL_CAL_FIXTURE", "why_unusable": "self-labelled historical_cal_fixture; the status document states it must not be transplanted"},
+        {"value": 300.0, "where": "tests/d3_l1_v120_forward_and_l1_readiness.py:139 SYNTHETIC_B", "class": "SYNTHETIC_ONLY", "why_unusable": "in-source comment: SYNTHETIC-ONLY: verifies the REFUSAL mechanism, never a formal B"},
+        {"value": "1e9 / 700.0", "where": "isolation sentinels in several tests", "class": "ISOLATION_ONLY", "why_unusable": "in-source comment: isolates the D8 gap, NOT install feasibility"},
+        {"value": "B = (1 - rho) * mean(train all-accept C0 energy), rho = 0.60", "where": "run_exp_energy_c0.py:626, run_exp_encoder_v3.py:210", "class": "PER_RUN_DERIVED_CALIBRATION", "why_unusable": "reproducible from source+data but bound to no registered split, no contract hash, and NOT to the 64 dev_check states; objective_profile.json has energy_scale and lambda_energy but NO budget field"},
+        {"value": 710.6548152249378, "where": "01_qu-huo-xian/docs/protocol-and-audit/I3 fixed-teacher decision training execution preregistration 2026-10-08, line 122; frozen config configs/i3_20261008_v2/protocol.json:379-396", "class": "REGISTERED_PROTOCOL_DERIVED_VALUE", "accompanying": {"cooling_share": 3.7208946347769882, "dev_instances": 40, "train_instances": 200, "num_vehicles": 15, "n_orders": 200, "rho": 0.6}, "why_still_unusable_as_L2_B": "STRONGEST CANDIDATE FOUND, but (i) it belongs to the I3 PROTOCOL, not to the 64 dev_check states, (ii) it is a single-run derived calibration, not a protocol-level constant, and (iii) a different fleet size changes the derived value. Inheriting it is still a USER RULING - not recorded here as the L2 budget."}
+      ],
+      "internal_contradiction_flagged": {"fact": "the same 300.0 is labelled budget_role = 'FORMAL' at test_d3_b3at2a_coordinator.py:267 while test_d3_b3ac_gate_refusal.py:328-333 records the MEASURED fact that at the nominal B=300 the captured incumbent plan FAILS the energy budget", "consequence": "no test establishes 300.0 as energy-feasible for the dev_check states"},
+      "census_caveat": {"fact": "the on-disk provenance artifact counts (862 hits / 843 DOC_MENTION) are inflated relative to the summary in CODEX_AUTONOMOUS_RESEARCH_LOOP.md:244-247 (184 total) and include self-referential hits from its own JSON", "load_bearing_fields_unaffected": ["found: false", "n_candidates: 0", "n_state_bound: 0", "verdict"]}
+    }
+  },
+
+  "L2_PRECONDITIONS_ESCALATION_PREREG_V1_18_SECTION_1": {
+    "verbatim_requirement": "L2 requires (1) V1.18 real F forward PASSED; (2) L1 preregistration SIGNED and L1 EXECUTED; (3) this L2 preregistration signed; (4) budget frozen; (5) identity frozen + independent read-only acceptance",
+    "item_1_v118_real_f_forward": {"required": "passed", "fact": "V1.22 real F forward 64/64 PASS, independent adjudication 6/6, independent read-only VERIFIED", "satisfied": true},
+    "item_2_L1_signed_and_executed": {"required": "preregistration signed AND L1 executed", "fact": "preregistration V2 authorised by the user and executed with a one-shot credential and exactly one receipt; L1-v2 EXECUTED", "satisfied": "LITERALLY"},
+    "item_3_L2_prereg_signed": {"satisfied": false, "note": "the L2 draft in this round is not signed"},
+    "item_4_budget_frozen": {"satisfied": false, "reason": "C0 budget B unresolved"},
+    "item_5_identity_frozen": {"satisfied": false},
+    "DOES_THE_OLD_RULE_REQUIRE_L1_PASS": {
+      "answer": "NO",
+      "evidence": ["section 1 item 2 says only SIGNED and EXECUTED - the word PASS does not appear", "a repository-wide search for an L1 PASS criterion found NONE: the L1 seven-element preregistration and the mechanism diagnostic preregistration define WHAT L1 outputs, never what counts as PASS", "the mechanism diagnostic preregistration element 3 states explicitly: L1 does NOT require a statistical CI or utility superiority threshold", "reading BLOCKED as 'L1 failed the gate therefore L2 is ineligible' ADDS a criterion the text does not contain"],
+      "substantive_tension_stated_honestly": "L1-v2 is BLOCKED because 1 of 64 states raised on a frozen F-path shape defect (M_max=26 vs mask pool 27), i.e. one state was never answered. Section 1 item 2 cannot distinguish 'executed cleanly' from 'executed with one unanswered state'.",
+      "conclusion": "the text SUPPORTS proceeding, but this reading must be an EXPLICIT USER RULING because it decides a substantive scientific judgement, not merely a textual one",
+      "forbidden": ["treating BLOCKED as PASS", "modifying the old L1 verdict", "silently rewriting BLOCKED as completed"],
+      "lawful_forks": ["(a) accept the literal reading and proceed (items 3,4,5 still open)", "(b) require no unanswered state, which needs a NEW-identity execution - never a re-run of the old L1", "(c) decouple L1 from the L2 precondition by an explicit specification amendment that preserves the original text"]
+    }
+  },
+
+  "SHARED_DECISION_MAKER": {
+    "role": "the L3 primary control identity is cond_hist = single-step SAA, K=10, 10 s per decision",
+    "objective": "u = plan_rev - fuel - rej_loss (scenario_saa.py:931-933)",
+    "accept_rule": "K-scenario utility SUM comparison acc_u > rej_u (strict, no per-scenario margin), gated on a real C0-certified greedy insertion (scenario_saa.py:982-987)",
+    "failure_fallback": "three deadline checks (:946-949, :970-974, :977-981) plus the certifier-refusal exit (:951-955) ALL land in the same _rejected set as a normal reject - observationally indistinguishable",
+    "TWO_GENERATIONS_FACT": {
+      "driver_expects": ["SoftKNNHistoricalSampler (run_a1_step2_gate.py:36)", "SaaReplanner(..., anytime_vote=anytime_vote) (run_a1_step2_gate.py:73)"],
+      "working_tree_scenario_saa_sha256_prefix": "36e08e06",
+      "working_tree_contains_those_symbols": false,
+      "where_they_exist": "research/review_3080_20261010/goal_round_20261013_r9_strong_owner_resource/frozen_saa/scenario_saa.py (1069 lines, sha 4e47b99f...) and scripts/tests/test_s3_6a_softknn.py",
+      "consequence": "the working-tree driver run_a1_step2_gate.py CANNOT import as-is; the shared decision maker exists in at least two generations and the generation MUST be ruled on before any L3 identity freeze",
+      "shrink_the_options_fact": "a formal audit already verified the ACTUAL RUNNING version as 36e08e06... (read-only download, consistent with 348 sealed items) and recorded verbatim that the soft-kNN/anytime branch is 'not an activated feature of this round' (01_qu-huo-xian/docs/protocol-and-audit/pickup protocol literature basis and actual verification 2026-10-09, line 47). So the working-tree version IS the audited real identity, and choosing the frozen copy means introducing a NEVER-ACTIVATED branch - this must be declared explicitly and must NOT be described as 'restoring the original state'.",
+      "forbidden": ["assuming the working-tree version runs", "mixing generations without registration", "using the phrase 'shared decision maker' to hide the generation difference"]
+    },
+    "MASKING_MECHANISM_ALREADY_RECORDED": {
+      "status": "the mechanism is DOCUMENTED in the repo - this is not a new inference",
+      "evidence": [
+        "corrected-downstream ablation: cond - uncond = +0.00, CI [0.00, 0.00], vote arm IDENTICAL to novote arm per-day and per-position across greedy/ortools/pyvrp - accept outcomes are fully determined by real-C0-certified myopic insertion",
+        "scenario_saa.py:923-928 documents that per-scenario -1e6 drowns scenario-dependent value (plan_rev/fuel/rej_loss), degrading the vote to an all-accept/all-reject no-op",
+        "turning the vote OFF is stable +211~+461/day across three p_c tiers under greedy and OR-Tools",
+        "cond_hist averaged 42.700 timeouts/day of ~200 decisions; the A3 C arm 99-127/day",
+        "timeouts / certifier refusals / infeasible scenarios all land in the same _rejected set as a real reject"
+      ],
+      "what_is_NOT_established": "no repository document measures whether the decision maker has any RESOLUTION with respect to the REPAIRER identity (search for masking/drowning/degeneration/resolution terms found none). The existing evidence is about the SAMPLER (cond vs uncond) and the VOTE (vote vs novote), NOT about the repairer.",
+      "consequence_for_reading_L3": "a zero/negative L3 result cannot be attributed to the repairer until decision-layer resolution is checked; the correct alternative reading is 'decision layer indistinguishable', not 'repairer has no online value'"
+    },
+    "RESOLUTION_PRE_CHECK_PROPOSED": {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/docs/当前规划/决策与审计/L3_strict_online效用_预登记设计草案_2026-10-16.md section 8bis",
+      "input": "per-decision logs of both L3 arms on the same development days (already required to be logged)",
+      "statistic": "per-day accepted-set difference and per-day reject/timeout-count difference between arms",
+      "rule": "if the accepted-set difference rate and the timeout difference are indistinguishable from 0 under the day-clustered CI, the layer is judged INDISTINGUISHABLE",
+      "pre_registered_wording": {"indistinguishable": "report 'indistinguishable under this decision layer; L3 cannot be used to judge the repairer's online value' - NEVER 'the repairer has no online value'", "distinguishable_but_utility_negative": "report 'quality improvement did not convert into online utility' and keep that conclusion"},
+      "cost": "no new training, no alternative decision maker, no new rollout batch - reuses L3 logs",
+      "red_line": "this check must NOT relax or replace the L3 primary criterion (dual gate + pre-registered threshold); it affects only the attribution of the wording, never pass/fail"
+    }
+  },
+
+  "METHODOLOGICAL_PRECEDENT_VOIDED_POSITIVE": {
+    "why_recorded": "the single most important risk precedent for the next stage: a POSITIVE result in this project was later VOIDED by a correctness audit. It constrains how any new positive may be reported.",
+    "the_quantity": "the 'condition-information gain' of SAA conditional scenario lookahead",
+    "three_incompatible_values_over_time": [
+      {"value": 314.3, "where": "step-2 gate on the OLD downstream", "status": "VOIDED"},
+      {"value": 0.0, "ci95": [0.0, 0.0], "where": "corrected downstream", "status": "CURRENT AUTHORITY"},
+      {"value": [65.73, 71.21, 77.43], "where": "A2 density-locked configuration", "status": "LOCKED but a DIFFERENT definition (cond_hist - uncond_hist under the density configuration)"}
+    ],
+    "verbatim_authority": "01_qu-huo-xian/docs/results-and-progress/direction-A external comparison dev-set pre-comparison values and RRNCO stage B 2026-09-26, lines 260 and 266-267",
+    "verbatim_text": [
+      "the +314 condition-information effect of the step-2 gate on the old downstream did NOT pass the correctness audit: after correction it is 0",
+      "the old downstream's 'condition-information gain' is a product of the old implementation mechanism (-inf contagion + double-counted revenue + missing shadow fleet); after the T2-T5 audit and two fixes, conditional scenario lookahead has NO positive decision value on the corrected downstream"
+    ],
+    "binding_constraints": [
+      "any reported gain MUST state both its definition and its downstream version - never the number alone",
+      "a positive number must NOT be read as establishing a mechanism - in this precedent the positive came FIRST and was voided LATER",
+      "this precedent is part of why H1 requires COMPLETE C0 certification: previous positives came from an uncertified/uncorrected downstream",
+      "if L2/L3 produce a positive, MECHANISM CORRECTNESS MUST BE RE-VERIFIED before any conclusion is written, and no paper narrative may be written before that re-verification"
+    ]
+  },
+
+  "HYPOTHESES_RANKED": [
+    {"id": "H1", "statement": "after COMPLETE C0 certification, F yields better certifiable decision quality than D-Geo on the same frozen states", "evidence_support": "medium (L1 shows 48/63 first-step divergence, and 57/63 differing uncertified final plans)", "scientific_value": "high - answers the L2 question directly", "computational_cost": "medium - fixed states plus certification, no new training", "failure_risk": "low", "recommendation": "SOLE PRIMARY HYPOTHESIS", "orthogonality_to_old_negatives": "the eight-step negative chain measured UNCERTIFIED or local/terminal utility; H1 measures certified executable plan quality with the repairer as the sole varying factor"},
+    {"id": "H2", "statement": "iterative mask reconstruction has an independent contribution", "evidence_support": "low - L1 shows 10 states with identical first step but differing final plan; that does NOT establish iteration is beneficial", "scientific_value": "medium", "computational_cost": "medium-high (needs same-weight single vs iterative equal-budget control)", "failure_risk": "medium - easily confounded with training lineage (A3 already showed C-B is uninterpretable because C changed both training and inference)", "recommendation": "SECONDARY ABLATION inside H1, not a separate campaign"},
+    {"id": "H3", "statement": "the shared decision maker may mask the repairer's gains", "evidence_support": "MEDIUM-HIGH and already documented - see SHARED_DECISION_MAKER.MASKING_MECHANISM_ALREADY_RECORDED: the sampler's lookahead contributes +0.00 [0.00, 0.00] on the corrected downstream, vote arm is per-day identical to novote, accept outcomes are decided by real-C0-certified myopic insertion, and ~21% of decisions time out into the same _rejected set as a real reject", "scientific_value": "high if true - it would change how the A3/I3 negatives are read", "computational_cost": "high - needs a new decision-maker design plus equal-budget alignment", "failure_risk": "high - introduces new compute/training confounds", "recommendation": "CONDITIONAL REVIEW ITEM only, to be opened if H1 holds and L3 still fails", "correct_falsifiable_form": "with the decision maker and budget FIXED, changing only the repairer changes the decision maker's accept/reject distribution (i.e. the decision layer has measurable resolution with respect to the repairer). If this is FALSE, no repairer difference can convert into online utility and an L3 negative must be read as 'the decision layer is indistinguishable', NOT as 'the repairer is useless'.", "what_is_not_established": "the documented evidence concerns the SAMPLER and the VOTE; no document measures the decision maker's resolution with respect to the REPAIRER", "note": "the user's rule is respected: the SAA is NOT declared unsuitable merely because MaskCO showed no gain under it"}
+  ],
+
+  "strong_baseline_inventory": [
+    {"method": "cond_hist", "layer": "scenario generation + accept/reject", "learned": false, "known_result": "A2 passed and locked; A1 single seed did not establish its superiority", "valid_as_L3_primary_control": true},
+    {"method": "uncond_hist", "layer": "scenario generation + accept/reject", "learned": false, "known_result": "the A2 control arm", "valid_as_control": true},
+    {"method": "a1_consensus", "layer": "decision maker (K-scenario majority vote)", "learned": false, "known_result": "+7.0 [-20.5, +35.9] single seed - no demonstrated difference", "valid": "report-alongside"},
+    {"method": "a1_rollout", "layer": "decision maker (h=2 truncation + V)", "learned": "V is trained", "known_result": "-558.3 [-623.9, -498.4] single seed - significantly worse in the current implementation", "valid": "report-alongside with the caveat"},
+    {"method": "D-Geo (-incremental_distance)", "layer": "mask-repair scoring", "learned": false, "known_result": "L1 primary control; 48/63 first-step divergence", "valid_as_L2_primary_control": true, "valid_as_L3_strongest_online_baseline": false},
+    {"method": "R (regret-2 / cc_lns)", "layer": "mask repair", "learned": false, "known_result": "dist_sgbs 1.0617/1.1447 < R 1.0697/1.1515 < Mtrained 1.0789/1.1528 - a STRONGER non-learning repair than D-Geo on that fixed-state measure", "valid": "MANDATORY report-alongside in L2"},
+    {"method": "density / marginal / greedy", "layer": "accept-reject rules", "learned": false, "known_result": "density is the A2 locked configuration", "valid": "configuration axis"},
+    {"method": "explicit_feat", "layer": "prediction", "learned": true, "known_result": "diagnostic only in A2", "valid": false}
+  ],
+  "baseline_red_lines": ["D-Geo must NOT be treated as the whole set of strong online baselines", "cond_hist's historical label must NOT be read as proof that it is strongest under every new protocol - A1 did not establish its superiority and set no equivalence bound, so neither 'strongest' nor 'proven equivalent' is available", "a candidate-level number must never be written as deployment"],
+  "how_to_show_independent_contribution": "the L2 primary control D-Geo must be reported ALONGSIDE R (regret-2) and cond_hist; method contribution may be discussed only if F beats BOTH D-Geo and R - beating D-Geo alone is insufficient",
+
+  "user_decisions_required": [
+    {"id": 1, "item": "C0 formal budget B", "options": ["rule a value and create a registration artifact bound to the 64 dev_check states", "rule that B derives from a named registered protocol", "keep AWAITING_USER_BUDGET_RULING, in which case L2 cannot start"], "impact": "decides whether L2 can perform complete C0 certification"},
+    {"id": 2, "item": "production certifier wiring", "options": ["permit wiring compose_certification into certify_fn on a NEW unfrozen L2 branch", "permit only certify_plan (energy only) and state explicitly that this is not complete C0 certification"], "impact": "decides whether L2's V3 can ever be other than NOT_RUN"},
+    {"id": 3, "item": "decision-time executability of quality/salability", "options": ["L2 accepts that quality cannot be certified at decision time and reports energy+route only", "close the capability gap first"], "impact": "decides what 'complete C0 certification' actually means"},
+    {"id": 4, "item": "effect of L1 BLOCKED on L2 eligibility", "options": ["literal reading (signed + executed) and proceed", "require no unanswered state, needing a new-identity execution", "explicit specification amendment of section 1 item 2"], "impact": "decides the L2 gate"},
+    {"id": 5, "item": "future state source", "options": ["collect fresh development days", "explicitly-labelled reuse of L1's 63 states"], "impact": "decides the evidential strength of L2"},
+    {"id": 6, "item": "L2 threshold delta_L2", "options": ["inherit delta3 = 20 from A3", "register a new value", "set no delta and rely on the CI lower bound alone"], "impact": "decides the L2 primary criterion", "note": "NO registered L2 threshold exists; A3's delta3=20 must not be merged by default"},
+    {"id": 7, "item": "bootstrap resample count", "options": ["2000 (as in I3)", "another value"], "impact": "CI reproducibility", "note": "A2 and A3 preregistrations do NOT state a count"},
+    {"id": 8, "item": "which generation of the shared decision maker (SAA) is the registered identity", "options": ["the frozen copy (sha 4e47b99f..., 1069 lines) as the registered identity", "the working-tree version as the registered identity, explicitly registering that run_a1_step2_gate.py is not used", "repair consistency first, then freeze"], "impact": "whether the L3 'shared decision maker identity' can be frozen at all", "fact": "the working-tree scenario_saa.py and its driver run_a1_step2_gate.py are incompatible as-is; the symbols the driver needs exist only in the frozen copy"},
+    {"id": 9, "item": "whether to register the decision-layer resolution pre-check", "options": ["register it as a mandatory L3 prerequisite", "report it as a diagnostic only", "do not register it"], "impact": "whether an L3 negative may be attributed to 'the repairer is useless'", "path": "L3 draft section 8bis"},
+    {"id": 10, "item": "exact scope of the next authorisation", "options": ["M1 qualification preparation only", "M1 plus the 2-day smoke test"], "impact": "what may run next"}
+  ],
+
+  "next_authorisation_recommended": {
+    "scope": "M1 qualification preparation on a NEW unfrozen L2 branch: (i) implement and freeze the certifier wiring compose_certification -> certify_fn; (ii) apply the user's rulings on B, delta_L2, state source and the BLOCKED effect; (iii) produce the formal L2 seven-element preregistration plus identity freeze and independent read-only acceptance; (iv) run the permitted lightweight synthetic tests and the 2-day smoke qualification check",
+    "would_start": ["design freeze", "certifier wiring", "identity artifacts", "synthetic tests", "smoke qualification"],
+    "would_not_start": ["any new real F scoring", "L1 re-run", "V1.22 re-run", "L2/L3 formal comparison", "E2 training", "online rollout", "40-day batch", "final test", "plan installation", "Git history rewrite"],
+    "not_consumed_by_this_document": true
+  },
+
+  "not_run_in_this_round": ["any new real MaskCO scoring", "L1 re-run", "V1.22 re-run", "Q1 completion using the existing 63 states", "modification of L1 frozen source/results/verdicts", "modification of MASKCO_code/", "unapproved modification of frozen data", "E2 training", "L2/L3 formal comparison", "new online rollout", "40-day formal batch", "final test", "plan installation", "Git history rewrite or force push", "changing registered seeds or criteria to raise the pass rate"],
+
+  "preserved_unchanged": {
+    "stable_online_gain": false,
+    "HISTORICAL_BACKBONE_UNVERIFIED": true,
+    "I3_negative_result": {"value": -144.68, "ci95": [-191.109, -100.125]},
+    "D2": "not_qualified",
+    "D3_G0": "not_passed",
+    "D8": "CAPABILITY_GAP_BLOCKING",
+    "E2": "no_qualified_result",
+    "C0_budget": "AWAITING_USER_BUDGET_RULING",
+    "L1_formal_batch": "BLOCKED",
+    "final_test_seeds": ["20260927", "20260928"],
+    "final_test_status": "SEALED"
+  },
+
+  "this_round_scope": "M0 research design only. Completion of this task means the M0 design deliverables are done. It does NOT mean L2 or L3 passed, and it does NOT mean any positive gain exists."
+}

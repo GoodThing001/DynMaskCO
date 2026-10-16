@@ -1,0 +1,68 @@
+M0: next-stage research plan (repositioning + evidence-gap review), design only
+
+Scope: M0 research design ONLY. No experiment was run. No new real MaskCO
+scoring, no L1/V1.22 re-run, no L2/L3 comparison, no E2 training, no online
+rollout, no 40-day batch, no final test, no install. M1-M4 are DESIGN ONLY and
+are not authorised to execute.
+
+New deliverables under
+C-VRP_Cold-chainVehicleRoutingProblem/docs/dang-qian-gui-hua/jue-ce-yu-shen-ji/
+(Chinese directory name preserved on disk):
+
+  1. DynMaskCO_CC_next_stage_roadmap_2026-10-16.md
+     - Three separated fact tiers; L1-v2, A1, A2, A3, I3 evidence quoted
+       verbatim from the authoritative records without rewriting.
+     - Milestones M0-M4 with goals, inputs, outputs, gates and failure forks.
+     - Dependency chain and resource plan.
+  2. L2_certified_decision_quality_seven_element_prereg_draft_2026-10-16.md
+     - Seven-element preregistration draft for L2, including the open
+       precondition ruling (section 1 item 2 requires only "signed and
+       executed"; L1-v2 is BLOCKED with 1 of 64 states unanswered).
+  3. L3_strict_online_utility_prereg_design_draft_2026-10-16.md
+     - Strict-online protocol, utility definition, shared decision maker,
+       strong controls, statistics, failure forks, claim limits.
+     - New section 3.2bis: the shared decision maker exists in TWO GENERATIONS
+       and the working-tree scenario_saa.py is incompatible with its own driver
+       run_a1_step2_gate.py.
+     - New section 8bis: proposed decision-layer resolution pre-check.
+  4. C0_budget_and_strong_baselines_qualification_gap_and_user_decisions_2026-10-16.md
+     - Certifier entry chain with file:line for every claim; the budget B is
+       STILL AWAITING_USER_BUDGET_RULING; strong-baseline inventory; the
+       10 itemised user decisions; the minimal next authorisation.
+  5. DynMaskCO_CC_next_stage_qualification_matrix_2026-10-16.json
+     - Machine-readable layer-by-layer qualification matrix, the shared
+       decision maker record, the ranked hypotheses, and the user decisions.
+
+Key findings recorded (facts, with file:line evidence in the documents):
+
+  - CERTIFIER WIRING GAP: compose_certification is called ONLY from
+    scripts/tests/*; no production call site injects certify_fn. The L1 formal
+    run passes certify_fn=None (d3_l1_l1_formal_run.py:469), which is the
+    code-level reason V3 is NOT_RUN for all 64 L1 states. L2 cannot claim
+    "complete C0 certification" until the certifier is wired.
+  - C0 BUDGET: search verdict SEARCH_EXHAUSTIVE_NO_REGISTERED_PROTOCOL_BUDGET_FOUND,
+    found=false, n_candidates=0, n_state_bound=0. Every value found is a
+    test-local historical CAL fixture, a synthetic refusal fixture labelled
+    "never a formal B", an isolation sentinel, or a per-run derived calibration
+    not bound to the 64 dev_check states. No value is chosen here.
+  - SHARED DECISION MAKER (new this round): the working-tree SAA cannot import
+    its driver; the symbols the driver needs exist only in a frozen copy.
+  - The masking mechanism behind H3 is ALREADY DOCUMENTED in the repository
+    (sampler lookahead contributes +0.00 [0.00, 0.00] on the corrected
+    downstream; vote arm per-day identical to novote; cond_hist 42.700
+    timeouts/day; timeouts and certifier refusals share the reject set). What is
+    NOT established is the decision maker's resolution with respect to the
+    REPAIRER, so L3 must pre-register that check rather than assume either way.
+  - A2 remains the only locked positive layer and is a development-set
+    conditional-information RELATIVE gain, not absolute system utility and not
+    a MaskCO gain.
+  - preserved unchanged: stable_online_gain=false, HISTORICAL_BACKBONE_UNVERIFIED,
+    I3 negative, D2 not_qualified, D3 G0 not passed, D8 CAPABILITY_GAP_BLOCKING,
+    E2 no qualified result, C0 AWAITING_USER_BUDGET_RULING, L1 formal batch
+    BLOCKED, final test seeds 20260927/20260928 SEALED.
+
+No frozen source, result, verdict or data file was modified. MASKCO_code/ was
+not touched.
+
+Recommended next authorisation (NOT requested and NOT consumed by this commit):
+M1 qualification preparation on a NEW unfrozen L2 branch only.
