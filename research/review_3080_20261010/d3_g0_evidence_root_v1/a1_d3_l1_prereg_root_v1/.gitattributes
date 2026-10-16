@@ -62,3 +62,12 @@ l1_v2_supervise.err -text
 l1_gates/L1_V2_EXECUTION_AUTHORIZATION.json -text whitespace=cr-at-eol
 l1_gates/L1_V2_EXECUTION_consumption/** -text whitespace=cr-at-eol
 l1_gates/L1_V2_EXECUTED_ROUND_ADJUDICATION.json -text whitespace=cr-at-eol
+# L1-v2 closure round: the signer's Option-A ruling, the read-only analysis plan, the secret-exposure
+# cleanup report and the redaction ledger are hashed as bytes; the redacted secret stubs are also
+# frozen so their one-way digests stay checkable on a fresh checkout.
+A1_D3_L1_L1_V2_READONLY_MECHANISM_ANALYSIS_PLAN.md -text
+A1_D3_L1_EXPOSED_SECRET_CLEANUP.md -text
+l1_gates/L1_V2_CLOSURE_ADJUDICATION.json -text whitespace=cr-at-eol
+l1_gates/L1_EXPOSED_SECRET_REDACTION.json -text whitespace=cr-at-eol
+l1_v2_execution_run/guard/*.txt -text
+v122_evidence/run_v122/guard/*.txt -text

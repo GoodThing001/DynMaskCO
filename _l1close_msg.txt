@@ -1,0 +1,93 @@
+L1-v2 closure (Option A) + public-repo execution-secret exposure handled
+
+TWO ITEMS: the signer's closure ruling, and a security finding the ruling did not
+ask for but which the review request uncovered.
+
+1. CLOSURE RULING -- OPTION A, AND IT IS NOT A PASS
+
+   The signer accepted the 63/64 comparable-state result as L1's final diagnostic
+   material for the observed mechanism difference, and did NOT authorise Option B
+   (no new identity, no new execution).
+
+     one-shot opportunity          CONSUMED (no re-run, no top-up)
+     formal batch status           BLOCKED -- never to be rewritten as PASS
+     denominator                   64 registered, 64 retained, none dropped
+     L1 observed mechanism result  48/63 first-step DIVERGENT (76.2%)
+                                  57/63 uncertified final plans differ
+     state (0,3)                   UNANSWERED_F_SHAPE_DEFECT (M_max 26 vs pool 27)
+     V2                            UNCERTIFIED full repair only
+     V3                            NOT_RUN, no plan installed
+     A1/A2/A3 gates                NOT retroactively granted
+     next step                     read-only mechanism analysis of existing records only
+
+   Recorded in l1_gates/L1_V2_CLOSURE_ADJUDICATION.json, whose 13 key figures were
+   checked one by one against the raw records: all consistent.  The read-only
+   analysis plan (Q1 cheap-rule reproduction rate, Q2 structural strata, Q3
+   consequence distribution, Q4 boundary of the excluded state, Q5 order-confound
+   arithmetic extrapolation, with an R0 recomputation gate and don't-start
+   preconditions) is at A1_D3_L1_L1_V2_READONLY_MECHANISM_ANALYSIS_PLAN.md.
+
+2. SECURITY: TWO EXECUTION SECRETS WERE PUBLIC
+
+   The public repo GoodThing001/DynMaskCO contained two committed 256-bit
+   execution secrets, inside the raw run directories:
+
+     L1-v2  execution_secret_12adf7457768bfb5.txt
+            sha256 f786b3c202870670226f892f5ace31aa4ff04c52087e47b3be29cc8dc443a389
+            first published by commit bdbc18ad7 (this round)
+     V1.22  execution_secret_b3e36be45ceb6bb4.txt
+            sha256 b9600f71696e70d27e75e68778cb65e21e000346f9813e1ad246076182215972
+            PRE-EXISTING: already public before this review
+
+   A byte-level scan of ALL 38,072 tracked files found these two files and NOTHING
+   else: no secret value leaked into any log, record or source file.
+
+   IMPACT -- no residual authority.  Each run mints its own secret with
+   secrets.token_hex(32) at a freshly named path; the secret only signs that run's
+   context; the guard additionally requires run/directory binding AND a one-shot
+   consumption receipt that a gated process cannot forge; and both credentials were
+   consumed BEFORE publication.  The exposed values therefore authorise nothing new.
+   The residual risk is forensic: the already-completed runs' execution contexts
+   could be forged.
+
+   HANDLED AS EXPOSED, NEVER REUSED:
+     * originals archived PRIVATELY outside the repository, byte-identical, at
+       ~/dynmaskco_private/exposed_execution_secrets/2026-10-16/
+     * the public copies replaced by REDACTED-EXPOSED-EXECUTION-SECRET stubs that
+       record the run id, file sha256, the secret's sha256 (one-way), the publishing
+       commit, the consumption time and the private archive path -- and NO value
+     * EXECUTION_CONTEXT_*.json left INTACT: an HMAC is not reversible to its key,
+       the key is already public, and that record is load-bearing evidence that the
+       guard bound run, directory, consumed credential and nonce
+     * redaction ledger l1_gates/L1_EXPOSED_SECRET_REDACTION.json and the idempotent
+       tool scripts/tests/d3_l1_exposed_secret_redaction.py, which never prints a value
+
+   HISTORY PURGE -- NOT EXECUTED, and the cost is stated.  Redaction only covers the
+   current tree; the historical blobs still hold the plaintext.  The report gives the
+   runbook (mirror backup -> git filter-repo --replace-text -> emit an old-to-new
+   commit MAP to preserve traceability -> force-with-lease -> ask GitHub to clear
+   unreachable objects) and the price: rewriting changes every downstream commit SHA
+   and invalidates the git HEAD 558fb5c that the signed authorisation names, plus the
+   whole commit-pinned audit chain.  The alternative is to leave history as-is, on
+   the grounds that both secrets are consumed and carry no residual authority.  Both
+   paths are the signer's call and neither was taken.
+
+   NOT EXPOSED: .vscode/sftp.json is NOT tracked (.gitignore:25 ignores .vscode/).
+   An earlier "tracked: True" in this session was MY matching defect -- I had matched
+   tools/_sftp_*.py as if it were the credentials file.  Corrected and recorded.
+
+   SELF-INFLICTED DEFECT, recorded rather than hidden: committing whole raw run
+   directories carried a live-from-the-run secret into public history, and the
+   delivery tool uses git add -A with no secret-shape pre-commit scan.  The signer's
+   review found this, not my own checks.
+
+3. NOT RUN
+   E2, L2, L3, the 40-day batch, the final test, plan installation, and any new real
+   scoring, training or online rollout.  The read-only analysis is planned, not
+   executed.
+
+UNCHANGED
+   stable_online_gain = false; HISTORICAL_BACKBONE_UNVERIFIED; I3 negative result
+   (-144.680, 95% CI [-191.109, -100.125]); D2 not_qualified; D3 G0 not passed;
+   D8 CAPABILITY_GAP_BLOCKING; E2 without a qualified result;
+   C0 = NON_BLOCKING_UNRESOLVED; V3 = NOT_RUN.
