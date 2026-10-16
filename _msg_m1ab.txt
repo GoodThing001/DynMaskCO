@@ -1,0 +1,70 @@
+docs: add M1-a prototype boundary constraints (S-15..S-17, S-12 precision)
+
+Design-only change. Adds ONE new file; the two existing M1-a documents are not
+rewritten, re-reviewed or overwritten.
+
+  docs/dang-qian-gui-hua/jue-ce-yu-shen-ji/
+    DynMaskCO_CC_M1-a-yuan-xing-shi-shi-bian-jie-yue-shu_2026-10-16.md
+
+This records the proposed-authorisation requirements as design constraints. It
+does NOT constitute authorisation and this commit requests and consumes none.
+
+S-15 ILLEGAL PLAN MUST NOT REACH THE QUALITY CALLBACK
+  Static basis: DOWNSTREAM at d3_composed_certifier.py:110, the legality gates at
+  :136-147, and the quality branch inside "if legality_ok:" at :206 with the ONLY
+  quality_check_fn call at :291. So zero calls is structurally guaranteed on the
+  normal path. The case therefore asserts the CALL COUNT is exactly 0 and that
+  quality.state is still QUALITY_CAPABILITY_GAP - not merely that the verdict is
+  not-ok, because "reject after calling" would still pass a verdict-only test.
+  Verdicts reserved: LEGALITY_FIRST_HOLDS / ILLEGAL_PLAN_REACHED_QUALITY_IMPL /
+  REPORT_SCHEMA_INVALID.
+
+S-16 STRICT TYPE CHECKING OF THE QUALITY CALLBACK
+  The current implementation is UNGUARDED at the type level: :291 unpacks with no
+  check and :292-293 use plain truthiness, so a non-bool qok ("no", [0],
+  {..}, 1, numpy.bool_(True)) is read as pass, clears blocking_capability_gaps,
+  and can make installable True at :298. A strict adapter-side verifier is
+  specified with T1 no-truthiness (type(qok) is bool, never "== True"), T2
+  missing-means-refuse (especially omega_membership_checked), T3 adapter-first
+  because the composer does none of this. Nine negative controls are specified.
+
+S-17 APPLICABLE DOMAIN AND STRICT-ONLINE INFORMATION ISOLATION
+  In-domain/out-of-domain synthetic contexts for the omega membership check; a
+  registry gate refusing TEST_ONLY / uncertified / no-omega-declaration /
+  SHA-mismatch entries; and a two-track isolation design (least privilege up
+  front, plus a post-hoc read_order_ids audit rejecting any order with
+  reveal_time > clock). The repository's own paired primitives
+  coord_normalize_visible vs coord_normalize, and hard invariant 3 in the root
+  CLAUDE.md, are cited as the existing precedent.
+  A hard constraint is added: with no audited real quality implementation, even
+  a fully passing synthetic suite must leave quality.state at
+  QUALITY_CAPABILITY_GAP and installable False. A synthetic pass must never be
+  used to claim real decision-time quality certification.
+
+S-12 PRECISION CORRECTION (user's correction accepted)
+  The original "base_plans=Pc must be refused" was too strong and would
+  misjudge legal candidates that legitimately reconverge to P0. S-12 now tests
+  PROVENANCE AND ALIASING instead of value equality: not the same object, no
+  shared mutable storage or shared memory, base sourced from a frozen P0 artifact
+  with a matching registered SHA, and the candidate generation path must not
+  mutate P0. A positive control requires that a candidate whose content EQUALS P0
+  is ACCEPTED, proving the case no longer treats content equality as cheating.
+
+ALSO RECORDED
+  Implementation must be on a new unfrozen extension path, with MASKCO_code/, the
+  L1 frozen tree, existing results, signed preregistrations and existing formal
+  verdicts untouched.
+  Status vocabulary reserved but NOT activated this round: at most
+  M1A_SYNTHETIC_ENGINEERING_ACCEPTED, and never FULL_INSTALLABILITY_ESTABLISHED,
+  L2_PASS or A3_PASS.
+
+Scope honoured: static reads and design only. No prototype implementation, no
+synthetic case executed (S-1..S-17 all NOT_RUN), no real F forward, no L1 re-run,
+no L2/L3 comparison, no real two-day smoke test, no new state collection, no E2
+training, no online rollout, no plan install, no frozen-tree or frozen-data
+modification, no final test seeds, no --skip-secret-scan.
+
+Unchanged: stable_online_gain=False, HISTORICAL_BACKBONE_UNVERIFIED, I3 negative
+(-144.680 [-191.109, -100.125]), D2 not_qualified, D3 G0 not passed, D8
+CAPABILITY_GAP_BLOCKING, E2 no qualified result, C0 AWAITING_USER_BUDGET_RULING,
+L1 formal batch BLOCKED (never rewritten as PASS).
