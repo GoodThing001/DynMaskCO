@@ -1,32 +1,34 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""M1-b/Q2-6: the G7 THERMAL HARD GATE by state-anchored REPLAY.
+"""M1-b/Q2-Fix: the G7 thermal gate, rebuilt on the SHARED time replay and split into two
+CERTAINTY LEVELS.
 
-Why: `action_contract.certify_route:179-183` checks only that the temperature CLASS is supported
-and never inspects `hard_temperature_bounds_c`; `coldchain_state._thermal_violations:433-447`
-only COUNTS violations.  The real verdict lives in the v1 evaluator plus `hard_gate`, i.e. at the
-TERMINAL layer, not before submission.  This module supplies the missing PRE-SUBMIT check.
+Fixes (Q2-R): C1 (a sampled result could be read as a continuous hard certificate) and the
+timing mismatch with Omega11.
 
-Method: start from the trusted vehicle's CURRENT cold-chain state and replay the candidate suffix
-through the contract's REAL thermal dynamics (`coldchain_state.transition_segment`), recording the
-temperature ENVELOPE AT EVERY SEGMENT BOUNDARY and after every door event -- not merely the
-endpoint.  That directly addresses the "endpoint only" hazard: because `_apply_door_event` warms a
-zone instantaneously and the following segment cools it, a peak can in principle occur strictly
-inside a segment, so the check evaluates the post-door value as well as both segment endpoints.
+CERTAINTY LEVELS (the C1 fix)
+    THERMAL_SAMPLED_OK                   the SAMPLED envelope is inside hard_temperature_bounds_c
+    THERMAL_CONTINUOUS_OK                the intra-segment continuous extremum is PROVEN in bounds
+    THERMAL_CONTINUOUS_NOT_ESTABLISHED   not established (this round's honest standing)
 
-Fail-closed on: missing cold-chain state, time-order violation, incompatible contract, any
-non-finite value, and any EXISTING accumulated thermal violation on the vehicle.
+The two are SEPARATE top-level fields.  The composite requires THERMAL_CONTINUOUS_OK, so with no
+analytic extremum proof the composite is FAIL-CLOSED while the sampled diagnostic remains
+available for engineering purposes and is NEVER named a complete installability certificate.
 
-HONEST LIMIT (kept as an explicit qualification gap, not hidden): the replay samples the
-temperature at event boundaries and immediately after each door event.  Between two consecutive
-events the code applies cooling linearly and heat transfer exponentially, and `updated =
-max(target, ...)`, so the composed trajectory between two sampled points is not re-sampled
-continuously.  The module reports `continuous_time_hard_constraint: NOT_VERIFIED_CONTINUOUSLY`
-and states the reason, rather than claiming a continuous-time guarantee.
+TIMING: the replay drives the temperature through `m1b_timing.replay_timeline`, i.e. the SAME
+wait/service semantics as Omega11 and `action_contract.certify_route`.  The audited version had
+its own advance (no `tw_start` wait), so the two gates could disagree about one trajectory.
+
+HONEST LIMIT, stated rather than hidden: `THERMAL_CONTINUOUS_OK` is set only when
+`continuous_extremum_proof` is supplied AND returns proven for every zone.  This module does NOT
+itself implement that proof, and its mathematical applicability domain would have to be frozen
+and independently audited first.
 """
 from __future__ import annotations
 
-THERMAL_HARD_OK = 'THERMAL_HARD_OK'
+import m1b_timing as TM
+
+THERMAL_SAMPLED_OK = 'THERMAL_SAMPLED_OK'
 THERMAL_BOUNDS_VIOLATED = 'THERMAL_BOUNDS_VIOLATED'
 THERMAL_REPLAY_STATE_MISSING = 'THERMAL_REPLAY_STATE_MISSING'
 THERMAL_REPLAY_TIME_ORDER_INVALID = 'THERMAL_REPLAY_TIME_ORDER_INVALID'
@@ -35,7 +37,21 @@ THERMAL_CONTRACT_INCOMPATIBLE = 'THERMAL_CONTRACT_INCOMPATIBLE'
 THERMAL_REPLAY_INCOMPLETE = 'THERMAL_REPLAY_INCOMPLETE'
 THERMAL_NUMERIC_INVALID = 'THERMAL_NUMERIC_INVALID'
 
-CONTINUOUS_NOT_VERIFIED = 'NOT_VERIFIED_CONTINUOUSLY'
+THERMAL_CONTINUOUS_OK = 'THERMAL_CONTINUOUS_OK'
+THERMAL_CONTINUOUS_NOT_ESTABLISHED = 'THERMAL_CONTINUOUS_NOT_ESTABLISHED'
+THERMAL_CONTINUOUS_VIOLATED = 'THERMAL_CONTINUOUS_VIOLATED'
+
+#: PRE-FIX name.  In the audited version a single `THERMAL_HARD_OK` conflated the sampled and
+#: continuous levels, which is exactly the C1 promotion path.  The name is kept ONLY so the
+#: historical `test_m1b_q2_certification.py` can be imported; it now denotes the SAMPLED level and
+#: must never be read as a continuous-time guarantee.
+THERMAL_HARD_OK = THERMAL_SAMPLED_OK
+
+#: PRE-FIX label for the continuous-time caveat.  Kept for import compatibility with the
+#: historical test file; `THERMAL_CONTINUOUS_NOT_ESTABLISHED` is the authoritative spelling.
+CONTINUOUS_NOT_VERIFIED = THERMAL_CONTINUOUS_NOT_ESTABLISHED
+
+IMPLEMENTATION_VERSION = 'M1B_Q2FIX'
 
 
 def _finite(x):
@@ -47,12 +63,14 @@ def _finite(x):
 
 
 def replay_thermal_envelope(snapshot, *, contract, inst_idx, clock, travel_fn, distance_fn,
-                            temp_class_of, quantity_of, service_time_of,
-                            active_zone_mask=None):
-    """Replay ONE vehicle's remaining trajectory and return its temperature envelope.
+                            temp_class_of, quantity_of, service_time_of, active_zone_mask=None,
+                            stops_override=None, start_node_override=None,
+                            depart_override=None, initial_quality_of=None,
+                            continuous_extremum_proof=None, wait_aware=True):
+    """Replay a vehicle's remaining trajectory and report its temperature envelope.
 
-    Returns (envelope, verdict, detail).  `envelope` contains per-zone min/max over every sampled
-    point, the sampled points themselves, and the number of door events.
+    Returns (envelope, verdict, detail).  `verdict` is the SAMPLED verdict; the envelope carries
+    `continuous_time_hard_constraint` with one of the THERMAL_CONTINUOUS_* values.
     """
     import coldchain_state as CS
     from coldchain_state import transition_segment
@@ -77,27 +95,68 @@ def replay_thermal_envelope(snapshot, *, contract, inst_idx, clock, travel_fn, d
     if state is None:
         return None, THERMAL_REPLAY_STATE_MISSING, {
             'vehicle': snapshot.vehicle_id,
-            'why': 'the vehicle has no cold-chain state; it was never dispatched. Temperature '
-                   'hard feasibility cannot be asserted for a state that does not exist.'}
+            'why': 'the vehicle has no cold-chain state; it was never dispatched, so temperature '
+                   'hard feasibility cannot be asserted for a state that does not exist'}
     if bool(getattr(state, 'closed', False)):
         return None, THERMAL_REPLAY_STATE_MISSING, {
             'vehicle': snapshot.vehicle_id, 'why': 'cold-chain state already closed'}
     prior_count = int(getattr(state, 'thermal_violation_count', 0))
     prior_dur = float(getattr(state, 'thermal_violation_duration_h', 0.0))
     if prior_count > 0 or prior_dur > 1e-9:
-        # A replay of the REMAINING trajectory cannot exonerate violations already accumulated.
         return None, THERMAL_PRIOR_VIOLATIONS_PRESENT, {
             'vehicle': snapshot.vehicle_id, 'thermal_violation_count': prior_count,
             'thermal_violation_duration_h': prior_dur,
-            'why': 'RESTARTING a replay from a state that already carries violations would '
-                   'silently launder them; the cumulative record is part of the verdict'}
+            'why': 'restarting from a state that already carries violations would launder them'}
+
+    plan = getattr(snapshot, 'plan', None)
+    if stops_override is not None:
+        stops = [int(x) for x in stops_override if int(x) != 0]
+    else:
+        stops = [int(x) for x in (plan.suffix if plan is not None else snapshot.mutable_suffix)]
+        stops = [x for x in stops if x != 0]
+    node = int(snapshot.current_node if start_node_override is None else start_node_override)
+    depart = float(max(snapshot.ready_time, clock) if depart_override is None
+                   else depart_override)
+
+    # The pre-fix test called this gate with a bare `service_time_of` callable.  A bare callable
+    # cannot express a time-window start at all, so it is adapted with tw_start = 0.0 for exactly
+    # the nodes it can name -- a faithful reproduction of the PRE-FIX semantics (which ignored
+    # tw_start), NOT a relaxation of the fixed path.  The fixed path always passes a
+    # PublicTimeInputs object.
+    times = service_time_of
+    if not hasattr(times, 'tw_start_of'):
+        if not callable(times):
+            return None, THERMAL_REPLAY_INCOMPLETE, {
+                'vehicle': snapshot.vehicle_id,
+                'why': 'neither a time-input object nor a callable was supplied'}
+        probe = sorted(set(int(x) for x in (stops or ()))
+                       | {int(snapshot.current_node), 0})
+        svc, twe = {}, {}
+        for n in probe:
+            try:
+                svc[n] = float(times(n))
+            except Exception:                                            # noqa: BLE001
+                pass
+            twe[n] = 1e9
+        times = TM.PublicTimeInputs(service_time=svc, tw_start={n: 0.0 for n in probe},
+                                    tw_end=twe, revealed_nodes=probe,
+                                    identity='legacy-callable-shim')
+
+    # ---- shared timeline: identical wait/service semantics to Omega11 and certify_route ----
+    timeline, tverd, tdet = TM.replay_timeline(
+        depart=depart, clock=clock, start_node=node, stops=stops, return_to_depot=True,
+        travel_fn=travel_fn, times=times)
+    if tverd != TM.TIMING_OK:
+        return None, (THERMAL_REPLAY_TIME_ORDER_INVALID if tverd in
+                      (TM.TIMING_TIME_ORDER_INVALID, TM.TIMING_ANCHOR_MISMATCH)
+                      else THERMAL_REPLAY_INCOMPLETE), {'vehicle': snapshot.vehicle_id,
+                                                        'timing_verdict': tverd, 'detail': tdet}
 
     mins = [float('inf')] * zones
     maxs = [float('-inf')] * zones
-    samples = []
+    samples, segment_durations = [], []
 
     def _observe(tag, when, st):
-        nonlocal mins, maxs
         for z, T in enumerate(st.compartment_temperature_c):
             if not _finite(T):
                 raise ValueError('non-finite temperature zone %d' % z)
@@ -106,71 +165,58 @@ def replay_thermal_envelope(snapshot, *, contract, inst_idx, clock, travel_fn, d
         samples.append({'tag': tag, 'time': float(when),
                         'temps': [float(x) for x in st.compartment_temperature_c]})
 
-    plan = snapshot.plan if snapshot.plan is not None else None
-    suffix = [int(x) for x in (plan.suffix if plan is not None else snapshot.mutable_suffix)]
-    suffix = [x for x in suffix if x != 0]
-    node = int(snapshot.current_node)
-    t = float(max(snapshot.ready_time, clock))
-    _observe('initial', t, state)
-
-    n_doors = 0
-    # PRE-BOARDED LOTS.  The replay covers the trajectory from the CURRENT decision point onward,
-    # so lots already in the manifest were acquired earlier and carry their own recorded
-    # `pickup_finish_time`.  A lot whose recorded pickup is at or after the replay start cannot
-    # have come from the past, so the state and the plan are inconsistent -- refuse rather than
-    # invent an acquisition time for it.
     for lot in (getattr(state, 'cargo_manifest', ()) or ()):
         pf = getattr(lot, 'pickup_finish_time', None)
         if pf is None or not _finite(pf):
             return None, THERMAL_REPLAY_INCOMPLETE, {
                 'vehicle': snapshot.vehicle_id, 'order_id': getattr(lot, 'order_id', None),
                 'why': 'pre-boarded lot without a finite pickup_finish_time'}
-        if float(pf) > t + 1e-9:
+        if float(pf) > depart + 1e-9:
             return None, THERMAL_REPLAY_INCOMPLETE, {
                 'vehicle': snapshot.vehicle_id, 'order_id': getattr(lot, 'order_id', None),
-                'why': 'a pre-boarded lot records a pickup LATER than the replay start, so the '
-                       'state and the plan are inconsistent', 'pickup_finish_time': float(pf),
-                'replay_start': t}
+                'why': 'a pre-boarded lot records a pickup LATER than the replay start',
+                'pickup_finish_time': float(pf), 'replay_start': depart}
+
+    _observe('initial', depart, state)
+
+    def _iq_of(n):
+        if initial_quality_of is not None:
+            return float(initial_quality_of(int(n)))
+        v = getattr(snapshot, 'initial_quality_of', None)
+        return float(v(int(n))) if callable(v) else 1.0
+
+    n_doors = 0
     try:
-        for nxt in suffix:
-            if int(nxt) <= 0:
-                return None, THERMAL_REPLAY_INCOMPLETE, {'why': 'non-customer node in suffix',
-                                                         'node': int(nxt)}
-            travel = float(travel_fn(node, int(nxt)))
-            arrive = t + travel
-            if not _finite(arrive) or arrive < t - 1e-9:
+        prev_t = depart
+        for ev in timeline['events']:
+            if ev['tag'] != 'service':
+                continue
+            nxt = int(ev['node'])
+            dur = TM._finite(ev['service_finish']) and (ev['service_finish'] - ev['depart'])
+            if dur is None or dur < -1e-9:
                 return None, THERMAL_REPLAY_TIME_ORDER_INVALID, {
-                    'vehicle': snapshot.vehicle_id, 'depart': t, 'arrive': arrive}
-            st = float(service_time_of(int(nxt)))
-            finish = max(arrive, 0.0) + st
-            if finish < arrive - 1e-9:
-                return None, THERMAL_REPLAY_TIME_ORDER_INVALID, {
-                    'vehicle': snapshot.vehicle_id, 'arrive': arrive, 'finish': finish}
-            try:
-                state, _m = transition_segment(
-                    state, t, arrive, finish, int(nxt), mask, contract,
-                    order_quantity=float(quantity_of(int(nxt))),
-                    order_temp_class=int(temp_class_of(int(nxt))),
-                    initial_quality=float(snapshot.initial_quality_of(int(nxt))),
-                    segment_distance_units=float(distance_fn(node, int(nxt))))
-            except Exception as exc:                                    # noqa: BLE001
-                return None, THERMAL_REPLAY_INCOMPLETE, {
-                    'vehicle': snapshot.vehicle_id, 'node': int(nxt),
-                    'exception': '%s: %s' % (type(exc).__name__, str(exc)[:150])}
+                    'vehicle': snapshot.vehicle_id, 'event': ev}
+            state, _m = transition_segment(
+                state, ev['depart'], ev['arrive'], ev['service_finish'], nxt, mask, contract,
+                order_quantity=float(quantity_of(int(nxt))),
+                order_temp_class=int(temp_class_of(int(nxt))),
+                initial_quality=_iq_of(nxt),
+                segment_distance_units=float(distance_fn(node, nxt)))
             n_doors += 1
-            # The door event warms the opened zone; sampling here is what catches an
-            # INTERIOR peak that an endpoint-only check would miss.
-            _observe('after_door@%d' % int(nxt), finish, state)
-            t, node = finish, int(nxt)
-        # return leg
-        travel_home = float(travel_fn(node, 0))
-        arrive_home = t + travel_home
-        if not _finite(arrive_home):
-            return None, THERMAL_NUMERIC_INVALID, {'return_arrival': repr(arrive_home)}
+            # THE interior-peak sample: the door event warms the opened zone instantaneously, so
+            # the peak occurs AFTER the door, not at the segment endpoint.
+            _observe('after_door@%d' % nxt, ev['service_finish'], state)
+            segment_durations.append(float(ev['service_finish']) - float(ev['depart']))
+            prev_t = float(ev['service_finish'])
+            node = nxt
+        ret = timeline.get('return_arrival')
+        if ret is None:
+            return None, THERMAL_REPLAY_INCOMPLETE, {'why': 'no return leg in the timeline'}
         state, _m = transition_segment(
-            state, t, arrive_home, arrive_home, None, mask, contract,
-            return_to_depot=True, segment_distance_units=float(distance_fn(node, 0)))
-        _observe('return_arrival', arrive_home, state)
+            state, prev_t, ret, ret, None, mask, contract, return_to_depot=True,
+            segment_distance_units=float(distance_fn(node, 0)))
+        _observe('return_arrival', ret, state)
+        segment_durations.append(float(ret) - float(prev_t))
     except ValueError as exc:                                            # noqa: BLE001
         return None, THERMAL_REPLAY_TIME_ORDER_INVALID, {
             'vehicle': snapshot.vehicle_id,
@@ -182,19 +228,44 @@ def replay_thermal_envelope(snapshot, *, contract, inst_idx, clock, travel_fn, d
         if mins[z] < float(lo) - 1e-9 or maxs[z] > float(hi) + 1e-9:
             violations.append({'zone': z, 'bounds': [float(lo), float(hi)],
                                'observed_min': mins[z], 'observed_max': maxs[z]})
+
+    # ---- continuous level ----------------------------------------------------------------
+    if violations:
+        cont_state, cont_detail = THERMAL_CONTINUOUS_VIOLATED, {
+            'why': 'the sampled envelope already breaches the hard bounds'}
+    elif continuous_extremum_proof is None:
+        cont_state, cont_detail = THERMAL_CONTINUOUS_NOT_ESTABLISHED, {
+            'why': 'no intra-segment continuous extremum proof was supplied; the sampled envelope '
+                   'is NOT promoted to a continuous-time guarantee',
+            'what_would_be_needed': 'a frozen applicability domain plus an independently audited '
+                                    'analytic extremum proof for the composed intra-segment '
+                                    'trajectory (linear cooling, exponential heat transfer, '
+                                    'floored at target)'}
+    else:
+        try:
+            proven, pdetail = continuous_extremum_proof(
+                contract=contract, bounds=bounds, samples=samples,
+                segment_durations=segment_durations, active_zone_mask=mask)
+        except Exception as exc:                                        # noqa: BLE001
+            proven, pdetail = False, {'exception': type(exc).__name__}
+        cont_state = THERMAL_CONTINUOUS_OK if proven is True else THERMAL_CONTINUOUS_NOT_ESTABLISHED
+        cont_detail = {'proof_detail': pdetail}
+
     env = {'vehicle': snapshot.vehicle_id, 'per_zone_min': mins, 'per_zone_max': maxs,
            'bounds': [[float(b[0]), float(b[1])] for b in bounds],
            'n_door_events': n_doors, 'samples': samples,
-           'continuous_time_hard_constraint': CONTINUOUS_NOT_VERIFIED,
-           'continuous_time_reason': (
-               'sampled at every segment endpoint and immediately after every door event; the '
-               'composed intra-segment trajectory (linear cooling plus exponential heat transfer, '
-               'floored at target) is not resampled continuously, so no continuous-time guarantee '
-               'is claimed here'),
-           'post_replay_thermal_violation_count': int(getattr(state, 'thermal_violation_count', 0)),
+           'segment_durations': segment_durations,
+           'timeline_events': timeline['events'],
+           'continuous_time_hard_constraint': cont_state,
+           'continuous_time_detail': cont_detail,
+           'post_replay_thermal_violation_count': int(getattr(state,
+                                                              'thermal_violation_count', 0)),
            'post_replay_thermal_violation_duration_h': float(
-               getattr(state, 'thermal_violation_duration_h', 0.0))}
-    detail = {'envelope': env, 'n_violations': len(violations), 'violations': violations}
+               getattr(state, 'thermal_violation_duration_h', 0.0)),
+           'implementation_version': IMPLEMENTATION_VERSION}
+    detail = {'envelope': env, 'n_violations': len(violations), 'violations': violations,
+              'sampled_level': THERMAL_SAMPLED_OK if not violations else THERMAL_BOUNDS_VIOLATED,
+              'continuous_level': cont_state}
     if violations:
         return env, THERMAL_BOUNDS_VIOLATED, detail
-    return env, THERMAL_HARD_OK, detail
+    return env, THERMAL_SAMPLED_OK, detail
