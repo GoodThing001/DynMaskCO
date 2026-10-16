@@ -18,8 +18,26 @@ WHAT IT DOES
     R3  a high-signal credential assignment (`password=`, `secret:`, `api_key=`, ...) with a
         non-trivial literal value
     R4  a PEM private-key header
+    R5  a staged entry whose blob could NOT be read, so the file was never actually scanned
 
   It is deliberately a REFUSAL, not a warning: a scan that only warns is the scan that was absent.
+
+COVERAGE IS PART OF THE VERDICT (2026-10-16)
+  R5 exists because this scanner had exactly that hole and reported `CLEAN` through it.  The staged
+  name list was read without `-z`, so git C-quoted every non-ASCII path
+  (`"docs/\345\275\223..."`); feeding that quoted string back to `git show :<name>` fails with
+  return code 128, and the old code did `if raw is None: continue` -- a SILENT skip that was not
+  even counted.  The delivery path therefore printed `secret scan: CLEAN (0 staged file(s) scanned)`
+  on commits it had not looked at, and 2185 of this repository's tracked files live under non-ASCII
+  directories (the whole `docs/<chinese>/...` research record).  Three things now make that
+  impossible:
+
+    * the staged name list is read with `-z`, so git emits raw, UNQUOTED bytes; and
+    * an unreadable staged blob is a FINDING (R5), not a skip; and
+    * the result reports `n_staged_entries` next to `n_staged_scanned`, so "0 scanned" can never be
+      printed as if it were a clean bill of health.
+
+  A control that silently narrows its own scope is worse than no control, because it is trusted.
 
 WHAT IT DOES NOT DO
   It never prints, echoes, logs or stores a secret value -- a hit is reported by PATH and LINE NUMBER
@@ -96,18 +114,52 @@ DEFAULT_ALLOW = (
 STUB_MARKER = 'REDACTED-EXPOSED-EXECUTION-SECRET'
 
 
+def _git_bytes(repo, args):
+    """Run git and return the RAW result.
+
+    Bytes, never text: `text=True` decodes with the locale codec, which on Windows is a code page
+    that mangles exactly the non-ASCII paths this module must handle.
+    """
+    return subprocess.run(['git'] + list(args), cwd=str(repo), capture_output=True)
+
+
 def staged_files(repo):
-    out = subprocess.run(['git', 'diff', '--cached', '--name-only', '--diff-filter=ACMR'],
-                         cwd=str(repo), capture_output=True, text=True)
-    return [f for f in out.stdout.splitlines() if f.strip()]
+    """Staged paths, raw and UNQUOTED.
+
+    `-z` is load-bearing, not a style choice.  Without it git C-quotes any path that is not plain
+    ASCII, and that quoted string is not a name this process can hand back to `git show :<name>` --
+    which is how every non-ASCII staged file came to be silently skipped (see R5 above).
+
+    `--diff-filter=ACMR` keeps the scope at "what this commit will ADD or CHANGE": a staged DELETION
+    has no blob to scan, and scanning the whole index instead would mean re-reading every tracked
+    file on every commit.
+    """
+    out = _git_bytes(repo, ['diff', '--cached', '--name-only', '-z', '--diff-filter=ACMR']).stdout
+    return [p.decode('utf-8', 'surrogateescape') for p in out.split(b'\0') if p]
 
 
 def staged_content(repo, path):
     """The staged blob's bytes -- NOT the working tree's."""
-    out = subprocess.run(['git', 'show', ':%s' % path], cwd=str(repo), capture_output=True)
+    out = _git_bytes(repo, ['show', ':%s' % path])
     if out.returncode != 0:
         return None
     return out.stdout
+
+
+def staged_blob_mode(repo, path):
+    """The index mode of a staged path, or None when the index has no entry for it.
+
+    Used only to tell a gitlink (mode 160000, a submodule entry) from a blob: a gitlink legitimately
+    has no blob of its own, so it must not be reported as an unreadable file.
+    """
+    out = _git_bytes(repo, ['ls-files', '-s', '-z', '--', path])
+    if out.returncode != 0 or not out.stdout:
+        return None
+    head = out.stdout.split(b'\0', 1)[0]
+    fields = head.split(b' ')
+    if len(fields) < 2:
+        return None
+    return fields[0].decode('ascii', 'replace')
 
 
 def scan_bytes(raw: bytes):
@@ -138,7 +190,9 @@ def scan_bytes(raw: bytes):
 
 def scan(repo, allow):
     findings, checked, exempted = [], 0, []
-    for path in staged_files(repo):
+    unreadable, gitlinks = [], []
+    paths = staged_files(repo)
+    for path in paths:
         raw = staged_content(repo, path)
         allowed_path = any(fnmatch(path, g) or fnmatch('/' + path, g) for g in allow)
         if allowed_path:
@@ -158,6 +212,16 @@ def scan(repo, allow):
                              'note': 'a run-time secret file shape; never commit it'})
             continue
         if raw is None:
+            if staged_blob_mode(repo, path) == '160000':
+                gitlinks.append(path)          # a submodule entry has no blob of its own
+                continue
+            # NEVER `continue` silently here.  A staged entry this scan cannot read is an entry it
+            # did not scan, and an uncounted skip is precisely how the non-ASCII path hole survived.
+            unreadable.append(path)
+            findings.append({'path': path, 'rule': 'R5_staged_blob_unreadable', 'lines': [],
+                             'all_rules': ['R5_staged_blob_unreadable'],
+                             'note': 'the staged blob could not be read, so this file was NOT '
+                                     'scanned; refused rather than skipped'})
             continue
         checked += 1
         hits = scan_bytes(raw)
@@ -166,8 +230,12 @@ def scan(repo, allow):
                              'lines': [h[1] for h in hits],
                              'all_rules': sorted({h[0] for h in hits}),
                              'note': 'value withheld by design'})
-    return {'n_staged_scanned': checked, 'n_exempted': len(exempted), 'exempted': exempted,
-            'n_findings': len(findings), 'findings': findings}
+    return {'n_staged_entries': len(paths), 'n_staged_scanned': checked,
+            'n_unreadable': len(unreadable), 'unreadable': unreadable,
+            'n_gitlink_skipped': len(gitlinks),
+            'n_exempted': len(exempted), 'exempted': exempted,
+            'n_findings': len(findings), 'findings': findings,
+            'coverage_complete': (checked + len(exempted) + len(gitlinks) == len(paths))}
 
 
 def self_test(repo):
@@ -244,10 +312,14 @@ def main():
     result = scan(repo, args.allow)
     result['schema'] = 'd3_l1_staged_secret_scan'
     result['rules'] = ['R1_execution_secret_path', 'R2_bare_64_hex_token',
-                       'R3_credential_assignment', 'R4_pem_private_key_header']
+                       'R3_credential_assignment', 'R4_pem_private_key_header',
+                       'R5_staged_blob_unreadable']
     result['allow'] = list(args.allow)
     result['values_are_never_printed'] = True
-    result['verdict'] = ('STAGED_CONTENT_CLEAN' if result['n_findings'] == 0
+    # Fail-closed on BOTH axes: a finding refuses, and so does INCOMPLETE COVERAGE -- the scanner may
+    # not issue a clean verdict over a set of files it did not all read.
+    result['verdict'] = ('STAGED_CONTENT_CLEAN'
+                         if (result['n_findings'] == 0 and result['coverage_complete'])
                          else 'STAGED_CONTENT_REFUSED')
     if args.json:
         import json as _json

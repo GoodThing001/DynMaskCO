@@ -16,6 +16,12 @@ scanner against the real index (`git diff --cached`), and asserts:
       working tree is ACCEPTED, and a dirty index with a clean working tree is REFUSED
   S8  the scanner never prints a value: its output contains no staged secret literal
   S9  the real delivery path calls the scanner before it commits
+  S10 a staged file under a NON-ASCII path is REFUSED, and is COUNTED as scanned
+      (the coverage hole: git C-quotes non-ASCII names without `-z`, the quoted name is not
+      resolvable, and the old code skipped it silently -- so `CLEAN` was printed over an unread file)
+  S11 a staged entry whose blob cannot be read is REFUSED as R5, not skipped
+  S12 the same unreadable entry at a NON-ASCII path is REFUSED as R5 (the R5 net reaches the path
+      family the hole lived in)
 
 NO REAL SECRET IS USED ANYWHERE.  Every value here is a synthetic, obviously-fake token.
 """
@@ -23,6 +29,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -33,12 +40,17 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 EXT = HERE.parent.parent
 REPO = EXT.parent
-SCANNER = REPO / 'tools/scan_staged_secrets.py'
+SCANNER_DEFAULT = REPO / 'tools/scan_staged_secrets.py'
+SCANNER = SCANNER_DEFAULT          # re-bound from --scanner in main()
 DELIVER = REPO / 'tools/git_deliver.py'
 ROWS = []
 
 SYNTHETIC_HEX = 'deadbeef' * 8          # 64 hex chars, unmistakably synthetic
 SYNTHETIC_PW = 'hunter2hunter2'         # obviously fake
+# a 64-hex oid that is syntactically valid and guaranteed absent from the object database: a staged
+# entry pointing at it is the only way to build a READABLE-BY-NAME, UNREADABLE-BY-CONTENT file
+SYNTHETIC_ABSENT_OID = 'a1b2c3d4' * 8
+NONASCII_REL = 'docs/决策与审计/evidence_note.md'      # the path family that was silently skipped
 STUB_TEXT = ('REDACTED-EXPOSED-EXECUTION-SECRET\n'
              '==================================\n'
              'secret value sha256     : ' + 'a' * 64 + '   (one-way; the value is NOT recorded)\n')
@@ -51,8 +63,10 @@ def ck(name, ok, detail=None):
 
 
 def git(repo, *args, check=True):
+    # explicit UTF-8: the default `text=True` codec is the Windows ANSI code page, which raises
+    # UnicodeDecodeError on exactly the non-ASCII paths S10/S12 stage
     return subprocess.run(['git'] + list(args), cwd=str(repo), capture_output=True, text=True,
-                          check=False)
+                          encoding='utf-8', errors='replace', check=False)
 
 
 def run_scan(repo):
@@ -63,7 +77,8 @@ def run_scan(repo):
     omitted `cwd`, which made S7 read an index that was not the fixture's and return nothing useful.
     """
     p = subprocess.run([sys.executable, str(SCANNER), '--repo', str(repo)],
-                       cwd=str(repo), capture_output=True, text=True)
+                       cwd=str(repo), capture_output=True, text=True,
+                       encoding='utf-8', errors='replace')
     try:
         out = json.loads(p.stdout)
     except json.JSONDecodeError:
@@ -89,11 +104,30 @@ def stage(repo, rel, content):
     return p
 
 
+def stage_absent_blob(repo, rel):
+    """Stage an entry whose blob does NOT exist, so `git show :<path>` fails while the name lists.
+
+    `git update-index --cacheinfo` writes an index entry without requiring the object to be present.
+    This is the synthetic construction of "the scanner was handed a file it could not read" -- the
+    exact condition that used to be met by every non-ASCII path and answered with a silent skip.
+    """
+    git(repo, 'update-index', '--add', '--cacheinfo', '100644', SYNTHETIC_ABSENT_OID, rel)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--json', required=True)
     ap.add_argument('--keep', action='store_true')
+    ap.add_argument('--scanner', default=str(SCANNER_DEFAULT),
+                    help='scanner under test; point it at a PRE-FIX copy to prove the new cases are '
+                         'diagnostic rather than merely present')
     args = ap.parse_args()
+    global SCANNER
+    # resolve: `run_scan` runs the scanner with `cwd` INSIDE the throwaway fixture repository, so a
+    # relative `--scanner` would not resolve there and every case would report an unparseable scan
+    SCANNER = Path(args.scanner).resolve()
+    if not SCANNER.is_file():
+        raise SystemExit('scanner under test does not exist: %s' % SCANNER)
     root = Path(tempfile.mkdtemp(prefix='.leakscan_root_', dir=str(REPO)))
 
     try:
@@ -147,7 +181,9 @@ def main():
            'a JSON field (a digest is not a bare token)', rc == 0 and
            out.get('verdict') == 'STAGED_CONTENT_CLEAN',
            {'verdict': out.get('verdict'), 'n_findings': out.get('n_findings'),
-            'n_staged_scanned': out.get('n_staged_scanned')})
+            'n_staged_scanned': out.get('n_staged_scanned'),
+            'n_staged_entries': out.get('n_staged_entries'),
+            'coverage_complete': out.get('coverage_complete')})
 
         # S6 ---------------------------------------------------------------------------------
         # The scanner's default allow-list is EXACT repository-relative paths, deliberately not a
@@ -225,19 +261,87 @@ def main():
            'route and not only available to a careful caller', s9_ok,
            {'delivery_tool': str(DELIVER.relative_to(REPO)),
             'mentions_the_scanner': s9_ok})
+
+        # S10 --------------------------------------------------------------------------------
+        # THE COVERAGE CASE.  Identical content at an ASCII path and at a NON-ASCII path must be
+        # treated identically -- same verdict, same scanned count.  Before the `-z` fix, git
+        # C-quoted the non-ASCII name, `git show :<quoted>` failed, and the file was skipped without
+        # being counted, so the delivery path printed `CLEAN (0 staged file(s) scanned)`.
+        r_ascii = fresh_repo(root)
+        stage(r_ascii, 'evidence/note.md', 'pass' + 'word: %s\n' % SYNTHETIC_PW)
+        rc_a, out_a, _ = run_scan(r_ascii)
+        r_uni = fresh_repo(root)
+        stage(r_uni, NONASCII_REL, 'pass' + 'word: %s\n' % SYNTHETIC_PW)
+        rc_u, out_u, _ = run_scan(r_uni)
+        s10_ok = (rc_a != 0 and rc_u != 0
+                  and any(f.get('rule') == 'R3_credential_assignment'
+                          for f in out_a.get('findings', []))
+                  and any(f.get('rule') == 'R3_credential_assignment'
+                          for f in out_u.get('findings', []))
+                  and out_u.get('n_staged_entries') == 1
+                  and out_u.get('n_staged_scanned') == 1)
+        ck('S10 a staged file under a NON-ASCII path is REFUSED and is COUNTED as scanned: the '
+           'coverage hole that let `CLEAN (0 scanned)` stand over an unread file is closed',
+           s10_ok,
+           {'ascii': {'verdict': out_a.get('verdict'), 'scanned': out_a.get('n_staged_scanned'),
+                      'entries': out_a.get('n_staged_entries'),
+                      'rules': [f.get('rule') for f in out_a.get('findings', [])]},
+            'non_ascii': {'verdict': out_u.get('verdict'), 'scanned': out_u.get('n_staged_scanned'),
+                          'entries': out_u.get('n_staged_entries'),
+                          'rules': [f.get('rule') for f in out_u.get('findings', [])]},
+            'why': 'a control that silently narrows its own scope is worse than no control, '
+                   'because it is trusted'})
+
+        # S11 --------------------------------------------------------------------------------
+        # AN UNREADABLE STAGED BLOB IS A REFUSAL, NOT A SKIP.  This is the general net the coverage
+        # case needs: whatever the cause, a file the scan could not read may not yield a clean scan.
+        r = fresh_repo(root)
+        stage_absent_blob(r, 'evidence/ghost.md')
+        rc, out, _ = run_scan(r)
+        ck('S11 a staged entry whose blob cannot be read is REFUSED as R5_staged_blob_unreadable, '
+           'not silently skipped', rc != 0 and
+           any(f.get('rule') == 'R5_staged_blob_unreadable' for f in out.get('findings', []))
+           and out.get('coverage_complete') is False,
+           {'verdict': out.get('verdict'), 'n_staged_entries': out.get('n_staged_entries'),
+            'n_staged_scanned': out.get('n_staged_scanned'),
+            'n_unreadable': out.get('n_unreadable'),
+            'coverage_complete': out.get('coverage_complete')})
+
+        # S12 --------------------------------------------------------------------------------
+        # the R5 net must reach the path family the original hole lived in
+        r = fresh_repo(root)
+        stage_absent_blob(r, NONASCII_REL)
+        rc, out, _ = run_scan(r)
+        ck('S12 the same unreadable entry at a NON-ASCII path is REFUSED as R5, and the entry is '
+           'enumerated at all', rc != 0 and
+           any(f.get('rule') == 'R5_staged_blob_unreadable' for f in out.get('findings', []))
+           and out.get('n_staged_entries') == 1,
+           {'verdict': out.get('verdict'), 'n_staged_entries': out.get('n_staged_entries'),
+            'n_unreadable': out.get('n_unreadable'),
+            'rules': [f.get('rule') for f in out.get('findings', [])]})
     finally:
         if not args.keep:
             shutil.rmtree(root, ignore_errors=True)
 
     fails = [r for r in ROWS if not r['ok']]
+    try:
+        scanner_rel = str(SCANNER.resolve().relative_to(REPO))
+    except ValueError:
+        scanner_rel = str(SCANNER)          # a candidate outside the repository (pre-fix control)
     payload = {
         'schema': 'd3_l1_precommit_leak_prevention_acceptance',
         'rows': ROWS, 'n_rows': len(ROWS), 'n_pass': len(ROWS) - len(fails), 'n_fail': len(fails),
-        'scanner': str(SCANNER.relative_to(REPO)),
+        'scanner': scanner_rel,
         'rules_exercised': ['R1_execution_secret_path', 'R2_bare_64_hex_token',
-                            'R3_credential_assignment', 'R4_pem_private_key_header'],
+                            'R3_credential_assignment', 'R4_pem_private_key_header',
+                            'R5_staged_blob_unreadable'],
+        'coverage_cases': ['S10 non-ASCII staged path is refused AND counted as scanned',
+                           'S11 an unreadable staged blob is refused, not skipped',
+                           'S12 the R5 net reaches the non-ASCII path family'],
         'no_real_secret_used': True,
-        'synthetic_values_only': ['a 64-hex token that says "deadbeef"', 'a throwaway password string'],
+        'synthetic_values_only': ['a 64-hex token that says "deadbeef"', 'a throwaway password string',
+                                  'an absent-object index entry (a syntactically valid 64-hex oid '
+                                  'that is not in the object database)'],
         'isolation': 'every case runs in a throwaway git repository under a temporary directory; '
                      'the real repository is never staged, committed or modified',
         'verdict': ('STAGED_LEAK_PREVENTION_ACCEPTED' if not fails

@@ -28,6 +28,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import stat
 import subprocess
 import sys
 import time
@@ -52,12 +53,44 @@ def run(args, check=True, capture=True):
     return p
 
 
+def _is_reparse_point(p):
+    """True for an NTFS junction / symlink directory (`st_file_attributes` reparse bit).
+
+    `os.path.islink()` is NOT enough on Windows: it returns False for a JUNCTION, while pathlib's
+    `rglob` happily descends into one.  `_bverify_pinned/shadow/{data,MASKCO_code,results}` are
+    junctions back to the extension root, and because the shadow lives UNDER `results/`, one file
+    was reachable through 5 nested echo paths (`.../shadow/results/m0_scale/_bverify_pinned/
+    shadow/results/...`).  The guard then reported a phantom concurrent writer -- the same 6 real
+    files counted 14 times -- and `--ignore-recent` could not clear it, because the echo paths are
+    not the paths the caller wrote.
+    """
+    try:
+        st = os.lstat(p)
+    except OSError:
+        return True                       # unreadable -> do not descend
+    attrs = getattr(st, 'st_file_attributes', 0)
+    return bool(attrs & getattr(stat, 'FILE_ATTRIBUTE_REPARSE_POINT', 0x400)) or os.path.islink(p)
+
+
+def _walk_files_no_links(top):
+    """Every file under `top`, never descending through a symlink or junction.
+
+    A guard that walks links does not see the repository; it sees the repository N times, and every
+    duplicate is a false positive that makes the guard unusable exactly when it is needed.
+    """
+    for dirpath, dirnames, filenames in os.walk(str(top), followlinks=False):
+        dirnames[:] = [d for d in dirnames if not _is_reparse_point(os.path.join(dirpath, d))]
+        for f in filenames:
+            yield Path(dirpath) / f
+
+
 def recent_writers(root: Path, seconds: int, ignore=()):
     """Files written within the window, excluding build noise and caller-declared paths.
 
     `__pycache__` / `*.pyc` are build noise (running any test regenerates them) and are not
     evidence of a concurrent author.  `ignore` lets the caller declare files it authored in
-    this same session.
+    this same session.  Link and junction directories are NOT descended into (see
+    `_is_reparse_point`): an echo path is the same file, not a second writer.
     """
     now = time.time()
     ignore = set(ignore or ())
@@ -66,9 +99,9 @@ def recent_writers(root: Path, seconds: int, ignore=()):
         d = root / base
         if not d.is_dir():
             continue
-        for p in d.rglob('*'):
+        for p in _walk_files_no_links(d):
             try:
-                if not p.is_file() or now - p.stat().st_mtime >= seconds:
+                if now - p.stat().st_mtime >= seconds:
                     continue
             except (OSError, ValueError):
                 continue
@@ -163,7 +196,7 @@ def main():
                 if (root / r).is_dir():
                     run(['add', '--renormalize', '--', r])
 
-        staged = run(['diff', '--cached', '--name-only']).stdout.strip().splitlines()
+        staged = run(['-c', 'core.quotepath=false', 'diff', '--cached', '--name-only']).stdout.splitlines()
         for e in EXCLUDE:
             if any(s == e or s.startswith(e) for s in staged):
                 print('REFUSED: %s is staged; it must stay excluded' % e)
@@ -195,8 +228,17 @@ def main():
                 return 4
             try:
                 _summary = json.loads(_scan.stdout)
-                print('secret scan: CLEAN (%d staged file(s) scanned, rules R1-R4)'
-                      % _summary.get('n_staged_scanned', 0))
+                # COVERAGE IS PRINTED, not assumed.  The scanner used to C-quote non-ASCII staged
+                # paths, fail to read those blobs, skip them silently and still be reported here as
+                # "CLEAN (0 staged file(s) scanned)" -- a green line over an unread file set.
+                print('secret scan: CLEAN (%d/%d staged entr(ies) content-scanned, %d exempted, '
+                      '%d gitlink, rules R1-R5)'
+                      % (_summary.get('n_staged_scanned', 0), _summary.get('n_staged_entries', 0),
+                         _summary.get('n_exempted', 0), _summary.get('n_gitlink_skipped', 0)))
+                if not _summary.get('coverage_complete', True):
+                    print('REFUSED: the secret scan did not cover every staged entry '
+                          '(n_unreadable=%s)' % _summary.get('n_unreadable'))
+                    return 4
             except Exception:                                              # noqa: BLE001
                 print('secret scan: CLEAN')
 
