@@ -27,6 +27,10 @@ __jaxcache__
 # DynMaskCO 上传 GitHub：排除实验结果（保留 README）；data/ckpts/logs 由子目录 .gitignore 排除
 /C-VRP_Cold-chainVehicleRoutingProblem/results/*
 !/C-VRP_Cold-chainVehicleRoutingProblem/results/README.md
+# M1-a 隔离合成验收的裁决记录：小体积、必须随源码留档（否则 M1A_SYNTHETIC_ENGINEERING_ACCEPTED
+# 这一状态在仓库中不可引用）。仅放开该子目录，其余 results/* 仍被排除。
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/_m1a_synth/
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/_m1a_synth/**
 
 # ===== CC_Compare 对比方法：精确大文件忽略（B0.5, 2026-09-08）=====
 # 权重/数据集/论文产物不进入代码库；源码照常跟踪
