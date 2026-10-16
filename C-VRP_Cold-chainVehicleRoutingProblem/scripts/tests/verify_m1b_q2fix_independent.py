@@ -152,11 +152,14 @@ def main():
     # --------------------------------------------------------------- X12 claim scope
     chk('X12', 'the recorded payload refuses scientific/production status',
         'SCOPE_CORRECT'
-        if (data.get('budget_is_synthetic') is True and data.get('implementation_version') == 'M1B_Q2FIX'
+        if (data.get('budget_is_synthetic') is True
+            and str(data.get('implementation_version', '')).startswith('M1B_Q2')
             and 'FULL_INSTALLABILITY_ESTABLISHED' in (data.get('does_not_establish') or []))
         else 'SCOPE_WRONG',
         {'implementation_version': data.get('implementation_version'),
-         'budget_is_synthetic': data.get('budget_is_synthetic')})
+         'budget_is_synthetic': data.get('budget_is_synthetic'),
+         'note': 'the version prefix is checked, not one literal, so a later fix round keeps the '
+                 'scope claim verifiable'})
 
     # --------------------------------------------------------------- X13 no forbidden refs
     tcode = code_only(FIXTEST)

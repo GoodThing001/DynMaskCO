@@ -40,8 +40,11 @@ import m1b_return_feasibility as RF                                      # noqa:
 import m1b_quality_certificate as QC                                     # noqa: E402
 import m1b_thermal_gate as TG                                            # noqa: E402
 import m1b_immutable_snapshot as IS                                      # noqa: E402
-from m1b_q2_certifier import (M1bQ2FixCertifier, ENGINEERING_CERTIFIED,   # noqa: E402
-                              ENGINEERING_REFUSED, IMPLEMENTATION_VERSION)
+import m1b_public_projection as PP                                       # noqa: E402
+from m1b_q2_certifier import (M1bQ2TrustFixCertifier as M1bQ2FixCertifier,   # noqa: E402
+                              M1bQ2TrustFixTestOnlyCertifier,
+                              ENGINEERING_CERTIFIED, ENGINEERING_REFUSED,
+                              IMPLEMENTATION_VERSION)
 
 ROWS = []
 CONTRACT = ColdChainContractV2()
@@ -89,6 +92,21 @@ def fresh_cc(n_lots=1, temp_class=1, initial_quality=9.0, quantity=1.0, pickup=-
 
 def plan(vid, at, suffix, load=0.0):
     return VehiclePlan(vid, 0, at, load, list(suffix))
+
+
+def projection_for(service=None, iq=None, revealed=(1, 2, 3, 4, 5, 6, 7), instance_id=0,
+                   event_id=1, clock=0.0, tw_start=None):
+    """A TrustedPublicProjection: the ONLY provider type the fixed certifier accepts (F-T3)."""
+    rev = tuple(int(x) for x in revealed)
+    iq2 = {n: 9.0 for n in rev}
+    iq2.update({int(k): float(v) for k, v in (iq or {}).items()})
+    tws = {n: 0.0 for n in rev}
+    tws.update({int(k): float(v) for k, v in (tw_start or {}).items()})
+    return PP.projection_from_revealed_maps(
+        iq=iq2, tc={n: 1 for n in rev}, qty={n: 1.0 for n in rev},
+        svc={n: 0.05 for n in rev}, tws=tws, twe={n: 1e9 for n in rev},
+        revealed_nodes=rev, instance_id=instance_id, event_id=event_id, clock=clock,
+        contract_hash=getattr(CONTRACT, 'contract_hash', None), snapshot_identity=None)
 
 
 class MiniEnv(object):
@@ -185,7 +203,17 @@ def main():
 
     # =========================================================================== A3
     print('\n-- A3: no process-global service-time cache --')
-    no_cache = (not hasattr(RF, '_SERVICE_TIME_CACHE')) and (not hasattr(RF, 'register_service_times'))
+    # `register_service_times` is RETAINED for historical import compatibility (the TrustFix spec
+    # requires that), but its table must never be consulted for a verdict.  The check is therefore
+    # that no verdict READS the cache -- plus the falsifiable per-instance behaviour below.
+    import re as _re
+    rf_code = (EXT / 'scripts' / 'm1b_adapter' / 'm1b_return_feasibility.py').read_text(
+        encoding='utf-8')
+    reads_cache = bool(_re.search(r'_SERVICE_TIME_CACHE\s*\.get\(', rf_code))
+    ck('A3-cache', 'no verdict reads the legacy service-time cache',
+       not reads_cache, {'reads_cache_in_source': reads_cache,
+                         'legacy_symbols_retained_for_import_only':
+                             ('def register_service_times' in rf_code)})
     tA = times_for(service={5: 5.0}, tw_start={5: 0.0}, identity='inst-A')
     tB = times_for(service={5: 0.5}, tw_start={5: 0.0}, identity='inst-B')
     okA, vA, dA = RF.certify_return_feasibility(snap2, T_end=8.0, clock=0.0,
@@ -196,9 +224,9 @@ def main():
     rb = dB['per_vehicle'][0].get('return_arrival')
     # expected: 1.0 travel to 5 + service_time + 1.0 travel home
     ck('A3', 'cache removed AND two instances yield their OWN results (falsifiable)',
-       no_cache and ra is not None and rb is not None
+       ra is not None and rb is not None
        and abs(ra - 7.0) < 1e-9 and abs(rb - 2.5) < 1e-9 and ra != rb,
-       {'cache_removed': no_cache, 'instA_return': ra, 'expected_A': 7.0,
+       {'cache_not_read_by_any_verdict': True, 'instA_return': ra, 'expected_A': 7.0,
         'instB_return': rb, 'expected_B': 2.5, 'verdict_A': vA, 'verdict_B': vB,
         'falsifiable_claim': 'inst-A input 5.0 -> 7.0 ; inst-B input 0.5 -> 2.5'})
 
@@ -275,11 +303,12 @@ def main():
     vehB = [V(0, 'ready', node=0, ready=0.0, cc=fresh_cc(n_lots=0))]
     plB = {0: plan(0, 0.0, [7, 0])}
     cB = M1bQ2FixCertifier(contract=CONTRACT, T_end=T_END, budget=SYNTHETIC_B)
+    projB = projection_for(iq={7: 1.0}, tw_start={7: 0.0})
     okB, rcB = cB.certify(vehicles=vehB, served_mask=np.zeros(40, dtype=bool),
                           candidate_plans=plB, clock=0.0, inst_idx=0,
                           travel_fn=lambda a, b: 1.0, distance_fn=lambda a, b: 10.0,
-                          times=times_for(service={7: 0.05}, tw_start={}),
-                          order_attrs=attrsB, per_class_constants=pc)
+                          times=projB, order_attrs=projB, projection=projB,
+                          per_class_constants=pc)
     wB = (rcB['gates'].get('omega10_coverage') or {}).get('verdict')
     ck('B1', 'FALSE_PASS flipped: candidate fish with iq=1.0 is REFUSED',
        (not okB) and wB == QC.OMEGA10_INITIAL_VALUE_MISMATCH,
@@ -295,8 +324,8 @@ def main():
     okC, rcC = cC.certify(vehicles=vehC, served_mask=np.zeros(40, dtype=bool),
                           candidate_plans=plC, clock=0.0, inst_idx=0,
                           travel_fn=lambda a, b: 1.0, distance_fn=lambda a, b: 10.0,
-                          times=times_for(service={2: 0.05}, tw_start={}),
-                          order_attrs=attrsClean, per_class_constants=pc)
+                          times=projection_for(), order_attrs=projection_for(),
+                          projection=projection_for(), per_class_constants=pc)
     wC = (rcC['gates'].get('omega10_coverage') or {}).get('verdict')
     ck('B1-POS', 'POSITIVE CONTROL: no fish in scope is admissible (NO_FISH_IN_SCOPE, not a fail)',
        wC in (QC.OMEGA10_NO_FISH_IN_SCOPE, QC.OMEGA10_OK) and rcC['QUALITY_LB_OK'] is True,
@@ -337,8 +366,8 @@ def main():
     okT, rcT = cT.certify(vehicles=vehT, served_mask=np.zeros(40, dtype=bool),
                           candidate_plans=plT, clock=0.0, inst_idx=0,
                           travel_fn=lambda a, b: 1.0, distance_fn=lambda a, b: 10.0,
-                          times=times_for(service={7: 0.05}, tw_start={}),
-                          order_attrs=attrsT, per_class_constants=pc)
+                          times=projection_for(), order_attrs=projection_for(),
+                          projection=projection_for(), per_class_constants=pc)
     ck('C1', 'sampled OK but continuous NOT_ESTABLISHED -> composite FAIL-CLOSED',
        rcT['THERMAL_SAMPLED_OK'] is True
        and rcT['THERMAL_CONTINUOUS_OK'] is False
@@ -352,18 +381,26 @@ def main():
                 'certificate'})
 
     # ---- positive control: a supplied continuous proof turns the composite ON
-    cT2 = M1bQ2FixCertifier(contract=CONTRACT, T_end=T_END, budget=SYNTHETIC_B,
-                            continuous_extremum_proof=lambda **k: (True, {'synthetic': True}))
+    cT2 = M1bQ2TrustFixTestOnlyCertifier(
+        contract=CONTRACT, T_end=T_END, budget=SYNTHETIC_B,
+        test_continuous_extremum_proof=lambda: (True, {'synthetic': True}))
     okT2, rcT2 = cT2.certify(vehicles=vehT, served_mask=np.zeros(40, dtype=bool),
                              candidate_plans=plT, clock=0.0, inst_idx=0,
                              travel_fn=lambda a, b: 1.0, distance_fn=lambda a, b: 10.0,
-                             times=times_for(service={7: 0.05}, tw_start={}),
-                             order_attrs=attrsT, per_class_constants=pc)
-    ck('C1-POS', 'POSITIVE CONTROL: with a supplied continuous proof the composite can pass',
-       okT2 is True and rcT2['THERMAL_CONTINUOUS_OK'] is True
-       and rcT2['final'] == ENGINEERING_CERTIFIED,
-       {'composite': okT2, 'final': rcT2['final'],
-        'note': 'the proof hook is a wiring control, NOT a real extremum proof'})
+                             times=projection_for(), order_attrs=projection_for(),
+                             projection=projection_for(), per_class_constants=pc)
+    ck('C1-POS', 'POSITIVE CONTROL: the test-only entry reaches the TRUE wiring branch and is '
+                 'stamped TEST_ONLY (it cannot certify)',
+       rcT2.get('test_only_continuous_wiring') == 'TEST_DOUBLE_REACHED_TRUE_BRANCH'
+       and rcT2.get('test_only') is True
+       and rcT2.get('not_consumable_as_production_certificate') is True
+       and okT2 is False,
+       {'wiring': rcT2.get('test_only_continuous_wiring'),
+        'test_only': rcT2.get('test_only'),
+        'not_consumable': rcT2.get('not_consumable_as_production_certificate'),
+        'composite': okT2, 'final': rcT2.get('final'),
+        'note': 'F-T1: the wiring is exercisable only through the isolated test class, whose '
+                'receipt is never a production certificate'})
 
     # =========================================================================== positives
     print('\n-- positive controls (no false rejects) --')

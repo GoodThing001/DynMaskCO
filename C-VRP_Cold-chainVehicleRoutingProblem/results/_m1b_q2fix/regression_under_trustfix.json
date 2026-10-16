@@ -1,0 +1,245 @@
+{
+  "schema": "m1b_q2fix_regression_v1",
+  "status": "Q2FIX_ALL_PASS",
+  "implementation_version": "M1B_Q2TRUSTFIX",
+  "n_checks": 22,
+  "n_not_pass": 0,
+  "false_reject_census": 0,
+  "synthetic_budget": 12345.678,
+  "budget_is_synthetic": true,
+  "does_not_establish": [
+    "FULL_INSTALLABILITY_ESTABLISHED",
+    "L2_PASS",
+    "A3_PASS",
+    "stable_online_gain"
+  ],
+  "results": [
+    {
+      "cid": "A1",
+      "name": "tw_start wait included -> FALSE_PASS flipped to refusal",
+      "verdict": "PASS",
+      "detail": {
+        "verdict": "OMEGA11_RETURN_DEADLINE_EXCEEDED",
+        "return_arrival": 21.0,
+        "expected_true_return": 21.0,
+        "certify_route_reason": "return"
+      }
+    },
+    {
+      "cid": "A2",
+      "name": "unregistered service time -> OMEGA11_TIME_INPUT_UNAVAILABLE (no silent 0)",
+      "verdict": "PASS",
+      "detail": {
+        "verdict": "OMEGA11_TIME_INPUT_UNAVAILABLE"
+      }
+    },
+    {
+      "cid": "A2b",
+      "name": "the silent-zero verdict flip is gone (now refuses)",
+      "verdict": "PASS",
+      "detail": {
+        "verdict": "OMEGA11_TIME_INPUT_UNAVAILABLE",
+        "pre_fix": "OMEGA11_OK reporting 2.0"
+      }
+    },
+    {
+      "cid": "A3-cache",
+      "name": "no verdict reads the legacy service-time cache",
+      "verdict": "PASS",
+      "detail": {
+        "reads_cache_in_source": false,
+        "legacy_symbols_retained_for_import_only": true
+      }
+    },
+    {
+      "cid": "A3",
+      "name": "cache removed AND two instances yield their OWN results (falsifiable)",
+      "verdict": "PASS",
+      "detail": {
+        "cache_not_read_by_any_verdict": true,
+        "instA_return": 7.0,
+        "expected_A": 7.0,
+        "instB_return": 2.5,
+        "expected_B": 2.5,
+        "verdict_A": "OMEGA11_OK",
+        "verdict_B": "OMEGA11_OK",
+        "falsifiable_claim": "inst-A input 5.0 -> 7.0 ; inst-B input 0.5 -> 2.5"
+      }
+    },
+    {
+      "cid": "A4",
+      "name": "committed leg THEN the later task is replayed (true return 4.0)",
+      "verdict": "PASS",
+      "detail": {
+        "verdict": "OMEGA11_OK",
+        "return_arrival": 4.0,
+        "expected": 4.0,
+        "basis": "committed_finish as the departure from committed_next, then the full candidate suffix replayed (later accepted tasks are NO LONGER omitted)"
+      }
+    },
+    {
+      "cid": "A4b",
+      "name": "FALSE_PASS flipped to refusal (true return 6.0 > 5.0)",
+      "verdict": "PASS",
+      "detail": {
+        "verdict": "OMEGA11_RETURN_DEADLINE_EXCEEDED",
+        "return_arrival": 6.0
+      }
+    },
+    {
+      "cid": "A5",
+      "name": "candidate replayed; depart rule RECORDED and consistent with the advance",
+      "verdict": "PASS",
+      "detail": {
+        "return_arrival": 4.0,
+        "expected": 4.0,
+        "depart_used": 1.0,
+        "depart_rule": "max(ready_time, clock)",
+        "basis": "candidate suffix replayed from the CURRENT node through the shared timeline, INCLUDING time-window wait and service time",
+        "errata": "the Q2-R report text said 2.0; the JSON said 4.0 and 4.0 is correct"
+      }
+    },
+    {
+      "cid": "A6a",
+      "name": "closed with NO history -> refuse (a cleared live field is not compliance)",
+      "verdict": "PASS",
+      "detail": {
+        "verdict": "OMEGA11_CLOSED_HISTORY_MISSING"
+      }
+    },
+    {
+      "cid": "A6b",
+      "name": "closed with history showing a breach -> refuse",
+      "verdict": "PASS",
+      "detail": {
+        "verdict": "OMEGA11_CLOSED_HISTORY_DEADLINE_EXCEEDED"
+      }
+    },
+    {
+      "cid": "A6c",
+      "name": "closed with in-time history -> OK, and the cleared live field is NOT a violation",
+      "verdict": "PASS",
+      "detail": {
+        "verdict": "OMEGA11_OK"
+      }
+    },
+    {
+      "cid": "B1",
+      "name": "FALSE_PASS flipped: candidate fish with iq=1.0 is REFUSED",
+      "verdict": "PASS",
+      "detail": {
+        "omega10_verdict": "OMEGA10_INITIAL_VALUE_MISMATCH",
+        "composite": false,
+        "final": "M1B_Q2TRUSTFIX_ENGINEERING_REFUSED",
+        "required_set_E": [
+          7
+        ],
+        "n_required": 1
+      }
+    },
+    {
+      "cid": "B1-POS",
+      "name": "POSITIVE CONTROL: no fish in scope is admissible (NO_FISH_IN_SCOPE, not a fail)",
+      "verdict": "PASS",
+      "detail": {
+        "omega10_verdict": "OMEGA10_OK",
+        "QUALITY_LB_OK": true,
+        "composite": false,
+        "final": "M1B_Q2TRUSTFIX_ENGINEERING_REFUSED",
+        "note": "composite is still fail-closed only because of the CONTINUOUS thermal level"
+      }
+    },
+    {
+      "cid": "B3",
+      "name": "B3 discharged: provider refuses unserved nodes AND requires a source identity",
+      "verdict": "PASS",
+      "detail": {
+        "leaked": [],
+        "source_identity_required": true,
+        "why": "a full-node truth table / arbitrary callable can no longer be a trusted input"
+      }
+    },
+    {
+      "cid": "C1",
+      "name": "sampled OK but continuous NOT_ESTABLISHED -> composite FAIL-CLOSED",
+      "verdict": "PASS",
+      "detail": {
+        "THERMAL_SAMPLED_OK": true,
+        "THERMAL_CONTINUOUS_OK": false,
+        "THERMAL_CONTINUOUS_STATE": "THERMAL_CONTINUOUS_NOT_ESTABLISHED",
+        "composite": false,
+        "final": "M1B_Q2TRUSTFIX_ENGINEERING_REFUSED",
+        "note": "the sampled diagnostic remains available and is NOT named an installability certificate"
+      }
+    },
+    {
+      "cid": "C1-POS",
+      "name": "POSITIVE CONTROL: the test-only entry reaches the TRUE wiring branch and is stamped TEST_ONLY (it cannot certify)",
+      "verdict": "PASS",
+      "detail": {
+        "wiring": "TEST_DOUBLE_REACHED_TRUE_BRANCH",
+        "test_only": true,
+        "not_consumable": true,
+        "composite": false,
+        "final": "M1B_Q2TRUSTFIX_ENGINEERING_REFUSED",
+        "note": "F-T1: the wiring is exercisable only through the isolated test class, whose receipt is never a production certificate"
+      }
+    },
+    {
+      "cid": "POS-1",
+      "name": "a LEGITIMATE zero service time is accepted (key present, value 0.0)",
+      "verdict": "PASS",
+      "detail": {
+        "verdict": "OMEGA11_OK",
+        "return_arrival": 2.0
+      }
+    },
+    {
+      "cid": "POS-2",
+      "name": "idle at depot with nothing pending is NOT a violation",
+      "verdict": "PASS",
+      "detail": {
+        "verdict": "OMEGA11_OK"
+      }
+    },
+    {
+      "cid": "XCHECK",
+      "name": "agreeing case: Omega11 and certify_route concur (no disagreement raised)",
+      "verdict": "PASS",
+      "detail": {
+        "verdict": "OMEGA11_OK",
+        "cross": {
+          "performed": true,
+          "n_disagreements": 0,
+          "disagreements": []
+        }
+      }
+    },
+    {
+      "cid": "B-retained",
+      "name": "contract-level controls still behave (B4 comparison soundness)",
+      "verdict": "PASS",
+      "detail": {
+        "boundary_verdict": "OMEGA10_INITIAL_VALUE_MISMATCH"
+      }
+    },
+    {
+      "cid": "LEGACY-1",
+      "name": "historical Q2 test file is byte-unchanged on disk",
+      "verdict": "PASS",
+      "detail": {
+        "sha256_prefix": "4b0dbf8203e7acb5"
+      }
+    },
+    {
+      "cid": "LEGACY-2",
+      "name": "historical file re-runs and its divergence is RECORDED (not hidden)",
+      "verdict": "PASS",
+      "detail": {
+        "returncode": 1,
+        "divergence_1": "semantic: no time inputs supplied -> Omega11 refuses; composite fail-closed on continuous thermal level",
+        "divergence_2": "terminal: it subscripts receipt['THERMAL_HARD_OK'], a pre-fix name that the fixed receipt deliberately does NOT store (the C1 promotion path); exposed as a read-only attribute instead"
+      }
+    }
+  ]
+}

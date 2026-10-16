@@ -71,11 +71,19 @@ def certify_return_feasibility(snap, *, T_end, clock, travel_fn, times=None,
 
     deadline = float(T_end) + float(epsilon_return)
     history = dict(closed_return_history or {})
+    # F-T2 (Q2-TrustFix).  THE SILENT LEGACY FALLBACK IS GONE.
+    # Q2-Fix-T T2-1 showed that omitting `times` used to fall back to a shim that FORCES
+    # tw_start = 0.0 for every node, silently reproducing the pre-fix optimistic replay: a plan
+    # whose true return was 21.0 was reported as 2.0 with OMEGA11_OK while action_contract
+    # .certify_route rejected it.  Per-instance time inputs are now MANDATORY at this entry point
+    # too, so a caller that bypasses the orchestrator cannot recover the optimistic estimate.
     if times is None:
-        # LEGACY path: the pre-fix caller registered a service-time table process-globally.  Use
-        # the shim's per-instance object when one was registered; otherwise leave `times` as None so
-        # the replay still REFUSES rather than defaulting to zero.
-        times = _LegacyServiceTimes.current()
+        return False, OMEGA11_TIME_INPUT_UNAVAILABLE, {
+            'why': 'per-instance time inputs are required; a missing service time, time-window '
+                   'start or instance identity is a REFUSAL, never a default',
+            'note': 'register_service_times remains importable for historical files but its table '
+                    'is NEVER consulted for a verdict and cannot reconstruct tw_start',
+            'implementation_version': IMPLEMENTATION_VERSION}
     per_vehicle, bad, used_nodes = {}, [], []
 
     for vid in sorted(snap['vehicles']):
@@ -225,13 +233,30 @@ def certify_return_feasibility(snap, *, T_end, clock, travel_fn, times=None,
     detail = {'T_end': float(T_end), 'deadline': deadline, 'clock': float(clock),
               'epsilon_return': float(epsilon_return), 'per_vehicle': per_vehicle,
               'n_violations': len(bad), 'violations': bad[:20],
-              'time_input_identity': None if times is None else times.identity,
-              'time_inputs_used': None if times is None else times.identity_of_used_keys(used_nodes),
+              'time_input_identity': None if times is None else getattr(times, 'identity',
+                                                                        None),
+              'time_inputs_used': _times_used(times, used_nodes),
               'certify_route_cross_check': cross,
               'implementation_version': IMPLEMENTATION_VERSION}
     if bad:
         return False, _first_verdict(bad), detail
     return True, OMEGA11_OK, detail
+
+
+def _times_used(times, used_nodes):
+    """Identity of the time inputs actually consumed, for whichever time-input type is supplied."""
+    if times is None:
+        return None
+    fn = getattr(times, 'identity_of_used_keys', None)
+    if callable(fn):
+        return fn(used_nodes)
+    ident = getattr(times, 'identity', None)
+    if callable(ident):
+        try:
+            ident = ident()
+        except Exception:                                                # noqa: BLE001
+            ident = None
+    return {'identity': ident, 'nodes_used': sorted(set(int(x) for x in (used_nodes or ())))}
 
 
 def _first_verdict(bad):

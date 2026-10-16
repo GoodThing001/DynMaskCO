@@ -131,7 +131,7 @@ def task_A():
     ok11, v11, d11 = RF.certify_return_feasibility(snap1, T_end=19.0, clock=0.0,
                                                   travel_fn=lambda a, b: 1.0)
     cert = AC.certify_route(env1, 0, 0, 0.0, 0.0, (5,))
-    got = d11['per_vehicle'][0].get('return_arrival')
+    got = ((d11.get('per_vehicle') or {}).get(0) or {}).get('return_arrival')
     true_ret = 21.0
     row('A1', 'late tw_start (wait) -> true return beyond T_end',
         {'tw_start[5]': 20.0, 'T_end': 19.0, 'travel': 1.0, 'service': 0.0},
@@ -158,7 +158,7 @@ def task_A():
     row('A2', 'service time unregistered -> cache default 0 silently used',
         {'service_time[5]': 2.0, 'registered_service_times': {}, 'T_end': 8.0, 'travel': 1.0},
         'refuse (service time unavailable) OR return 4.0 > 8.0? true return = 1+2+1 = 4.0',
-        {'omega11_verdict': v2, 'omega11_return_arrival': d2['per_vehicle'][0].get('return_arrival'),
+        {'omega11_verdict': v2, 'omega11_return_arrival': ((d2.get('per_vehicle') or {}).get(0) or {}).get('return_arrival'),
          'certify_route_feasible': cert2['feasible'],
          'note': 'with T_end=8.0 both agree by luck; the DEFECT is that 0.0 is used silently '
                  'and there is no refusal when the service time is unknown'},
@@ -178,7 +178,7 @@ def task_A():
     row('A2b', 'silent zero service time flips the verdict',
         {'service_time[5]': 2.0, 'registered': {}, 'T_end': 3.5, 'travel': 1.0},
         'refuse; true return 4.0 > 3.5+1e-6',
-        {'omega11_verdict': v2b, 'omega11_return_arrival': d2b['per_vehicle'][0].get('return_arrival'),
+        {'omega11_verdict': v2b, 'omega11_return_arrival': ((d2b.get('per_vehicle') or {}).get(0) or {}).get('return_arrival'),
          'certify_route_feasible': cert2b['feasible'], 'certify_route_reason': cert2b['reason']},
         'FALSE_PASS' if ok2b else 'OK',
         'the zero default makes the replay SHORTER than reality, which can only produce '
@@ -197,11 +197,11 @@ def task_A():
     row('A3', 'cross-instance service-time residue in the module-global cache',
         {'instance1_service[5]': 5.0, 'instance2_service[5]': 0.5, 'T_end': 8.0},
         'each run uses its OWN instance service times',
-        {'run1_return': d3a['per_vehicle'][0].get('return_arrival'),
-         'run2_return': d3b['per_vehicle'][0].get('return_arrival'),
+        {'run1_return': ((d3a.get('per_vehicle') or {}).get(0) or {}).get('return_arrival'),
+         'run2_return': ((d3b.get('per_vehicle') or {}).get(0) or {}).get('return_arrival'),
          'run1_verdict': v3a, 'run2_verdict': v3b},
-        'NOT_ESTABLISHED' if d3a['per_vehicle'][0].get('return_arrival')
-        != d3b['per_vehicle'][0].get('return_arrival') else 'OK',
+        'NOT_ESTABLISHED' if ((d3a.get('per_vehicle') or {}).get(0) or {}).get('return_arrival')
+        != ((d3b.get('per_vehicle') or {}).get(0) or {}).get('return_arrival') else 'OK',
         'the cache is MODULE-GLOBAL and keyed by node only, so a stale entry from a previous '
         'instance is reused until the caller re-registers; nothing binds the table to an '
         'instance identity, so a forgotten re-registration silently reuses another instance.',
@@ -222,8 +222,8 @@ def task_A():
          'mutable_suffix': [6, 0], 'T_end': 6.0, 'travel': 1.0},
         'the audit must account for BOTH the committed leg AND the later suffix task; '
         'true return = 2.0 (committed finish) + 1.0 (3->6) + 1.0 (6->depot) = 4.0',
-        {'omega11_verdict': v4, 'omega11_return_arrival': d4['per_vehicle'][0].get('return_arrival'),
-         'basis': d4['per_vehicle'][0].get('basis')},
+        {'omega11_verdict': v4, 'omega11_return_arrival': ((d4.get('per_vehicle') or {}).get(0) or {}).get('return_arrival'),
+         'basis': ((d4.get('per_vehicle') or {}).get(0) or {}).get('basis')},
         'NOT_ESTABLISHED',
         'the committed branch computes ONLY committed_finish + travel(committed_next -> depot) '
         'and NEVER inspects the suffix, so a later accepted task on the same vehicle is omitted '
@@ -239,8 +239,8 @@ def task_A():
     row('A4b', 'committed omission flips the verdict',
         {'committed_finish': 4.0, 'committed_next': 3, 'suffix': [6, 0], 'T_end': 5.0},
         'refuse; true return = 4.0 + 1.0 + 1.0 = 6.0 > 5.0+1e-6',
-        {'omega11_verdict': v4b, 'omega11_return_arrival': d4b['per_vehicle'][0].get('return_arrival'),
-         'basis': d4b['per_vehicle'][0].get('basis')},
+        {'omega11_verdict': v4b, 'omega11_return_arrival': ((d4b.get('per_vehicle') or {}).get(0) or {}).get('return_arrival'),
+         'basis': ((d4b.get('per_vehicle') or {}).get(0) or {}).get('basis')},
         'FALSE_PASS' if ok4b else 'OK',
         'same omission as A4: only the committed leg is timed.',
         'm1b_return_feasibility.py: committed branch')
@@ -260,9 +260,9 @@ def task_A():
          'service[7]': 1.0, 'T_end': 24.0},
         'must time the CANDIDATE plan it certifies: 20.0 (anchor) + 1 (2->7) + 1 (svc) '
         '+ 1 (7->depot) = 23.0 <= 24.0, so the true verdict is OK here',
-        {'omega11_verdict': v5, 'omega11_return_arrival': d5['per_vehicle'][0].get('return_arrival'),
-         'basis': d5['per_vehicle'][0].get('basis'),
-         'n_suffix_stops': d5['per_vehicle'][0].get('n_suffix_stops')},
+        {'omega11_verdict': v5, 'omega11_return_arrival': ((d5.get('per_vehicle') or {}).get(0) or {}).get('return_arrival'),
+         'basis': ((d5.get('per_vehicle') or {}).get(0) or {}).get('basis'),
+         'n_suffix_stops': ((d5.get('per_vehicle') or {}).get(0) or {}).get('n_suffix_stops')},
         'NOT_ESTABLISHED',
         'the WAIT path is entered only when the candidate suffix is EMPTY, and then the vehicle '
         'is judged by "return now".  This specific fixture shows the gate reporting a return of '
@@ -279,7 +279,7 @@ def task_A():
         {'status': 'closed', 'return_finish': 30.0, 'T_end': 24.0},
         'a closed vehicle whose recorded return exceeded the deadline must be auditable; '
         'the current branch treats closed as no-pending and never examines return_finish',
-        {'omega11_verdict': v6, 'row': d6['per_vehicle'][0]},
+        {'omega11_verdict': v6, 'row': ((d6.get('per_vehicle') or {}).get(0) or {})},
         'NOT_ESTABLISHED',
         'the closed branch sets pending = False and skips the deadline comparison entirely, so a '
         'historical deadline breach on a closed vehicle is invisible to this gate.',

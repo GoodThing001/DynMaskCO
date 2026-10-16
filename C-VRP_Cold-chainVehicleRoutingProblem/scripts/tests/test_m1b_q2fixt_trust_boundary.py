@@ -35,10 +35,12 @@ from coldchain_state import create_vehicle_state, dispatch_vehicle       # noqa:
 from action_contract import VehiclePlan                                   # noqa: E402
 import m1b_timing as TM                                                  # noqa: E402
 import m1b_quality_certificate as QC                                     # noqa: E402
+import m1b_public_projection as PP                                       # noqa: E402
 import m1b_return_feasibility as RF                                      # noqa: E402
 import m1b_thermal_gate as TG                                            # noqa: E402
 import m1b_immutable_snapshot as IS                                      # noqa: E402
-from m1b_q2_certifier import M1bQ2FixCertifier, ENGINEERING_CERTIFIED     # noqa: E402
+from m1b_q2_certifier import (M1bQ2TrustFixCertifier, M1bQ2TrustFixTestOnlyCertifier,
+                              ENGINEERING_CERTIFIED, TEST_ONLY_LABEL)     # noqa: E402
 
 ROWS = []
 CONTRACT = ColdChainContractV2()
@@ -101,91 +103,164 @@ def attrs_for(iq=None, tc=None, qty=None, served=(1, 2, 3, 4, 5, 6, 7), identity
                                     served_nodes=served, source_identity=identity)
 
 
+def proj_for(iq=None, tc=None, qty=None, svc=None, tws=None, served=(1, 2, 3, 4, 5, 6, 7),
+             instance_id=0, event_id=1, clock=0.0):
+    """A TrustedPublicProjection for the synthetic cases (F-T3 type required by the certifier)."""
+    served = tuple(int(x) for x in served)
+    iq2 = {n: 9.0 for n in served}; iq2.update({int(k): float(v) for k, v in (iq or {}).items()})
+    tc2 = {n: 1 for n in served}; tc2.update({int(k): int(v) for k, v in (tc or {}).items()})
+    q2 = {n: 1.0 for n in served}; q2.update({int(k): float(v) for k, v in (qty or {}).items()})
+    sv2 = {n: 0.05 for n in served}; sv2.update({int(k): float(v) for k, v in (svc or {}).items()})
+    tw2 = {n: 0.0 for n in served}; tw2.update({int(k): float(v) for k, v in (tws or {}).items()})
+    return PP.projection_from_revealed_maps(
+        iq=iq2, tc=tc2, qty=q2, svc=sv2, tws=tw2, twe={n: 1e9 for n in served},
+        revealed_nodes=served, instance_id=instance_id, event_id=event_id, clock=clock,
+        contract_hash=getattr(CONTRACT, 'contract_hash', None), snapshot_identity=None)
+
+
 def certifier(**kw):
     kw.setdefault('contract', CONTRACT)
     kw.setdefault('T_end', T_END)
     kw.setdefault('budget', SYNTHETIC_B)
-    return M1bQ2FixCertifier(**kw)
+    return M1bQ2TrustFixCertifier(**kw)
 
 
-def positive_case(proof=None, vehicles=None, planes=None):
-    a = attrs_for(iq={7: 9.0}, tc={7: 1}, qty={7: 1.0})
+def positive_case(proof=None, vehicles=None, planes=None, test_only=False):
+    """Default uses the PRODUCTION certifier, which refuses any proof hook (F-T1).
+
+    `test_only=True` switches to the ISOLATED test entry, whose receipt is stamped TEST_ONLY and
+    is explicitly not a consumable certificate.
+    """
+    proj = proj_for()
     vs = vehicles if vehicles is not None else [
         V(0, 'ready', node=0, ready=0.0, cc=fresh_cc(n_lots=1, iq=9.0))]
     ps = planes if planes is not None else {0: plan(0, 0.0, [7, 0])}
-    c = certifier(continuous_extremum_proof=proof)
+    if test_only:
+        c = M1bQ2TrustFixTestOnlyCertifier(
+            contract=CONTRACT, T_end=T_END, budget=SYNTHETIC_B,
+            test_continuous_extremum_proof=(proof if callable(proof)
+                                            else (lambda: (True, {}))))
+    else:
+        c = certifier()
     return c.certify(vehicles=vs, served_mask=np.zeros(40, dtype=bool), candidate_plans=ps,
                      clock=0.0, inst_idx=0, travel_fn=lambda a, b: 1.0,
                      distance_fn=lambda a, b: 10.0,
-                     times=times_for(service={7: 0.05}), order_attrs=a)
+                     times=proj, order_attrs=proj, projection=proj)
 
 
 # ==============================================================================================
 def task1():
     print('\n===== T1: continuous-temperature proof hook trust boundary =====')
 
-    # T1-1 an arbitrary callable that simply returns (True, {})
-    ok, rc = positive_case(proof=lambda **k: (True, {}))
-    row('T1-1', 'arbitrary proof returning (True,{}) yields CONTINUOUS_OK',
-        {'continuous_extremum_proof': 'lambda **k: (True, {})'},
-        'a proof that carries no identity, domain or contract binding should NOT be able to '
-        'assert continuous-time feasibility',
-        {'THERMAL_CONTINUOUS_STATE': rc.get('THERMAL_CONTINUOUS_STATE'),
+    # T1-1 the PRODUCTION certifier refuses a proof hook (F-T1)
+    raised = None
+    try:
+        c_hook = M1bQ2TrustFixCertifier(contract=CONTRACT, T_end=T_END, budget=SYNTHETIC_B,
+                                        continuous_extremum_proof=lambda **k: (True, {}))
+        _ok, _rc = c_hook.certify(
+            vehicles=[V(0, 'ready', node=0, ready=0.0, cc=fresh_cc(n_lots=1, iq=9.0))],
+            served_mask=np.zeros(40, dtype=bool), candidate_plans={0: plan(0, 0.0, [7, 0])},
+            clock=0.0, inst_idx=0, travel_fn=lambda a, b: 1.0, distance_fn=lambda a, b: 10.0,
+            times=proj_for(svc={7: 0.05}), order_attrs=proj_for(svc={7: 0.05}),
+            projection=proj_for(svc={7: 0.05}))
+        raised = ((_rc.get('gates', {}).get('proof_hook') or {}).get('verdict')
+                  or 'HOOK_NOT_REFUSED')
+    except TypeError as exc:
+        raised = str(exc)[:60]
+    ok, rc = positive_case()
+    row('T1-1', 'arbitrary proof (True,{}) can no longer yield CONTINUOUS_OK',
+        {'production certifier': 'continuous_extremum_proof = lambda **k: (True, {})'},
+        'F-T1: the production path must refuse the hook; the continuous level must stay '
+        'NOT_ESTABLISHED and composite_pass False',
+        {'hook_rejection_verdict': raised,
+         'THERMAL_CONTINUOUS_STATE': rc.get('THERMAL_CONTINUOUS_STATE'),
          'THERMAL_CONTINUOUS_OK': rc.get('THERMAL_CONTINUOUS_OK'),
+         'THERMAL_SAMPLED_OK': rc.get('THERMAL_SAMPLED_OK'),
          'composite_pass': rc.get('composite_pass'), 'final': rc.get('final')},
-        'FALSE_PASS' if (rc.get('THERMAL_CONTINUOUS_OK') is True
-                         and rc.get('composite_pass') is True) else 'NOT_ESTABLISHED',
-        'm1b_thermal_gate.py:251 cont_state = THERMAL_CONTINUOUS_OK if proven is True else ...',
-        True)
+        'OK' if (raised and raised != 'HOOK_NOT_REFUSED'
+                 and rc.get('THERMAL_CONTINUOUS_OK') is False
+                 and rc.get('THERMAL_CONTINUOUS_STATE') == TG.THERMAL_CONTINUOUS_NOT_ESTABLISHED
+                 and rc.get('composite_pass') is False) else 'FALSE_PASS',
+        'm1b_q2_certifier.py:PRODUCTION_PROOF_HOOK_REFUSED gate at the top of certify(); '
+        'm1b_thermal_gate.py continuous branch additionally requires allow_test_only_proof',
+        False)
 
-    # T1-2 what does the hook actually receive / is anything verified about it
-    seen = {}
+    # T1-1b the LOW-LEVEL gate ignores a hook without the explicit test opt-in
+    import m1b_immutable_snapshot as _IS
+    vs = [V(0, 'ready', node=0, ready=0.0, cc=fresh_cc(n_lots=1, iq=9.0))]
+    ps = {0: plan(0, 0.0, [7, 0])}
+    sn, _, _ = _IS.build_frozen_snapshot(vs, np.zeros(40, dtype=bool), ps,
+                                         initial_quality_by_node={7: 9.0})
+    env, tv, td = TG.replay_thermal_envelope(
+        sn['vehicles'][0], contract=CONTRACT, inst_idx=0, clock=0.0,
+        travel_fn=lambda a, b: 1.0, distance_fn=lambda a, b: 10.0,
+        temp_class_of=lambda n: 1, quantity_of=lambda n: 1.0,
+        service_time_of=times_for(service={7: 0.05}),
+        continuous_extremum_proof=lambda **k: (True, {}))          # NO opt-in flag
+    det = ((td.get('envelope') or {}).get('continuous_time_detail') or {})
+    row('T1-1b', 'low-level gate ignores an injected proof without the test opt-in',
+        {'continuous_extremum_proof': 'lambda **k: (True, {})', 'allow_test_only_proof': False},
+        'continuous level must stay NOT_ESTABLISHED',
+        {'sampled_level': td.get('sampled_level'), 'continuous_level': td.get('continuous_level'),
+         'proof_hook_offered': det.get('proof_hook_offered'),
+         'proof_hook_accepted': det.get('proof_hook_accepted')},
+        'OK' if td.get('continuous_level') == TG.THERMAL_CONTINUOUS_NOT_ESTABLISHED else 'FALSE_PASS',
+        'm1b_thermal_gate.py: `elif continuous_extremum_proof is None or not '
+        'allow_test_only_proof:`', False)
 
-    def spy(**k):
-        seen.update({kk: (type(vv).__name__ if not isinstance(vv, (int, float, str, list))
-                          else vv) for kk, vv in k.items()})
-        seen['_kwargs'] = sorted(k.keys())
-        return True, {}
-    positive_case(proof=spy)
-    row('T1-2', 'the hook receives contract/bounds/samples/durations but is NOT identified',
-        {'hook': 'spy capturing kwargs', 'received_kwargs': seen.get('_kwargs')},
-        'supplying the contract is NOT the same as VERIFYING that the proof was built for it',
-        {'received_kwargs': seen.get('_kwargs'),
-         'any_sha256_check': False, 'any_domain_check': False,
+    # T1-1c the ISOLATED test entry still allows wiring, but the receipt is TEST_ONLY
+    okT, rcT = positive_case(test_only=True)
+    row('T1-1c', 'isolated test entry marks its receipt TEST_ONLY and non-consumable',
+        {'class': 'M1bQ2TrustFixTestOnlyCertifier',
+         'test_continuous_extremum_proof': 'lambda: (True, {})'},
+        'the wiring must stay exercisable, but the receipt must be unusable as a production '
+        'certificate',
+        {'test_only': rcT.get('test_only'), 'TEST_ONLY_LABEL': rcT.get('TEST_ONLY_LABEL'),
+         'not_consumable': rcT.get('not_consumable_as_production_certificate'),
+         'wiring': rcT.get('test_only_continuous_wiring')},
+        'OK' if (rcT.get('test_only') is True and rcT.get('TEST_ONLY_LABEL') == TEST_ONLY_LABEL
+                 and rcT.get('not_consumable_as_production_certificate') is True) else 'FALSE_PASS',
+        'm1b_q2_certifier.py:M1bQ2TrustFixTestOnlyCertifier', False)
+
+    # T1-2 the production path has no hook left to identify
+    row('T1-2', 'no SHA256 / domain / contract / thermal-version / provenance check exists',
+        {'production certifier': 'refuses any proof hook outright',
+         'low-level gate': 'requires allow_test_only_proof and is not wired from production'},
+        'F-T1: until a real proof is registered and independently audited, the continuous level '
+        'stays NOT_ESTABLISHED -- which is now the structural situation',
+        {'any_sha256_check': False, 'any_domain_check': False,
          'any_contract_binding_check': False, 'any_thermal_version_check': False,
          'any_provenance_check': False,
-         'grep_evidence': 'the certifier stores self.continuous_extremum_proof and forwards it '
-                          'verbatim (m1b_q2_certifier.py:106, :278); the gate only tests '
-                          '`proven is True` (m1b_thermal_gate.py:251)'},
-        'TRUST_BOUNDARY_NOT_ESTABLISHED',
-        'm1b_q2_certifier.py:106,278 ; m1b_thermal_gate.py:246-252', True)
+         'grep_evidence': 'no registration surface exists; the only route to '
+                          'THERMAL_CONTINUOUS_OK is the test-only opt-in'},
+        'TRUST_BOUNDARY_RESOLVED_BY_REMOVAL',
+        'm1b_q2_certifier.py:PRODUCTION_PROOF_HOOK_REFUSED ; '
+        'm1b_thermal_gate.py allow_test_only_proof opt-in', False)
 
-    # T1-3 a hook that always lies even with contradicting samples
-    ok3, rc3 = positive_case(proof=lambda **k: (True, {'says': 'ok'}))
-    row('T1-3', 'a lying hook overrides contradicting sampled evidence?',
-        {'hook': 'returns True unconditionally', 'sampled envelope': 'measured in the same run'},
-        'the sampled level is measured independently, so a lying hook must not be able to turn a '
-        'SAMPLED violation into a pass',
+    # T1-3 the sampled level stays independent of any proof
+    ok3, rc3 = positive_case()
+    row('T1-3', 'the sampled level is measured independently and is not affected by any proof',
+        {'certifier': 'production (no proof hook)'},
+        'THERMAL_SAMPLED_OK must come from the measured envelope alone',
         {'THERMAL_SAMPLED_OK': rc3.get('THERMAL_SAMPLED_OK'),
          'THERMAL_CONTINUOUS_STATE': rc3.get('THERMAL_CONTINUOUS_STATE'),
          'composite_pass': rc3.get('composite_pass')},
         'OK' if rc3.get('THERMAL_SAMPLED_OK') is True else 'CHECK',
-        'm1b_thermal_gate.py:234-236 (violations short-circuit the continuous branch)', False)
+        'm1b_thermal_gate.py sampled branch', False)
 
-    # T1-4 a lying hook when the sampled envelope IS violated
+    # T1-4 SAMPLED violation must still sink the composite
     import dataclasses as dc
     tight = dc.replace(CONTRACT, thermal=dc.replace(
         CONTRACT.thermal, hard_temperature_bounds_c=((-50.0, -40.0),) * 3))
     a = attrs_for(iq={7: 9.0}, tc={7: 1}, qty={7: 1.0})
-    c4 = M1bQ2FixCertifier(contract=tight, T_end=T_END, budget=SYNTHETIC_B,
-                           continuous_extremum_proof=lambda **k: (True, {}))
+    c4 = M1bQ2TrustFixCertifier(contract=tight, T_end=T_END, budget=SYNTHETIC_B)
     ok4, rc4 = c4.certify(vehicles=[V(0, 'ready', node=0, ready=0.0,
                                       cc=fresh_cc(n_lots=1, iq=9.0))],
                           served_mask=np.zeros(40, dtype=bool),
                           candidate_plans={0: plan(0, 0.0, [7, 0])}, clock=0.0, inst_idx=0,
                           travel_fn=lambda a_, b_: 1.0, distance_fn=lambda a_, b_: 10.0,
-                          times=times_for(service={7: 0.05}), order_attrs=a)
-    row('T1-4', 'lying hook + SAMPLED violation -> composite must still fail',
+                          times=proj_for(svc={7: 0.05}), order_attrs=proj_for(svc={7: 0.05}), projection=proj_for(svc={7: 0.05}))
+    row('T1-4', 'SAMPLED violation -> composite must fail',
         {'hook': 'returns True', 'hard bounds': '(-50,-40) so sampling violates them'},
         'composite_pass must be False',
         {'THERMAL_SAMPLED_OK': rc4.get('THERMAL_SAMPLED_OK'),
@@ -210,23 +285,19 @@ def task2():
                                              travel_fn=lambda a, b: 1.0)     # NO times= passed
     env = MiniEnv(tw_start={5: 20.0}, tw_end={0: 19.0, 5: 30.0}, service={5: 0.0})
     cert = AC.certify_route(env, 0, 0, 0.0, 0.0, (5,))
-    row('T2-1', '_LegacyTimes tw_start=0.0 re-opens the A1 late-window case',
+    row('T2-1', 'direct Omega11 call WITHOUT times= now refuses (F-T2)',
         {'legacy register_service_times': '{5: 0.0}', 'true tw_start[5]': 20.0,
          'T_end': 19.0, 'times= passed': False},
-        'the legacy path must not be able to certify a plan that certify_route rejects',
-        {'omega11_verdict': v, 'omega11_return_arrival': d['per_vehicle'][0].get('return_arrival'),
+        'F-T2: a missing per-instance time input must be a REFUSAL at this entry point too, so a '
+        'caller that bypasses the orchestrator cannot recover the optimistic estimate',
+        {'omega11_verdict': v, 'ok': ok,
+         'omega11_return_arrival': (d.get('per_vehicle') or {}).get(0, {}).get('return_arrival'),
          'certify_route_reason': cert['reason'],
          'certify_route_return_slack': cert['return_slack'],
-         'time_input_identity': d.get('time_input_identity'),
-         'REACHES_FIXED_COMPOSITE': False,
-         'why_not': 'the certifier refuses at the time_inputs gate when `times` is None '
-                    '(OMEGA11_TIME_INPUT_UNAVAILABLE), so the legacy fallback cannot reach '
-                    'composite_pass; but any caller that calls certify_return_feasibility '
-                    'DIRECTLY without times= silently gets the optimistic replay'},
-        'FALSE_PASS' if (ok and cert['reason'] == 'return') else 'CHECK',
-        'm1b_return_feasibility.py:_LegacyServiceTimes.register (tw_start={n: 0.0}) and the '
-        'times-is-None fallback in certify_return_feasibility; '
-        'm1b_q2_certifier.py blocks the same fallback at the time_inputs gate', True)
+         'why': (d.get('why') or '')[:140]},
+        'OK' if ((not ok) and v == RF.OMEGA11_TIME_INPUT_UNAVAILABLE) else 'FALSE_PASS',
+        'm1b_return_feasibility.py:certify_return_feasibility now refuses when times is None; the '
+        '_LegacyServiceTimes auto-consult was removed', True)
 
     # T2-2 legacy callables into the certifier: do they influence the fixed verdict?
     RF.register_service_times({})
@@ -314,18 +385,20 @@ def task3():
     forged = attrs_for(iq={7: 9.0}, tc={7: 1}, qty={7: 1.0}, served=(7,),
                        identity='FORGED-NOT-A-REAL-SOURCE')
     served_ok = forged.temp_class_of(7) == 1
-    row('T3-2', 'declared set + source identity are SELF-ASSERTED (no trusted validation)',
+    row('T3-2', 'legacy provider: declaration is still self-asserted, BUT the certifier refuses it',
         {'served_nodes': (7,), 'source_identity': 'FORGED-NOT-A-REAL-SOURCE',
-         'revealed at clock=0.0': 'nothing (reveal_time not consulted)'},
-        'a declaration that reveals node 7 at clock 0 without any trusted source should not '
-        'by itself authorise reading node 7',
-        {'query_succeeded': served_ok,
-         'any_registry_or_reveal_check': False,
-         'identity_is_free_text': True},
-        'TRUST_BOUNDARY_NOT_ESTABLISHED',
-        'm1b_quality_certificate.py:PublicOrderAttributes.__init__ stores served_nodes and '
-        'source_identity verbatim; nothing cross-checks them against reveal_time or a registry',
-        True)
+         'revealed at clock=0.0': 'nothing'},
+        'the LEGACY provider remains self-asserting by construction; F-T3 confines that risk by '
+        'making the PRODUCTION path refuse any non-projection provider, so the weak type can no '
+        'longer reach certification',
+        {'legacy_query_succeeded': served_ok,
+         'legacy_type_is_self_asserting': True,
+         'production_path_accepts_non_projection': False,
+         'confinement': 'm1b_q2_certifier.py projection gate rejects it (see T3-7)',
+         'legacy_shim_label': getattr(QC.PublicOrderAttributes, '__name__', 'PublicOrderAttributes')},
+        'NOT_ESTABLISHED_FOR_THE_LEGACY_TYPE_ONLY',
+        'm1b_public_projection.py is the trusted boundary; PublicOrderAttributes survives only as '
+        'a legacy type that certification refuses', False)
 
     # T3-3 does the object RETAIN the full truth table?
     iq_all = {n: 9.0 for n in range(1, 8)}
@@ -340,28 +413,31 @@ def task3():
         leaked = a3._iq.get(7)
     except Exception as exc:                                             # noqa: BLE001
         leaked = 'BLOCKED:%s' % type(exc).__name__
-    row('T3-3', 'the full truth table is RETAINED inside the object',
-        {'constructor mapping': 'nodes 1..7 with node 7 = 1.0', 'served_nodes': (1,)},
-        'the gating getter may refuse, but the raw mapping is still reachable as an attribute',
-        {'reachable_attributes': internals, '_iq[7]': leaked,
-         'gate_blocks_public_getter': True},
-        'TRUST_BOUNDARY_NOT_ESTABLISHED',
-        'm1b_quality_certificate.py:PublicOrderAttributes keeps _iq/_tc/_qty as plain dicts with '
-        'no __slots__ privacy; __slots__ is declared but the dicts themselves are readable and '
-        'mutable', False)
+    row('T3-3', 'legacy provider retains the full table; the TRUSTED projection does not (T3-8)',
+        {'legacy constructor mapping': 'nodes 1..7', 'served_nodes': (1,)},
+        'documented contrast: the legacy type keeps the whole mapping reachable, while the '
+        'trusted projection stores revealed nodes only',
+        {'legacy_reachable_attributes': internals, 'legacy__iq[7]': leaked,
+         'trusted_projection_retains_revealed_only': 'see T3-8',
+         'production_path_accepts_legacy': False},
+        'NOT_ESTABLISHED_FOR_THE_LEGACY_TYPE_ONLY',
+        'm1b_quality_certificate.py:PublicOrderAttributes (legacy) vs '
+        'm1b_public_projection.py:TrustedPublicProjection (trusted)', False)
 
     # T3-4 mutability of the retained table after construction
     a4 = attrs_for(iq={7: 9.0}, tc={7: 1}, qty={7: 1.0}, served=(1, 7))
     before = a4.initial_quality_of(7)
     a4._iq[7] = 1.0                       # mutate the retained table in place
     after = a4.initial_quality_of(7)
-    row('T3-4', 'the retained table is MUTABLE after construction',
-        {'before': before, 'mutation': '_iq[7] = 1.0'},
-        'a certificate input should be immutable once constructed',
-        {'before': before, 'after': after, 'changed': before != after},
-        'TRUST_BOUNDARY_NOT_ESTABLISHED' if before != after else 'OK',
-        'm1b_quality_certificate.py:PublicOrderAttributes.__slots__ lists _iq/_tc/_qty as dicts',
-        False)
+    row('T3-4', 'legacy provider stays mutable; the trusted projection is immutable (T3-8)',
+        {'before': before, 'mutation': '_iq[7] = 1.0 on the LEGACY type'},
+        'documented contrast: the trusted projection blocks this mutation (MappingProxyType)',
+        {'legacy_before': before, 'legacy_after': after, 'legacy_mutable': before != after,
+         'trusted_projection_mutation_blocked': 'see T3-8',
+         'production_path_accepts_legacy': False},
+        'NOT_ESTABLISHED_FOR_THE_LEGACY_TYPE_ONLY',
+        'm1b_quality_certificate.py:PublicOrderAttributes (legacy dicts) vs '
+        'm1b_public_projection.py:TrustedPublicProjection (MappingProxyType)', False)
 
     # T3-5 PublicTimeInputs: same questions
     t = times_for(service={7: 0.0}, revealed=(7,))
@@ -387,27 +463,96 @@ def task3():
         'm1b_timing.py:PublicTimeInputs (__slots__ enforced; service_time/tw_start/tw_end are '
         'plain dicts, so in-place mutation is possible)', False)
 
-    # T3-6 can a caller declare reveal-time truth that contradicts the environment?
+    # T3-6 the TRUSTED PROJECTION refuses nodes the environment has not revealed (F-T3)
     class FakeEnv:
         reveal_time = np.full((1, 8), 1e9)      # nothing is revealed at clock 0
         num_nodes = 8
-    a6 = attrs_for(iq={7: 9.0}, tc={7: 1}, qty={7: 1.0}, served=(7,),
-                   identity='claims-node-7-visible-at-clock-0')
-    reads = None
+    proj6, pv6, pd6 = PP.build_projection_from_env(
+        FakeEnv(), inst_idx=0, event_id=1, clock=0.0, contract=CONTRACT,
+        snapshot_identity='snap-1',
+        fields={'temp_class': {7: 1}, 'demand': {7: 1.0}, 'tw_start': {7: 0.0},
+                'tw_end': {7: 1e9}, 'service_time': {7: 0.05}, 'initial_quality': {7: 9.0}})
+    reads = 'PROJECTION_NOT_BUILT'
+    if proj6 is not None:
+        try:
+            reads = proj6.temp_class_of(7)
+        except PermissionError:
+            reads = 'REFUSED'
+    row('T3-6', 'F-T3: a declaration contradicting the environment is refused',
+        {'env.reveal_time[0,7]': 1e9, 'clock': 0.0, 'fields supplied for node 7': 'yes'},
+        'the construction boundary derives the visible set from env.reveal_time, so node 7 must '
+        'not be reachable at clock 0',
+        {'n_revealed': len(proj6.revealed_nodes) if proj6 is not None else None,
+         'temp_class_of(7)': reads,
+         'source_identity_is_computed': (proj6.source_identity.startswith('proj:')
+                                         if proj6 is not None else None)},
+        'FALSE_PASS' if reads == 1 else 'OK',
+        'm1b_public_projection.py:build_projection_from_env derives `revealed` from '
+        'env.reveal_time and the current clock only', True)
+
+    # T3-7 the production certifier refuses a NON-projection provider
+    okN, rcN = certifier().certify(
+        vehicles=[V(0, 'ready', node=0, ready=0.0, cc=fresh_cc(n_lots=1, iq=9.0))],
+        served_mask=np.zeros(40, dtype=bool), candidate_plans={0: plan(0, 0.0, [7, 0])},
+        clock=0.0, inst_idx=0, travel_fn=lambda a, b: 1.0, distance_fn=lambda a, b: 10.0,
+        times=times_for(service={7: 0.05}),
+        order_attrs=attrs_for(iq={7: 9.0}, tc={7: 1}, qty={7: 1.0}))
+    row('T3-7', 'F-T3: a self-declared provider is refused by the certifier',
+        {'provider': 'PublicOrderAttributes(served_nodes=(1..7), source_identity="a-synth-1")'},
+        'externally declared visible sets and free-text source identities must not qualify',
+        {'composite': okN, 'final': rcN.get('final'),
+         'projection_gate': (rcN['gates'].get('projection') or {}).get('verdict')},
+        'OK' if ((not okN)
+                 and (rcN['gates'].get('projection') or {}).get('verdict')
+                 == PP.PROJECTION_DECLARED_SET_REJECTED) else 'FALSE_PASS',
+        'm1b_q2_certifier.py: projection gate requires isinstance(TrustedPublicProjection)', True)
+
+    # T3-8 the projection retains REVEALED nodes only, and is immutable
+    full_iq = {n: 9.0 for n in range(1, 8)}
+    full_iq[7] = 1.0
+    proj8 = PP.projection_from_revealed_maps(
+        iq={1: 9.0}, tc={1: 1}, qty={1: 1.0}, svc={1: 0.05}, tws={1: 0.0}, twe={1: 1e9},
+        revealed_nodes=(1,), instance_id=0, event_id=1, clock=0.0,
+        contract_hash=getattr(CONTRACT, 'contract_hash', None), snapshot_identity=None)
+    leaked = None
     try:
-        reads = a6.temp_class_of(7)
+        leaked = proj8._iq.get(7)
+    except Exception as exc:                                             # noqa: BLE001
+        leaked = 'BLOCKED:%s' % type(exc).__name__
+    mutate_blocked = False
+    try:
+        proj8._iq[7] = 1.0
+    except TypeError:
+        mutate_blocked = True
+    row('T3-8', 'F-T3: the projection holds ONLY revealed nodes and is immutable',
+        {'constructor iq': '{1: 9.0}', 'revealed_nodes': (1,), 'attempt': 'read and write _iq[7]'},
+        'no whole-node table may survive inside the object, and post-construction mutation must '
+        'fail',
+        {'_iq[7]': leaked, 'mutation_blocked': mutate_blocked,
+         'n_retained_nodes': len(proj8._iq), 'revealed': sorted(proj8.revealed_nodes)},
+        'OK' if (leaked is None and mutate_blocked and len(proj8._iq) == 1) else 'FALSE_PASS',
+        'm1b_public_projection.py:TrustedPublicProjection wraps its tables in MappingProxyType '
+        'and stores revealed nodes only', True)
+
+    # T3-9 two events must not mix visible sets or identities
+    projA = proj_for(served=(1, 2), instance_id=0, event_id=1, clock=0.0)
+    projB = proj_for(served=(1, 2, 3), instance_id=0, event_id=2, clock=5.0)
+    cross = None
+    try:
+        projA.temp_class_of(3)
+        cross = 'LEAKED_ACROSS_EVENTS'
     except PermissionError:
-        reads = 'REFUSED'
-    row('T3-6', 'a declaration contradicting the environment is not cross-checked',
-        {'env.reveal_time[0,7]': 1e9, 'clock': 0.0, 'provider served_nodes': (7,)},
-        'the provider should refuse node 7 when the environment says it is unrevealed',
-        {'temp_class_of(7)': reads,
-         'provider_consults_env': False,
-         'consequence': 'a caller can declare any node visible and read its true attributes '
-                        'through this provider'},
-        'TRUST_BOUNDARY_NOT_ESTABLISHED',
-        'm1b_quality_certificate.py:PublicOrderAttributes has no environment/reveal binding',
-        True)
+        cross = 'REFUSED'
+    same, v9, d9 = projA.assert_same_identity(projB)
+    row('T3-9', 'F-T3: two events have independent visible sets and identities',
+        {'event 1 revealed': (1, 2), 'event 2 revealed': (1, 2, 3), 'query': 'projA.temp_class_of(3)'},
+        'event 1 must not expose event 2 nodes, and the identities must differ',
+        {'cross_event_query': cross,
+         'identities_equal': same, 'identity_verdict': v9,
+         'identity_A': projA.source_identity[:24], 'identity_B': projB.source_identity[:24]},
+        'OK' if (cross == 'REFUSED' and same is False) else 'FALSE_PASS',
+        'm1b_public_projection.py: identity is computed from (instance, event, clock, revealed '
+        'set, contract, snapshot)', True)
 
 
 # ==============================================================================================
@@ -432,48 +577,72 @@ def task4():
         V(2, 'closed', node=0, ready=5.0, cc=fresh_cc(n_lots=0), return_finish=None),
     ]
     ps = {0: plan(0, 0.0, [7, 0]), 1: plan(1, 0.0, []), 2: plan(2, 5.0, [])}
-    a = attrs_for(iq={7: 9.0}, tc={7: 1}, qty={7: 1.0})
+    proj = proj_for(svc={7: 0.05})
     c = certifier(closed_return_history={2: 5.0})
     ok, rc = c.certify(vehicles=vs, served_mask=np.zeros(40, dtype=bool), candidate_plans=ps,
                        clock=0.0, inst_idx=0, travel_fn=lambda a_, b_: 1.0,
-                       distance_fn=lambda a_, b_: 10.0, times=times_for(service={7: 0.05}),
-                       order_attrs=a)
+                       distance_fn=lambda a_, b_: 10.0, times=proj, order_attrs=proj,
+                       projection=proj)
     tv = ((rc['gates'].get('thermal_replay') or {}).get('detail') or {}).get('per_vehicle', {})
-    row('T4-2', 'idle-undispatched vehicle in a multi-vehicle state',
-        {'vehicle 1': "status='idle', coldchain_state=None"},
-        'an idle vehicle that was never dispatched has no thermal state; whether that should '
-        'block the WHOLE certification or only that vehicle is a design question',
-        {'composite': ok, 'v1_thermal_verdict': (tv.get(1) or tv.get('1') or {}).get('verdict'),
-         'v0_thermal_verdict': (tv.get(0) or tv.get('0') or {}).get('verdict'),
-         'v2_thermal_verdict': (tv.get(2) or tv.get('2') or {}).get('verdict')},
-        'FALSE_REJECT' if (ok is False and (tv.get(1) or tv.get('1') or {}
-                                            ).get('verdict') == TG.THERMAL_REPLAY_STATE_MISSING)
-        else 'CHECK',
-        'm1b_thermal_gate.py:replay_thermal_envelope returns THERMAL_REPLAY_STATE_MISSING when '
-        'coldchain_state is None; the certifier requires ALL vehicles to be SAMPLED_OK', True)
+    v1 = (tv.get(1) or tv.get('1') or {}).get('verdict')
+    row('T4-2', 'F-T4: idle-undispatched vehicle is NOT_APPLICABLE, not a state failure',
+        {'vehicle 0': 'ready, loaded', 'vehicle 1': "idle, coldchain_state=None",
+         'vehicle 2': 'closed, no cargo, history supplied'},
+        'F-T4: an idle vehicle that was never dispatched carries no thermal risk and must not be '
+        'reported as a state failure; the sampled fleet verdict must be OK',
+        {'composite': ok, 'v0': (tv.get(0) or tv.get('0') or {}).get('verdict'), 'v1': v1,
+         'v2': (tv.get(2) or tv.get('2') or {}).get('verdict'),
+         'THERMAL_SAMPLED_OK': rc.get('THERMAL_SAMPLED_OK'),
+         'applicability': rc.get('thermal_applicability')},
+        'OK' if (v1 == TG.THERMAL_NOT_APPLICABLE and rc.get('THERMAL_SAMPLED_OK') is True)
+        else ('FALSE_REJECT' if v1 == TG.THERMAL_REPLAY_STATE_MISSING else 'CHECK'),
+        'm1b_thermal_gate.py:classify_thermal_applicability (F-T4)', True)
 
-    # T4-3 isolated: does ONE undispatched idle vehicle alone block certification?
+    # T4-3 isolated: does ONE undispatched idle vehicle alone block the sampled verdict?
     vs3 = [V(0, 'ready', node=0, ready=0.0, cc=fresh_cc(n_lots=1, iq=9.0)),
            V(1, 'idle', node=0, ready=0.0, cc=None)]
     ps3 = {0: plan(0, 0.0, [7, 0]), 1: plan(1, 0.0, [])}
     c3 = certifier()
+    proj3 = proj_for(svc={7: 0.05})
     ok3, rc3 = c3.certify(vehicles=vs3, served_mask=np.zeros(40, dtype=bool),
                           candidate_plans=ps3, clock=0.0, inst_idx=0,
                           travel_fn=lambda a_, b_: 1.0, distance_fn=lambda a_, b_: 10.0,
-                          times=times_for(service={7: 0.05}), order_attrs=a)
+                          times=proj3, order_attrs=proj3, projection=proj3)
     tv3 = ((rc3['gates'].get('thermal_replay') or {}).get('detail') or {}).get('per_vehicle', {})
-    only = [k for k in (tv3.get(1), tv3.get('1')) if k]
-    row('T4-3', 'ONE never-dispatched idle vehicle blocks the whole composite',
+    v1_3 = (tv3.get(1) or tv3.get('1') or {}).get('verdict')
+    row('T4-3', 'F-T4: ONE never-dispatched idle vehicle no longer sinks the sampled verdict',
         {'vehicle 1': "status='idle', coldchain_state=None, empty plan"},
-        'an idle vehicle with nothing on board and no thermal state carries no thermal risk; '
-        'refusing ALL certification because of it is a systematic FALSE_REJECT in realistic '
-        'multi-vehicle days where some vehicles are never dispatched',
-        {'composite': ok3, 'final': rc3.get('final'),
-         'v1_verdict': (only[0] if only else {}).get('verdict'),
-         'reason': 'THERMAL_REPLAY_STATE_MISSING for the idle vehicle'},
-        'FALSE_REJECT' if ok3 is False else 'OK',
-        'm1b_thermal_gate.py:replay_thermal_envelope (state is None -> STATE_MISSING); '
-        'm1b_q2_certifier.py requires every vehicle to be THERMAL_SAMPLED_OK', True)
+        'F-T4: the idle vehicle must be NOT_APPLICABLE, THERMAL_SAMPLED_OK must be True, and the '
+        'ONLY remaining reason the composite is False must be the continuous thermal level '
+        '(which is fail-closed BY DESIGN this round, not a fleet false reject)',
+        {'composite': ok3, 'final': rc3.get('final'), 'v1_verdict': v1_3,
+         'THERMAL_SAMPLED_OK': rc3.get('THERMAL_SAMPLED_OK'),
+         'THERMAL_CONTINUOUS_STATE': rc3.get('THERMAL_CONTINUOUS_STATE'),
+         'blocking_gate': 'THERMAL_CONTINUOUS_NOT_ESTABLISHED (by design)'
+                          if rc3.get('THERMAL_SAMPLED_OK') else 'thermal sampled failure'},
+        'OK' if (v1_3 == TG.THERMAL_NOT_APPLICABLE and rc3.get('THERMAL_SAMPLED_OK') is True
+                 and rc3.get('THERMAL_CONTINUOUS_STATE')
+                 == TG.THERMAL_CONTINUOUS_NOT_ESTABLISHED)
+        else 'FALSE_REJECT',
+        'm1b_thermal_gate.py:classify_thermal_applicability; m1b_q2_certifier.py composite '
+        'requires the CONTINUOUS level', True)
+
+    # T4-4 the ORIGINAL negative control must still refuse: cargo without state
+    vs4 = [V(0, 'ready', node=0, ready=0.0, cc=None)]          # cargo implied by the plan only
+    vs4b = [V(0, 'ready', node=0, ready=0.0, cc=None)]
+    # a vehicle carrying cargo but with no cold-chain state is constructed by giving it a plan
+    # that continues from a non-depot node
+    vs4c = [V(0, 'ready', node=5, ready=1.0, cc=None, suffix=[7])]
+    ap4, av4, ad4 = TG.classify_thermal_applicability(
+        IS.build_frozen_snapshot(vs4c, np.zeros(40, dtype=bool),
+                                 {0: plan(0, 1.0, [7, 0])})[0]['vehicles'][0],
+        clock=1.0, closed_return_history={})
+    row('T4-4', 'ORIGINAL negative control preserved: a dispatched vehicle without state refuses',
+        {'vehicle': "status='ready', current_node=5 (away from depot), coldchain_state=None"},
+        'F-T4: the not-applicable conditions are NOT all met, so this must REFUSE',
+        {'applies': ap4, 'verdict': av4, 'why': (ad4 or {}).get('why', '')[:110]},
+        'OK' if (ap4 is None and av4 == TG.THERMAL_REPLAY_STATE_MISSING) else 'FALSE_PASS',
+        'm1b_thermal_gate.py:classify_thermal_applicability refusal branch', True)
 
 
 def main():
