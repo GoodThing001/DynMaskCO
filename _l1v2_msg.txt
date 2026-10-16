@@ -1,0 +1,91 @@
+L1: close the three sign-blocking defects with executable counterexamples; L1_V2 signing package ready
+
+Independent source review found that L1_FORMAL_EXECUTION_SIGNING_PACKAGE.json
+reported all_gates_pass = true while carrying three defects that block a
+signature.  All three are now closed by counterexamples that FAIL on the old
+behaviour, and the package is regenerated as L1_V2 with every gate passing.
+
+A -- the source freeze did not cover L1 itself
+  M7 read PASS while l1_sources_in_closure == [] and n_watch_paths == 34: the
+  watch set was the F-FORWARD closure, so it froze the code that decides the F
+  forward and NONE of the code that decides the L1 comparison.
+  * new scripts/data/d3_l1_closure.py derives the closure from the L1 formal
+    entry (38 sources + 4 assets = 42 watched paths), with every exclusion
+    carrying a reason and an unclean closure raising instead of degrading;
+  * build_l1_identity freezes that closure and REFUSES when a decision-relevant
+    module is missing; the silent F-only fallback is deleted;
+  * M7 now requires the L1 modules BY NAME.
+  * per-module tamper counterexamples (14 modules, one at a time, in a
+    disposable twin tree so the repository is never written to): a single-byte
+    edit makes the frozen identity drift by exactly one path and name that
+    module, validate_credential refuses, authorize raises with ZERO consumption
+    receipts, and the real worker refuses with IDENTITY DRIFT and zero per-state
+    records even when handed a VALID execution context; restoring the module
+    makes the guard pass again.
+
+A-extra, found while writing that counterexample: the credential bound no code
+  at all.  BINDING_FIELDS had no source field and the identity view omitted
+  `watch`, so a credential declared the run id, weights, data, contract, state
+  order, call counts and budgets and not one byte of the program.  Adds
+  source_identity_sha256, carries `watch` into the view, and authorises over a
+  LIVE re-derivation of every watched path so drift blocks BEFORE consumption.
+
+B -- READY and per-state supervision were absent
+  run_contained was called with NO ready_probe, so the supervisor fell back to
+  the V1.11 default (a fixed `READY.json`) which a V1.18+ worker can never
+  publish; the worker published no READY and no phase records, so initialization
+  was measured as the whole batch.
+  * reuses the V1.22-accepted immutable READY probe;
+  * the worker publishes L1_READY plus one slot / slot_finished pair per state.
+  * B2: READY at ~2 s then a 69.83 s batch (>60 s init cap, <180 s batch cap) is
+    NOT misjudged as an init timeout;
+  * B3: a worker that never publishes READY IS force-killed;
+  * B4: a state over 10 s is handled at BOTH real layers (the arm degrades
+    fail-closed to the original plan with `timeout`; the supervisor terminates
+    the tree), with every record published before the strike intact;
+  * the 10 s is stated and made mechanical: per_state_both_arms_share_one_10s_
+    allowance -- both arms are charged from ONE monotonic origin, so two 10 s
+    allowances cannot be summed while the record still claims 10 s;
+  * the frozen 60 / 10 / 180 s caps and 128 / 2 / 2 call counts are unchanged.
+
+C -- the 64-state denominator could silently shrink
+  adjudicate([r for r in records if r.get("status") != "FAILED_EXCEPTION"])
+  removed crashed states before the round verdict.
+  * every pre-registered state gets its own record; exception / timeout /
+    empty-pool / not-comparable / not-attempted states are listed separately;
+  * adjudicate takes an expected_states bound and reports BLOCKED for a short or
+    duplicated list, for any ledger_ok=false and for any single-factor failure;
+  * fault injection: one failed state leaves the denominator at 64, a missing
+    state is BLOCKED rather than a smaller denominator, and no filtered
+    adjudicate call site remains (verified by AST).
+
+Discipline
+  * the old L1-v1 package is byte-intact (sha256 0b9336fa...) and is annotated
+    as invalidated with the reason in
+    L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V1_INVALIDATION.json -- superseded, never
+    silently overwritten;
+  * the real F-D-Geo comparison was NOT run, no F qualification batch was
+    re-run, no training/L2/L3/40-day batch/final test, no plan installed;
+  * every science criterion is unchanged: the 64 dev states in original
+    publication order, F vs -incremental_distance, sole varying factor
+    scorer_id, V1/V2/V3 separate with V3 = NOT_RUN, C0 = NON_BLOCKING_UNRESOLVED,
+    no utility or learning claim;
+  * no human approval field is filled in by any tool here.
+
+Evidence (all in research/.../a1_d3_l1_prereg_root_v1/l1_gates/)
+  L1_SIGN_BLOCKER_ACCEPTANCE.json            21/21
+  L1_SIGN_BLOCKER_INDEPENDENT_AUDIT.json     17/17 (read-only, imports none of
+                                             the modules under test)
+  L1_SUPERVISED_SYNTHETIC_RUN.json           real entry + real supervisor +
+                                             synthetic scorer, 64 records
+  L1_RUN_ENTRY_ACCEPTANCE.json               5/5 (watch asserted by content)
+  L1_SIGNING_IDENTITY_V1.json                42 watched paths
+  L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V2.json  M1-M10 all true
+
+run_id and pre-registration SHA are unchanged
+  (d3l1-l1-two-arm-20261015-l1v1 / 2e73cac4787b3ba4092d8cd4546332d2b6351472
+   4163cba5e1ba1a19dd82c54e).
+
+science_ready = false, stable_online_gain = false, algorithmic_gain_claim = none.
+I3 negative result, D2 not_qualified, G0/D8/E2 blocked and every historical FAIL
+are unchanged.

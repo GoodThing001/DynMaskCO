@@ -1,0 +1,78 @@
+{
+  "schema": "d3_l1_signing_package_invalidation_v1",
+  "invalidated_package": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/l1_gates/L1_FORMAL_EXECUTION_SIGNING_PACKAGE.json",
+  "invalidated_package_sha256": "0b9336fa8036a47fdeb50e4e4394bf90a2cd3d10edd8d5e670616afe81988cfe",
+  "invalidated_package_bytes": 22365,
+  "invalidated_run_id": "d3l1-l1-two-arm-20261015-l1v1",
+  "invalidated_package_version": "L1_V1",
+  "not_deleted": true,
+  "not_overwritten": true,
+  "bytes_unchanged": true,
+  "invalidated_utc": "2026-10-15",
+  "invalidated_by": "independent source review of the signed-ready package, followed by the fixes recorded here",
+  "superseded_by": {
+    "package": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/l1_gates/L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V2.json",
+    "package_version": "L1_V2",
+    "constructed_by": "scripts/tests/d3_l1_l1_signing_package.py",
+    "why_a_new_version_rather_than_an_edit": "the fixes change source files that the L1 identity freezes, so the frozen identity, the watch set and every derived digest necessarily change; the old package cannot be silently edited into the new one"
+  },
+  "reason": "the package read all_gates_pass = true while three sign-blocking defects were present",
+  "defects": [
+    {
+      "id": "A",
+      "title": "the M7 source freeze did not cover L1 itself",
+      "what_the_old_package_claimed": "M7_closure_frozen_by_sha = {ok: true, covers_closure: true, n_watch_paths: 34}",
+      "what_was_actually_true": "l1_sources_in_closure = [] and n_derived_source = 30: the watch set was the F-FORWARD closure (scripts/data/d3_l1_v121_dependency_closure.py), so it froze the code that decides the F forward and NONE of the code that decides the L1 comparison -- not d3_l1_l1_formal_run.py, not d3_l1_real_arm.py, not d3_l1_two_arm_protocol.py, not d3_geo_adapter.py, not the V1.10 state materialisation",
+      "why_the_gate_missed_it": "the gate cross-checked the frozen record against the F closure and asked only whether the F closure was covered; a freeze that covers the WRONG closure answers that question yes",
+      "fixed_by": "scripts/data/d3_l1_closure.py derives the closure from the L1 formal entry; d3_l1_l1_formal_run.build_l1_identity freezes that closure and refuses when any decision-relevant module is missing; M7 now reads the L1 closure and reports the L1 modules by name"
+    },
+    {
+      "id": "B",
+      "title": "L1 READY and per-state supervision were absent",
+      "what_the_old_package_claimed": "the run was supervised under the V1.16 contained supervisor with the frozen 60 / 10 / 180 s caps",
+      "what_was_actually_true": "d3_l1_l1_formal_run.supervise called control.run_contained WITHOUT a ready_probe, so the supervisor fell back to the V1.11 default probe (a fixed `READY.json`), which the V1.18+ worker can never publish; the worker published no READY and no per-state phase records, so the supervisor could not distinguish a running state from a stuck initialization and measured initialization as the whole batch",
+      "consequence": "a worker whose initialization finished in seconds but whose batch ran past 60 s would have been killed for an initialization deadline it had already passed; and the per-state wall clock could not be enforced at all",
+      "fixed_by": "the V1.22-accepted immutable READY probe is reused for the L1 worker; the worker publishes an immutable L1_READY plus one `slot` / `slot_finished` phase pair per pre-registered state; and whether the frozen 10 s bounds the whole state or each arm is now stated explicitly and made mechanical (both arms' gates are charged from ONE monotonic origin, so the two allowances cannot be summed)"
+    },
+    {
+      "id": "C",
+      "title": "the formal denominator could silently shrink below 64",
+      "what_the_old_package_claimed": "every state stays in the denominator",
+      "what_was_actually_true": "d3_l1_l1_formal_run.worker adjudicated over `[r for r in records if r.get('status') != 'FAILED_EXCEPTION']`, so a state that raised was removed from the denominator before the round verdict was computed",
+      "consequence": "a run in which one state crashed would report its verdict over 63 states while the record still read like a round verdict; and ledger_ok=false, a missing state or an identity mismatch could not by themselves prevent a formal PASS",
+      "fixed_by": "every pre-registered state now gets its own record; exception / timeout / empty-pool / not-comparable / not-attempted states are listed separately; adjudicate takes an `expected_states` bound and reports BLOCKED for a short or duplicated list, for any ledger_ok=false, and for any single-factor failure"
+    },
+    {
+      "id": "A-extra",
+      "title": "the credential bound no code at all",
+      "found_while": "writing the executable counterexample for blocker A (row A5)",
+      "what_was_actually_true": "d3_l1_v118_authorization.BINDING_FIELDS contained no source-code field, and d3_l1_l1_formal_run.authorization_identity_view omitted `watch` from the identity it handed the authorizer; the credential therefore declared the run id, the weights, the data, the contract, the state order, the call counts and the budgets, and NOT ONE BYTE of the code that would execute",
+      "consequence": "a module edited after the freeze still validated, and the single one-shot opportunity could be consumed for a program nobody approved",
+      "fixed_by": "BINDING_FIELDS gains `source_identity_sha256` (one digest over the whole watched set); the identity view carries `watch`; and the supervisor authorises over a LIVE re-derivation of every watched path, so drift is detected BEFORE consumption"
+    }
+  ],
+  "evidence_of_invalidity": {
+    "old_package_path": "l1_gates/L1_FORMAL_EXECUTION_SIGNING_PACKAGE.json",
+    "old_M7_ok": true,
+    "old_M7_n_watch_paths": 34,
+    "old_M7_n_derived_source": 30,
+    "old_M7_l1_sources_in_closure": [],
+    "note": "the file is preserved exactly as it was produced; this record explains why it must not be signed"
+  },
+  "partial_credit_that_still_stands": [
+    "the V1.22 real-F 64/64 engineering pass and its single consumption receipt",
+    "the L1 real-arm acceptance (the real MaskCO scorer drives the two-arm protocol)",
+    "the two-arm protocol acceptance and its independent read-only audit",
+    "the synthetic run-entry acceptance of the entry's modes and the guard refusal"
+  ],
+  "still_not_authorised": [
+    "the real L1 F-vs-D-Geo comparison",
+    "training, L2, L3, the 40-day batch, the final test",
+    "installing any plan",
+    "the C0 budget ruling"
+  ],
+  "human_approval": "NOT FILLED: this invalidation record is not an approval and carries no human signature",
+  "science_ready": false,
+  "stable_online_gain": false,
+  "algorithmic_gain_claim": "none"
+}

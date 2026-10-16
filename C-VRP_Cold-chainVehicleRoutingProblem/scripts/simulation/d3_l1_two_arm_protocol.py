@@ -240,11 +240,21 @@ class BudgetGate(object):
     and is identical for both.
     """
 
-    def __init__(self, *, max_scorer_calls=None, max_wall_seconds=None):
+    def __init__(self, *, max_scorer_calls=None, max_wall_seconds=None, started_mono=None):
+        """`started_mono` lets SEVERAL gates share ONE wall-clock origin.
+
+        L1 pre-registers `per_state_wall_clock_s = 10.0` for a STATE, not for an arm.  Giving each
+        arm its own origin would hand the state two separate ten-second allowances while the record
+        still claimed the state was bounded by ten seconds.  The caller therefore passes one origin
+        to both arms' gates, and the second arm is charged the time the first one spent: the sum of
+        the two arms can never exceed the single pre-registered per-state allowance.  The default
+        (``None``) keeps the original per-gate semantics for every existing caller.
+        """
         self.max_scorer_calls = max_scorer_calls
         self.max_wall_seconds = max_wall_seconds
         self.scorer_calls = 0
-        self.started = time.monotonic()
+        self.started = time.monotonic() if started_mono is None else float(started_mono)
+        self.shared_origin = started_mono is not None
         self.exceeded = None
 
     def charge_call(self):
@@ -269,6 +279,7 @@ class BudgetGate(object):
                 'max_wall_seconds': self.max_wall_seconds,
                 'scorer_calls': self.scorer_calls,
                 'wall_seconds': round(time.monotonic() - self.started, 6),
+                'wall_origin_shared_across_arms': self.shared_origin,
                 'exceeded': self.exceeded}
 
 

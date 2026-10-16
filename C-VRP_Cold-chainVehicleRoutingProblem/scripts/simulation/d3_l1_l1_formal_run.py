@@ -47,7 +47,8 @@ PREREG = EV / 'A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V1.md'
 RUN_ID = 'd3l1-l1-two-arm-20261015-l1v1'
 
 # The budget the pre-registration fixes.  Carried here as data so the identity, the credential and
-# the runtime all read one source.
+# the runtime all read one source.  These are the FROZEN 60 / 10 / 180 s caps: no fix below changes
+# any of them.
 BUDGET = {
     'mask_steps_m': 2,
     'per_arm_per_state_scorer_calls': 2,
@@ -56,6 +57,18 @@ BUDGET = {
     'initialize_compile_s': 60.0,
     'batch_wall_clock_s': 180.0,
 }
+
+# BLOCKER B(3).  `per_state_wall_clock_s` is the allowance for ONE STATE COMPARISON -- both arms
+# together -- NOT ten seconds per arm.  Both arms' gates are therefore charged from ONE monotonic
+# origin, so the second arm pays for the time the first one spent.  The alternative reading (10 s for
+# F plus 10 s for D-Geo) would let a single state consume 20 s while every durable record still
+# declared "10 s", which is precisely the inconsistency that had to be removed rather than papered
+# over.  The per-arm CALL bound stays per arm because the pre-registration names it per arm.
+WALL_CLOCK_SCOPE = 'per_state_both_arms_share_one_10s_allowance'
+
+# The pre-registered denominator.  Every state in the frozen list keeps a record; a state that could
+# not be compared is REPORTED as such and is never deleted from the denominator.
+EXPECTED_STATES = 64
 
 
 def sha(path):
@@ -93,8 +106,7 @@ def load_helpers():
 # ---------------------------------------------------------------------------------------------
 def build_l1_identity(run_id=RUN_ID, *, created_utc=None):
     """Freeze the L1 run: states, arms, watch set, budgets and the output-directory binding."""
-    import d3_l1_v118_run_identity as fwd_identity
-    import d3_l1_v121_dependency_closure as closure
+    import d3_l1_closure as l1_closure
 
     v122_ident = None
     for p in sorted(V122_RUN.glob('RUN_IDENTITY_*.json')):
@@ -108,10 +120,36 @@ def build_l1_identity(run_id=RUN_ID, *, created_utc=None):
         raise RuntimeError('the V1.22 run identity/targets are required: the L1 comparison reuses '
                            'the same 64 states and the same pre-qualified inputs')
     states = v122_ident['state_list']
-    watch = fwd_identity.watched_identity_paths()
-    closure_info = closure.build_watch_set()
-    if len(watch) != closure_info['n_watch'] + len(closure_info['non_source_assets']):
-        raise RuntimeError('the watch set does not match the derived closure')
+
+    # BLOCKER A.  The watch set must be derived from THIS entry point.  The F-forward closure left
+    # `l1_sources_in_closure == []` while M7 still passed: it re-hashed code that decides the F
+    # forward and never saw `d3_l1_l1_formal_run.py`, `d3_l1_real_arm.py`, the two-arm protocol, the
+    # D-Geo adapter or the V1.10 state materialisation -- i.e. the modules that decide the L1 result.
+    # `d3_l1_closure` seeds from this file and walks the transitive local-import graph, so the freeze
+    # and the freeze CHECK now come from one derivation.
+    derived = l1_closure.build_watch_set()
+    if derived['unresolved_seeds'] or derived['excluded_reachable']:
+        raise RuntimeError('the derived L1 closure is not clean: unresolved=%s excluded_reachable=%s'
+                           % (derived['unresolved_seeds'], derived['excluded_reachable']))
+    watch, missing = [], []
+    for rel in derived['watch']:
+        p = REPO / rel
+        (watch if p.is_file() else missing).append(str(p))
+    for root, rel in l1_closure.NON_SOURCE_ASSETS:
+        p = (EXT if root == 'ext' else REPO) / rel
+        (watch if p.is_file() else missing).append(str(p))
+    if missing:
+        raise RuntimeError('the L1 watch set names %d non-existent path(s): %s'
+                           % (len(missing), missing))
+    if len(set(watch)) != len(watch):
+        raise RuntimeError('the derived L1 watch set contains duplicates')
+    # The critical check reads the DERIVED repo-relative list, not absolute paths: comparing an
+    # absolute Windows path against a repo-relative suffix is how this check first mis-fired.
+    critical = list(l1_closure.critical_l1_sources())
+    critical_missing = [c for c in critical if c not in set(derived['watch'])]
+    if critical_missing:
+        raise RuntimeError('the L1 watch set omits decision-relevant module(s): %s'
+                           % critical_missing)
     return {
         'schema': 'd3_l1_l1_run_identity',
         'run_id': run_id,
@@ -127,8 +165,23 @@ def build_l1_identity(run_id=RUN_ID, *, created_utc=None):
         'identities': v122_ident['identities'],
         'contracts': v122_ident['contracts'],
         'dependency_identity_sha256': v122_ident['dependency_identity_sha256'],
-        'watch': {str(p): sha(p) for p in watch},
-        'watch_paths': [str(p) for p in watch],
+        'watch': {p: sha(p) for p in watch},
+        'watch_paths': watch,
+        'watch_derivation': {
+            'basis': 'transitive local-import closure seeded from the L1 formal entry',
+            'module': 'scripts/data/d3_l1_closure.py',
+            'n_source_paths': len(derived['watch']),
+            'n_non_source_assets': len(l1_closure.NON_SOURCE_ASSETS),
+            'n_total': len(watch),
+            'critical_l1_sources': critical,
+            'critical_missing': critical_missing,
+            'unresolved_seeds': derived['unresolved_seeds'],
+            'excluded_reachable': derived['excluded_reachable'],
+            'non_source_assets_note': derived['non_source_assets_note'],
+            'why_not_the_f_closure': 'the F-forward closure omitted every module that decides the '
+                                     'L1 comparison; reusing it let the freeze gate pass with '
+                                     'l1_sources_in_closure == []',
+        },
         'arms': {
             'F': {'scorer': 'the REAL MaskCO scorer accepted by V1.22',
                   'f_ckpt_sha256': v122_ident['identities']['f_ckpt']['sha256'],
@@ -211,12 +264,22 @@ def _materialise(day, position):
     return env, snap, entry, mat, contract
 
 
-def run_one_state(day, position, *, synthetic=False, scorer_bundle=None):
-    """Run BOTH arms on ONE frozen state and return the per-state record."""
+def run_one_state(day, position, *, synthetic=False, scorer_bundle=None, wall_origin_mono=None,
+                  warmup_only=False):
+    """Run BOTH arms on ONE frozen state and return the per-state record.
+
+    `wall_origin_mono` is the single monotonic origin BOTH arms are charged from, so the frozen
+    `per_state_wall_clock_s` bounds the state comparison rather than each arm (see
+    ``WALL_CLOCK_SCOPE``).  `warmup_only` materialises the state and makes exactly ONE compiled F
+    forward -- the initialization/compile step the READY record reports -- without running either arm
+    for a verdict, so the warm-up can never contribute a comparison result.
+    """
     _, _, protocol, real_arm, _ = load_helpers()
     from action_contract import apply_action
     from mpre_policy import enumerate_legal_actions
 
+    if wall_origin_mono is None:
+        wall_origin_mono = time.monotonic()
     env, snap, entry, mat, contract = _materialise(day, position)
     mutable = list(mat['mutable_ids'])
     mask = list(mat['mask'])[:BUDGET['mask_steps_m']]
@@ -249,9 +312,6 @@ def run_one_state(day, position, *, synthetic=False, scorer_bundle=None):
         mutable_ids=mutable, node_to_local=mat['inputs']['node_to_local'],
         local_to_node=mat['inputs']['local_to_node'], nv=int(mat['inputs']['Nv']))
 
-    def base_extract_shared(P, remaining, legal):
-        return {'plans_keys': sorted(P), 'n_remaining': len(remaining), 'n_legal': len(legal)}
-
     import d3_geo_adapter as GEO
     shared = protocol.build_shared_input(
         env=env, inst_idx=day, day=day, clock=float(snap['clock']), vehicles=mat['vehicles'],
@@ -260,6 +320,33 @@ def run_one_state(day, position, *, synthetic=False, scorer_bundle=None):
         legal=mat['legal'], mutable_ids=mutable, protected_ids=mat['protected_ids'],
         inputs=mat['inputs'], contract=contract, snapshot=snap, state_hash=entry['state_hash'],
         legal_fn=legal_fn)
+
+    if warmup_only:
+        # ONE compiled forward on the FIRST state, through the SAME gated scorer the comparison uses.
+        # This is the call the READY record accounts for; it produces no verdict and touches no arm.
+        #
+        # The initial `remaining` is the MASK, exactly as `stepwise_sample_d3` sets it (`remaining =
+        # list(mask)`), NOT the mutable-id list: the two differ, and passing the mutable ids here made
+        # the extractor look up a customer outside the node map (`KeyError: 3`).  The warm-up has to
+        # reproduce the real first step, or it compiles a different problem than the run uses.
+        import hashlib as _hashlib
+        legal0 = legal_fn(mat['P0'], mask)
+        warm_state = {'legal': legal0, 'legal_order': legal0,
+                      'timestep': 0.0, 'plans_keys': sorted(mat['P0'])}
+        warm_state.update(extract_fn(mat['P0'], mask, legal0))
+        t0 = time.monotonic()
+        warm = np.asarray(f_score_fn(warm_state))
+        return {'day_id': day, 'position': position, 'state_hash': entry['state_hash'],
+                'warmup': True, 'n_warmup_calls': 1, 'wall_s': time.monotonic() - t0,
+                'n_legal': len(legal0), 'remaining_is_mask': True,
+                'scores_shape': list(warm.shape), 'scores_dtype': warm.dtype.str,
+                'scores_sha256': _hashlib.sha256(warm.tobytes()).hexdigest(),
+                'model_info': {k: v for k, v in model_info.items() if k != 'model'},
+                'label': model_info.get('label', real_arm.F_LABEL)}
+
+    def base_extract_shared(P, remaining, legal):
+        return {'plans_keys': sorted(P), 'n_remaining': len(remaining), 'n_legal': len(legal)}
+
     arms = protocol.arm_scorers(f_score_fn, base_extract_fn=base_extract_shared,
                                 allowed_vehicle_ids=mutable,
                                 f_label=model_info.get('label', real_arm.F_LABEL))
@@ -268,21 +355,40 @@ def run_one_state(day, position, *, synthetic=False, scorer_bundle=None):
 
     gates = {a: protocol.BudgetGate(
         max_scorer_calls=BUDGET['per_arm_total_scorer_calls'],
-        max_wall_seconds=BUDGET['per_state_wall_clock_s']) for a in protocol.ARMS}
-    t0 = time.monotonic()
+        max_wall_seconds=BUDGET['per_state_wall_clock_s'],
+        started_mono=wall_origin_mono) for a in protocol.ARMS}
     report = protocol.run_two_arms(shared, arms, legal_fn=legal_fn, apply_fn=apply_fn, gates=gates,
                                    certify_fn=None,
                                    certify_not_run_reason='L1 V3 is NOT_RUN by pre-registration: '
                                                           'no certifier, no install')
     ok_ledger, ledger_report = ledger.cross_check()
+    per_arm_calls = ledger_report['per_arm_calls']
+    # BLOCKER B(3) -- THE SEMANTICS OF THE 10 s, MADE MECHANICAL.  `per_state_wall_clock_s` bounds the
+    # WHOLE STATE COMPARISON (both arms charged from ONE origin), not each arm separately.  Two
+    # separate ten-second allowances would let a state spend twenty seconds while every record still
+    # said "10 s", which is the inconsistency this run must not ship.  The pre-registered
+    # `per_arm_total_scorer_calls` still bounds each arm's CALLS independently, and the call bound is
+    # per arm by name and by intent.
+    wall_s = time.monotonic() - wall_origin_mono
+    ledger_problems = list(ledger_report['problems'])
+    for a in protocol.ARMS:
+        if per_arm_calls.get(a, 0) > BUDGET['per_arm_per_state_scorer_calls']:
+            ledger_problems.append({'arm': a, 'per_state_calls': per_arm_calls.get(a, 0),
+                                    'cap': BUDGET['per_arm_per_state_scorer_calls']})
+    ok_ledger = bool(ok_ledger and not ledger_problems)
     return {
         'day_id': day, 'position': position, 'state_hash': entry['state_hash'],
+        'status': 'COMPLETED',
         'mask': mask, 'n_mask': len(mask),
         'n_legal_first_step': shared['common_conditions']['n_legal'],
-        'wall_s': time.monotonic() - t0,
+        'wall_s': wall_s,
+        'per_state_wall_clock_s': BUDGET['per_state_wall_clock_s'],
+        'wall_clock_scope': WALL_CLOCK_SCOPE,
+        'wall_origin_shared_across_arms': True,
         'V1': report['V1'], 'V2': report['V2'], 'V3': report['V3'],
         'audit': report['audit'],
         'ledger_cross_check': ledger_report, 'ledger_ok': ok_ledger,
+        'ledger_problems': ledger_problems,
         'per_arm_budget': {a: (report['results'][a].get('budget_gate') or {}) for a in protocol.ARMS},
         'per_arm_n_steps': {a: report['results'][a]['n_steps'] for a in protocol.ARMS},
         'per_arm_failure': {a: report['results'][a]['failure_reason'] for a in protocol.ARMS},
@@ -292,29 +398,132 @@ def run_one_state(day, position, *, synthetic=False, scorer_bundle=None):
     }
 
 
-def adjudicate(records, *, synthetic=False):
-    """The ROUND verdict over the frozen state list: every state stays in the denominator."""
-    divergent = sum(1 for r in records if r['V1']['verdict'] == 'DIVERGENT')
-    identical = sum(1 for r in records if r['V1']['verdict'] == 'IDENTICAL')
-    not_comparable = sum(1 for r in records if r['V1']['verdict'] == 'NOT_COMPARABLE')
-    empty = sum(1 for r in records if r['V1']['verdict'] == 'NOT_APPLICABLE_EMPTY_MASK')
-    both_complete = sum(1 for r in records if r['V2']['both_completed'])
-    per_arm_complete = {a: sum(1 for r in records if r['V2'][a]['full_repair_completed'])
+def blank_state_record(day, position, *, state_hash=None, status, synthetic=False, **extra):
+    """A record for a pre-registered state that produced no comparison.
+
+    BLOCKER C.  The denominator is the 64 PRE-REGISTERED STATES, so a state that raised, timed out or
+    was never attempted still gets its own record.  Filtering such states out of the list before
+    adjudication would silently shrink the denominator to "the states that happened to work", which is
+    the defect this function exists to make impossible.
+    """
+    rec = {'day_id': day, 'position': position, 'state_hash': state_hash, 'status': status,
+           'mask': None, 'n_mask': None, 'n_legal_first_step': None, 'wall_s': None,
+           'per_state_wall_clock_s': BUDGET['per_state_wall_clock_s'],
+           'wall_clock_scope': WALL_CLOCK_SCOPE, 'wall_origin_shared_across_arms': None,
+           'V1': {'verdict': 'NOT_ATTEMPTED', 'reason': status},
+           'V2': {'both_completed': False, 'F': {'full_repair_completed': False},
+                  'D-Geo': {'full_repair_completed': False}},
+           'V3': {'verdict': 'NOT_RUN', 'reason': 'no certifier, no install'},
+           'audit': None, 'ledger_cross_check': {'n_calls': 0, 'per_arm_calls': {},
+                                                 'problems': [], 'note': 'no scoring took place'},
+           'ledger_ok': False, 'ledger_problems': [{'reason': 'no ledger: the state never scored'}],
+           'per_arm_budget': {}, 'per_arm_n_steps': {}, 'per_arm_failure': {},
+           'plan_hashes': {}, 'replay_digest': None, 'synthetic': bool(synthetic)}
+    rec.update(extra)
+    return rec
+
+
+def adjudicate(records, *, synthetic=False, expected_states=EXPECTED_STATES):
+    """The ROUND verdict over the FROZEN state list.  Every state keeps its record.
+
+    BLOCKER C.  The previous version dropped `FAILED_EXCEPTION` states before adjudicating, so a run
+    in which one state crashed reported its verdict over 63 states while the report still read like a
+    round verdict.  Here the denominator is the PRE-REGISTERED list:
+      * `n_states_in_denominator` counts the records passed in and is cross-checked against
+        `expected_states`; a missing state is a BLOCKED round, not a smaller denominator;
+      * every exception / timeout / empty-pool / not-comparable / not-attempted state is listed
+        SEPARATELY with its own row, so the counts add up to the denominator;
+      * `ledger_ok=false`, a missing state or an identity mismatch sets `status='BLOCKED'`, so none of
+        them can be promoted to a formal PASS.
+    """
+    keys = [(int(r['day_id']), int(r['position'])) for r in records]
+    duplicates = sorted({k for k in keys if keys.count(k) > 1})
+    states_ok = len(records) == int(expected_states) and not duplicates
+
+    divergent = sum(1 for r in records if (r.get('V1') or {}).get('verdict') == 'DIVERGENT')
+    identical = sum(1 for r in records if (r.get('V1') or {}).get('verdict') == 'IDENTICAL')
+    not_comparable = sum(1 for r in records if (r.get('V1') or {}).get('verdict') == 'NOT_COMPARABLE')
+    empty = sum(1 for r in records
+                if (r.get('V1') or {}).get('verdict') == 'NOT_APPLICABLE_EMPTY_MASK')
+    not_attempted = sum(1 for r in records
+                        if (r.get('V1') or {}).get('verdict') == 'NOT_ATTEMPTED')
+    exempt = sum(1 for r in records
+                 if r.get('status') == 'EXEMPT_EMPTY_MASK')
+    exceptions = [{'day_id': r['day_id'], 'position': r['position'],
+                   'exception_type': r.get('exception_type'), 'error': r.get('error'),
+                   'phase': r.get('failure_phase')}
+                  for r in records if r.get('status') == 'FAILED_EXCEPTION']
+    timeouts = [{'day_id': r['day_id'], 'position': r['position'],
+                 'wall_s': r.get('wall_s'), 'per_arm_failure': r.get('per_arm_failure')}
+                for r in records
+                if r.get('status') == 'TIMEOUT'
+                or any('timeout' in str(v) for v in (r.get('per_arm_failure') or {}).values())]
+    both_complete = sum(1 for r in records if (r.get('V2') or {}).get('both_completed'))
+    per_arm_complete = {a: sum(1 for r in records
+                               if ((r.get('V2') or {}).get(a) or {}).get('full_repair_completed'))
                         for a in ('F', 'D-Geo')}
     failures = {}
     for r in records:
-        for a, reason in r['per_arm_failure'].items():
+        for a, reason in (r.get('per_arm_failure') or {}).items():
             if reason:
                 failures['%s:%s' % (a, reason)] = failures.get('%s:%s' % (a, reason), 0) + 1
+
+    ledgers_bad = [{'day_id': r['day_id'], 'position': r['position'],
+                    'status': r.get('status'), 'problems': (r.get('ledger_problems') or [])[:4]}
+                   for r in records if not r.get('ledger_ok')]
+    identity_bad = [{'day_id': r['day_id'], 'position': r['position'],
+                     'reason': (r.get('audit') or {}).get('state_identity_agrees_both_arms')}
+                    for r in records
+                    if r.get('audit') is not None
+                    and not (r['audit'].get('single_factor_ok') is True)]
+
+    blocking = []
+    if not states_ok:
+        blocking.append('the denominator is not the pre-registered state list: %d record(s) for %d '
+                        'pre-registered state(s), duplicates=%s'
+                        % (len(records), expected_states, duplicates[:4]))
+    if ledgers_bad:
+        blocking.append('%d state(s) failed the scorer-ledger cross-check (ledger_ok=false); a round '
+                        'with an unverified ledger is never a formal PASS' % len(ledgers_bad))
+    if identity_bad:
+        blocking.append('%d state(s) failed the single-factor/shared-state identity audit'
+                        % len(identity_bad))
+    if exceptions:
+        blocking.append('%d pre-registered state(s) raised an exception during the comparison'
+                        % len(exceptions))
+
     return {
         'schema': 'd3_l1_l1_round_adjudication',
+        'status': 'BLOCKED' if blocking else 'ADJUDICATED',
+        'blocking_reasons': blocking,
         'n_states_in_denominator': len(records),
+        'n_states_expected': int(expected_states),
+        'denominator_is_the_preregistered_list': states_ok,
+        'duplicate_states': duplicates,
         'V1_counts': {'DIVERGENT': divergent, 'IDENTICAL': identical,
-                      'NOT_COMPARABLE': not_comparable, 'NOT_APPLICABLE_EMPTY_MASK': empty},
+                      'NOT_COMPARABLE': not_comparable,
+                      'NOT_APPLICABLE_EMPTY_MASK': empty, 'NOT_ATTEMPTED': not_attempted},
+        'outcome_counts': {'COMPLETED': sum(1 for r in records if r.get('status') == 'COMPLETED'),
+                           'FAILED_EXCEPTION': len(exceptions),
+                           'TIMEOUT': len(timeouts),
+                           'EXEMPT_EMPTY_MASK': exempt,
+                           'NOT_ATTEMPTED': not_attempted},
         'V2_counts': {'both_completed': both_complete, 'per_arm_completed': per_arm_complete,
                       'failures_by_reason': failures},
         'V3': 'NOT_RUN for every state (no certifier was supplied; no plan was installed)',
-        'all_ledgers_cross_checked': all(r['ledger_ok'] for r in records),
+        'all_ledgers_cross_checked': not ledgers_bad,
+        'ledgers_not_cross_checked': ledgers_bad,
+        'single_factor_failures': identity_bad,
+        # every state that did not produce a full comparison is listed with its own row
+        'exception_states': exceptions,
+        'timeout_states': timeouts,
+        'not_comparable_states': [{'day_id': r['day_id'], 'position': r['position']} for r in records
+                                  if (r.get('V1') or {}).get('verdict') == 'NOT_COMPARABLE'],
+        'empty_pool_states': [{'day_id': r['day_id'], 'position': r['position']} for r in records
+                              if (r.get('V1') or {}).get('verdict')
+                              == 'NOT_APPLICABLE_EMPTY_MASK'],
+        'not_attempted_states': [{'day_id': r['day_id'], 'position': r['position']} for r in records
+                                 if (r.get('V1') or {}).get('verdict') == 'NOT_ATTEMPTED'],
         'synthetic': bool(synthetic),
         'claim': ('SYNTHETIC ACCEPTANCE ONLY: no scientific reading is permitted from this record'
                   if synthetic else
@@ -331,6 +540,12 @@ def authorization_identity_view(ident):
     hardened credential gate instead of a second, weaker one.  The mapping is exact, not
     approximate -- warm-up 1, calls per state = the L1 per-arm step cap, max calls = the L1 per-arm
     total, slot cap = the L1 per-state wall clock.
+
+    `watch` IS part of the view.  Leaving it out was a real defect, not a simplification: the
+    credential module derives the code binding (`source_identity_sha256`) FROM `watch`, so a view
+    without it made that binding `None` on both sides and the comparison "agreed" -- the credential
+    declared the run id, the weights, the data, the contract, the state order and the budgets, and
+    NOT ONE BYTE of the code that would execute.
     """
     return {
         'run_id': ident['run_id'],
@@ -339,6 +554,7 @@ def authorization_identity_view(ident):
         'state_list': ident['state_list'],
         'state_binding_sha256': ident['state_binding_sha256'],
         'dependency_identity_sha256': ident['dependency_identity_sha256'],
+        'watch': ident.get('watch') or {},
         'call_schedule': {'warmup_calls': 1,
                           'calls_per_state': BUDGET['per_arm_per_state_scorer_calls'],
                           'max_forward_calls': BUDGET['per_arm_total_scorer_calls']},
@@ -352,10 +568,105 @@ def authorization_targets_view(ident):
     return {'targets_sha256': ident['forward_targets_sha256']}
 
 
+def make_l1_ready_probe(out_dir):
+    """The V1.22-accepted READY probe, reused VERBATIM in semantics for the L1 worker.
+
+    BLOCKER B.  The L1 supervisor used to call `run_contained` with NO `ready_probe`, so it fell back
+    to the V1.11 default (`READY.json` exists) -- a fixed name the V1.18+ worker can NEVER publish,
+    because replacing a fixed destination under a reader is the `WinError 5` failure the V1.11 run
+    died of.  The supervisor therefore never saw initialization complete, and the honest READY
+    record the worker publishes was ignored.  This probe is bound to ONE run directory and accepts
+    the record only when it is retrievable through the verified reader AND is a well-formed readiness
+    statement, so an empty or truncated file cannot forge READY -- and it is the SAME convention the
+    V1.22 F path already proved, not a second, weaker one.
+    """
+    import d3_l1_v118_persistence as _persistence
+    reader = _persistence.VerifiedReader(Path(out_dir))
+
+    def probe(_out):
+        record = reader.latest('L1_READY')
+        if record is None:
+            return {'ready': False, 'probe': 'immutable L1_READY record', 'reason': 'absent',
+                    'run_dir': str(out_dir)}
+        problems = []
+        if record.get('kind') != 'initialization_and_compilation_finished':
+            problems.append('kind is %r' % record.get('kind'))
+        if not record.get('run_id'):
+            problems.append('run_id absent')
+        if record.get('n_warmup_calls') != 1:
+            problems.append('n_warmup_calls is %r' % record.get('n_warmup_calls'))
+        if not record.get('warmup_scores_sha256'):
+            problems.append('warmup_scores_sha256 absent')
+        if not isinstance(record.get('mono'), (int, float)):
+            problems.append('mono absent')
+        return {'ready': not problems, 'probe': 'immutable L1_READY record',
+                'published_name': record.get('published_name'), 'run_id': record.get('run_id'),
+                'n_records': reader.count('L1_READY'), 'problems': problems,
+                'run_dir': str(out_dir)}
+    return probe
+
+
+def live_identity_view(ident):
+    """`(view, drift_rows)`: the frozen identity RE-DERIVED from the bytes on disk right now.
+
+    BLOCKER A, the half that is easy to miss.  `validate_credential` compares the credential's
+    declared fields against the identity it is HANDED.  Handing it `L1_IDENTITY.json` -- a record
+    written at freeze time -- only proves the credential agrees with a FILE, not that the code the
+    credential authorises still exists.  With that alone, a module edited after the freeze still
+    validated and the credential was still consumed: the freeze bound the record, not the run.
+
+    So the supervisor hands over this view instead: the same identity with every watched digest
+    recomputed from disk.  A drifted module then makes the live view disagree with the credential's
+    declarations, `validate_credential` returns not-ok, and `authorize` refuses BEFORE spending the
+    one-shot credential.  `drift_rows` is reported either way so the in-process view and the
+    worker's own startup check can never disagree silently.
+    """
+    live = dict(ident)
+    live['watch'] = {}
+    drift_rows = []
+    for path, recorded in (ident.get('watch') or {}).items():
+        actual = sha(path)
+        live['watch'][path] = actual
+        if actual != recorded:
+            drift_rows.append({'path': path, 'recorded': recorded, 'actual': actual})
+    if not live['watch']:
+        drift_rows.append({'path': None, 'recorded': None, 'actual': None,
+                           'reason': 'the frozen identity carries an EMPTY watch set, so nothing '
+                                     'about the executed code is bound'})
+    return live, drift_rows
+
+
+def refuse_authorization(out_dir, persistence, *, stage, drift_rows, extra=None):
+    """Refuse and leave a durable record naming exactly which watched paths drifted."""
+    record = {'granted': False, 'stage': stage, 'n_drifted': len(drift_rows),
+              'drifted': [{'path': r.get('path'), 'recorded': r.get('recorded'),
+                           'actual': r.get('actual'), 'reason': r.get('reason')}
+                          for r in drift_rows]}
+    record.update(extra or {})
+    try:
+        persistence.write_once(Path(out_dir) / 'L1_AUTHORIZATION_REFUSED.json', record)
+        persistence.write_once(Path(out_dir) / 'L1_IDENTITY_DRIFT.json', record)
+    except Exception:                                                      # noqa: BLE001
+        pass
+    raise SystemExit('AUTHORIZATION REFUSED (%s): %d watched path(s) drifted since the freeze -- a '
+                     'credential must never be consumed for code that no longer exists: %s'
+                     % (stage, len(drift_rows),
+                        [r.get('path') for r in drift_rows][:6]))
+
+
 def worker(out_dir, *, synthetic_run=False):
-    """The guarded worker.  Refuses before loading ANYTHING unless the execution context is valid."""
+    """The guarded worker.  Refuses before loading ANYTHING unless the execution context is valid.
+
+    The order is deliberate and load-bearing: execution context -> frozen identity -> LIVE identity
+    drift.  Only after all three pass is the F scorer bundle constructed.  The identity closure keeps
+    no model import, no checkpoint read and no backend initialisation, so a drifted tree is refused in
+    milliseconds instead of after half a minute of model loading -- and the refusal cannot be confused
+    with a model-loading failure.
+    """
     auth, persistence, protocol, real_arm, _ = load_helpers()
     import d3_l1_v120_execution_context as execctx
+    sys.path.insert(0, str(EXT / 'scripts/tests'))
+    from d3_l1_v112_phase_journal import PhaseJournal
     out_dir = Path(out_dir)
     try:
         context = execctx.validate_execution_context(run_dir=out_dir)
@@ -370,41 +681,155 @@ def worker(out_dir, *, synthetic_run=False):
         print('EXECUTION CONTEXT REFUSED: %s' % exc, file=sys.stderr)
         return 1
     ident = load_frozen(out_dir)
-    # identity closure before any scoring
-    drift = [p for p, want in (ident.get('watch') or {}).items() if sha(p) != want]
-    if drift:
+    # identity closure before any scoring.  The SAME live re-derivation the supervisor authorises
+    # over is used here, so the in-process view and the worker's own startup check cannot disagree.
+    _, drift_rows = live_identity_view(ident)
+    if drift_rows:
         persistence.write_once(out_dir / 'L1_IDENTITY_DRIFT.json',
-                               {'n_drifted': len(drift), 'drifted': drift[:8]})
-        print('IDENTITY DRIFT: %d path(s)' % len(drift), file=sys.stderr)
+                               {'n_drifted': len(drift_rows), 'drifted': drift_rows[:8],
+                                'stage': 'worker_startup',
+                                'basis': 'live re-derivation of every watched path',
+                                'model_loaded': False,
+                                'note': 'the drift is caught BEFORE the F scorer bundle is built: no '
+                                        'checkpoint was read and no backend was initialised'})
+        print('IDENTITY DRIFT: %d path(s)' % len(drift_rows), file=sys.stderr)
         return 1
     scorer_bundle = None
     if not synthetic_run:
         nv_max, m_max = real_arm.frozen_jit_shapes()
         scorer_bundle = real_arm.load_real_f_scorer(nv_max=nv_max, m_max=m_max)
+
+    # BLOCKER B: the per-state PHASE JOURNAL.  `run_contained` derives the current stage from these
+    # records, so without them the supervisor cannot tell "a state is running" from "the worker is
+    # stuck in initialization" and cannot enforce the per-state wall clock at all.  The journal's
+    # `(day_id, position)` domain is exactly the frozen 64-state list (days 0..15 x positions 1..4),
+    # so the V1.16 `timeline_check` adjudicates these records without modification.
+    phases = out_dir / 'phases'
+    journal = PhaseJournal(phases)
+    started = time.monotonic()
+    publish = persistence.publish_new
+    worker_record = {'schema': 'd3_l1_l1_worker', 'run_id': ident['run_id'], 'pid': os.getpid(),
+                     'argv': sys.argv, 'execution_context_nonce': context.get('nonce'),
+                     'synthetic_run': bool(synthetic_run)}
+    publish(phases, 'identity_start', {'stage': 'identity_start', 'run_id': ident['run_id'],
+                                       'paths': ident['watch']})
+
     states = ident['state_list']['states']
     records, errors = [], []
+    first = states[0]
+    warm_report = None
+    try:
+        # ---- initialization + compilation, then READY -------------------------------------
+        journal.publish('initialize')
+        warm_report = run_one_state(int(first['day_id']), int(first['position']),
+                                    synthetic=synthetic_run, scorer_bundle=scorer_bundle,
+                                    warmup_only=True)
+        publish(out_dir, 'L1_WARMUP', dict(warm_report, run_id=ident['run_id']))
+        journal.publish('compile')
+        publish(out_dir, 'L1_READY',
+                {'run_id': ident['run_id'], 'mono': time.monotonic(),
+                 'initialize_and_compile_s': time.monotonic() - started,
+                 'kind': 'initialization_and_compilation_finished',
+                 'worker_pid': os.getpid(),
+                 'warmup_scores_sha256': warm_report['scores_sha256'],
+                 'n_warmup_calls': 1,
+                 'warmup_state': [int(first['day_id']), int(first['position'])]})
+    except BaseException as exc:                                           # noqa: BLE001
+        import traceback
+        publish(out_dir, 'L1_INIT_FAILURE',
+                {'run_id': ident['run_id'], 'stage': 'initialization_and_compilation',
+                 'exception_type': type(exc).__name__, 'error': str(exc),
+                 'traceback': traceback.format_exc(),
+                 'note': 'no READY record was published; the supervisor must treat this as an '
+                         'initialization failure, not as a completed round'})
+        # every pre-registered state still gets a record: the denominator may not shrink
+        records = [blank_state_record(int(s['day_id']), int(s['position']),
+                                      state_hash=s.get('state_hash'),
+                                      status='NOT_ATTEMPTED_INIT_FAILURE',
+                                      synthetic=synthetic_run,
+                                      failure_phase='initialization_and_compilation')
+                   for s in states]
+        errors.append({'stage': 'initialization_and_compilation', 'error': str(exc)})
+        _publish_round(out_dir, persistence, records, errors, synthetic=synthetic_run,
+                       expected_states=len(states))
+        return 1
+
+    # ---- the pre-registered states, frozen order, EVERY state keeps a record ----------------
     for s in states:
         day, pos = int(s['day_id']), int(s['position'])
+        journal.publish('slot', day_id=day, position=pos)
+        t0 = time.monotonic()
         try:
-            rec = run_one_state(day, pos, synthetic=synthetic_run, scorer_bundle=scorer_bundle)
-        except Exception as exc:                                          # noqa: BLE001
+            rec = run_one_state(day, pos, synthetic=synthetic_run, scorer_bundle=scorer_bundle,
+                                wall_origin_mono=t0)
+            status = 'COMPLETED'
+        except BaseException as exc:                                       # noqa: BLE001
             import traceback
-            rec = {'day_id': day, 'position': pos, 'state_hash': s.get('state_hash'),
-                   'status': 'FAILED_EXCEPTION', 'exception_type': type(exc).__name__,
-                   'error': str(exc), 'traceback': traceback.format_exc(), 'synthetic': synthetic_run}
+            rec = blank_state_record(
+                day, pos, state_hash=s.get('state_hash'), status='FAILED_EXCEPTION',
+                synthetic=synthetic_run, exception_type=type(exc).__name__, error=str(exc),
+                traceback=traceback.format_exc(), failure_phase='state_comparison',
+                wall_s=time.monotonic() - t0)
+            rec['ledger_ok'] = False
+            rec['ledger_problems'] = [{'reason': 'the state raised before its ledger could be '
+                                                 'cross-checked', 'exception': type(exc).__name__}]
+            status = 'FAILED_EXCEPTION'
             errors.append({'row': [day, pos], 'error': str(exc)})
+        # TIMEOUT is a REPORTED outcome, not a deletion: the arms' gates already degraded fail-closed
+        # to the original plan, so the record has a verdict and the state keeps its place.
+        if any('timeout' in str(v) for v in (rec.get('per_arm_failure') or {}).values()):
+            rec['status'] = 'TIMEOUT'
         records.append(rec)
-    # the per-state records are published as one immutable JSONL plus an adjudication
+        # the finish record is published for EVERY state, including a failed one, so the supervisor's
+        # `timeline_check` sees a matched open/close pair rather than an orphan slot
+        journal.publish('slot_finished', day_id=day, position=pos, status=rec.get('status'))
+    return _publish_round(out_dir, persistence, records, errors, synthetic=synthetic_run,
+                          expected_states=len(states), ident=ident)
+
+
+def _publish_round(out_dir, persistence, records, errors, *, synthetic, expected_states, ident=None):
+    """Publish the immutable per-state records, the round adjudication and the trailing identity.
+
+    The records are written BEFORE the adjudication and the adjudication is computed from exactly
+    those records, so a state that finished before a deadline or a kill is never lost: the durable
+    JSONL is the input to the verdict, not a summary of it.
+    """
+    if ident is None:
+        ident = load_frozen(out_dir)
     raw = '\n'.join(json.dumps(r, sort_keys=True, default=repr) for r in records).encode('utf-8')
     persistence.write_once(out_dir / 'L1_STATE_RECORDS.jsonl', raw)
-    verdict = adjudicate([r for r in records if r.get('status') != 'FAILED_EXCEPTION'],
-                         synthetic=synthetic_run)
+    # BLOCKER C: NO FILTER.  The previous version adjudicated over
+    # `[r for r in records if r.get('status') != 'FAILED_EXCEPTION']`, so a crashed state silently
+    # left the denominator and the round still reported a verdict over the remainder.
+    verdict = adjudicate(records, synthetic=synthetic, expected_states=expected_states)
     verdict['n_failed_exception'] = len(errors)
     verdict['failed_exceptions'] = errors[:8]
     persistence.write_once(out_dir / 'L1_ADJUDICATION.json', verdict)
-    print(json.dumps({k: v for k, v in verdict.items()
-                      if k not in ('failed_exceptions',)}, indent=1, default=repr))
-    return 0 if not errors else 1
+    try:
+        tail = {'stage': 'identity_end', 'run_id': ident['run_id'],
+                'paths': {p: sha(p) for p in (ident.get('watch') or {})},
+                'worker_ended_mono': time.monotonic()}
+        sys.path.insert(0, str(EXT / 'scripts/tests'))
+        from d3_l1_v112_phase_journal import PhaseJournal
+        # The trailing identity goes to the journal directory under its OWN prefix.  It must NOT be
+        # named `phase_*.json`: `d3_l1_v116_forward_control.timeline_check` opens EVERY file matching
+        # that glob and requires each one to carry a `sequence` and a finite `mono`, so a record
+        # published through a different mechanism under that prefix corrupts the timeline audit.
+        persistence.publish_new(out_dir / 'phases', 'IDENTITY_END', tail)
+        journal = PhaseJournal(out_dir / 'phases')
+        journal.publish('completed', run_id=ident['run_id'], status=verdict['status'])
+        publish_meta = {'n_journal_phases': len(sorted((out_dir / 'phases')
+                                                       .glob('phase_*.json'))),
+                        'journal_stages': sorted({json.loads(p.read_text(encoding='utf-8'))
+                                                  .get('stage')
+                                                  for p in (out_dir / 'phases')
+                                                  .glob('phase_*.json')})}
+        persistence.write_once(out_dir / 'L1_PHASE_JOURNAL_SUMMARY.json', publish_meta)
+    except Exception as exc:                                               # noqa: BLE001
+        persistence.write_once(out_dir / 'L1_TAIL_FAILURE.json', {'error': repr(exc)})
+    print(json.dumps({k: v for k, v in verdict.items() if k != 'failed_exceptions'},
+                     indent=1, default=repr))
+    return 0 if verdict['status'] == 'ADJUDICATED' and not errors else 1
 
 
 def supervise(out_dir, *, authorization, preregistration, consumption_root=None, synthetic_run=False):
@@ -418,54 +843,110 @@ def supervise(out_dir, *, authorization, preregistration, consumption_root=None,
     if not preregistration:
         raise SystemExit('refusing to start without --preregistration: the credential binds its SHA')
     credential = auth.load_credential(authorization)
-    view = authorization_identity_view(ident)
+    # BLOCKER A: authorise over the LIVE identity, never over the frozen record alone.  The record
+    # says what the code WAS; only a re-derivation from disk can say what the credential would
+    # actually be buying.  This refuses BEFORE `authorize`, so no one-shot credential is spent.
+    live, drift_rows = live_identity_view(ident)
+    if drift_rows:
+        refuse_authorization(out_dir, persistence, stage='pre_consumption_identity_drift',
+                             drift_rows=drift_rows,
+                             extra={'preregistration': str(preregistration),
+                                    'credential_path': str(authorization),
+                                    'consumption_attempted': False,
+                                    'note': 'the drift is detected BEFORE consumption, so the '
+                                            'one-shot credential is NOT spent'})
+    view = authorization_identity_view(live)
     targets_view = authorization_targets_view(ident)
     ok, detail = auth.validate_credential(
         credential, identity=view, forward_targets=targets_view, output_dir=out_dir,
         preregistration_sha256=sha(preregistration))
     if not ok:
         persistence.write_once(out_dir / 'L1_AUTHORIZATION_REFUSED.json',
-                               {'granted': False, 'problems': detail['problems']})
+                               {'granted': False, 'problems': detail['problems'],
+                                'live_identity_used': True, 'n_drifted': len(drift_rows)})
         raise SystemExit('AUTHORIZATION REFUSED: %s' % json.dumps(detail['problems']))
     granted = auth.authorize(
         credential, identity=view, forward_targets=targets_view, output_dir=out_dir,
         preregistration_path=Path(preregistration), run_dir=out_dir,
         consumption_root=consumption_root)
+    # the credential is now spent, so the freeze is frozen for real: refuse if the entry point itself
+    # changed between the check above and this point (a TOCTOU window, closed rather than assumed)
+    post, post_drift = live_identity_view(ident)
+    if post_drift:
+        persistence.write_once(out_dir / 'L1_POST_CONSUMPTION_DRIFT.json',
+                               {'n_drifted': len(post_drift), 'drifted': post_drift[:8],
+                                'consumed': True,
+                                'note': 'the drift appeared AFTER the credential was consumed; the '
+                                        'run is stopped and the fact is recorded rather than hidden'})
+        raise SystemExit('IDENTITY DRIFT AFTER CONSUMPTION: %s'
+                         % [r['path'] for r in post_drift][:6])
     published = execctx.publish_execution_context(out_dir, authorization_result=granted)
     env = dict(os.environ, JAX_PLATFORMS='cpu', PYTHONIOENCODING='utf-8')
     env.update(published['env'])
     command = [sys.executable, str(Path(__file__).resolve()), '--worker', '--out-dir', str(out_dir)]
     if synthetic_run:
         command.append('--synthetic-run')
-    # the containment identity is the L1 watch set
+    # the containment identity and the trailing tail publication are the L1 watch set
     identity = dict(ident['watch'])
+
+    def tail_publisher(end_identity):
+        """Publish the supervisor's trailing identity record to a FRESH destination name.
+
+        The V1.22 convention: the fixed name `CONTROL_IDENTITY_END.json` is never replaced while a
+        reader might hold it open.  This is the same tail the F path proved.
+        """
+        return persistence.publish_new(out_dir, 'CONTROL_IDENTITY_END', end_identity)
+
     result = control.run_contained(
         command, out_dir, identity, init_cap=float(BUDGET['initialize_compile_s']),
         slot_cap=float(BUDGET['per_state_wall_clock_s']),
-        batch_cap=float(BUDGET['batch_wall_clock_s']), env=env)
+        batch_cap=float(BUDGET['batch_wall_clock_s']), env=env,
+        tail_publisher=tail_publisher,
+        # BLOCKER B: without this the supervisor fell back to the V1.11 default probe and waited for a
+        # `READY.json` the V1.18+ worker can never publish.
+        ready_probe=make_l1_ready_probe(out_dir))
     persistence.write_once(out_dir / 'L1_SUPERVISION.json',
                            {k: v for k, v in result.items() if k != 'end_identity'})
     print(json.dumps({'reason': result.get('reason'), 'ok': result.get('ok'),
                       'returncode': result.get('returncode'),
-                      'tree_active_after': result.get('tree_active_after')}, indent=1, default=repr))
+                      'tree_active_after': result.get('tree_active_after'),
+                      'ready_state': result.get('ready_state')}, indent=1, default=repr))
     return 0 if result.get('ok') else 1
 
 
-def synthetic_run(out_dir):
-    """BOTH arms in-process with a synthetic scorer, for acceptance.  Never the real comparison."""
+def synthetic_run(out_dir, *, n_states=3):
+    """BOTH arms in-process with a synthetic scorer, for acceptance.  Never the real comparison.
+
+    The denominator is DECLARED here and passed explicitly, so the acceptance harness cannot inherit
+    the production 64-state contract by accident: the three-state scope is visible in the record
+    instead of being an unstated exception to it.
+    """
     out_dir = Path(out_dir)          # main() hands over a string; every path join needs a Path
     ident = load_frozen(out_dir)
-    records = []
-    for s in ident['state_list']['states'][:3]:
-        records.append(run_one_state(int(s['day_id']), int(s['position']), synthetic=True))
-    verdict = adjudicate(records, synthetic=True)
     _, persistence, _, _, _ = load_helpers()
+    states = ident['state_list']['states'][:int(n_states)]
+    records = []
+    for s in states:
+        day, pos = int(s['day_id']), int(s['position'])
+        t0 = time.monotonic()
+        try:
+            records.append(run_one_state(day, pos, synthetic=True, wall_origin_mono=t0))
+        except BaseException as exc:                                       # noqa: BLE001
+            import traceback
+            records.append(blank_state_record(day, pos, state_hash=s.get('state_hash'),
+                                              status='FAILED_EXCEPTION', synthetic=True,
+                                              exception_type=type(exc).__name__, error=str(exc),
+                                              traceback=traceback.format_exc(),
+                                              failure_phase='state_comparison',
+                                              wall_s=time.monotonic() - t0))
+    verdict = adjudicate(records, synthetic=True, expected_states=len(states))
     persistence.write_once(out_dir / 'L1_SYNTHETIC_ACCEPTANCE.json',
                            {'verdict': verdict, 'records': records,
-                            'scope': 'SYNTHETIC ACCEPTANCE ONLY: three states, synthetic scorer, '
-                                     'no scientific reading permitted'})
+                            'expected_states': len(states),
+                            'scope': 'SYNTHETIC ACCEPTANCE ONLY: %d state(s), synthetic scorer, '
+                                     'no scientific reading permitted' % len(states)})
     print(json.dumps(verdict, indent=1, default=repr))
-    return 0
+    return 0 if verdict['status'] == 'ADJUDICATED' else 1
 
 
 def main():

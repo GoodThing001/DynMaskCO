@@ -20,22 +20,27 @@
         "per_arm_total_scorer_calls": 128,
         "per_state_wall_clock_s": 10.0
       },
+      "critical_missing": [],
+      "n_l1_own_sources_frozen": 6,
+      "n_source_paths": 38,
       "n_states": 64,
-      "n_watch": 34,
+      "n_watch": 42,
       "returncode": 0,
       "run_id": "d3l1-l1-two-arm-20261015-l1v1",
-      "state_binding_sha256": "f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1"
+      "state_binding_sha256": "f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1",
+      "watch_derivation": "transitive local-import closure seeded from the L1 formal entry"
     },
     "E2": {
       "V1_counts": {
         "DIVERGENT": 2,
         "IDENTICAL": 1,
         "NOT_APPLICABLE_EMPTY_MASK": 0,
+        "NOT_ATTEMPTED": 0,
         "NOT_COMPARABLE": 0
       },
       "n_records": 3,
       "returncode": 0,
-      "scope": "SYNTHETIC ACCEPTANCE ONLY: three states, synthetic scorer, no scientific reading"
+      "scope": "SYNTHETIC ACCEPTANCE ONLY: 3 state(s), synthetic scorer, no scientific reading p"
     },
     "E3": {
       "artifacts": [],
@@ -47,15 +52,40 @@
         "DIVERGENT": 48,
         "IDENTICAL": 16,
         "NOT_APPLICABLE_EMPTY_MASK": 0,
+        "NOT_ATTEMPTED": 0,
         "NOT_COMPARABLE": 0
       },
       "V3": "NOT_RUN for every state (no certifier was supplied; no plan was installed)",
       "all_ledgers_cross_checked": true,
+      "denominator": 64,
+      "journal_last_stage": "completed",
+      "n_phases": 131,
       "n_records": 64,
+      "phase_stage_counts": {
+        "compile": 1,
+        "completed": 1,
+        "initialize": 1,
+        "slot": 64,
+        "slot_finished": 64
+      },
+      "ready_check": {
+        "legacy_default_probe_used": false,
+        "recorded_probe": "immutable L1_READY record",
+        "recorded_published_name": "L1_READY_dcd9686456434341a07e7a4c9f85b0df.json",
+        "recorded_ready": true,
+        "reprobe_n_records": 1,
+        "reprobe_problems": [],
+        "reprobe_ready": true,
+        "reprobe_run_id_matches": true
+      },
+      "ready_state": "immutable L1_READY record",
       "reason": null,
       "returncode": 0,
+      "status": "ADJUDICATED",
       "supervision_ok": true,
-      "worker_control_wall_s": 6.687999999849126
+      "timeline_ok": null,
+      "wall_clock_scope": null,
+      "worker_control_wall_s": 7.984000000171363
     },
     "E5": {
       "context_published": true,
@@ -74,13 +104,17 @@
           "per_arm_total_scorer_calls": 128,
           "per_state_wall_clock_s": 10.0
         },
+        "critical_missing": [],
+        "n_l1_own_sources_frozen": 6,
+        "n_source_paths": 38,
         "n_states": 64,
-        "n_watch": 34,
+        "n_watch": 42,
         "returncode": 0,
         "run_id": "d3l1-l1-two-arm-20261015-l1v1",
-        "state_binding_sha256": "f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1"
+        "state_binding_sha256": "f5eedd1027342496939e7257e64f2d25dd6f7cd8787e731b6aa9dde213eefee1",
+        "watch_derivation": "transitive local-import closure seeded from the L1 formal entry"
       },
-      "name": "E1 freeze materialises the L1 identity: 64 states, the 34-path watch set, the frozen budget and the state binding",
+      "name": "E1 freeze materialises the L1 identity: 64 states, a DERIVED watch set that covers the L1 decision modules, the frozen budget and the state binding",
       "ok": true
     },
     {
@@ -98,17 +132,42 @@
           "DIVERGENT": 48,
           "IDENTICAL": 16,
           "NOT_APPLICABLE_EMPTY_MASK": 0,
+          "NOT_ATTEMPTED": 0,
           "NOT_COMPARABLE": 0
         },
         "V3": "NOT_RUN for every state (no certifier was supplied; no plan was installed)",
         "all_ledgers_cross_checked": true,
+        "denominator": 64,
+        "journal_last_stage": "completed",
+        "n_phases": 131,
         "n_records": 64,
+        "phase_stage_counts": {
+          "compile": 1,
+          "completed": 1,
+          "initialize": 1,
+          "slot": 64,
+          "slot_finished": 64
+        },
+        "ready_check": {
+          "legacy_default_probe_used": false,
+          "recorded_probe": "immutable L1_READY record",
+          "recorded_published_name": "L1_READY_dcd9686456434341a07e7a4c9f85b0df.json",
+          "recorded_ready": true,
+          "reprobe_n_records": 1,
+          "reprobe_problems": [],
+          "reprobe_ready": true,
+          "reprobe_run_id_matches": true
+        },
+        "ready_state": "immutable L1_READY record",
         "reason": null,
         "returncode": 0,
+        "status": "ADJUDICATED",
         "supervision_ok": true,
-        "worker_control_wall_s": 6.687999999849126
+        "timeline_ok": null,
+        "wall_clock_scope": null,
+        "worker_control_wall_s": 7.984000000171363
       },
-      "name": "E4 the full supervised path runs: authorize -> one-shot consume -> execution context -> contained worker -> 64 per-state records -> adjudication with V3 = NOT_RUN",
+      "name": "E4 the full supervised path runs: authorize -> one-shot consume -> execution context -> contained worker -> 64 per-state records -> adjudication with V3 = NOT_RUN, an immutable READY the supervisor actually SAW, and a matched per-state phase journal",
       "ok": true
     },
     {
@@ -126,22 +185,23 @@
           "DIVERGENT": 2,
           "IDENTICAL": 1,
           "NOT_APPLICABLE_EMPTY_MASK": 0,
+          "NOT_ATTEMPTED": 0,
           "NOT_COMPARABLE": 0
         },
         "n_records": 3,
         "returncode": 0,
-        "scope": "SYNTHETIC ACCEPTANCE ONLY: three states, synthetic scorer, no scientific reading"
+        "scope": "SYNTHETIC ACCEPTANCE ONLY: 3 state(s), synthetic scorer, no scientific reading p"
       },
       "name": "E2 the standalone synthetic acceptance runs both arms on three states and labels the record SYNTHETIC",
       "ok": true
     }
   ],
   "run_id": "d3l1-l1-two-arm-20261015-l1v1",
-  "runner_sha256": "36ad34c679f92988d74af310c44b5e387f1ca6569fc21bc857d4f55d6331066e",
+  "runner_sha256": "7ce803dd8f6398b6d4b8ba398bf461cfd5732660c010c9216b6769df8637b620",
   "schema": "d3_l1_run_entry_acceptance",
   "science_ready": false,
   "scorer": "SYNTHETIC_SCORER_NOT_F -- this acceptance says nothing about MaskCO or D-Geo",
   "stable_online_gain": false,
-  "tool_sha256": "80a957d21bb34a25e7bc5ee07e8000512b00ddd228b39bd13edb1830a5291734",
+  "tool_sha256": "8d9693a70bb2b7e4431009c4a6f3ace35b17102b4b22d8584331c2799014fc23",
   "verdict": "L1_RUN_ENTRY_ACCEPTED"
 }

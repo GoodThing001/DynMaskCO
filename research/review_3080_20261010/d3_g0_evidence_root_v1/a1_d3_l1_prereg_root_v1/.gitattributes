@@ -32,3 +32,13 @@ A1_D3_L1_REAL_F_FORWARD_EXECUTION_PREREGISTRATION_V1_21.md -text
 v122_evidence/** -text whitespace=cr-at-eol
 A1_D3_L1_REAL_F_FORWARD_EXECUTION_PREREGISTRATION_V1_22.md -text
 A1_D3_L1_L1_FORMAL_EXECUTION_PREREGISTRATION_V1.md -text
+# L1 sign-blocker fixes: the regenerated L1 identity, its derived-closure watch set, the
+# three-blocker acceptance, the supervised synthetic run, the independent read-only audit and the L1_V2
+# signing package are all hashed as bytes -- the package records each one's sha256, and the audit
+# re-reads them, so a line-ending rewrite on checkout would break the evidence chain.
+l1_gates/L1_SIGN_BLOCKER_*.json -text whitespace=cr-at-eol
+l1_gates/L1_SUPERVISED_SYNTHETIC_RUN.json -text whitespace=cr-at-eol
+l1_gates/L1_SIGNING_IDENTITY_V1.json -text whitespace=cr-at-eol
+l1_gates/L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V2.json -text whitespace=cr-at-eol
+l1_gates/L1_FORMAL_EXECUTION_SIGNING_PACKAGE_V1_INVALIDATION.json -text whitespace=cr-at-eol
+l1_gates/L1_RUN_ENTRY_ACCEPTANCE.json -text whitespace=cr-at-eol

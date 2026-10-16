@@ -53,14 +53,36 @@ CONSUMPTION_SCHEMA = 'd3_l1_authorization_consumption_v1'
 
 # Fields whose values are compared against the frozen run identity, in a fixed order so the content
 # digest is canonical.  `approval` and `scope` are author-supplied and are NOT identity-checked.
+#
+# `source_identity_sha256` is the code binding.  Without it the credential declared the run id, the
+# weights, the data, the contract, the state order, the call counts, the budgets and the output
+# directory -- and NOT ONE BYTE of the code that would execute.  A module edited after the freeze
+# therefore validated and the one-shot opportunity was still consumed for a program nobody approved.
 BINDING_FIELDS = (
     'run_id', 'preregistration_sha256', 'f_ckpt_sha256', 'backbone_sha256', 'data_sha256',
     'profile_file_sha256', 'profile_hash', 'effective_contract_hash', 'state_binding_sha256',
     'state_order_sha256', 'forward_targets_sha256', 'dependency_identity_sha256',
+    'source_identity_sha256',
     'warmup_calls', 'calls_per_state', 'max_forward_calls',
     'budget_initialize_compile_s', 'budget_slot_span_s', 'budget_batch_s', 'output_dir',
 )
 HUMAN_FIELDS = ('approved_by', 'approved_utc', 'approval_statement')
+
+
+def source_identity_sha256(identity):
+    """One digest over the WHOLE watched source/asset set: `{path: sha256}`, path-sorted.
+
+    A single digest rather than a per-file list keeps the credential canonical and small, while still
+    changing if ANY watched byte changes.  The per-file map stays in the frozen identity record, so
+    the digest can always be re-derived and an auditor can find WHICH file moved.
+    """
+    watch = identity.get('watch')
+    if not isinstance(watch, dict) or not watch:
+        # An identity carrying no watch set cannot bind any code.  Returning None makes the binding
+        # comparison fail loudly instead of silently agreeing with a credential that also lacks it.
+        return None
+    return _digest(json.dumps({str(k): str(v) for k, v in sorted(watch.items())},
+                             sort_keys=True).encode())
 
 
 class AuthorizationRefused(RuntimeError):
@@ -144,6 +166,7 @@ def build_template(identity, forward_targets, *, preregistration_sha256, output_
             sort_keys=True).encode()),
         'forward_targets_sha256': forward_targets['targets_sha256'],
         'dependency_identity_sha256': identity['dependency_identity_sha256'],
+        'source_identity_sha256': source_identity_sha256(identity),
         'warmup_calls': sched['warmup_calls'],
         'calls_per_state': sched['calls_per_state'],
         'max_forward_calls': sched['max_forward_calls'],
@@ -200,6 +223,10 @@ def validate_credential(credential, *, identity, forward_targets, output_dir, pr
              for s in identity['state_list']['states']], sort_keys=True).encode()),
         'forward_targets_sha256': forward_targets['targets_sha256'],
         'dependency_identity_sha256': identity['dependency_identity_sha256'],
+        # the CODE binding: recomputed from the identity actually handed in, so a caller that passes
+        # the frozen RECORD gets the record's digest and a caller that passes a LIVE re-derivation
+        # gets the digest of the bytes on disk now
+        'source_identity_sha256': source_identity_sha256(identity),
         'warmup_calls': sched['warmup_calls'],
         'calls_per_state': sched['calls_per_state'],
         'max_forward_calls': sched['max_forward_calls'],
@@ -221,6 +248,11 @@ def validate_credential(credential, *, identity, forward_targets, output_dir, pr
         if not same:
             problems.append('%s_mismatch' % field)
     detail['bindings'] = rows
+    if not rows.get('source_identity_sha256', {}).get('ok'):
+        detail['source_identity_note'] = (
+            'the watched source/asset set does not hash to the value the credential declares: the '
+            'code that would execute is NOT the code this credential was sealed for, so the '
+            'credential is not consumed')
 
     if require_human:
         missing = [f for f in HUMAN_FIELDS if not str(credential.get(f) or '').strip()]
