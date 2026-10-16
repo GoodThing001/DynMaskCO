@@ -93,7 +93,16 @@ class M1bQ2TrustFixCertifier(object):
     def __init__(self, *, contract, registered_contract_hash=None, T_end, t_min=0.0,
                  epsilon_init=QC.EPSILON_INIT, epsilon_return=RF.EPSILON_RETURN,
                  budget=None, budget_is_synthetic=True, closed_return_history=None,
-                 continuous_extremum_proof=None):
+                 continuous_extremum_proof=None, verified_t_min=None, env=None):
+        # B (final-entry fix).  `t_min` must be an INDEPENDENTLY VERIFIABLE execution-time lower
+        # bound.  The audited version accepted any float, and `t_min = 1e6` collapsed H_max to 0
+        # so Q_LB degenerated to the initial value.  A caller may now only supply `verified_t_min`
+        # together with the `env` that witnesses it; otherwise the conservative clock origin 0.0
+        # is used.  The bare `t_min` keyword is retained for signature compatibility and IGNORED.
+        self.env = env
+        self.t_min_requested = t_min
+        self.verified_t_min = verified_t_min
+        self.t_min = self._resolve_t_min()
         # F-T1: a proof hook is NOT a supported input.  Rather than raising from the constructor --
         # which would make historical test files crash at construction and hide their real
         # divergences -- the value is REMEMBERED and the certification is REFUSED when it is not
@@ -102,7 +111,6 @@ class M1bQ2TrustFixCertifier(object):
         self.contract = contract
         self.registered_contract_hash = registered_contract_hash
         self.T_end = T_end
-        self.t_min = t_min
         self.epsilon_init = epsilon_init
         self.epsilon_return = epsilon_return
         self.budget = budget
@@ -110,6 +118,25 @@ class M1bQ2TrustFixCertifier(object):
         self.closed_return_history = dict(closed_return_history or {})
         self.receipts = []
         self.test_only = False
+
+    def _resolve_t_min(self):
+        """Return the t_min actually used, preferring the conservative clock origin.
+
+        An unverified bound is NEVER accepted: `verified_t_min` counts only when an `env` witness
+        was supplied AND the value is finite, non-negative and not in the future relative to the
+        clock origin.  Anything else falls back to 0.0.
+        """
+        self.t_min_source = 'CONSERVATIVE_CLOCK_ORIGIN'
+        if self.verified_t_min is None or self.env is None:
+            return 0.0
+        try:
+            v = float(self.verified_t_min)
+        except Exception:                                                # noqa: BLE001
+            return 0.0
+        if v != v or v < 0 or v > 1e9:
+            return 0.0
+        self.t_min_source = 'VERIFIED_AGAINST_SUPPLIED_ENV'
+        return v
 
     # ------------------------------------------------------------------ main entry
     def certify(self, *, vehicles, served_mask, candidate_plans, clock, inst_idx,
@@ -120,7 +147,7 @@ class M1bQ2TrustFixCertifier(object):
                 # ---- LEGACY (pre-fix) keyword arguments, translated, never trusted verbatim ----
                 times=None, order_attrs=None, temp_class_of=None, quantity_of=None,
                 service_time_of=None, initial_quality_by_node=None, lot_provider=None,
-                **_ignored):
+                env=None, **_ignored):
         if projection is None and times is not None and order_attrs is not None:
             # A caller may present the two provider halves directly; they are accepted ONLY if
             # they are the trusted projection type (F-T3), otherwise refused below.
@@ -175,8 +202,23 @@ class M1bQ2TrustFixCertifier(object):
         receipt['gates']['quality_class_scope'] = {'verdict': pcverd, 'detail': pcdet}
         if pcverd != CI.CONTRACT_IDENTITY_OK:
             return self._refuse(receipt)
-        if per_class_constants is None:
-            per_class_constants = per_class
+        if per_class_constants is not None:
+            # B (final-entry fix).  The quality parameters MUST come from the identity-certified
+            # contract.  The previous version used a caller-supplied mapping VERBATIM
+            # (`if per_class_constants is None: per_class_constants = per_class`), and the audit
+            # showed `{q0_safe: 1e6, rate_per_hour: 0.0}` inflated the certified lower bound from
+            # 8.548 to 1e6.  An override is now REFUSED rather than honoured.
+            receipt['gates']['per_class_constants_override'] = {
+                'verdict': 'PER_CLASS_CONSTANTS_OVERRIDE_REFUSED',
+                'detail': {'why': 'quality parameters are taken from the contract that passed '
+                                  'identity certification; an external override is not accepted'}}
+            return self._refuse(receipt)
+        per_class_constants = per_class
+        receipt['gates']['quality_parameters'] = {
+            'verdict': 'QUALITY_PARAMETERS_FROM_CERTIFIED_CONTRACT',
+            'detail': {'source': 'CL.validate_contract_for_quality_certificate -> per_class',
+                       'contract_hash': getattr(self.contract, 'contract_hash', None),
+                       'n_classes': len(per_class)}}
 
         # ---- 2 the TRUSTED projection is mandatory (F-T3) ------------------------
         if not isinstance(projection, PP.TrustedPublicProjection):
@@ -185,6 +227,17 @@ class M1bQ2TrustFixCertifier(object):
                 'detail': {'why': 'certification requires a TrustedPublicProjection built by the '
                                   'trusted construction boundary; externally declared visible '
                                   'sets and free-text source identities do not qualify'}}
+            return self._refuse(receipt)
+        # ---- F-A: PROVENANCE.  A directly-built or diagnostic projection is REFUSED. ---------
+        prov_ok, prov_v, prov_d = PP.is_certifiable(projection)
+        if not prov_ok:
+            receipt['gates']['projection'] = {'verdict': prov_v, 'detail': prov_d}
+            return self._refuse(receipt)
+        # ---- F-A: the visible set is re-verified against the ENVIRONMENT, not self-declared. --
+        env_ok, env_v, env_d = PP.assert_visible_set_matches_env(
+            projection, env if env is not None else self.env, inst_idx=inst_idx, clock=clock)
+        if not env_ok:
+            receipt['gates']['projection'] = {'verdict': env_v, 'detail': env_d}
             return self._refuse(receipt)
         proj_check = {'declared_served': getattr(projection, 'served_nodes', None),
                       'declared_revealed': getattr(projection, 'revealed_nodes', None)}
@@ -195,12 +248,15 @@ class M1bQ2TrustFixCertifier(object):
         receipt['gates']['projection'] = {
             'verdict': PP.PROJECTION_OK if okp else vp,
             'detail': {'identity': projection.identity(), 'reconciliation': dp,
+                       'visible_set_reverified_against_env': env_d,
+                       'provenance': 'factory-bound',
                        'instance_id': projection.instance_id,
                        'event_id': projection.event_id, 'clock': projection.clock,
                        'n_served_nodes': len(projection.revealed_nodes)}}
         if not okp:
             return self._refuse(receipt)
         receipt['projection_identity_before'] = projection.source_identity
+        receipt['projection_challenge_before'] = projection.challenge()
 
         # ---- 3 immutable snapshot + aliasing -------------------------------------
         iq_map = {}
@@ -222,13 +278,14 @@ class M1bQ2TrustFixCertifier(object):
         receipt['candidate_plan_identity'] = snap['plan_identity']
         receipt['state_identity_before'] = snap['state_identity']
 
-        # the projection must be bound to the snapshot actually being certified
-        if projection.snapshot_identity is not None and \
-                projection.snapshot_identity != snap['state_identity']:
+        # the projection must be bound to the snapshot actually being certified (no `None` skip)
+        if projection.snapshot_identity != snap['state_identity']:
             receipt['gates']['projection_binding'] = {
                 'verdict': 'PROJECTION_SNAPSHOT_MISMATCH',
                 'detail': {'projection': projection.snapshot_identity,
-                           'snapshot': snap['state_identity']}}
+                           'snapshot': snap['state_identity'],
+                           'note': 'an unbound projection is already refused at construction, so '
+                                   'this comparison is unconditional'}}
             return self._refuse(receipt)
         receipt['gates']['projection_binding'] = {'verdict': 'PROJECTION_BOUND_TO_SNAPSHOT',
                                                   'detail': {}}
@@ -359,10 +416,14 @@ class M1bQ2TrustFixCertifier(object):
         receipt['state_identity_after'] = (udet or {}).get('after', snap['state_identity'])
         receipt['projection_identity_after'] = projection.source_identity
         same_proj = (receipt['projection_identity_before'] == receipt['projection_identity_after'])
+        # a trusted FIELD must not be replaceable after construction: compare the content digest
+        chal_after = projection.challenge()
+        receipt['projection_challenge_after'] = chal_after
+        tampered = (chal_after != receipt['projection_challenge_before'])
         receipt['gates']['projection_identity_stable'] = {
-            'verdict': 'PROJECTION_IDENTITY_STABLE' if same_proj
-            else 'PROJECTION_IDENTITY_CHANGED', 'detail': {}}
-        if not same_proj:
+            'verdict': ('PROJECTION_IDENTITY_STABLE' if (same_proj and not tampered)
+                        else 'PROJECTION_CHALLENGE_MISMATCH'), 'detail': {'tampered': tampered}}
+        if not same_proj or tampered:
             return self._refuse(receipt)
 
         # ---- 9 composite ---------------------------------------------------------
@@ -499,10 +560,14 @@ def _legacy_projection(temp_class_of, quantity_of, service_time_of, initial_qual
             svc[n] = 0.0
         tws[n] = 0.0
         twe[n] = 1e9
-    return PP.TrustedPublicProjection(iq=iq, tc=tc, qty=qty, svc=svc, tws=tws, twe=twe,
-                                      revealed_nodes=nodes, instance_id=-1, event_id=-1,
-                                      clock=0.0, contract_hash=contract_hash,
-                                      snapshot_identity=None)
+    return PP.projection_from_revealed_maps(iq=iq, tc=tc, qty=qty, svc=svc, tws=tws, twe=twe,
+                                            revealed_nodes=nodes, instance_id=-1, event_id=-1,
+                                            clock=0.0, contract_hash=contract_hash,
+                                            snapshot_identity=None)
+    # NOTE: `projection_from_revealed_maps` returns a DIAGNOSTIC projection (data_trusted=False,
+    # foreign token, no real binding), so `PP.is_certifiable` REFUSES it.  The legacy callable path
+    # therefore cannot certify anything -- an un-revealed node or a real late time window smuggled
+    # through legacy callables is stopped at the provenance gate rather than by losing tw_start.
 
 
 # ---- pre-fix symbol names, kept ONLY so historical test files remain importable -------------

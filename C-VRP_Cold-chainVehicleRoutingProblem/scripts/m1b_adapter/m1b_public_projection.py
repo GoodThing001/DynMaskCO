@@ -35,6 +35,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import secrets
 from types import MappingProxyType
 
 import m1b_quality_certificate as QC
@@ -46,12 +47,44 @@ PROJECTION_FIELD_MISSING = 'PROJECTION_FIELD_MISSING'
 PROJECTION_FIELD_INVALID = 'PROJECTION_FIELD_INVALID'
 PROJECTION_DECLARED_SET_REJECTED = 'PROJECTION_DECLARED_SET_REJECTED'
 PROJECTION_IMMUTABLE = 'PROJECTION_IMMUTABLE'
+PROJECTION_NOT_FACTORY_BOUND = 'PROJECTION_NOT_FACTORY_BOUND'
+PROJECTION_TOKEN_INVALID = 'PROJECTION_TOKEN_INVALID'
+PROJECTION_UNBOUND = 'PROJECTION_UNBOUND'
+PROJECTION_CHALLENGE_MISMATCH = 'PROJECTION_CHALLENGE_MISMATCH'
+PROJECTION_VISIBLE_SET_NOT_REVEALED = 'PROJECTION_VISIBLE_SET_NOT_REVEALED'
+PROJECTION_DATA_NOT_TRUSTED = 'PROJECTION_DATA_NOT_TRUSTED'
 
 #: the ONLY order-attribute fields this projection may copy.
 ALLOWED_ORDER_FIELDS = ('temp_class', 'demand', 'tw_start', 'tw_end', 'service_time',
                         'initial_quality')
 
-IMPLEMENTATION_VERSION = 'M1B_Q2TRUSTFIX'
+IMPLEMENTATION_VERSION = 'M1B_Q2ENTRYFIX'
+
+# ---------------------------------------------------------------------------------------------
+# The unforgeable construction token.
+#
+# Q2-Fix-T and the final-entry audit both showed that a caller could build a projection object
+# DIRECTLY and have the certifier accept it.  The token below is created at module import and is
+# never exported: only the factory functions in THIS module can mint a certifiable projection.
+# A caller that constructs `TrustedPublicProjection` by hand cannot obtain a valid token, so the
+# certifier refuses it (PROJECTION_TOKEN_INVALID).
+#
+# Honest scope: within one Python process a determined caller could still reach the private
+# symbol.  This is a PROTOCOL boundary that removes accidental and casual forgery -- it is not
+# cryptographic isolation, and it is not claimed to be.
+# ---------------------------------------------------------------------------------------------
+_FACTORY_TOKEN = object()
+#: ids of projections actually issued by the trusted factory (weak, in-process only)
+_ISSUED = set()
+_TOKEN_ISSUED_BY = {}
+
+
+def _new_token():
+    return object()
+
+
+def factory_available():
+    return True
 
 
 def compute_source_identity(*, inst_idx, event_id, clock, revealed_nodes, contract_hash,
@@ -69,6 +102,31 @@ def compute_source_identity(*, inst_idx, event_id, clock, revealed_nodes, contra
             'bound': payload}
 
 
+def projection_challenge(projection):
+    """A digest over the projection's TRUSTED FIELDS AND BINDINGS.
+
+    The certifier recomputes this from the live object and refuses on a mismatch, so a trusted
+    field cannot be replaced after construction (A2 in the previous audit was a hand-built object
+    with `snapshot_identity = None`).
+    """
+    payload = {'source_identity': projection.source_identity,
+               'instance_id': projection.instance_id,
+               'event_id': projection.event_id,
+               'clock': round(float(projection.clock), 9),
+               'revealed_nodes': sorted(int(x) for x in projection.revealed_nodes),
+               'contract_hash': projection.contract_hash,
+               'snapshot_identity': projection.snapshot_identity,
+               'iq': [[int(k), round(float(v), 12)] for k, v in sorted(projection._iq.items())],
+               'tc': [[int(k), int(v)] for k, v in sorted(projection._tc.items())],
+               'qty': [[int(k), round(float(v), 12)] for k, v in sorted(projection._qty.items())],
+               'svc': [[int(k), round(float(v), 12)] for k, v in sorted(projection._svc.items())],
+               'tws': [[int(k), round(float(v), 12)] for k, v in sorted(projection._tws.items())],
+               'twe': [[int(k), round(float(v), 12)] for k, v in sorted(projection._twe.items())],
+               'schema': 'm1b_projection_challenge_v1'}
+    blob = json.dumps(payload, sort_keys=True, separators=(',', ':')).encode('utf-8')
+    return hashlib.sha256(blob).hexdigest()
+
+
 class TrustedPublicProjection(object):
     """An immutable, identity-bound view of the CURRENTLY REVEALED orders only.
 
@@ -81,10 +139,17 @@ class TrustedPublicProjection(object):
 
     __slots__ = ('_iq', '_tc', '_qty', '_svc', '_tws', '_twe', 'revealed_nodes',
                  'instance_id', 'event_id', 'clock', 'contract_hash', 'snapshot_identity',
-                 'source_identity', '_bound', '_identity_digest')
+                 'source_identity', '_bound', '_identity_digest', '_factory_token',
+                 '_data_trusted')
 
     def __init__(self, *, iq, tc, qty, svc, tws, twe, revealed_nodes, instance_id, event_id,
-                 clock, contract_hash, snapshot_identity):
+                 clock, contract_hash, snapshot_identity, _token=None, _data_trusted=False):
+        # A projection that is not bound to a snapshot cannot be certified.  `None` is REFUSED
+        # here rather than silently skipping the certifier's binding check.
+        if snapshot_identity is None:
+            raise ValueError(
+                '%s: snapshot_identity is required; an unbound projection must not be able to '
+                'skip the binding check' % PROJECTION_UNBOUND)
         rev = tuple(sorted(int(x) for x in revealed_nodes))
         # every retained mapping contains REVEALED nodes ONLY -- there is no whole-node table
         self._iq = MappingProxyType({int(k): float(v) for k, v in iq.items()})
@@ -104,9 +169,15 @@ class TrustedPublicProjection(object):
                                         snapshot_identity=snapshot_identity)
         self.source_identity = ident['source_identity']
         self._bound = MappingProxyType(ident['bound'])
+        self._factory_token = _token
+        self._data_trusted = bool(_data_trusted)
         self._identity_digest = hashlib.sha256(
             json.dumps(ident['bound'], sort_keys=True, separators=(',', ':')).encode('utf-8')
         ).hexdigest()
+
+    def challenge(self):
+        """Digest of the trusted fields and bindings, for post-construction tamper detection."""
+        return projection_challenge(self)
 
     # ------------------------------------------------------------------ gating
     @property
@@ -163,7 +234,7 @@ class TrustedPublicProjection(object):
 
 
 def build_projection_from_env(env, *, inst_idx, event_id, clock, contract,
-                              snapshot_identity, fields=None):
+                              snapshot_identity, fields=None, _require_token=True):
     """THE construction boundary.  Returns (projection, verdict, detail).
 
     `fields` supplies the raw per-node arrays/dicts.  Only `ALLOWED_ORDER_FIELDS` are read, and
@@ -227,10 +298,15 @@ def build_projection_from_env(env, *, inst_idx, event_id, clock, contract,
                                                         'value': 'NaN'}
             table[int(node)] = f
     contract_hash = getattr(contract, 'contract_hash', None)
+    if snapshot_identity is None:
+        return None, PROJECTION_UNBOUND, {
+            'why': 'the projection must be bound to the snapshot it certifies'}
     proj = TrustedPublicProjection(iq=iq, tc=tc, qty=qty, svc=svc, tws=tws, twe=twe,
-                                  revealed_nodes=revealed, instance_id=inst_idx,
-                                  event_id=event_id, clock=clock, contract_hash=contract_hash,
-                                  snapshot_identity=snapshot_identity)
+                                   revealed_nodes=revealed, instance_id=inst_idx,
+                                   event_id=event_id, clock=clock, contract_hash=contract_hash,
+                                   snapshot_identity=snapshot_identity, _token=_FACTORY_TOKEN,
+                                   _data_trusted=True)
+    _ISSUED.add(id(proj))
     detail = {'n_revealed': len(revealed), 'revealed_nodes': revealed,
               'fields_copied': [f for f in ALLOWED_ORDER_FIELDS],
               'missing_fields': missing[:20],
@@ -242,18 +318,67 @@ def build_projection_from_env(env, *, inst_idx, event_id, clock, contract,
 def projection_from_revealed_maps(*, iq, tc, qty, svc, tws, twe, revealed_nodes, instance_id=-1,
                                   event_id=-1, clock=0.0, contract_hash=None,
                                   snapshot_identity=None):
-    """DIAGNOSTIC-ONLY constructor from already-computed maps.
+    """DIAGNOSTIC-ONLY constructor.  It CANNOT produce a certifiable projection.
 
-    The production construction path is `build_projection_from_env`, because THAT is where the
-    environment's reveal state is consulted.  This helper exists for synthetic tests and
-    diagnostics that do not have an environment, and it is explicitly NOT a trusted source: it
-    simply takes the caller's word for the visible set.  A caller using it outside a test has
-    moved the trust boundary back into its own hands.
+    The final-entry audit found that this helper let a caller create an object the production gate
+    accepted (by passing `snapshot_identity = None`, which skipped the binding check).  The helper
+    is retained because many tests and diagnostics need a projection-shaped object, but the object
+    it returns is stamped `data_trusted = False` AND carries a token the certifier REFUSES, so it
+    can never be used for certification.
     """
-    return TrustedPublicProjection(iq=iq, tc=tc, qty=qty, svc=svc, tws=tws, twe=twe,
+    proj = TrustedPublicProjection(iq=iq, tc=tc, qty=qty, svc=svc, tws=tws, twe=twe,
                                    revealed_nodes=revealed_nodes, instance_id=instance_id,
                                    event_id=event_id, clock=clock, contract_hash=contract_hash,
-                                   snapshot_identity=snapshot_identity)
+                                   snapshot_identity=('DIAGNOSTIC-UNBOUND'
+                                                      if snapshot_identity is None
+                                                      else snapshot_identity),
+                                   _token=object(), _data_trusted=False)
+    return proj
+
+
+def is_certifiable(projection):
+    """(ok, verdict, detail).  The certifier's provenance test.
+
+    Certifiable requires BOTH the factory token AND `data_trusted`, plus a real snapshot binding.
+    """
+    if not isinstance(projection, TrustedPublicProjection):
+        return False, PROJECTION_DECLARED_SET_REJECTED, {'why': 'not a TrustedPublicProjection'}
+    if (getattr(projection, '_factory_token', None) is not _FACTORY_TOKEN
+            or id(projection) not in _ISSUED):
+        return False, PROJECTION_TOKEN_INVALID, {
+            'why': 'the projection was not produced by the trusted construction boundary '
+                   '(build_projection_from_env); a diagnostic or hand-built object carries a '
+                   'token the certifier refuses'}
+    if getattr(projection, '_data_trusted', False) is not True:
+        return False, PROJECTION_DATA_NOT_TRUSTED, {
+            'why': 'the projection is flagged as diagnostic data'}
+    if projection.snapshot_identity in (None, 'DIAGNOSTIC-UNBOUND'):
+        return False, PROJECTION_UNBOUND, {'why': 'no usable snapshot binding'}
+    return True, PROJECTION_OK, {}
+
+
+def assert_visible_set_matches_env(projection, env, *, inst_idx, clock):
+    """Independently re-verify the visible set against the environment (requirement A).
+
+    The construction boundary is trusted for what it COPIED; this check is the certifier's own,
+    so a forged projection whose declared set exceeds what the environment reveals is refused
+    even if it somehow carried a valid token.
+    """
+    if env is None:
+        return False, PROJECTION_ENV_MISSING, {'why': 'the certifier needs the environment to '
+                                                       'verify the visible set'}
+    try:
+        import numpy as np
+        row = np.asarray(env.reveal_time[int(inst_idx)])
+    except Exception as exc:                                            # noqa: BLE001
+        return False, PROJECTION_ENV_MISSING, {'exception': type(exc).__name__}
+    excess = [int(n) for n in sorted(projection.revealed_nodes)
+              if not bool(row[int(n)] <= float(clock) + 1e-6)]
+    if excess:
+        return False, PROJECTION_VISIBLE_SET_NOT_REVEALED, {
+            'nodes_declared_visible_but_not_revealed': excess[:20],
+            'clock': float(clock)}
+    return True, PROJECTION_OK, {'n_verified': len(projection.revealed_nodes)}
 
 
 def reject_declared_set(*, declared_served, declared_revealed, required):

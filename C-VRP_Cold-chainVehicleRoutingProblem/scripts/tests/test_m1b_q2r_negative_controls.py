@@ -333,7 +333,8 @@ def task_B():
         'differs from 9.0 by 8.0 >> eps_init, so Omega10 must REFUSE',
         {'omega10_verdict': w10d, 'composite': ok_def, 'final': rc_def['final'],
          'QUALITY_LB_OK': rc_def['QUALITY_LB_OK'], 'n_checked':
-             (rc_def['gates']['omega10_initialization']['detail'] or {}).get('n_checked')},
+             ((rc_def.get('gates', {}).get('omega10_initialization') or {})
+              .get('detail') or {}).get('n_checked')},
         'FALSE_PASS' if (ok_def and w10d == QC.OMEGA10_NO_RELEVANT_LOTS) else 'NOT_ESTABLISHED',
         'the default lot provider harvests only cargo-manifest lots of vehicles that have a plan, '
         'so when nothing is on board it returns NO lots; check_omega10_initialization then returns '

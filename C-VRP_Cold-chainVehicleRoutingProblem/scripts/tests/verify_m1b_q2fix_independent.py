@@ -112,6 +112,39 @@ def main():
         {'sampled_field': has_s, 'continuous_field': has_c, 'composite_requires_both': requires,
          'ambiguous_key_stored': stored_hard})
 
+    # --------------------------------------------------------------- X8b ENTRY PROVENANCE
+    pp = code_only(ADIR / 'm1b_public_projection.py')
+    cert_now = code_only(ADIR / 'm1b_q2_certifier.py')
+    has_token = ('_FACTORY_TOKEN' in (ADIR / 'm1b_public_projection.py').read_text(
+        encoding='utf-8'))
+    unbound_refused = bool(re.search(r'PROJECTION_UNBOUND', pp))
+    is_certifiable = 'def is_certifiable' in pp
+    env_check = 'assert_visible_set_matches_env' in pp
+    gate_calls_prov = 'PP.is_certifiable' in cert_now
+    gate_calls_env = 'PP.assert_visible_set_matches_env' in cert_now
+    no_none_skip = not bool(re.search(r"snapshot_identity is not None\s+and", cert_now))
+    chk('X8b', 'entry provenance: factory token + unbound refusal + env re-verification',
+        'PROVENANCE_ENFORCED'
+        if (has_token and unbound_refused and is_certifiable and env_check
+            and gate_calls_prov and gate_calls_env and no_none_skip)
+        else 'PROVENANCE_WEAK',
+        {'factory_token': has_token, 'unbound_refused_at_construction': unbound_refused,
+         'is_certifiable_present': is_certifiable,
+         'visible_set_reverified_against_env': env_check,
+         'certifier_calls_provenance_gate': gate_calls_prov,
+         'certifier_calls_env_check': gate_calls_env,
+         'none_can_no_longer_skip_binding': no_none_skip})
+
+    # --------------------------------------------------------------- X8c PARAMETER SOURCE
+    override_refused = 'PER_CLASS_CONSTANTS_OVERRIDE_REFUSED' in cert_now
+    resolve_tmin = '_resolve_t_min' in cert_now
+    chk('X8c', 'quality parameters and t_min cannot be overridden by a caller',
+        'PARAMS_BOUND_TO_CONTRACT'
+        if (override_refused and resolve_tmin) else 'PARAMS_OVERRIDABLE',
+        {'per_class_constants_override_refused': override_refused,
+         't_min_resolved_independently': resolve_tmin,
+         'method': 'AST docstring-stripped + ast.unparse'})
+
     # --------------------------------------------------------------- X9 recorded verdicts
     data = json.loads(fix.read_text(encoding='utf-8'))
     notpass = [r['cid'] for r in data['results'] if r['verdict'] != 'PASS']
@@ -172,7 +205,8 @@ def main():
     bad = [r for r in ROWS if r['verdict'] not in (
         'SPEC_FROZEN_FIRST', 'CACHE_NOT_READ_FOR_VERDICT', 'WAIT_APPLIED', 'SHARED_REPLAY',
         'SUFFIX_INCLUDED', 'COVERAGE_ENFORCED', 'CANDIDATE_FISH_REQUIRED', 'NON_SUBSTITUTABLE',
-        'ALL_PASS', 'FLIPPED', 'HASHES_RECORDED', 'SCOPE_CORRECT', 'CLEAN')]
+        'ALL_PASS', 'FLIPPED', 'HASHES_RECORDED', 'SCOPE_CORRECT', 'CLEAN',
+        'PROVENANCE_ENFORCED', 'PARAMS_BOUND_TO_CONTRACT')]
     print('\n== independent verification: %s ==' % ('VERIFIED' if not bad else 'DISAGREEMENT'))
     print('  %d checks, %d disagreement(s)' % (len(ROWS), len(bad)))
     return 1 if bad else 0

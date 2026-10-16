@@ -40,7 +40,8 @@ import m1b_return_feasibility as RF                                      # noqa:
 import m1b_thermal_gate as TG                                            # noqa: E402
 import m1b_immutable_snapshot as IS                                      # noqa: E402
 from m1b_q2_certifier import (M1bQ2TrustFixCertifier, M1bQ2TrustFixTestOnlyCertifier,
-                              ENGINEERING_CERTIFIED, TEST_ONLY_LABEL)     # noqa: E402
+                              ENGINEERING_CERTIFIED, ENGINEERING_REFUSED,
+                              TEST_ONLY_LABEL)                            # noqa: E402
 
 ROWS = []
 CONTRACT = ColdChainContractV2()
@@ -94,6 +95,38 @@ def times_for(service=None, tw_start=None, revealed=(1, 2, 3, 4, 5, 6, 7),
                                revealed_nodes=revealed, identity=identity)
 
 
+class _CtrlEnv(object):
+    """A minimal env whose reveal_time reveals the synthetic nodes at clock 0."""
+
+    def __init__(self, revealed=(1, 2, 3, 4, 5, 6, 7), n=40):
+        import numpy as _np
+        row = _np.full(n, 1e9, dtype=float)
+        for r in revealed:
+            row[int(r)] = 0.0
+        self.reveal_time = row.reshape(1, n)
+        self.num_nodes = n
+
+
+def _factory_projection(served=(1, 2, 3, 4, 5, 6, 7), iq=None, svc=None, tws=None,
+                        instance_id=0, event_id=1, clock=0.0, contract=None, snapshot=None):
+    """A FACTORY-BOUND projection: the only kind the certifier accepts (Q2 entry fix)."""
+    import m1b_public_projection as _PP
+    served = tuple(int(x) for x in served)
+    iq2 = {n: 9.0 for n in served}
+    iq2.update({int(k): float(v) for k, v in (iq or {}).items()})
+    sv2 = {n: 0.05 for n in served}
+    sv2.update({int(k): float(v) for k, v in (svc or {}).items()})
+    tw2 = {n: 0.0 for n in served}
+    tw2.update({int(k): float(v) for k, v in (tws or {}).items()})
+    p, _v, _d = _PP.build_projection_from_env(
+        _CtrlEnv(revealed=served), inst_idx=instance_id, event_id=event_id, clock=clock,
+        contract=contract, snapshot_identity=snapshot or 'BOUND',
+        fields={'temp_class': {n: 1 for n in served}, 'demand': {n: 1.0 for n in served},
+                'tw_start': tw2, 'tw_end': {n: 1e9 for n in served},
+                'service_time': sv2, 'initial_quality': iq2})
+    return p
+
+
 def attrs_for(iq=None, tc=None, qty=None, served=(1, 2, 3, 4, 5, 6, 7), identity='a-synth-1'):
     served = tuple(int(x) for x in served)
     iq2 = {n: 9.0 for n in served}; iq2.update({int(k): float(v) for k, v in (iq or {}).items()})
@@ -103,8 +136,24 @@ def attrs_for(iq=None, tc=None, qty=None, served=(1, 2, 3, 4, 5, 6, 7), identity
                                     served_nodes=served, source_identity=identity)
 
 
-def proj_for(iq=None, tc=None, qty=None, svc=None, tws=None, served=(1, 2, 3, 4, 5, 6, 7),
-             instance_id=0, event_id=1, clock=0.0):
+def _snapshot_identity_for(vehicles=None, plans=None):
+    """The identity the certifier will compute for the CALLER's own state, so the projection
+    binds to the snapshot actually being certified."""
+    if vehicles is None:
+        vehicles = [V(0, 'ready', node=0, ready=0.0, cc=fresh_cc(n_lots=1, iq=9.0))]
+    if plans is None:
+        plans = {0: plan(0, 0.0, [7, 0])}
+    iq = {}
+    for vid in sorted(plans):
+        for n in getattr(plans[vid], 'suffix', []):
+            if int(n) > 0:
+                iq[int(n)] = 9.0
+    return IS.build_frozen_snapshot(vehicles, np.zeros(40, dtype=bool), plans,
+                                    initial_quality_by_node=iq)[0]['state_identity']
+
+
+def proj_for(iq=None, tc=None, qty=None, svc=None, tws=None, served=(7,),
+             instance_id=0, event_id=1, clock=0.0, vehicles=None, plans=None):
     """A TrustedPublicProjection for the synthetic cases (F-T3 type required by the certifier)."""
     served = tuple(int(x) for x in served)
     iq2 = {n: 9.0 for n in served}; iq2.update({int(k): float(v) for k, v in (iq or {}).items()})
@@ -112,10 +161,10 @@ def proj_for(iq=None, tc=None, qty=None, svc=None, tws=None, served=(1, 2, 3, 4,
     q2 = {n: 1.0 for n in served}; q2.update({int(k): float(v) for k, v in (qty or {}).items()})
     sv2 = {n: 0.05 for n in served}; sv2.update({int(k): float(v) for k, v in (svc or {}).items()})
     tw2 = {n: 0.0 for n in served}; tw2.update({int(k): float(v) for k, v in (tws or {}).items()})
-    return PP.projection_from_revealed_maps(
-        iq=iq2, tc=tc2, qty=q2, svc=sv2, tws=tw2, twe={n: 1e9 for n in served},
-        revealed_nodes=served, instance_id=instance_id, event_id=event_id, clock=clock,
-        contract_hash=getattr(CONTRACT, 'contract_hash', None), snapshot_identity=None)
+    return _factory_projection(served=served, iq=iq, svc=svc, tws=tw2,
+                               instance_id=instance_id, event_id=event_id, clock=clock,
+                               contract=CONTRACT,
+                               snapshot=_snapshot_identity_for(vehicles, plans))
 
 
 def certifier(**kw):
@@ -165,6 +214,8 @@ def task1():
             projection=proj_for(svc={7: 0.05}))
         raised = ((_rc.get('gates', {}).get('proof_hook') or {}).get('verdict')
                   or 'HOOK_NOT_REFUSED')
+        if _ok is True:
+            raised = 'HOOK_NOT_REFUSED'
     except TypeError as exc:
         raised = str(exc)[:60]
     ok, rc = positive_case()
@@ -177,10 +228,10 @@ def task1():
          'THERMAL_CONTINUOUS_OK': rc.get('THERMAL_CONTINUOUS_OK'),
          'THERMAL_SAMPLED_OK': rc.get('THERMAL_SAMPLED_OK'),
          'composite_pass': rc.get('composite_pass'), 'final': rc.get('final')},
-        'OK' if (raised and raised != 'HOOK_NOT_REFUSED'
-                 and rc.get('THERMAL_CONTINUOUS_OK') is False
-                 and rc.get('THERMAL_CONTINUOUS_STATE') == TG.THERMAL_CONTINUOUS_NOT_ESTABLISHED
-                 and rc.get('composite_pass') is False) else 'FALSE_PASS',
+        'OK' if (raised == 'PRODUCTION_CERTIFIER_REFUSES_PROOF_HOOK'
+                 and rc.get('composite_pass') is False
+                 and _rc.get('final') == ENGINEERING_REFUSED
+                 and _rc.get('THERMAL_CONTINUOUS_OK') in (None, False)) else 'FALSE_PASS',
         'm1b_q2_certifier.py:PRODUCTION_PROOF_HOOK_REFUSED gate at the top of certify(); '
         'm1b_thermal_gate.py continuous branch additionally requires allow_test_only_proof',
         False)
@@ -577,12 +628,12 @@ def task4():
         V(2, 'closed', node=0, ready=5.0, cc=fresh_cc(n_lots=0), return_finish=None),
     ]
     ps = {0: plan(0, 0.0, [7, 0]), 1: plan(1, 0.0, []), 2: plan(2, 5.0, [])}
-    proj = proj_for(svc={7: 0.05})
+    proj = proj_for(svc={7: 0.05}, vehicles=vs, plans=ps)
     c = certifier(closed_return_history={2: 5.0})
     ok, rc = c.certify(vehicles=vs, served_mask=np.zeros(40, dtype=bool), candidate_plans=ps,
                        clock=0.0, inst_idx=0, travel_fn=lambda a_, b_: 1.0,
                        distance_fn=lambda a_, b_: 10.0, times=proj, order_attrs=proj,
-                       projection=proj)
+                       projection=proj, env=_CtrlEnv(revealed=(7,)))
     tv = ((rc['gates'].get('thermal_replay') or {}).get('detail') or {}).get('per_vehicle', {})
     v1 = (tv.get(1) or tv.get('1') or {}).get('verdict')
     row('T4-2', 'F-T4: idle-undispatched vehicle is NOT_APPLICABLE, not a state failure',
@@ -603,11 +654,12 @@ def task4():
            V(1, 'idle', node=0, ready=0.0, cc=None)]
     ps3 = {0: plan(0, 0.0, [7, 0]), 1: plan(1, 0.0, [])}
     c3 = certifier()
-    proj3 = proj_for(svc={7: 0.05})
+    proj3 = proj_for(svc={7: 0.05}, vehicles=vs3, plans=ps3)
     ok3, rc3 = c3.certify(vehicles=vs3, served_mask=np.zeros(40, dtype=bool),
                           candidate_plans=ps3, clock=0.0, inst_idx=0,
                           travel_fn=lambda a_, b_: 1.0, distance_fn=lambda a_, b_: 10.0,
-                          times=proj3, order_attrs=proj3, projection=proj3)
+                          times=proj3, order_attrs=proj3, projection=proj3,
+                          env=_CtrlEnv(revealed=(7,)))
     tv3 = ((rc3['gates'].get('thermal_replay') or {}).get('detail') or {}).get('per_vehicle', {})
     v1_3 = (tv3.get(1) or tv3.get('1') or {}).get('verdict')
     row('T4-3', 'F-T4: ONE never-dispatched idle vehicle no longer sinks the sampled verdict',

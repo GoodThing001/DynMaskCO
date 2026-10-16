@@ -188,7 +188,7 @@
       },
       "EXPECTED": "the fish order carried by the certified candidate plan must be checked; its true 1.0 differs from 9.0 by 8.0 >> eps_init, so Omega10 must REFUSE",
       "ACTUAL": {
-        "omega10_verdict": "OMEGA10_INITIAL_VALUE_MISMATCH",
+        "omega10_verdict": null,
         "composite": false,
         "final": "M1B_Q2TRUSTFIX_ENGINEERING_REFUSED",
         "QUALITY_LB_OK": null,
@@ -206,11 +206,11 @@
       },
       "EXPECTED": "OMEGA10_INITIAL_VALUE_MISMATCH and composite REFUSED",
       "ACTUAL": {
-        "omega10_verdict": "OMEGA10_INITIAL_VALUE_MISMATCH",
+        "omega10_verdict": null,
         "composite": false,
         "final": "M1B_Q2TRUSTFIX_ENGINEERING_REFUSED",
         "QUALITY_LB_OK": null,
-        "quality_impl_call": "NOT_CALLED_OMEGA10_REFUSED"
+        "quality_impl_call": null
       },
       "CLASS": "OK",
       "ROOT_CAUSE": "the gate itself is correct when it is GIVEN the lots; the hole is that the DEFAULT provider decides what is relevant, and the orchestrator cannot tell \"nothing to check\" from \"checked and fine\".",
@@ -333,22 +333,13 @@
       "ACTUAL": {
         "composite": false,
         "gates": [
-          "aliasing",
           "contract_identity",
-          "omega10_coverage",
-          "omega10_initialization",
-          "omega11_return_feasibility",
           "projection",
-          "projection_binding",
-          "projection_identity_stable",
           "quality_class_scope",
-          "quality_lb",
-          "snapshot",
-          "state_unchanged",
-          "thermal_replay"
+          "quality_parameters"
         ],
-        "QUALITY_LB_OK": true,
-        "THERMAL_HARD_OK": true,
+        "QUALITY_LB_OK": null,
+        "THERMAL_HARD_OK": null,
         "disclaimer_present": true
       },
       "CLASS": "UNEXPECTED",

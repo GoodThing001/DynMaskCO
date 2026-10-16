@@ -94,19 +94,66 @@ def plan(vid, at, suffix, load=0.0):
     return VehiclePlan(vid, 0, at, load, list(suffix))
 
 
-def projection_for(service=None, iq=None, revealed=(1, 2, 3, 4, 5, 6, 7), instance_id=0,
-                   event_id=1, clock=0.0, tw_start=None):
+class _CtrlEnv(object):
+    """A minimal env whose reveal_time reveals the synthetic nodes at clock 0."""
+
+    def __init__(self, revealed=(1, 2, 3, 4, 5, 6, 7), n=40):
+        import numpy as _np
+        row = _np.full(n, 1e9, dtype=float)
+        for r in revealed:
+            row[int(r)] = 0.0
+        self.reveal_time = row.reshape(1, n)
+        self.num_nodes = n
+
+
+def _factory_projection(served=(1, 2, 3, 4, 5, 6, 7), iq=None, svc=None, tws=None,
+                        instance_id=0, event_id=1, clock=0.0, contract=None, snapshot=None,
+                        temp_class=None, qty=None):
+    """A FACTORY-BOUND projection: the only kind the certifier accepts (Q2 entry fix)."""
+    import m1b_public_projection as _PP
+    served = tuple(int(x) for x in served)
+    iq2 = {n: 9.0 for n in served}
+    iq2.update({int(k): float(v) for k, v in (iq or {}).items()})
+    sv2 = {n: 0.05 for n in served}
+    sv2.update({int(k): float(v) for k, v in (svc or {}).items()})
+    tw2 = {n: 0.0 for n in served}
+    tw2.update({int(k): float(v) for k, v in (tws or {}).items()})
+    p, _v, _d = _PP.build_projection_from_env(
+        _CtrlEnv(revealed=served), inst_idx=instance_id, event_id=event_id, clock=clock,
+        contract=contract, snapshot_identity=snapshot or 'BOUND',
+        fields={'temp_class': {**{n: 1 for n in served}, **(temp_class or {})},
+                'demand': {**{n: 1.0 for n in served}, **(qty or {})},
+                'tw_start': tw2, 'tw_end': {n: 1e9 for n in served},
+                'service_time': sv2, 'initial_quality': iq2})
+    return p
+
+
+def _q2fix_snapshot_identity(vehicles=None, plans=None):
+    if vehicles is None:
+        vehicles = [V(0, 'ready', node=0, ready=0.0, cc=fresh_cc(n_lots=1, initial_quality=9.0))]
+    if plans is None:
+        plans = {0: plan(0, 0.0, [7, 0])}
+    iq = {}
+    for vid in sorted(plans):
+        for n in getattr(plans[vid], 'suffix', []):
+            if int(n) > 0:
+                iq[int(n)] = 9.0
+    return IS.build_frozen_snapshot(vehicles, np.zeros(40, dtype=bool), plans,
+                                    initial_quality_by_node=iq)[0]['state_identity']
+
+
+def projection_for(service=None, iq=None, revealed=(7,), instance_id=0,
+                   event_id=1, clock=0.0, tw_start=None, vehicles=None, plans=None):
     """A TrustedPublicProjection: the ONLY provider type the fixed certifier accepts (F-T3)."""
     rev = tuple(int(x) for x in revealed)
-    iq2 = {n: 9.0 for n in rev}
-    iq2.update({int(k): float(v) for k, v in (iq or {}).items()})
     tws = {n: 0.0 for n in rev}
     tws.update({int(k): float(v) for k, v in (tw_start or {}).items()})
-    return PP.projection_from_revealed_maps(
-        iq=iq2, tc={n: 1 for n in rev}, qty={n: 1.0 for n in rev},
-        svc={n: 0.05 for n in rev}, tws=tws, twe={n: 1e9 for n in rev},
-        revealed_nodes=rev, instance_id=instance_id, event_id=event_id, clock=clock,
-        contract_hash=getattr(CONTRACT, 'contract_hash', None), snapshot_identity=None)
+    return _factory_projection(served=rev, iq=iq, svc=None, tws=tws,
+                               instance_id=instance_id, event_id=event_id, clock=clock,
+                               contract=CONTRACT,
+                               snapshot=_q2fix_snapshot_identity(vehicles, plans),
+                               temp_class={2: 0} if 2 in rev else None,
+                               qty={2: 1.0} if 2 in rev else None)
 
 
 class MiniEnv(object):
@@ -303,12 +350,13 @@ def main():
     vehB = [V(0, 'ready', node=0, ready=0.0, cc=fresh_cc(n_lots=0))]
     plB = {0: plan(0, 0.0, [7, 0])}
     cB = M1bQ2FixCertifier(contract=CONTRACT, T_end=T_END, budget=SYNTHETIC_B)
-    projB = projection_for(iq={7: 1.0}, tw_start={7: 0.0})
+    projB = projection_for(iq={7: 1.0}, tw_start={7: 0.0},
+                            vehicles=vehB, plans=plB)
     okB, rcB = cB.certify(vehicles=vehB, served_mask=np.zeros(40, dtype=bool),
                           candidate_plans=plB, clock=0.0, inst_idx=0,
                           travel_fn=lambda a, b: 1.0, distance_fn=lambda a, b: 10.0,
                           times=projB, order_attrs=projB, projection=projB,
-                          per_class_constants=pc)
+                          env=_CtrlEnv(revealed=(7,)))
     wB = (rcB['gates'].get('omega10_coverage') or {}).get('verdict')
     ck('B1', 'FALSE_PASS flipped: candidate fish with iq=1.0 is REFUSED',
        (not okB) and wB == QC.OMEGA10_INITIAL_VALUE_MISMATCH,
@@ -324,8 +372,10 @@ def main():
     okC, rcC = cC.certify(vehicles=vehC, served_mask=np.zeros(40, dtype=bool),
                           candidate_plans=plC, clock=0.0, inst_idx=0,
                           travel_fn=lambda a, b: 1.0, distance_fn=lambda a, b: 10.0,
-                          times=projection_for(), order_attrs=projection_for(),
-                          projection=projection_for(), per_class_constants=pc)
+                          times=projection_for(revealed=(2,), vehicles=vehC, plans=plC),
+                          order_attrs=projection_for(revealed=(2,), vehicles=vehC, plans=plC),
+                          projection=projection_for(revealed=(2,), vehicles=vehC, plans=plC),
+                          env=_CtrlEnv(revealed=(2,)))
     wC = (rcC['gates'].get('omega10_coverage') or {}).get('verdict')
     ck('B1-POS', 'POSITIVE CONTROL: no fish in scope is admissible (NO_FISH_IN_SCOPE, not a fail)',
        wC in (QC.OMEGA10_NO_FISH_IN_SCOPE, QC.OMEGA10_OK) and rcC['QUALITY_LB_OK'] is True,
@@ -366,8 +416,10 @@ def main():
     okT, rcT = cT.certify(vehicles=vehT, served_mask=np.zeros(40, dtype=bool),
                           candidate_plans=plT, clock=0.0, inst_idx=0,
                           travel_fn=lambda a, b: 1.0, distance_fn=lambda a, b: 10.0,
-                          times=projection_for(), order_attrs=projection_for(),
-                          projection=projection_for(), per_class_constants=pc)
+                          times=projection_for(vehicles=vehT, plans=plT),
+                          order_attrs=projection_for(vehicles=vehT, plans=plT),
+                          projection=projection_for(vehicles=vehT, plans=plT),
+                          env=_CtrlEnv(revealed=(7,)))
     ck('C1', 'sampled OK but continuous NOT_ESTABLISHED -> composite FAIL-CLOSED',
        rcT['THERMAL_SAMPLED_OK'] is True
        and rcT['THERMAL_CONTINUOUS_OK'] is False
@@ -387,8 +439,10 @@ def main():
     okT2, rcT2 = cT2.certify(vehicles=vehT, served_mask=np.zeros(40, dtype=bool),
                              candidate_plans=plT, clock=0.0, inst_idx=0,
                              travel_fn=lambda a, b: 1.0, distance_fn=lambda a, b: 10.0,
-                             times=projection_for(), order_attrs=projection_for(),
-                             projection=projection_for(), per_class_constants=pc)
+                             times=projection_for(vehicles=vehT, plans=plT),
+                             order_attrs=projection_for(vehicles=vehT, plans=plT),
+                             projection=projection_for(vehicles=vehT, plans=plT),
+                             env=_CtrlEnv(revealed=(7,)))
     ck('C1-POS', 'POSITIVE CONTROL: the test-only entry reaches the TRUE wiring branch and is '
                  'stamped TEST_ONLY (it cannot certify)',
        rcT2.get('test_only_continuous_wiring') == 'TEST_DOUBLE_REACHED_TRUE_BRANCH'

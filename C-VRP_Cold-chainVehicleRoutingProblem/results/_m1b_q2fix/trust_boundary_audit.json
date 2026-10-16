@@ -14,9 +14,9 @@
       "EXPECTED": "F-T1: the production path must refuse the hook; the continuous level must stay NOT_ESTABLISHED and composite_pass False",
       "ACTUAL": {
         "hook_rejection_verdict": "PRODUCTION_CERTIFIER_REFUSES_PROOF_HOOK",
-        "THERMAL_CONTINUOUS_STATE": "THERMAL_CONTINUOUS_NOT_ESTABLISHED",
-        "THERMAL_CONTINUOUS_OK": false,
-        "THERMAL_SAMPLED_OK": true,
+        "THERMAL_CONTINUOUS_STATE": null,
+        "THERMAL_CONTINUOUS_OK": null,
+        "THERMAL_SAMPLED_OK": null,
         "composite_pass": false,
         "final": "M1B_Q2TRUSTFIX_ENGINEERING_REFUSED"
       },
@@ -88,11 +88,11 @@
       },
       "EXPECTED": "THERMAL_SAMPLED_OK must come from the measured envelope alone",
       "ACTUAL": {
-        "THERMAL_SAMPLED_OK": true,
-        "THERMAL_CONTINUOUS_STATE": "THERMAL_CONTINUOUS_NOT_ESTABLISHED",
+        "THERMAL_SAMPLED_OK": null,
+        "THERMAL_CONTINUOUS_STATE": null,
         "composite_pass": false
       },
-      "VERDICT": "OK",
+      "VERDICT": "CHECK",
       "SOURCE": "m1b_thermal_gate.py sampled branch",
       "INSTALLABILITY_BLOCKER": false
     },
@@ -105,8 +105,8 @@
       },
       "EXPECTED": "composite_pass must be False",
       "ACTUAL": {
-        "THERMAL_SAMPLED_OK": false,
-        "THERMAL_CONTINUOUS_STATE": "THERMAL_CONTINUOUS_NOT_ESTABLISHED",
+        "THERMAL_SAMPLED_OK": null,
+        "THERMAL_CONTINUOUS_STATE": null,
         "composite_pass": false
       },
       "VERDICT": "OK",
@@ -147,8 +147,8 @@
       "ACTUAL": {
         "composite": false,
         "final": "M1B_Q2TRUSTFIX_ENGINEERING_REFUSED",
-        "omega10_verdict": "OMEGA10_INITIAL_VALUE_MISMATCH",
-        "omega10_mirror": "OMEGA10_INITIAL_VALUE_MISMATCH"
+        "omega10_verdict": null,
+        "omega10_mirror": null
       },
       "VERDICT": "OK",
       "SOURCE": "m1b_q2_certifier.py:_legacy_attrs (iq.setdefault(n, 1.0) so the coverage gate REFUSES)",
@@ -162,11 +162,11 @@
       },
       "EXPECTED": "the legacy name must NOT be stored, and reading it must yield the SAMPLED level",
       "ACTUAL": {
-        "subscript_value": true,
-        "attribute_value": true,
+        "subscript_value": null,
+        "attribute_value": null,
         "key_stored_in_receipt": false,
         "name_appears_in_serialised_receipt": false,
-        "THERMAL_SAMPLED_OK": true
+        "THERMAL_SAMPLED_OK": null
       },
       "VERDICT": "OK",
       "SOURCE": "m1b_q2_certifier.py:_Receipt.__missing__ / THERMAL_HARD_OK property",
@@ -374,8 +374,8 @@
         "cross_event_query": "REFUSED",
         "identities_equal": false,
         "identity_verdict": "PROJECTION_IDENTITY_CHANGED",
-        "identity_A": "proj:26c7595ba7c58f37a79",
-        "identity_B": "proj:a644dd4ebfcc25ad4b4"
+        "identity_A": "proj:0a79f86f237ad1a801d",
+        "identity_B": "proj:75efd9c630bd707b8ff"
       },
       "VERDICT": "OK",
       "SOURCE": "m1b_public_projection.py: identity is computed from (instance, event, clock, revealed set, contract, snapshot)",
