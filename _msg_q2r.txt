@@ -1,0 +1,99 @@
+test(m1b-q2r): targeted negative-control audit - 4 false-pass counterexamples found
+
+M1-b/Q2-R targeted falsification of the Q2 certification chain. Adds ONE diagnostic test
+and ONE audit report plus its evidence JSON. The original Q2 report, the Q2 code, the Q2
+test JSON, the Q1 conclusions and every frozen tree are UNCHANGED and un-endorsed: the
+recorded 49 PASS / 11 VERIFIED are neither deleted nor re-adjudicated, only shown to be
+incomplete.
+
+  scripts/tests/test_m1b_q2r_negative_controls.py
+  docs/.../M1b_Q2R_du-li-fu-kong-shen-ji_2026-10-16.md
+  results/_m1b_q2/negative_controls_q2r.json
+
+16 cases: 4 FALSE_PASS, 8 NOT_ESTABLISHED, 1 PROMOTION_PATH_EXISTS, 0 FALSE_REJECT, 3 OK.
+Light CPU synthesis only; no model weights, no L1/L2/L3, no rollout, no installation.
+
+FOUR REPRODUCED FALSE PASSES
+
+A1 - Omega11 omits the time-window WAIT. certify_route advances with
+start = max(arrive, tw_start) (action_contract.py:187), but Omega11 advances with
+t = max(ready_time, clock) and never applies tw_start. Input: tw_start[5]=20.0, T_end=19.0,
+1.0 travel per leg. Omega11 returns OMEGA11_OK reporting a return of 2.0, while the TRUE
+return is 21.0 and certify_route on the same data says feasible=False reason='return'
+return_slack=-2.0.
+
+A2b - the service-time cache defaults to ZERO and is used silently.
+_service_time returns _SERVICE_TIME_CACHE.get(node, 0.0). Input: service_time[5]=2.0,
+nothing registered, T_end=3.5. Omega11 returns OMEGA11_OK reporting 2.0 instead of the true
+4.0; certify_route says infeasible. A zero default can only SHORTEN the replay, so this
+class of defect can only produce optimistic verdicts.
+
+A4b - a committed vehicle's later accepted task is omitted. The committed branch computes
+only committed_finish + travel(committed_next -> depot) and never inspects the suffix.
+Input: committed_finish=4.0, committed_next=3, mutable_suffix=[6,0], T_end=5.0. Omega11
+returns OMEGA11_OK reporting 5.0 while the true return, which must also serve 6, is 6.0.
+
+B1 - THE MOST SERIOUS: Omega10 can be silently unestablished.
+Input: the manifest holds NO fish; the certified candidate plan carries a REVEALED fish
+order 7 whose TRUE initial_quality is 1.0 against a contract initial_value of 9.0. The
+default lot provider harvests only cargo-manifest lots, so it returns an empty set;
+check_omega10_initialization returns ok=True with OMEGA10_NO_RELEVANT_LOTS when
+checked == 0; the orchestrator treats ok=True as a pass and reports
+M1B_Q2_ENGINEERING_CERTIFIED with n_checked=0. "Nothing to check" and "checked and fine"
+are indistinguishable at the orchestration layer. This directly contradicts the stated
+condition that any fish belonging to the current candidate or an accepted commitment whose
+initial value has not been verified must not count as Omega10 established. A control (B4)
+shows the comparison itself is correct, so the hole is coverage, not logic.
+One qualification is added to the Q2 report WITHOUT rewriting it: its Omega10 description
+claims the gate also reads revealed orders the candidate references, but no code reads
+those initial values; B1 is the minimal counterexample.
+
+EIGHT NOT_ESTABLISHED cases: A2 (unregistered service time), A3 (module-global
+_SERVICE_TIME_CACHE keyed by node only, with no instance identity, so a forgotten
+re-registration silently reuses another instance), A4 (committed suffix omission),
+A5 (a WAIT vehicle is timed as "return now" while the certified candidate plan actually
+continues to customer 7 - the gate times a different object than the one it certifies),
+A6 (closed vehicles skip return_finish entirely, so a historical breach is invisible),
+B3 (initial_quality_by_node / temp_class_of / quantity_of all accept whole-node tables and
+so can carry unrevealed-order data), C2 (the M1-b receipt is not consumed by
+run_repair_transaction; no production caller; the two state-identity notions are not
+joined), C3 (the M1-b composite excludes the M1-a legality/repair/partition/route checks
+and excludes certify_plan).
+
+ONE PROMOTION PATH: NOT_VERIFIED_CONTINUOUSLY still yields THERMAL_HARD_OK=True, and the
+caveat lives only inside the per-vehicle detail, while the top-level field and
+composite_pass do not carry it. A downstream reader inspecting only THERMAL_HARD_OK cannot
+distinguish a sampled guarantee from a continuous one.
+
+WHAT composite_pass=True PROVES, MEASURED: it proves the contract identity, snapshot
+isolation and post-state consistency, the CHECKED lots' initial values, the SAMPLED return
+within the deadline, the SAMPLED temperature envelope within the hard bounds, and the
+analytic quality lower bound above threshold. It does NOT prove the M1-a checks, the real
+C0 certify_plan, unrevealed or candidate-only fish initial values, continuous-time
+temperature feasibility, correct waiting/service-time accounting, or any production
+installability.
+
+IMPACT ON PRODUCTION INSTALLABILITY: it stays NOT ESTABLISHED, and the reading "only wiring
+is missing" is now false - an internally consistent synthetic input can already pass
+Omega11 wrongly or pass the composite without Omega10 being established, so wiring the
+certifier to the commit path would still admit those trajectories.
+
+MINIMAL FIXES PROPOSED, NOT IMPLEMENTED (the instruction is to record and stop):
+F-A1 apply start = max(arrive, tw_start) with tw_start injected through a public interface;
+F-A2 refuse when a service time is unregistered instead of defaulting to zero; F-A3 bind the
+service-time table to the snapshot identity and drop the module-global cache; F-A4 continue
+the replay through plan.suffix after the committed leg; F-A5 always time the candidate being
+certified and record which object was used; F-A6 audit closed vehicles' return_finish;
+F-B1 extend the default lot provider to candidate-referenced revealed fish and committed
+visible fish and make checked == 0 a refusal; F-C1 add a separate THERMAL_CONTINUOUS_OK
+field (or rename to THERMAL_SAMPLED_OK) that the composite must also satisfy.
+Required regression for any fix: the 49 Q2 checks must still pass, A1/A2b/A4b/B1 must flip
+to refusal, C1 must become non-promotable, the 11 independent checks must stay at 0
+disagreement, and M1-a S-1..S-17 plus its verifier must show no regression.
+
+Q3 VERDICT: NOT ELIGIBLE. Recorded as Q3_NOT_ELIGIBLE_PENDING_Q2_FIX. Freezing eligibility
+while the eligibility gates themselves have reproducible false passes would fix a defect
+into a registered fact.
+
+Stopped at M1-b/Q2-R. No M1-b/Q3, no production wiring, no plan installation, no model
+forward, no frozen-tree modification.
