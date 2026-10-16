@@ -1,0 +1,81 @@
+docs(m1b-q3): read-only Q3 qualification design and gap adjudication preparation
+
+M1-b/Q3 read-only design. Adds ONE document. The certified source is NOT modified, no
+production qualification is frozen, no formal experiment is run, no training, no model
+forward, no rollout, no installation, no 40-day batch, no final test. Old reports and old
+adjudications are not overwritten; frozen sources and data are untouched.
+
+  docs/dang-qian-gui-hua/jue-ce-yu-shen-ji/M1b_Q3-zi-ge-she-ji-yu-que-kou-cai-jue-zhun-bei_2026-10-16.md
+
+STATUS OUTPUT
+  Q2_ENGINEERING_CORRECTION_CLOSED_WITH_RESIDUAL_GAPS
+  Q3_DESIGN_READY
+  Q3_FORMAL_FREEZE_NOT_AUTHORISED
+  M2_NOT_AUTHORISED
+
+THE USER'S verified_t_min RESERVATION IS ACCEPTED AND INDEPENDENTLY REPRODUCED
+  m1b_q2_certifier.py:122-139 _resolve_t_min checks only that verified_t_min is present, that a
+  non-None env exists, and that the value is finite, non-negative and <= 1e9. It never derives
+  or verifies a time lower bound FROM the environment, yet it then labels the result
+  VERIFIED_AGAINST_SUPPLIED_ENV.
+  Measured this round (read-only): with no arguments t_min=0.0 gives H_max=24.000001 and
+  q_lb=8.54807998017; with verified_t_min=1e6 plus an env it accepts t_min=1000000.0, labels it
+  VERIFIED_AGAINST_SUPPLIED_ENV, collapses H_max to 0.0 and raises q_lb to 8.999999999 - the
+  initial value. verified_t_min=24.0 gives H_max=1e-6 and q_lb=8.99999998017.
+  So this is mathematically the SAME risk as the already-closed bare t_min override, reached
+  through a new parameter, and the env is never consulted.
+  Grading is therefore refined without rewriting the earlier report: the three projection
+  bypasses are supported by evidence, B1 is explicitly refused in code, the bare t_min override
+  is closed, but "verified_t_min genuinely certified against the environment" is NOT
+  established, and complete installability certification remains NOT established.
+  Registered as the new Q3 prerequisite blocker G-TMIN. Per the user's guidance there is no new
+  Q2 repair campaign: Q3 design conservatively fixes t_min = 0 and the
+  VERIFIED_AGAINST_SUPPLIED_ENV label must NOT be read as completed verification.
+
+TASK 1 - THE CURRENT QUALIFICATION MATRIX
+  Reported in five separated classes, with all historical conclusions preserved rather than
+  merged: established engineering mechanisms (E1-E9), properties supported only by synthetic
+  negative controls (S1-S4), properties whose mathematical proof is not established (M1-M3),
+  properties whose production wiring is not established (P1-P5), and the scientific criteria the
+  user still has to sign. G-TMIN is listed separately as section 1.6.
+
+TASK 2 - CONTINUOUS-TIME TEMPERATURE PROOF SPECIFICATION (read-only)
+  The executor per segment is mapped step by step to coldchain_state.py (segment duration
+  :208-211, heat transfer :366-372, cooling :373-379, door event :413-430, dispatch :109-111).
+  Three structural facts are recorded: max(target, .) makes target a LOWER bound; every zone's
+  equilibrium ambient - c/h lies BELOW its target (15.0 / -6.25 / -41.667 versus 18 / 4 / -18) so
+  in the absence of a door event the segment holds constant at target; and the only mechanism
+  that exceeds target is the door event, whose increment is exactly door_heat/thermal_capacity
+  (0.0333 / 0.0875 / 0.1200 C). The intra-segment extremes therefore reduce to the FINITE
+  candidate set {T0, T0 + delta_door} for the maximum and {segment end, target} for the minimum -
+  provable in principle, but only under four premises that must each be frozen and independently
+  audited. Applicability domain covers active zones, initial state, WAIT, committed, returning,
+  closed, time unit and t_min = 0. Provable propositions P-1..P-4 and unproven N-1..N-4 are
+  listed separately. Fail-closed rules are given for every case where the numerical executor and
+  the analytic model could diverge. The existing minimum counterexample (Q2-R T-Q2-5a,
+  consecutive doors accumulating warming) is cited as the reason the specification is needed, and
+  five new counterexamples CT-1..CT-5 are specified but NOT implemented. No proof hook is added
+  and no finite-sample diagnostic is upgraded to a continuous-time guarantee.
+
+TASK 3 - REVIEW OF THE EXISTING L2 DRAFT, NOT A NEW ONE
+  The existing draft L2_ke-ren-zheng-jue-ce-zhi-liang_qi-yao-su-yu-deng-ji-cao-an_2026-10-16.md
+  is reviewed as-is (status PREREG_DRAFT_FOR_USER_SIGNATURE / NOT_AUTHORISED) together with its
+  parent V1.18 escalation preregistration and the roadmap. It already covers the seven elements
+  and already preserves the open items, so it is NOT redesigned. Six decision items are tabulated,
+  each tagged FACT / INFERENCE / UNKNOWN / USER_DECISION_REQUIRED: the C0 budget B calibration
+  options, the L2 primary quality function with cert_fail accounting and delta_L2, whether L1
+  BLOCKED satisfies the L2 precondition, the minimal joint certification architecture for G5/G6
+  and C2/C3, the fresh-development-day and day-clustered bootstrap and equal-budget freezing
+  rules, and the F weight / historical backbone identity limits. G-TMIN is added as a seventh
+  item to be folded into item 5 or carried separately. No threshold is chosen and nothing is
+  signed on the user's behalf.
+
+UNCHANGED: L1 BLOCKED (never rewritten as PASS), L2 not established, A3 not established,
+stable_online_gain=False, HISTORICAL_BACKBONE_UNVERIFIED, the I3 negative result, D2
+not_qualified, D3 G0 not passed, D8 CAPABILITY_GAP_BLOCKING, E2 no qualified result, C0
+AWAITING_USER_BUDGET_RULING, and the final test seeds 20260927/20260928 SEALED.
+
+The recorded next-stage investment order is: continuous-temperature proof, then unified
+certification and the C0 budget, then L2 criteria signature, then a qualified formal quality
+comparison. FULL_INSTALLABILITY_ESTABLISHED, L2_PASS, A3_PASS and stable_online_gain=True are
+NOT written. Design complete; stopping for user adjudication.
