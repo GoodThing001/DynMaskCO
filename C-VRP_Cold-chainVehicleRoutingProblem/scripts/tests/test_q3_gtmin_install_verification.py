@@ -391,10 +391,12 @@ def main():
             'certifier_worktree_sha256': cert_worktree_sha,
             'certifier_blob_sha256': cert_blob,
             'certifier_worktree_equals_blob': cert_worktree_eq_blob,
-            'numstat_caveat': ('numstat diffs RAW BYTES.  This file is not pinned in '
-                               'scripts/.gitattributes, so a checkout holding CRLF makes every line '
-                               'count as changed; the authoritative diff is the line-level one above, '
-                               'which is computed after universal-newline normalisation'),
+            'numstat_caveat': ('this file is not pinned in scripts/.gitattributes, so a checkout may '
+                               'hold it as CRLF while the blob is LF (measured in a real clone: '
+                               '34606 B / 599 CRLF vs 34007 B / 0 CRLF).  The BYTES therefore differ, '
+                               'but `git diff --no-index --numstat` still reports 43/21 because it '
+                               'normalises line endings -- so numstat is not a byte-identity witness on '
+                               'its own, and the authoritative diff is the line-level one above'),
             'note': 'the "the certifier is dirty" clause was removed after this file was committed: it '
                     'was only true before the commit, and a delivered test must pass in the committed '
                     'state too.  Whether the change is still uncommitted is reported separately.'},
