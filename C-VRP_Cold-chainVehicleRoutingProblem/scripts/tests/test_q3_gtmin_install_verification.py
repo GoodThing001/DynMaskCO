@@ -22,7 +22,10 @@ authorisation demands and the classification of every superseded control.
            V-07  no receipt carries the forbidden label
            V-08  the install path is untouched (`run_repair_transaction` not imported, d3_geo_adapter
                  and d3_install_receipt hashes unchanged)
-           V-09  HEAD unchanged, no commit, only the authorised file modified
+           V-09  no collateral edit: every modified tracked path inside the extension root belongs to
+                 the declared delivery set (HEAD equality is reported, not asserted -- the test ships
+                 inside the same commit it verifies)
+           V-10  supersession ledger; V-11 hostile `__repr__`; V-12 line-ending-independent identity
 
 Usage: python scripts/tests/test_q3_gtmin_install_verification.py --out <json path>
 """
@@ -209,6 +212,21 @@ def sha256(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
+def blob_sha(rel_path, rev='HEAD'):
+    """sha256 of the COMMITTED blob, which is the portable identity.
+
+    A worktree digest is NOT a portable identity in this repository: `core.autocrlf=true` means an
+    unpinned text file is checked out as CRLF, so the same committed content hashes differently in
+    the authoring worktree (LF) and in a fresh clone (CRLF).  Measured here: for
+    `m1a_certification_adapter.py` the worktree digest is d06ec784... while the blob is da206292...
+    -- the worktree value is reproducible only on a machine that happens to hold LF.  Identity
+    comparisons therefore use the blob.
+    """
+    raw = subprocess.run(['git', 'show', '%s:%s' % (rev, rel_path)],
+                         cwd=str(EXT.parent), capture_output=True).stdout
+    return (hashlib.sha256(raw).hexdigest() if raw else None)
+
+
 class HostileEnv(object):
     def __getattr__(self, name):
         raise AssertionError('the resolver read env.%s' % name)
@@ -255,7 +273,9 @@ def main():
                     help='treat the local evidence (PRE_FIX copy + local suites) as absent, so the '
                          'SKIP path can be verified deterministically')
     args = ap.parse_args()
-    new_sha = sha256(CERT)
+    # identity of the post-fix source: the COMMITTED BLOB when available (portable), else the worktree
+    new_sha = blob_sha(CERT_REL) or sha256(CERT)
+    new_sha_basis = 'committed blob' if blob_sha(CERT_REL) else 'worktree (git unavailable)'
     # The PRE-FIX source is ACQUIRED (and identity-checked) before anything reads it, and every use
     # below is guarded on `prefix_path is not None`.  The previous version read
     # `Path(PRE_FIX).read_text()` before the SKIP decision, so a genuinely clean checkout would have
@@ -313,9 +333,30 @@ def main():
     allowed_old = set()
     for _tag, _lo, _hi, _why in ALLOWED_REGIONS:
         allowed_old |= set(range(_lo, _hi + 1))
-    status = subprocess.run(['git', 'status', '--porcelain'], cwd=str(EXT.parent),
-                            capture_output=True, text=True).stdout.splitlines()
-    modified = [ln[3:].strip() for ln in status if ln[:2] in (' M', 'M ', 'MM')]
+    # The workspace-state probe is scoped to the extension root (`-- .`) and asks git NOT to escape
+    # non-ASCII bytes.  Both parts are load-bearing:
+    #   * `-- .` excludes the phantom gitlink `CC_Compare/MAPT_code`, which is dirty as a pre-existing
+    #     state of a *different* workspace area and is never part of a DynMaskCO-CC delivery (a
+    #     substring allowlist inside the assertion would hide a real collateral edit elsewhere);
+    #   * `core.quotePath=false` is required for the Chinese delivery filenames to be comparable at
+    #     all -- with the default escaping the porcelain text contains `\345\275\...` octal runs and
+    #     no UTF-8 suffix can ever match, so the check would fail on its own allowance list.
+    def _scoped_status():
+        raw = subprocess.run(['git', '-c', 'core.quotePath=false', 'status', '--porcelain', '--', '.'],
+                             cwd=str(EXT), capture_output=True, text=True,
+                             encoding='utf-8', errors='replace').stdout.splitlines()
+        prefix = EXT.name.replace('\\', '/') + '/'
+
+        def _rel(path):
+            path = path.replace('\\', '/').strip('"')
+            return path[len(prefix):] if path.startswith(prefix) else path
+
+        return raw, _rel
+
+    _raw_status, _rel = _scoped_status()
+    # every non-untracked porcelain code (staged, unstaged, deleted, renamed) counts as a change
+    modified = [_rel(ln[3:].strip()) for ln in _raw_status if ln[:2] not in ('??', '!!')]
+    untracked = [_rel(ln[3:].strip()) for ln in _raw_status if ln[:2] == '??']
     forbidden_touched = [p for p in modified
                          if p.replace('\\', '/').endswith(('d3_geo_adapter.py',
                                                            'd3_install_receipt.py',
@@ -458,6 +499,7 @@ def main():
        'transferred to the new source',
        new_sha != pre_sha and pre_sha == OLD_SHA and new_sha != OLD_SHA,
        {'pre_fix_sha256': pre_sha, 'post_fix_sha256': new_sha,
+        'post_fix_sha256_basis': new_sha_basis,
         'pre_fix_copy_path': str(PRE_FIX.relative_to(EXT)),
         'pre_fix_copy_matches_pinned_identity': pre_sha == OLD_SHA,
         'pins_source': str(PIN_REPORT.relative_to(EXT)),
@@ -551,51 +593,91 @@ def main():
        conclusion='the misnamed label cannot be produced any more')
 
     # ============================================================ V-08 install path untouched
+    # Identity is taken from the COMMITTED BLOB, not from the worktree: `core.autocrlf=true` rewrites
+    # unpinned text files to CRLF on checkout, so a worktree digest is not reproducible in a clone.
     inst = {p: PINS[p] for p in UNCHANGED_PINS if p in PINS}
     have_pins = len(inst) == len(UNCHANGED_PINS)
-    drift8 = {k: {'expected': v,
-                  'actual': sha256(EXT / k.split('/', 1)[1])} for k, v in inst.items()
-              if sha256(EXT / k.split('/', 1)[1]) != v}
+    blob_now = {k: blob_sha(k) for k in inst}
+    worktree_now = {k: sha256(EXT / k.split('/', 1)[1]) for k in inst}
+    drift8 = {k: {'expected_blob': v, 'actual_blob': blob_now[k],
+                  'worktree': worktree_now[k],
+                  'worktree_is_portable': worktree_now[k] == blob_now[k]}
+              for k, v in inst.items() if blob_now[k] != v}
+    line_ending_hazard = sorted(k for k in inst
+                                if worktree_now[k] is not None and blob_now[k] is not None
+                                and worktree_now[k] != blob_now[k])
     import_ok = 'run_repair_transaction' not in CERT.read_text(encoding='utf-8')
     if not have_pins:
         ck_skip('V-08', 'install path untouched', 'the digest pins are not readable from the '
                 'acceptance record', {'pinned_entries_found': sorted(inst)})
     else:
         ck('V-08', 'the install path and the Q3 evidence chain are untouched: the geo adapter, the D8 '
-           'receipt writer, the M1-a adapter and the executor keep their pinned digests, and the '
+           'receipt writer, the M1-a adapter and the executor keep their pinned BLOB digests, and the '
            'certifier does not reference run_repair_transaction',
            not drift8 and import_ok,
-           {'drift': drift8, 'certifier_references_install_entry': not import_ok,
+           {'drift_vs_pin': drift8, 'certifier_references_install_entry': not import_ok,
+            'identity_source': 'committed blob (portable across checkouts)',
+            'worktree_digest_differs_from_blob': line_ending_hazard,
             'pins_source': str(PIN_REPORT.relative_to(EXT))},
            conclusion='the fix cannot reach the installation boundary')
+
+    # ============================================================ V-12 portable identity
+    # A digest that only reproduces in the authoring worktree is not an identity.  This row records
+    # which of the four pinned files are CRLF-vs-LF divergent and therefore MUST NOT be compared by
+    # worktree bytes, and it asserts that every pinned comparison used the blob.
+    ck('V-12', 'the identity basis is line-ending independent: every pinned file is compared by its '
+       'committed blob, and the files whose worktree bytes differ from their blob (autocrlf CRLF '
+       'injection) are recorded instead of silently hashing them',
+       True if not have_pins else all(blob_now[k] is not None for k in inst),
+       {'worktree_digest_differs_from_blob': line_ending_hazard,
+        'note': 'a worktree digest would be reproducible only on a machine holding LF; the pinned '
+                'digest for m1a_certification_adapter.py in the earlier acceptance record was exactly '
+                'such a value and is re-pinned to the blob digest in the errata record',
+        'per_file': {k.split('/')[-1]: {'blob': blob_now[k], 'worktree': worktree_now[k]}
+                     for k in inst}},
+       conclusion='identity is portable across checkouts')
 
     # ============================================================ V-09 workspace state
     head = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=str(EXT.parent), capture_output=True,
                           text=True).stdout.strip()
     modified_all = modified
     # "no collateral edit" = every modified TRACKED path is one this delivery is authorised to touch.
-    # The set is stated here rather than "only the certifier", because the delivered test and the two
-    # acceptance records are part of the same delivery and are legitimately dirty until committed.
-    AUTHORISED_SUFFIXES = (
-        'scripts/m1b_adapter/m1b_q2_certifier.py',
-        'scripts/tests/test_q3_gtmin_install_verification.py',
-        'GTMIN严格判定与受控实施验收_2026-10-17.md',
-        'GTMIN安全补正与选择性交付验收_2026-10-17.md',
+    # The set is stated here rather than "only the certifier", because the delivered test and the
+    # acceptance/errata records are part of the same delivery and are legitimately dirty while they
+    # are still being written.  Each entry states its role, so an addition has to be argued for.
+    DELIVERY_SET = (
+        ('scripts/m1b_adapter/m1b_q2_certifier.py',
+         'the fix under test (problem A: stop retaining the caller object)'),
+        ('scripts/tests/test_q3_gtmin_install_verification.py',
+         'this test -- it cannot be clean while it is the thing being edited'),
+        ('GTMIN严格判定与受控实施验收_2026-10-17.md',
+         'acceptance record of the first G-TMIN delivery'),
+        ('GTMIN安全补正与选择性交付验收_2026-10-17.md',
+         'acceptance record holding the byte pin block (read, never edited)'),
+        ('GTMIN交付后独立勘误_对象保留与复现性_2026-10-17.md',
+         'errata record for problems A/B/C -- appended to across runs, hence dirty until committed'),
     )
     unexpected = [p for p in modified_all
-                  if not any(p.replace('\\', '/').endswith(suf) for suf in AUTHORISED_SUFFIXES)
-                  and 'CC_Compare/MAPT_code' not in p]
+                  if not any(p.replace('\\', '/').endswith(name) for name, _why in DELIVERY_SET)]
     cert_still_dirty = any(p.replace('\\', '/').endswith('m1b_q2_certifier.py') for p in modified_all)
     ck('V-09', 'workspace discipline: no collateral edit exists -- every modified tracked path belongs '
-       'to this delivery set; the check reports whether the change is still uncommitted',
+       'to the declared delivery set; the check reports whether the change is still uncommitted',
        not unexpected,
        {'head': head, 'head_is_baseline': head == '759fe7fb81dd869c212a28eed352f82ff99a1b1e',
         'modified_tracked': modified_all, 'unexpected': unexpected,
-        'authorised_suffixes': list(AUTHORISED_SUFFIXES),
+        'delivery_set': [{'path': name, 'role': why} for name, why in DELIVERY_SET],
         'certifier_change_uncommitted': cert_still_dirty,
+        'status_scope': {'cwd': str(EXT.name), 'pathspec': ['.'],
+                         'quote_path': False,
+                         'excluded_by_scope': ['CC_Compare/MAPT_code (phantom gitlink, '
+                                               'pre-existing dirty state of another area)'],
+                         'untracked_in_scope_n': len(untracked),
+                         'untracked_note': 'local-only experimental assets (q3_* probes, twin '
+                                           'directories) are a registered pre-existing state and are '
+                                           'never delivered; they are reported, not asserted'},
         'note': 'the HEAD equality is not asserted: this file is delivered WITH the change, so a '
                 'post-commit run must not report FAIL merely because the commit exists'},
-       conclusion='no collateral edit; only the authorised delivery files are dirty')
+       conclusion='no collateral edit; only the declared delivery files are dirty')
 
     # ============================================================ V-11 hostile __repr__ controls
     # The reviewer's finding: a refusal receipt must not render the untrusted object.  `repr()` on
@@ -795,6 +877,7 @@ def main():
         'head': head,
         'baseline_ref': BASELINE_REF, 'prefix_acquisition': prefix_report,
         'pre_fix_sha256': pre_sha, 'post_fix_sha256': new_sha,
+        'post_fix_sha256_basis': new_sha_basis,
         'numstat': numstat,
         'superseded_rows': expected,
         'superseded_observed': observed,
