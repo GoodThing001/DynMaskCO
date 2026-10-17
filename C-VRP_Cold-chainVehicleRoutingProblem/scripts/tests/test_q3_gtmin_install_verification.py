@@ -101,6 +101,10 @@ CERT = EXT / 'scripts/m1b_adapter/m1b_q2_certifier.py'
 PRE_FIX = EXT / 'results/_q3_next_20261017/gtmin/m1b_q2_certifier.py.PRE_FIX'
 CERT_REL = 'C-VRP_Cold-chainVehicleRoutingProblem/scripts/m1b_adapter/m1b_q2_certifier.py'
 PRE_FIX_REL = 'PRE_FIX_COPY'
+#: The recorded baseline the G-TMIN fix was applied on top of.  The PRE-FIX bytes are RECONSTRUCTED
+#: from this commit, so an independent reviewer needs no private local copy: `git show <ref>:<path>`
+#: plus the pinned sha256 is a reproducible derivation.  The local byte copy is only a fallback.
+BASELINE_REF = '759fe7fb81dd869c212a28eed352f82ff99a1b1e'
 
 #: 64-hex digests are kept OUT of this source on purpose.  `m1b_q2_certifier.py`'s own header records
 #: the reason: a literal table of sha256 digests inside a source file trips the repository's staged
@@ -108,22 +112,66 @@ PRE_FIX_REL = 'PRE_FIX_COPY'
 #: keep the single recorded copy in the REPORT rather than to exempt the scanner.  So the expected
 #: digests are parsed from the delivered acceptance record (`<path> = <sha256>` lines).
 PIN_REPORT = (EXT / 'docs/当前规划/决策与审计/GTMIN安全补正与选择性交付验收_2026-10-17.md')
+#: Later acceptance records are parsed AFTER the first one and the last match for a key wins, so a new
+#: record can supersede a stale digest WITHOUT rewriting the earlier file (append-only).
+PIN_REPORTS = (PIN_REPORT,
+               EXT / 'docs/当前规划/决策与审计/GTMIN交付后独立勘误_对象保留与复现性_2026-10-17.md')
 _PIN_RX = __import__('re').compile(r'^\s*(\S+\.py|PRE_FIX_COPY)\s*=\s*([0-9a-f]{64})\s*$')
 
 
 def pinned_digests():
-    if not PIN_REPORT.exists():
-        return {}
     out = {}
-    for line in PIN_REPORT.read_text(encoding='utf-8').splitlines():
-        m = _PIN_RX.match(line)
-        if m:
-            out[m.group(1)] = m.group(2)
+    for rep in PIN_REPORTS:
+        if not rep.exists():
+            continue
+        for line in rep.read_text(encoding='utf-8').splitlines():
+            m = _PIN_RX.match(line)
+            if m:
+                out[m.group(1)] = m.group(2)
     return out
 
 
 PINS = pinned_digests()
 OLD_SHA = PINS.get(PRE_FIX_REL)
+
+
+def acquire_prefix(workdir):
+    """Materialise the PRE-FIX source and prove its identity.
+
+    Preferred derivation: the committed baseline blob, `git show <BASELINE_REF>:<CERT_REL>`, whose
+    sha256 must equal the pinned PRE-FIX digest.  That is reproducible from the repository alone.
+    The private local byte copy is a fallback and is used ONLY if it matches the same pin.  If neither
+    source yields a digest-matching file the caller must SKIP -- it must never fall back to reading a
+    path that does not exist.
+    """
+    import hashlib as _h
+    rep = {'baseline_ref': BASELINE_REF, 'pin_expected': OLD_SHA, 'attempts': []}
+    try:
+        raw = subprocess.run(['git', 'show', '%s:%s' % (BASELINE_REF, CERT_REL)],
+                             cwd=str(EXT.parent), capture_output=True).stdout
+    except Exception as exc:                                              # noqa: BLE001
+        raw = b''
+        rep['attempts'].append({'source': 'git baseline blob',
+                                'error': '%s: %s' % (type(exc).__name__, exc)})
+    if raw:
+        digest = _h.sha256(raw).hexdigest()
+        ok = (digest == OLD_SHA)
+        rep['attempts'].append({'source': 'git baseline blob', 'bytes': len(raw),
+                                'sha256': digest, 'matches_pin': ok})
+        if ok:
+            p = workdir / 'm1b_q2_certifier.PRE_FIX_from_git.py'
+            p.write_bytes(raw)
+            rep.update(source='git baseline blob', path=str(p), sha256=digest, matched=True)
+            return p, rep
+    if PRE_FIX.exists():
+        digest = sha256(PRE_FIX)
+        ok = (digest == OLD_SHA)
+        rep['attempts'].append({'source': 'local private copy', 'sha256': digest, 'matches_pin': ok})
+        if ok:
+            rep.update(source='local private copy', path=str(PRE_FIX), sha256=digest, matched=True)
+            return PRE_FIX, rep
+    rep.update(source=None, matched=False)
+    return None, rep
 UNCHANGED_PINS = (
     'C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_geo_adapter.py',
     'C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_install_receipt.py',
@@ -180,7 +228,7 @@ def certify_probe(**kw):
             'final': rc['final'], 'composite_pass': rc['composite_pass'],
             'gates': sorted(rc.get('gates', {}).keys()),
             't_min_gate': (rc.get('gates', {}).get('t_min') or {}).get('verdict'),
-            'receipt': rc}
+            'cert': c, 'receipt': rc}
 
 
 def q_lb(t_min):
@@ -208,8 +256,13 @@ def main():
                          'SKIP path can be verified deterministically')
     args = ap.parse_args()
     new_sha = sha256(CERT)
-    have_prefix = PRE_FIX.exists()
-    pre_sha = sha256(PRE_FIX) if have_prefix else None
+    # The PRE-FIX source is ACQUIRED (and identity-checked) before anything reads it, and every use
+    # below is guarded on `prefix_path is not None`.  The previous version read
+    # `Path(PRE_FIX).read_text()` before the SKIP decision, so a genuinely clean checkout would have
+    # crashed instead of skipping -- the simulator hid that because the file was still present.
+    work_dir = Path(__import__('tempfile').mkdtemp(prefix='gtmin_verify_'))
+    prefix_path, prefix_report = acquire_prefix(work_dir)
+    have_prefix = prefix_path is not None
     local_suites = {n: (EXT / 'scripts/tests' / n).exists()
                     for n in ('test_q3_g_tmin_candidate.py', 'test_q3_g_tmin_v2.py',
                               'test_q3_archive_regression.py',
@@ -217,14 +270,20 @@ def main():
                               'q3_theorem_b_audit.py')}
     have_local_suites = all(local_suites.values())
     if args.simulate_fresh_checkout:
+        # block BOTH derivations, so this really behaves like a checkout with neither the baseline
+        # commit nor the private copy: nothing may be read, and the affected rows must SKIP cleanly
+        prefix_path = None
         have_prefix = False
         have_local_suites = False
+    pre_sha = sha256(prefix_path) if have_prefix else None
 
     # ============================================================ V-01 diff scope
-    numstat = subprocess.run(['git', 'diff', '--no-index', '--numstat', '--',
-                              str(PRE_FIX), str(CERT)],
-                             capture_output=True, text=True).stdout.strip()
-    body = Path(PRE_FIX).read_text(encoding='utf-8').splitlines()
+    # NOTHING below touches the PRE-FIX path unless it was acquired and identity-checked above.
+    body = prefix_path.read_text(encoding='utf-8').splitlines() if have_prefix else []
+    numstat = (subprocess.run(['git', 'diff', '--no-index', '--numstat', '--',
+                               str(prefix_path), str(CERT)],
+                              capture_output=True, text=True).stdout.strip()
+               if have_prefix else '')
     now = CERT.read_text(encoding='utf-8').splitlines()
     import difflib
     sm = difflib.SequenceMatcher(None, body, now)
@@ -234,8 +293,26 @@ def main():
             continue
         changed_old.extend(range(i1 + 1, i2 + 1))
         changed_new.extend(range(j1 + 1, j2 + 1))
-    # allowed regions: _resolve_t_min (old 122-139) and the gate-0 area (old 182-192)
-    allowed_old = set(range(122, 140)) | set(range(182, 193))
+    # ALLOWED PRE-FIX LINE REGIONS for the authorised change set.  Each region carries the authority
+    # that permitted it, so a later reader can tell an authorised extension from a scope leak:
+    #   R1  122-139  `_resolve_t_min`          -- first G-TMIN fix (numeric fallback + label)
+    #   R2  182-192  gate 0b insertion point   -- first G-TMIN fix (receipt refusal)
+    #   R3   96-105  constructor block         -- ERRATA ROUND, problem A: the caller object is no
+    #                                             longer retained; `verified_t_min` became
+    #                                             `t_min_claim_supplied` (a bool).  Authorised by the
+    #                                             post-delivery review after the object-retention
+    #                                             contradiction was found.
+    # R3 was added AFTER the delivered test reported the constructor hunk as out of scope; that is the
+    # check doing its job, not a relaxation -- the substantive rule (no changed line outside the
+    # authorised set) is unchanged.
+    ALLOWED_REGIONS = (
+        ('R3', 96, 105, 'constructor block -- problem A (stop retaining the caller object)'),
+        ('R1', 122, 139, '_resolve_t_min -- first G-TMIN fix'),
+        ('R2', 182, 192, 'gate 0b -- first G-TMIN fix'),
+    )
+    allowed_old = set()
+    for _tag, _lo, _hi, _why in ALLOWED_REGIONS:
+        allowed_old |= set(range(_lo, _hi + 1))
     status = subprocess.run(['git', 'status', '--porcelain'], cwd=str(EXT.parent),
                             capture_output=True, text=True).stdout.splitlines()
     modified = [ln[3:].strip() for ln in status if ln[:2] in (' M', 'M ', 'MM')]
@@ -258,6 +335,8 @@ def main():
            {'numstat': numstat, 'n_changed_old_lines': len(changed_old),
             'n_changed_new_lines': len(changed_new),
             'changed_old_lines': changed_old, 'allowed_old_regions': sorted(allowed_old),
+            'allowed_region_sources': [{'id': t, 'pre_fix_lines': [lo, hi], 'authority': w}
+                                       for t, lo, hi, w in ALLOWED_REGIONS],
             'modified_tracked_files': modified, 'forbidden_touched': forbidden_touched,
             'certifier_uncommitted_in_worktree': bool(cert_in_status),
             'new_sha256': new_sha, 'old_sha256': pre_sha,
@@ -314,21 +393,26 @@ def main():
     c = certify_probe(verified_t_min=1e6, env=HostileEnv())
     core = lambda r: (r['t_min'], r['source'], r['t_min_gate'], r['final'], r['composite_pass'])
     src_now = CERT.read_text(encoding='utf-8')
-    src_old = Path(PRE_FIX).read_text(encoding='utf-8')
+    src_old = prefix_path.read_text(encoding='utf-8') if have_prefix else None
     env_uses_now = src_now.count('self.env')
-    env_uses_old = src_old.count('self.env')
-    projection_check_kept = ('assert_visible_set_matches_env' in src_now
-                             and src_now.count('assert_visible_set_matches_env')
-                             == src_old.count('assert_visible_set_matches_env'))
+    env_uses_old = src_old.count('self.env') if src_old is not None else None
+    if src_old is not None:
+        projection_check_kept = ('assert_visible_set_matches_env' in src_now
+                                 and src_now.count('assert_visible_set_matches_env')
+                                 == src_old.count('assert_visible_set_matches_env'))
+        env_count_removed_exactly_one = (env_uses_now == env_uses_old - 1)
+    else:
+        # without the PRE-FIX source the delta cannot be measured; the PRESENCE assertions still hold
+        projection_check_kept = 'assert_visible_set_matches_env' in src_now
+        env_count_removed_exactly_one = env_uses_now >= 1
     ck('V-03', 'CHECK 3 -- independence: env=object() / a hostile env / no env give the SAME t_min '
        'conclusion; and the OTHER uses of `env` (the trusted-projection re-verification) are preserved '
        'rather than deleted with the fix',
-       core(a) == core(b) == core(c) and projection_check_kept
-       and env_uses_now == env_uses_old - 1,
+       core(a) == core(b) == core(c) and projection_check_kept and env_count_removed_exactly_one,
        {'no_env': core(a), 'env_object': core(b), 'hostile_env': core(c),
         'conclusions_identical': core(a) == core(b) == core(c),
         'self_env_uses_pre_fix': env_uses_old, 'self_env_uses_post_fix': env_uses_now,
-        'expected_removed': 1,
+        'env_count_comparison_available': src_old is not None,
         'projection_env_check_preserved': projection_check_kept,
         'why_it_matters': 'env is still needed by PP.assert_visible_set_matches_env; removing it '
                           'wholesale would have broken a working mechanism'},
@@ -394,15 +478,16 @@ def main():
                'test_m1b_q2fixt_trust_boundary.py')
     reg = {}
     ok6 = True
-    if args.skip_callers:
-        reg['skipped'] = True
+    if args.skip_callers or not have_prefix:
+        reg['skipped'] = ('--skip-callers' if args.skip_callers
+                          else 'the PRE-FIX source could not be acquired')
     else:
         import shutil
         import tempfile
         tmpdir = Path(tempfile.mkdtemp(prefix='gtmin_prefix_'))
         for f in sorted((EXT / 'scripts/m1b_adapter').glob('*.py')):
             shutil.copy(f, tmpdir / f.name)
-        shutil.copy(PRE_FIX, tmpdir / 'm1b_q2_certifier.py')
+        shutil.copy(prefix_path, tmpdir / 'm1b_q2_certifier.py')
         for name in callers:
             live = subprocess.run([sys.executable, str(EXT / 'scripts/tests' / name)],
                                   cwd=str(EXT), capture_output=True, text=True)
@@ -561,7 +646,14 @@ def main():
         gate = {} if r is None else (r['receipt'].get('gates', {}).get('t_min') or {})
         detail = gate.get('detail') or {}
         blob = json.dumps(r['receipt'], default=str) if r is not None else ''
+        # CHECK A (object retention): the certifier must not hold the caller's object at all, and must
+        # not even expose an attribute under the old name -- otherwise a later state dump could still
+        # reach caller code after the refusal decision.
+        attrs = vars(r['cert']) if r is not None else {}
+        retained = [a for a, v in attrs.items() if v is obj]
+        old_attr_present = 'verified_t_min' in attrs
         good = (raised is None and r is not None and not called
+                and not retained and not old_attr_present
                 and r['t_min'] == 0.0
                 and r['final'] == ENGINEERING_REFUSED
                 and r['composite_pass'] is False
@@ -574,22 +666,28 @@ def main():
                 and (getattr(obj, 'effects', None) in (None, [])))
         ok11 = ok11 and good
         hostile_rows.append({'case': label, 'raised': raised, 'dunder_called': called,
+                             'object_retained_by_certifier': retained,
+                             'legacy_attribute_present': old_attr_present,
                              't_min': None if r is None else r['t_min'],
                              'final': None if r is None else r['final'],
                              'composite_pass': None if r is None else r['composite_pass'],
                              'gate_detail': detail,
                              'marker_leaked': (LEAK_MARKER in blob) if r is not None else None,
                              'side_effects': getattr(obj, 'effects', None), 'ok': good})
-    ck('V-11', 'a refusal receipt never renders the untrusted object: for a `__repr__` that raises, one '
-       'that returns a leak marker, and one with observable side effects, the dunder is NOT called, the '
-       'certification still returns REFUSED with a fixed reason code, and no caller value reaches the '
-       'receipt',
+    ck('V-11', 'a refusal receipt never renders the untrusted object AND the certifier never retains it: '
+       'for a `__repr__` that raises, one that returns a leak marker, and one with observable side '
+       'effects, the dunder is NOT called, no instance attribute holds the caller object, the legacy '
+       '`verified_t_min` attribute is gone, and the certification still returns REFUSED with a fixed '
+       'reason code',
        ok11,
        {'cases': hostile_rows, 'dunder_call_counts': repr_calls,
         'receipt_detail_contract': {'claim_supplied': True, 't_min_used': 0.0,
                                     'reason_code': 'UNVERIFIED_T_MIN_WITHOUT_TRUSTED_WITNESS'},
-        'forbidden_in_detail': 'value_received (removed by the safety correction)'},
-       conclusion='the refusal path is free of caller-code execution and of value disclosure')
+        'forbidden_in_detail': 'value_received (removed by the safety correction)',
+        'retention_contract': ('only `t_min_claim_supplied` (a bool) survives; the object and the '
+                               '`verified_t_min` attribute no longer exist on the instance')},
+       conclusion='the refusal path is free of caller-code execution, of value disclosure, and of '
+                  'caller-object retention')
 
     # ============================================================ V-10 superseded-row ledger
     # A fix to a defect makes the controls that ASSERTED the defect fail.  That is expected, and it is
@@ -671,10 +769,31 @@ def main():
                       'defect; a fix that changes an UNDECLARED outcome is a regression'},
        conclusion='the change is fully accounted for: exactly the pre-fix assertions moved')
 
+    # ---------------------------------------------------------------- qualification label
+    # A SKIP is NOT a pass.  The previous version printed an unconditional
+    # `GTMIN_INSTALL_VERIFICATION_PASS` whenever no row FAILED, so a checkout that could evaluate
+    # only a subset still read as a clean qualification.  The three states are now distinct:
+    #   PASS       every required check actually ran and passed
+    #   INCOMPLETE at least one required check could not be evaluated (SKIP) and none failed
+    #   FAIL       at least one required check failed
+    n_pass = sum(1 for r in ROWS if r['status'] == 'PASS')
+    n_skip = sum(1 for r in ROWS if r['status'] == 'SKIP')
+    n_fail = sum(1 for r in ROWS if r['status'] == 'FAIL')
+    if n_fail:
+        verdict, why = 'GTMIN_INSTALL_VERIFICATION_FAIL', '%d required check(s) failed' % n_fail
+    elif n_skip:
+        verdict, why = ('GTMIN_INSTALL_VERIFICATION_INCOMPLETE',
+                        '%d required check(s) could not be evaluated in this checkout' % n_skip)
+    else:
+        verdict, why = 'GTMIN_INSTALL_VERIFICATION_PASS', 'all required checks ran and passed'
+
     payload = {
         'schema': 'q3_gtmin_install_verification',
-        'kind': 'DIAGNOSTIC', 'not_for_production': False,
+        # this artifact is a DIAGNOSTIC: it verifies an engineering change, it is not a certificate,
+        # and `not_for_production` must agree with `kind` (it previously said False)
+        'kind': 'DIAGNOSTIC', 'not_for_production': True,
         'head': head,
+        'baseline_ref': BASELINE_REF, 'prefix_acquisition': prefix_report,
         'pre_fix_sha256': pre_sha, 'post_fix_sha256': new_sha,
         'numstat': numstat,
         'superseded_rows': expected,
@@ -682,20 +801,21 @@ def main():
         'authorisation': ('conditional approval of the G-TMIN minimal fix; five pre-installation '
                           'checks implemented as V-01..V-05, supersession ledger as V-10'),
         'rows': ROWS, 'n_rows': len(ROWS),
-        'n_pass': sum(1 for r in ROWS if r['status'] == 'PASS'),
-        'n_skip': sum(1 for r in ROWS if r['status'] == 'SKIP'),
-        'n_fail': sum(1 for r in ROWS if r['status'] == 'FAIL'),
-        'verdict': ('GTMIN_INSTALL_VERIFICATION_PASS' if not any(r['status'] == 'FAIL' for r in ROWS)
-                    else 'GTMIN_INSTALL_VERIFICATION_FAIL'),
+        'n_pass': n_pass, 'n_skip': n_skip, 'n_fail': n_fail,
+        'verdict': verdict, 'verdict_reason': why,
+        'verdict_semantics': ('PASS = every required check ran and passed; INCOMPLETE = at least one '
+                              'could not be evaluated (SKIP) and none failed; FAIL = at least one '
+                              'failed.  A SKIP is never reported as a pass.'),
     }
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, indent=1, sort_keys=True, ensure_ascii=False, default=str),
                    encoding='utf-8')
-    print('\n=== %d checks, %d PASS, %d FAIL -> %s ==='
-          % (len(ROWS), payload['n_pass'], payload['n_fail'], payload['verdict']))
+    print('\n=== %d checks: %d PASS, %d SKIP, %d FAIL -> %s ==='
+          % (len(ROWS), n_pass, n_skip, n_fail, verdict))
+    print('reason:', why)
     print('WROTE', out)
-    return 0 if payload['n_fail'] == 0 else 1
+    return 0 if n_fail == 0 else 1
 
 
 if __name__ == '__main__':

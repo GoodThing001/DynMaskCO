@@ -94,14 +94,19 @@ class M1bQ2TrustFixCertifier(object):
                  epsilon_init=QC.EPSILON_INIT, epsilon_return=RF.EPSILON_RETURN,
                  budget=None, budget_is_synthetic=True, closed_return_history=None,
                  continuous_extremum_proof=None, verified_t_min=None, env=None):
-        # B (final-entry fix).  `t_min` must be an INDEPENDENTLY VERIFIABLE execution-time lower
-        # bound.  The audited version accepted any float, and `t_min = 1e6` collapsed H_max to 0
-        # so Q_LB degenerated to the initial value.  A caller may now only supply `verified_t_min`
-        # together with the `env` that witnesses it; otherwise the conservative clock origin 0.0
-        # is used.  The bare `t_min` keyword is retained for signature compatibility and IGNORED.
+        # B (final-entry fix) + G-TMIN.  `t_min` must be an INDEPENDENTLY VERIFIABLE execution-time
+        # lower bound.  The audited version accepted any float, and `t_min = 1e6` collapsed H_max to 0
+        # so Q_LB degenerated to the initial value.  No trusted witness mechanism exists, so NO value
+        # of `verified_t_min` changes a number and the bare `t_min` keyword stays IGNORED (retained
+        # for signature compatibility only).
+        #
+        # The caller's object is NOT RETAINED.  Only the boolean fact "a claim was supplied" survives:
+        # keeping the object would let a later state dump, a debugging export or an incidental
+        # repr()/str() reach caller-controlled code AFTER the refusal decision, which is exactly the
+        # hazard `_resolve_t_min`'s contract excludes.
         self.env = env
         self.t_min_requested = t_min
-        self.verified_t_min = verified_t_min
+        self.t_min_claim_supplied = verified_t_min is not None
         self.t_min = self._resolve_t_min()
         # F-T1: a proof hook is NOT a supported input.  Rather than raising from the constructor --
         # which would make historical test files crash at construction and hide their real
@@ -133,7 +138,7 @@ class M1bQ2TrustFixCertifier(object):
         `UNVERIFIED_T_MIN_REFUSED`, which is also a refusal trigger.
         """
         self.t_min_source = 'CONSERVATIVE_CLOCK_ORIGIN'
-        self.t_min_refused = self.verified_t_min is not None
+        self.t_min_refused = self.t_min_claim_supplied
         if self.t_min_refused:
             self.t_min_source = 'UNVERIFIED_T_MIN_REFUSED'
         return 0.0
