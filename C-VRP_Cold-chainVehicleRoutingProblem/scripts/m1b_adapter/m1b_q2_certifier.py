@@ -120,23 +120,23 @@ class M1bQ2TrustFixCertifier(object):
         self.test_only = False
 
     def _resolve_t_min(self):
-        """Return the t_min actually used, preferring the conservative clock origin.
+        """Return the t_min actually used: 0.0, unconditionally (G-TMIN fix, 2026-10-17).
 
-        An unverified bound is NEVER accepted: `verified_t_min` counts only when an `env` witness
-        was supplied AND the value is finite, non-negative and not in the future relative to the
-        clock origin.  Anything else falls back to 0.0.
+        No trusted-witness mechanism for a positive execution-time lower bound exists, so NO value of
+        `verified_t_min` may change a number.  A supplied claim is REMEMBERED as a BOOLEAN only, so
+        that `certify()` can REFUSE the receipt: a conservative number is not a passing judgement.
+        The supplied object itself is never stored, never formatted and never logged, because calling
+        `repr()`/`str()` on caller-controlled data would execute caller code inside the certifier and
+        could leak the value into a receipt.  `env` is not a witness and is not consulted here; it
+        remains in use in `certify()` for the trusted-projection check, which this fix does not touch.
+        The pre-fix label claimed a verification the code never performed; it is replaced by
+        `UNVERIFIED_T_MIN_REFUSED`, which is also a refusal trigger.
         """
         self.t_min_source = 'CONSERVATIVE_CLOCK_ORIGIN'
-        if self.verified_t_min is None or self.env is None:
-            return 0.0
-        try:
-            v = float(self.verified_t_min)
-        except Exception:                                                # noqa: BLE001
-            return 0.0
-        if v != v or v < 0 or v > 1e9:
-            return 0.0
-        self.t_min_source = 'VERIFIED_AGAINST_SUPPLIED_ENV'
-        return v
+        self.t_min_refused = self.verified_t_min is not None
+        if self.t_min_refused:
+            self.t_min_source = 'UNVERIFIED_T_MIN_REFUSED'
+        return 0.0
 
     # ------------------------------------------------------------------ main entry
     def certify(self, *, vehicles, served_mask, candidate_plans, clock, inst_idx,
@@ -188,6 +188,23 @@ class M1bQ2TrustFixCertifier(object):
                                   'independently audited, THERMAL_CONTINUOUS_STATE stays '
                                   'THERMAL_CONTINUOUS_NOT_ESTABLISHED',
                            'use_instead': 'M1bQ2TrustFixTestOnlyCertifier for wiring tests'}}
+            return self._refuse(receipt)
+
+        # ---- 0b G-TMIN: an untrusted t_min claim REFUSES the certification --------------------
+        # Authorised minimal fix (2026-10-17).  A conservative number is not a passing judgement:
+        # a caller that supplied a `verified_t_min` must not read `composite_pass = True` as "the
+        # certification is fine".  `t_min` itself is already 0.0 (see `_resolve_t_min`), so the
+        # quality bound is the most conservative one; what changes here is only the verdict.
+        #
+        # The detail carries a FIXED reason code and booleans only.  The supplied value is never
+        # rendered: `repr()` on caller-controlled data would run caller code inside the certifier
+        # (side effects, exceptions, sensitive strings) and could leak it into a receipt.
+        if getattr(self, 't_min_refused', False):
+            receipt['gates']['t_min'] = {
+                'verdict': 'UNVERIFIED_T_MIN_REFUSED',
+                'detail': {'claim_supplied': True,
+                           't_min_used': 0.0,
+                           'reason_code': 'UNVERIFIED_T_MIN_WITHOUT_TRUSTED_WITNESS'}}
             return self._refuse(receipt)
 
         # ---- 1 contract identity -------------------------------------------------
