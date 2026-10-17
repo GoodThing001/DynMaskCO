@@ -276,6 +276,13 @@ def main():
     # identity of the post-fix source: the COMMITTED BLOB when available (portable), else the worktree
     new_sha = blob_sha(CERT_REL) or sha256(CERT)
     new_sha_basis = 'committed blob' if blob_sha(CERT_REL) else 'worktree (git unavailable)'
+    # The certifier itself is NOT pinned in scripts/.gitattributes, so a fresh checkout writes it as
+    # CRLF (measured: 34606 B / 599 CRLF in `git clone`, 34007 B / 0 CRLF in the authoring worktree).
+    # The identity above therefore has to come from the blob, and the raw-byte numstat below has to be
+    # read with that divergence in mind.
+    cert_worktree_sha = sha256(CERT)
+    cert_blob = blob_sha(CERT_REL)
+    cert_worktree_eq_blob = (cert_blob is not None and cert_worktree_sha == cert_blob)
     # The PRE-FIX source is ACQUIRED (and identity-checked) before anything reads it, and every use
     # below is guarded on `prefix_path is not None`.  The previous version read
     # `Path(PRE_FIX).read_text()` before the SKIP decision, so a genuinely clean checkout would have
@@ -381,6 +388,13 @@ def main():
             'modified_tracked_files': modified, 'forbidden_touched': forbidden_touched,
             'certifier_uncommitted_in_worktree': bool(cert_in_status),
             'new_sha256': new_sha, 'old_sha256': pre_sha,
+            'certifier_worktree_sha256': cert_worktree_sha,
+            'certifier_blob_sha256': cert_blob,
+            'certifier_worktree_equals_blob': cert_worktree_eq_blob,
+            'numstat_caveat': ('numstat diffs RAW BYTES.  This file is not pinned in '
+                               'scripts/.gitattributes, so a checkout holding CRLF makes every line '
+                               'count as changed; the authoritative diff is the line-level one above, '
+                               'which is computed after universal-newline normalisation'),
             'note': 'the "the certifier is dirty" clause was removed after this file was committed: it '
                     'was only true before the commit, and a delivered test must pass in the committed '
                     'state too.  Whether the change is still uncommitted is reported separately.'},
@@ -485,8 +499,14 @@ def main():
        conclusion='the fix moves the number only toward strictness')
 
     # ============================================================ V-05 identity separation
+    # Both artifacts are LOCAL evidence (a private diff and the uncommitted candidate module).  A
+    # genuine clean checkout has neither, so the digest map is built with an existence test: the
+    # previous version hashed unconditionally and crashed with FileNotFoundError instead of recording
+    # "absent" -- the fourth instance of the same read-before-you-check defect, and the first one that
+    # only a real clone (not `--simulate-fresh-checkout`) could expose.
     arts = ['results/_q3_next_20261017/gtmin/minimal_patch_for_authorisation.diff',
             'scripts/q3_qualification/q3_t_min_candidate_v2.py']
+    arts_present = {p: (EXT / p).exists() for p in arts}
     if not (have_prefix and OLD_SHA):
         ck_skip('V-05', 'CHECK 5 -- identity separation', 'PRE_FIX byte copy or its pinned digest is '
                 'not available in this checkout',
@@ -508,7 +528,12 @@ def main():
                           'NOT be cited as qualification of the post-fix source; every post-fix '
                           'result in this file is labelled with the new hash'),
         'new_digest_prefix': new_sha[:16],
-        'supporting_artifacts': {p: sha256(EXT / p) for p in arts}},
+        'supporting_artifacts': {p: (sha256(EXT / p) if arts_present[p] else None) for p in arts},
+        'supporting_artifacts_present': arts_present,
+        'supporting_artifacts_note': ('both are local-only evidence and are ABSENT in a clean checkout '
+                                      '(`None`), which does not weaken the identity claim: the identity '
+                                      'pair is the pinned PRE_FIX digest plus the committed blob, both '
+                                      'reproducible from the repository alone')},
        conclusion='two identities, two separate evidence sets')
 
     # ============================================================ V-06 historical callers
@@ -518,11 +543,18 @@ def main():
     callers = ('test_m1b_q2_final_entry_controls.py', 'test_m1b_q2fix_certification.py',
                'test_m1b_q2r_negative_controls.py', 'test_m1b_q2_certification.py',
                'test_m1b_q2fixt_trust_boundary.py')
+    # The five caller suites are TRACKED, and the twin tree is rebuilt from the git baseline blob, so
+    # this check evaluates in ANY checkout.  It was previously gated on `have_local_suites` -- five
+    # unrelated Q3 suites that only V-10 needs -- which made it SKIP in a clean clone even though all
+    # of its evidence was available.  Gating on the evidence the row actually uses, not on a bundle.
+    callers_present = {n: (EXT / 'scripts/tests' / n).exists() for n in callers}
     reg = {}
     ok6 = True
     if args.skip_callers or not have_prefix:
         reg['skipped'] = ('--skip-callers' if args.skip_callers
                           else 'the PRE-FIX source could not be acquired')
+    elif not all(callers_present.values()):
+        reg['skipped'] = 'a caller suite is not present in this checkout'
     else:
         import shutil
         import tempfile
@@ -553,16 +585,17 @@ def main():
                          'outcome_unchanged': same,
                          'live_tail': (live.stdout or '').strip().splitlines()[-1:],
                          'prefix_tail': (twin.stdout or '').strip().splitlines()[-1:]}
-    if not (have_prefix and have_local_suites):
+    if not (have_prefix and all(callers_present.values())):
         ck_skip('V-06', 'five historical callers: identical exit code against a PRE-FIX twin',
-                'needs the PRE_FIX byte copy and the local suites', {'present': local_suites})
+                'needs the PRE_FIX bytes and the five tracked caller suites',
+                {'callers_present': callers_present})
         ok6 = True
     else:
         ck('V-06', 'the five historical caller test files have the SAME exit code against the patched '
        'certifier and against a byte-exact PRE-FIX twin: the fix changes no caller outcome (one suite '
        'already fails before the patch for an unrelated KeyError, and it still fails identically)',
        ok6 and all(isinstance(v, dict) and v.get('outcome_unchanged') for v in reg.values()),
-       {'callers': reg,
+       {'callers': reg, 'callers_present': callers_present,
         'pre_existing_failure_registration': {
             'label': 'PRE_EXISTING_FAILURE_UNCHANGED',
             'suite': 'test_m1b_q2_certification.py',
@@ -802,7 +835,9 @@ def main():
     unaffected_rows = 0
     retries = []
     ok10 = True
-    if not args.skip_callers:
+    # The sweep is gated FIRST: in a checkout without those suites the previous order still spawned 12
+    # doomed subprocesses and recorded `<no artifact>` failures before the SKIP overwrote the verdict.
+    if not args.skip_callers and have_local_suites:
         tmp = Path(__import__('tempfile').mkdtemp(prefix='gtmin_sweep_'))
         for name in list(SUPERSEDED) + list(unaffected):
             # One retry is allowed and RECORDED.  First version of this sweep named the theorem-B
