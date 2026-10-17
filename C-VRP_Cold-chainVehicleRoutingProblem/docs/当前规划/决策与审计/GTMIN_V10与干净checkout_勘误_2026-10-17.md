@@ -84,3 +84,85 @@ L1 `BLOCKED`、`L2/A3_NOT_ESTABLISHED`、`stable_online_gain=False`、
 最终测试种子 `SEALED`、`PRODUCTION_NOT_QUALIFIED` —— 全部不变。
 
 **不主张**：V-10 会通过；干净 checkout 会变成 PASS；已作废候选可用于任何资格。
+
+---
+
+## 6. 实测结果（按 §3 规则登记，不改判据）
+
+**测试环境**：真 `git clone`（`D:\gtmin_clean_clone`），HEAD 为发布这四个套件后的提交，
+`git status` 0 项。命令与之前一致：
+
+```
+python scripts/tests/test_q3_gtmin_install_verification.py --out <json>
+```
+
+**结果**：
+
+```
+=== 12 checks: 11 PASS, 0 SKIP, 1 FAIL -> GTMIN_INSTALL_VERIFICATION_FAIL ===
+```
+
+**按 §3 的预声明规则：这是 FAIL，必须作为缺陷登记，不得重新解释为"套件版本差异"。**
+
+### 6.1 V-10 的 declared vs observed
+
+| 套件 | declared | observed（干净 checkout） |
+|---|---|---|
+| `test_q3_g_tmin_candidate.py` | TMIN-C-01/02, TMIN-N-02/03 | **完全一致** ✅ |
+| `test_q3_g_tmin_v2.py` | C1, C10, C11 | **完全一致** ✅ |
+| `test_q3_archive_regression.py` | ARC-01/05/06/07 | **`<no artifact>`**（崩溃） |
+| `test_q3_door_interval_thresholds.py` | ERR-12 | **`<no artifact>`**（崩溃） |
+| `test_q3_event_segmentation.py` | `[]` | **`<no artifact>`**（崩溃） |
+| `test_q3_float_replay_qualification.py` | `[]` | **`<no artifact>`**（崩溃） |
+| `test_q3_time_budget_audit.py` | `[]` | **`<no artifact>`**（崩溃） |
+| `test_q3_plan_layer_controls.py` | `[]` | **`["PL-12"]`（未声明的失败行）** |
+| `test_q3_strict_float_bounds.py` | `[]` | `[]` ✅ |
+| `test_q3_thermal_interval_controls.py` | `[]` | `[]` ✅ |
+| `q3_theorem_b_audit.py` | `[]` | `[]` ✅ |
+
+### 6.2 根因（逐条实测，不是推测）
+
+五处崩溃与一处失败行，**根因是同一类**：这些套件依赖**不在仓库里**的证据。
+
+| 套件 | 缺失输入（异常原文） |
+|---|---|
+| `test_q3_archive_regression.py` | `results/_q3_next_20261017/SHA256_MANIFEST.json`（`FileNotFoundError`） |
+| `test_q3_door_interval_thresholds.py` | `results/_q3_next_20261017/SHA256_MANIFEST_V2.json` |
+| `test_q3_event_segmentation.py` | `data/m0_scale/dcc_50_r1_edod05_cal_teacher.npz` |
+| `test_q3_float_replay_qualification.py` | 同上 |
+| `test_q3_time_budget_audit.py` | 同上（TBA-03 之后崩溃） |
+| `test_q3_plan_layer_controls.py` **PL-12** | **不崩溃**，但 `n_files = 0`：它要普查 `data/**` 的冻结实例文件，一个也找不到 ⇒ 断言不成立 |
+
+`git ls-files 'C-VRP_.../data/m0_scale*'` **为空** ⇒ **登记数据集本身未入库**；
+`results/**` 按交付纪律从不入库。
+
+### 6.3 这对"R-3 缺口"的含义（更正我自己的上一轮判断）
+
+我上一轮把 V-10 的缺口描述为"需要四个未提交的本地套件"，并暗示**发布这四个文件即可闭环**。
+**该判断不完整。** 实测表明：
+
+> **缺口的本质是"证据本地性"（evidence locality），不是"四个文件未提交"。**
+> 即使四个套件全部入库，V-10 仍会 FAIL，因为它还需要
+> ① 登记的 `data/m0_scale` 数据集、② 两份私有 `SHA256_MANIFEST`。
+
+因此：
+
+- 早先的 **`INCOMPLETE`（SKIP）** 与现在的 **`FAIL`** **都是各自输入下的正确结论**，
+  前者说"未评估"，后者说"评估了但不通过且原因是缺证据"；
+- **不得**把这次 FAIL 写成"套件过时"或"版本差异"；它是**证据不可复现**的直接证据；
+- **R-3 的状态更新**：从"四个套件未入库"改为
+  **"V-10 无法仅凭仓库复现：依赖未入库的数据集与私有清单"**（更严重的登记）。
+
+### 6.4 若要让它 PASS，只有两条路（都需要用户决定）
+
+| 路径 | 内容 | 代价 |
+|---|---|---|
+| **A** | 把 `data/m0_scale`（三份 npz）与两份 `SHA256_MANIFEST` 入库 | 与"结果入库"纪律冲突；数据集体积与公开面扩大 |
+| **B** | 让每个套件**显式声明证据前提**，缺失时输出**非失败的"未评估"行** | 需要改五个套件（含两个已入库的）；且 `unaffected` 的语义要从"全绿"改为"有前提的全绿" |
+
+**本轮不擅自选任何一条**：A 违反既有纪律，B 会改动已发布结论的语义。两者都需要单独授权。
+
+### 6.5 不主张
+
+不主张 V-10 将来会通过；不主张 `PL-12` 是"无害的"（它确实是一条未声明的失败行，
+只是根因与崩溃同源）；不主张旧报告的 `INCOMPLETE` 应改成 `FAIL`（历史记录不改写）。
