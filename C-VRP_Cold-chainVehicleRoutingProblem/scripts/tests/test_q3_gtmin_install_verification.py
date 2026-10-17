@@ -246,18 +246,25 @@ def main():
                                                            'coldchain_state.py',
                                                            'strict_online_env.py'))
                          or '/q3_' in p.replace('\\', '/')]
-    ck('V-01', 'CHECK 1 -- the diff is confined to `_resolve_t_min` and the receipt gate: every changed '
-       'pre-fix line lies inside the two allowed regions, exactly ONE tracked file is modified, and no '
-       'Q3 / G5 / G6 / install-path file is touched',
-       not forbidden_touched
-       and set(changed_old) <= allowed_old
-       and [p for p in modified if p.replace('\\', '/').endswith('m1b_q2_certifier.py')] != [],
-       {'numstat': numstat, 'n_changed_old_lines': len(changed_old),
-        'n_changed_new_lines': len(changed_new),
-        'changed_old_lines': changed_old, 'allowed_old_regions': sorted(allowed_old),
-        'modified_tracked_files': modified, 'forbidden_touched': forbidden_touched,
-        'new_sha256': new_sha, 'old_sha256': pre_sha},
-       conclusion='the change is exactly the authorised two-hunk patch and nothing else')
+    cert_in_status = [p for p in modified if p.replace('\\', '/').endswith('m1b_q2_certifier.py')]
+    if not have_prefix:
+        ck_skip('V-01', 'CHECK 1 -- diff scope', 'the PRE_FIX byte copy is not part of the repository',
+                {'expected_local_path': str(PRE_FIX.relative_to(EXT))})
+    else:
+        ck('V-01', 'CHECK 1 -- the diff is confined to `_resolve_t_min` and the receipt gate: every '
+           'changed pre-fix line lies inside the two allowed regions, and no Q3 / G5 / G6 / install-path '
+           'file is touched',
+           not forbidden_touched and set(changed_old) <= allowed_old,
+           {'numstat': numstat, 'n_changed_old_lines': len(changed_old),
+            'n_changed_new_lines': len(changed_new),
+            'changed_old_lines': changed_old, 'allowed_old_regions': sorted(allowed_old),
+            'modified_tracked_files': modified, 'forbidden_touched': forbidden_touched,
+            'certifier_uncommitted_in_worktree': bool(cert_in_status),
+            'new_sha256': new_sha, 'old_sha256': pre_sha,
+            'note': 'the "the certifier is dirty" clause was removed after this file was committed: it '
+                    'was only true before the commit, and a delivered test must pass in the committed '
+                    'state too.  Whether the change is still uncommitted is reported separately.'},
+           conclusion='the change is exactly the authorised two-hunk patch and nothing else')
 
     # ============================================================ V-02 refusal propagation
     rows = []
@@ -481,19 +488,29 @@ def main():
     head = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=str(EXT.parent), capture_output=True,
                           text=True).stdout.strip()
     modified_all = modified
+    # "no collateral edit" = every modified TRACKED path is one this delivery is authorised to touch.
+    # The set is stated here rather than "only the certifier", because the delivered test and the two
+    # acceptance records are part of the same delivery and are legitimately dirty until committed.
+    AUTHORISED_SUFFIXES = (
+        'scripts/m1b_adapter/m1b_q2_certifier.py',
+        'scripts/tests/test_q3_gtmin_install_verification.py',
+        'GTMIN严格判定与受控实施验收_2026-10-17.md',
+        'GTMIN安全补正与选择性交付验收_2026-10-17.md',
+    )
     unexpected = [p for p in modified_all
-                  if not p.replace('\\', '/').endswith('m1b_q2_certifier.py')
+                  if not any(p.replace('\\', '/').endswith(suf) for suf in AUTHORISED_SUFFIXES)
                   and 'CC_Compare/MAPT_code' not in p]
     cert_still_dirty = any(p.replace('\\', '/').endswith('m1b_q2_certifier.py') for p in modified_all)
-    ck('V-09', 'workspace discipline: no collateral edit exists; the only tracked modification is the '
-       'authorised certifier, and the check reports whether that change is still uncommitted',
+    ck('V-09', 'workspace discipline: no collateral edit exists -- every modified tracked path belongs '
+       'to this delivery set; the check reports whether the change is still uncommitted',
        not unexpected,
        {'head': head, 'head_is_baseline': head == '759fe7fb81dd869c212a28eed352f82ff99a1b1e',
         'modified_tracked': modified_all, 'unexpected': unexpected,
+        'authorised_suffixes': list(AUTHORISED_SUFFIXES),
         'certifier_change_uncommitted': cert_still_dirty,
-        'note': 'the HEAD equality is no longer asserted: this file is delivered with the change, so a '
+        'note': 'the HEAD equality is not asserted: this file is delivered WITH the change, so a '
                 'post-commit run must not report FAIL merely because the commit exists'},
-       conclusion='no collateral edit; the certifier is the only authorised change')
+       conclusion='no collateral edit; only the authorised delivery files are dirty')
 
     # ============================================================ V-11 hostile __repr__ controls
     # The reviewer's finding: a refusal receipt must not render the untrusted object.  `repr()` on
