@@ -33,6 +33,7 @@ results/                          ⚠️ 未跟踪且未忽略的待交付证据
 | **看证据树** | [`research/review_3080_20261010/`](research/review_3080_20261010/) —— `d3_g0_evidence_root_v1/` 是资格主干，`pickup/`+`delivery/` 是实验证据 |
 | **交代码** | `python tools/git_deliver.py --message-file <msg> --paths <files>`（**必须给 `--paths`**） |
 | **做仓库治理** | [`C-VRP_…/docs/仓库治理/README.md`](C-VRP_Cold-chainVehicleRoutingProblem/docs/仓库治理/README.md) |
+| **看 P1 两个新工作包（草案，未授权）** | [`C-VRP_…/docs/当前规划/P1工作包/README.md`](C-VRP_Cold-chainVehicleRoutingProblem/docs/当前规划/P1工作包/README.md) —— `P1-NUM-01`（数值与冷链认证可行性）+ `P1-OPP-01`（MaskCO 可预测改善空间），均标记 `DRAFT_NOT_AUTHORISED` |
 
 ## 3. 现在进展到哪（只给指针，结论以权威文件为准）
 
