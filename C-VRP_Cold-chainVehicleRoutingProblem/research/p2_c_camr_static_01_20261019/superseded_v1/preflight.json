@@ -1,0 +1,386 @@
+{
+  "all_ok": true,
+  "checks": {
+    "all_units_equal": true,
+    "all_units_produced_a_plan": true,
+    "model_path_executed": true,
+    "unit_count_is_19": true,
+    "wall_within_package_cap": true
+  },
+  "gate": "model path executed (insertion_scores really called) with the model score discarded and replaced by -incremental_distance, then compared bit-for-bit with distance-greedy",
+  "n_equal": 19,
+  "n_units": 19,
+  "note": "preflight is a precondition receipt, not an analysis result; it is bound to run_identity_sha256 so that T2 could be frozen first",
+  "params": {
+    "beam": 2,
+    "max_completions": 8,
+    "max_per_parent": 2
+  },
+  "registration_sha256": "fb3f84948fbd257adacdf61d6be6735c83905b945267a54b3ea51bb3c5b7db1e",
+  "rows": [
+    {
+      "distance_plan_hash": "feaa6799671dc013",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "feaa6799671dc013",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "MYOPIC",
+        "day_id": 0,
+        "mask": [
+          13,
+          24
+        ],
+        "ordinal": 3,
+        "public_identity": "60f9f918772683362b171ab4357193ceb107e080ae2eafee3f46cd3a585ab220"
+      },
+      "wall_s": 2.141
+    },
+    {
+      "distance_plan_hash": "06d6bc5e094d2321",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "06d6bc5e094d2321",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "MYOPIC",
+        "day_id": 0,
+        "mask": [
+          12,
+          40
+        ],
+        "ordinal": 10,
+        "public_identity": "0964c1933f367dec5e8433399aae6948b9a757971af2d522b1b6bed5d55104fe"
+      },
+      "wall_s": 0.484
+    },
+    {
+      "distance_plan_hash": "a81557f3257c911d",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "a81557f3257c911d",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "MYOPIC",
+        "day_id": 0,
+        "mask": [
+          12,
+          37
+        ],
+        "ordinal": 11,
+        "public_identity": "9d340395abc6669fb87844eccb4ad905c2556046a37180b4aef517358a2c5c61"
+      },
+      "wall_s": 0.582
+    },
+    {
+      "distance_plan_hash": "a81557f3257c911d",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "a81557f3257c911d",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "MYOPIC",
+        "day_id": 0,
+        "mask": [
+          12,
+          40
+        ],
+        "ordinal": 11,
+        "public_identity": "9d340395abc6669fb87844eccb4ad905c2556046a37180b4aef517358a2c5c61"
+      },
+      "wall_s": 0.179
+    },
+    {
+      "distance_plan_hash": "a81557f3257c911d",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "a81557f3257c911d",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "MYOPIC",
+        "day_id": 0,
+        "mask": [
+          37,
+          40
+        ],
+        "ordinal": 11,
+        "public_identity": "9d340395abc6669fb87844eccb4ad905c2556046a37180b4aef517358a2c5c61"
+      },
+      "wall_s": 0.141
+    },
+    {
+      "distance_plan_hash": "d308f77ec4ee0b69",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "d308f77ec4ee0b69",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "MYOPIC",
+        "day_id": 1,
+        "mask": [
+          8,
+          16
+        ],
+        "ordinal": 7,
+        "public_identity": "c20eb603789dd3094f0fcc15e5c630e43145045d7bd411c29d5c663758a1174b"
+      },
+      "wall_s": 0.355
+    },
+    {
+      "distance_plan_hash": "87b58ff4123abec2",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "87b58ff4123abec2",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "MYOPIC",
+        "day_id": 1,
+        "mask": [
+          16,
+          35
+        ],
+        "ordinal": 9,
+        "public_identity": "9211038233b77492ae018d1c6c67b6b9a3fb725d45d0be3cc1f8367be30cdddd"
+      },
+      "wall_s": 0.366
+    },
+    {
+      "distance_plan_hash": "18dc6f2487863432",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "18dc6f2487863432",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "MYOPIC",
+        "day_id": 1,
+        "mask": [
+          14,
+          16
+        ],
+        "ordinal": 11,
+        "public_identity": "22f4ac2bc1930e0d3a91473d6875a620d658162011334941e23ddd9c63dfcce4"
+      },
+      "wall_s": 0.272
+    },
+    {
+      "distance_plan_hash": "045025d90b322c05",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "045025d90b322c05",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "SAA",
+        "day_id": 0,
+        "mask": [
+          5,
+          27
+        ],
+        "ordinal": 18,
+        "public_identity": "465ab1928ff650a6e2f229b5fe8e515e263b6758d389ffc16a08a6ee6845b5ca"
+      },
+      "wall_s": 0.383
+    },
+    {
+      "distance_plan_hash": "e9f54a1cd0e0a1e9",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "e9f54a1cd0e0a1e9",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "SAA",
+        "day_id": 0,
+        "mask": [
+          26,
+          38
+        ],
+        "ordinal": 40,
+        "public_identity": "738a214487843300a8b94c4c051c90deebfa1d010cae5107892691eff58e8e61"
+      },
+      "wall_s": 0.439
+    },
+    {
+      "distance_plan_hash": "bc0813480ce62ecf",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "bc0813480ce62ecf",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "SAA",
+        "day_id": 0,
+        "mask": [
+          11,
+          44
+        ],
+        "ordinal": 44,
+        "public_identity": "e82b7d0b38927e1d2f9ea890f1187ae2210266d2708ebd8138b231a79294b83b"
+      },
+      "wall_s": 0.375
+    },
+    {
+      "distance_plan_hash": "f43a5718dca588aa",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "f43a5718dca588aa",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "SAA",
+        "day_id": 0,
+        "mask": [
+          11,
+          21
+        ],
+        "ordinal": 45,
+        "public_identity": "3c3955073e23144dfd1927c2d5d76ed3f844cd39140bad450ae986ac05cf5774"
+      },
+      "wall_s": 0.388
+    },
+    {
+      "distance_plan_hash": "f43a5718dca588aa",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "f43a5718dca588aa",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "SAA",
+        "day_id": 0,
+        "mask": [
+          11,
+          44
+        ],
+        "ordinal": 45,
+        "public_identity": "3c3955073e23144dfd1927c2d5d76ed3f844cd39140bad450ae986ac05cf5774"
+      },
+      "wall_s": 0.167
+    },
+    {
+      "distance_plan_hash": "f43a5718dca588aa",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "f43a5718dca588aa",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "SAA",
+        "day_id": 0,
+        "mask": [
+          21,
+          44
+        ],
+        "ordinal": 45,
+        "public_identity": "3c3955073e23144dfd1927c2d5d76ed3f844cd39140bad450ae986ac05cf5774"
+      },
+      "wall_s": 0.164
+    },
+    {
+      "distance_plan_hash": "0557ea53ff4abfee",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "0557ea53ff4abfee",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "SAA",
+        "day_id": 0,
+        "mask": [
+          4,
+          47
+        ],
+        "ordinal": 62,
+        "public_identity": "1936e191d11af7dfa630aebc989d13366c7b0ba50c428d08a50e0fb6e1aa004b"
+      },
+      "wall_s": 0.445
+    },
+    {
+      "distance_plan_hash": "d308f77ec4ee0b69",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "d308f77ec4ee0b69",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "SAA",
+        "day_id": 1,
+        "mask": [
+          8,
+          16
+        ],
+        "ordinal": 6,
+        "public_identity": "80e058673cdaabcd389f580192ca85691b36c852f9517176ed3699ed2a8a8be6"
+      },
+      "wall_s": 0.291
+    },
+    {
+      "distance_plan_hash": "da19af71c6eb5f66",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "da19af71c6eb5f66",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "SAA",
+        "day_id": 1,
+        "mask": [
+          15,
+          48
+        ],
+        "ordinal": 41,
+        "public_identity": "c2c58b18d6ecef56a2610ad3f301eb8a6eb6000a4fdcf9d839b868db6940a746"
+      },
+      "wall_s": 0.388
+    },
+    {
+      "distance_plan_hash": "11d4fa1369d51393",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "11d4fa1369d51393",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "SAA",
+        "day_id": 1,
+        "mask": [
+          5,
+          42
+        ],
+        "ordinal": 48,
+        "public_identity": "2e50172c0f7dcbd413a78f46f216e5dbbf7064830b75a8b2957183603418017b"
+      },
+      "wall_s": 0.291
+    },
+    {
+      "distance_plan_hash": "387d8e9355a5948d",
+      "distance_reason": "OK",
+      "equal": true,
+      "gate_plan_hash": "387d8e9355a5948d",
+      "gate_reason": "OK",
+      "model_calls_in_gate": 2,
+      "unit_id": {
+        "arm": "SAA",
+        "day_id": 1,
+        "mask": [
+          27,
+          42
+        ],
+        "ordinal": 51,
+        "public_identity": "2d14a04732c63ea899f0e39dc12d16d33a4d85a2eb92dee3fbee2fb5699eafb0"
+      },
+      "wall_s": 0.372
+    }
+  ],
+  "run_id": "p2_c_camr_static_01_20261019",
+  "run_identity_sha256": "282207c27ca142693a230b8e0912f0fe65d1026365d84576b64f411e46098f72",
+  "schema": "p2_c_camr_static_01_preflight_v1"
+}

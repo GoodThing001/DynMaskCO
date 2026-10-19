@@ -1,0 +1,152 @@
+{
+  "all_ok": true,
+  "checks": [
+    {
+      "check": "R1_shared_set_is_filtered",
+      "detail": {
+        "capacity_margin": 0.0001,
+        "infeasible": 0,
+        "n_entries": 2,
+        "route_check_failures": []
+      },
+      "fixture": "A",
+      "ok": true,
+      "status": "PASS"
+    },
+    {
+      "check": "R1b_no_action_targets_an_excluded_vehicle",
+      "detail": {
+        "delivered_to_excluded": [],
+        "excluded": 0,
+        "n_allowed": 15,
+        "n_entries": 1,
+        "note": "apply_action always removes the customer from its source vehicle, so a non-allowed source can be emptied; the registered predicate constrains the TARGET only, and for the 19 units allowed is the whole fleet so the distinction is void there",
+        "source_pull_out_of_excluded": 1
+      },
+      "fixture": "A",
+      "ok": true,
+      "status": "PASS"
+    },
+    {
+      "check": "R3_tie_break_by_action_id",
+      "detail": {
+        "ids": [
+          "c34:anchored:-1:p0:0>0",
+          "c34:new_route:-1:p0:0>0"
+        ],
+        "n_entries": 2,
+        "ranked": [
+          "c34:anchored:-1:p0:0>0",
+          "c34:new_route:-1:p0:0>0"
+        ]
+      },
+      "fixture": "A",
+      "ok": true,
+      "status": "PASS"
+    },
+    {
+      "check": "R2_allowed_contains_anchor_holder",
+      "detail": {
+        "cvid": 0,
+        "n_allowed": 1
+      },
+      "fixture": "B",
+      "ok": true,
+      "status": "PASS"
+    },
+    {
+      "check": "R4_greedy_deterministic",
+      "detail": {
+        "calls": 7,
+        "plan_hash": "a81557f3257c911d",
+        "reason": "OK"
+      },
+      "fixture": "B",
+      "ok": true,
+      "status": "PASS"
+    },
+    {
+      "check": "R5_completions_first_is_greedy",
+      "detail": {
+        "first": "a81557f3257c911d",
+        "greedy": "a81557f3257c911d",
+        "stats": {
+          "n_fail": 0,
+          "n_total": 7,
+          "n_unique": 2,
+          "scoring_calls": 23
+        }
+      },
+      "fixture": "B",
+      "ok": true,
+      "status": "PASS"
+    },
+    {
+      "check": "R8_clean_plan_passes_anchor_assertions",
+      "detail": {
+        "reason": "OK"
+      },
+      "fixture": "B",
+      "ok": true,
+      "status": "PASS"
+    },
+    {
+      "check": "R6_corruption_detected",
+      "detail": {
+        "anchor": "ANCHOR_MISMATCH",
+        "committed_leg": "COMMITTED_LEG_IN_SUFFIX",
+        "duplicate": "EXACT_ONCE_VIOLATED_12"
+      },
+      "fixture": "B",
+      "ok": true,
+      "status": "PASS"
+    },
+    {
+      "check": "R7_plumbing_is_score_agnostic",
+      "detail": {
+        "via_direct_rank": "a81557f3257c911d",
+        "via_proposer": "a81557f3257c911d"
+      },
+      "fixture": "B",
+      "ok": true,
+      "status": "PASS"
+    }
+  ],
+  "fixture_a": {
+    "arm": "MYOPIC",
+    "day_id": 0,
+    "is_analysis_unit": false,
+    "law": "non-unit NO_COMMITTED_VEHICLE phase maximising (n_allowed, n_pending) with ties by file order; mask = two lowest pending orders",
+    "n_allowed": 15,
+    "n_entries": 2,
+    "n_pending": 1,
+    "ordinal": 1,
+    "public_identity": "1451d9f890a038ec268b832f61debf1e26f308d1caa6bdac9b1cc003f601b70c",
+    "remaining": [
+      34
+    ]
+  },
+  "fixture_b": {
+    "anchor_holder_vid": 0,
+    "arm": "MYOPIC",
+    "committed_next": 0,
+    "day_id": 0,
+    "is_analysis_unit": false,
+    "law": "non-unit NO_COMMITTED_VEHICLE phase maximising (n_pending, n_allowed, pool) among phases whose smallest allowed vehicle carries >=2 pending orders; mask = that vehicle's first two pending orders",
+    "mask": [
+      12,
+      37
+    ],
+    "n_allowed": 1,
+    "n_pending": 3,
+    "ordinal": 12,
+    "public_identity": "ee3ab1701aaecb31dc7f30acfce2c5a90b7bb78c8d133d2018253206be0f5af8"
+  },
+  "model_loaded": false,
+  "n_checks": 9,
+  "n_ok": 9,
+  "run_id": "p2_c_camr_static_01_20261019",
+  "schema": "p2_c_camr_static_01_synthetic_regression_v1",
+  "scope": "no SOURCE day is re-run, no environment is stepped, no model is loaded; saved public views outside the 19 analysis units are read and FleetPlan objects are rewritten in memory only",
+  "structural_limit": "a multi-order queue behind an in-transit vehicle exists only in the 19 units, so the committed + multi-vehicle combination is first exercised by the degeneration gate, which is a registered hard precondition for Pass A"
+}
