@@ -147,7 +147,7 @@ def validate_view(v):
         raise ValueError('invalid public limits')
     if abs(v.capacity-v.contract.operational.shared_vehicle_capacity) > 1e-9:
         raise ValueError('contract capacity mismatch')
-    if v.clock < 0 or v.booking_horizon < 0 or orders[0].demand != 0:
+    if v.clock < 0 or v.booking_horizon < 0 or orders[0].demand != 0 or orders[0].reveal != 0:
         raise ValueError('invalid clock/depot')
     for o in v.orders:
         if (o.oid < 0 or o.reveal > v.clock+EVENT_TOL or o.tw_start > o.tw_end or
@@ -195,15 +195,19 @@ def validate_view(v):
 def project_public(records, vehicles, *, accepted, rejected, served, replan_ids,
                    protected=(), clock, booking_horizon, capacity, tw_speed,
                    energy_budget, contract):
-    """Boundary only: read reveal to filter, then copy ONLY published fields.
+    """Depot identity is always public; filter customers before copying fields.
 
     No raw object, hidden values, true future count or environment survives here.
     Incoming vehicles must already be advanced to clock by the private engine.
     """
     orders = []
     for rec in records:
-        if float(rec['reveal']) <= clock+EVENT_TOL:
-            orders.append(Order(**{k: rec[k] for k in Order.__dataclass_fields__}))
+        is_depot = rec.get('oid') == 0
+        if is_depot or float(rec['reveal']) <= clock+EVENT_TOL:
+            values = {k: rec[k] for k in Order.__dataclass_fields__}
+            if is_depot:
+                values['reveal'] = 0.0
+            orders.append(Order(**values))
     frozen = []
     for vehicle in vehicles:
         values = {k: copy.deepcopy(getattr(vehicle, k)) for k in Vehicle.__dataclass_fields__}
@@ -279,6 +283,8 @@ def saa_public_env(engine, inst, clock):
             value = (engine.dataset['temp_class'][inst, c] if name == 'temp_class'
                      else getattr(engine, name)[inst, c])
             data[name][0, c] = value
+    # The generator's depot reveal sentinel is not a dynamic customer reveal.
+    data['reveal_time'][0, 0] = 0.0
     coords = data['coords']
     def reserved(vehicles):
         return {c for v in vehicles for c in
