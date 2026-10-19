@@ -341,3 +341,37 @@ L1 `BLOCKED` · **L2/L3 `NOT_AUTHORISED`** · `FULL_INSTALLABILITY_NOT_AVAILABLE
   **不**支持"在线增益已建立"、**不**支持"优于强非学习基线"（那需要 M 层之外的新预声明）、**不**升级任何生产资格。
 - 本包若 NO-GO，是**关于"MaskCO 掩码生成在动态冷链上的必要性"的强负结果**，其价值高于再训练一轮。
 - 任何跨数据族、跨规模、跨合同的外推**不得**由本包支持。
+
+---
+
+## 【待修订事项 · 2026-10-18 · 第 1 轮独立方法学审查 · `DRAFT_NOT_AUTHORISED`】
+
+> **本文件原文一字未改**，以下为审查追加。用户裁决：**P1-OPP-01 方向认可，退回修改，暂不签署。**
+> 完整论证、源码行号与最小修订方案见
+> [`P1_方法学审查意见_第1轮_2026-10-18.md`](P1_方法学审查意见_第1轮_2026-10-18.md)。
+> **本条追加不构成签署、不构成实验授权、不填任何通过线。**
+
+### 阻断性缺陷（11 项）
+
+| # | 缺陷 | 一句话说明 | 必须做什么 |
+|---|---|---|---|
+| **O-B1** | **唯一主对照选错** | 把机制消融 `M_rand` 当唯一主对照，导致"相对强非学习方法有无贡献"从未被主对照检验 | 主对照改为 **`distance + SGBS`**；`M_rand` 降为**配对机制消融** |
+| **O-B2** | **历史终局对照不是 `distance+SGBS`** | `run_terminal_headroom.py:121` 硬编码 `_dist_greedy_repair`（`run_headroom_census.py:138-149`，按 `incremental_distance` 取首个合法动作，**无 beam/SGBS**）；终局脚本**没有** `vs_dist_sgbs` 字段 | §1.1 每行标注**实际对照**；明写"终局层尚未在任何强对照下测量过"（这正是重测的正当理由） |
+| **O-B3** | **`exhaustive` 优化的是 `J_vis`，不是终局** | `_exhaustive_repair` 在叶子用 `_eval_plan(vis, …)` 取 `J_vis` 最小（L165-169）；`_eval_plan` 用 `evaluate_visible_plan`（L132） | 统一命名为 **"`J_vis` 最优修复（近视 oracle），终局评估"**；并补"该量**不是**终局乐观上界" |
+| **O-B4** | **符号约定未写公式** | 实读 `run_terminal_headroom.py:141-146`：`headroom = J0 − J_arm`（正=改善）、`gap = J_dg − J_exh`（正=exh 更好）；`J` 越小越好 | 要素③ 写出四式，并规定 `headroom` 与 `gap` **不得混用** |
+| **O-B5** | **CI 跨零被当作否证** | "CI 跨越 0 → `H_FALSIFIED`"统计上不成立；否证需 TOST + 事前 `δ_eq` | 改为**五值判定**：`ESTABLISHED` / `NOT_ESTABLISHED` / `FALSIFIED`（仅当声明 `δ_eq` 且 CI 在等价域内）/ `INCONCLUSIVE_UNDERPOWERED` / `BLOCKED` |
+| **O-B6** | **U 层捕获率分母未定义** | 分母 = 0（除零）、< 0（率无意义）、用臂均值相除（与逐状态不一致）三种情形均未处理；rate > 1 也未定义 | 逐状态算率；`\|den\| ≤ tol_zero → NOT_APPLICABLE_NO_HEADROOM`；`den < 0 → HEADROOM_NEGATIVE_NOT_APPLICABLE`；超捕获**不裁剪**、单列计；**并报 den 分布与有效样本量** |
+| **O-B7** | **16 实例 bootstrap 不足以做等价性主张** | `_ci` 对 16 个实例均值 bootstrap（L173-181）；`terminal_gap` CI 宽 ≈0.0132 vs 点估计 0.0039；`terminal_headroom_exh` CI 宽 ≈0.0165 vs 点估计 −0.0055 | 要素③ 增加**功效 / MDE**；实例数不足时只允许 `NOT_ESTABLISHED` / `INCONCLUSIVE_UNDERPOWERED` |
+| **O-B8** | **容量容差造成可行域混杂（实测三分裂）** | A-v1 四臂 `capacity − 1e-4`（`run_exp_energy_c0.py:253,574`）；旧四代与 `visible_state.py:177`、`action_contract.py:190` 为 `+ 1e-6`；`enumerate_legal_actions` 本身无 capacity 判据。⇒ `distance+SGBS` 域**包含**恰好满容量计划，A-v1 域**排除** | 全臂统一口径（**建议 `−1e-4`**）+ 以 `+1e-6` 跑可行性敏感性 + 报告"恰好满容量计划"计数；历史对照数字标 `CAPACITY_CONVENTION_UNVERIFIED` |
+| **O-B9** | **P 层隔离与"决策价值"未定义** | 只有一句"实例级留出"；未定义 train/cal/confirmation 种子互斥，也未把"相关性"与"决策价值"分开 | 三段隔离（confirmation **只看一次**）；**双轨指标**：预测轨（Spearman/MAE）+ **决策轨**（按探针选择后的 `accepted` / `closed_loop` 增益），**以决策轨为晋级条件**；并继承 `value_predictability_cal` 自述的 "instance-level split, NOT independent-sample split" 限制 |
+| **O-B10** | **M 层未做因子分解** | 只对比 `M_learnt` vs `M_rand`，四项贡献混在一起 | 四因子：`mask_selector{learned, random, distance-guided}` × `decoder{MaskCO, greedy}` × 资源特征{on,off} × 预算（不变）；**主对比固定后三项只变 selector**，其余出边际效应表 |
+| **O-B11** | **预算档位在线合法性未标注** | strict-online 时钟 10 s | `1×`（**最坏值** ≤10 s）= 在线合法；`2×/4×` = **`OFFLINE_SENSITIVITY_ONLY`**，不得称在线结果；1× 判据必须用**最坏值**（S3 `G-T2` 已把"中位不是最坏保证"写死） |
+
+### 其它必须同步修改的项
+
+1. **要素②** 重写角色表：主对照 `distance+SGBS` / 机制消融 `M_rand` / 参照臂 `R`、资源规则、clairvoyant（**上界参照，永不在线**）。
+2. **H 层主量**改为 `terminal_gap(exh, strong_nonlearn)`（正 = 近视 oracle 更好），而非相对 J0 的 `headroom`。
+3. **§3.3 阈值**：`#5/#7/#8/#9` 全部依赖**方差试点**，而试点本身是一次实验 ⇒ **必须单独授权**；这是本包真正的依赖链起点。
+4. **新增最小任务**：A3（把四项写成可机械核验断言）、A4（容量口径落地清单）、B1（方差试点，需单独授权）。
+
+**在上述 11 项修完并由用户重新审查之前，本文件保持 `DRAFT_NOT_AUTHORISED`；H/P/U 三层虽为纯 CPU，也**不得**在本轮或下次一般授权下运行。**
