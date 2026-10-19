@@ -1,0 +1,222 @@
+{
+  "all_ok": true,
+  "artefact_sha256": {
+    "anchor_scope.csv": "fb7457bc871a29a68b31f4a1a2f406c647d09c9c52251505c3c4aea2c6329eb7",
+    "anchor_summary.json": "80205f097693257e7d24422f1c9f14f071db9427250a1e147da3c09dba2c3bf4",
+    "probe_anchor.py": "573ea3afcce847c1ce7f545023a2c62ff916115aa7f9a844422ff0b44bee9f19",
+    "registration.json": "eb86e1e04d47ab13bf04c128d6a2cdaaeb201117c8826eabcab5128a228648a4",
+    "scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6",
+    "synthetic_tx.json": "974db7d407fe3579c48ee17585880bd44c6dfb696930cb2b6d4d3ce69e0bc309",
+    "synthetic_tx.py": "b64ebe29246321dd3634ae1527da023e6ea0943dd93efb4f375cd93e289b069d",
+    "verify_anchor.py": "ca45c4563e58065159f4d77bac5e7ef85e5f7355015852e17f5496bc2dd014bd"
+  },
+  "baseline": "59c1251cab86774dda5d0aaf083a72b73f7b2a77",
+  "checks": [
+    {
+      "check": "A_input_identity",
+      "detail": "all registered inputs match",
+      "got": 6,
+      "ok": true,
+      "status": "PASS",
+      "want": 6
+    },
+    {
+      "check": "B1_head_is_registered_baseline",
+      "detail": null,
+      "got": "59c1251cab86774dda5d0aaf083a72b73f7b2a77",
+      "ok": true,
+      "status": "PASS",
+      "want": "59c1251cab86774dda5d0aaf083a72b73f7b2a77"
+    },
+    {
+      "check": "B2_engine_worktree_equals_head_blob",
+      "detail": "strict_online_env.py was not modified by this work package",
+      "got": {
+        "head_blob": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6",
+        "worktree": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6"
+      },
+      "ok": true,
+      "status": "PASS",
+      "want": "equal"
+    },
+    {
+      "check": "C_csv_json_agreement",
+      "detail": "identical",
+      "got": "recomputed from anchor_scope.csv",
+      "ok": true,
+      "status": "PASS",
+      "want": "anchor_summary.json"
+    },
+    {
+      "check": "D_row_invariants",
+      "detail": "all invariants hold",
+      "got": 15,
+      "ok": true,
+      "status": "PASS",
+      "want": ">=1 anchor-tested phase"
+    },
+    {
+      "check": "D_queue_is_pending_minus_one",
+      "detail": [],
+      "got": null,
+      "ok": true,
+      "status": "PASS",
+      "want": "pending_len == queue_len + 1 for every anchor-tested phase"
+    },
+    {
+      "check": "E_independent_census",
+      "detail": "committed census / pending / queue recomputed identically",
+      "got": 289,
+      "ok": true,
+      "status": "PASS",
+      "want": 289
+    },
+    {
+      "check": "E_phase_count",
+      "detail": null,
+      "got": 289,
+      "ok": true,
+      "status": "PASS",
+      "want": 289
+    },
+    {
+      "check": "E_no_multiple_committed_vehicles",
+      "detail": null,
+      "got": {
+        "MYOPIC:0": 111,
+        "MYOPIC:1": 29,
+        "SAA:0": 105,
+        "SAA:1": 44
+      },
+      "ok": true,
+      "status": "PASS",
+      "want": "no phase has 2+ committed vehicles"
+    },
+    {
+      "check": "F1_all_synthetic_checks_pass",
+      "detail": null,
+      "got": {
+        "late_reveal_control_drops_no_tail": true,
+        "late_reveal_control_is_exact_once": true,
+        "lost_orders_were_in_the_destroyed_tail": true,
+        "maintain_is_exact_once": true,
+        "mid_flight_reveal_destroyed_a_pending_tail": true,
+        "no_maintenance_loses_the_tail": true,
+        "no_reconcile_duplicates": true,
+        "orders_were_recovered_by_reinstall": true
+      },
+      "ok": true,
+      "status": "PASS",
+      "want": "every registered synthetic check true"
+    },
+    {
+      "check": "F2_engine_not_modified",
+      "detail": null,
+      "got": false,
+      "ok": true,
+      "status": "PASS",
+      "want": false
+    },
+    {
+      "check": "F3_no_source_day",
+      "detail": null,
+      "got": false,
+      "ok": true,
+      "status": "PASS",
+      "want": false
+    },
+    {
+      "check": "F4_maintain_exact_once",
+      "detail": null,
+      "got": [
+        1,
+        2,
+        3
+      ],
+      "ok": true,
+      "status": "PASS",
+      "want": "all customers exactly once"
+    },
+    {
+      "check": "F5_static_write_loses_orders",
+      "detail": null,
+      "got": {
+        "dropped_tail": [
+          2,
+          3
+        ],
+        "missing": [
+          2,
+          3
+        ]
+      },
+      "ok": true,
+      "status": "PASS",
+      "want": "missing orders are a subset of the tail destroyed at the reveal"
+    },
+    {
+      "check": "F6_late_reveal_control_exact_once",
+      "detail": null,
+      "got": {
+        "dropped": 0,
+        "exact_once": true
+      },
+      "ok": true,
+      "status": "PASS",
+      "want": "True / 0"
+    },
+    {
+      "check": "F7_reconciliation_is_necessary",
+      "detail": null,
+      "got": [
+        1,
+        2,
+        3
+      ],
+      "ok": true,
+      "status": "PASS",
+      "want": "non-empty duplicate list without head reconciliation"
+    }
+  ],
+  "n_checks": 16,
+  "n_ok": 16,
+  "recomputed": {
+    "h1_verdict": "ANCHOR_SCOPE_ESTABLISHED",
+    "per_arm": {
+      "MYOPIC": {
+        "anchor_tested_phases": 6,
+        "freeze_failure_total": 0,
+        "phases": 140,
+        "phases_with_ge2_legal_candidates": 6,
+        "phases_with_ge2_next_actions": 6,
+        "total_legal_candidates": 64,
+        "verdict_counts": {
+          "ANCHOR_LEGAL_MULTI": 6,
+          "INSUFFICIENT_QUEUE": 23,
+          "NO_COMMITTED_VEHICLE": 111
+        }
+      },
+      "SAA": {
+        "anchor_tested_phases": 9,
+        "freeze_failure_total": 0,
+        "phases": 149,
+        "phases_with_ge2_legal_candidates": 9,
+        "phases_with_ge2_next_actions": 9,
+        "total_legal_candidates": 88,
+        "verdict_counts": {
+          "ANCHOR_LEGAL_MULTI": 9,
+          "INSUFFICIENT_QUEUE": 35,
+          "NO_COMMITTED_VEHICLE": 105
+        }
+      }
+    },
+    "phases": 289,
+    "verdict_counts": {
+      "ANCHOR_LEGAL_MULTI": 15,
+      "INSUFFICIENT_QUEUE": 58,
+      "NO_COMMITTED_VEHICLE": 216
+    }
+  },
+  "run_id": "p2_c_anchor_01_20261019",
+  "schema": "p2_c_anchor_01_verification_v1"
+}

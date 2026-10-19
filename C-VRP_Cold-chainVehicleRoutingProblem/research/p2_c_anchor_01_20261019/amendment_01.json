@@ -1,0 +1,22 @@
+{
+ "amendment_id": "01",
+ "run_id": "p2_c_anchor_01_20261019",
+ "kind": "post_run_deviation_registered",
+ "registered_before_rerun": false,
+ "affects_registered_analysis": true,
+ "affects_H1_verdict": false,
+ "what_was_registered": "primary_control = \"the current conservative action domain: identical enumeration and identical reference check, but the in-transit vehicle left out of allowed_vehicle_ids\"",
+ "what_was_actually_run": "probe_anchor.py does not implement that control arm; only the anchor arm was enumerated. All reported numbers come from anchor_scope.csv / anchor_summary.json / synthetic_tx.json, which are unchanged by this amendment.",
+ "why_the_control_is_informative_only_as_written_down": [
+  "With the in-transit vehicle excluded from allowed_vehicle_ids, no action can touch its plan, so the queue orders stay in its suffix AND can additionally be re-inserted into another vehicle. The result is a double-service plan, not a suffix reconstruction.",
+  "The registered control only applies route_check (per-vehicle TW/capacity/return), which cannot see a cross-vehicle duplicate; only the freeze_ok exact-once predicate can. The control as written would therefore have reported candidates that are exact-once-invalid.",
+  "Under the exact-once predicate the same control is trivially 0 for every phase with a non-empty queue, because a frozen suffix cannot lose the orders it holds. Either version of the control is uninformative about the hypothesis."
+ ],
+ "replacement_comparisons_actually_reported": [
+  "phase census 216 / 58 / 15 (no committed vehicle / queue<2 / anchor-testable): the anchor regime is a strict minority and is reported as such, so no denominator inflation",
+  "DOMAIN-01's 13 multi-order phases live in the plan-exhaustion regime with 0 in-transit vehicles, and the 15 anchor-testable phases all have exactly 1 in-transit vehicle: the two populations are disjoint, so ANCHOR-01 is a NEW regime, neither a subset nor a restatement",
+  "the synthetic late-reveal control (identical controller, later reveal moved outside the flight window) isolates the mid-flight reveal as the cause of the tail loss"
+ ],
+ "residual_risk": "the report does not claim that unfreezing the suffix beats the frozen domain; no utility comparison was run and none was authorised. The missing control weakens the comparison, not the H1 legality result.",
+ "outputs_unchanged": true
+}

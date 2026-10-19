@@ -1,0 +1,389 @@
+{
+  "h1_verdict": "ANCHOR_SCOPE_ESTABLISHED",
+  "per_arm": {
+    "MYOPIC": {
+      "anchor_tested_phases": 6,
+      "detail": [
+        {
+          "anchor": [
+            34,
+            0.78493,
+            1.964763
+          ],
+          "clock_h": 0.703897,
+          "committed_next": 34,
+          "day": 0,
+          "n_legal_candidates": 8,
+          "n_masks": 1,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 8,
+          "next_actions": [
+            0,
+            13,
+            24
+          ],
+          "ordinal": 3,
+          "pending_len": 3,
+          "queue_len": 2,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        },
+        {
+          "anchor": [
+            16,
+            2.292944,
+            9.07275
+          ],
+          "clock_h": 1.971258,
+          "committed_next": 16,
+          "day": 0,
+          "n_legal_candidates": 8,
+          "n_masks": 1,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 8,
+          "next_actions": [
+            0,
+            12,
+            40
+          ],
+          "ordinal": 10,
+          "pending_len": 3,
+          "queue_len": 2,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        },
+        {
+          "anchor": [
+            16,
+            2.292944,
+            9.07275
+          ],
+          "clock_h": 2.227905,
+          "committed_next": 16,
+          "day": 0,
+          "n_legal_candidates": 24,
+          "n_masks": 3,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 24,
+          "next_actions": [
+            12,
+            37,
+            40
+          ],
+          "ordinal": 11,
+          "pending_len": 4,
+          "queue_len": 3,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        },
+        {
+          "anchor": [
+            21,
+            1.753935,
+            6.221689
+          ],
+          "clock_h": 1.66054,
+          "committed_next": 21,
+          "day": 1,
+          "n_legal_candidates": 8,
+          "n_masks": 1,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 8,
+          "next_actions": [
+            0,
+            8,
+            16
+          ],
+          "ordinal": 7,
+          "pending_len": 3,
+          "queue_len": 2,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        },
+        {
+          "anchor": [
+            8,
+            1.968262,
+            7.725931
+          ],
+          "clock_h": 1.84974,
+          "committed_next": 8,
+          "day": 1,
+          "n_legal_candidates": 8,
+          "n_masks": 1,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 8,
+          "next_actions": [
+            0,
+            16,
+            35
+          ],
+          "ordinal": 9,
+          "pending_len": 3,
+          "queue_len": 2,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        },
+        {
+          "anchor": [
+            35,
+            2.134557,
+            10.550333
+          ],
+          "clock_h": 2.080183,
+          "committed_next": 35,
+          "day": 1,
+          "n_legal_candidates": 8,
+          "n_masks": 1,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 8,
+          "next_actions": [
+            0,
+            14,
+            16
+          ],
+          "ordinal": 11,
+          "pending_len": 3,
+          "queue_len": 2,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        }
+      ],
+      "freeze_failure_total": 0,
+      "phases": 140,
+      "phases_with_ge2_legal_candidates": 6,
+      "phases_with_ge2_next_actions": 6,
+      "total_legal_candidates": 64,
+      "verdict_counts": {
+        "ANCHOR_LEGAL_MULTI": 6,
+        "INSUFFICIENT_QUEUE": 23,
+        "NO_COMMITTED_VEHICLE": 111
+      }
+    },
+    "SAA": {
+      "anchor_tested_phases": 9,
+      "detail": [
+        {
+          "anchor": [
+            6,
+            4.091588,
+            10.604556
+          ],
+          "clock_h": 4.088207,
+          "committed_next": 6,
+          "day": 0,
+          "n_legal_candidates": 8,
+          "n_masks": 1,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 8,
+          "next_actions": [
+            0,
+            5,
+            27
+          ],
+          "ordinal": 18,
+          "pending_len": 3,
+          "queue_len": 2,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        },
+        {
+          "anchor": [
+            30,
+            9.12345,
+            27.102468
+          ],
+          "clock_h": 9.038284,
+          "committed_next": 30,
+          "day": 0,
+          "n_legal_candidates": 8,
+          "n_masks": 1,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 8,
+          "next_actions": [
+            0,
+            26,
+            38
+          ],
+          "ordinal": 40,
+          "pending_len": 3,
+          "queue_len": 2,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        },
+        {
+          "anchor": [
+            26,
+            9.365674,
+            30.795419
+          ],
+          "clock_h": 9.265568,
+          "committed_next": 26,
+          "day": 0,
+          "n_legal_candidates": 8,
+          "n_masks": 1,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 8,
+          "next_actions": [
+            0,
+            11,
+            44
+          ],
+          "ordinal": 44,
+          "pending_len": 3,
+          "queue_len": 2,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        },
+        {
+          "anchor": [
+            26,
+            9.365674,
+            30.795419
+          ],
+          "clock_h": 9.276539,
+          "committed_next": 26,
+          "day": 0,
+          "n_legal_candidates": 24,
+          "n_masks": 3,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 24,
+          "next_actions": [
+            11,
+            21,
+            44
+          ],
+          "ordinal": 45,
+          "pending_len": 4,
+          "queue_len": 3,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        },
+        {
+          "anchor": [
+            28,
+            13.559711,
+            44.173173
+          ],
+          "clock_h": 13.365268,
+          "committed_next": 28,
+          "day": 0,
+          "n_legal_candidates": 8,
+          "n_masks": 1,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 8,
+          "next_actions": [
+            0,
+            4,
+            47
+          ],
+          "ordinal": 62,
+          "pending_len": 3,
+          "queue_len": 2,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        },
+        {
+          "anchor": [
+            21,
+            1.753935,
+            3.807184
+          ],
+          "clock_h": 1.66054,
+          "committed_next": 21,
+          "day": 1,
+          "n_legal_candidates": 8,
+          "n_masks": 1,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 8,
+          "next_actions": [
+            0,
+            8,
+            16
+          ],
+          "ordinal": 6,
+          "pending_len": 3,
+          "queue_len": 2,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        },
+        {
+          "anchor": [
+            22,
+            9.182387,
+            29.727228
+          ],
+          "clock_h": 8.925396,
+          "committed_next": 22,
+          "day": 1,
+          "n_legal_candidates": 8,
+          "n_masks": 1,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 8,
+          "next_actions": [
+            0,
+            15,
+            48
+          ],
+          "ordinal": 41,
+          "pending_len": 3,
+          "queue_len": 2,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        },
+        {
+          "anchor": [
+            49,
+            10.044723,
+            38.175406
+          ],
+          "clock_h": 9.649904,
+          "committed_next": 49,
+          "day": 1,
+          "n_legal_candidates": 8,
+          "n_masks": 1,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 8,
+          "next_actions": [
+            0,
+            5,
+            42
+          ],
+          "ordinal": 48,
+          "pending_len": 3,
+          "queue_len": 2,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        },
+        {
+          "anchor": [
+            5,
+            10.239834,
+            40.307118
+          ],
+          "clock_h": 10.132206,
+          "committed_next": 5,
+          "day": 1,
+          "n_legal_candidates": 8,
+          "n_masks": 1,
+          "n_next_action_after_anchor": 3,
+          "n_raw_candidates": 8,
+          "next_actions": [
+            0,
+            27,
+            42
+          ],
+          "ordinal": 51,
+          "pending_len": 3,
+          "queue_len": 2,
+          "verdict": "ANCHOR_LEGAL_MULTI"
+        }
+      ],
+      "freeze_failure_total": 0,
+      "phases": 149,
+      "phases_with_ge2_legal_candidates": 9,
+      "phases_with_ge2_next_actions": 9,
+      "total_legal_candidates": 88,
+      "verdict_counts": {
+        "ANCHOR_LEGAL_MULTI": 9,
+        "INSUFFICIENT_QUEUE": 35,
+        "NO_COMMITTED_VEHICLE": 105
+      }
+    }
+  },
+  "phases": 289,
+  "qualification": "REFERENCE_ONLY",
+  "run_id": "p2_c_anchor_01_20261019",
+  "schema": "p2_c_anchor_01_scope_v1",
+  "verdict_counts": {
+    "ANCHOR_LEGAL_MULTI": 15,
+    "INSUFFICIENT_QUEUE": 58,
+    "NO_COMMITTED_VEHICLE": 216
+  }
+}
