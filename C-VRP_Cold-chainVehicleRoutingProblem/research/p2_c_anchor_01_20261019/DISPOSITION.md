@@ -79,6 +79,8 @@
 草案已按裁定的七要素写成，状态 **`DRAFT_NOT_AUTHORISED`**：
 [`docs/当前规划/P2工作包/P2-C-CAMR-STATIC-01_静态CAMR与非学习重构机制对比_DRAFT_NOT_AUTHORISED.md`](../../docs/当前规划/P2工作包/P2-C-CAMR-STATIC-01_静态CAMR与非学习重构机制对比_DRAFT_NOT_AUTHORISED.md)
 
+> **该草案已按授权前复核修订为 R2**（唯一假设收窄为固定 mask 下的 repair 差异；SGBS 单输出预冻结为 `completions[0]`；撤销"单一通道即 No-Go"；模型身份改指 `FrozenBackbone.insertion_scores()`；补齐共享合法动作接口与预算口径；分析单元明确为 19 个相位–mask；阻断分阶段；新增止损线）。修订记录见草案 §附录 A。**仍未授权、仍未执行。**
+
 两个**独立阻断**（我不把它们合并成一个风险条目）：
 
 1. **C0 预算 `B` 尚未正式裁决**。已登记的 `B_ref` **不能**自动替代正式批准的硬预算；只要 `B` 未落定，"通过冷链物理认证"就没有可判定的判据。
