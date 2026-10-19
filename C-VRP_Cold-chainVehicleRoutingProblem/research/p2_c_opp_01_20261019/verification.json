@@ -1,0 +1,68 @@
+{
+  "scope": "READ_ONLY_RECOMPUTATION_NOT_SECOND_SOURCE_RUN_OR_EXTERNAL_REVIEW",
+  "status": "PASS",
+  "root_days": 2,
+  "complete_phases": 149,
+  "journal_records": 403,
+  "source_files_unchanged": 659,
+  "preserved_files_unchanged": 61,
+  "checks": [
+    "BEGIN/PHASE/terminal phase counts contiguous and equal",
+    "actual frozen mask_pool equals raw proposal dedup at every phase",
+    "public order IDs and ledger exactly match source reveals at public clock",
+    "actual kNN features/order and all 16 full suffix counts recomputed without sampling",
+    "three rates recomputed per root day",
+    "terminal accepted/service ledger exact-once"
+  ],
+  "limitations": [
+    "Reference endpoint checks are not continuous/F-level certification",
+    "Primary C0 insertion rejection causes are not separately exported by frozen controller; all rejected IDs retained",
+    "No reconstructed candidate plans, executed repair actions or terminal utility labels exist"
+  ],
+  "artifact_sha256": {
+    "registration.json": "f6c93dfd2d329f71ddc3da36d5dba71ed80d31b760be6aa7e342e2b8d0dd9128",
+    "journal.jsonl": "2a037cf0a55b7bc160fd709c6ed2460a05a8756ff02d75089c831b1882a4c0f8",
+    "phases.json": "c74df8554701391ad2ab386519336be7622b7f62348bc8814cf95015a6060a15",
+    "result.json": "fed3b6c8b842b054b905c389f873a93d1f820ddf0efbd7a2e22a922f39ca3747",
+    "phase_summary.csv": "4383b20edb73ac2c9513c02d0972ae0c8ab4f73991be9334e1fa0702ebc87c91",
+    "resources.json": "e6db1ee47af1609c891c41f9fa11fc406844c7802c7675ab7efa5331d6b0cf13",
+    "synthetic.xml": "2b2e1993b1fd9f8962ba3022f40d638bbee2c7d294aca3aa2a573c9f011a9434",
+    "REPORT.md": "cc92eaa9bfadfd2493c1ce01b66743e1d9f45ee0458cb4590305cca53b2af19f",
+    "synthetic_final.xml": "4a523bdc119227d378fb1f5f93887c1d505082c867e475139d1f25bafe702d65",
+    ".gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+  },
+  "checkpoint_unchanged_after_run": true,
+  "prior_v2_public_capture_matches": {
+    "0": [
+      [
+        0,
+        19
+      ]
+    ],
+    "1": [
+      [
+        0,
+        41
+      ]
+    ],
+    "2": [
+      [
+        1,
+        7
+      ]
+    ],
+    "3": [
+      [
+        1,
+        42
+      ]
+    ]
+  },
+  "final_synthetic_acceptance": {
+    "passed": 6,
+    "elapsed_s": 2.76,
+    "file": "synthetic_final.xml",
+    "source_days_rerun": 0,
+    "training_steps": 0
+  }
+}
