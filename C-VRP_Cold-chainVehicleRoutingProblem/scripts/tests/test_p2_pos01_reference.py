@@ -1,4 +1,8 @@
-"""P2-POS-01A synthetic CPU acceptance. No datasets/results/checkpoints are written.
+"""P2-POS-01A/B synthetic CPU acceptance. No datasets/results/checkpoints are written.
+
+P2-B command: pytest -p no:cacheprovider -k 'not one_cpu_gradient' <this file>.
+The historical A-only gradient test is retained but MUST NOT run in the B scope.
+The following A record is historical; the B acceptance record follows it.
 
 Run this file explicitly with CPU env, PYTHONDONTWRITEBYTECODE=1 and pytest's
 cacheprovider disabled. Only the original cvrp100.ckpt is read. One and only one
@@ -33,6 +37,34 @@ acceptance ledger, not a substitute claimed to be the strong SAA baseline.
     apply_action、logit增删边映射和全局argmax语义，以局部循环加入统一保守容量谓词；
     没有猴子补丁、修改旧枚举器或训练新插入头。只支持声明的v2/Euclidean/N50公域。
   * 未改历史results、正式裁决、生产模块或MASKCO_code源文件；本轮结束即停止。
+
+P2-POS-01B 实施验收记录（2026-10-19，起始HEAD 3789e4956d44740b9357722f9a12a09938149558）：
+  * 17项非训练合成测试通过，1项历史梯度测试明确排除，最终整组46.76s。
+    本轮优化器更新=0、真实数据日=0、真实训练标签采集=0、GPU/正式实验=0。
+  * 真实ReplaySafeSaaReplanner的_saa_decide、条件历史采样、ls影子搜索与StrictOnlineEnv
+    实际执行；K=4、marginal能源口径、同事件共享6s接拒截止，配置/历史/源码均绑定身份。
+    公共51节点桶的未发布行仅零需求占位，未来值不传入当前SAA或MaskCO。
+  * POST_ADMISSION_PRE_REPAIR在SAA本事件完成接拒和形成P0后、引擎commit前捕获。
+    mask候选只改合法mutable后缀，并写入恢复后SAA的真实_plan；首个恢复计划hash与
+    候选相符，接拒计数不重复，随后真实未来揭示事件继续执行SAA决策。
+  * 一个手工源状态、4个合法mask、2个HIST外生未来，加KEEP共10条合成续程均OK。
+    4个配对均值约为[-0.18045335,-0.31647326,-0.21642810,-0.31647326]，负值原样保留。
+    每个未来上的mask产生3种不同的实际首批commit向量；KEEP是第4种。
+    这些数只验接线和标签含义，不是正向收益、可学习性或统计显著性结论。
+  * KEEP/直接运行完整轨迹、账本和utility一致；各mask重复终局身份一致；真实SAA的
+    共用揭示键场景相同，额外消耗无关随机数或反转动作顺序不会移动配对外生未来。
+    EventRNG同时用于HIST外生未来生成和SAA续程采样，不以真实未来hash作决策seed。
+  * 原权重字节身份与A一致，完整backbone参数摘要仍为上列7b43ece3...，无训练。
+    A的4修复/3实际首动作测试已加>=2防退化断言，不再以unique>=1充当通过。
+  * 非法mask、独立参考拒绝、EXCEPTION、ROLLOUT_TIMEOUT均保留utility=null；
+    故障分支不污染源快照或下一分支。身份损坏停止队列，剩余预定槽保持NOT_ATTEMPTED；
+    标签有效性要求KEEP与候选在全部K上均有效，不删除失败或填造有限负奖励。
+  * 资格：LABEL_CHAIN_SYNTHETIC_PASS / REFERENCE_ONLY。已达到标签链的合成前置，
+    不是两日执行资格或授权。真实源日与HIST的TRAIN隔离/逐内容清单、整队列资源封顶和
+    监督验收仍需在单独授权的两日烟测范围收口；真实状态覆盖率/标签有效率尚未测量。
+    完整接拒+投影+模型+检查10s在线合同、同预算distance+SGBS比较、连续温度及浮点
+    全认证、价值头拟合/校准、正式L2/L3与最终测试均未建立，不能据本件升级。
+    真实标签采集入口仍受REAL_COLLECTION_NOT_AUTHORISED门控；没有新CLI或自动续跑。
 """
 import os
 os.environ['JAX_PLATFORMS'] = 'cpu'
@@ -153,7 +185,8 @@ def test_real_model_chain_and_candidate_identity(model, backbone):
     assert new_view.accepted == view.accepted and new_view.served == view.served
     assert ref.identity(view) == original
     assert log['qualification'] == 'REFERENCE_ONLY'
-    assert len({r['repair'] for r in record}) >= 1  # diagnostic, NOT a gain assertion
+    assert len({r['repair'] for r in record}) >= 2, 'degenerate synthetic repair pool'
+    assert len({r['action'] for r in record}) >= 2, 'no distinguishable actual first actions'
     print('\nCANDIDATE_DIAGNOSTIC', {'rows': record, 'unique_repair': len({r['repair'] for r in record}),
           'unique_accepted': len({r['accepted'] for r in record}),
           'unique_action': len({r['action'] for r in record}), 'head': 'SYNTHETIC_CONSTANT_NOT_TRAINED'})
@@ -402,8 +435,229 @@ def test_keyed_randomness_and_failure_preserving_labels():
     assert missing['delta_utility'] is None and missing['training_weight'] == 0.
     with pytest.raises(ValueError, match='unpaired'):
         paired_label({**candidate, 'scenario_identity': 'OTHER'}, keep)
-    with pytest.raises(NotImplementedError, match='NOT AUTHORISED'):
+    with pytest.raises(PermissionError, match='NOT_AUTHORISED'):
         collect_real_labels()
+
+
+# P2-POS-01B: actual ReplaySafeSaaReplanner + CondHistoricalSampler + StrictOnlineEnv.
+# These fixtures use handcrafted arrays only; no NPZ/results/real-day assets read.
+import p2_pos01_teacher as teacher
+from scenario_saa import make_c0_contract_v2, ScenarioOrder
+
+
+def saa_synthetic_dataset():
+    rows, _, _ = synthetic_case()
+    data = {k: np.zeros((1, 51), np.float32) for k in
+            ('demands', 'tw_start', 'tw_end', 'service_time', 'temp_class',
+             'initial_quality', 'reveal_time')}
+    data['coords'] = np.zeros((1, 51, 2), np.float32)
+    data['tw_end'][:] = 5.
+    data['initial_quality'][:] = 1.
+    data['reveal_time'][:] = 1.5  # zero-demand PUBLIC padding, not hidden cardinality
+    for r in rows:
+        c = r['oid']
+        data['coords'][0, c] = [r['x'], r['y']]
+        for name, value in (('demands', r['demand']), ('service_time', r['service']),
+                             ('temp_class', r['temp_class']), ('initial_quality', r['initial_quality']),
+                             ('reveal_time', .05 if c else 0.)):
+            data[name][0, c] = value
+    for c, xy, reveal in ((7, (.12, .09), .23), (8, (.02, .11), .31)):
+        data['coords'][0, c] = xy
+        data['demands'][0, c] = 2.
+        data['service_time'][0, c] = .01
+        data['temp_class'][0, c] = 1
+        data['initial_quality'][0, c] = 9.
+        data['reveal_time'][0, c] = reveal
+    history = []
+    for shift in (0., .015):
+        day = []
+        for c in range(1, 9):
+            day.append(ScenarioOrder(c, float(data['reveal_time'][0, c]),
+                float(data['coords'][0, c, 0])+(shift if c > 6 else 0.),
+                float(data['coords'][0, c, 1]), float(data['demands'][0, c]),
+                int(data['temp_class'][0, c]), 0., 5., float(data['service_time'][0, c])))
+        history.append(tuple(day))
+    spec = teacher.SaaSpec(make_c0_contract_v2(), tuple(history), booking_horizon=.5,
+                           budget=1000., stream_id='HANDCRAFTED_SYNTHETIC_ONLY')
+    return data, spec
+
+
+def run_actual_saa(data, spec, capture=False):
+    controller = teacher.PublicSaaReplanner(spec)
+    env = teacher.SaaPhaseEnv(data, spec.capacity, spec.tw_speed, num_vehicles=2,
+        replanner=controller, coldchain_contract=spec.contract, booking_horizon=spec.booking_horizon)
+    captures = []
+    if capture:
+        def hook(engine, view, context):
+            if not captures and ref.mask_pool(view, ref.plans_from_view(view)):
+                captures.append(teacher.capture_saa_phase(engine, view, context, spec))
+        env.p2_capture = hook
+    traces, served = env.run(0)
+    ev = evaluate_trace_a1(traces, {k: a[0] for k, a in data.items()}, spec.contract,
+        controller._accepted, controller._rejected, spec.budget, dict(enumerate(spec.reject_penalty)))
+    return captures, traces, served, controller, ev
+
+
+@pytest.fixture(scope='module')
+def saa_bundle(backbone):
+    data, spec = saa_synthetic_dataset()
+    captures, _, _, controller, _ = run_actual_saa(data, spec, True)
+    assert captures, 'actual SAA did not expose a legal post-admission state'
+    capture = captures[0]
+    assert isinstance(controller, teacher.ReplaySafeSaaReplanner)
+    teacher.validate_saa_capture(capture, spec)
+    actions = teacher.prepare_mask_actions(capture, spec, backbone)
+    assert actions and any(a['status'] == 'OK' for a in actions), actions
+    tapes = teacher.make_future_tapes(capture, actions, spec, K=2)
+    report = teacher.collect_real_labels(capture, actions, tapes, spec, synthetic=True)
+    print('\nSAA_LABEL_CHAIN', {'actions': [(a['mask'], a['status']) for a in actions],
+        'n_planned': report['n_planned'], 'statuses': [r['status'] for r in report['rows']],
+        'labels': report['labels'], 'entry_commits': [r.get('actual_entry_commits') for r in report['rows']]})
+    return capture, actions, tapes, spec, report
+
+
+def test_saa_keep_matches_direct_and_current_admission_not_repeated(saa_bundle):
+    capture, _, tapes, spec, report = saa_bundle
+    _, traces, served, policy, ev = run_actual_saa(tapes[0]['dataset'], spec)
+    keep = report['rows'][0]
+    assert keep['status'] == 'OK', keep
+    assert keep['trace_identity'] == snapshot_state_hash({'traces': [asdict(t) for t in traces]})
+    assert keep['evaluation'] == ev
+    assert keep['ledger'] == policy.export_state()
+    assert keep['first_entry']['admission_count'] == capture['snapshot']['replanner_state']['p2_saa']['admission_count']
+
+
+def test_saa_real_mask_enters_controller_and_repeats_exactly(saa_bundle, backbone):
+    capture, actions, tapes, spec, report = saa_bundle
+    teacher.validate_saa_capture(capture, spec)
+    assert len({ref.plan_hash(a['plan']) for a in actions if a['status'] == 'OK'}) >= 2
+    for action in actions:
+        if action['status'] != 'OK':
+            continue
+        row = next(r for r in report['rows'] if r['scenario_identity'] == tapes[0]['scenario_identity']
+                   and r['action_id'] == action['action_id'])
+        assert row['status'] == 'OK', row
+        assert row['first_entry']['plan_hash'] == ref.plan_hash(action['plan'])
+        assert row['first_entry']['accepted'] == list(capture['public_view'].accepted)
+        repeat = teacher.run_branch(capture, action, tapes[0], spec)
+        assert row['terminal_identity'] == repeat['terminal_identity']
+        assert row['utility'] == repeat['utility']
+    assert all(x['valid'] and np.isfinite(x['delta_utility']) for x in report['labels']), report['labels']
+    assert backbone.parameter_digest() == backbone.manifest['parameter_sha256']
+
+
+def test_saa_hidden_future_cannot_change_current_state_or_action(backbone):
+    source, spec = saa_synthetic_dataset()
+    captures1, *_ = run_actual_saa(source, spec, True)
+    altered = copy.deepcopy(source)
+    altered['coords'][0, 7:] = 100.
+    altered['demands'][0, 7:9] = 19.
+    altered['temp_class'][0, 7:9] = 2
+    altered['reveal_time'][0, 7:9] = [.27, .45]
+    captures2, *_ = run_actual_saa(altered, spec, True)
+    one, two = captures1[0], captures2[0]
+    assert one['public_identity'] == two['public_identity']
+    assert one['snapshot']['replanner_state'] == two['snapshot']['replanner_state']
+    a1 = teacher.prepare_mask_actions(one, spec, backbone)
+    a2 = teacher.prepare_mask_actions(two, spec, backbone)
+    assert [a['action_identity'] for a in a1] == [a['action_identity'] for a in a2]
+    m = MaskValueModel(backbone)  # no optimization, default untrained KEEP head
+    v1, v2 = one['public_view'], two['public_view']
+    b1, b2 = ref.plans_from_view(v1), ref.plans_from_view(v2)
+    masks = ref.mask_pool(v1, b1)
+    np.testing.assert_array_equal(m.score_masks(v1, b1, masks), m.score_masks(v2, b2, masks))
+    np.testing.assert_array_equal(m.features(v1, b1, masks), m.features(v2, b2, masks))
+    np.testing.assert_array_equal(one['snapshot']['mutable_suffix'], two['snapshot']['mutable_suffix'])
+
+
+def test_saa_external_rng_pairing_and_branch_order_independence(saa_bundle, monkeypatch):
+    capture, actions, tapes, spec, report = saa_bundle
+    again = teacher.make_future_tapes(capture, actions, spec, K=2)
+    assert [t['scenario_identity'] for t in tapes] == [t['scenario_identity'] for t in again]
+    reverse = teacher.make_future_tapes(capture, tuple(reversed(actions)), spec, K=2)
+    assert [t['scenario_identity'] for t in tapes] == [t['scenario_identity'] for t in reverse]
+    # Actual SAA draws at common external reveal keys agree even when intervening
+    # service events, plans, admission decisions and branch order differ.
+    rows = [r for r in report['rows'] if r['status'] == 'OK' and
+            r['scenario_identity'] == tapes[0]['scenario_identity']]
+    audits = [{repr(d['key']): d['scenarios'] for d in r['ledger']['p2_saa']['draw_audit']} for r in rows]
+    assert len(audits[0]) >= 2, 'no actual future SAA event consumed keyed RNG'
+    for audit in audits[1:]:
+        common = set(audit) & set(audits[0])
+        assert len(common) >= 2 and all(audit[k] == audits[0][k] for k in common)
+    row = teacher.run_branch(capture, actions[-1], tapes[0], spec)
+    repeated_keep = teacher.run_branch(capture, None, tapes[0], spec)
+    assert repeated_keep['terminal_identity'] == report['rows'][0]['terminal_identity']
+    assert row['status'] == 'OK'
+    generator = teacher.EventRNG.generator
+    def extra_consumption(self, key):
+        generator(self, ('UNRELATED_SYNTHETIC_DRAW', key)).normal(size=17)
+        return generator(self, key)
+    monkeypatch.setattr(teacher.EventRNG, 'generator', extra_consumption)
+    extra = teacher._run_branch(capture, actions[-1], tapes[0], spec)
+    assert extra['terminal_identity'] == row['terminal_identity']
+
+
+def test_saa_broken_ledger_prefix_and_cutoff_rejected(saa_bundle):
+    capture, actions, tapes, spec, _ = saa_bundle
+    for kind in ('ledger', 'prefix'):
+        bad = copy.deepcopy(capture)
+        snap = bad['snapshot']
+        if kind == 'ledger':
+            snap['replanner_state']['accepted'].pop()
+        else:
+            snap['vehicle_node'][0] = 1
+            snap['runtime_scalars_v18']['vehicles'][0]['current_node'] = ('python', 1)
+        snap['state_hash'] = snapshot_state_hash(snap)  # semantic test, not just checksum failure
+        bad['capture_identity'] = ref.identity([teacher.PHASE, bad['public_identity'], snap['state_hash'],
+            spec.signature, bad['protocol'], bad['dataset_identity']])
+        bad['saa_identity'] = teacher._saa_capture_identity(bad)
+        with pytest.raises(ValueError):
+            teacher.run_branch(bad, actions[0], tapes[0], spec)
+    with pytest.raises(ValueError):
+        teacher.run_branch(capture, actions[0], tapes[0], replace(spec, booking_horizon=.6))
+    # Test the ACTUAL SAA route predicate on both sides of the same capacity rule.
+    policy = teacher.PublicSaaReplanner(spec)
+    view = capture['public_view']
+    e = ref.public_env(view)
+    e.demands[0, 1] = 50.-ref.CAPACITY_MARGIN
+    assert policy._route_feasible(e, 0, 0, view.clock, 0., [1])
+    e.demands[0, 1] += 5e-5
+    assert not policy._route_feasible(e, 0, 0, view.clock, 0., [1])
+
+
+def test_saa_faults_invalid_labels_and_snapshot_survive(saa_bundle, backbone):
+    capture, actions, tapes, spec, report = saa_bundle
+    stamp = snapshot_state_hash(capture['snapshot'])
+    exception = teacher.run_branch(capture, actions[0], tapes[0], spec,
+                                   synthetic_fault='raise_after_install')
+    timeout = teacher.run_branch(capture, actions[0], tapes[0], spec, seconds=5,
+                                 synthetic_fault='hang_after_install')
+    assert exception['status'] == 'EXCEPTION' and exception['utility'] is None
+    assert timeout['status'] == 'ROLLOUT_TIMEOUT' and timeout['worker_reclaimed']
+    assert not paired_label(exception, report['rows'][0])['valid']
+    assert not paired_label(timeout, report['rows'][0])['valid']
+    invalid = teacher.prepare_mask_actions(capture, spec, backbone, masks=((0, 1),))
+    itapes = teacher.make_future_tapes(capture, invalid, spec, K=1)
+    invalid_report = teacher.collect_real_labels(capture, invalid, itapes, spec, synthetic=True)
+    assert invalid_report['n_planned'] == 2 and len(invalid_report['rows']) == 2
+    assert invalid_report['labels'][0]['delta_utility'] is None
+    assert invalid_report['rows'][1]['status'] == 'ILLEGAL_MASK'
+    failed_report = teacher.collect_real_labels(capture, actions[:1], tapes[:1], spec,
+        synthetic=True, synthetic_faults={(0, actions[0]['action_id']): 'raise_after_install'})
+    assert len(failed_report['rows']) == 2 and failed_report['rows'][1]['status'] == 'EXCEPTION'
+    assert failed_report['labels'][0]['delta_utility'] is None
+    damaged = copy.deepcopy(tapes[0])
+    damaged['dataset']['coords'][0, 7, 0] += .1
+    stopped = teacher.collect_real_labels(capture, actions, (damaged,), spec, synthetic=True)
+    assert stopped['status'] == 'BLOCKED' and len(stopped['rows']) == len(actions)+1
+    assert stopped['rows'][0]['status'] == 'BLOCKED'
+    assert all(r['status'] == 'NOT_ATTEMPTED' for r in stopped['rows'][1:])
+    assert all(x['delta_utility'] is None for x in stopped['labels'])
+    assert snapshot_state_hash(capture['snapshot']) == stamp
+    after = teacher.run_branch(capture, actions[0], tapes[0], spec)
+    original = next(r for r in report['rows'] if r['action_id'] == actions[0]['action_id'])
+    assert after['terminal_identity'] == original['terminal_identity']
 
 
 def test_worker_real_cpu_chain_and_forced_timeout():

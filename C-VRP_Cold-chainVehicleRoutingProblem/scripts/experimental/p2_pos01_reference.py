@@ -249,6 +249,80 @@ def public_env(view):
                            coldchain_contract=view.contract)
 
 
+def saa_public_env(engine, inst, clock):
+    """Private-engine boundary -> fixed PUBLIC N50 bucket for the actual SAA.
+
+    Only reveal is inspected to decide publication. Hidden properties are never
+    copied; unused rows are declared zero-demand padding, NOT future orders.
+    Forecast orders are appended by SAA from its TRAIN history, never this engine.
+    """
+    n = 51
+    if engine.num_nodes > n:
+        raise ValueError('public N50 bucket exceeded')
+    data = {k: np.zeros((1, n), np.float64) for k in
+            ('demands', 'tw_start', 'tw_end', 'service_time', 'temp_class',
+             'initial_quality', 'reveal_time')}
+    data['coords'] = np.zeros((1, n, 2), np.float64)
+    depot_end = float(engine.tw_end[inst, 0])
+    data['tw_end'][:] = depot_end
+    data['initial_quality'][:] = 1.
+    data['reveal_time'][:] = float(engine.booking_horizon)+1.
+    visible = []
+    for c in range(engine.num_nodes):
+        if c != 0 and float(engine.reveal_time[inst, c]) > clock+EVENT_TOL:
+            continue
+        if c != 0 and float(engine.demands[inst, c]) <= 0:
+            continue
+        visible.append(c)
+        data['coords'][0, c] = engine.coords[inst, c]
+        for name in data.keys()-{'coords'}:
+            value = (engine.dataset['temp_class'][inst, c] if name == 'temp_class'
+                     else getattr(engine, name)[inst, c])
+            data[name][0, c] = value
+    coords = data['coords']
+    def reserved(vehicles):
+        return {c for v in vehicles for c in
+                ([v.committed_next] if v.status == 'committed' else [])+list(v.mutable_suffix)
+                if c not in (None, 0)}
+    return SimpleNamespace(**data, dataset=data, num_nodes=n,
+        capacity=engine.capacity, tw_speed=engine.tw_speed,
+        booking_horizon=engine.booking_horizon, coldchain_contract=engine.coldchain_contract,
+        dist_mat=np.linalg.norm(coords[:, :, None]-coords[:, None, :], axis=-1),
+        get_reserved_customers=reserved), tuple(visible)
+
+
+def view_from_saa(proxy, policy, clock, vehicles, served, replan_ids=None,
+                  accepted_override=None):
+    """Project provisional controller plan after admission, before reconstruction.
+
+    The controller owns its provisional suffix; vehicles may still contain the
+    preceding event's suffix. Copying here does not advance or mutate the engine.
+    """
+    records = []
+    for c in range(proxy.num_nodes):
+        if c and not (proxy.demands[0, c] > 0 and proxy.reveal_time[0, c] <= clock+EVENT_TOL):
+            continue
+        records.append(dict(oid=c, x=float(proxy.coords[0, c, 0]), y=float(proxy.coords[0, c, 1]),
+            demand=float(proxy.demands[0, c]), tw_start=float(proxy.tw_start[0, c]),
+            tw_end=float(proxy.tw_end[0, c]), service=float(proxy.service_time[0, c]),
+            temp_class=int(proxy.temp_class[0, c]), initial_quality=float(proxy.initial_quality[0, c]),
+            reveal=float(proxy.reveal_time[0, c])))
+    copied = copy.deepcopy(vehicles)
+    for v in copied:
+        v.mutable_suffix = [c for c in policy._plan.get(v.vehicle_id, ())
+                            if not served[c] and c != v.committed_next]
+    accepted = set(policy._accepted) if accepted_override is None else set(accepted_override)
+    # During an insertion certificate only: yet undecided public orders are
+    # excluded from the hypothetical accepted workload, without changing C's ledger.
+    rejected = {r['oid'] for r in records if r['oid']} - accepted
+    return project_public(records, copied, accepted=accepted, rejected=rejected,
+        served=[int(c) for c in np.flatnonzero(served) if c],
+        replan_ids=tuple(v.vehicle_id for v in copied if v.status in ('idle', 'ready'))
+                   if replan_ids is None else replan_ids,
+        clock=clock, booking_horizon=proxy.booking_horizon, capacity=proxy.capacity,
+        tw_speed=proxy.tw_speed, energy_budget=policy.budget, contract=policy.contract)
+
+
 def plans_from_view(view):
     return build_vehicle_plans(public_env(view), 0, view.vehicles)
 
