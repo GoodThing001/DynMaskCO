@@ -1,0 +1,49 @@
+{
+ "analysis_scope": {
+  "Q1_lock_attribution": "per phase, classify every accepted-and-unserved order into exactly one bucket: MUTABLE / PROTECTED / EXCLUDED_FROM_REPLAN / STATUS_NOT_IDLE_READY / CLOSED_VEHICLE / COMMITTED_ANCHOR / UNREPRESENTED. Buckets are derived from the saved public_view only (protected, replan_ids, vehicle status, committed_next, mutable_suffix).",
+  "Q2_mask_granularity_census": "per phase, count DISTINCT candidate plan identities (action_contract.plan_hash over the full fleet plan) reachable by legality-only enumeration (route_check), under four pre-declared policies: CURRENT(size-2, 4 heuristics, seed 0) / S1_ONLY / MIXED_1_2 / MIXED_1_2_3.",
+  "Q3_timing": "all 289 phases are the single frozen type POST_ADMISSION_PRE_REPAIR; any alternative capture point is therefore UNASSESSABLE from these artifacts. Only two artifact-based quantities are reported: (a) orders that were in the mutable pool at phase k-1 and are frozen at phase k; (b) a scope-only structural upper bound that is explicitly NOT a legal option."
+ },
+ "analyzed_unit": "the 289 saved natural phases: (arm, day, ordinal) with arm in {SAA, MYOPIC}",
+ "baseline": "2e461046ad690ce8d727948074fcbf616191ce4a",
+ "candidate_identity": "action_contract.plan_hash(plans) of the reconstructed fleet plan; no evaluation",
+ "declared_policies": [
+  "CURRENT",
+  "S1_ONLY",
+  "MIXED_1_2",
+  "MIXED_1_2_3"
+ ],
+ "inputs": {
+  "C-VRP_Cold-chainVehicleRoutingProblem\\research\\p2_c_ctrl_01_20261019\\phases.json": "e305bd1d2162ae217ac90361fc4eed4cde9c43169d6131c7521abd23b4c6a957",
+  "C-VRP_Cold-chainVehicleRoutingProblem\\research\\p2_c_ctrl_01_20261019\\result.json": "161144bd1e5ddeb9dc7cf0d23aa718458fc3c7c8e8a80027d1337a2b23918f4d",
+  "C-VRP_Cold-chainVehicleRoutingProblem\\research\\p2_c_ctrl_01_20261019\\verification.json": "27978bcdc8b943a34ae927f1b51cf0a2ec7e247ee127513ca7de1b0643f4ad00",
+  "C-VRP_Cold-chainVehicleRoutingProblem\\research\\p2_c_opp_01_20261019\\phases.json": "c74df8554701391ad2ab386519336be7622b7f62348bc8814cf95015a6060a15",
+  "C-VRP_Cold-chainVehicleRoutingProblem\\research\\p2_c_opp_01_20261019\\result.json": "fed3b6c8b842b054b905c389f873a93d1f820ddf0efbd7a2e22a922f39ca3747",
+  "C-VRP_Cold-chainVehicleRoutingProblem\\research\\p2_c_opp_01_20261019\\verification.json": "b6cbd9795ef9c71e1dbf619cb9008450885b75d357f2fa5296a6866f6032760a"
+ },
+ "outputs": [
+  "lock_attribution.csv",
+  "mask_scope_census.csv",
+  "domain_summary.json"
+ ],
+ "prohibited": [
+  "MaskCO repair execution",
+  "counterfactual continuation",
+  "utility / distance / coldchain_cost computation",
+  "training",
+  "GPU",
+  "final seeds",
+  "re-running either SOURCE day",
+  "changing controller or thresholds",
+  "backfilling OPP/CTRL receipts"
+ ],
+ "purpose": "Attribute where accepted-but-unserved orders are locked out of the legal mask scope, and census whether alternative legal mask granularities would create distinct candidate plan identities on the SAME saved public states.",
+ "qualification": "DOMAIN_ONLY",
+ "resource": {
+  "BLAS_threads": 1,
+  "CPU_workers": 1,
+  "GPU": false,
+  "wall_s_cap": 1800
+ },
+ "run_id": "p2_c_domain_01_20261019"
+}

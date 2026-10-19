@@ -1,0 +1,52 @@
+{
+  "per_arm": {
+    "MYOPIC": {
+      "phases": 140,
+      "phases_with_pool_ge2_by_eventtype": {
+        "nonreveal": 5
+      },
+      "regime_x_eventtype": {
+        "|replan|=1,committed=0": {
+          "nonreveal/tails=0": 20,
+          "nonreveal/tails>0": 16
+        },
+        "|replan|=14,committed=1": {
+          "reveal/tails=0": 6,
+          "reveal/tails>0": 23
+        },
+        "|replan|=15,committed=0": {
+          "nonreveal/tails=0": 4,
+          "reveal/tails=0": 51,
+          "reveal/tails>0": 20
+        }
+      },
+      "reveal_phases": 100,
+      "reveal_phases_with_pool_ge2": 0
+    },
+    "SAA": {
+      "phases": 149,
+      "phases_with_pool_ge2_by_eventtype": {
+        "nonreveal": 8
+      },
+      "regime_x_eventtype": {
+        "|replan|=1,committed=0": {
+          "nonreveal/tails=0": 24,
+          "nonreveal/tails>0": 21
+        },
+        "|replan|=14,committed=1": {
+          "reveal/tails=0": 12,
+          "reveal/tails>0": 32
+        },
+        "|replan|=15,committed=0": {
+          "nonreveal/tails=0": 4,
+          "reveal/tails=0": 32,
+          "reveal/tails>0": 24
+        }
+      },
+      "reveal_phases": 100,
+      "reveal_phases_with_pool_ge2": 0
+    }
+  },
+  "reveal_test": "clock == some order.reveal (1e-6) in the saved public_view",
+  "schema": "p2_c_domain_01_event_type_census_v1"
+}

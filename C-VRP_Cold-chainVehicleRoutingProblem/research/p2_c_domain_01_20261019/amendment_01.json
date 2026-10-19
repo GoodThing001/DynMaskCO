@@ -1,0 +1,42 @@
+{
+ "amendment_id": "AMEND-01",
+ "run_id": "p2_c_domain_01_20261019",
+ "registered_before_rerun": true,
+ "defect": "The Q1 bucket precedence in the registered rule tested `vid not in replan_ids` BEFORE testing whether the owning vehicle is in a non-idle/ready status. Because a `committed` (in-transit) vehicle is never in `replan_ids`, its whole persisted suffix was filed as EXCLUDED_FROM_REPLAN instead of being attributed to the commitment contract.",
+ "how_it_was_found": "The first run reported EXCLUDED_FROM_REPLAN=42 (SAA) with STATUS_NOT_IDLE_READY=0 and PROTECTED=0, i.e. an exclusion reason with no vehicle-status explanation. A read-only cross-tab of |replan_ids| against vehicle statuses then showed only three regimes, with the 42 excluded exposures co-occurring exactly with the 44 anchor exposures.",
+ "measured_regimes": {
+  "(|replan_ids|, #committed, #closed, #active) -> phases_SAA": {
+   "(1, 0, 0, 15)": 45,
+   "(14, 1, 0, 15)": 44,
+   "(15, 0, 0, 15)": 60
+  },
+  "(|replan_ids|, #committed, #closed, #active) -> phases_MYOPIC": {
+   "(1, 0, 0, 15)": 36,
+   "(14, 1, 0, 15)": 29,
+   "(15, 0, 0, 15)": 75
+  },
+  "reading": "There is no idle/ready vehicle that is wrongly excluded. Every locked exposure belongs to the single `committed` vehicle of that phase: its committed_next order (the anchor) plus the not-yet-executed remainder of its persisted suffix."
+ },
+ "corrected_bucket_rule": [
+  "MUTABLE                       : order sits in the suffix of a vehicle in ref.mutable_ids(view)",
+  "ON_COMMITTED_VEHICLE_ANCHOR    : order equals a `committed` vehicle's committed_next",
+  "ON_COMMITTED_VEHICLE_QUEUE     : order sits in a `committed` vehicle's mutable_suffix",
+  "ON_CLOSED_VEHICLE              : order sits in a closed vehicle's suffix (expected 0)",
+  "ON_PROTECTED_VEHICLE           : owning vehicle is in view.protected (expected 0)",
+  "ON_EXCLUDED_IDLE_VEHICLE       : owning vehicle is idle/ready but not in replan_ids, or not idle/ready and not committed (expected 0; kept as a residual check)",
+  "UNREPRESENTED                  : accepted, unserved, and on no vehicle suffix and no anchor"
+ ],
+ "expected_by_corrected_rule": {
+  "ON_EXCLUDED_IDLE_VEHICLE": 0,
+  "ON_PROTECTED_VEHICLE": 0,
+  "ON_CLOSED_VEHICLE": 0,
+  "UNREPRESENTED": 0,
+  "why": "the three diagnostic buckets must be empty if the whole lock is the commitment contract; a non-zero value would falsify the amendment"
+ },
+ "unchanged": [
+  "Q2 mask-granularity census rules and policies",
+  "Q3 timing rule",
+  "prohibitions, resource cap and qualification"
+ ],
+ "impact_on_conclusions": "Q1 headline changes from 'a policy selection excludes persisted suffixes' to 'the lock is entirely the single in-transit committed vehicle'. The superseded first-run numbers are preserved under superseded_v1/ and MUST NOT be cited."
+}

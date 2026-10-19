@@ -1,0 +1,166 @@
+{
+  "checks": [
+    {
+      "detail": {
+        "rows": 289
+      },
+      "name": "V-01 lock_attribution.csv has 289 rows",
+      "ok": true
+    },
+    {
+      "detail": {
+        "recomputed": {
+          "MUTABLE": 54,
+          "ON_CLOSED_VEHICLE": 0,
+          "ON_COMMITTED_VEHICLE_ANCHOR": 44,
+          "ON_COMMITTED_VEHICLE_QUEUE": 42,
+          "ON_EXCLUDED_IDLE_VEHICLE": 0,
+          "ON_PROTECTED_VEHICLE": 0,
+          "UNREPRESENTED": 0
+        }
+      },
+      "name": "V-02[SAA] bucket totals recomputed independently",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "V-03[SAA] residual buckets are empty",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "V-04[SAA] regime table matches",
+      "ok": true
+    },
+    {
+      "detail": {
+        "n": 149
+      },
+      "name": "V-05[SAA] phase count matches",
+      "ok": true
+    },
+    {
+      "detail": {
+        "csv": {
+          "0": 104,
+          "1": 37,
+          "2": 7,
+          "3": 1
+        },
+        "recount": {
+          "0": 104,
+          "1": 37,
+          "2": 7,
+          "3": 1
+        }
+      },
+      "name": "V-06[SAA] mutable-pool histogram (CSV) matches summary regimes",
+      "ok": true
+    },
+    {
+      "detail": {
+        "informational": true
+      },
+      "name": "V-07[SAA] pending histogram equals mutable-pool histogram iff no in-transit phases",
+      "ok": true
+    },
+    {
+      "detail": {
+        "recomputed": {
+          "MUTABLE": 42,
+          "ON_CLOSED_VEHICLE": 0,
+          "ON_COMMITTED_VEHICLE_ANCHOR": 29,
+          "ON_COMMITTED_VEHICLE_QUEUE": 30,
+          "ON_EXCLUDED_IDLE_VEHICLE": 0,
+          "ON_PROTECTED_VEHICLE": 0,
+          "UNREPRESENTED": 0
+        }
+      },
+      "name": "V-02[MYOPIC] bucket totals recomputed independently",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "V-03[MYOPIC] residual buckets are empty",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "V-04[MYOPIC] regime table matches",
+      "ok": true
+    },
+    {
+      "detail": {
+        "n": 140
+      },
+      "name": "V-05[MYOPIC] phase count matches",
+      "ok": true
+    },
+    {
+      "detail": {
+        "csv": {
+          "0": 104,
+          "1": 31,
+          "2": 4,
+          "3": 1
+        },
+        "recount": {
+          "0": 104,
+          "1": 31,
+          "2": 4,
+          "3": 1
+        }
+      },
+      "name": "V-06[MYOPIC] mutable-pool histogram (CSV) matches summary regimes",
+      "ok": true
+    },
+    {
+      "detail": {
+        "informational": true
+      },
+      "name": "V-07[MYOPIC] pending histogram equals mutable-pool histogram iff no in-transit phases",
+      "ok": true
+    },
+    {
+      "detail": {
+        "phases": 149,
+        "pool_eq_pending": 105,
+        "with_one_committed": 44,
+        "zero_pool_phases": 104
+      },
+      "name": "V-08[SAA] pool==pending on exactly the committed==0 phases",
+      "ok": true
+    },
+    {
+      "detail": {
+        "phases": 140,
+        "pool_eq_pending": 111,
+        "with_one_committed": 29,
+        "zero_pool_phases": 104
+      },
+      "name": "V-08[MYOPIC] pool==pending on exactly the committed==0 phases",
+      "ok": true
+    },
+    {
+      "detail": null,
+      "name": "V-09 audit did not execute any controller/rollout",
+      "ok": true
+    }
+  ],
+  "n_checks": 16,
+  "n_fail": 0,
+  "n_pass": 16,
+  "run_id": "p2_c_domain_01_20261019",
+  "schema": "p2_c_domain_01_verification_v1",
+  "scope": "independent recomputation of aggregates from raw public phase JSON only",
+  "status": "PASS",
+  "verified_inputs": {
+    "C-VRP_Cold-chainVehicleRoutingProblem\\research\\p2_c_ctrl_01_20261019\\phases.json": "e305bd1d2162ae217ac90361fc4eed4cde9c43169d6131c7521abd23b4c6a957",
+    "C-VRP_Cold-chainVehicleRoutingProblem\\research\\p2_c_opp_01_20261019\\phases.json": "c74df8554701391ad2ab386519336be7622b7f62348bc8814cf95015a6060a15"
+  },
+  "verified_outputs": {
+    "domain_summary.json": "72e6c08aa44a15bae0efcffd7daf7def70116a3bb4710c0bcfd426c056d1c8ad",
+    "lock_attribution.csv": "1259cdbaf65e7acd2b1f2f552d61ceabba17b1fd7fa55fffc844211d2509381a"
+  },
+  "verifier_source_sha256": "eb89fc174a2635a92391437660a4ee4511901e25eb78bd971bc2103081edd7a1"
+}
