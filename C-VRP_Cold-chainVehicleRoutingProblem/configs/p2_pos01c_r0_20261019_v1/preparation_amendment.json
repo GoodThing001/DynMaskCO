@@ -1,0 +1,20 @@
+{
+  "reason": "Windows case-insensitive TRAIN glob included the newly generated R0 directory; explicitly exclude this directory from historical comparison",
+  "original_registration_sha256": "b66a18554058f17bd661d5f461b3dbd699ad88a75a1bb3322c8ae9c37562903e",
+  "changed_source": [
+    "scripts/experimental/p2_pos01c_r0_prepare.py"
+  ],
+  "effective_source_sha256": {
+    "scripts/experimental/p2_pos01c_r0_prepare.py": "6dd0a81da412d5487efc30664876aa64b5bd0bc09553f7f69b4e81cdbcb3e628",
+    "scripts/project_paths.py": "3afd25befe673c05318489b83ae259971b0da8b894a8efe7b88e1c8ad84f6658",
+    "scripts/evaluation/run_exp_reserve.py": "60d032f772738ca953d62956e46f5d1fb8d171a939df716c94ed039e2b8e5d55",
+    "scripts/evaluation/run_exp_energy_c0.py": "9f0e9dd321abebe05a549dc98c14778251eb2583b71749adb9b39ba13a877bbf",
+    "scripts/evaluation/scenario_saa.py": "36e08e06ce7b8e44eee2e6ff778904c1f26bd3145eb7d2072fb7360f33732318",
+    "scripts/evaluation/coldchain_evaluator_a1.py": "15510fa70f69e8ec80c5a89104068115a54189e91e089e2974626b41d0db3c7c",
+    "scripts/simulation/strict_online_env.py": "fd17fe77f83754635d898d4ae60f218ee5a9e6f4a33b48415d0dbeed4c7c8ff6",
+    "scripts/coldchain/coldchain_state.py": "a2ee98dcb7290f527e5f93ce4f21d094a1a706bc662ca1a897d234708e56e43e",
+    "scripts/coldchain/coldchain_contract.py": "0fb9e6e8fcff11c538e5ee41d6b0f4fb5c7db64fb5d528ceac5b46a130a268d2"
+  },
+  "roots_data_formula_and_operating_candidate_unchanged": true,
+  "energy_calibrations_started": 0
+}
