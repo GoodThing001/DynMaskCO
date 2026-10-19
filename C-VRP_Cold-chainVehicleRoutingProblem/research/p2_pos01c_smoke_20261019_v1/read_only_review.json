@@ -1,0 +1,69 @@
+{
+  "scope": "READ_ONLY_ARTIFACT_REVIEW_NO_RERUN_NO_FIX",
+  "verdict": "BLOCKED",
+  "inputs_unchanged": true,
+  "sources": [
+    {
+      "day_id": "p2_pos01c_r0_20261019_v1/SOURCE_TRAIN/00",
+      "root_seed": 2978802988,
+      "NPZ_sha256": "f1e8431ffc2c3589d509e055adf3e72957b3105602b003217ec13453051ee330",
+      "depot_reveal_time": 1000000.0,
+      "first_active_order_reveal": 0.4719512164592743,
+      "active_orders": 50,
+      "source_execution_status": "SOURCE_CAPTURE_EXCEPTION_AT_T0"
+    },
+    {
+      "day_id": "p2_pos01c_r0_20261019_v1/SOURCE_TRAIN/01",
+      "root_seed": 3571767920,
+      "NPZ_sha256": "1697bf134b6424fba36332a0120a511de8fbe02a509fa82d39ceb6ccdea706f8",
+      "depot_reveal_time": 1000000.0,
+      "first_active_order_reveal": 0.7385841012001038,
+      "active_orders": 50,
+      "source_execution_status": "NOT_ATTEMPTED"
+    }
+  ],
+  "failure_classification": "missing public depot, rather than a duplicate customer ID; generator depot reveal=1e6 is copied by saa_public_env and then removed by project_public at t=0",
+  "evidence_locations": {
+    "generator": "scripts/evaluation/run_exp_reserve.py:88",
+    "public_proxy": "scripts/experimental/p2_pos01_reference.py:263-285",
+    "projection": "scripts/experimental/p2_pos01_reference.py:203-205",
+    "guard": "scripts/experimental/p2_pos01_reference.py:144-145"
+  },
+  "source_days_planned": 2,
+  "source_days_attempted": 1,
+  "source_days_completed": 0,
+  "qualified_states": 0,
+  "continuation_slots_registered": 40,
+  "continuations_attempted": 0,
+  "continuation_status_counts": {
+    "NOT_ATTEMPTED": 40
+  },
+  "candidate_label_slots_registered": 12,
+  "candidate_labels_generated": 0,
+  "valid_labels": 0,
+  "effective_label_rate": null,
+  "effective_label_rate_reason": "no actual candidate labels generated; reserved slots are not an observed candidate denominator",
+  "utility_difference_distribution": null,
+  "mask_or_first_action_divergence": null,
+  "resource_record": {
+    "elapsed_s": 21.25,
+    "sum_sampled_peaks_bytes": 852615168,
+    "sum_sampled_peaks_GiB": 0.7940597534179688,
+    "job_memory_hard_limit_bytes": 7516192768,
+    "parent_monitor_threshold_bytes": 536870912,
+    "original_run_artifacts_bytes": 112663,
+    "cleanup_error": null
+  },
+  "not_established": [
+    "real-state public projection",
+    "real KEEP/direct parity",
+    "real mask reconstruction and execution divergence",
+    "real paired utility labels",
+    "full batch boundary/timeout behavior on real continuations",
+    "learning benefit or formal L2/L3 eligibility"
+  ],
+  "original_artifact_sha256": {
+    "registration.json": "388da3460d011795c3dd4568f715c5d73d507b95ec397842892123d03b026c07",
+    "result.json": "2bc132bba059af402931ac45088de075ab3587cad5bb76bcfbd386135ef4a8c3"
+  }
+}
