@@ -79,7 +79,7 @@
 草案已按裁定的七要素写成，状态 **`DRAFT_NOT_AUTHORISED`**：
 [`docs/当前规划/P2工作包/P2-C-CAMR-STATIC-01_静态CAMR与非学习重构机制对比_DRAFT_NOT_AUTHORISED.md`](../../docs/当前规划/P2工作包/P2-C-CAMR-STATIC-01_静态CAMR与非学习重构机制对比_DRAFT_NOT_AUTHORISED.md)
 
-> **该草案已按授权前复核修订为 R2**（唯一假设收窄为固定 mask 下的 repair 差异；SGBS 单输出预冻结为 `completions[0]`；撤销"单一通道即 No-Go"；模型身份改指 `FrozenBackbone.insertion_scores()`；补齐共享合法动作接口与预算口径；分析单元明确为 19 个相位–mask；阻断分阶段；新增止损线）。修订记录见草案 §附录 A。**仍未授权、仍未执行。**
+> **该草案已按两轮授权前复核修订为 R2.1**（`bd759020` = R2，本次 = R2.1）。R2：唯一假设收窄为固定 mask 下的 repair 差异；撤销"单一通道即 No-Go"；模型身份改指 `FrozenBackbone.insertion_scores()`（checkpoint sha256 实测一致）；补齐共享合法动作接口与预算口径；分析单元明确为 19 个相位–mask；阻断分阶段；新增止损线。R2.1：主比较正式更名为 `MaskCO-greedy vs distance-greedy`（`*-SGBS` 降为次级覆盖分析）；L1 拆为 L1-A / L1-B 两条独立判据；身份键改为 `(arm, day_id, ordinal, public_identity, mask)`；两侧统一 tie-break；Pass A / Pass B 分别记账并引入 `PAIR_INVALID_TIMEOUT`（不静默出分母）；资源与模型身份须在首次评分调用前冻结。修订记录见草案 §附录 A。**仍未授权、仍未执行。**
 
 两个**独立阻断**（我不把它们合并成一个风险条目）：
 
