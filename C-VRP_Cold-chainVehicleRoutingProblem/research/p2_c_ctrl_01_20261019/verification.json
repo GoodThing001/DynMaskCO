@@ -1,0 +1,268 @@
+{
+  "status": "PASS",
+  "qualification": "REFERENCE_ONLY",
+  "scope": "READ_ONLY_RECOMPUTATION_NO_CONTROLLER_REEXECUTION",
+  "verified_phases": 289,
+  "historical_SAA_reruns": 0,
+  "source_files_unchanged": 661,
+  "preserved_files_unchanged": 72,
+  "checkpoint_unchanged": true,
+  "comparison": [
+    {
+      "arm": "SAA",
+      "day": 0,
+      "day_id": "p2_pos01c_r0_20261019_v1/SOURCE_TRAIN/00",
+      "source_sha256": "f1e8431ffc2c3589d509e055adf3e72957b3105602b003217ec13453051ee330",
+      "root_seed": 2978802988,
+      "phases": 73,
+      "counts": {
+        "LOW_SUPPORT": 13,
+        "NO_SUPPORT": 5,
+        "P0_reference_rejections": 0,
+        "compatible_suffixes_all_empty": 2,
+        "incomplete": 0,
+        "joint": 0,
+        "multi_mask": 1,
+        "no_mask": 69,
+        "post_booking": 1,
+        "reference_usable_joint": 0,
+        "single_mask": 3,
+        "sufficient_support": 55
+      },
+      "rates": {
+        "p_multi": 0.0136986301369863,
+        "p_support": 0.7534246575342466,
+        "p_joint": 0.0
+      },
+      "accepted": 26,
+      "rejected": 24,
+      "served": 26,
+      "actual_dispatched_ids": [
+        0
+      ],
+      "actual_dispatched_count": 1,
+      "dispatch_provenance": "new read-only derivation from saved actual dispatched flags + no unseen remaining service bound",
+      "legal_mutable_total_histogram": {
+        "0": 52,
+        "1": 17,
+        "2": 3,
+        "3": 1
+      },
+      "legal_suffix_vehicle_phase_histogram": {
+        "0": 1074,
+        "1": 17,
+        "2": 3,
+        "3": 1
+      },
+      "provisional_suffix_vehicle_phase_histogram": {
+        "0": 1060,
+        "1": 26,
+        "2": 7,
+        "3": 2
+      },
+      "acceptance_to_service_finish_h": {
+        "min": 0.16710743059714694,
+        "median": 0.3452827911823988,
+        "max": 0.7733494900167006,
+        "mean": 0.3584158617812092
+      },
+      "timeouts": 0,
+      "incomplete": 0
+    },
+    {
+      "arm": "SAA",
+      "day": 1,
+      "day_id": "p2_pos01c_r0_20261019_v1/SOURCE_TRAIN/01",
+      "source_sha256": "1697bf134b6424fba36332a0120a511de8fbe02a509fa82d39ceb6ccdea706f8",
+      "root_seed": 3571767920,
+      "phases": 76,
+      "counts": {
+        "LOW_SUPPORT": 5,
+        "NO_SUPPORT": 1,
+        "P0_reference_rejections": 0,
+        "compatible_suffixes_all_empty": 3,
+        "incomplete": 0,
+        "joint": 0,
+        "multi_mask": 0,
+        "no_mask": 72,
+        "post_booking": 1,
+        "reference_usable_joint": 0,
+        "single_mask": 4,
+        "sufficient_support": 70
+      },
+      "rates": {
+        "p_multi": 0.0,
+        "p_support": 0.9210526315789473,
+        "p_joint": 0.0
+      },
+      "accepted": 25,
+      "rejected": 25,
+      "served": 25,
+      "actual_dispatched_ids": [
+        0,
+        1
+      ],
+      "actual_dispatched_count": 2,
+      "dispatch_provenance": "new read-only derivation from saved actual dispatched flags + no unseen remaining service bound",
+      "legal_mutable_total_histogram": {
+        "0": 52,
+        "1": 20,
+        "2": 4
+      },
+      "legal_suffix_vehicle_phase_histogram": {
+        "0": 1116,
+        "1": 20,
+        "2": 4
+      },
+      "provisional_suffix_vehicle_phase_histogram": {
+        "0": 1098,
+        "1": 34,
+        "2": 8
+      },
+      "acceptance_to_service_finish_h": {
+        "min": 0.14744185283780098,
+        "median": 0.4489974665145082,
+        "max": 1.3508915205796548,
+        "mean": 0.46985178952415757
+      },
+      "timeouts": 0,
+      "incomplete": 0
+    },
+    {
+      "arm": "MYOPIC",
+      "day": 0,
+      "day_id": "p2_pos01c_r0_20261019_v1/SOURCE_TRAIN/00",
+      "source_sha256": "f1e8431ffc2c3589d509e055adf3e72957b3105602b003217ec13453051ee330",
+      "root_seed": 2978802988,
+      "phases": 68,
+      "counts": {
+        "LOW_SUPPORT": 12,
+        "NO_SUPPORT": 7,
+        "P0_reference_rejections": 0,
+        "compatible_suffixes_all_empty": 2,
+        "incomplete": 0,
+        "joint": 0,
+        "multi_mask": 1,
+        "no_mask": 66,
+        "post_booking": 1,
+        "reference_usable_joint": 0,
+        "single_mask": 1,
+        "sufficient_support": 49
+      },
+      "rates": {
+        "p_multi": 0.014705882352941176,
+        "p_support": 0.7205882352941176,
+        "p_joint": 0.0
+      },
+      "accepted": 19,
+      "rejected": 31,
+      "served": 19,
+      "actual_dispatched_ids": [
+        0
+      ],
+      "actual_dispatched_count": 1,
+      "dispatch_provenance": "new trace + saved actual physical state",
+      "legal_mutable_total_histogram": {
+        "0": 52,
+        "1": 14,
+        "2": 1,
+        "3": 1
+      },
+      "legal_suffix_vehicle_phase_histogram": {
+        "0": 1004,
+        "1": 14,
+        "2": 1,
+        "3": 1
+      },
+      "provisional_suffix_vehicle_phase_histogram": {
+        "0": 994,
+        "1": 21,
+        "2": 3,
+        "3": 2
+      },
+      "acceptance_to_service_finish_h": {
+        "min": 0.1549786515533924,
+        "median": 0.31297853464881586,
+        "max": 0.695414692163467,
+        "mean": 0.3535092442966343
+      },
+      "timeouts": 0,
+      "incomplete": 0
+    },
+    {
+      "arm": "MYOPIC",
+      "day": 1,
+      "day_id": "p2_pos01c_r0_20261019_v1/SOURCE_TRAIN/01",
+      "source_sha256": "1697bf134b6424fba36332a0120a511de8fbe02a509fa82d39ceb6ccdea706f8",
+      "root_seed": 3571767920,
+      "phases": 72,
+      "counts": {
+        "LOW_SUPPORT": 6,
+        "NO_SUPPORT": 1,
+        "P0_reference_rejections": 0,
+        "compatible_suffixes_all_empty": 2,
+        "incomplete": 0,
+        "joint": 0,
+        "multi_mask": 0,
+        "no_mask": 69,
+        "post_booking": 1,
+        "reference_usable_joint": 0,
+        "single_mask": 3,
+        "sufficient_support": 65
+      },
+      "rates": {
+        "p_multi": 0.0,
+        "p_support": 0.9027777777777778,
+        "p_joint": 0.0
+      },
+      "accepted": 21,
+      "rejected": 29,
+      "served": 21,
+      "actual_dispatched_ids": [
+        0
+      ],
+      "actual_dispatched_count": 1,
+      "dispatch_provenance": "new trace + saved actual physical state",
+      "legal_mutable_total_histogram": {
+        "0": 52,
+        "1": 17,
+        "2": 3
+      },
+      "legal_suffix_vehicle_phase_histogram": {
+        "0": 1060,
+        "1": 17,
+        "2": 3
+      },
+      "provisional_suffix_vehicle_phase_histogram": {
+        "0": 1047,
+        "1": 27,
+        "2": 6
+      },
+      "acceptance_to_service_finish_h": {
+        "min": 0.07862614467740059,
+        "median": 0.47616065417726805,
+        "max": 0.9452618137001991,
+        "mean": 0.45837738110669063
+      },
+      "timeouts": 0,
+      "incomplete": 0
+    }
+  ],
+  "artifact_sha256": {
+    "SAA/result.json": "fed3b6c8b842b054b905c389f873a93d1f820ddf0efbd7a2e22a922f39ca3747",
+    "SAA/phases.json": "c74df8554701391ad2ab386519336be7622b7f62348bc8814cf95015a6060a15",
+    "SAA/journal.jsonl": "2a037cf0a55b7bc160fd709c6ed2460a05a8756ff02d75089c831b1882a4c0f8",
+    "SAA/registration.json": "f6c93dfd2d329f71ddc3da36d5dba71ed80d31b760be6aa7e342e2b8d0dd9128",
+    "MYOPIC/result.json": "161144bd1e5ddeb9dc7cf0d23aa718458fc3c7c8e8a80027d1337a2b23918f4d",
+    "MYOPIC/phases.json": "e305bd1d2162ae217ac90361fc4eed4cde9c43169d6131c7521abd23b4c6a957",
+    "MYOPIC/journal.jsonl": "bb49fd086548f850d159bbe88829e49b6535f820c33f0ad84a184f66b2712ce9",
+    "MYOPIC/registration.json": "91bcc9882608f84d1cd0b77576bd87603dc6e7d8d49a036dfb61f994999b7c8c"
+  },
+  "phase_comparison_sha256": "c78d2dd92a1d7e376d1bbf95fe26212f6499214f5486f71af084af45dd2b88b0",
+  "review_source_sha256": "150650ce4268478662d11a2646f76fe3bce599da072c7919453033cae9421650",
+  "limitations": [
+    "two previously inspected developer roots only; phase/vehicle exposures are not independent days",
+    "SAA dispatch/finish metrics are new derivations, never backfilled original receipts",
+    "mask counts do not establish reconstructed plans, executable action divergence or utility gains"
+  ]
+}
