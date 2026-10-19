@@ -1,0 +1,73 @@
+{
+ "schema": "q3_overnight_backup_manifest_v1",
+ "created": "2026-10-18",
+ "purpose": "Recoverable copies of results/_q3_overnight/. RUN RECORD, not frozen evidence: the originals stay in place and are NOT added to the repository. The old Q3 delivery whitelist and acceptance row A-09 are unchanged.",
+ "originals": {
+  "repo_relative_root": "results/_q3_overnight",
+  "n_files": 8,
+  "total_bytes": 53216,
+  "files": [
+   {
+    "path": "NIGHT_REPORT.md",
+    "bytes": 11106,
+    "sha256": "b28b07aa24419d9fb2622a6542b3f4f6abf86d6f341a95b885d3f54bd09be05a"
+   },
+   {
+    "path": "NIGHT_STATUS.json",
+    "bytes": 8875,
+    "sha256": "a044d50462f2bd897102337162c4804869dd2963be4cc0c9a2d011e0d4cba28c"
+   },
+   {
+    "path": "acceptance\\independent_acceptance.json",
+    "bytes": 6254,
+    "sha256": "b48095cb8bbb1143306f831c67d1164276bf2a6605d0875f8c03a890b160e3af"
+   },
+   {
+    "path": "acceptance\\post_commit_acceptance.json",
+    "bytes": 6023,
+    "sha256": "2704ab7c2b763c0bcec5586263ead83368954ce897b44cb0366bfb8f7c473dc7"
+   },
+   {
+    "path": "phase1\\q3_theorem_b_audit.json",
+    "bytes": 7507,
+    "sha256": "66f1d404d7f91581409df0f7689bd981ed62dd57a1e34782fcd19732597088a3"
+   },
+   {
+    "path": "phase2\\reachability_probe.json",
+    "bytes": 2203,
+    "sha256": "39b82a4053302075f60364c763662a9b9397cd0d0064cddd3a0355facc4dfe09"
+   },
+   {
+    "path": "phase2\\reachability_probe_widened.json",
+    "bytes": 5136,
+    "sha256": "9feb05e7b39fd25c004103dafa8ced463cf1f09762b34fe39e708cb66910c0eb"
+   },
+   {
+    "path": "phase3\\negative_controls.json",
+    "bytes": 6112,
+    "sha256": "5b6b30708330da003fca16f89c352a687880ca0ee2a25556bcd0631c342bd806"
+   }
+  ]
+ },
+ "backups": [
+  {
+   "id": "A",
+   "kind": "directory-copy",
+   "location": "%USERPROFILE%/dynmaskco_private/q3_overnight_backup/v1_2026-10-18/copy/",
+   "verified_files": 8,
+   "failed_files": 0,
+   "detail": []
+  },
+  {
+   "id": "B",
+   "kind": "zip-archive",
+   "location": "%USERPROFILE%/dynmaskco_private/q3_overnight_backup/archives/v1_2026-10-18.zip",
+   "archive_bytes": 21915,
+   "verified_members": 8,
+   "failed_members": 0,
+   "detail": []
+  }
+ ],
+ "restore": "Copy each backup entry back to <repo>/results/_q3_overnight/<path> (Backup A) or extract the ZIP with its member paths intact (Backup B), then recompute SHA256 and compare with originals.files[].sha256. No original file is ever modified.",
+ "privacy": "This manifest contains NO absolute local paths; the backup root is written as a portable %USERPROFILE% token."
+}

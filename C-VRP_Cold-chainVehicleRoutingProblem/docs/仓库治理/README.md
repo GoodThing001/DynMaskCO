@@ -63,3 +63,21 @@
 - 第一阶段 `07` §B-1（根 `results/` 归属）在本阶段给出**明确方案**，但仍**未执行**。
 - 第一阶段 `06` C5/C10（manifest 冻结、archive 被忽略）在本阶段**量化**（13 文件 / 27.2 MiB / 15 目录 / 5 唯一文件）。
 - 第一阶段**未记录**、本阶段新记录的：Q3 验收器假阳性、封印文件编码缺陷、容量边界口径分裂、`results/` 可索引率仅 21/150。
+
+---
+
+# P0 最终收口（2026-10-18）
+
+**P0 到此结束，不设第四、第五阶段。** 收口记录见
+[`P0_最终收口与P1进入条件.md`](P0_最终收口与P1进入条件.md)。
+
+本轮补齐的三块内容：
+
+| 内容 | 文件 | 一句话 |
+|---|---|---|
+| Q3 遗留记录的两份独立备份（逐文件 SHA256 8/8 ×2，不含任何绝对路径） | [`Q3_OVERNIGHT_BACKUP_MANIFEST.json`](Q3_OVERNIGHT_BACKUP_MANIFEST.json) | 原件**原位保留、未入库**；备份在仓库之外；清单只含仓库相对路径 + SHA256 + 恢复说明 |
+| 4 个数据身份清单入库 | `data/baseline/DATA_MANIFEST.sha256` + 3 个 `DEV_MANIFEST.json` | `DATA_MANIFEST` **30/30 行与磁盘逐字节一致**；3 个 blob 与工作树**逐字节相同**（冻结哈希 `18266cdc…` 可跨 clone 存活）；`.gitignore` **维持 R3** |
+| 两个只读诊断脚本 | `scripts/tests/q3_a05_ast_reference_check.py`、`scripts/tests/q3_dev_gate_seal_readonly_check.py` | A-05 假阳性已用 **AST 级判据**证伪（`NO_PRODUCTION_REFERENCE`，306 个 .py）；GBK 封印**原始字节 sha256 `d085b46c…`** 且**未重写** |
+
+**旧记录一律保留**：`test_in_transit_no_double_count` 的历史 FAIL、`q3_package_acceptance.py` 的 A-05 FAIL
+均原样存在，**不因本轮修订而降级或追认**。
