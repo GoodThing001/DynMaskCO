@@ -1,0 +1,2286 @@
+{
+  "source": "https://bitbucket.org/sceschia/the-refrigerated-routing-problem/",
+  "author_commit": "f5c5317a5ecd8fe64df779e79bd0397904bc0f9e",
+  "scope": "Read-only evaluation of fixed public author routes, no solver or training",
+  "status": "exploratory research; not an independent product evaluator or qualification gate",
+  "independent_route_timing_reconstruction": false,
+  "screen_0_1_eur_status": "Post-inspection exploratory screen, not author acceptance tolerance",
+  "script_sha256": "662335a36ba27fe7d2a3fbdfc212142862ce34f3847111a6d53ce54b5bea2fad",
+  "units": "Costs EUR/year; distance km; speed km/h; clocks seconds",
+  "formulas": {
+    "traction_l_tour": "sum(A*d*(curb_weight+remaining_load_kg)+B*d/v+C*d*v^2)",
+    "transmission_kwh_year": "sum_month,step(month_days*table[7]*delta_arrival_s/3600/table[8])",
+    "infiltration_kwh_year": "sum_month,customer(month_days*(table[5]+table[6]*(stop_s-40))/3600/table[8])",
+    "refrigeration_eur_year": "(transmission_kwh_year+infiltration_kwh_year)*0.30*fuel_cost",
+    "driver_eur_year": "driver_wage*days*(final_arrival_s-first_arrival_s)"
+  },
+  "temperature_column_interpretation": {
+    "0": "time interval start hour",
+    "1": "time interval end hour",
+    "2": "temperature slope (inferred, not needed by recovered tabular evaluator)",
+    "3": "temperature intercept (inferred, not needed by recovered tabular evaluator)",
+    "4": "outdoor temperature used for precomputed thermal fields, degC (inferred)",
+    "5": "first-40-seconds infiltration thermal energy, kJ (algebra verified)",
+    "6": "subsequent infiltration thermal power, kW (algebra verified)",
+    "7": "transmission thermal power, kW (algebra verified)",
+    "8": "COP, dimensionless (algebra verified)"
+  },
+  "limitations": [
+    "Column labels inferred from paper units and public outputs; author README has no explicit schema.",
+    "Paper Table 1 sigma=0.30 L/kWh conflicts with printed division in Eq. 13.",
+    "Raw JSON fuel_cons=3 has no published scaling schema; this audit uses sourced 0.30 L/kWh.",
+    "Uses paper arrival-slot lookup, not continuous temperature integration across slots.",
+    "D2 public solutions match the deliberately wage-free objective of paper Table 7(b).",
+    "Full wage-inclusive costs and source-objective costs are retained separately; objectives are never mixed.",
+    "Saved author clocks, service durations and speeds are inputs, not independently certified outputs."
+  ],
+  "count": 30,
+  "full_total_match_count_0_1_eur": 14,
+  "results": [
+    {
+      "instance": "D1-n10-np27",
+      "instance_sha256": "4c2b5f421f8a5d59bee08bc632bc32bd99bd991726cd0a8a59da624770c3d5b1",
+      "solution_sha256": "db1a29a890517b9e16607163d44b86d07e9f71b807b05b6332e7ee23441d79eb",
+      "calculated_eur_per_year": {
+        "traction": 43420.931065788885,
+        "transmission": 4466.169465796958,
+        "infiltration": 3093.9921759894123,
+        "driver": 16001.7704,
+        "refrigeration": 7560.161641786371,
+        "total": 66982.86310757525
+      },
+      "author_reported_eur_per_year": {
+        "traction": 43420.931,
+        "transmission": 4466.169,
+        "infiltration": 3093.992,
+        "driver": 16001.77,
+        "total": 66982.862
+      },
+      "calculated_minus_author_eur": {
+        "traction": 6.578888860531151e-05,
+        "transmission": 0.00046579695845139213,
+        "infiltration": 0.00017598941212781938,
+        "driver": 0.0003999999989900971,
+        "total": 0.001107575255446136
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 1.515142284842108e-09,
+        "transmission": 1.0429452142348221e-07,
+        "infiltration": 5.688101718679925e-08,
+        "driver": 2.4997234617801473e-08,
+        "total": 1.6535203518866305e-08
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 66982.86310757525,
+      "source_objective_total_minus_reported_eur": 0.001107575255446136,
+      "source_objective_total_relative_residual": 1.6535203518866305e-08,
+      "max_abs_residual_eur": 0.001107575255446136,
+      "full_total_matches_within_0_1_eur": true,
+      "alternate_total_excluding_driver_eur": 50981.09270757525,
+      "alternate_total_excluding_driver_minus_reported_eur": -16001.769292424746,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        6,
+        4,
+        8,
+        7,
+        3,
+        1,
+        9,
+        2,
+        5
+      ],
+      "arrival_seconds": [
+        25200.0,
+        25380.0,
+        27882.0,
+        28683.0,
+        32813.0,
+        35072.0,
+        36692.0,
+        39473.0,
+        42359.0,
+        44374.0,
+        47308.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 10633.736823326091,
+        "infiltration": 7366.6480380700295
+      }
+    },
+    {
+      "instance": "D1-n11-np30",
+      "instance_sha256": "e860f992cf405fc818b983bab18eddc6f2d999e6cbcdb3a5c3d627140c2277b4",
+      "solution_sha256": "da1ebd8646a08d51b063c2815da8fe9a921c1734a19696255a08cf8906b5ffad",
+      "calculated_eur_per_year": {
+        "traction": 33805.125527911114,
+        "transmission": 3599.3731677633655,
+        "infiltration": 3470.1678153318317,
+        "driver": 12953.8486,
+        "refrigeration": 7069.540983095198,
+        "total": 53828.51511100631
+      },
+      "author_reported_eur_per_year": {
+        "traction": 33805.126,
+        "transmission": 3599.373,
+        "infiltration": 3470.168,
+        "driver": 12953.849,
+        "total": 53828.516
+      },
+      "calculated_minus_author_eur": {
+        "traction": -0.0004720888828160241,
+        "transmission": 0.0001677633654253441,
+        "infiltration": -0.0001846681684583018,
+        "driver": -0.0004000000008090865,
+        "total": -0.0008889936943887733
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": -1.396500882191725e-08,
+        "transmission": 4.660905258369835e-08,
+        "infiltration": -5.321591590329396e-08,
+        "driver": -3.0878853135395236e-08,
+        "total": -1.6515292645050314e-08
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 53828.51511100631,
+      "source_objective_total_minus_reported_eur": -0.0008889936943887733,
+      "source_objective_total_relative_residual": -1.6515292645050314e-08,
+      "max_abs_residual_eur": 0.0008889936943887733,
+      "full_total_matches_within_0_1_eur": true,
+      "alternate_total_excluding_driver_eur": 40874.66651100631,
+      "alternate_total_excluding_driver_minus_reported_eur": -12953.849488993692,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        2,
+        6,
+        1,
+        7,
+        4,
+        9,
+        10,
+        8,
+        3,
+        5
+      ],
+      "arrival_seconds": [
+        25200.0,
+        25560.0,
+        27432.0,
+        29853.0,
+        30543.0,
+        32762.0,
+        33878.0,
+        36371.0,
+        37361.0,
+        38720.0,
+        41384.0,
+        43097.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 8569.9361137223,
+        "infiltration": 8262.304322218648
+      }
+    },
+    {
+      "instance": "D1-n12-np33",
+      "instance_sha256": "4eff1ceabd26441858eddcd7aa7baef45ca268eaff18fc1b7637598a5602c6b1",
+      "solution_sha256": "66061aa2e23720dd93843ea08f809bcd30d63dd5eecc105a474fdbb036110637",
+      "calculated_eur_per_year": {
+        "traction": 37169.56663614444,
+        "transmission": 3956.748813497528,
+        "infiltration": 3860.205401666059,
+        "driver": 14104.6906,
+        "refrigeration": 7816.954215163587,
+        "total": 59091.21145130803
+      },
+      "author_reported_eur_per_year": {
+        "traction": 37169.567,
+        "transmission": 3956.749,
+        "infiltration": 3860.205,
+        "driver": 14104.691,
+        "total": 59091.212
+      },
+      "calculated_minus_author_eur": {
+        "traction": -0.00036385556450113654,
+        "transmission": -0.00018650247193363612,
+        "infiltration": 0.0004016660591332766,
+        "driver": -0.0004000000008090865,
+        "total": -0.0005486919690156356
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": -9.789071917387053e-09,
+        "transmission": -4.713527998203478e-08,
+        "infiltration": 1.0405303840943074e-07,
+        "driver": -2.835935936555338e-08,
+        "total": -9.285508799779492e-09
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 59091.21145130803,
+      "source_objective_total_minus_reported_eur": -0.0005486919690156356,
+      "source_objective_total_relative_residual": -9.285508799779492e-09,
+      "max_abs_residual_eur": 0.0005486919690156356,
+      "full_total_matches_within_0_1_eur": true,
+      "alternate_total_excluding_driver_eur": 44986.52085130803,
+      "alternate_total_excluding_driver_minus_reported_eur": -14104.69114869197,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        6,
+        4,
+        10,
+        11,
+        8,
+        2,
+        9,
+        3,
+        5,
+        7,
+        1
+      ],
+      "arrival_seconds": [
+        25200.0,
+        25920.0,
+        28062.0,
+        29403.0,
+        30493.0,
+        32792.0,
+        33332.0,
+        35177.0,
+        36527.0,
+        38246.0,
+        41342.0,
+        42815.0,
+        44687.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 9420.830508327448,
+        "infiltration": 9190.965242062046
+      }
+    },
+    {
+      "instance": "D1-n13-np24",
+      "instance_sha256": "673f11df75fb336a3b0716be8c876308933d2fbd6ebb85815254fd2a05957c0a",
+      "solution_sha256": "ff564481e9b8640e3dea33cca4e16a07ba0f91d2697adf09b19e87fac0b9567f",
+      "calculated_eur_per_year": {
+        "traction": 34847.26767526667,
+        "transmission": 3934.2904157143716,
+        "infiltration": 3833.4365721968607,
+        "driver": 14077.1862,
+        "refrigeration": 7767.726987911232,
+        "total": 56692.1808631779
+      },
+      "author_reported_eur_per_year": {
+        "traction": 34847.268,
+        "transmission": 3934.29,
+        "infiltration": 3833.437,
+        "driver": 14077.186,
+        "total": 56692.181
+      },
+      "calculated_minus_author_eur": {
+        "traction": -0.000324733329762239,
+        "transmission": 0.00041571437168386183,
+        "infiltration": -0.0004278031392459525,
+        "driver": 0.00020000000040454324,
+        "total": -0.00013682209828402847
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": -9.318760075029097e-09,
+        "transmission": 1.0566439476598366e-07,
+        "infiltration": -1.1159780094102303e-07,
+        "driver": 1.4207384942171201e-08,
+        "total": -2.413420966888335e-09
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 56692.1808631779,
+      "source_objective_total_minus_reported_eur": -0.00013682209828402847,
+      "source_objective_total_relative_residual": -2.413420966888335e-09,
+      "max_abs_residual_eur": 0.0004278031392459525,
+      "full_total_matches_within_0_1_eur": true,
+      "alternate_total_excluding_driver_eur": 42614.9946631779,
+      "alternate_total_excluding_driver_minus_reported_eur": -14077.186336822095,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        5,
+        8,
+        2,
+        3,
+        4,
+        1,
+        6,
+        10,
+        11,
+        9,
+        12,
+        7
+      ],
+      "arrival_seconds": [
+        25200.0,
+        26190.0,
+        28401.0,
+        30000.0,
+        30802.0,
+        32010.0,
+        33141.0,
+        34635.0,
+        35487.0,
+        37206.0,
+        38352.0,
+        39936.0,
+        41571.0,
+        44649.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 9367.358132653268,
+        "infiltration": 9127.229933802051
+      }
+    },
+    {
+      "instance": "D1-n14-np26",
+      "instance_sha256": "0eb076af05215e53db7c8ee0912a0b6bcbb433121e05f1592aeafdae6728afb4",
+      "solution_sha256": "5caabaf8a56dbf25fb0790a1d4dcf48c639f8ab2218a46b743ddebfec16ca748",
+      "calculated_eur_per_year": {
+        "traction": 39585.64048164444,
+        "transmission": 4599.368134421682,
+        "infiltration": 4145.901819131675,
+        "driver": 16230.4912,
+        "refrigeration": 8745.269953553357,
+        "total": 64561.401635197806
+      },
+      "author_reported_eur_per_year": {
+        "traction": 39585.64,
+        "transmission": 4599.368,
+        "infiltration": 4145.902,
+        "driver": 16230.491,
+        "total": 64561.401
+      },
+      "calculated_minus_author_eur": {
+        "traction": 0.0004816444416064769,
+        "transmission": 0.000134421681650565,
+        "infiltration": -0.0001808683246053988,
+        "driver": 0.00020000000040454324,
+        "total": 0.0006351978081511334
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 1.2167150552737733e-08,
+        "transmission": 2.9226120121409072e-08,
+        "infiltration": -4.362580799193971e-08,
+        "driver": 1.2322486140717693e-08,
+        "total": 9.8386620846585e-09
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 64561.401635197806,
+      "source_objective_total_minus_reported_eur": 0.0006351978081511334,
+      "source_objective_total_relative_residual": 9.8386620846585e-09,
+      "max_abs_residual_eur": 0.0006351978081511334,
+      "full_total_matches_within_0_1_eur": true,
+      "alternate_total_excluding_driver_eur": 48330.9104351978,
+      "alternate_total_excluding_driver_minus_reported_eur": -16230.490564802196,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        10,
+        9,
+        6,
+        5,
+        7,
+        2,
+        4,
+        8,
+        13,
+        1,
+        3,
+        12,
+        11
+      ],
+      "arrival_seconds": [
+        25200.0,
+        26370.0,
+        27396.0,
+        28065.0,
+        29277.0,
+        31525.0,
+        32096.0,
+        33518.0,
+        34874.0,
+        36953.0,
+        38099.0,
+        40547.0,
+        41462.0,
+        43580.0,
+        47624.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 10950.876510527816,
+        "infiltration": 9871.194807456372
+      }
+    },
+    {
+      "instance": "D1-n15-np28",
+      "instance_sha256": "980b132d52fe6ae9774c901db35da053bf6b16dd9f1be262e5682cde309e41b3",
+      "solution_sha256": "3d1dfee6921b974a9cf5f417e875183817b6d294944a67c64eb65b4039cb1e92",
+      "calculated_eur_per_year": {
+        "traction": 33710.246585088884,
+        "transmission": 4055.078757788158,
+        "infiltration": 4481.167042316361,
+        "driver": 14392.763,
+        "refrigeration": 8536.24580010452,
+        "total": 56639.2553851934
+      },
+      "author_reported_eur_per_year": {
+        "traction": 33710.247,
+        "transmission": 4055.079,
+        "infiltration": 4481.167,
+        "driver": 14392.763,
+        "total": 56639.256
+      },
+      "calculated_minus_author_eur": {
+        "traction": -0.00041491111915092915,
+        "transmission": -0.00024221184230555082,
+        "infiltration": 4.231636103213532e-05,
+        "driver": 0.0,
+        "total": -0.0006148066022433341
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": -1.2308160161239077e-08,
+        "transmission": -5.973048670705326e-08,
+        "infiltration": 9.443156443876185e-09,
+        "driver": 0.0,
+        "total": -1.0854778923002344e-08
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 56639.2553851934,
+      "source_objective_total_minus_reported_eur": -0.0006148066022433341,
+      "source_objective_total_relative_residual": -1.0854778923002344e-08,
+      "max_abs_residual_eur": 0.0006148066022433341,
+      "full_total_matches_within_0_1_eur": true,
+      "alternate_total_excluding_driver_eur": 42246.4923851934,
+      "alternate_total_excluding_driver_minus_reported_eur": -14392.763614806601,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        11,
+        1,
+        6,
+        9,
+        13,
+        2,
+        14,
+        8,
+        7,
+        10,
+        4,
+        12,
+        3,
+        5
+      ],
+      "arrival_seconds": [
+        25200.0,
+        25830.0,
+        26406.0,
+        27435.0,
+        28917.0,
+        30365.0,
+        31576.0,
+        32710.0,
+        33562.0,
+        35857.0,
+        36715.0,
+        38155.0,
+        39166.0,
+        40964.0,
+        42928.0,
+        45085.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 9654.94942330514,
+        "infiltration": 10669.44533884848
+      }
+    },
+    {
+      "instance": "D1-n16-np30",
+      "instance_sha256": "33cca67f4ea4cd10abdb4aa8eb78117a888eb1dbd5edada25eee4717fa3668fe",
+      "solution_sha256": "589e2bbcd13b39de1ac8fcce0b6dabf70883e26392ad8da46ae2d5de00a38f88",
+      "calculated_eur_per_year": {
+        "traction": 40766.920804944435,
+        "transmission": 4722.734190358161,
+        "infiltration": 4852.815024192631,
+        "driver": 16645.2286,
+        "refrigeration": 9575.549214550792,
+        "total": 66987.69861949523
+      },
+      "author_reported_eur_per_year": {
+        "traction": 40766.921,
+        "transmission": 4722.734,
+        "infiltration": 4852.815,
+        "driver": 16645.229,
+        "total": 66987.699
+      },
+      "calculated_minus_author_eur": {
+        "traction": -0.00019505556701915339,
+        "transmission": 0.00019035816058021737,
+        "infiltration": 2.4192631826736033e-05,
+        "driver": -0.0004000000008090865,
+        "total": -0.00038050475995987654
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": -4.784652905701497e-09,
+        "transmission": 4.030677158193058e-08,
+        "infiltration": 4.985277993646169e-09,
+        "driver": -2.403091004690212e-08,
+        "total": -5.680218392930269e-09
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 66987.69861949523,
+      "source_objective_total_minus_reported_eur": -0.00038050475995987654,
+      "source_objective_total_relative_residual": -5.680218392930269e-09,
+      "max_abs_residual_eur": 0.0004000000008090865,
+      "full_total_matches_within_0_1_eur": true,
+      "alternate_total_excluding_driver_eur": 50342.47001949523,
+      "alternate_total_excluding_driver_minus_reported_eur": -16645.228980504762,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        11,
+        7,
+        15,
+        10,
+        2,
+        9,
+        3,
+        4,
+        8,
+        14,
+        6,
+        12,
+        5,
+        13,
+        1
+      ],
+      "arrival_seconds": [
+        25200.0,
+        26190.0,
+        27936.0,
+        28695.0,
+        29897.0,
+        30945.0,
+        32156.0,
+        32930.0,
+        34862.0,
+        35789.0,
+        37151.0,
+        38303.0,
+        40178.0,
+        41016.0,
+        43700.0,
+        44687.0,
+        48197.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 11244.60521513848,
+        "infiltration": 11554.321486172934
+      }
+    },
+    {
+      "instance": "D1-n17-np32",
+      "instance_sha256": "97ee6bb265b680be15628dd32440c45e55c0b6b08642ff6fc7a597ee1ad877bd",
+      "solution_sha256": "db91fb5903be4b6330eedc8e01276bc6124e113f518c4f27e33894068b900c3c",
+      "calculated_eur_per_year": {
+        "traction": 36186.45050673333,
+        "transmission": 4387.500970484161,
+        "infiltration": 5202.628442857315,
+        "driver": 15479.9106,
+        "refrigeration": 9590.129413341478,
+        "total": 61256.4905200748
+      },
+      "author_reported_eur_per_year": {
+        "traction": 36186.451,
+        "transmission": 4387.501,
+        "infiltration": 5202.628,
+        "driver": 15479.911,
+        "total": 61256.491
+      },
+      "calculated_minus_author_eur": {
+        "traction": -0.00049326667067362,
+        "transmission": -2.9515838832594454e-05,
+        "infiltration": 0.0004428573156474158,
+        "driver": -0.0004000000008090865,
+        "total": -0.0004799251983058639
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": -1.3631253053072819e-08,
+        "transmission": -6.727255180704108e-09,
+        "infiltration": 8.512184912075509e-08,
+        "driver": -2.5839941896893753e-08,
+        "total": -7.83468315718352e-09
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 61256.4905200748,
+      "source_objective_total_minus_reported_eur": -0.0004799251983058639,
+      "source_objective_total_relative_residual": -7.83468315718352e-09,
+      "max_abs_residual_eur": 0.00049326667067362,
+      "full_total_matches_within_0_1_eur": true,
+      "alternate_total_excluding_driver_eur": 45776.5799200748,
+      "alternate_total_excluding_driver_minus_reported_eur": -15479.911079925201,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        5,
+        13,
+        8,
+        12,
+        4,
+        16,
+        10,
+        9,
+        14,
+        3,
+        6,
+        7,
+        1,
+        11,
+        15,
+        2
+      ],
+      "arrival_seconds": [
+        25200.0,
+        26730.0,
+        27306.0,
+        27885.0,
+        29007.0,
+        30455.0,
+        31266.0,
+        33120.0,
+        33756.0,
+        34467.0,
+        36117.0,
+        36549.0,
+        37488.0,
+        38214.0,
+        39954.0,
+        41201.0,
+        42291.0,
+        46587.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 10446.430882105147,
+        "infiltration": 12387.210578231705
+      }
+    },
+    {
+      "instance": "D1-n34-np33",
+      "instance_sha256": "213d4a85f96ed8e164afde791240e787e29323c040b8906027eb8904edffa36a",
+      "solution_sha256": "90ff6ae5b614a0f907f55f9d3c883527b98579e705c6e702526404961230cdb9",
+      "calculated_eur_per_year": {
+        "traction": 57046.83384624848,
+        "transmission": 6922.264260790116,
+        "infiltration": 10045.044352923484,
+        "driver": 24214.0052,
+        "refrigeration": 16967.308613713598,
+        "total": 98228.14765996208
+      },
+      "author_reported_eur_per_year": {
+        "traction": 57047.156,
+        "transmission": 6922.264,
+        "infiltration": 10045.044,
+        "driver": 24214.005,
+        "total": 98228.469
+      },
+      "calculated_minus_author_eur": {
+        "traction": -0.32215375152009074,
+        "transmission": 0.00026079011604451807,
+        "infiltration": 0.00035292348366056103,
+        "driver": 0.00019999999858555384,
+        "total": -0.32134003791725263
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": -5.647148326203864e-06,
+        "transmission": 3.7674107206040984e-08,
+        "infiltration": 3.5134090369396195e-08,
+        "driver": 8.259682716079138e-09,
+        "total": -3.2713534191116494e-06
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 98228.14765996208,
+      "source_objective_total_minus_reported_eur": -0.32134003791725263,
+      "source_objective_total_relative_residual": -3.2713534191116494e-06,
+      "max_abs_residual_eur": 0.32215375152009074,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 74014.14245996208,
+      "alternate_total_excluding_driver_minus_reported_eur": -24214.326540037917,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        10,
+        2,
+        6,
+        7,
+        4,
+        23,
+        8,
+        17,
+        31,
+        9,
+        25,
+        3,
+        22,
+        20,
+        5,
+        12,
+        16,
+        15,
+        11,
+        13,
+        30,
+        18,
+        29,
+        21,
+        19,
+        27,
+        32,
+        33,
+        1,
+        14,
+        24,
+        28,
+        26
+      ],
+      "arrival_seconds": [
+        25200.0,
+        25470.0,
+        26730.0,
+        27810.0,
+        28800.0,
+        30363.0,
+        31446.0,
+        31889.0,
+        32415.0,
+        33069.0,
+        33579.0,
+        34452.0,
+        35901.0,
+        36702.0,
+        37362.0,
+        38238.0,
+        39402.0,
+        40177.0,
+        41352.0,
+        42527.0,
+        43625.0,
+        45263.0,
+        46001.0,
+        46562.0,
+        48143.0,
+        48604.0,
+        49868.0,
+        50892.0,
+        51276.0,
+        53103.0,
+        54138.0,
+        55638.0,
+        56879.0,
+        57400.0,
+        58654.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 16481.581573309802,
+        "infiltration": 23916.77226886544
+      }
+    },
+    {
+      "instance": "D1-n4-np33",
+      "instance_sha256": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1",
+      "solution_sha256": "e9542ac49a4e69ee895ed28b7787ca1a7fb73d2fbdd6adfbe09486329d3653cd",
+      "calculated_eur_per_year": {
+        "traction": 30228.75729307777,
+        "transmission": 2791.4991802075365,
+        "infiltration": 1630.500648445748,
+        "driver": 10382.911,
+        "refrigeration": 4421.999828653285,
+        "total": 45033.668121731054
+      },
+      "author_reported_eur_per_year": {
+        "traction": 30228.8,
+        "transmission": 2791.5,
+        "infiltration": 1630.5,
+        "refrigeration": 4422.0,
+        "driver": 10382.9,
+        "total": 45033.7
+      },
+      "calculated_minus_author_eur": {
+        "traction": -0.04270692222780781,
+        "transmission": -0.0008197924635169329,
+        "infiltration": 0.0006484457480837591,
+        "refrigeration": -0.0001713467154331738,
+        "driver": 0.011000000000422006,
+        "total": -0.03187826894281898
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": -1.4127892019467465e-06,
+        "transmission": -2.936745346648515e-07,
+        "infiltration": 3.9769748425866856e-07,
+        "refrigeration": -3.874869186638937e-08,
+        "driver": 1.0594342621446808e-06,
+        "total": -7.078758561437097e-07
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 45033.668121731054,
+      "source_objective_total_minus_reported_eur": -0.03187826894281898,
+      "source_objective_total_relative_residual": -7.078758561437097e-07,
+      "max_abs_residual_eur": 0.04270692222780781,
+      "full_total_matches_within_0_1_eur": true,
+      "alternate_total_excluding_driver_eur": 34650.757121731054,
+      "alternate_total_excluding_driver_minus_reported_eur": -10382.942878268943,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "arrival_seconds": [
+        25200.0,
+        28890.0,
+        31175.0,
+        34940.0,
+        39545.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 6646.426619541754,
+        "infiltration": 3882.1444010613054
+      }
+    },
+    {
+      "instance": "D1-n5-np32",
+      "instance_sha256": "453544a75a240d391337fef66f0dfd4cbd50ed7cd675ca25887f5a6a1990681c",
+      "solution_sha256": "92ca5e4f00029207650c273b6f5fa976871b8dcaefe3100303e92e704abe4e89",
+      "calculated_eur_per_year": {
+        "traction": 24260.825709088884,
+        "transmission": 2467.907820934542,
+        "infiltration": 1817.968489522553,
+        "driver": 9224.831,
+        "refrigeration": 4285.876310457095,
+        "total": 37771.533019545976
+      },
+      "author_reported_eur_per_year": {
+        "traction": 24260.8,
+        "refrigeration": 4285.88,
+        "driver": 9224.83,
+        "total": 37771.5
+      },
+      "calculated_minus_author_eur": {
+        "traction": 0.025709088884468656,
+        "refrigeration": -0.003689542904794507,
+        "driver": 0.0010000000002037268,
+        "total": 0.03301954597554868
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 1.0596966664111923e-06,
+        "refrigeration": -8.608600578631476e-07,
+        "driver": 1.0840308170489069e-07,
+        "total": 8.741920753888165e-07
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 37771.533019545976,
+      "source_objective_total_minus_reported_eur": 0.03301954597554868,
+      "source_objective_total_relative_residual": 8.741920753888165e-07,
+      "max_abs_residual_eur": 0.03301954597554868,
+      "full_total_matches_within_0_1_eur": true,
+      "alternate_total_excluding_driver_eur": 28546.702019545977,
+      "alternate_total_excluding_driver_minus_reported_eur": -9224.797980454023,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "arrival_seconds": [
+        25200.0,
+        27360.0,
+        29433.0,
+        31329.0,
+        33448.0,
+        37945.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 5875.971002225101,
+        "infiltration": 4328.496403625127
+      }
+    },
+    {
+      "instance": "D1-n6-np30",
+      "instance_sha256": "aa5dd53e93a9e30358bc88610c69f594918185df92d7bc85db3162c187eed017",
+      "solution_sha256": "234831d245e0215481b6832da5cda91e9e46b8ec5852b342794c6ca3f23e2282",
+      "calculated_eur_per_year": {
+        "traction": 36095.83961145555,
+        "transmission": 3428.290822861827,
+        "infiltration": 2102.2930122292605,
+        "driver": 12499.3022,
+        "refrigeration": 5530.583835091087,
+        "total": 54125.725646546634
+      },
+      "author_reported_eur_per_year": {
+        "traction": 36095.8,
+        "refrigeration": 5530.58,
+        "driver": 12499.3,
+        "total": 54125.7
+      },
+      "calculated_minus_author_eur": {
+        "traction": 0.03961145554785617,
+        "refrigeration": 0.0038350910872395616,
+        "driver": 0.002200000000811997,
+        "total": 0.025646546637290157
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 1.0973979118860412e-06,
+        "refrigeration": 6.934337966794733e-07,
+        "driver": 1.760098566169303e-07,
+        "total": 4.738330707462473e-07
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 54125.725646546634,
+      "source_objective_total_minus_reported_eur": 0.025646546637290157,
+      "source_objective_total_relative_residual": 4.738330707462473e-07,
+      "max_abs_residual_eur": 0.03961145554785617,
+      "full_total_matches_within_0_1_eur": true,
+      "alternate_total_excluding_driver_eur": 41626.423446546636,
+      "alternate_total_excluding_driver_minus_reported_eur": -12499.276553453361,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        5,
+        1,
+        4,
+        2,
+        3
+      ],
+      "arrival_seconds": [
+        25200.0,
+        27540.0,
+        30609.0,
+        33914.0,
+        36047.0,
+        39296.0,
+        42469.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 8162.597197290066,
+        "infiltration": 5005.459552926811
+      }
+    },
+    {
+      "instance": "D1-n7-np30",
+      "instance_sha256": "734d07d35d345eef588131a981351b658acf302654337edc339ccebf025b0c8a",
+      "solution_sha256": "74b32fae07df9d6370014c8dc22b8ba88a07868607b5edff34968154b4a6c315",
+      "calculated_eur_per_year": {
+        "traction": 29495.38685123333,
+        "transmission": 2907.065435436569,
+        "infiltration": 2300.796655544199,
+        "driver": 10902.5994,
+        "refrigeration": 5207.862090980768,
+        "total": 45605.84834221409
+      },
+      "author_reported_eur_per_year": {
+        "traction": 29495.4,
+        "refrigeration": 5207.86,
+        "driver": 10902.6,
+        "total": 45605.8
+      },
+      "calculated_minus_author_eur": {
+        "traction": -0.013148766673111822,
+        "refrigeration": 0.002090980768116424,
+        "driver": -0.0006000000012136297,
+        "total": 0.048342214089643676
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": -4.457904172552948e-07,
+        "refrigeration": 4.015047962342352e-07,
+        "driver": -5.5032744594282986e-08,
+        "total": 1.0600014491499694e-06
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 45605.84834221409,
+      "source_objective_total_minus_reported_eur": 0.048342214089643676,
+      "source_objective_total_relative_residual": 1.0600014491499694e-06,
+      "max_abs_residual_eur": 0.048342214089643676,
+      "full_total_matches_within_0_1_eur": true,
+      "alternate_total_excluding_driver_eur": 34703.24894221409,
+      "alternate_total_excluding_driver_minus_reported_eur": -10902.55105778591,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        6,
+        3,
+        2,
+        4,
+        5,
+        1
+      ],
+      "arrival_seconds": [
+        25200.0,
+        26460.0,
+        27870.0,
+        31374.0,
+        32172.0,
+        36141.0,
+        37974.0,
+        40263.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 6921.584370087069,
+        "infiltration": 5478.087275105236
+      }
+    },
+    {
+      "instance": "D1-n8-np28",
+      "instance_sha256": "a8555110dc9ae53840a13de918e935031b1d9ee78e2fa1fa4ee7cad309bd5fa1",
+      "solution_sha256": "bd4c517df54d2cef198c77f4390ff13be5b61e955d6b2b7c3a091701a69b6fa2",
+      "calculated_eur_per_year": {
+        "traction": 32842.571196633326,
+        "transmission": 3436.1794541078793,
+        "infiltration": 2537.7980658429938,
+        "driver": 12531.1494,
+        "refrigeration": 5973.977519950873,
+        "total": 51347.6981165842
+      },
+      "author_reported_eur_per_year": {
+        "traction": 32842.6,
+        "refrigeration": 5973.98,
+        "driver": 12531.1,
+        "total": 51347.7
+      },
+      "calculated_minus_author_eur": {
+        "traction": -0.02880336667294614,
+        "refrigeration": -0.002480049126461381,
+        "driver": 0.049399999999877764,
+        "total": -0.001883415796328336
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": -8.770123763936516e-07,
+        "refrigeration": -4.1514185291236014e-07,
+        "driver": 3.942191826725329e-06,
+        "total": -3.667965257116358e-08
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 51347.6981165842,
+      "source_objective_total_minus_reported_eur": -0.001883415796328336,
+      "source_objective_total_relative_residual": -3.667965257116358e-08,
+      "max_abs_residual_eur": 0.049399999999877764,
+      "full_total_matches_within_0_1_eur": true,
+      "alternate_total_excluding_driver_eur": 38816.5487165842,
+      "alternate_total_excluding_driver_minus_reported_eur": -12531.151283415798,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        3,
+        6,
+        2,
+        4,
+        7,
+        5,
+        1
+      ],
+      "arrival_seconds": [
+        25200.0,
+        26910.0,
+        27831.0,
+        28947.0,
+        31288.0,
+        36207.0,
+        37461.0,
+        39306.0,
+        42513.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 8181.379652637808,
+        "infiltration": 6042.376347245224
+      }
+    },
+    {
+      "instance": "D1-n9-np32",
+      "instance_sha256": "2a3864a3faec8cfdbce0ce1001a0d5e6ff822b0e29941cd1bd58811dc4867374",
+      "solution_sha256": "d9d5892773d4901f25b0862393e427b6f3d459042072bfb356d5a770bbc47bb6",
+      "calculated_eur_per_year": {
+        "traction": 26746.596446266663,
+        "transmission": 2999.6256976209274,
+        "infiltration": 2868.4759742618503,
+        "driver": 10976.427,
+        "refrigeration": 5868.101671882778,
+        "total": 43591.125118149444
+      },
+      "author_reported_eur_per_year": {
+        "traction": 26746.596,
+        "transmission": 2999.626,
+        "infiltration": 2868.476,
+        "driver": 10976.427,
+        "total": 43591.125
+      },
+      "calculated_minus_author_eur": {
+        "traction": 0.00044626666203839704,
+        "transmission": -0.00030237907276386977,
+        "infiltration": -2.5738149815879297e-05,
+        "driver": 0.0,
+        "total": 0.00011814944446086884
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 1.6684989074437623e-08,
+        "transmission": -1.0080559135167843e-07,
+        "infiltration": -8.972761081452065e-09,
+        "driver": 0.0,
+        "total": 2.7104013594709666e-09
+      },
+      "source_objective_identity": "D1 paper Table 5: fuel plus time-dependent wage",
+      "calculated_source_objective_total_eur": 43591.125118149444,
+      "source_objective_total_minus_reported_eur": 0.00011814944446086884,
+      "source_objective_total_relative_residual": 2.7104013594709666e-09,
+      "max_abs_residual_eur": 0.00044626666203839704,
+      "full_total_matches_within_0_1_eur": true,
+      "alternate_total_excluding_driver_eur": 32614.698118149445,
+      "alternate_total_excluding_driver_minus_reported_eur": -10976.426881850555,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        5,
+        1,
+        4,
+        3,
+        2,
+        8,
+        7,
+        6
+      ],
+      "arrival_seconds": [
+        25200.0,
+        25830.0,
+        26391.0,
+        27957.0,
+        28998.0,
+        30957.0,
+        33411.0,
+        35112.0,
+        37767.0,
+        40365.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 7141.965946716494,
+        "infiltration": 6829.704700623453
+      }
+    },
+    {
+      "instance": "D2-n10-np27",
+      "instance_sha256": "2cb3b865e8cfc4704334546ee3d98cd8ef67661897630d453a2d6d9c5caaf4c3",
+      "solution_sha256": "aa5c1eddb1e8c8374783e72892d10fb7d761d61155a07e3f505520db9096e005",
+      "calculated_eur_per_year": {
+        "traction": 44906.745157866666,
+        "transmission": 4740.287635613303,
+        "infiltration": 3132.3264001288953,
+        "driver": 16741.494,
+        "refrigeration": 7872.614035742198,
+        "total": 69520.85319360887
+      },
+      "author_reported_eur_per_year": {
+        "traction": 44906.948,
+        "transmission": 4740.288,
+        "infiltration": 3132.326,
+        "total": 52779.562
+      },
+      "calculated_minus_author_eur": {
+        "traction": -0.2028421333307051,
+        "transmission": -0.0003643866966740461,
+        "infiltration": 0.00040012889530771645,
+        "total": 16741.29119360887
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": -4.516943198426781e-06,
+        "transmission": -7.687015992995491e-08,
+        "infiltration": 1.2774177889137864e-07,
+        "total": 0.3171926889732217
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 52779.35919360887,
+      "source_objective_total_minus_reported_eur": -0.20280639112752397,
+      "source_objective_total_relative_residual": -3.842517509476945e-06,
+      "max_abs_residual_eur": 16741.29119360887,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 52779.35919360887,
+      "alternate_total_excluding_driver_minus_reported_eur": -0.20280639112752397,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        6,
+        4,
+        8,
+        7,
+        3,
+        1,
+        9,
+        2,
+        5
+      ],
+      "arrival_seconds": [
+        25200.0,
+        25440.0,
+        28632.0,
+        29982.0,
+        33744.0,
+        35532.0,
+        37152.0,
+        39933.0,
+        44019.0,
+        45882.0,
+        48330.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 11286.399132412627,
+        "infiltration": 7457.920000306895
+      }
+    },
+    {
+      "instance": "D2-n11-np30",
+      "instance_sha256": "c3ee5c642583175684bbe02fe819e88b5d7fe91a4cd27d1de5254651b8c6a46c",
+      "solution_sha256": "1ce5de997e7fe81a36d245d47d47a8545e5658dbeb496a2c7dc627edfab27b5e",
+      "calculated_eur_per_year": {
+        "traction": 35283.81617413333,
+        "transmission": 4500.136783275782,
+        "infiltration": 3498.517966927736,
+        "driver": 16082.1122,
+        "refrigeration": 7998.654750203518,
+        "total": 59364.583124336845
+      },
+      "author_reported_eur_per_year": {
+        "traction": 34267.146,
+        "transmission": 4382.304,
+        "infiltration": 3498.518,
+        "total": 42147.968
+      },
+      "calculated_minus_author_eur": {
+        "traction": 1016.6701741333309,
+        "transmission": 117.83278327578228,
+        "infiltration": -3.307226415927289e-05,
+        "total": 17216.615124336844
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 0.029668948039423267,
+        "transmission": 0.026888317943205738,
+        "infiltration": -9.453221095124533e-09,
+        "total": 0.40848031213122404
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 43282.47092433684,
+      "source_objective_total_minus_reported_eur": 1134.5029243368408,
+      "source_objective_total_relative_residual": 0.026917144008860423,
+      "max_abs_residual_eur": 17216.615124336844,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 43282.47092433684,
+      "alternate_total_excluding_driver_minus_reported_eur": 1134.5029243368408,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        2,
+        6,
+        1,
+        7,
+        4,
+        9,
+        10,
+        8,
+        3,
+        5
+      ],
+      "arrival_seconds": [
+        25200.0,
+        25680.0,
+        28359.0,
+        31221.0,
+        31887.0,
+        35328.0,
+        36259.0,
+        38752.0,
+        39742.0,
+        41722.0,
+        45826.0,
+        47419.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 10714.611388751864,
+        "infiltration": 8329.804683161277
+      }
+    },
+    {
+      "instance": "D2-n12-np33",
+      "instance_sha256": "690f172ca04bb936efd87c426b6b18f82373a938814083c8d224a2174617c931",
+      "solution_sha256": "5bf8dbbcae072f48914b46173890a87c7c8936ab77f46fbe7add92f0f74f4870",
+      "calculated_eur_per_year": {
+        "traction": 38261.5598176,
+        "transmission": 4069.658897282518,
+        "infiltration": 3890.2362400214706,
+        "driver": 14500.6092,
+        "refrigeration": 7959.895137303989,
+        "total": 60722.06415490399
+      },
+      "author_reported_eur_per_year": {
+        "traction": 38261.155,
+        "transmission": 4069.659,
+        "infiltration": 3890.236,
+        "total": 46221.05
+      },
+      "calculated_minus_author_eur": {
+        "traction": 0.40481759999966016,
+        "transmission": -0.00010271748215018306,
+        "infiltration": 0.0002400214707449777,
+        "total": 14501.014154903984
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 1.0580381067943719e-05,
+        "transmission": -2.5239825290075423e-08,
+        "infiltration": 6.169843442530934e-08,
+        "total": 0.3137318203481743
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 46221.45495490399,
+      "source_objective_total_minus_reported_eur": 0.404954903984617,
+      "source_objective_total_relative_residual": 8.761265786575963e-06,
+      "max_abs_residual_eur": 14501.014154903984,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 46221.45495490399,
+      "alternate_total_excluding_driver_minus_reported_eur": 0.404954903984617,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        6,
+        4,
+        10,
+        11,
+        2,
+        8,
+        9,
+        3,
+        5,
+        7,
+        1
+      ],
+      "arrival_seconds": [
+        25200.0,
+        26448.0,
+        29160.0,
+        30321.0,
+        31347.0,
+        33462.0,
+        33981.0,
+        35514.0,
+        36864.0,
+        38583.0,
+        41679.0,
+        43632.0,
+        45234.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 9689.664041148853,
+        "infiltration": 9262.46723814636
+      }
+    },
+    {
+      "instance": "D2-n13-np24",
+      "instance_sha256": "ed6da1daca7e56e8445c0a052d32fad214dba65d291bf23d957d579814a07b95",
+      "solution_sha256": "fd739127a882466026fef3f307a24001afc106aba4cdef53eb6bfd343e4df0a2",
+      "calculated_eur_per_year": {
+        "traction": 36054.0514096,
+        "transmission": 4883.713334232722,
+        "infiltration": 3928.2429050385235,
+        "driver": 17253.2206,
+        "refrigeration": 8811.956239271247,
+        "total": 62119.228248871244
+      },
+      "author_reported_eur_per_year": {
+        "traction": 35392.532,
+        "transmission": 4797.687,
+        "infiltration": 3928.243,
+        "total": 44118.462
+      },
+      "calculated_minus_author_eur": {
+        "traction": 661.5194095999977,
+        "transmission": 86.02633423272255,
+        "infiltration": -9.49614764067519e-05,
+        "total": 18000.766248871245
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 0.018690932019218003,
+        "transmission": 0.01793079336620387,
+        "infiltration": -2.4174033125433406e-08,
+        "total": 0.4080098315501398
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 44866.007648871244,
+      "source_objective_total_minus_reported_eur": 747.5456488712443,
+      "source_objective_total_relative_residual": 0.016944055050496645,
+      "max_abs_residual_eur": 18000.766248871245,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 44866.007648871244,
+      "alternate_total_excluding_driver_minus_reported_eur": 747.5456488712443,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        5,
+        8,
+        2,
+        3,
+        4,
+        1,
+        6,
+        10,
+        11,
+        9,
+        12,
+        7
+      ],
+      "arrival_seconds": [
+        25200.0,
+        26844.0,
+        29640.0,
+        31119.0,
+        31881.0,
+        35383.0,
+        36308.0,
+        37802.0,
+        38654.0,
+        40373.0,
+        42356.0,
+        44708.0,
+        46223.0,
+        49037.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 11627.888891030294,
+        "infiltration": 9352.959297710771
+      }
+    },
+    {
+      "instance": "D2-n14-np26",
+      "instance_sha256": "9355bb8a30302545a30906d9b10e4077974add0f0dbd8cb76fcb09604db8e123",
+      "solution_sha256": "183b098c2297a1e3de4143f30d57c7f86b1f46c889827d0366ca76ead9c1ccd6",
+      "calculated_eur_per_year": {
+        "traction": 41765.913670133334,
+        "transmission": 4793.186138805329,
+        "infiltration": 4166.284804503231,
+        "driver": 16886.254,
+        "refrigeration": 8959.470943308559,
+        "total": 67611.6386134419
+      },
+      "author_reported_eur_per_year": {
+        "traction": 40934.494,
+        "transmission": 4677.843,
+        "infiltration": 4166.285,
+        "total": 49778.622
+      },
+      "calculated_minus_author_eur": {
+        "traction": 831.4196701333349,
+        "transmission": 115.34313880532954,
+        "infiltration": -0.00019549676926544635,
+        "total": 17833.016613441898
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 0.02031097954046616,
+        "transmission": 0.024657334332368476,
+        "infiltration": -4.692352281839729e-08,
+        "total": 0.3582464900985386
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 50725.3846134419,
+      "source_objective_total_minus_reported_eur": 946.762613441897,
+      "source_objective_total_relative_residual": 0.019019462078357592,
+      "max_abs_residual_eur": 17833.016613441898,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 50725.3846134419,
+      "alternate_total_excluding_driver_minus_reported_eur": 946.762613441897,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        10,
+        9,
+        6,
+        5,
+        7,
+        2,
+        4,
+        8,
+        13,
+        1,
+        3,
+        12,
+        11
+      ],
+      "arrival_seconds": [
+        25200.0,
+        26760.0,
+        27996.0,
+        28755.0,
+        29805.0,
+        31869.0,
+        33030.0,
+        34164.0,
+        35536.0,
+        37142.0,
+        38288.0,
+        40736.0,
+        42248.0,
+        45206.0,
+        48530.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 11412.3479495365,
+        "infiltration": 9919.725725007693
+      }
+    },
+    {
+      "instance": "D2-n15-np28",
+      "instance_sha256": "9debaa31ff890995266104a0b8f31d9d5625313c2864f008e518109947e20436",
+      "solution_sha256": "612d9d4df77bdc3fa381fa1f48fd23167df6719831a23a0913d6e75b93ca3680",
+      "calculated_eur_per_year": {
+        "traction": 35263.05949833333,
+        "transmission": 4707.540398435014,
+        "infiltration": 4505.037624678534,
+        "driver": 16742.9416,
+        "refrigeration": 9212.578023113547,
+        "total": 61218.57912144687
+      },
+      "author_reported_eur_per_year": {
+        "traction": 34640.811,
+        "transmission": 4651.477,
+        "infiltration": 4507.841,
+        "total": 43800.129
+      },
+      "calculated_minus_author_eur": {
+        "traction": 622.248498333327,
+        "transmission": 56.06339843501428,
+        "infiltration": -2.803375321466774,
+        "total": 17418.45012144687
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 0.017962873280689847,
+        "transmission": 0.012052816435513768,
+        "infiltration": -0.0006218886871712586,
+        "total": 0.397680338371763
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 44475.63752144687,
+      "source_objective_total_minus_reported_eur": 675.5085214468709,
+      "source_objective_total_relative_residual": 0.015422523560304375,
+      "max_abs_residual_eur": 17418.45012144687,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 44475.63752144687,
+      "alternate_total_excluding_driver_minus_reported_eur": 675.5085214468709,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        11,
+        1,
+        6,
+        9,
+        13,
+        2,
+        14,
+        8,
+        7,
+        10,
+        4,
+        12,
+        3,
+        5
+      ],
+      "arrival_seconds": [
+        25200.0,
+        26040.0,
+        26676.0,
+        28398.0,
+        29664.0,
+        31008.0,
+        32139.0,
+        35179.0,
+        35908.0,
+        38203.0,
+        39061.0,
+        41867.0,
+        43434.0,
+        45096.0,
+        46908.0,
+        48332.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 11208.429520083368,
+        "infiltration": 10726.280058758413
+      }
+    },
+    {
+      "instance": "D2-n16-np30",
+      "instance_sha256": "fb936d9638b6af0c30c70bd60a201e2137779ba9ca47f9b81a6cb8a231922333",
+      "solution_sha256": "c0484e9f229ca959a0d1219ae0f8c09e61e294765440a3390283baf30222fd9b",
+      "calculated_eur_per_year": {
+        "traction": 43740.67096233333,
+        "transmission": 4965.716770946504,
+        "infiltration": 4907.675595783367,
+        "driver": 17434.8944,
+        "refrigeration": 9873.39236672987,
+        "total": 71048.9577290632
+      },
+      "author_reported_eur_per_year": {
+        "traction": 42115.451,
+        "transmission": 4899.66,
+        "infiltration": 4911.201,
+        "total": 51926.312
+      },
+      "calculated_minus_author_eur": {
+        "traction": 1625.219962333329,
+        "transmission": 66.056770946504,
+        "infiltration": -3.525404216633433,
+        "total": 19122.645729063202
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 0.0385896369086331,
+        "transmission": 0.013481909141961687,
+        "infiltration": -0.0007178293489990398,
+        "total": 0.36826504699704465
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 53614.063329063196,
+      "source_objective_total_minus_reported_eur": 1687.7513290631978,
+      "source_objective_total_relative_residual": 0.032502815317660104,
+      "max_abs_residual_eur": 19122.645729063202,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 53614.063329063196,
+      "alternate_total_excluding_driver_minus_reported_eur": 1687.7513290631978,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        11,
+        7,
+        15,
+        10,
+        2,
+        9,
+        3,
+        4,
+        8,
+        14,
+        6,
+        12,
+        5,
+        13,
+        1
+      ],
+      "arrival_seconds": [
+        25200.0,
+        26520.0,
+        28716.0,
+        29403.0,
+        30525.0,
+        31509.0,
+        33272.0,
+        33943.0,
+        35443.0,
+        36226.0,
+        37588.0,
+        38740.0,
+        40615.0,
+        42406.0,
+        46210.0,
+        47089.0,
+        49288.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 11823.13516892025,
+        "infiltration": 11684.941894722302
+      }
+    },
+    {
+      "instance": "D2-n17-np32",
+      "instance_sha256": "183086aa0e8c01a450cd8b39476d912e6c1e7977a6d327f8898ae13e4d2bf11d",
+      "solution_sha256": "220a3de9b242934c7f3d7240ea47c8083802315c7ff95c6d8a7e53f677b8628e",
+      "calculated_eur_per_year": {
+        "traction": 37565.333877866666,
+        "transmission": 4821.6537171982845,
+        "infiltration": 5204.070770622315,
+        "driver": 17061.4136,
+        "refrigeration": 10025.7244878206,
+        "total": 64652.47196568726
+      },
+      "author_reported_eur_per_year": {
+        "traction": 36893.426,
+        "transmission": 4870.118,
+        "infiltration": 5222.046,
+        "total": 46985.59
+      },
+      "calculated_minus_author_eur": {
+        "traction": 671.9078778666662,
+        "transmission": -48.464282801715854,
+        "infiltration": -17.975229377685537,
+        "total": 17666.881965687266
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 0.018212130200829443,
+        "transmission": -0.009951356990059758,
+        "infiltration": -0.0034421813552936026,
+        "total": 0.37600638761133504
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 47591.05836568726,
+      "source_objective_total_minus_reported_eur": 605.4683656872658,
+      "source_objective_total_relative_residual": 0.012886256524335777,
+      "max_abs_residual_eur": 17666.881965687266,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 47591.05836568726,
+      "alternate_total_excluding_driver_minus_reported_eur": 605.4683656872658,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        5,
+        13,
+        8,
+        12,
+        4,
+        16,
+        10,
+        9,
+        14,
+        6,
+        3,
+        7,
+        1,
+        11,
+        15,
+        2
+      ],
+      "arrival_seconds": [
+        25200.0,
+        27240.0,
+        27921.0,
+        28560.0,
+        29538.0,
+        30882.0,
+        31653.0,
+        34608.0,
+        35207.0,
+        35836.0,
+        37486.0,
+        37918.0,
+        38857.0,
+        39583.0,
+        42187.0,
+        43834.0,
+        44860.0,
+        48772.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 11480.127898091156,
+        "infiltration": 12390.644691957894
+      }
+    },
+    {
+      "instance": "D2-n34-np33",
+      "instance_sha256": "d8334b04b179b558113e06aaf53bbd00a645e46a23681abf98f4da884db27319",
+      "solution_sha256": "d8528e71c2230961843438f7301eba85765013f7b16966f11ed48840676e3b65",
+      "calculated_eur_per_year": {
+        "traction": 61349.197174066656,
+        "transmission": 6629.145260281718,
+        "infiltration": 10067.414439281583,
+        "driver": 23203.5804,
+        "refrigeration": 16696.559699563302,
+        "total": 101249.33727362996
+      },
+      "author_reported_eur_per_year": {
+        "traction": 61348.893,
+        "transmission": 6629.145,
+        "infiltration": 10067.414,
+        "total": 78045.452
+      },
+      "calculated_minus_author_eur": {
+        "traction": 0.30417406665947055,
+        "transmission": 0.000260281717601174,
+        "infiltration": 0.00043928158265771344,
+        "total": 23203.88527362996
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 4.958101960527154e-06,
+        "transmission": 3.92632409762004e-08,
+        "infiltration": 4.363400399126463e-08,
+        "total": 0.2973124593298525
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 78045.75687362996,
+      "source_objective_total_minus_reported_eur": 0.304873629953363,
+      "source_objective_total_relative_residual": 3.906359975381563e-06,
+      "max_abs_residual_eur": 23203.88527362996,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 78045.75687362996,
+      "alternate_total_excluding_driver_minus_reported_eur": 0.304873629953363,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        10,
+        2,
+        6,
+        7,
+        4,
+        23,
+        8,
+        17,
+        9,
+        31,
+        25,
+        3,
+        22,
+        20,
+        5,
+        12,
+        16,
+        11,
+        13,
+        30,
+        18,
+        29,
+        15,
+        21,
+        19,
+        27,
+        32,
+        33,
+        1,
+        14,
+        24,
+        28,
+        26
+      ],
+      "arrival_seconds": [
+        25200.0,
+        25560.0,
+        27120.0,
+        28440.0,
+        29304.0,
+        30747.0,
+        31758.0,
+        32193.0,
+        32662.0,
+        33182.0,
+        33651.0,
+        34431.0,
+        35571.0,
+        36249.0,
+        36909.0,
+        37785.0,
+        38949.0,
+        39684.0,
+        41979.0,
+        43434.0,
+        44820.0,
+        45486.0,
+        46008.0,
+        47109.0,
+        48056.0,
+        48488.0,
+        49438.0,
+        50233.0,
+        50617.0,
+        52033.0,
+        52883.0,
+        54144.0,
+        55470.0,
+        56004.0,
+        57258.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 15783.679191146948,
+        "infiltration": 23970.034379241868
+      }
+    },
+    {
+      "instance": "D2-n4-np33",
+      "instance_sha256": "7f2cfd87ca6ffdc54b1acf98791cdacb8d5ddb69ad1c49784440355bc0413865",
+      "solution_sha256": "dc6a852940a624102d3a0169c974db641dbc09c87edc30c3ec91755209efaf1d",
+      "calculated_eur_per_year": {
+        "traction": 30741.727845733327,
+        "transmission": 3532.0431722379412,
+        "infiltration": 1686.7230730955828,
+        "driver": 13026.2286,
+        "refrigeration": 5218.766245333524,
+        "total": 48986.722691066854
+      },
+      "author_reported_eur_per_year": {
+        "traction": 30741.7,
+        "refrigeration": 5218.77,
+        "total": 35960.5
+      },
+      "calculated_minus_author_eur": {
+        "traction": 0.027845733326103073,
+        "refrigeration": -0.003754666476197599,
+        "total": 13026.222691066854
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 9.057967947804797e-07,
+        "refrigeration": -7.194542921411747e-07,
+        "total": 0.36223697365350466
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 35960.49409106685,
+      "source_objective_total_minus_reported_eur": -0.0059089331480208784,
+      "source_objective_total_relative_residual": -1.6431732450941666e-07,
+      "max_abs_residual_eur": 13026.222691066854,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 35960.49409106685,
+      "alternate_total_excluding_driver_minus_reported_eur": -0.0059089331480208784,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "arrival_seconds": [
+        25200.0,
+        31634.0,
+        35115.0,
+        38592.0,
+        43197.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 8409.626600566527,
+        "infiltration": 4016.0073168942454
+      }
+    },
+    {
+      "instance": "D2-n5-np32",
+      "instance_sha256": "54d73eac2bb358d4f4c02ad0dfa126c171d8fc93e7015efcecec3b0900206e48",
+      "solution_sha256": "6c1be1fc9640e8545fe90ae65e15659a87ead17ffdc157dbd84619de1948aa4f",
+      "calculated_eur_per_year": {
+        "traction": 24619.163501799998,
+        "transmission": 3220.2035354293043,
+        "infiltration": 1866.994359944093,
+        "driver": 11957.8998,
+        "refrigeration": 5087.197895373398,
+        "total": 41664.26119717339
+      },
+      "author_reported_eur_per_year": {
+        "traction": 24619.2,
+        "refrigeration": 5087.2,
+        "total": 29706.4
+      },
+      "calculated_minus_author_eur": {
+        "traction": -0.03649820000282489,
+        "refrigeration": -0.0021046266019766335,
+        "total": 11957.861197173392
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": -1.482509586128911e-06,
+        "refrigeration": -4.1371021425865575e-07,
+        "total": 0.402534847614433
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 29706.361397173394,
+      "source_objective_total_minus_reported_eur": -0.038602826607530005,
+      "source_objective_total_relative_residual": -1.2994784493418929e-06,
+      "max_abs_residual_eur": 11957.861197173392,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 29706.361397173394,
+      "alternate_total_excluding_driver_minus_reported_eur": -0.038602826607530005,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "arrival_seconds": [
+        25200.0,
+        28799.0,
+        31703.0,
+        35241.0,
+        37224.0,
+        41721.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 7667.151274831678,
+        "infiltration": 4445.224666533555
+      }
+    },
+    {
+      "instance": "D2-n6-np30",
+      "instance_sha256": "655fcbb19687e994caaa3ee508f45851678169716d15616284555bc7c1e10381",
+      "solution_sha256": "9afeafb0e8e37c07038c033206021fa921687dcec51d10b8d88831e72d8ebfeb",
+      "calculated_eur_per_year": {
+        "traction": 37227.610552533326,
+        "transmission": 3257.7797506914117,
+        "infiltration": 2087.8463427065403,
+        "driver": 12010.0134,
+        "refrigeration": 5345.626093397952,
+        "total": 54583.25004593127
+      },
+      "author_reported_eur_per_year": {
+        "traction": 37227.6,
+        "refrigeration": 5345.63,
+        "total": 42573.2
+      },
+      "calculated_minus_author_eur": {
+        "traction": 0.010552533327427227,
+        "refrigeration": -0.003906602048118657,
+        "total": 12010.050045931275
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 2.8345994174825204e-07,
+        "refrigeration": -7.308029265247795e-07,
+        "total": 0.28210353099910923
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 42573.236645931276,
+      "source_objective_total_minus_reported_eur": 0.03664593127905391,
+      "source_objective_total_relative_residual": 8.607746488178928e-07,
+      "max_abs_residual_eur": 12010.050045931275,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 42573.236645931276,
+      "alternate_total_excluding_driver_minus_reported_eur": 0.03664593127905391,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        5,
+        1,
+        4,
+        2,
+        3
+      ],
+      "arrival_seconds": [
+        25200.0,
+        28320.0,
+        30885.0,
+        33918.0,
+        35619.0,
+        38868.0,
+        41793.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 7756.6184540271715,
+        "infiltration": 4971.0627207298585
+      }
+    },
+    {
+      "instance": "D2-n7-np30",
+      "instance_sha256": "301f99f9f42b8fb999aa9bd9aeb97495a56f00bcd3acdc0f974e4c85eba1f933",
+      "solution_sha256": "68dca16841d34377e05153fb59edf94ba2273bcd89be56ebe5631f2e5ab0c2d8",
+      "calculated_eur_per_year": {
+        "traction": 29911.12095673333,
+        "transmission": 3882.5468059005557,
+        "infiltration": 2336.421114893872,
+        "driver": 14227.0128,
+        "refrigeration": 6218.967920794428,
+        "total": 50357.10167752775
+      },
+      "author_reported_eur_per_year": {
+        "traction": 29911.1,
+        "refrigeration": 6218.97,
+        "total": 36130.1
+      },
+      "calculated_minus_author_eur": {
+        "traction": 0.020956733333150623,
+        "refrigeration": -0.0020792055720448843,
+        "total": 14227.001677527755
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": 7.006339898282117e-07,
+        "refrigeration": -3.3433278694782e-07,
+        "total": 0.39377144479333726
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 36130.088877527756,
+      "source_objective_total_minus_reported_eur": -0.011122472242277581,
+      "source_objective_total_relative_residual": -3.0784504449967153e-07,
+      "max_abs_residual_eur": 14227.001677527755,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 36130.088877527756,
+      "alternate_total_excluding_driver_minus_reported_eur": -0.011122472242277581,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        6,
+        3,
+        2,
+        4,
+        5,
+        1
+      ],
+      "arrival_seconds": [
+        25200.0,
+        26880.0,
+        28590.0,
+        31841.0,
+        35630.0,
+        39599.0,
+        42567.0,
+        44856.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 9244.159061667991,
+        "infiltration": 5562.907416413981
+      }
+    },
+    {
+      "instance": "D2-n8-np28",
+      "instance_sha256": "d1b5d60d326e3c20b357371efb6f5271fce67c4e4293b8f7c7f1239cbd010bdd",
+      "solution_sha256": "c147251d29911fc880617594e0beb26e6fb8c037f931ab7ce2af0ffebfe0108f",
+      "calculated_eur_per_year": {
+        "traction": 33563.9560844,
+        "transmission": 3703.901301664594,
+        "infiltration": 2537.7980658429938,
+        "driver": 13464.8514,
+        "refrigeration": 6241.699367507588,
+        "total": 53270.50685190759
+      },
+      "author_reported_eur_per_year": {
+        "traction": 33564.0,
+        "refrigeration": 6241.7,
+        "total": 39805.7
+      },
+      "calculated_minus_author_eur": {
+        "traction": -0.04391559999930905,
+        "refrigeration": -0.0006324924115688191,
+        "total": 13464.80685190759
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": -1.308413776644889e-06,
+        "refrigeration": -1.0133335654850748e-07,
+        "total": 0.33826328520557586
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 39805.65545190759,
+      "source_objective_total_minus_reported_eur": -0.044548092409968376,
+      "source_objective_total_relative_residual": -1.1191385256374936e-06,
+      "max_abs_residual_eur": 13464.80685190759,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 39805.65545190759,
+      "alternate_total_excluding_driver_minus_reported_eur": -0.044548092409968376,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        3,
+        6,
+        2,
+        4,
+        7,
+        5,
+        1
+      ],
+      "arrival_seconds": [
+        25200.0,
+        27480.0,
+        28551.0,
+        29541.0,
+        31698.0,
+        36177.0,
+        37431.0,
+        39276.0,
+        43803.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 8818.81262301094,
+        "infiltration": 6042.376347245224
+      }
+    },
+    {
+      "instance": "D2-n9-np32",
+      "instance_sha256": "bf918a6d54da3347f48757381fca3e82000e79c3c065758bd7c2375bab059f4f",
+      "solution_sha256": "afc34a82b6517eade836d3fc04ebb1119a7ade21b46acc987b30600d500a7424",
+      "calculated_eur_per_year": {
+        "traction": 27531.757029933324,
+        "transmission": 3039.3038664649766,
+        "infiltration": 2868.4759742618503,
+        "driver": 11208.7668,
+        "refrigeration": 5907.779840726827,
+        "total": 44648.30367066015
+      },
+      "author_reported_eur_per_year": {
+        "traction": 27531.858,
+        "transmission": 3039.304,
+        "infiltration": 2868.476,
+        "total": 33439.638
+      },
+      "calculated_minus_author_eur": {
+        "traction": -0.10097006667638198,
+        "transmission": -0.0001335350234512589,
+        "infiltration": -2.5738149815879297e-05,
+        "total": 11208.66567066015
+      },
+      "signed_relative_residual_by_reported_component": {
+        "traction": -3.6673902166857747e-06,
+        "transmission": -4.393605360018573e-08,
+        "infiltration": -8.972761081452065e-09,
+        "total": 0.3351909990969445
+      },
+      "source_objective_identity": "D2 paper Table 7(b): fuel only, wage deliberately neglected",
+      "calculated_source_objective_total_eur": 33439.53687066015,
+      "source_objective_total_minus_reported_eur": -0.10112933984783012,
+      "source_objective_total_relative_residual": -3.024235485080016e-06,
+      "max_abs_residual_eur": 11208.66567066015,
+      "full_total_matches_within_0_1_eur": false,
+      "alternate_total_excluding_driver_eur": 33439.53687066015,
+      "alternate_total_excluding_driver_minus_reported_eur": -0.10112933984783012,
+      "json_fuel_cons_raw": 3,
+      "fuel_conversion_used_l_per_kwh": 0.3,
+      "route": [
+        0,
+        5,
+        1,
+        4,
+        3,
+        2,
+        8,
+        7,
+        6
+      ],
+      "arrival_seconds": [
+        25200.0,
+        26040.0,
+        26631.0,
+        28557.0,
+        29984.0,
+        31799.0,
+        34061.0,
+        35433.0,
+        38088.0,
+        40686.0
+      ],
+      "electric_energy_year_kwh": {
+        "transmission": 7236.437777297563,
+        "infiltration": 6829.704700623453
+      }
+    }
+  ]
+}

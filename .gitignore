@@ -574,3 +574,64 @@ __jaxcache__
 /research/review_3080_20261010/pickup/undecided_public_input_root_v1/FAILURE.json
 /research/review_3080_20261010/pickup/undecided_public_input_root_v2/RESULT.json
 # ==== END generated ====
+
+# Static RRP publication: keep private remnants local; publish current evidence.
+/research/
+/results/
+**/private/
+**/execution_secret_*.txt
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/
+/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/*
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/.gitignore
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/README.md
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/followup_20261020/
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/remote/
+!/C-VRP_Cold-chainVehicleRoutingProblem/archive/transition_20261020/documentation_before_sync_20261020.zip
+/C-VRP_Cold-chainVehicleRoutingProblem/archive/transition_20261020/retained_scratch/*
+!/C-VRP_Cold-chainVehicleRoutingProblem/archive/transition_20261020/retained_scratch/MOVE_MANIFEST.json
+/C-VRP_Cold-chainVehicleRoutingProblem/archive/transition_20261020/public_dataset_candidates/*
+!/C-VRP_Cold-chainVehicleRoutingProblem/archive/transition_20261020/public_dataset_candidates/MOVE_MANIFEST.json
+# Full downloaded papers and exploratory third-party binaries remain local.
+/C-VRP_Cold-chainVehicleRoutingProblem/docs/**/*.pdf
+/C-VRP_Cold-chainVehicleRoutingProblem/docs/**/sources/*.txt
+
+# Locally installed benchmark environments and acquisition caches are not source.
+/C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/.runtime/
+/C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/archives/
+/C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/
+
+# Preserve vendor source while omitting prebuilt/downloaded binaries.
+/C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/upstream/**/*.exe
+/C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/upstream/**/*.dll
+/C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/upstream/**/*.whl
+/C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/upstream/**/*.bin
+/C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/upstream/**/*.pdf
+/C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/upstream/**/*.lib
+/C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/upstream/**/*.a
+/C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/upstream/**/*.o
+/C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/upstream/**/*.obj
+/C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/upstream/**/*.pdb
+
+# Author directory is capitalized Datasets; override the global datasets/ rule.
+!/C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Datasets/
+!/C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Datasets/**
+!/C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Solutions/
+!/C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Solutions/**
+
+# Publish first-party literature conclusions; keep full-text acquisition cache local.
+!/C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/
+/C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/*
+!/C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/*.md
+!/C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/*.bib
+!/C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/sources.json
+!/C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/search_ledger.json
+!/C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/acquisition_manifest.json
+!/C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/acquisition_supplement_manifest.json
+!/C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/acquisition_runtime_source_manifest.json
+!/C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/verification.json
+!/C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/tests_final.log
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/classic_solomon_preliminary_20261020/
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/classic_solomon_preliminary_v2_20261020/
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/quality_evidence_demo_20261020.json
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/quality_evidence_demo_v2_20261020.json
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/quality_evidence_demo_final_20261020.json

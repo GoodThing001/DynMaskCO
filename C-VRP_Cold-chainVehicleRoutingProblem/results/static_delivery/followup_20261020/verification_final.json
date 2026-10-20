@@ -1,0 +1,112 @@
+{
+  "status": "LOCAL_AND_SERVER_V3_FULL_BACKBONE_AND_TWO_VEHICLE_FUNCTIONAL_CHECKS_PASS",
+  "original_public_SHA256_verified": 61,
+  "key_archive_SHA256_unchanged": true,
+  "legacy_archive_SHA256_unchanged": true,
+  "protected_entries_present": 19,
+  "original_four_git_status_preserved": true,
+  "upstream_diff_empty": true,
+  "tests": 68,
+  "failures": 0,
+  "primary_profile": "rrp_mip_dimensional_v1",
+  "primary_time_domain": "source_day_domain",
+  "primary_reference_feasible": 30,
+  "operational_9h_reference_feasible": 28,
+  "diagnostic_reference_feasible": {
+    "archive_compatibility": 30,
+    "archive_pre_service": 30
+  },
+  "all_author_costs_reproduced": false,
+  "author_algorithm_reproduced": false,
+  "source_native_identity_verified": true,
+  "training_updates": [
+    37,
+    37,
+    37
+  ],
+  "checkpoint_reload_predictions_exact": true,
+  "arms": {
+    "single": [
+      {
+        "method": "local_search",
+        "actual_model_forwards": 0,
+        "wall_s": 0.18929669982753694,
+        "cost_eur_year": 45700.520378786925
+      },
+      {
+        "method": "maskco_initial",
+        "actual_model_forwards": 3,
+        "wall_s": 0.034562400076538324,
+        "cost_eur_year": 45737.76914886839
+      },
+      {
+        "method": "maskco",
+        "actual_model_forwards": 3,
+        "wall_s": 0.031674900092184544,
+        "cost_eur_year": 45737.76914886839
+      }
+    ],
+    "fleet": [
+      {
+        "method": "local_search",
+        "actual_model_forwards": 0,
+        "wall_s": 0.6393355999607593,
+        "cost_eur_year": 45700.520378786925
+      },
+      {
+        "method": "maskco_initial",
+        "actual_model_forwards": 3,
+        "wall_s": 0.04827100015245378,
+        "cost_eur_year": 45737.76914886839
+      },
+      {
+        "method": "maskco",
+        "actual_model_forwards": 3,
+        "wall_s": 0.048682899912819266,
+        "cost_eur_year": 45737.76914886839
+      }
+    ]
+  },
+  "fleet_scan_cases": 60,
+  "fleet_scan_feasible": 60,
+  "fleet_vehicles_used_by_domain": {
+    "source_day_domain": {
+      "2": 8,
+      "1": 22
+    },
+    "operational_tour_9h": {
+      "2": 8,
+      "1": 22
+    }
+  },
+  "server_v3_run_executed": true,
+  "scientific_gain_established": false,
+  "generalization_established": false,
+  "automatic_commit_or_push": false,
+  "previous_server_block": "automatic approval review could not complete because service usage limit; upload not executed; do not bypass",
+  "previous_server_block_resolved": true,
+  "server_full_backbone_run": "run06",
+  "server_actual_two_vehicle_run": "run07",
+  "server_output_files_SHA256_verified": 10,
+  "server_training_updated_parameter_leaves": [
+    237,
+    237,
+    237
+  ],
+  "server_checkpoint_reload_predictions_exact": true,
+  "server_two_vehicle_three_arms_feasible": true,
+  "server_verification_records": [
+    "server_run06_verification.json",
+    "server_run07_verification.json"
+  ],
+  "documentation_status": "ALL_RELATED_CURRENT_DOCUMENTS_SYNCHRONIZED_HISTORY_EXPLICIT",
+  "documentation_files_checked": 37,
+  "documentation_local_links_checked": 205,
+  "documentation_broken_local_links": 0,
+  "documentation_audit_record": "documentation_audit.json",
+  "documentation_snapshot_archive": "C-VRP_Cold-chainVehicleRoutingProblem/archive/transition_20261020/documentation_before_sync_20261020.zip",
+  "publication_authorized": true,
+  "publication_scope_record": "GITHUB_SYNC.md",
+  "supplementary_research_verification": "C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/verification.json",
+  "supplementary_research_tests_separate_from_RRP": 9
+}

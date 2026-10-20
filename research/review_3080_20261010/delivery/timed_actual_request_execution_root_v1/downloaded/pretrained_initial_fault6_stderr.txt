@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "C:\Users\zh\project\MASKCO-Main\research\review_3080_20261010\timed_actual_request_execution_root_v1\delivery_timed_shared_worker_v3.py", line 67, in <module>
-    if __name__=='__main__':main()
-  File "C:\Users\zh\project\MASKCO-Main\research\review_3080_20261010\timed_actual_request_execution_root_v1\delivery_timed_shared_worker_v3.py", line 47, in main
-    report=engine.request(bytes(inp[:size]),root/'request',stage,cancelled)
-  File "C:\Users\zh\project\MASKCO-Main\research\review_3080_20261010\timed_actual_request_execution_root_v1\delivery_timed_actual_engine_v3.py", line 87, in request
-    if cancelled():raise TimeoutError('Cancelled before next action')
-TimeoutError: Cancelled before next action

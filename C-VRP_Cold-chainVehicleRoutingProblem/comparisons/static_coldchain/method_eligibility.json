@@ -1,0 +1,182 @@
+[
+  {
+    "method": "PyVRP",
+    "official_repo": "https://github.com/PyVRP/PyVRP",
+    "status": "retain_routing_only",
+    "assessment": "已运行经典VRPTW；净效益需要真正修改搜索评价，不能仅事后重评分",
+    "new_snapshot_saved": true,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "OR-Tools",
+    "official_repo": "https://github.com/google/or-tools",
+    "status": "retain_routing_only",
+    "assessment": "已运行经典VRPTW；新目标优先自定义ALNS，非简单静态弧成本回调",
+    "new_snapshot_saved": true,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "RRNCO",
+    "official_repo": "https://github.com/ai4co/real-routing-nco",
+    "status": "retain_neural_candidate",
+    "assessment": "矩阵输入有价值；静态重写桥接、单位和目标；旧在线限制不自动适用于静态",
+    "new_snapshot_saved": false,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "CaDA",
+    "official_repo": "https://github.com/CIAM-Group/CaDA",
+    "status": "retain_neural_candidate",
+    "assessment": "保留约束感知构造；需新增品质、目标与静态协议适配",
+    "new_snapshot_saved": false,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "RouteFinder",
+    "official_repo": "https://github.com/ai4co/routefinder",
+    "status": "priority_neural_candidate",
+    "assessment": "原生静态多变体路由；新净效益须适配并同目标训练",
+    "new_snapshot_saved": true,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "MVMoE",
+    "official_repo": "https://github.com/RoyalSkye/Routing-MVMoE",
+    "status": "secondary_neural_candidate",
+    "assessment": "多任务结构可用；原奖励与新品质约束不同",
+    "new_snapshot_saved": false,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "POMO",
+    "official_repo": "https://github.com/yd-kwon/POMO",
+    "status": "secondary_routing_control",
+    "assessment": "经典CVRP控制；不原生覆盖新品质与制冷目标",
+    "new_snapshot_saved": false,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "AttentionModel",
+    "official_repo": "https://github.com/wouterkool/attention-learn-to-route",
+    "status": "secondary_routing_control",
+    "assessment": "CVRP等原任务控制；不引入未授权可选接单",
+    "new_snapshot_saved": false,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "DeepACO",
+    "official_repo": "https://github.com/henry-yeh/DeepACO",
+    "status": "priority_neural_search_candidate",
+    "assessment": "保留蚁群与神经启发式；重写完整路线评价和约束后才能进净效益主表",
+    "new_snapshot_saved": true,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "SGBS",
+    "official_repo": "https://github.com/yd-kwon/SGBS",
+    "status": "secondary_search_candidate",
+    "assessment": "搜索增强可复用；不是独立冷链模型，需同目标评分与预算",
+    "new_snapshot_saved": false,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "Sym-NCO",
+    "official_repo": "https://github.com/alstn12088/Sym-NCO",
+    "status": "secondary_routing_control",
+    "assessment": "对称假设须核验；时变/有向路线和新品质目标不能直接沿用",
+    "new_snapshot_saved": false,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "Omni-VRP",
+    "official_repo": "https://github.com/RoyalSkye/Omni-VRP",
+    "status": "secondary_neural_candidate",
+    "assessment": "保留跨分布路由控制；不把其原目标成绩当新任务结果",
+    "new_snapshot_saved": false,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "Learning-to-Delegate",
+    "official_repo": "https://github.com/mit-wu-lab/learning-to-delegate",
+    "status": "secondary_improvement_candidate",
+    "assessment": "可复用子问题选择思想；子问题须计入全路线品质影响且核验资产许可",
+    "new_snapshot_saved": false,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "Learn-Improvement-Heuristics",
+    "official_repo": "https://github.com/WXY1427/Learn-Improvement-Heuristics-for-Routing",
+    "status": "secondary_improvement_candidate",
+    "assessment": "可复用改进策略；需改目标/可行性并核验许可",
+    "new_snapshot_saved": false,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "PIP-constraint",
+    "official_repo": "https://github.com/jieyibi/PIP-constraint",
+    "status": "narrow_task_constraint_reference",
+    "assessment": "已下载主要TSPTW/TSPDL实验非当前车队主表；不把框架理论判为永久不能扩展",
+    "new_snapshot_saved": false,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "CO-enriched-ML",
+    "official_repo": "https://github.com/tumBAIS/euro-meets-neurips-2022",
+    "status": "static_components_only",
+    "assessment": "旧动态接拒策略不作当前主表；原静态求解部件可独立核验",
+    "new_snapshot_saved": false,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "MAPT",
+    "official_repo": "https://github.com/Beihang-BIGSCity/MAPT",
+    "status": "outside_current_task",
+    "assessment": "动态多车取送货与本轮静态配送不同；暂不以旧适配直接比较",
+    "new_snapshot_saved": false,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "ALNS",
+    "official_repo": "https://github.com/N-Wouda/ALNS",
+    "status": "priority_new_net_benefit_baseline",
+    "assessment": "新增通用框架；可显式用负净效益作最小化值、不可行解拒绝；适配尚未完成",
+    "new_snapshot_saved": true,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "HGS-CVRP",
+    "official_repo": "https://github.com/vidalt/HGS-CVRP",
+    "status": "new_cvrp_control",
+    "assessment": "新增经典CVRP源；本轮主VRPTW用PyVRP，不能把HGS直接当原生TW解法",
+    "new_snapshot_saved": true,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  },
+  {
+    "method": "CaR",
+    "official_repo": "https://github.com/jieyibi/CaR-constraint",
+    "status": "new_constraint_candidate",
+    "assessment": "新增ICLR2026源码；原生CVRP/TSPTW/TSPDL/VRPBLTW/SOP，食品品质与温度需自定义",
+    "new_snapshot_saved": true,
+    "legacy_dynamic_adapter_reused": false,
+    "net_benefit_ready": false
+  }
+]

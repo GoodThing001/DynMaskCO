@@ -16,3 +16,14 @@ __pycache__/
 Thumbs.db
 *.crdownload
 *.tmp
+
+# Fixed public RRP source files; other data stays local.
+!data/
+data/*
+!data/public_sources_20261020/
+data/public_sources_20261020/*
+!data/public_sources_20261020/refrigerated_routing_rrp/
+
+!data/classic_static_sources_20261020/
+data/classic_static_sources_20261020/archives/
+data/classic_static_sources_20261020/**/source_page.html

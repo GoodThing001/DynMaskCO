@@ -1,0 +1,117 @@
+{
+  "status": "SERVER_V3_FULL_BACKBONE_FUNCTIONAL_ACCEPTANCE_PASS",
+  "run": "run06",
+  "exit_code": 0,
+  "output_files_SHA256_verified": 9,
+  "uploaded_current_files_SHA256_verified": 133,
+  "model_profile": "maskco_256",
+  "architecture": {
+    "num_layers": [
+      16,
+      6
+    ],
+    "embed_dim": 256,
+    "num_heads": 8
+  },
+  "jax_backend": "cpu",
+  "python": "3.10.19",
+  "training_steps": 3,
+  "updated_parameter_leaves": [
+    237,
+    237,
+    237
+  ],
+  "checkpoint_reload_predictions_exact": true,
+  "finite_checkpoint_leaf_counts": {
+    "weights.npz": 237,
+    "optimizer.npz": 475
+  },
+  "arms": {
+    "single": [
+      {
+        "method": "local_search",
+        "cost_eur_year": 45700.52037878693,
+        "actual_model_forwards": 0,
+        "wall_s": 0.28676335816271603,
+        "feasible": true,
+        "vehicles_used": 1
+      },
+      {
+        "method": "maskco_initial",
+        "cost_eur_year": 45737.76914886839,
+        "actual_model_forwards": 3,
+        "wall_s": 0.6524183237925172,
+        "feasible": true,
+        "vehicles_used": 1
+      },
+      {
+        "method": "maskco",
+        "cost_eur_year": 45737.76914886839,
+        "actual_model_forwards": 3,
+        "wall_s": 0.6439264959190041,
+        "feasible": true,
+        "vehicles_used": 1
+      }
+    ],
+    "fleet": [
+      {
+        "method": "local_search",
+        "cost_eur_year": 45700.52037878693,
+        "actual_model_forwards": 0,
+        "wall_s": 1.0190627970732749,
+        "feasible": true,
+        "vehicles_used": 1
+      },
+      {
+        "method": "maskco_initial",
+        "cost_eur_year": 45737.76914886839,
+        "actual_model_forwards": 3,
+        "wall_s": 0.627687213011086,
+        "feasible": true,
+        "vehicles_used": 1
+      },
+      {
+        "method": "maskco",
+        "cost_eur_year": 45737.76914886839,
+        "actual_model_forwards": 3,
+        "wall_s": 0.7187545711640269,
+        "feasible": true,
+        "vehicles_used": 1
+      }
+    ]
+  },
+  "local_independent_recomputed_tours": 6,
+  "local_independent_cost_max_abs_difference_eur": 7.275957614183426e-12,
+  "primary_reference_feasible": 30,
+  "operational_9h_reference_feasible": 28,
+  "cross_platform_audit_numeric_differences": 86,
+  "cross_platform_audit_max_abs_difference": 1.4551915228366852e-11,
+  "fleet_scan_cases": 60,
+  "fleet_scan_feasible": 60,
+  "fleet_vehicles_used_by_domain": {
+    "source_day_domain": {
+      "2": 8,
+      "1": 22
+    },
+    "operational_tour_9h": {
+      "2": 8,
+      "1": 22
+    }
+  },
+  "all_author_costs_reproduced": false,
+  "author_algorithm_reproduced": false,
+  "scientific_gain_established": false,
+  "generalization_established": false,
+  "resources": {
+    "requested_cpu_cores": [
+      92,
+      93,
+      94,
+      95
+    ],
+    "timeout_s": 900,
+    "virtual_address_limit_gib": 64,
+    "other_jobs_modified": false
+  },
+  "local_prior_tests": 68
+}

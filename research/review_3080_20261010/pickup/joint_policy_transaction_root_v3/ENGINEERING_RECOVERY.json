@@ -1,9 +1,0 @@
-{
-  "old_result_sha256": "1581d065eb017f20227ffab2ac9433db3422da18f9d837b5c3177dabba9a94e7",
-  "old_independent_audit_sha256": "b2407decfe7410dadbb37562c18bface0b1cc5f5bb58780cd98bce7b63428956",
-  "old_independent_failures": 6,
-  "cause": "public-packet reprojection recreated environment with replan_count 0 rather than old 1/2/13; six identity failures, numerical replay otherwise consistent",
-  "repair": "restore actual old replan_count and reveal_idx before projection; do not exclude those identity fields",
-  "installer_bytes_unchanged": true,
-  "new_science": false
-}

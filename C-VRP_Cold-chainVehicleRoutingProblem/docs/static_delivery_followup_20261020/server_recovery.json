@@ -1,0 +1,231 @@
+{
+  "created_at_utc": "2026-10-20T08:52:15.681822+00:00",
+  "scope": "Read-only bounded discovery in configured Linux and Windows user-owned MASKCO projects only",
+  "finding": "No independent older RRP implementation or missing-reference replacement found within the searched scope",
+  "source_commit": "f5c5317a5ecd8fe64df779e79bd0397904bc0f9e",
+  "local_reference": {
+    "path": "C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Solutions/D1/sol-D1-n9-np32.txt",
+    "bytes": 498,
+    "sha256": "d9d5892773d4901f25b0862393e427b6f3d459042072bfb356d5a770bbc47bb6",
+    "source_manifest_matches": true,
+    "route_values": 9,
+    "waiting_values": 8,
+    "missing_waiting_value_recovered": false
+  },
+  "linux": {
+    "root": "/home/hzeng/project/MASKCO-Main",
+    "max_depth": 12,
+    "max_entries": 180000,
+    "max_seconds": 22,
+    "excluded": [
+      ".cache",
+      ".claude",
+      ".cursor",
+      ".git",
+      ".hg",
+      ".svn",
+      ".venv",
+      ".vscode",
+      "__pycache__",
+      "cache",
+      "checkpoints",
+      "env",
+      "node_modules",
+      "private",
+      "venv",
+      "wandb"
+    ],
+    "excluded_recent_runs": [
+      "run01",
+      "run02",
+      "run03",
+      "run04",
+      "run05"
+    ],
+    "visited_entries": 22614,
+    "visited_directories": 2571,
+    "matches": [
+      {
+        "path": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020",
+        "directory": true,
+        "size": null
+      }
+    ],
+    "pruned_depth": 0,
+    "pruned_recent_runs": [
+      "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run05",
+      "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run01",
+      "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run02",
+      "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run04",
+      "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run03"
+    ],
+    "errors": [],
+    "stopped_early": false,
+    "elapsed_seconds": 2.046,
+    "top_level": [
+      "research",
+      ".cursorignore",
+      "_run_mpre_seed.sh",
+      "工作区导航.md",
+      ".cursor",
+      "tools",
+      "CC_Compare\\tools\\_xf2_guard.sh",
+      "C-VRP_Cold-chainVehicleRoutingProblem",
+      "hgs",
+      "B_REPRO_CLEAN_stdout.txt",
+      "MASKCO_code",
+      ".claude",
+      "_run_step5.sh",
+      "README.md",
+      "CC_Compare",
+      "CC_Compare\\tools",
+      "lkh3",
+      "B_REPRO_CLEAN",
+      "CLAUDE.md",
+      "AGENTS.md",
+      "_run_eval_all.sh"
+    ],
+    "known_uploaded_copy_checks": [
+      {
+        "path": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run01/workspace/C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Solutions/D1/sol-D1-n9-np32.txt",
+        "bytes": 498,
+        "sha256": "d9d5892773d4901f25b0862393e427b6f3d459042072bfb356d5a770bbc47bb6",
+        "matches_local": true,
+        "independent_recovery_source": false
+      },
+      {
+        "path": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run02/workspace/C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Solutions/D1/sol-D1-n9-np32.txt",
+        "bytes": 498,
+        "sha256": "d9d5892773d4901f25b0862393e427b6f3d459042072bfb356d5a770bbc47bb6",
+        "matches_local": true,
+        "independent_recovery_source": false
+      },
+      {
+        "path": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run03/workspace/C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Solutions/D1/sol-D1-n9-np32.txt",
+        "bytes": 498,
+        "sha256": "d9d5892773d4901f25b0862393e427b6f3d459042072bfb356d5a770bbc47bb6",
+        "matches_local": true,
+        "independent_recovery_source": false
+      },
+      {
+        "path": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run04/workspace/C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Solutions/D1/sol-D1-n9-np32.txt",
+        "bytes": 498,
+        "sha256": "d9d5892773d4901f25b0862393e427b6f3d459042072bfb356d5a770bbc47bb6",
+        "matches_local": true,
+        "independent_recovery_source": false
+      },
+      {
+        "path": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run05/workspace/C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Solutions/D1/sol-D1-n9-np32.txt",
+        "bytes": 498,
+        "sha256": "d9d5892773d4901f25b0862393e427b6f3d459042072bfb356d5a770bbc47bb6",
+        "matches_local": true,
+        "independent_recovery_source": false
+      }
+    ]
+  },
+  "windows": {
+    "configured_project": "/C:/Users/zh/project/MASKCO-Main",
+    "top_level": [
+      "B_REPRO_CLEAN",
+      "C-VRP_Cold-chainVehicleRoutingProblem",
+      "CC_Compare",
+      "data",
+      "MASKCO_code",
+      "research",
+      "tools",
+      "_pi128.txt",
+      "_pi129.txt"
+    ],
+    "errors": [],
+    "pruned_depth": 0,
+    "elapsed_seconds": 0.5772956,
+    "excluded_recent_runs": [
+      "run01",
+      "run02",
+      "run03",
+      "run04",
+      "run05"
+    ],
+    "pruned_recent_runs": [],
+    "max_entries": 180000,
+    "max_seconds": 22,
+    "excluded": [
+      ".git",
+      ".hg",
+      ".svn",
+      ".vscode",
+      ".cursor",
+      ".claude",
+      "__pycache__",
+      "node_modules",
+      ".venv",
+      "venv",
+      "env",
+      "cache",
+      ".cache",
+      "wandb",
+      "checkpoints",
+      "private"
+    ],
+    "matches": [],
+    "max_depth": 12,
+    "root": "C:\\Users\\zh\\project\\MASKCO-Main",
+    "stopped_early": false,
+    "visited_entries": 4547,
+    "visited_directories": 572
+  },
+  "known_uploaded_copy_checks": [
+    {
+      "path": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run01/workspace/C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Solutions/D1/sol-D1-n9-np32.txt",
+      "bytes": 498,
+      "sha256": "d9d5892773d4901f25b0862393e427b6f3d459042072bfb356d5a770bbc47bb6",
+      "matches_local": true,
+      "independent_recovery_source": false
+    },
+    {
+      "path": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run02/workspace/C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Solutions/D1/sol-D1-n9-np32.txt",
+      "bytes": 498,
+      "sha256": "d9d5892773d4901f25b0862393e427b6f3d459042072bfb356d5a770bbc47bb6",
+      "matches_local": true,
+      "independent_recovery_source": false
+    },
+    {
+      "path": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run03/workspace/C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Solutions/D1/sol-D1-n9-np32.txt",
+      "bytes": 498,
+      "sha256": "d9d5892773d4901f25b0862393e427b6f3d459042072bfb356d5a770bbc47bb6",
+      "matches_local": true,
+      "independent_recovery_source": false
+    },
+    {
+      "path": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run04/workspace/C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Solutions/D1/sol-D1-n9-np32.txt",
+      "bytes": 498,
+      "sha256": "d9d5892773d4901f25b0862393e427b6f3d459042072bfb356d5a770bbc47bb6",
+      "matches_local": true,
+      "independent_recovery_source": false
+    },
+    {
+      "path": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_rrp_20261020/run05/workspace/C-VRP_Cold-chainVehicleRoutingProblem/data/public_sources_20261020/refrigerated_routing_rrp/Solutions/D1/sol-D1-n9-np32.txt",
+      "bytes": 498,
+      "sha256": "d9d5892773d4901f25b0862393e427b6f3d459042072bfb356d5a770bbc47bb6",
+      "matches_local": true,
+      "independent_recovery_source": false
+    }
+  ],
+  "downloaded_recovery_files": [],
+  "remote_mutations": false,
+  "training_started": false,
+  "limitations": [
+    "Search excludes private/credential/secret paths, repository internals, dependency caches, checkpoints, symlinks and Windows reparse points.",
+    "No server paths outside the two configured user-owned project roots were scanned.",
+    "Archives were not unpacked or searched internally; files whose names and parent paths lack RRP/refrigerated/energies13_6214 markers may not be detected.",
+    "run01-run05 are known uploads of this local source; identical hashes do not independently resolve the missing wait."
+  ],
+  "evidence_sha256": {
+    "build_recovery_report.py": "d0641440ec16e59be275c97569ddb6401b12bff2585b825db178543fa5ec8ed7",
+    "linux_discovery.json": "d15ffd7a7ebd0570e58d9eac703b9c32cf2859df4732989a89cb093087eb1805",
+    "recovery_probe.py": "b8c5e5e7f8bfd7c50d00b5119e27c745eefa5c822397c6fc7d86de3417c57474",
+    "recovery_windows_probe.py": "18f1d289372570d53983d0628c17af32ff410821e89d6b32033ea1089e542af6",
+    "windows_discovery.json": "b8aeac64ef877867a026b3f67892f32f9970d722783ff58dcfdaafe3d3bf5849",
+    "windows_inventory.json": "b736aa4c0013e5c9eb01c260ead57b939ee2cf5d3442edba0cb997651cd95c5a"
+  }
+}

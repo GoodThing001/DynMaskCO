@@ -1,0 +1,831 @@
+{
+  "name": "HGS-CVRP",
+  "repo": "vidalt/HGS-CVRP",
+  "commit": "1a927955cd2861a29d978f0d359d6e647db9319c",
+  "url": "https://codeload.github.com/vidalt/HGS-CVRP/zip/1a927955cd2861a29d978f0d359d6e647db9319c",
+  "archive_sha256": "09cbad7a79bcb0dc962df7658650e725a406f1e70e0fddc5dfe08e541c6bc60e",
+  "archive_bytes": 533954,
+  "files": [
+    {
+      "path": ".github/workflows/CI_Build.yml",
+      "size": 1503,
+      "sha256": "39c9913633071babff6b16e411c54a3bbb7410c8794b12784067a97eb2a4f0fd"
+    },
+    {
+      "path": ".gitignore",
+      "size": 474,
+      "sha256": "2415f51aa6d506ed6c646f8cd67226887d924d6924d9e80f4122c32c7a9252bb"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "size": 3009,
+      "sha256": "8038f2242fbd3b0106c7689f648211ebeb35f353773c4d0d7f38607452b2d305"
+    },
+    {
+      "path": "Instances/CVRP/CMT1.vrp",
+      "size": 1493,
+      "sha256": "80ba74909877a3fb9aa4f44b65d4dd9f64061385668f78e7881f7459b5ff19c6"
+    },
+    {
+      "path": "Instances/CVRP/CMT10.vrp",
+      "size": 5707,
+      "sha256": "9dd1487dc9e3c9b38940f129025eced1a89afb64696d78031e9d866dd8884ba4"
+    },
+    {
+      "path": "Instances/CVRP/CMT11.vrp",
+      "size": 3372,
+      "sha256": "23b9a9e677f0ba69745d41757369b2f05da6fc780953b0940124139256686dcf"
+    },
+    {
+      "path": "Instances/CVRP/CMT12.vrp",
+      "size": 2857,
+      "sha256": "1ba1acf39e1c0d77d1667fed7ad88b13028285f8640fd063a1bd07d5b5cab891"
+    },
+    {
+      "path": "Instances/CVRP/CMT13.vrp",
+      "size": 3411,
+      "sha256": "015e9c09f49f90c44a3f1a122b0a0e8f2a6b5422c7ad7b5811a87bc7e0fd7863"
+    },
+    {
+      "path": "Instances/CVRP/CMT14.vrp",
+      "size": 2897,
+      "sha256": "43622638653285e5abc5b06b3e474bd5bc8c4cc0766f4df9f079f28a3faa4365"
+    },
+    {
+      "path": "Instances/CVRP/CMT2.vrp",
+      "size": 2169,
+      "sha256": "61bb889b5bada3b07130344764db983e2644a5e78e14c71298086a938bfc23d8"
+    },
+    {
+      "path": "Instances/CVRP/CMT3.vrp",
+      "size": 2817,
+      "sha256": "6b38169c8ecbb601e11abf9881399878ef056fb1c33e117f40b6836ed90c58b1"
+    },
+    {
+      "path": "Instances/CVRP/CMT4.vrp",
+      "size": 4249,
+      "sha256": "31c1eedd63d16494e8493b9f035ab1c0a5389f80c5eec6d13dec3828e8820798"
+    },
+    {
+      "path": "Instances/CVRP/CMT5.vrp",
+      "size": 5665,
+      "sha256": "d528b1b077eeb3568f22558e357f6fba3134d7978f93ac8ef21ef78a9dbf0903"
+    },
+    {
+      "path": "Instances/CVRP/CMT6.vrp",
+      "size": 1534,
+      "sha256": "3b9e0eae9e5825111c093d51366aebe591f3fd1ed5d69f0d2f9c0d2e92500779"
+    },
+    {
+      "path": "Instances/CVRP/CMT7.vrp",
+      "size": 2210,
+      "sha256": "c72d01a14450be6639459eb5f2fdd290e4167c7589cd12189622652735852cef"
+    },
+    {
+      "path": "Instances/CVRP/CMT8.vrp",
+      "size": 2858,
+      "sha256": "cc208803d227b960a6497ca493f067d2c155b9577bc610996b7bdce5d435b72d"
+    },
+    {
+      "path": "Instances/CVRP/CMT9.vrp",
+      "size": 4290,
+      "sha256": "b2e8b5dc53ef6ad9f77fc2e9eb31341567ddc717f83d8c9d71029c4a90e9918e"
+    },
+    {
+      "path": "Instances/CVRP/Golden_1.vrp",
+      "size": 7255,
+      "sha256": "4941089a45e5f20889c67a3e7ade51c00a49c97c660473ffbe72273fdcc510c0"
+    },
+    {
+      "path": "Instances/CVRP/Golden_10.vrp",
+      "size": 9166,
+      "sha256": "cdf6bdfd8987258f73e49c1b2fc0178d4cd6784b272a790c7f733fd1f7fe1d05"
+    },
+    {
+      "path": "Instances/CVRP/Golden_11.vrp",
+      "size": 11368,
+      "sha256": "8cebb57d730126359a2cdb941019466e541dd82a78bc421a39da135f0daea6d4"
+    },
+    {
+      "path": "Instances/CVRP/Golden_12.vrp",
+      "size": 13811,
+      "sha256": "32d6da6aa5d8a0263bf1986c5b12ea930cca1b9d56f032175da613c3caaee8a3"
+    },
+    {
+      "path": "Instances/CVRP/Golden_13.vrp",
+      "size": 7315,
+      "sha256": "216c4cb4eb1bf0d2fce09f79ee158f68c9e11466c69e9d093e1b4df39aae99ce"
+    },
+    {
+      "path": "Instances/CVRP/Golden_14.vrp",
+      "size": 9316,
+      "sha256": "7e7767235fd6eb0ecd344d4501a6ee665777cab0eb0038199925e11fc4d98c09"
+    },
+    {
+      "path": "Instances/CVRP/Golden_15.vrp",
+      "size": 11556,
+      "sha256": "aa269e790e864480cc83fe6d72be654168e9a1f13dd9d1c9c8960dcd74277399"
+    },
+    {
+      "path": "Instances/CVRP/Golden_16.vrp",
+      "size": 14036,
+      "sha256": "26efe3790b7e9044ddf348b4835d7ca8e349baea71ad3a28072643d592bbf2b4"
+    },
+    {
+      "path": "Instances/CVRP/Golden_17.vrp",
+      "size": 6768,
+      "sha256": "eea78da946a6fcf35d1765b497ca1708947138fd76a5dba0e29e0b8c45aa341d"
+    },
+    {
+      "path": "Instances/CVRP/Golden_18.vrp",
+      "size": 8522,
+      "sha256": "b6b10b9d7cf3faaa80713ce6898a020895e53331482f615f5bd5840ff2111568"
+    },
+    {
+      "path": "Instances/CVRP/Golden_19.vrp",
+      "size": 10285,
+      "sha256": "5c205ebfe84af7dcc41af66e472e74e0e58be78a4e95cdded202b0d3d270cbee"
+    },
+    {
+      "path": "Instances/CVRP/Golden_2.vrp",
+      "size": 9755,
+      "sha256": "0dc772b0b1baa8342aa7df795480ab90fe6486b99afc7582a4201ac0c7a5c9af"
+    },
+    {
+      "path": "Instances/CVRP/Golden_20.vrp",
+      "size": 12051,
+      "sha256": "5be8e13abca2c9dfb50f6aebe23d3d23d772cdf7d5fb165e3b0e811a7d56a814"
+    },
+    {
+      "path": "Instances/CVRP/Golden_3.vrp",
+      "size": 12265,
+      "sha256": "1f827e3fc5f2da3d7eed3f4587ce588e4da1dcfb22486adda21afe7d1147b03a"
+    },
+    {
+      "path": "Instances/CVRP/Golden_4.vrp",
+      "size": 14790,
+      "sha256": "132472f893a02e9bc1b9d94626cdce9535c87d4a11dd06f903f808797ea05df8"
+    },
+    {
+      "path": "Instances/CVRP/Golden_5.vrp",
+      "size": 6096,
+      "sha256": "598faceb6775209f0dc499f5aafd527f7293d6bd51097cf0347caaf1195f16b8"
+    },
+    {
+      "path": "Instances/CVRP/Golden_6.vrp",
+      "size": 8576,
+      "sha256": "e394eeb9c0ed726b49bae562add406f117964c41206bfb299c61c060df2795b8"
+    },
+    {
+      "path": "Instances/CVRP/Golden_7.vrp",
+      "size": 11049,
+      "sha256": "ae4e8c087a62deb9d9228988075d8556767a90bcc5de25091bdcc4c50d8224e1"
+    },
+    {
+      "path": "Instances/CVRP/Golden_8.vrp",
+      "size": 13497,
+      "sha256": "64bcca00abbe747ac5989b24ae73b3c31f87a61da0da974e220e622453d95f0c"
+    },
+    {
+      "path": "Instances/CVRP/Golden_9.vrp",
+      "size": 7203,
+      "sha256": "7c732a4a693334599ae6db9bff367946473951766ab00fece770f288f47acb14"
+    },
+    {
+      "path": "Instances/CVRP/X-n1001-k43.vrp",
+      "size": 17939,
+      "sha256": "d2d86aca0eec8f40c52473063269302dee3c983343a6292a28ed71a6a4faf776"
+    },
+    {
+      "path": "Instances/CVRP/X-n101-k25.vrp",
+      "size": 2030,
+      "sha256": "24960bd4d3a71246ef6efe76c9b667faee4d02817abf3dad6d87acbbdb8bfbd0"
+    },
+    {
+      "path": "Instances/CVRP/X-n106-k14.vrp",
+      "size": 2148,
+      "sha256": "bb42f11620419baea3d0b0465b3e267ffd4f0c58cf446c8e637a9e02b82f157e"
+    },
+    {
+      "path": "Instances/CVRP/X-n110-k13.vrp",
+      "size": 2136,
+      "sha256": "33cfb49f6cdafbd13f823d148887087e69ac5a97184d8848d436365a15109062"
+    },
+    {
+      "path": "Instances/CVRP/X-n115-k10.vrp",
+      "size": 2224,
+      "sha256": "d768b11df867da5927fa73a24f5a70e11513550f8dcfb07ccefbf54d3f89b9b2"
+    },
+    {
+      "path": "Instances/CVRP/X-n120-k6.vrp",
+      "size": 2288,
+      "sha256": "087576948a398295bfdb4c4c49df5221777ee8f949216fd713427c49fa8ac59d"
+    },
+    {
+      "path": "Instances/CVRP/X-n125-k30.vrp",
+      "size": 2465,
+      "sha256": "1d76c36454d24f6e99cd0108a6ace691cd6b8d126368cc89a30c1cedf4cf7e7f"
+    },
+    {
+      "path": "Instances/CVRP/X-n129-k18.vrp",
+      "size": 2466,
+      "sha256": "539cefe3a2261abd25002f6262db951c57e16ef6bee2f103af57c0084ba94371"
+    },
+    {
+      "path": "Instances/CVRP/X-n134-k13.vrp",
+      "size": 2668,
+      "sha256": "739b9c4884a9414858e51cd282b81d8c2ee0d17965b8e2274e3bb673f60ac9ac"
+    },
+    {
+      "path": "Instances/CVRP/X-n139-k10.vrp",
+      "size": 2672,
+      "sha256": "27d0365adda5355883c58ac7aa0fb4c1c08ca74a2f2333dd1d71639ebf0dec9e"
+    },
+    {
+      "path": "Instances/CVRP/X-n143-k7.vrp",
+      "size": 2845,
+      "sha256": "3649419cf4f48bf259a9e4f1390e9e8d2ca459a847a53246fb40a51eeafb687c"
+    },
+    {
+      "path": "Instances/CVRP/X-n148-k46.vrp",
+      "size": 2838,
+      "sha256": "aa5336b1ac309e0777ade3c76396ed82abd0358bfab9435e6ca12b83bf64ca28"
+    },
+    {
+      "path": "Instances/CVRP/X-n153-k22.vrp",
+      "size": 2977,
+      "sha256": "1015cccfaa4bead390bb0a96b33a59f4ba0681db4d1ba2dced906db7cd592cbe"
+    },
+    {
+      "path": "Instances/CVRP/X-n157-k13.vrp",
+      "size": 2976,
+      "sha256": "d0bcb54706f56a75ef0b9afaaa7110c476997956c9af18b846f82218afb34b17"
+    },
+    {
+      "path": "Instances/CVRP/X-n162-k11.vrp",
+      "size": 3248,
+      "sha256": "d25ed2a0e6a02b4db495d0a8619b55e3c825bc8801c0022c75b999c89496613a"
+    },
+    {
+      "path": "Instances/CVRP/X-n167-k10.vrp",
+      "size": 3190,
+      "sha256": "17934ca96d30c0bc4c927810da67c7dfc64b3fef800027324e7ffb241e1f1cc3"
+    },
+    {
+      "path": "Instances/CVRP/X-n172-k51.vrp",
+      "size": 3425,
+      "sha256": "8241aae579dba86be1bcb366d8e0b63be69a65089423e302b1d2524d46b7c23c"
+    },
+    {
+      "path": "Instances/CVRP/X-n176-k26.vrp",
+      "size": 3392,
+      "sha256": "96b1e058647dac12b46d5fcfe3d8e230ffbc2eedb6647192e7eca5323d833401"
+    },
+    {
+      "path": "Instances/CVRP/X-n181-k23.vrp",
+      "size": 3468,
+      "sha256": "49b805bf8ea2b136dbdbbc1b11fe3239bf61d9bc20b0f14447630050bd75a4f9"
+    },
+    {
+      "path": "Instances/CVRP/X-n186-k15.vrp",
+      "size": 3716,
+      "sha256": "90c7ca7c90d18bd34394aaac6bb11fca68d57b82dea640dceb08f60b6ad1b2fe"
+    },
+    {
+      "path": "Instances/CVRP/X-n190-k8.vrp",
+      "size": 3659,
+      "sha256": "91ffef7fc8b5707a470b182a05501b379003b64d671a58205bc944dcb34e224f"
+    },
+    {
+      "path": "Instances/CVRP/X-n195-k51.vrp",
+      "size": 3889,
+      "sha256": "d7a39242c5d01d3976d9a58d7e43bfe46ec2cb7da0fcba74f6ce14cf94134048"
+    },
+    {
+      "path": "Instances/CVRP/X-n200-k36.vrp",
+      "size": 3955,
+      "sha256": "a804ef0bc6681929f95e18abe50193c8b292801573139b1d028ba6d0abcf2efc"
+    },
+    {
+      "path": "Instances/CVRP/X-n204-k19.vrp",
+      "size": 4076,
+      "sha256": "74b386c7e3c419f0612d3236fb645231abd20b2f32c9b26e5dbebc2f5e410298"
+    },
+    {
+      "path": "Instances/CVRP/X-n209-k16.vrp",
+      "size": 3984,
+      "sha256": "92c6096f7be68bc9add46e95dbe427fc3d03a04e0d0e3338d30669c9f082396f"
+    },
+    {
+      "path": "Instances/CVRP/X-n214-k11.vrp",
+      "size": 4273,
+      "sha256": "171ddfe021220e367eef3468829572c670ce75ab524c240a702caf0eafb0a164"
+    },
+    {
+      "path": "Instances/CVRP/X-n219-k73.vrp",
+      "size": 4143,
+      "sha256": "473ac22a88ec3a09d88899af31abf4cc6e11b7e2be8dbcccfac5e786a31c25ac"
+    },
+    {
+      "path": "Instances/CVRP/X-n223-k34.vrp",
+      "size": 4214,
+      "sha256": "f735d236e9b04bf4661f4a94ecc1e76705a5e09c52b62abae812c9885cefff56"
+    },
+    {
+      "path": "Instances/CVRP/X-n228-k23.vrp",
+      "size": 4344,
+      "sha256": "3658d32e3f2f3b7158551b41793997709ed57caaccb951db428c75815e1bb0c0"
+    },
+    {
+      "path": "Instances/CVRP/X-n233-k16.vrp",
+      "size": 4624,
+      "sha256": "8c7aa813a13f6aea02242d95053a068d2d229d2d6e11c35325e8245d55807f4a"
+    },
+    {
+      "path": "Instances/CVRP/X-n237-k14.vrp",
+      "size": 4481,
+      "sha256": "ba34af4b4eea0203fce29a18a6902e0285e699b8b7247f29f7ffa8d1b0f13c39"
+    },
+    {
+      "path": "Instances/CVRP/X-n242-k48.vrp",
+      "size": 4628,
+      "sha256": "43068acd974d11785e6cba2ff5cc44c321f907944d947fca3e95dcf52c51409f"
+    },
+    {
+      "path": "Instances/CVRP/X-n247-k50.vrp",
+      "size": 4796,
+      "sha256": "3a060ca546c1dc6b2beb090faf273b0604462db748d6d5a27c921b31e499d682"
+    },
+    {
+      "path": "Instances/CVRP/X-n251-k28.vrp",
+      "size": 4778,
+      "sha256": "3235344a88e451637eaeaf4787dc57d2b55e41c35e8b7d0ca0c1432ab9689f88"
+    },
+    {
+      "path": "Instances/CVRP/X-n256-k16.vrp",
+      "size": 5118,
+      "sha256": "66c0a7c7f0baaae8318ce2bf0a84e4ac6c2a93a8badf99f4c1a3527f84affacc"
+    },
+    {
+      "path": "Instances/CVRP/X-n261-k13.vrp",
+      "size": 5171,
+      "sha256": "fff3e4b2a215cd83378ec4f8a13fe2d3433e73fc94508a818a3efc62ae23ed1a"
+    },
+    {
+      "path": "Instances/CVRP/X-n266-k58.vrp",
+      "size": 5094,
+      "sha256": "a23b5b54614a38919e093e57556ee8687d6a1310a15a7f23e794cff3bc650282"
+    },
+    {
+      "path": "Instances/CVRP/X-n270-k35.vrp",
+      "size": 5355,
+      "sha256": "2bf8f49dccdaa95dc50ab11e75cf9f0ffdd4c042e7c19876a513068790427e96"
+    },
+    {
+      "path": "Instances/CVRP/X-n275-k28.vrp",
+      "size": 5207,
+      "sha256": "7e8f5381be7db595f935b766cbf6f2f93db0219fd441b48b3daa566d141e008d"
+    },
+    {
+      "path": "Instances/CVRP/X-n280-k17.vrp",
+      "size": 5352,
+      "sha256": "361df53c8163adcabe773153187859e9e85bc4b4ca51a8effd1841f466ce29cc"
+    },
+    {
+      "path": "Instances/CVRP/X-n284-k15.vrp",
+      "size": 5380,
+      "sha256": "c667fd48844baf90ea8c131b796277c760448894392dbf091b86584f19ba41d9"
+    },
+    {
+      "path": "Instances/CVRP/X-n289-k60.vrp",
+      "size": 5733,
+      "sha256": "853df8cf43196f57d3bbfad1779e1c52e365c23b8056aa985a1cfc4c6e940318"
+    },
+    {
+      "path": "Instances/CVRP/X-n294-k50.vrp",
+      "size": 5815,
+      "sha256": "b0d22518c7ec41d17d8dd5bc8c38506258374be4afb6a900858e647bca47768c"
+    },
+    {
+      "path": "Instances/CVRP/X-n298-k31.vrp",
+      "size": 5660,
+      "sha256": "8fc37d01da8d37f892d29da5b7dace8842cfde22b5406d9fc3196e553985ce4b"
+    },
+    {
+      "path": "Instances/CVRP/X-n303-k21.vrp",
+      "size": 6041,
+      "sha256": "1431db7e8386db464630204a7ef5cd07fa2daefdced1b0f56681f4774db43efb"
+    },
+    {
+      "path": "Instances/CVRP/X-n308-k13.vrp",
+      "size": 5851,
+      "sha256": "8b27f5e667930fb6d65359cb4f79364aab672a95b85c22befcf4058e15d5b733"
+    },
+    {
+      "path": "Instances/CVRP/X-n313-k71.vrp",
+      "size": 6208,
+      "sha256": "24b0f10ea7ce7b91c2d709df611354a7fdf379559f1b7bd5d6770e684c5269f7"
+    },
+    {
+      "path": "Instances/CVRP/X-n317-k53.vrp",
+      "size": 5950,
+      "sha256": "2ec3f59982c84ee6789b10d3e8d510cfc6d472368ad5c41898f77e6178307006"
+    },
+    {
+      "path": "Instances/CVRP/X-n322-k28.vrp",
+      "size": 6422,
+      "sha256": "0af99d83df33e8a9b54efd19c442b2c314275aeac3ce3eb336fdfd9c2b4631cd"
+    },
+    {
+      "path": "Instances/CVRP/X-n327-k20.vrp",
+      "size": 6256,
+      "sha256": "d7fb986b24ce7902217b31651b7a7f28f6f54883c99962ee0014eab3d95f8a03"
+    },
+    {
+      "path": "Instances/CVRP/X-n331-k15.vrp",
+      "size": 6254,
+      "sha256": "7de34a9c2ed514523ab3c189a0a94efeb09493c40b01b2d97f291d748f8d3175"
+    },
+    {
+      "path": "Instances/CVRP/X-n336-k84.vrp",
+      "size": 6318,
+      "sha256": "52840d1fc89683cd7f1cfd9fb95d840bccddb6f22e58d1e7184c542d173f93f3"
+    },
+    {
+      "path": "Instances/CVRP/X-n344-k43.vrp",
+      "size": 6168,
+      "sha256": "0f34c4a6e012590dc55ff041c15f2e7f372038ee13fe780ad31511b4d25b328e"
+    },
+    {
+      "path": "Instances/CVRP/X-n351-k40.vrp",
+      "size": 6675,
+      "sha256": "0ce637d5909a58cbe6094ab8ff6ef5bbdd60c4bb27c8e924a07b8787b23168c6"
+    },
+    {
+      "path": "Instances/CVRP/X-n359-k29.vrp",
+      "size": 6470,
+      "sha256": "78ec3a0d746d44d21efa5368a0bf3ed23f5064799242090aca0583a2ece4457e"
+    },
+    {
+      "path": "Instances/CVRP/X-n367-k17.vrp",
+      "size": 6699,
+      "sha256": "1d1576a4edc6eabde5b05ebe947e3a53b07265f2530649f0f15889e3b8cf4a6b"
+    },
+    {
+      "path": "Instances/CVRP/X-n376-k94.vrp",
+      "size": 6706,
+      "sha256": "92178c3b8ebcf60d1ab02b91211976bf99d25ffa356eb24b7c9e9f21974e8f69"
+    },
+    {
+      "path": "Instances/CVRP/X-n384-k52.vrp",
+      "size": 7255,
+      "sha256": "5e29a7151d3207c0af4b52921c340a9ad7370493fd3b9eb73083f99c1b13f82f"
+    },
+    {
+      "path": "Instances/CVRP/X-n393-k38.vrp",
+      "size": 7098,
+      "sha256": "986a3db69e148cf370befbd320458d117434ade37a5aedc5ad5f8a64e3354c71"
+    },
+    {
+      "path": "Instances/CVRP/X-n401-k29.vrp",
+      "size": 7583,
+      "sha256": "8e62b299c5a7981967439d575a82642d3d3d84a14389812447da927ddbdc2f17"
+    },
+    {
+      "path": "Instances/CVRP/X-n411-k19.vrp",
+      "size": 7376,
+      "sha256": "50c28a3a29157fdf662dfc833fb789ba7f791222db1d5af05d7f5ee96d6b0966"
+    },
+    {
+      "path": "Instances/CVRP/X-n420-k130.vrp",
+      "size": 7570,
+      "sha256": "99581b6945e7d2052dd6aea37a800db5fcd8f62346f63ad177e7e37b154d27ea"
+    },
+    {
+      "path": "Instances/CVRP/X-n429-k61.vrp",
+      "size": 8108,
+      "sha256": "f9d9a550a6bab216d2af716da0a62835e20c71a973453e8ddeba250fcb1e362e"
+    },
+    {
+      "path": "Instances/CVRP/X-n439-k37.vrp",
+      "size": 7867,
+      "sha256": "5da3bfdd052fdc52ba5aebca8e1d8a6cc80c1cd9bda754f32fea6168f413b802"
+    },
+    {
+      "path": "Instances/CVRP/X-n449-k29.vrp",
+      "size": 8444,
+      "sha256": "d24d8293e4b52233243bd82fede808efe208fc274de1183c8c6225e41266d340"
+    },
+    {
+      "path": "Instances/CVRP/X-n459-k26.vrp",
+      "size": 8747,
+      "sha256": "aabadfa0889370d9d8723be5a3b8b421f4baca58e2c2ec36bbf3d51d182c1d79"
+    },
+    {
+      "path": "Instances/CVRP/X-n469-k138.vrp",
+      "size": 8847,
+      "sha256": "2717cf48fad1c78ef88f4080697d1b7f31fc14cfcce8c163bc0b62cf1a32e7b2"
+    },
+    {
+      "path": "Instances/CVRP/X-n480-k70.vrp",
+      "size": 8729,
+      "sha256": "53e011d82bc398ed57edc4843194e948683118fd0068ba17a191b949db00a026"
+    },
+    {
+      "path": "Instances/CVRP/X-n491-k59.vrp",
+      "size": 9205,
+      "sha256": "d2034d11704e45a6c09536ac01574f0d0fe64a50336e973350152bd66da76264"
+    },
+    {
+      "path": "Instances/CVRP/X-n502-k39.vrp",
+      "size": 9009,
+      "sha256": "56e6cef811705a2144c4a90c67d82a2b7dca91eafec1c2be9c0591c9a3b66ef5"
+    },
+    {
+      "path": "Instances/CVRP/X-n513-k21.vrp",
+      "size": 9239,
+      "sha256": "3b87edfd56a94ab6f2df59d7b8ff35384a56ec6454aa344f8d597c9a47a7a75b"
+    },
+    {
+      "path": "Instances/CVRP/X-n524-k153.vrp",
+      "size": 9609,
+      "sha256": "c7ac96fa3b801f9751ac5a8ffd2cbd6e098d82142d5d7005aaa2b01a8cf001b5"
+    },
+    {
+      "path": "Instances/CVRP/X-n536-k96.vrp",
+      "size": 10014,
+      "sha256": "98ce34e0402884638f9b91013f11066eaa02d70431e1b5318645397fb23cad5c"
+    },
+    {
+      "path": "Instances/CVRP/X-n548-k50.vrp",
+      "size": 9778,
+      "sha256": "61e9876186a56a06837af04ecc52d869ad789d0b91e8fcedf3ed887bd7c22b0f"
+    },
+    {
+      "path": "Instances/CVRP/X-n561-k42.vrp",
+      "size": 10060,
+      "sha256": "983456f7bc0bc0638a5dc7877032fd4de5e84dc9832ace56a36201d358b24020"
+    },
+    {
+      "path": "Instances/CVRP/X-n573-k30.vrp",
+      "size": 10357,
+      "sha256": "a5ffb220cad503166a4b7e7391bf2bcb4e0af475e53cc2166969f5f160cd7c88"
+    },
+    {
+      "path": "Instances/CVRP/X-n586-k159.vrp",
+      "size": 10565,
+      "sha256": "7c6fac54a305f94308b5c3e764d4159452e693bf5f6f873ff1782f179880334f"
+    },
+    {
+      "path": "Instances/CVRP/X-n599-k92.vrp",
+      "size": 11281,
+      "sha256": "34f2a74c232862f06c07fb33536917d4ed96ddecc5d311ac940edda1660d298b"
+    },
+    {
+      "path": "Instances/CVRP/X-n613-k62.vrp",
+      "size": 11498,
+      "sha256": "4649c742495e476db9e4af5206c4d5828cfc415b6705a7ca6ebf44552917d66e"
+    },
+    {
+      "path": "Instances/CVRP/X-n627-k43.vrp",
+      "size": 11255,
+      "sha256": "8bbafe3721aaa65e2b5ced6b281743cd7290842df23c3816c2aba61af4f2bc2c"
+    },
+    {
+      "path": "Instances/CVRP/X-n641-k35.vrp",
+      "size": 12116,
+      "sha256": "216f56a294a463708aad2d742ac16e304f2ec5a22f7c13e0d2b38acac2a2cd46"
+    },
+    {
+      "path": "Instances/CVRP/X-n655-k131.vrp",
+      "size": 11806,
+      "sha256": "9b88cce59367604bb06b37fa9e293a010c3082969084e51c0e6a8728a60327ac"
+    },
+    {
+      "path": "Instances/CVRP/X-n670-k130.vrp",
+      "size": 12171,
+      "sha256": "1357e6af7fbbac8cad82df2cb03cba0d277f47502d4d0af310a64ff7aa03411a"
+    },
+    {
+      "path": "Instances/CVRP/X-n685-k75.vrp",
+      "size": 12871,
+      "sha256": "d19447d6107a129e18672a69b3173484e43746e15af42068ce89d225c5cdd40c"
+    },
+    {
+      "path": "Instances/CVRP/X-n701-k44.vrp",
+      "size": 12613,
+      "sha256": "d1f06a0895fa2163f60ea73b3c22436a5aaeb2930166bcf0faf8f9384e5795a9"
+    },
+    {
+      "path": "Instances/CVRP/X-n716-k35.vrp",
+      "size": 13471,
+      "sha256": "ad83a4b036c0f2d5c1b8621c7d8d7d9f0c188cf76d9603d83adeae25eb55b1e3"
+    },
+    {
+      "path": "Instances/CVRP/X-n733-k159.vrp",
+      "size": 13139,
+      "sha256": "2bf33fb53a50f353718d45fe3ef3b6fb8911140b97d3b6024276b67810295968"
+    },
+    {
+      "path": "Instances/CVRP/X-n749-k98.vrp",
+      "size": 14088,
+      "sha256": "e04240c11a1c98622ba766036ba5e6aaa289059b63e3cefb565cbb127a381d37"
+    },
+    {
+      "path": "Instances/CVRP/X-n766-k71.vrp",
+      "size": 13861,
+      "sha256": "0f5428dc345f1a04ff3276aef1329bdc08a71cf97e7de31df49a8565e091456b"
+    },
+    {
+      "path": "Instances/CVRP/X-n783-k48.vrp",
+      "size": 14696,
+      "sha256": "908a7b0015d5d61358de1ab725e4deab1c50b580d8eab1def0d2866f3e193847"
+    },
+    {
+      "path": "Instances/CVRP/X-n801-k40.vrp",
+      "size": 14271,
+      "sha256": "ba8b43beb5aa2b24840c475449690d0d4437fbcceb68fbd5b6f96826fdd61684"
+    },
+    {
+      "path": "Instances/CVRP/X-n819-k171.vrp",
+      "size": 15306,
+      "sha256": "5285f035df51bb9c0dedb75190518cc862497552b8a963aec5b8bc023e7ac2ac"
+    },
+    {
+      "path": "Instances/CVRP/X-n837-k142.vrp",
+      "size": 15005,
+      "sha256": "cba35ddcd11fe98cebfdaddcc4df8632b8e7879f984025acfcf53dfcd8fdfa50"
+    },
+    {
+      "path": "Instances/CVRP/X-n856-k95.vrp",
+      "size": 15218,
+      "sha256": "2c71a6de2b4a2233d050be9f69d978d85bf999bdd52c30db4b22726139a9a690"
+    },
+    {
+      "path": "Instances/CVRP/X-n876-k59.vrp",
+      "size": 16521,
+      "sha256": "325d137752b9b493383ccb234b6634bc4ea59f8fd80181361241cc0a4f34e9e4"
+    },
+    {
+      "path": "Instances/CVRP/X-n895-k37.vrp",
+      "size": 16865,
+      "sha256": "47b758b4e84270e0c4d1a6d66fb7a1adc022b4db0df6758905abfb9877eed94e"
+    },
+    {
+      "path": "Instances/CVRP/X-n916-k207.vrp",
+      "size": 16479,
+      "sha256": "59b256b149b1e9a41a5b572727a14593d6e3c9e7cfff74c28372eecb9a2359ec"
+    },
+    {
+      "path": "Instances/CVRP/X-n936-k151.vrp",
+      "size": 16986,
+      "sha256": "f61d9e3ab30a19b6cd637255062af0a0a200b5d12f2f80fb1d186aa36ad46d5a"
+    },
+    {
+      "path": "Instances/CVRP/X-n957-k87.vrp",
+      "size": 17147,
+      "sha256": "28f977c2cd603b4613320d331376ce0db9b7fa8e6914f2923a932d71506cca2e"
+    },
+    {
+      "path": "Instances/CVRP/X-n979-k58.vrp",
+      "size": 18439,
+      "sha256": "4d5b771de708f7e3de7bda9d24976aa6592b385572b28b507e4509d6073dd950"
+    },
+    {
+      "path": "LICENSE",
+      "size": 1070,
+      "sha256": "f394ca7994e08f3e965d2041a36803d400b3cd3d2c2dc5c0a394fe1c28a7ef6c"
+    },
+    {
+      "path": "Program/AlgorithmParameters.cpp",
+      "size": 1966,
+      "sha256": "9390b55e6453a22e7adec2f4b7cb54719d5c576ac1afecbe526fa37830bc0af4"
+    },
+    {
+      "path": "Program/AlgorithmParameters.h",
+      "size": 1794,
+      "sha256": "81b16a6c2f37481430fb5e1e0ed3e30d51ddab55cbf134ae13d2125b3b1d2668"
+    },
+    {
+      "path": "Program/C_Interface.cpp",
+      "size": 3998,
+      "sha256": "60ddff8f04b65371757fa5a54f96299e5fa2642d5d1f2af30586e11f9383095b"
+    },
+    {
+      "path": "Program/C_Interface.h",
+      "size": 971,
+      "sha256": "6bcec01c588f401763dd1d10b239fd646dd01f79b0e1070688cdde2102b56786"
+    },
+    {
+      "path": "Program/CircleSector.h",
+      "size": 1740,
+      "sha256": "392300382207664b2e6a51d742a39daa7ec586b4cb0b958747caa55b9d4cba30"
+    },
+    {
+      "path": "Program/Genetic.cpp",
+      "size": 3189,
+      "sha256": "102f2dae07f2703a643de898615491ac144333e4f89ca39e3a4ee87bbfd6ecca"
+    },
+    {
+      "path": "Program/Genetic.h",
+      "size": 1809,
+      "sha256": "3987fcd5a557af507bc72ac9da991bab4b6be14451fb8782cc25f0ffc94c181d"
+    },
+    {
+      "path": "Program/Individual.cpp",
+      "size": 3186,
+      "sha256": "2c6cfc0ba8e9f62423d9d1ffc775d1762e2563ea7772f36c7407adf3edc108a3"
+    },
+    {
+      "path": "Program/Individual.h",
+      "size": 2881,
+      "sha256": "a7a7e422ee30696d1758cb70eb9e8437467a728e32a6122d93613102a4f6b763"
+    },
+    {
+      "path": "Program/InstanceCVRPLIB.cpp",
+      "size": 3308,
+      "sha256": "2cce88e54efae0f6853fbf909a1c92bab7abe521d519d5d023215817f126d302"
+    },
+    {
+      "path": "Program/InstanceCVRPLIB.h",
+      "size": 722,
+      "sha256": "a986a3fe71c137e1a90db3c050642463112685083582bc646a1c09ce04843a0c"
+    },
+    {
+      "path": "Program/LocalSearch.cpp",
+      "size": 30959,
+      "sha256": "83e601088b48c68c8f9881569324b3be62ad3f746b1f04b8560f8e849c38196a"
+    },
+    {
+      "path": "Program/LocalSearch.h",
+      "size": 8508,
+      "sha256": "8923e727c4d34ac83559237e6f450b891cb91da42c55d161ee83aa8573294239"
+    },
+    {
+      "path": "Program/Params.cpp",
+      "size": 4738,
+      "sha256": "dbce73572fcd889d82a702d7613e5ffe684c25b04a881806a7d47c407d861787"
+    },
+    {
+      "path": "Program/Params.h",
+      "size": 3944,
+      "sha256": "85d1354ac4aee8ac662f72583294bd66ab9c5c41f3cbefd7d1979c06cc609038"
+    },
+    {
+      "path": "Program/Population.cpp",
+      "size": 12862,
+      "sha256": "60f0b6c683aac09d03a973404324fa9057e7a617743a4789d95487d92e167e93"
+    },
+    {
+      "path": "Program/Population.h",
+      "size": 4676,
+      "sha256": "592d55ac7c48ecbdc83ae7146b0d0e5ffd986407ccda46fd47ee1065494bdaef"
+    },
+    {
+      "path": "Program/Split.cpp",
+      "size": 8365,
+      "sha256": "09498bd42e187b3a30caca5a757dcce29e3a062a281ac7e5e2fbbaa8a1a6ba96"
+    },
+    {
+      "path": "Program/Split.h",
+      "size": 4454,
+      "sha256": "f8865d8e5e6d77bca49a284dda9d799f242a18ec3b002a921d6d5dbb2d2156da"
+    },
+    {
+      "path": "Program/commandline.h",
+      "size": 6926,
+      "sha256": "d86319ddafe9fbc2f278ba2fd76d5063f5aceffd9b89554bb5d80abf0538367c"
+    },
+    {
+      "path": "Program/main.cpp",
+      "size": 1518,
+      "sha256": "a74413e9756204f824f9030df76bc97ff78ad96e66da7d7dd3e03d5245d15b5c"
+    },
+    {
+      "path": "README.md",
+      "size": 10924,
+      "sha256": "691038e55b1328658efc8def95c115c4d62f7ee1b36fb819148d5bb643cb7ff5"
+    },
+    {
+      "path": "Test/Test-c/CMakeLists.txt",
+      "size": 225,
+      "sha256": "181afded6e2f1598f4b6667c62f85c95f1e10f038965a71ae9b20fe75651144b"
+    },
+    {
+      "path": "Test/Test-c/test.c",
+      "size": 5904,
+      "sha256": "8487fb44bea3fe2f079ac927af4cb0168bb13e231cccb131d033f3c4f553f933"
+    },
+    {
+      "path": "Test/TestExecutable.cmake",
+      "size": 589,
+      "sha256": "98ffd82614628370fc087147c00803915137f205335a9689b65147097a892fdd"
+    }
+  ],
+  "license_files": [
+    "LICENSE"
+  ],
+  "source_executed": false,
+  "status": "DOWNLOADED",
+  "pin_method": "known historical pin or public git ls-remote; REST unavailable"
+}

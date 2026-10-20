@@ -1,0 +1,866 @@
+{
+  "name": "RouteFinder",
+  "repo": "ai4co/routefinder",
+  "commit": "cc3ab078650e8db62c0562a60f421defe38d5ae3",
+  "url": "https://codeload.github.com/ai4co/routefinder/zip/cc3ab078650e8db62c0562a60f421defe38d5ae3",
+  "archive_sha256": "43cd625a6183c6917702e3bb2cf04234480477417692d9a083832ebff10f9fcb",
+  "archive_bytes": 5534952,
+  "files": [
+    {
+      "path": ".github/workflows/static.yml",
+      "size": 1250,
+      "sha256": "2a4ef50a78604c80a6dd84cb867f2536b606439eb7bdf32e9f4d5719f3c4577f"
+    },
+    {
+      "path": ".github/workflows/tests.yml",
+      "size": 1083,
+      "sha256": "c3eb9c77b60d0c2707ff6f136deacd83f459018869aaafb91797cc34376a99be"
+    },
+    {
+      "path": ".gitignore",
+      "size": 2287,
+      "sha256": "b77a2e628c514f0045a428e6fa0fb4dc3be0baf425a850ac180c2bcf6cfe0cb3"
+    },
+    {
+      "path": ".pre-commit-config.yaml",
+      "size": 589,
+      "sha256": "7825e7c5aa3eae8d31774dc98337b631ea9416487016e7fb5141dbfd7ba1446b"
+    },
+    {
+      "path": "LICENSE",
+      "size": 1071,
+      "sha256": "dc233129240e270d5afdbce3c06d61512babd53ce2d7c9f29c590a0450ecf5f9"
+    },
+    {
+      "path": "README.md",
+      "size": 17631,
+      "sha256": "6dd403ecbb1da1a5576287ba3e9b3f160d4651d5436806d90f946140e537acb7"
+    },
+    {
+      "path": "assets/overview.png",
+      "size": 111640,
+      "sha256": "abd24b9fe4ee42ab15e2e168958c85e58095c9d0ec8370325c66a7c486032a9e"
+    },
+    {
+      "path": "assets/rf-te.png",
+      "size": 37481,
+      "sha256": "0324c855e3adfc6634c985d072cafc61ac00de51841092e4f04d6d11a50d0472"
+    },
+    {
+      "path": "assets/vrp.png",
+      "size": 85176,
+      "sha256": "a15df5c208f56e8fc8154eef72d778605127552cc169939716e373168e26a4da"
+    },
+    {
+      "path": "configs/__init__.py",
+      "size": 81,
+      "sha256": "40afe33e9461a043b773aa939b3ec32715d0031bc64114839ffc1607af407fa8"
+    },
+    {
+      "path": "configs/callbacks/default.yaml",
+      "size": 507,
+      "sha256": "de89830d32eb79d3671124b4d97288b67b2af303e21e8b84c74e2ea11767e90d"
+    },
+    {
+      "path": "configs/callbacks/early_stopping.yaml",
+      "size": 1236,
+      "sha256": "c32ec041f89306e6b17c941eab75a2422f0fb0c12627e886a85d2afad839b3fe"
+    },
+    {
+      "path": "configs/callbacks/learning_rate_monitor.yaml",
+      "size": 108,
+      "sha256": "1e3087a29a802e38caea5d273e5ab7a2ecfd5dca5f657f3f546ca3ceeb0fa995"
+    },
+    {
+      "path": "configs/callbacks/model_checkpoint.yaml",
+      "size": 1268,
+      "sha256": "d27e93c8367c88af03d3472e5e520132d5292f453ceaa5f965d228782cc3ff9f"
+    },
+    {
+      "path": "configs/callbacks/model_summary.yaml",
+      "size": 394,
+      "sha256": "bc21c211c6593357071a0abdaa404f7d2c5ad3bb2ef207ffe589c77a715d8e87"
+    },
+    {
+      "path": "configs/callbacks/rich_progress_bar.yaml",
+      "size": 281,
+      "sha256": "8e3e128f49d138bbd0cb1bd6fafa85f795ebed3b815248f0300efe98562da199"
+    },
+    {
+      "path": "configs/callbacks/speed_monitor.yaml",
+      "size": 171,
+      "sha256": "c824756ac368cf0d8b94602773381ff17e68896a2d8e266d17bf41229abb1214"
+    },
+    {
+      "path": "configs/debug/default.yaml",
+      "size": 1200,
+      "sha256": "46cd9fc7c16020b637895957a7b82e7b70617e3dd18e2a34a35af1e76bae9263"
+    },
+    {
+      "path": "configs/debug/fdr.yaml",
+      "size": 125,
+      "sha256": "6fb670ffce771fa4b8cb62f2fd7ed76251ccb2223167dbf5bffb5c3a423f19b7"
+    },
+    {
+      "path": "configs/debug/limit.yaml",
+      "size": 223,
+      "sha256": "a6bdfa889b5d8ca9b23b069707396fc675ec515c42e0ae40100a39b0e4f4e0fa"
+    },
+    {
+      "path": "configs/debug/overfit.yaml",
+      "size": 209,
+      "sha256": "42c0fcacaf66ec490edb7ccc776b02c330184ec3f8ef042afd1126fd8e86bff0"
+    },
+    {
+      "path": "configs/debug/profiler.yaml",
+      "size": 182,
+      "sha256": "634a4ea9fd633cc15179fce87d1c92937141452eaf88b55dcbbf24dd9572e31e"
+    },
+    {
+      "path": "configs/env/default.yaml",
+      "size": 157,
+      "sha256": "b2659e4568985e54602bedc401fcf59d165a2f8b0719851d69f4b52c5f70b005"
+    },
+    {
+      "path": "configs/env/mtvrp.yaml",
+      "size": 157,
+      "sha256": "b2659e4568985e54602bedc401fcf59d165a2f8b0719851d69f4b52c5f70b005"
+    },
+    {
+      "path": "configs/experiment/ablations/base.yaml",
+      "size": 3131,
+      "sha256": "e600058f90f09b7c2551938a0ce89345ce6edce042a1cb22e70d373f4fee3231"
+    },
+    {
+      "path": "configs/experiment/ablations/n100/01-mtpomo-base.yaml",
+      "size": 702,
+      "sha256": "82b50dcc9619f564bf04c96d1d3e095086a5ab52a36584b021a2c99e66a35fb3"
+    },
+    {
+      "path": "configs/experiment/ablations/n100/02-mtpomo-globfeat.yaml",
+      "size": 728,
+      "sha256": "c5db477095cf12ff4ae99b57fef60512c9d4d20f1b9d3671018bb0501d31eb0c"
+    },
+    {
+      "path": "configs/experiment/ablations/n100/03-mtpomo-mbt.yaml",
+      "size": 794,
+      "sha256": "e320a5c45ff5810331ac271aacec1f7ec27776b2cb6a3ff33686dd1ba3b6f869"
+    },
+    {
+      "path": "configs/experiment/ablations/n100/04-mtpomo-norm.yaml",
+      "size": 854,
+      "sha256": "b512a4f70120169b9122ac244df914d60929bc4dd7746590d1f64c333a71ca4d"
+    },
+    {
+      "path": "configs/experiment/ablations/n100/05-mtpomo-transformer.yaml",
+      "size": 1197,
+      "sha256": "06eb02f56f704b15640ffeac49d99832e77c9252c2578bbdbc0cf1482978fdd5"
+    },
+    {
+      "path": "configs/experiment/ablations/n100/06-rf-base.yaml",
+      "size": 1134,
+      "sha256": "aacac94d18e039d98cfaa750b2bc9fe6ba1408df288f47e366e42831862e0c13"
+    },
+    {
+      "path": "configs/experiment/ablations/n100/07-rf-no-globfeat.yaml",
+      "size": 1119,
+      "sha256": "449c17b405280526ac2be073ccf4c1f70243df3b12cad449f1c7aea2f4695c3f"
+    },
+    {
+      "path": "configs/experiment/ablations/n100/08-rf-no-mbt.yaml",
+      "size": 1253,
+      "sha256": "b755c643cfcaa146b38f4ea397763564873e88993292b04bbd77f0404ebb0f41"
+    },
+    {
+      "path": "configs/experiment/ablations/n100/09-rf-no-norm.yaml",
+      "size": 1092,
+      "sha256": "418dca518b44353f05217dd8b4562f104046c3456ddcdca784d3788e2099f4ad"
+    },
+    {
+      "path": "configs/experiment/ablations/n100/10-rf-no-transformer.yaml",
+      "size": 1201,
+      "sha256": "412d61e80026c1fb9e4b44393f278ca01367c81973515604775f10456fee9376"
+    },
+    {
+      "path": "configs/experiment/ablations/n50/01-mtpomo-base.yaml",
+      "size": 701,
+      "sha256": "aecce30d7e84a969df3547d27bcbbcbd14ace7914f1aecb443587d7643232b97"
+    },
+    {
+      "path": "configs/experiment/ablations/n50/02-mtpomo-globfeat.yaml",
+      "size": 727,
+      "sha256": "d7b5e8abae2dfc12e4242b1b0824f76aad6cd6692a10e8219e139571195d14ca"
+    },
+    {
+      "path": "configs/experiment/ablations/n50/03-mtpomo-mbt.yaml",
+      "size": 793,
+      "sha256": "b0b526286b22fdf7baaa650f348c127e33a80ca7c9f250e87e6ccdd6062701aa"
+    },
+    {
+      "path": "configs/experiment/ablations/n50/04-mtpomo-norm.yaml",
+      "size": 853,
+      "sha256": "5d6282a194d88eeb12c10c5bf37dc387359ee121d2790f288257d144536934ef"
+    },
+    {
+      "path": "configs/experiment/ablations/n50/05-mtpomo-transformer.yaml",
+      "size": 1196,
+      "sha256": "841d5f884a249f63ab73eb23f220383104e33e68ff0ea79a152b2db943c0ec11"
+    },
+    {
+      "path": "configs/experiment/ablations/n50/06-rf-base.yaml",
+      "size": 1133,
+      "sha256": "de9f566cb420494ee2bbca9380dbe5c7792afae6a4d11f42fb57205a38a6c474"
+    },
+    {
+      "path": "configs/experiment/ablations/n50/07-rf-no-globfeat.yaml",
+      "size": 1118,
+      "sha256": "427c47b0cb7fbb8015c0bf8408a0174e1989362118b3870f9e09c8cc5bafbc10"
+    },
+    {
+      "path": "configs/experiment/ablations/n50/08-rf-no-mbt.yaml",
+      "size": 1252,
+      "sha256": "4fa982c95b2def53b466a73cbfa5bdf0e90357877b893efaa27cca05d54cf6ea"
+    },
+    {
+      "path": "configs/experiment/ablations/n50/09-rf-no-norm.yaml",
+      "size": 1091,
+      "sha256": "cf7430bd320c07ed6a06960e6a7f6867a8a932ce17d3aad47df8acf1b577ce71"
+    },
+    {
+      "path": "configs/experiment/ablations/n50/10-rf-no-transformer.yaml",
+      "size": 1200,
+      "sha256": "19447e50e0b25ff00958f9859a6697e0db1c14810353d2dcbc1c0f36fd431b86"
+    },
+    {
+      "path": "configs/experiment/ablations_old/rf-100-no-globfeat.yaml",
+      "size": 1123,
+      "sha256": "8ac8ad890e9b4c2ace28e161cd73fa6d79013b3c8274de57e04013d272372dd5"
+    },
+    {
+      "path": "configs/experiment/ablations_old/rf-100-no-polar.yaml",
+      "size": 1157,
+      "sha256": "9985299af437eced6e05e146691a1a6c5a574ee887d376c5bf14afe366414e9f"
+    },
+    {
+      "path": "configs/experiment/ablations_old/rf-100-no-sampling.yaml",
+      "size": 1195,
+      "sha256": "9ee7666e64621b6eb23611b1646df2d0da74c237f0d2dbb7058f6177ffe5ce4b"
+    },
+    {
+      "path": "configs/experiment/ablations_old/rf-50-no-globfeat.yaml",
+      "size": 1122,
+      "sha256": "c9e41f9aaf29d419079e71953b718670ae9d0c46dc25098440664908be73ea07"
+    },
+    {
+      "path": "configs/experiment/ablations_old/rf-50-no-polar.yaml",
+      "size": 1156,
+      "sha256": "b1770f1af9318cc3f34f031ca3800f80b8a938cbe62b7e4ec4baec9905e7c237"
+    },
+    {
+      "path": "configs/experiment/ablations_old/rf-50-no-sampling.yaml",
+      "size": 1194,
+      "sha256": "706ff541b351bb6a358bfe8f8083731fcc841daf11d242b8bdf34c0bad2d6d3b"
+    },
+    {
+      "path": "configs/experiment/debug.yaml",
+      "size": 3408,
+      "sha256": "872cefd05cdc8d9cb2e70fb718194ba40b06d4aff3c29b7a113f1414ab61392f"
+    },
+    {
+      "path": "configs/experiment/feat_sampling/all.yaml",
+      "size": 465,
+      "sha256": "4dde134c4082577a39d92e8774da1edde4b193a233d2366c2d16e1533ec68d02"
+    },
+    {
+      "path": "configs/experiment/feat_sampling/single.yaml",
+      "size": 465,
+      "sha256": "4dde134c4082577a39d92e8774da1edde4b193a233d2366c2d16e1533ec68d02"
+    },
+    {
+      "path": "configs/experiment/main/mtpomo/mtpomo-100.yaml",
+      "size": 637,
+      "sha256": "b9aae37d6ddb697d13f1c959d58f0f0ee8122e5717b27e12ebd839b70aaaeb72"
+    },
+    {
+      "path": "configs/experiment/main/mtpomo/mtpomo-50.yaml",
+      "size": 635,
+      "sha256": "13479f4b622f725e9b0e6695c51fad23bf4c54588e6c4b7aa3f25973573ce09a"
+    },
+    {
+      "path": "configs/experiment/main/mvmoe/mvmoe-100.yaml",
+      "size": 702,
+      "sha256": "570a3f4409102c318edc05b159a64ee871dafb19430bcf034f1c9a66bbede60c"
+    },
+    {
+      "path": "configs/experiment/main/mvmoe/mvmoe-50.yaml",
+      "size": 703,
+      "sha256": "28cbb2e2625c5c408acb31fd6d8c7ad2b65df1c10a2f51b6b3bfeae23ad59b23"
+    },
+    {
+      "path": "configs/experiment/main/mvmoe/mvmoe-L-100.yaml",
+      "size": 702,
+      "sha256": "e4a6942d224d579b8696b6fc78bfe48524d2f8d0d1474635167ac69b2c1e2b64"
+    },
+    {
+      "path": "configs/experiment/main/mvmoe/mvmoe-L-50.yaml",
+      "size": 703,
+      "sha256": "6ce3947301d16daf116da3d2923ad124422c00148126a1eb717e20fe9d708bbd"
+    },
+    {
+      "path": "configs/experiment/main/rf/rf-100.yaml",
+      "size": 515,
+      "sha256": "f810c29da1359d7f5bb6031b23d44a5fc4a756c12a4f55f235ae2318e69c3cb9"
+    },
+    {
+      "path": "configs/experiment/main/rf/rf-50.yaml",
+      "size": 514,
+      "sha256": "34ce1e3d79d7cd98f61ff528852cf18812930973025b7e90e3d06c213330e91b"
+    },
+    {
+      "path": "configs/experiment/main/rf/rf-moe-100.yaml",
+      "size": 1031,
+      "sha256": "1e922cbe8d52166cb616ba7da60b1494e19674221f295818104fac3990f19759"
+    },
+    {
+      "path": "configs/experiment/main/rf/rf-moe-50.yaml",
+      "size": 1030,
+      "sha256": "deccdc2a6267db977ae94d50230788d513d8bc85ca657c0e481aef0afa038c2b"
+    },
+    {
+      "path": "configs/experiment/main/rf/rf-moe-L-100.yaml",
+      "size": 1032,
+      "sha256": "bafe490be5c344c7a633e4e782dfbdb0fccab16b7c2d88f8638a2099a61a3606"
+    },
+    {
+      "path": "configs/experiment/main/rf/rf-moe-L-50.yaml",
+      "size": 1031,
+      "sha256": "3c0ae834459f6d0ff217b946f3ee737562d2cd9a936e0e06fb400925c19d940f"
+    },
+    {
+      "path": "configs/experiment/main/rf/rf-transformer-100.yaml",
+      "size": 689,
+      "sha256": "3873908d7304c8ad776dabdd3a21ccaf4c365c0803de714509f91c530af3a487"
+    },
+    {
+      "path": "configs/experiment/main/rf/rf-transformer-50.yaml",
+      "size": 688,
+      "sha256": "7b4d941b8ba894e8cd638adfce85a1f17e6ba48429e0611c91f41b33d8d49521"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_cumulative-div.yaml",
+      "size": 1830,
+      "sha256": "eaa7caa5151b9e81a87e9b2eed2ab831924a61fd0469293701b49f907989b465"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_cumulative-sub.yaml",
+      "size": 620,
+      "sha256": "96577b4656d9af4b6813a1a15643e3a7858db165c028327b2d022e72e32a3d0a"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_exponential-0005-div.yaml",
+      "size": 660,
+      "sha256": "879ef114892431276150f292df61026e0dd4ce8eb5656633465aac54ffa6f26e"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_exponential-0005-sub.yaml",
+      "size": 660,
+      "sha256": "5a8e08e8d2cddb6cab708cd4dd86978689aa405e8272e89a21329e93e294ba9d"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_exponential-001-div.yaml",
+      "size": 659,
+      "sha256": "f687f8f77d7f42d183d962c0d9ede25fc255fc5db67acd701ab8f6b701778913"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_exponential-001-sub.yaml",
+      "size": 659,
+      "sha256": "e5ed3ebec51b1b8535056068826be8c9827715ee4dae67420be0bad4eeed4073"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_exponential-002-div.yaml",
+      "size": 659,
+      "sha256": "7ef079204c41f8c39a94215a8f0d62f69cb53fdf74ea4f456b2bee9947f9426f"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_exponential-002-sub.yaml",
+      "size": 673,
+      "sha256": "d1c525a4b2d270538f195214a54e9c592adbf428ac53feca081e5ec2e5fb0a27"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_exponential-010-div.yaml",
+      "size": 659,
+      "sha256": "5f09ff19f99f61c53da0fd2b67b3c62ea853b82341cf751b8e74a16544de8530"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_exponential-010-sub.yaml",
+      "size": 673,
+      "sha256": "29a892843043df11b2d067d530101b4d6f583f53168bb4a00c760f3fee03f26c"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_exponential-025-div.yaml",
+      "size": 659,
+      "sha256": "530a5bfded446989d79ca2ffd47088ef90fd90f92e3e83e987b8b0985a8bd420"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_exponential-025-sub.yaml",
+      "size": 659,
+      "sha256": "2157b56639b3232090d0a695ec802f86681565f7e9b73b88dfa636773c175b13"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_none.yaml",
+      "size": 624,
+      "sha256": "36482c636480bdc7dfaf6af4803a372cddf8fb786e800ee8672ecaea08483170"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_normal-0005.yaml",
+      "size": 712,
+      "sha256": "d7dbb5e0df1bf190ccf5f0ce73c24eed3042514491202a82c6cc85b116191d0c"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_normal-001.yaml",
+      "size": 711,
+      "sha256": "4f39d69cc7247d32f6a04db521483ebf4b3808f0b1e552d980a2ac4ee3d8b95c"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_normal-002.yaml",
+      "size": 711,
+      "sha256": "ca8c0cf84ba5b963b1dd1eada7cea16e14b9c82b910ce1a338de6f74e33792fe"
+    },
+    {
+      "path": "configs/experiment/normalization/rf-50_normal-010.yaml",
+      "size": 711,
+      "sha256": "da913143721c864056d664b5e63bca138b6b84714abed1256484a0f6ef2a143b"
+    },
+    {
+      "path": "configs/experiment/rfbase-100.yaml",
+      "size": 3347,
+      "sha256": "e593155c78b7b92e8d2038d3199ab8e43eb261373d0284e529897a98ef295346"
+    },
+    {
+      "path": "configs/experiment/rfbase-50.yaml",
+      "size": 3294,
+      "sha256": "8eccd47e5cc6a733fce4f627119c4faa8b21e33eaea73d7b3603461890815151"
+    },
+    {
+      "path": "configs/experiment/rfbase-50_norm.yaml",
+      "size": 3222,
+      "sha256": "a5cd3dc8685dabef50cbfd0f4c3c50581ab24b8dac9c8dd046e0ff259bef9ea7"
+    },
+    {
+      "path": "configs/experiment/single_feat/rf-100.yaml",
+      "size": 1124,
+      "sha256": "03b1fd99beb0fac448b48bbfe4df5d4a5d935cc64ee118667c28dfaba9f1207a"
+    },
+    {
+      "path": "configs/experiment/single_feat/rf-50.yaml",
+      "size": 1123,
+      "sha256": "ee3989cc37b397857262f3aa16195f91fd3ceb49fe47a66ce9a6dc642a1241b3"
+    },
+    {
+      "path": "configs/extras/default.yaml",
+      "size": 232,
+      "sha256": "7bb741898d2bfd2532f120bbf61e64d9edbf2becb4caaa5721a412398b13ab95"
+    },
+    {
+      "path": "configs/hydra/default.yaml",
+      "size": 434,
+      "sha256": "4de4f93c5d6922e51674555eaa9fe0bb2b7c8a7165c5e646323b42b728643d66"
+    },
+    {
+      "path": "configs/logger/aim.yaml",
+      "size": 1267,
+      "sha256": "75aea5c99390eb86eeb05c433ded8ef91a2a7a3e6985a62b9d235645613f1d70"
+    },
+    {
+      "path": "configs/logger/comet.yaml",
+      "size": 372,
+      "sha256": "4e46471685f47b238fcf3454a5a9b4bc735c75723d305e96cfcca2f4c0f75d17"
+    },
+    {
+      "path": "configs/logger/csv.yaml",
+      "size": 157,
+      "sha256": "5b1e2adffa494db168354d211ba0cb120738f7acc8d8d9b718727b98863be9d7"
+    },
+    {
+      "path": "configs/logger/many_loggers.yaml",
+      "size": 148,
+      "sha256": "804d6a29621867a263902065ae3895c1375e1e312356571e85273a270823cb41"
+    },
+    {
+      "path": "configs/logger/mlflow.yaml",
+      "size": 339,
+      "sha256": "d69cb36f98e92d4c5b71032ab45bb5c9b8ab9e7045f35b80a98ac345ef5f2f4b"
+    },
+    {
+      "path": "configs/logger/neptune.yaml",
+      "size": 277,
+      "sha256": "59a9229d946b3dedb23bfa386ff780cc09f84fd9cc55b35dcda0eff539112dec"
+    },
+    {
+      "path": "configs/logger/none.yaml",
+      "size": 12,
+      "sha256": "86f8e1b579297b55d8dbee0062cceaa4ac97532ee98f64c0b5b1f2baa4696bd6"
+    },
+    {
+      "path": "configs/logger/tensorboard.yaml",
+      "size": 258,
+      "sha256": "132b8babe6a3f25dc12a08c80448425094655b3f7e2e4e4cb4968902e8d5bd08"
+    },
+    {
+      "path": "configs/logger/wandb.yaml",
+      "size": 845,
+      "sha256": "a6b5eb5716d9fe75b4fd4ddbf27ee717a393de71009de4991512ed9b4233f014"
+    },
+    {
+      "path": "configs/main.yaml",
+      "size": 2216,
+      "sha256": "64f75d8374a2aedea93823fce47d6cb23553291a2b25b305ccf362e359ef8e09"
+    },
+    {
+      "path": "configs/model/mtpomo.yaml",
+      "size": 122,
+      "sha256": "ce8e4138ee1bb99e393904f2ad06cb466b41084a71fe603034645f1c5783b771"
+    },
+    {
+      "path": "configs/model/mvmoe-light.yaml",
+      "size": 114,
+      "sha256": "b5fec325e6c76e257f1f61894acf9dd69ba19ad4eb9c478efde7318d45dcf36a"
+    },
+    {
+      "path": "configs/model/mvmoe.yaml",
+      "size": 125,
+      "sha256": "bc6b6e6584af7717a557cec9e36853408674fbd3ebf5a3f9849f00e836d4b655"
+    },
+    {
+      "path": "configs/model/routefinder-moe-light.yaml",
+      "size": 124,
+      "sha256": "4e0a27fc57bfde0281db2c992ae722387c57bbc27432d493883ef6e323283cc1"
+    },
+    {
+      "path": "configs/model/routefinder-moe.yaml",
+      "size": 124,
+      "sha256": "f322380c2a4f4951245e6053d9e8a9b1119f0028625389ecac5bb7d10b4dada9"
+    },
+    {
+      "path": "configs/model/routefinder.yaml",
+      "size": 117,
+      "sha256": "4c2d9892ede33fb0ec178133ba24dadb61628791e04461c4112f4ac8b7a71cb3"
+    },
+    {
+      "path": "configs/paths/default.yaml",
+      "size": 630,
+      "sha256": "01c9c71fd230dc5619c3ad85a83258a4e2ad3caaa2c0b92587bbcfc3cacd0046"
+    },
+    {
+      "path": "configs/trainer/default.yaml",
+      "size": 397,
+      "sha256": "5d0cd076047aa532804cc00a28a64c54adb6f1173b990d0722a4bc060f9daef1"
+    },
+    {
+      "path": "examples/1.quickstart.ipynb",
+      "size": 1075450,
+      "sha256": "eac56ea4b6f34f0412710e6feba3a069a9cc4248660467a47d37f3922a1f01de"
+    },
+    {
+      "path": "examples/2.eval-cvrplib.ipynb",
+      "size": 62411,
+      "sha256": "e0568bcd97c1061856452350cdf9276aa770ff89509d22f1cde09edc8be7f928"
+    },
+    {
+      "path": "examples/3-tsne.ipynb",
+      "size": 329519,
+      "sha256": "831b1e088dbd57c5183692f6b13ca2bcbe6d96d37495c9ffe9c5d44a6a9178c3"
+    },
+    {
+      "path": "examples/4-visualizations.ipynb",
+      "size": 5385386,
+      "sha256": "3379950d152fedbcb5881daf40a98f6bad647ebfff887ded38ad5c942d272bec"
+    },
+    {
+      "path": "pyproject.toml",
+      "size": 2094,
+      "sha256": "d1f94ed5749bfa804f9826f8f523319e8d4e8babfbe9378fbbe417c3954359e4"
+    },
+    {
+      "path": "routefinder/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "routefinder/baselines/constants.py",
+      "size": 1169,
+      "sha256": "d9141e18ec3f6261137ccb2bd8e7e71a29cecbc413ab5a61f86c04e0ec198df4"
+    },
+    {
+      "path": "routefinder/baselines/lkh.py",
+      "size": 7295,
+      "sha256": "5032320d7c09c66ebd956fa1b0047abdf2617505c39f24c20e54b6a0006f907d"
+    },
+    {
+      "path": "routefinder/baselines/ortools.py",
+      "size": 10297,
+      "sha256": "498bee5767b77be93809977742cc1448606826dcf8583819a0ab431a39a8e2ea"
+    },
+    {
+      "path": "routefinder/baselines/pyvrp.py",
+      "size": 4675,
+      "sha256": "67830bb1ea03c4a9ece1ed96e188b6795d5529bcd9cf36d510703d0479d2b1b9"
+    },
+    {
+      "path": "routefinder/baselines/solve.py",
+      "size": 2653,
+      "sha256": "3e2bb1aa981cc97a4ab59d29e9877538ebac41cf6c85df84b1b31b443951fc7b"
+    },
+    {
+      "path": "routefinder/baselines/utils.py",
+      "size": 1296,
+      "sha256": "bef21224d426c9b89e209bf77b28ab43439f59b1bbc565549d6c422fe8b58a56"
+    },
+    {
+      "path": "routefinder/data/download_vrplib.py",
+      "size": 1218,
+      "sha256": "d497c117767fd3ff0b19ffd5fff1dade6eae5c7c634bdc1f82ceca06d23a9e88"
+    },
+    {
+      "path": "routefinder/data/generate.py",
+      "size": 9472,
+      "sha256": "404c37f9921b163196df4e85f43734c94f377b5bf357e3712cef6504d09c0c64"
+    },
+    {
+      "path": "routefinder/data/utils.py",
+      "size": 430,
+      "sha256": "01d456d9e82085df6c9e4c4aaef5630ac012f6b36f3f9d728d0f4dbe0781674f"
+    },
+    {
+      "path": "routefinder/envs/__init__.py",
+      "size": 250,
+      "sha256": "86b10f00e97b3385f1e20994ac2ea692b3baffa8cafc5eb212b5f42382139a6b"
+    },
+    {
+      "path": "routefinder/envs/mtdvrp/__init__.py",
+      "size": 64,
+      "sha256": "b65bc29f2631bdaf4cdeb6c87d35452a28dfe53dfda843939a9c63868bb3bf8f"
+    },
+    {
+      "path": "routefinder/envs/mtdvrp/env.py",
+      "size": 36385,
+      "sha256": "2d3e1593c57d15c177722ede1149f2b7ca44628da68dabfadbdf26a382022551"
+    },
+    {
+      "path": "routefinder/envs/mtdvrp/generator.py",
+      "size": 20780,
+      "sha256": "f52f8f9a6755c8625a352c778da760cdee58f2eb3cfe444c9acdd2eb4eacaa35"
+    },
+    {
+      "path": "routefinder/envs/mtdvrp/render.py",
+      "size": 5207,
+      "sha256": "dfe671166475fd4a84cb382d7e65a9dedee75ae476b7e79cef220e8a07e64297"
+    },
+    {
+      "path": "routefinder/envs/mtdvrp/selectstartnodes.py",
+      "size": 2194,
+      "sha256": "ce7ead58425d33bd50b4e12d33ede0df77c48d7092b8859b906212469d18ac30"
+    },
+    {
+      "path": "routefinder/envs/mtdvrp/utils.py",
+      "size": 2436,
+      "sha256": "266d9fe720bbc9b517525863f4f54bd477af394099c9c7b0304a16b18c3e2c98"
+    },
+    {
+      "path": "routefinder/envs/mtvrp/__init__.py",
+      "size": 64,
+      "sha256": "b65bc29f2631bdaf4cdeb6c87d35452a28dfe53dfda843939a9c63868bb3bf8f"
+    },
+    {
+      "path": "routefinder/envs/mtvrp/env.py",
+      "size": 29444,
+      "sha256": "c6ca9f4032fff2821aee2f4c49fab13d014a5970d6762404311a09cf0c892d5e"
+    },
+    {
+      "path": "routefinder/envs/mtvrp/generator.py",
+      "size": 19081,
+      "sha256": "80028ea811760229e2a43a2ff399059dbf9fcd58a8ebb9edc7ffde846b24e8e5"
+    },
+    {
+      "path": "routefinder/envs/mtvrp/render.py",
+      "size": 4837,
+      "sha256": "b3d532f4638305d8ba077853ee7d9d88a55fc84da4987ce920a7bcd18774a12d"
+    },
+    {
+      "path": "routefinder/envs/mtvrp/selectstartnodes.py",
+      "size": 1603,
+      "sha256": "c096c0499b1b4065a464edcbd468f137d3a2952dcb4065a27a4a766def811ad5"
+    },
+    {
+      "path": "routefinder/models/__init__.py",
+      "size": 123,
+      "sha256": "0d9ddb9cadc5c898b5d80f25f75383a2886828b43b15b7fce100d2f8365140b9"
+    },
+    {
+      "path": "routefinder/models/baselines/mtpomo/__init__.py",
+      "size": 59,
+      "sha256": "5d5692bf0c083d744a1d27d725d2e905d44f1ba99a56b8b865e7dd4b97c46961"
+    },
+    {
+      "path": "routefinder/models/baselines/mtpomo/model.py",
+      "size": 635,
+      "sha256": "048553f50e39f09a206e93869fa55f2bf24b675d3ff53082b041dfbb119cfbbe"
+    },
+    {
+      "path": "routefinder/models/baselines/mtpomo/policy.py",
+      "size": 1876,
+      "sha256": "d2608f1cec707cd500fddfcd18072718082914e157c4fd98adb22f919444a0b6"
+    },
+    {
+      "path": "routefinder/models/baselines/mvmoe/__init__.py",
+      "size": 74,
+      "sha256": "31fecb7d208e8fdc36aac10ea486f56b366db6607281c4ba17df5ce53dbe18ad"
+    },
+    {
+      "path": "routefinder/models/baselines/mvmoe/decoder.py",
+      "size": 7503,
+      "sha256": "57fc3261e7182f55f42f380f862263376af85bb8c1de646e2bb687421881a643"
+    },
+    {
+      "path": "routefinder/models/baselines/mvmoe/encoder.py",
+      "size": 8607,
+      "sha256": "590ce6c423a5f1296d2e491aa2020335f7d765b5bd1efffdfaf2c9df3af3a4b8"
+    },
+    {
+      "path": "routefinder/models/baselines/mvmoe/model.py",
+      "size": 1970,
+      "sha256": "1fb27997db239a7a9bac24f986377335a927e59f796fa2a008577ae2c45a127c"
+    },
+    {
+      "path": "routefinder/models/baselines/mvmoe/moe/__init__.py",
+      "size": 52,
+      "sha256": "8cdafe70718f00779c49df5098057554a3e59ce4df33010490af8f2ef4d6d805"
+    },
+    {
+      "path": "routefinder/models/baselines/mvmoe/moe/moe.py",
+      "size": 23856,
+      "sha256": "ac2e667361d5ac97946288a8bfe57e933ab1f4dd917fb32936dcb556c8de2463"
+    },
+    {
+      "path": "routefinder/models/baselines/mvmoe/policy.py",
+      "size": 3855,
+      "sha256": "1a3210ada265e3da9511979fab54d809ff1b4dc1de67c366b78291213375e9d2"
+    },
+    {
+      "path": "routefinder/models/encoder.py",
+      "size": 2575,
+      "sha256": "af77d6e66304eecd5672ee58c479c0554a5a1fb61dfd4517784d07555472f54b"
+    },
+    {
+      "path": "routefinder/models/env_embeddings/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "routefinder/models/env_embeddings/mtvrp/__init__.py",
+      "size": 145,
+      "sha256": "9612af3541eb321f7c4d1f7008ed5f94f61c0b3153f58b831206f1509ca025ff"
+    },
+    {
+      "path": "routefinder/models/env_embeddings/mtvrp/context.py",
+      "size": 6645,
+      "sha256": "79e67984f7b635f1a7a0f4d9ce547430e03fe0a8507cca96220a2314f3e4470c"
+    },
+    {
+      "path": "routefinder/models/env_embeddings/mtvrp/init.py",
+      "size": 8978,
+      "sha256": "9eec49f482bd4c7ca5c32473289ccad85bf61d59862785ccaa76829868b77caf"
+    },
+    {
+      "path": "routefinder/models/finetuning/baselines.py",
+      "size": 1924,
+      "sha256": "d892762f4dfa831fa4aee63ae298facf0f0b11a75b9b38e5eea613fb21a7325e"
+    },
+    {
+      "path": "routefinder/models/finetuning/eal.py",
+      "size": 3472,
+      "sha256": "a801324abfa32bd1889da635a5b0363703b72f3a39a366ba7125c5d30fc0901e"
+    },
+    {
+      "path": "routefinder/models/finetuning/utils.py",
+      "size": 387,
+      "sha256": "1289c61366e2f493c95d2cd7432ae96540f844cbeb106c4881276705bc991b10"
+    },
+    {
+      "path": "routefinder/models/model.py",
+      "size": 12676,
+      "sha256": "eccd07262d14b44f293b279a2e6a10aa9fc41550310dccb47f30f8db99116c2d"
+    },
+    {
+      "path": "routefinder/models/nn/transformer.py",
+      "size": 5852,
+      "sha256": "a3a7aaa85caa6e2c3fd80b36c0a9c8c31acaa6d6785c55f0c4b59359008e68e6"
+    },
+    {
+      "path": "routefinder/models/policy.py",
+      "size": 2490,
+      "sha256": "328f19c41df946b972af7247363177b1dd4ed705a927741089860325e919ba09"
+    },
+    {
+      "path": "routefinder/models/reward_normalization.py",
+      "size": 10358,
+      "sha256": "68cbb846312de775e4ac101d1dac0826333b7db7300d117c587580e06a2af087"
+    },
+    {
+      "path": "routefinder/utils.py",
+      "size": 4313,
+      "sha256": "b66b2a184921104976a00f5b2fc8fd11e65270b3367f4040eec9d775930f0055"
+    },
+    {
+      "path": "run.py",
+      "size": 3604,
+      "sha256": "2e292083ca490de40776c8140a068fb8e98b0b170abab3e46e3d8a2e9621eb5f"
+    },
+    {
+      "path": "run_eal.py",
+      "size": 8132,
+      "sha256": "54f5865eb5cd2a4998614ff7613a1c789874c24ddb08b4c02a335f34d3c70902"
+    },
+    {
+      "path": "scripts/download_hf.py",
+      "size": 1130,
+      "sha256": "7600b4179fdffcb5783b20445ec368ea05ee63da662f7c18e52f132482da7753"
+    },
+    {
+      "path": "scripts/generate_data.py",
+      "size": 1728,
+      "sha256": "722b50262a50a000fdb946ccbde71131200ae03833c37de0cb1c486b578d3a85"
+    },
+    {
+      "path": "scripts/run_or_solvers.py",
+      "size": 2678,
+      "sha256": "73ac3156e224374c683f0103e5cec68310f10363cf6c601772b6363c64bd5fb9"
+    },
+    {
+      "path": "test.py",
+      "size": 8363,
+      "sha256": "b209184f6defdaa2eff854493227910b9dd6176afc569ddb912a8297c2d7ee7b"
+    },
+    {
+      "path": "tests/env.py",
+      "size": 1230,
+      "sha256": "6d52ca28b9fab71846144fb0d2f73f444d77792869681f14ac9d0a5eabbd1153"
+    },
+    {
+      "path": "tests/policy.py",
+      "size": 1006,
+      "sha256": "d9a98b2a1ce81e853a8097afd98e003203f07fd93c50d40272673800b1a5064f"
+    },
+    {
+      "path": "tests/training.py",
+      "size": 877,
+      "sha256": "f861f8e02f89b17c7817812f9b40f5659370eb805bcbf88810d115c2fc6c3398"
+    }
+  ],
+  "license_files": [
+    "LICENSE"
+  ],
+  "source_executed": false,
+  "status": "DOWNLOADED",
+  "pin_method": "known historical pin or public git ls-remote; REST unavailable"
+}

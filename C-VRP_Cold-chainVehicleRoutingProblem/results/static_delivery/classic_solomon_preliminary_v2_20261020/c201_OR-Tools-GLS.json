@@ -1,0 +1,868 @@
+{
+  "case": "c201",
+  "method": "OR-Tools-GLS",
+  "source_sha256": "d8d9834087ae2326fa23a8510533060233dc9fb481873be60956eb26a880ad63",
+  "budget_search_s": 10.0,
+  "total_build_and_search_s": 10.007646300131455,
+  "routes": [
+    [
+      20,
+      22,
+      24,
+      27,
+      30,
+      29,
+      6,
+      32,
+      33,
+      31,
+      35,
+      37,
+      38,
+      39,
+      36,
+      34,
+      28,
+      26,
+      23,
+      18,
+      19,
+      16,
+      14,
+      12,
+      15,
+      17,
+      13,
+      25,
+      9,
+      11,
+      10,
+      8,
+      21
+    ],
+    [
+      93,
+      5,
+      75,
+      2,
+      1,
+      99,
+      100,
+      97,
+      92,
+      94,
+      95,
+      98,
+      7,
+      3,
+      4,
+      89,
+      91,
+      88,
+      84,
+      86,
+      83,
+      82,
+      85,
+      76,
+      71,
+      70,
+      73,
+      80,
+      79,
+      81,
+      78,
+      77,
+      96,
+      87,
+      90
+    ],
+    [
+      67,
+      63,
+      62,
+      74,
+      72,
+      61,
+      64,
+      66,
+      69,
+      68,
+      65,
+      49,
+      55,
+      54,
+      53,
+      56,
+      58,
+      60,
+      59,
+      57,
+      40,
+      44,
+      46,
+      45,
+      51,
+      50,
+      52,
+      47,
+      43,
+      42,
+      41,
+      48
+    ]
+  ],
+  "report": {
+    "feasible": true,
+    "errors": [],
+    "vehicles_used": 3,
+    "distance": 591.5565566715015,
+    "tours": [
+      {
+        "route": [
+          20,
+          22,
+          24,
+          27,
+          30,
+          29,
+          6,
+          32,
+          33,
+          31,
+          35,
+          37,
+          38,
+          39,
+          36,
+          34,
+          28,
+          26,
+          23,
+          18,
+          19,
+          16,
+          14,
+          12,
+          15,
+          17,
+          13,
+          25,
+          9,
+          11,
+          10,
+          8,
+          21
+        ],
+        "initial_load": 630.0,
+        "return_load": 0.0,
+        "distance": 195.30005655916443,
+        "return_time": 3165.3000565591647,
+        "trace": [
+          {
+            "customer": 20,
+            "arrival": 10.0,
+            "service_start": 10.0,
+            "departure": 100.0
+          },
+          {
+            "customer": 22,
+            "arrival": 102.82842712474618,
+            "service_start": 102.82842712474618,
+            "departure": 192.82842712474618
+          },
+          {
+            "customer": 24,
+            "arrival": 196.43397840021018,
+            "service_start": 196.43397840021018,
+            "departure": 286.4339784002102
+          },
+          {
+            "customer": 27,
+            "arrival": 289.2624055249564,
+            "service_start": 289.2624055249564,
+            "departure": 379.2624055249564
+          },
+          {
+            "customer": 30,
+            "arrival": 383.5050462120757,
+            "service_start": 383.5050462120757,
+            "departure": 473.5050462120757
+          },
+          {
+            "customer": 29,
+            "arrival": 478.5050462120757,
+            "service_start": 478.5050462120757,
+            "departure": 568.5050462120757
+          },
+          {
+            "customer": 6,
+            "arrival": 577.4493181220749,
+            "service_start": 577.4493181220749,
+            "departure": 667.4493181220749
+          },
+          {
+            "customer": 32,
+            "arrival": 673.7738734424117,
+            "service_start": 673.7738734424117,
+            "departure": 763.7738734424117
+          },
+          {
+            "customer": 33,
+            "arrival": 765.7738734424117,
+            "service_start": 765.7738734424117,
+            "departure": 855.7738734424117
+          },
+          {
+            "customer": 31,
+            "arrival": 861.1590382495463,
+            "service_start": 861.1590382495463,
+            "departure": 951.1590382495463
+          },
+          {
+            "customer": 35,
+            "arrival": 956.1590382495463,
+            "service_start": 956.1590382495463,
+            "departure": 1046.1590382495463
+          },
+          {
+            "customer": 37,
+            "arrival": 1051.9899901443916,
+            "service_start": 1051.9899901443916,
+            "departure": 1141.9899901443916
+          },
+          {
+            "customer": 38,
+            "arrival": 1143.9899901443916,
+            "service_start": 1143.9899901443916,
+            "departure": 1233.9899901443916
+          },
+          {
+            "customer": 39,
+            "arrival": 1238.9899901443916,
+            "service_start": 1238.9899901443916,
+            "departure": 1328.9899901443916
+          },
+          {
+            "customer": 36,
+            "arrival": 1333.9899901443916,
+            "service_start": 1333.9899901443916,
+            "departure": 1423.9899901443916
+          },
+          {
+            "customer": 34,
+            "arrival": 1426.9899901443916,
+            "service_start": 1426.9899901443916,
+            "departure": 1516.9899901443916
+          },
+          {
+            "customer": 28,
+            "arrival": 1527.7603197586607,
+            "service_start": 1527.7603197586607,
+            "departure": 1617.7603197586607
+          },
+          {
+            "customer": 26,
+            "arrival": 1625.8225775069593,
+            "service_start": 1625.8225775069593,
+            "departure": 1715.8225775069593
+          },
+          {
+            "customer": 23,
+            "arrival": 1723.0336800578873,
+            "service_start": 1723.0336800578873,
+            "departure": 1813.0336800578873
+          },
+          {
+            "customer": 18,
+            "arrival": 1822.0890651960246,
+            "service_start": 1822.0890651960246,
+            "departure": 1912.0890651960246
+          },
+          {
+            "customer": 19,
+            "arrival": 1917.0890651960246,
+            "service_start": 1917.0890651960246,
+            "departure": 2007.0890651960246
+          },
+          {
+            "customer": 16,
+            "arrival": 2014.1601330078902,
+            "service_start": 2014.1601330078902,
+            "departure": 2104.16013300789
+          },
+          {
+            "customer": 14,
+            "arrival": 2106.16013300789,
+            "service_start": 2106.16013300789,
+            "departure": 2196.16013300789
+          },
+          {
+            "customer": 12,
+            "arrival": 2199.16013300789,
+            "service_start": 2199.16013300789,
+            "departure": 2289.16013300789
+          },
+          {
+            "customer": 15,
+            "arrival": 2296.2312008197555,
+            "service_start": 2296.2312008197555,
+            "departure": 2386.2312008197555
+          },
+          {
+            "customer": 17,
+            "arrival": 2391.61636562689,
+            "service_start": 2391.61636562689,
+            "departure": 2481.61636562689
+          },
+          {
+            "customer": 13,
+            "arrival": 2485.61636562689,
+            "service_start": 2485.61636562689,
+            "departure": 2575.61636562689
+          },
+          {
+            "customer": 25,
+            "arrival": 2584.61636562689,
+            "service_start": 2584.61636562689,
+            "departure": 2674.61636562689
+          },
+          {
+            "customer": 9,
+            "arrival": 2681.827468177818,
+            "service_start": 2681.827468177818,
+            "departure": 2771.827468177818
+          },
+          {
+            "customer": 11,
+            "arrival": 2778.8985359896833,
+            "service_start": 2778.8985359896833,
+            "departure": 2868.8985359896833
+          },
+          {
+            "customer": 10,
+            "arrival": 2871.8985359896833,
+            "service_start": 2871.8985359896833,
+            "departure": 2961.8985359896833
+          },
+          {
+            "customer": 8,
+            "arrival": 2967.9812985199815,
+            "service_start": 2967.9812985199815,
+            "departure": 3057.9812985199815
+          },
+          {
+            "customer": 21,
+            "arrival": 3063.638152769474,
+            "service_start": 3063.638152769474,
+            "departure": 3153.638152769474
+          }
+        ]
+      },
+      {
+        "route": [
+          93,
+          5,
+          75,
+          2,
+          1,
+          99,
+          100,
+          97,
+          92,
+          94,
+          95,
+          98,
+          7,
+          3,
+          4,
+          89,
+          91,
+          88,
+          84,
+          86,
+          83,
+          82,
+          85,
+          76,
+          71,
+          70,
+          73,
+          80,
+          79,
+          81,
+          78,
+          77,
+          96,
+          87,
+          90
+        ],
+        "initial_load": 620.0,
+        "return_load": 0.0,
+        "distance": 238.20840839044476,
+        "return_time": 3388.2084083904447,
+        "trace": [
+          {
+            "customer": 93,
+            "arrival": 8.246211251235321,
+            "service_start": 8.246211251235321,
+            "departure": 98.24621125123532
+          },
+          {
+            "customer": 5,
+            "arrival": 105.24621125123532,
+            "service_start": 105.24621125123532,
+            "departure": 195.2462112512353
+          },
+          {
+            "customer": 75,
+            "arrival": 198.2462112512353,
+            "service_start": 198.2462112512353,
+            "departure": 288.2462112512353
+          },
+          {
+            "customer": 2,
+            "arrival": 293.2462112512353,
+            "service_start": 293.2462112512353,
+            "departure": 383.2462112512353
+          },
+          {
+            "customer": 1,
+            "arrival": 391.8485365182779,
+            "service_start": 391.8485365182779,
+            "departure": 481.8485365182779
+          },
+          {
+            "customer": 99,
+            "arrival": 487.67948841312324,
+            "service_start": 487.67948841312324,
+            "departure": 577.6794884131232
+          },
+          {
+            "customer": 100,
+            "arrival": 582.6794884131232,
+            "service_start": 582.6794884131232,
+            "departure": 672.6794884131232
+          },
+          {
+            "customer": 97,
+            "arrival": 677.6794884131232,
+            "service_start": 677.6794884131232,
+            "departure": 767.6794884131232
+          },
+          {
+            "customer": 92,
+            "arrival": 774.6794884131232,
+            "service_start": 774.6794884131232,
+            "departure": 864.6794884131232
+          },
+          {
+            "customer": 94,
+            "arrival": 868.2850396885872,
+            "service_start": 868.2850396885872,
+            "departure": 958.2850396885872
+          },
+          {
+            "customer": 95,
+            "arrival": 961.8905909640512,
+            "service_start": 961.8905909640512,
+            "departure": 1051.8905909640512
+          },
+          {
+            "customer": 98,
+            "arrival": 1058.293715201484,
+            "service_start": 1058.293715201484,
+            "departure": 1148.293715201484
+          },
+          {
+            "customer": 7,
+            "arrival": 1153.293715201484,
+            "service_start": 1153.293715201484,
+            "departure": 1243.293715201484
+          },
+          {
+            "customer": 3,
+            "arrival": 1247.4168208271017,
+            "service_start": 1247.4168208271017,
+            "departure": 1337.4168208271017
+          },
+          {
+            "customer": 4,
+            "arrival": 1341.0223721025657,
+            "service_start": 1341.0223721025657,
+            "departure": 1431.0223721025657
+          },
+          {
+            "customer": 89,
+            "arrival": 1435.4945080575653,
+            "service_start": 1435.4945080575653,
+            "departure": 1525.4945080575653
+          },
+          {
+            "customer": 91,
+            "arrival": 1531.1513623070578,
+            "service_start": 1531.1513623070578,
+            "departure": 1621.1513623070578
+          },
+          {
+            "customer": 88,
+            "arrival": 1626.1513623070578,
+            "service_start": 1626.1513623070578,
+            "departure": 1716.1513623070578
+          },
+          {
+            "customer": 84,
+            "arrival": 1721.5365271141923,
+            "service_start": 1721.5365271141923,
+            "departure": 1811.5365271141923
+          },
+          {
+            "customer": 86,
+            "arrival": 1816.5365271141923,
+            "service_start": 1816.5365271141923,
+            "departure": 1906.5365271141923
+          },
+          {
+            "customer": 83,
+            "arrival": 1912.5365271141923,
+            "service_start": 1912.5365271141923,
+            "departure": 2002.5365271141923
+          },
+          {
+            "customer": 82,
+            "arrival": 2005.5365271141923,
+            "service_start": 2005.5365271141923,
+            "departure": 2095.5365271141923
+          },
+          {
+            "customer": 85,
+            "arrival": 2109.749197517744,
+            "service_start": 2109.749197517744,
+            "departure": 2199.749197517744
+          },
+          {
+            "customer": 76,
+            "arrival": 2211.4538974284637,
+            "service_start": 2211.4538974284637,
+            "departure": 2301.4538974284637
+          },
+          {
+            "customer": 71,
+            "arrival": 2306.4538974284637,
+            "service_start": 2306.4538974284637,
+            "departure": 2396.4538974284637
+          },
+          {
+            "customer": 70,
+            "arrival": 2401.4538974284637,
+            "service_start": 2401.4538974284637,
+            "departure": 2491.4538974284637
+          },
+          {
+            "customer": 73,
+            "arrival": 2494.4538974284637,
+            "service_start": 2494.4538974284637,
+            "departure": 2584.4538974284637
+          },
+          {
+            "customer": 80,
+            "arrival": 2593.056222695506,
+            "service_start": 2593.056222695506,
+            "departure": 2683.056222695506
+          },
+          {
+            "customer": 79,
+            "arrival": 2688.4413875026407,
+            "service_start": 2688.4413875026407,
+            "departure": 2778.4413875026407
+          },
+          {
+            "customer": 81,
+            "arrival": 2783.8265523097753,
+            "service_start": 2783.8265523097753,
+            "departure": 2873.8265523097753
+          },
+          {
+            "customer": 78,
+            "arrival": 2882.4288775768177,
+            "service_start": 2882.4288775768177,
+            "departure": 2972.4288775768177
+          },
+          {
+            "customer": 77,
+            "arrival": 2980.2391272527243,
+            "service_start": 2980.2391272527243,
+            "departure": 3070.2391272527243
+          },
+          {
+            "customer": 96,
+            "arrival": 3081.4194671402233,
+            "service_start": 3081.4194671402233,
+            "departure": 3171.4194671402233
+          },
+          {
+            "customer": 87,
+            "arrival": 3177.7440224605602,
+            "service_start": 3177.7440224605602,
+            "departure": 3267.7440224605602
+          },
+          {
+            "customer": 90,
+            "arrival": 3277.592880262356,
+            "service_start": 3277.592880262356,
+            "departure": 3367.592880262356
+          }
+        ]
+      },
+      {
+        "route": [
+          67,
+          63,
+          62,
+          74,
+          72,
+          61,
+          64,
+          66,
+          69,
+          68,
+          65,
+          49,
+          55,
+          54,
+          53,
+          56,
+          58,
+          60,
+          59,
+          57,
+          40,
+          44,
+          46,
+          45,
+          51,
+          50,
+          52,
+          47,
+          43,
+          42,
+          41,
+          48
+        ],
+        "initial_load": 560.0,
+        "return_load": 0.0,
+        "distance": 158.04809172189226,
+        "return_time": 3038.0480917218924,
+        "trace": [
+          {
+            "customer": 67,
+            "arrival": 12.206555615733702,
+            "service_start": 12.206555615733702,
+            "departure": 102.2065556157337
+          },
+          {
+            "customer": 63,
+            "arrival": 105.2065556157337,
+            "service_start": 105.2065556157337,
+            "departure": 195.2065556157337
+          },
+          {
+            "customer": 62,
+            "arrival": 200.2065556157337,
+            "service_start": 200.2065556157337,
+            "departure": 290.2065556157337
+          },
+          {
+            "customer": 74,
+            "arrival": 293.2065556157337,
+            "service_start": 293.2065556157337,
+            "departure": 383.2065556157337
+          },
+          {
+            "customer": 72,
+            "arrival": 388.2065556157337,
+            "service_start": 388.2065556157337,
+            "departure": 478.2065556157337
+          },
+          {
+            "customer": 61,
+            "arrival": 481.2065556157337,
+            "service_start": 481.2065556157337,
+            "departure": 571.2065556157337
+          },
+          {
+            "customer": 64,
+            "arrival": 573.2065556157337,
+            "service_start": 573.2065556157337,
+            "departure": 663.2065556157337
+          },
+          {
+            "customer": 66,
+            "arrival": 668.3055751293265,
+            "service_start": 668.3055751293265,
+            "departure": 758.3055751293265
+          },
+          {
+            "customer": 69,
+            "arrival": 760.3055751293265,
+            "service_start": 760.3055751293265,
+            "departure": 850.3055751293265
+          },
+          {
+            "customer": 68,
+            "arrival": 856.1365270241718,
+            "service_start": 856.1365270241718,
+            "departure": 946.1365270241718
+          },
+          {
+            "customer": 65,
+            "arrival": 951.5216918313063,
+            "service_start": 951.5216918313063,
+            "departure": 1041.5216918313063
+          },
+          {
+            "customer": 49,
+            "arrival": 1047.9248160687391,
+            "service_start": 1047.9248160687391,
+            "departure": 1137.9248160687391
+          },
+          {
+            "customer": 55,
+            "arrival": 1145.7350657446457,
+            "service_start": 1145.7350657446457,
+            "departure": 1235.7350657446457
+          },
+          {
+            "customer": 54,
+            "arrival": 1240.7350657446457,
+            "service_start": 1240.7350657446457,
+            "departure": 1330.7350657446457
+          },
+          {
+            "customer": 53,
+            "arrival": 1336.1202305517802,
+            "service_start": 1336.1202305517802,
+            "departure": 1426.1202305517802
+          },
+          {
+            "customer": 56,
+            "arrival": 1430.1202305517802,
+            "service_start": 1430.1202305517802,
+            "departure": 1520.1202305517802
+          },
+          {
+            "customer": 58,
+            "arrival": 1522.1202305517802,
+            "service_start": 1522.1202305517802,
+            "departure": 1612.1202305517802
+          },
+          {
+            "customer": 60,
+            "arrival": 1615.1202305517802,
+            "service_start": 1615.1202305517802,
+            "departure": 1705.1202305517802
+          },
+          {
+            "customer": 59,
+            "arrival": 1710.9511824466256,
+            "service_start": 1710.9511824466256,
+            "departure": 1800.9511824466256
+          },
+          {
+            "customer": 57,
+            "arrival": 1805.9511824466256,
+            "service_start": 1805.9511824466256,
+            "departure": 1895.9511824466256
+          },
+          {
+            "customer": 40,
+            "arrival": 1899.5567337220896,
+            "service_start": 1899.5567337220896,
+            "departure": 1989.5567337220896
+          },
+          {
+            "customer": 44,
+            "arrival": 1994.0288696770892,
+            "service_start": 1994.0288696770892,
+            "departure": 2084.0288696770895
+          },
+          {
+            "customer": 46,
+            "arrival": 2089.414034484224,
+            "service_start": 2089.414034484224,
+            "departure": 2179.414034484224
+          },
+          {
+            "customer": 45,
+            "arrival": 2185.8171587216566,
+            "service_start": 2185.8171587216566,
+            "departure": 2275.8171587216566
+          },
+          {
+            "customer": 51,
+            "arrival": 2280.8171587216566,
+            "service_start": 2280.8171587216566,
+            "departure": 2370.8171587216566
+          },
+          {
+            "customer": 50,
+            "arrival": 2373.0532266991563,
+            "service_start": 2373.0532266991563,
+            "departure": 2463.0532266991563
+          },
+          {
+            "customer": 52,
+            "arrival": 2466.2155043593248,
+            "service_start": 2466.2155043593248,
+            "departure": 2556.2155043593248
+          },
+          {
+            "customer": 47,
+            "arrival": 2561.2155043593248,
+            "service_start": 2561.2155043593248,
+            "departure": 2651.2155043593248
+          },
+          {
+            "customer": 43,
+            "arrival": 2654.2155043593248,
+            "service_start": 2654.2155043593248,
+            "departure": 2744.2155043593248
+          },
+          {
+            "customer": 42,
+            "arrival": 2747.2155043593248,
+            "service_start": 2747.2155043593248,
+            "departure": 2837.2155043593248
+          },
+          {
+            "customer": 41,
+            "arrival": 2839.2155043593248,
+            "service_start": 2839.2155043593248,
+            "departure": 2929.2155043593248
+          },
+          {
+            "customer": 48,
+            "arrival": 2937.2777621076234,
+            "service_start": 2937.2777621076234,
+            "departure": 3027.2777621076234
+          }
+        ]
+      }
+    ],
+    "distance_unit": "original_benchmark_coordinate_unit_not_km",
+    "time_unit": "original_benchmark_time_unit_not_minutes",
+    "quality_or_profit_evaluated": false
+  },
+  "solver": {
+    "status": 1,
+    "requested_seed": 20261020,
+    "seed_control": "not_applied_to_ortools_routing"
+  },
+  "reference": {
+    "vehicles": 3,
+    "distance": 591.56,
+    "source_label": "c201",
+    "bks_is_reference_not_optimality_proof": true
+  },
+  "distance_gap_pct": -0.0005820759514496565
+}

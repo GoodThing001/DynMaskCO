@@ -1,5 +1,0 @@
-{
-  "traceback": "Traceback (most recent call last):\n  File \"D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\independent_rolling_incremental_engineering_root_v1\\run.py\", line 53, in worker\n    result=compute(p,history,deadline);finished=time.perf_counter()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\PyCharm_\\MASKCO-Main\\research\\review_3080_20261010\\pickup\\independent_rolling_incremental_engineering_root_v1\\controller.py\", line 125, in compute\n    if time.perf_counter()>=deadline:raise TimeoutError('complete branch comparison required')\n                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTimeoutError: complete branch comparison required\n",
-  "started": 1026242.1526079,
-  "failed_at": 1026250.1566323
-}

@@ -1,9 +1,0 @@
-Traceback (most recent call last):
-  File "D:\PyCharm_\MASKCO-Main\research\review_3080_20261010\pickup\independent_rolling_incremental_engineering_root_v1\run.py", line 97, in <module>
-    if '--worker' in sys.argv:worker()
-                              ^^^^^^^^
-  File "D:\PyCharm_\MASKCO-Main\research\review_3080_20261010\pickup\independent_rolling_incremental_engineering_root_v1\run.py", line 53, in worker
-    result=compute(p,history,deadline);finished=time.perf_counter()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\PyCharm_\MASKCO-Main\research\review_3080_20261010\pickup\independent_rolling_incremental_engineering_root_v1\controller.py", line 125, in compute
-    if time.perf_counter()>=deadline:raise TimeoutError('complete branch comparison required')

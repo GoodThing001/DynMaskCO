@@ -1,0 +1,541 @@
+{
+  "name": "ALNS",
+  "repo": "N-Wouda/ALNS",
+  "commit": "5ef1fd1171e6be49c947cd3e56e485509b9c1d64",
+  "url": "https://codeload.github.com/N-Wouda/ALNS/zip/5ef1fd1171e6be49c947cd3e56e485509b9c1d64",
+  "archive_sha256": "7eb373b3052b2a15cad829808a3f6a8477eb61ee48186d8a215d2b19871072c7",
+  "archive_bytes": 201232,
+  "files": [
+    {
+      "path": ".github/CODE_OF_CONDUCT.md",
+      "size": 5517,
+      "sha256": "e95420f4fe37c64979f76f30f7685f889dd2d0bc091a797e18c3f93049d56876"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/BUG_REPORT.md",
+      "size": 1250,
+      "sha256": "6531bf4fe35897f82208694780671854762a0ce28864c0cfd72701ca528a8af8"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/FEATURE_REQUEST.md",
+      "size": 630,
+      "sha256": "ca9392add9549e608d6882df0a9a98d0f7ae5648848c241cfac3200ada25f998"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "size": 691,
+      "sha256": "f54eb471dfbd39a39c605431c27f1c12833631a7c7af8651056d6c6da46e0b66"
+    },
+    {
+      "path": ".github/workflows/alns.yaml",
+      "size": 2324,
+      "sha256": "8dedaac4467f94e624a140ee6f10f3d3aaf6c58ef53817c19e7491eddd9bcfc6"
+    },
+    {
+      "path": ".gitignore",
+      "size": 867,
+      "sha256": "c3946d62677658542919d7900ec3f09e3bfe6925ff3fa8e25903dbd7417d7737"
+    },
+    {
+      "path": ".pre-commit-config.yaml",
+      "size": 603,
+      "sha256": "95002c62fb9129ab2ce00f637e335839957552e7e09dd707970da79076824948"
+    },
+    {
+      "path": ".readthedocs.yaml",
+      "size": 431,
+      "sha256": "1042ca8723049d667a573acc73db44536d452cac74c08cb53d2f3a613fc34a59"
+    },
+    {
+      "path": "CITATION.cff",
+      "size": 917,
+      "sha256": "6b8c58dd79fe861af6749c8f2f8525e07420e94c5ac239e182317c05ed592485"
+    },
+    {
+      "path": "LICENSE.md",
+      "size": 1095,
+      "sha256": "b2f979be5ffb974e15a8a90fc1866842e81d9af15489cb7a3fc2d91823afc66f"
+    },
+    {
+      "path": "README.md",
+      "size": 5941,
+      "sha256": "0a0fc7ab90c08cf76cfe7bbd2f79970b7ca41fde39a9fc55ff77f03fc712c517"
+    },
+    {
+      "path": "alns/ALNS.py",
+      "size": 11301,
+      "sha256": "1d4101fb2d52290f6aabb3902900d62a90141dc88ce2838c582a1bb4742bec7f"
+    },
+    {
+      "path": "alns/Outcome.py",
+      "size": 495,
+      "sha256": "ea71907979a6470ffdec5eea09a3f83bba0acbadd7870d673b941bca3a3de7dd"
+    },
+    {
+      "path": "alns/Result.py",
+      "size": 5366,
+      "sha256": "cb1abdcb39490ddef99d3193c23233dff6b29877c6daa7ada423246bc2e0976c"
+    },
+    {
+      "path": "alns/State.py",
+      "size": 701,
+      "sha256": "86e39e4c83489681dd30f57fcd1d72472c0defba88ce054249f136633c74c2aa"
+    },
+    {
+      "path": "alns/Statistics.py",
+      "size": 3975,
+      "sha256": "a26f60ae9c365d7de863822930e706d0b9744c3efacca2fba8574d72592824b9"
+    },
+    {
+      "path": "alns/__init__.py",
+      "size": 116,
+      "sha256": "60c31bf9325b8648d674bb04933159f6d74c55b8a5158b99ae57ef105d537425"
+    },
+    {
+      "path": "alns/accept/AcceptanceCriterion.py",
+      "size": 913,
+      "sha256": "44004b634bd9561f19744d9602a907f47963eba0830352fac17ea4e81447ad70"
+    },
+    {
+      "path": "alns/accept/AlwaysAccept.py",
+      "size": 170,
+      "sha256": "57317854784cb72c6c597f4c4f5840af01880d7e873503864fb7cc183a709ae2"
+    },
+    {
+      "path": "alns/accept/GreatDeluge.py",
+      "size": 1855,
+      "sha256": "96ca10ed4cf0d11af735bda4bf79dd8b1a7865f958413b57190c0c80e9f5dc2b"
+    },
+    {
+      "path": "alns/accept/HillClimbing.py",
+      "size": 276,
+      "sha256": "a8f668579e7354e17aea87d4e50d9f90370ea60c1e54073fe5a81f9ffb463c32"
+    },
+    {
+      "path": "alns/accept/LateAcceptanceHillClimbing.py",
+      "size": 2481,
+      "sha256": "403b8e1302267f39c2e51ed12262cb2eb143baf76d8704356ee531f796887ac9"
+    },
+    {
+      "path": "alns/accept/MovingAverageThreshold.py",
+      "size": 2372,
+      "sha256": "8ca578849f59c3528e26e51f1deb27271d70b5545cccacd1d5efc63a25561ee8"
+    },
+    {
+      "path": "alns/accept/NonLinearGreatDeluge.py",
+      "size": 3543,
+      "sha256": "48b4fd1970f87c7e7cf1a1f8f7dbacc76fac42eb1a287750701b81000bfc1d1c"
+    },
+    {
+      "path": "alns/accept/RandomAccept.py",
+      "size": 2216,
+      "sha256": "c437b2d2f85863854df6025df176c08b08bea0ceadcf5dd094fabd81df2f5d5a"
+    },
+    {
+      "path": "alns/accept/RecordToRecordTravel.py",
+      "size": 6080,
+      "sha256": "5558d1c9feaf01f1ea837e691c23d74db539e76c3e2d5da01d5d636b473911ff"
+    },
+    {
+      "path": "alns/accept/SimulatedAnnealing.py",
+      "size": 6173,
+      "sha256": "2342379fb879d08b16d844a7cf4126c04d664f19823a67656a61136b1668cd9f"
+    },
+    {
+      "path": "alns/accept/__init__.py",
+      "size": 494,
+      "sha256": "75e8f36e1fe98f1a7c466deb5d8eef4a0bb244ab71a19c5dec66994bacb08fd2"
+    },
+    {
+      "path": "alns/accept/tests/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "alns/accept/tests/test_great_deluge.py",
+      "size": 2311,
+      "sha256": "e4217deba486f54e8b99bf0b7dd52d6e2294161a99e7821060cf031554a80811"
+    },
+    {
+      "path": "alns/accept/tests/test_hill_climbing.py",
+      "size": 820,
+      "sha256": "617e3ec807f971e63ad2d98f5f1fc1c73a2fb0015f24b49bf34264cbed3fbc2a"
+    },
+    {
+      "path": "alns/accept/tests/test_late_acceptance_hill_climbing.py",
+      "size": 6012,
+      "sha256": "3f31ece122ee14a7e0288c5aec1519eec96ed28fe5fc140a8d86e9d492f172a2"
+    },
+    {
+      "path": "alns/accept/tests/test_moving_average_threshold.py",
+      "size": 4400,
+      "sha256": "e4f0b0a2124b8715374e15631a956b7821737b05af84434bb2e5435916843e26"
+    },
+    {
+      "path": "alns/accept/tests/test_non_linear_great_deluge.py",
+      "size": 3452,
+      "sha256": "9b1a9bd3ab3d541559611769cf6e1a9b2aebbba35b758954aa5fc682a2097bcd"
+    },
+    {
+      "path": "alns/accept/tests/test_random_accept.py",
+      "size": 4446,
+      "sha256": "0cd2ff198e158410f328bdfc879bb4bb04de6167054589425860cd07203bad72"
+    },
+    {
+      "path": "alns/accept/tests/test_random_walk.py",
+      "size": 816,
+      "sha256": "afa9eafcdf1d0f0640d55402aefd38fbf36cd09ec635a60fdd449094225a8838"
+    },
+    {
+      "path": "alns/accept/tests/test_record_to_record_travel.py",
+      "size": 5022,
+      "sha256": "43d8545a3aa137c51ce431e42ee2e0bfe813d17c03dfd16c49bd1fc45c2f7545"
+    },
+    {
+      "path": "alns/accept/tests/test_simulated_annealing.py",
+      "size": 6365,
+      "sha256": "cc88d4bceb3e0d7e7c0c3b1c08642d13869c05f4989564d252c12204a117593e"
+    },
+    {
+      "path": "alns/accept/tests/test_threshold_accept.py",
+      "size": 1947,
+      "sha256": "d1976b8cb9e78874b88b551bee5b9be67138f738a52cff6dad7ecc5a6fb88db9"
+    },
+    {
+      "path": "alns/accept/tests/test_update.py",
+      "size": 1161,
+      "sha256": "4c40f0e18e463092b83d0afe05fe06f5f448c748a99d4b0ccb0a42286c85c790"
+    },
+    {
+      "path": "alns/accept/update.py",
+      "size": 906,
+      "sha256": "1dad64a527f49845899e5fba826671a4584f26d58ea25d21a2e29c9a8a2291c0"
+    },
+    {
+      "path": "alns/select/AlphaUCB.py",
+      "size": 5247,
+      "sha256": "6fdcba1b37a7e4c54da2e0c0f6986936a42ee424dbf31055ddf560e4416bcf94"
+    },
+    {
+      "path": "alns/select/MABSelector.py",
+      "size": 6447,
+      "sha256": "566d74764a91c1cad60c45d4ee6679a2b525ac53b7975b545e4a628fe9bd9cfd"
+    },
+    {
+      "path": "alns/select/OperatorSelectionScheme.py",
+      "size": 3476,
+      "sha256": "11c6afbcd5dfd669a0a30864c5afa3d4401fdda34d2023febfa8232aa6b91cfb"
+    },
+    {
+      "path": "alns/select/RandomSelect.py",
+      "size": 636,
+      "sha256": "fae3f86177cfb3eee06ae1ea7463175727091fd4eabe57533efbcd0216b7310a"
+    },
+    {
+      "path": "alns/select/RouletteWheel.py",
+      "size": 5031,
+      "sha256": "f86fde307850099b126d99eac6940e115f626a88291b3cf07b76bc8903a59dae"
+    },
+    {
+      "path": "alns/select/SegmentedRouletteWheel.py",
+      "size": 3586,
+      "sha256": "588ea39955378ec3ecedde8fa418cefeda5dd51c6d2e67281c26dd86aa4ad8c1"
+    },
+    {
+      "path": "alns/select/__init__.py",
+      "size": 268,
+      "sha256": "32ff8fa9084e23c8f3141b7bb8787aebd0c7b950c0d2759cebbe89700ea09e88"
+    },
+    {
+      "path": "alns/select/tests/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "alns/select/tests/test_alpha_ucb.py",
+      "size": 2348,
+      "sha256": "209e46f9f02d09833e73c8efdd6f6b68027bc70193f1c4ec124399037e575315"
+    },
+    {
+      "path": "alns/select/tests/test_mab_selector.py",
+      "size": 4825,
+      "sha256": "ac203b12fccb9d62e728ede0120b9cb5a473821205bae9b6c949215b069aa606"
+    },
+    {
+      "path": "alns/select/tests/test_random_select.py",
+      "size": 2132,
+      "sha256": "e025e9d08c1c29033e2eb806ebe7f8cbd12240b8f7dec22d9e9334c1a39a088b"
+    },
+    {
+      "path": "alns/select/tests/test_roulette_wheel.py",
+      "size": 3859,
+      "sha256": "8251b56e857c3f8d2a77279a4ec3394c096ffaa4ad6e9c0e96585ecacea64e5b"
+    },
+    {
+      "path": "alns/select/tests/test_segmented_roulette_wheel.py",
+      "size": 2742,
+      "sha256": "f0ef9ae080a0eec3ffaefe9836d8a53a3750d181d64b2f87bf308b775c05e092"
+    },
+    {
+      "path": "alns/show_versions.py",
+      "size": 842,
+      "sha256": "6ab6254adb9828ddbdea10bda25bbe1ea6afdf4868ed31e63a9fa91909dfb89e"
+    },
+    {
+      "path": "alns/stop/MaxIterations.py",
+      "size": 659,
+      "sha256": "8b8e69c1ec86c8c75c6e779157bd0c88efdb1efd73a8a1535b8b879a3848e5fe"
+    },
+    {
+      "path": "alns/stop/MaxRuntime.py",
+      "size": 765,
+      "sha256": "21fdcde8507ad6de109394f0f50e6cf322e28ba3a99272c13e38452418894504"
+    },
+    {
+      "path": "alns/stop/NoImprovement.py",
+      "size": 1009,
+      "sha256": "b6ad86b1f9fa39e67c03181bfd6fb0be813834bd2be1804c3fcc28c7fae12994"
+    },
+    {
+      "path": "alns/stop/StoppingCriterion.py",
+      "size": 697,
+      "sha256": "299e95963fcb37bc84bb580df855f4e0eb45130169d3039aac563f900c135059"
+    },
+    {
+      "path": "alns/stop/__init__.py",
+      "size": 166,
+      "sha256": "400782d4587c8d740449860173bfe9bd7ec20dddfc361481be93602e4a49681b"
+    },
+    {
+      "path": "alns/stop/tests/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "alns/stop/tests/test_max_iterations.py",
+      "size": 1290,
+      "sha256": "242bd912c3889c8fbcf6390edacbeb7a91a7a89cd5d1888728e5d7326bf2709e"
+    },
+    {
+      "path": "alns/stop/tests/test_max_runtime.py",
+      "size": 1811,
+      "sha256": "cc1f58e9b0a2f0ce443708df455642530cace48aa40549ad882caebbd7917efa"
+    },
+    {
+      "path": "alns/stop/tests/test_no_improvement.py",
+      "size": 2431,
+      "sha256": "5fc6013338e0804f1e1acb51b03c356f930ebb793ee6f35a5ab894e1762ae27c"
+    },
+    {
+      "path": "alns/tests/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "alns/tests/conftest.py",
+      "size": 385,
+      "sha256": "905caffeaa415b7751ffdf15e629a5738b899f06ad0266ca65639d86e5634f71"
+    },
+    {
+      "path": "alns/tests/states.py",
+      "size": 834,
+      "sha256": "a9803b142f6547369298a3071eca04274edcb116abb8eeb9c82e15ba0b9cbbb2"
+    },
+    {
+      "path": "alns/tests/test_alns.py",
+      "size": 10342,
+      "sha256": "759e47cf441817344a129b0c7f36d5e987d95fde1ad0d2388dc482337fa53c51"
+    },
+    {
+      "path": "alns/tests/test_result.py",
+      "size": 6956,
+      "sha256": "c940c7e14450e62a98584a444b024e11fba1fef4605a0a56b37591a4c41bd242"
+    },
+    {
+      "path": "alns/tests/test_statistics.py",
+      "size": 2796,
+      "sha256": "e2a06131b8b0a5ae1d01167771f0ee557e42229b41679713f70ca7a7673c4535"
+    },
+    {
+      "path": "docs/.gitignore",
+      "size": 17,
+      "sha256": "214e9098fa1c6b5154acf4bece742215bdc3f1ec2da66b05b684e34ea3957df2"
+    },
+    {
+      "path": "docs/Makefile",
+      "size": 638,
+      "sha256": "e33bf74d59130029ba24168a813112dd923d7044d780ce942db6645d93f56acf"
+    },
+    {
+      "path": "docs/README.md",
+      "size": 1272,
+      "sha256": "02d0be3da66272418bd55953185c28c4eedeff29ee18e14bb50114271c06b7b8"
+    },
+    {
+      "path": "docs/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/source/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/source/api/accept.rst",
+      "size": 1009,
+      "sha256": "6105ff27a30e6dfdd6bf81f1526867b368718a90c6f9b53447535b3c9eae2074"
+    },
+    {
+      "path": "docs/source/api/alns.rst",
+      "size": 865,
+      "sha256": "bbcff491812736cb45e39fb1c56a655aa6ad93adbb99f171c24e5b6f14091a91"
+    },
+    {
+      "path": "docs/source/api/select.rst",
+      "size": 830,
+      "sha256": "ae2b0b1c84ba62d961112039cd1c3c10ffe9745d4c749a5b37e1759b2fd93815"
+    },
+    {
+      "path": "docs/source/api/stop.rst",
+      "size": 649,
+      "sha256": "150f78af3924a16f6e4756018823631346c5f18e59498a1f970510c179abbae4"
+    },
+    {
+      "path": "docs/source/assets/images/icon.svg",
+      "size": 1643,
+      "sha256": "40e48dd3f0d12551c85ab81b8042f16af45cfdcd244a8878953844f83fb19f6d"
+    },
+    {
+      "path": "docs/source/assets/images/logo.svg",
+      "size": 2656,
+      "sha256": "e3927284a7f59131e60e6390efe7f59016e420a5bbb5b50275e572a7e64d4864"
+    },
+    {
+      "path": "docs/source/conf.py",
+      "size": 1655,
+      "sha256": "c678b0f85a773e52b32d32b13a5773ba63cd8cd6bf360b46aef545288037faa9"
+    },
+    {
+      "path": "docs/source/examples/.gitignore",
+      "size": 8,
+      "sha256": "3078e0fe5878a15cd057deb8901e73b79951576ddb4f6fa52d13898aea254c3c"
+    },
+    {
+      "path": "docs/source/examples/other single-trajectory heuristics.rst",
+      "size": 4910,
+      "sha256": "88b7697a751ee298a90e1a8c9bf75952e3416b0282f91b06ae2f4f3195f74a7b"
+    },
+    {
+      "path": "docs/source/index.rst",
+      "size": 2797,
+      "sha256": "9283b4d10610493538d4a834a8984c70070554808adf6f576ff1c24c8e907396"
+    },
+    {
+      "path": "docs/source/setup/contributing.rst",
+      "size": 2508,
+      "sha256": "0b3f899907d654d78f611a71f4e7af3126a830a86841496cd92680bc86a5a888"
+    },
+    {
+      "path": "docs/source/setup/getting_help.rst",
+      "size": 1305,
+      "sha256": "f82c94a7fc526031b2c974862ea10ecf073fb5b0b028e1c970337e5f618e64ae"
+    },
+    {
+      "path": "docs/source/setup/installation.rst",
+      "size": 1498,
+      "sha256": "a356712164fc5bc849b46baf4642025b14d77939d63d6409f12fc5aa86dc4a39"
+    },
+    {
+      "path": "docs/source/setup/introduction_to_alns.rst",
+      "size": 3793,
+      "sha256": "2e62579f132dae41cd95d0d5dc7e7b9d677a859e7f032aacf0eec105bdbdbf49"
+    },
+    {
+      "path": "docs/source/setup/template.rst",
+      "size": 3465,
+      "sha256": "4cd9ee4bb4b9a9172633c3f084a949cc197c709e6f5247fb0d958da359be8b8d"
+    },
+    {
+      "path": "examples/README.md",
+      "size": 262,
+      "sha256": "023ae977e009c2c93e28d9246242e83d596fa28b123111fe370eccc0d7d979ad"
+    },
+    {
+      "path": "examples/alns_features.ipynb",
+      "size": 24059,
+      "sha256": "4f8cae3e74621851dc867cd790daf6f3c592d66a84cbe19273785997396bc05a"
+    },
+    {
+      "path": "examples/capacitated_vehicle_routing_problem.ipynb",
+      "size": 24326,
+      "sha256": "ad12ccbbe31e6357706217e093c63c0515ca8ecc30fcd3551eb197abc1a86c03"
+    },
+    {
+      "path": "examples/cutting_stock_problem.ipynb",
+      "size": 14282,
+      "sha256": "c973e88536caa06a3664ce2667eddabf84ff4fad61fdff3ab42f84f3b03c2f14"
+    },
+    {
+      "path": "examples/data/640.csp",
+      "size": 3153,
+      "sha256": "e9ac578b00a647d8c2aa8a29c5568aa2a1b5c2609f2faf62fea1edc53d3f872d"
+    },
+    {
+      "path": "examples/data/ORTEC-n242-k12.sol",
+      "size": 991,
+      "sha256": "ac8c820affc4ee1a508f42d7739d7094e68079bc25874d39bd79ca998bcb311d"
+    },
+    {
+      "path": "examples/data/ORTEC-n242-k12.vrp",
+      "size": 146438,
+      "sha256": "8992da954e6f968df9ef8070ee0b87705a94722a05612651a1fffb2d85ca7bf9"
+    },
+    {
+      "path": "examples/data/j9041_6.sm",
+      "size": 8707,
+      "sha256": "31dd3ed625cb699b2eaa72b991c3d1da97648db8f64cbb381707e758d64f0872"
+    },
+    {
+      "path": "examples/data/tai50_20_8.txt",
+      "size": 3180,
+      "sha256": "814ee6a4e38bbb89323242a074bf532b18219d97e1dc0a37d3bf0b2190ae8146"
+    },
+    {
+      "path": "examples/data/xqf131.opt.tour",
+      "size": 500,
+      "sha256": "123de90bedad9a1181bc9f3083a467b194c2d5e462c91af5f51d8b61de814ceb"
+    },
+    {
+      "path": "examples/data/xqf131.tsp",
+      "size": 1405,
+      "sha256": "01b847e4dd5a39e5fe14239fd0b0bc7be71ab640d7fc5509c227c3b5d1387a0c"
+    },
+    {
+      "path": "examples/permutation_flow_shop_problem.ipynb",
+      "size": 26689,
+      "sha256": "25d2c9c4acd216ca4b93a744a8058993a5abb7f1e85814e931d9b290860d21a2"
+    },
+    {
+      "path": "examples/resource_constrained_project_scheduling_problem.ipynb",
+      "size": 24485,
+      "sha256": "b479ff92404b2dc4dad6239ce09fd6715d874154cd88dbad3541fa1de965efb4"
+    },
+    {
+      "path": "examples/travelling_salesman_problem.ipynb",
+      "size": 14373,
+      "sha256": "f1027d8846cef31264da0395d440c839e427dea12d173a6acd76b9c284aa10b6"
+    },
+    {
+      "path": "pyproject.toml",
+      "size": 2900,
+      "sha256": "96841a527bdb33dd211670896b6ecefe87d608898e78df1bfbdfd99bd1d6cde8"
+    }
+  ],
+  "license_files": [
+    "LICENSE.md"
+  ],
+  "source_executed": false,
+  "status": "DOWNLOADED",
+  "pin_method": "known historical pin or public git ls-remote; REST unavailable"
+}

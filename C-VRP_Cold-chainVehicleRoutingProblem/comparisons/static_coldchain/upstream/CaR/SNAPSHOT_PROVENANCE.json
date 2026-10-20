@@ -1,0 +1,436 @@
+{
+  "name": "CaR",
+  "repo": "jieyibi/CaR-constraint",
+  "commit": "56b25c50209b17c5d0002d56e65720c1e2da6a6b",
+  "url": "https://codeload.github.com/jieyibi/CaR-constraint/zip/56b25c50209b17c5d0002d56e65720c1e2da6a6b",
+  "archive_sha256": "f112eaf7e6dddff792ae072366f61cd6e5b58c18765a5549f1b5f8677fa8be77",
+  "archive_bytes": 192047362,
+  "files": [
+    {
+      "path": "LICENSE",
+      "size": 1066,
+      "sha256": "f506dcf1fda47bcb21285a6aa04f479df8dfe198b30d8aa78e50ded6f931a5d5"
+    },
+    {
+      "path": "README.md",
+      "size": 11485,
+      "sha256": "d6dbc0c7a8e67a535b92cdb2109f744ffbe34ef16616092684283acc295b6386"
+    },
+    {
+      "path": "Trainer.py",
+      "size": 260594,
+      "sha256": "6617af37bda30e4d78108adea3a79811f67de2d382b909f58d106abfbefce3f7"
+    },
+    {
+      "path": "analysis/diversity.py",
+      "size": 13939,
+      "sha256": "e2b0568e4ccc95299f7106727c3212f95bf1ede424536c45a4464edbb77dfb12"
+    },
+    {
+      "path": "analysis/grid_search.py",
+      "size": 11044,
+      "sha256": "8ee25c0cb4b067c60b7dd2cf012843e8aa15313ba6acd83163894e96679a53f9"
+    },
+    {
+      "path": "analysis/similarity.py",
+      "size": 45178,
+      "sha256": "c59bcaa56d84f7502c222df0548ad64c11a58bf1fb99720370d6f9600f8879e5"
+    },
+    {
+      "path": "baselines/HGS_baseline.py",
+      "size": 12763,
+      "sha256": "ae49cd3a8d9f067bd647da8735ba5f7183669fce807d7f40d6a6a958e28a4ca1"
+    },
+    {
+      "path": "baselines/HGS_pyvrp_baseline.py",
+      "size": 10726,
+      "sha256": "7a75f4d9dc59b17865a1cb4763a787e86c5ae2050113cd3a2a26bf624c0c8937"
+    },
+    {
+      "path": "baselines/LKH_baseline.py",
+      "size": 26661,
+      "sha256": "e1063fcb1688b5693d8f208308ed5f08a97fce2d77008345a4417fbdaebd78b3"
+    },
+    {
+      "path": "baselines/OR-Tools_baseline.py",
+      "size": 27426,
+      "sha256": "5dad539d6ffeab1f66522edc54858f4c749e4079017eaf1e7fd84ca4bcde01b2"
+    },
+    {
+      "path": "baselines/greedy_parallel.py",
+      "size": 8738,
+      "sha256": "a22a9cb050f796d3d49e69b351b09750e4a4bf53e5934e74d8206c35a4be4bf4"
+    },
+    {
+      "path": "data/CVRP/cvrp100_uniform.pkl",
+      "size": 3145439,
+      "sha256": "4337ecc98fb2b4487b4e3db6bd3cc675850c69b2294c7be9a0ea01b57b618697"
+    },
+    {
+      "path": "data/CVRP/cvrp200_uniform.pkl",
+      "size": 6245871,
+      "sha256": "a348d4bb5d9f66a8f41475f4643b3184212572f87debdd3180d8b22642f52c0d"
+    },
+    {
+      "path": "data/CVRP/cvrp50_uniform.pkl",
+      "size": 1595232,
+      "sha256": "06d61b4c689af495fa2a0d9d687f04b60dd2a60aaf1c276fc752ed3afc4e2e0a"
+    },
+    {
+      "path": "data/CVRP/hgs_cvrp100_uniform.pkl",
+      "size": 244156,
+      "sha256": "f1860cc1deced037c8d570578cd59f9dca778557c2c33724b3ed2d80ea07097c"
+    },
+    {
+      "path": "data/CVRP/hgs_cvrp50_uniform.pkl",
+      "size": 136671,
+      "sha256": "834d70f949bafd1034201fdfb0aff4e5a16c6447e9918ef780d4238e91098e68"
+    },
+    {
+      "path": "data/CVRP/hgs_pyvrp_cvrp100_uniform.pkl",
+      "size": 244226,
+      "sha256": "9c4147320dcfc649690e63d5e1fdba1e8ec60f1359cdcd384a47e1a6d23e8846"
+    },
+    {
+      "path": "data/CVRP/hgs_pyvrp_cvrp50_uniform.pkl",
+      "size": 136845,
+      "sha256": "df0c905aa25593e43b3d0b0af6ee75c738700f4168d2f0d6a0cdf6c597c7bc2a"
+    },
+    {
+      "path": "data/CVRP/lkh_cvrp100_uniform.pkl",
+      "size": 244100,
+      "sha256": "d134aee0fa3b34a0364fd86866ce560ce9ac9dcf61efa7aca53ccea9dee9e691"
+    },
+    {
+      "path": "data/CVRP/lkh_cvrp50_uniform.pkl",
+      "size": 136591,
+      "sha256": "3f7fb4f833dbffc5a954bb69c01bdff9ebdb282bab54d822c08dcf43fd41eb1f"
+    },
+    {
+      "path": "data/CVRP/or_tools_200s_cvrp50_uniform.pkl",
+      "size": 136707,
+      "sha256": "a6aa58a6f4a2ed6f6fae9f4d56f4d735958b6d607352625e2bcc8c8512df4e1f"
+    },
+    {
+      "path": "data/CVRP/or_tools_20s_cvrp50_uniform.pkl",
+      "size": 136727,
+      "sha256": "d2747f84732c6e2affc259888f8e80f84543eb7408bd03509e22dcd8ca12591e"
+    },
+    {
+      "path": "data/CVRP/or_tools_400s_cvrp100_uniform.pkl",
+      "size": 244254,
+      "sha256": "c8f1e0563ad0c773c892be91c936d95ee80d1a7d533a5341b6b9b56c95866c68"
+    },
+    {
+      "path": "data/CVRP/or_tools_40s_cvrp100_uniform.pkl",
+      "size": 244240,
+      "sha256": "72f7f6361668e9da930a2a337911db44efb0c29a34813ee564b115c57b923b55"
+    },
+    {
+      "path": "data/CVRPBLTW/or_tools_1200s_vrpbltw500_uniform.pkl",
+      "size": 181303,
+      "sha256": "f744b072dafbf0dc6f3f7ab57161134893e128de03ff1100573004499cb30982"
+    },
+    {
+      "path": "data/CVRPBLTW/or_tools_200s_vrpbltw50_uniform.pkl",
+      "size": 142663,
+      "sha256": "2269ffc9eb7a3aaf046a1f1b6fe0f8e9915eadba495a201b23aa8d340b896879"
+    },
+    {
+      "path": "data/CVRPBLTW/or_tools_20s_vrpbltw50_uniform.pkl",
+      "size": 142997,
+      "sha256": "eefe6313fdb2400c34d62c9e3036aa11324de1a7a2236fecf86d0f5ca5b9bc8f"
+    },
+    {
+      "path": "data/CVRPBLTW/or_tools_400s_vrpbltw100_uniform.pkl",
+      "size": 257858,
+      "sha256": "7a6bfaaa7abcccd86deed92261caf4e19a9fcd4a6f5d4b7025f312a17b1ea286"
+    },
+    {
+      "path": "data/CVRPBLTW/or_tools_40s_vrpbltw100_uniform.pkl",
+      "size": 258534,
+      "sha256": "f845c8734e912f5281c37b2e9b63fd6ae35677da815cb94c1ed073861297f1cc"
+    },
+    {
+      "path": "data/CVRPBLTW/or_tools_800s_vrpbltw200_uniform.pkl",
+      "size": 62469,
+      "sha256": "d0d2b4f6f0c54f669fca94ae6b8852c241458f54f6519308954b4caa0ab53306"
+    },
+    {
+      "path": "data/CVRPBLTW/vrpbltw100_uniform.pkl",
+      "size": 5866817,
+      "sha256": "3bfaff1599a53558b859a8828768869886e3314ab9d5bd45efb08c51b0b0b655"
+    },
+    {
+      "path": "data/CVRPBLTW/vrpbltw200_uniform.pkl",
+      "size": 1493462,
+      "sha256": "c4ee492d3b1de48c74adbfeb84b4464bdf4e7f93cb0dd372bc3fdb7b8fa3fc40"
+    },
+    {
+      "path": "data/CVRPBLTW/vrpbltw500_uniform.pkl",
+      "size": 3720968,
+      "sha256": "fafdfc95d22bd997172cf7238d771acbc76dfec94fe4e338ace14069558c1c4a"
+    },
+    {
+      "path": "data/CVRPBLTW/vrpbltw50_uniform.pkl",
+      "size": 2966421,
+      "sha256": "9d1775e14c8c52ca87c57024121e4f1f58382b303039df783fa786ccc76f3ce7"
+    },
+    {
+      "path": "data/SOP/lkh_sop50_uniform_variant1.pkl",
+      "size": 1250291,
+      "sha256": "c9a8ab8bfe54b59591dbc5e185a44d32af6fa388e76e8af0a71234a7bc4bfa29"
+    },
+    {
+      "path": "data/SOP/lkh_sop50_uniform_variant2.pkl",
+      "size": 1250291,
+      "sha256": "cc6ff1fd999fd9a802044422afb2bd0b515c11d75ce62a93a8706efcac8d7a0c"
+    },
+    {
+      "path": "data/SOP/sop50_uniform_variant1.pkl.gz",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "data/SOP/sop50_uniform_variant2.pkl.gz",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "data/TSPDL/lkh_tspdl100_hard.pkl",
+      "size": 2230425,
+      "sha256": "2d379fd88cbb564463b5dc582bc54c80f610fe12297de246e93d5d7284988227"
+    },
+    {
+      "path": "data/TSPDL/lkh_tspdl50_hard.pkl",
+      "size": 1230281,
+      "sha256": "281f6e37fbc660c00190efdd9e2c84ba83ef1e6a0e3e423b6966747b7713416a"
+    },
+    {
+      "path": "data/TSPDL/tspdl100_hard.pkl",
+      "size": 40145542,
+      "sha256": "ef6ff1f3a20c60ec0de61b4a187cf5bdb5fcbb0fbf24106a8ad4e9269276aaa8"
+    },
+    {
+      "path": "data/TSPDL/tspdl50_hard.pkl",
+      "size": 20142797,
+      "sha256": "58e32d6c1719295ac82c47ff3001aeb001bd98e7deebdb5d8d4fee6530a88b69"
+    },
+    {
+      "path": "data/TSPTW/lkh_tsptw100_easy.pkl",
+      "size": 2230425,
+      "sha256": "e368c8b99900a6fc9347f6f74e0669d9fa7001a8cf7f76173579d400867ac444"
+    },
+    {
+      "path": "data/TSPTW/lkh_tsptw100_hard.pkl",
+      "size": 2230425,
+      "sha256": "6fbccc8cf04a1a30b9bbbf421b91b3f6598030e31b582a46050bdd4a043b3b91"
+    },
+    {
+      "path": "data/TSPTW/lkh_tsptw100_medium.pkl",
+      "size": 2230425,
+      "sha256": "ec71b46b35797c8a58be852915fc77110d5b47c37d896f3584c69c68b3db0e8f"
+    },
+    {
+      "path": "data/TSPTW/lkh_tsptw200_hard.pkl",
+      "size": 54245,
+      "sha256": "b7a5d9ad1873bb3fab8947a0862cefacb9742854191b965bcc7673366bb150ea"
+    },
+    {
+      "path": "data/TSPTW/lkh_tsptw500_hard.pkl",
+      "size": 162295,
+      "sha256": "26c6e16af50fe28453bf1958ea20a4041a58a80e1e4fa0ae34c4814ec735d453"
+    },
+    {
+      "path": "data/TSPTW/lkh_tsptw50_easy.pkl",
+      "size": 1230281,
+      "sha256": "64c0f9a3c6f79913285eb4079fab41ba21f162bb961b470082d87071c52968fb"
+    },
+    {
+      "path": "data/TSPTW/lkh_tsptw50_hard.pkl",
+      "size": 1234572,
+      "sha256": "bd7f0722949a9df359762ae388ec1acef83e3473f0405e6b18a0574629599c2e"
+    },
+    {
+      "path": "data/TSPTW/lkh_tsptw50_medium.pkl",
+      "size": 1230281,
+      "sha256": "c3e906925431572c168eee663e1f9c8fca6d8404b66b45075f3c996e4c498f79"
+    },
+    {
+      "path": "data/TSPTW/tsptw100_easy.pkl",
+      "size": 37138865,
+      "sha256": "05357ea2d2bc4d8e2383d4d6f405945c82b7c3ad09b7d3272a1e8525dbad00da"
+    },
+    {
+      "path": "data/TSPTW/tsptw100_hard.pkl",
+      "size": 49196784,
+      "sha256": "b46bbd1962d557edf2e9405009ecff7e5a5590f25681e396a7667973c84304f7"
+    },
+    {
+      "path": "data/TSPTW/tsptw100_medium.pkl",
+      "size": 37138865,
+      "sha256": "949a2e7258bc46433aa836230de61b232390e5dd83daf8b2f10ed5f0a5f9bb1b"
+    },
+    {
+      "path": "data/TSPTW/tsptw200_hard.pkl",
+      "size": 1257019,
+      "sha256": "8f2f21a026a4ecd0b9b91d2641904eff281e47f5039191535ccf3a1d747db183"
+    },
+    {
+      "path": "data/TSPTW/tsptw500_hard.pkl",
+      "size": 3138871,
+      "sha256": "8583cb3b332d49e0cf16053759ab2461f7810e8b29a9ba133e263ec3b984b573"
+    },
+    {
+      "path": "data/TSPTW/tsptw50_easy.pkl",
+      "size": 18636991,
+      "sha256": "15412c63f91bbea8457e93a1c3275fb57b84dd31d076fda279a50b1807787d4e"
+    },
+    {
+      "path": "data/TSPTW/tsptw50_hard.pkl",
+      "size": 24693418,
+      "sha256": "e8fb50d07692785d0e62a5f80bebcd602c01051e81640718bae783c395f33882"
+    },
+    {
+      "path": "data/TSPTW/tsptw50_medium.pkl",
+      "size": 18636991,
+      "sha256": "65592f7e3bf5a218a82765d7c06bf732553716ff6376b870e6d0670a75d80a7b"
+    },
+    {
+      "path": "envs/CVRPEnv.py",
+      "size": 40605,
+      "sha256": "865d6aede8db83f4e3e785079541acd308cbd0796d3a936af4c58c49d50fae6d"
+    },
+    {
+      "path": "envs/SOPEnv.py",
+      "size": 44790,
+      "sha256": "1a5fafcc467e872b227e79501dbd0a07ab0ea116e6bb0674e4caa1a2145b7061"
+    },
+    {
+      "path": "envs/TSPDLEnv.py",
+      "size": 37140,
+      "sha256": "9673b822b123560ac6dfdd12c1c0cc3c11ba1c9bbe05659706d30992d7ccfbed"
+    },
+    {
+      "path": "envs/TSPTWEnv.py",
+      "size": 64979,
+      "sha256": "a9dd6dc7bf2bcc65fbb94e1787860233a8ee34709ce77d29c4cd1b959f1e331b"
+    },
+    {
+      "path": "envs/VRPBLTWEnv.py",
+      "size": 53026,
+      "sha256": "8a06818bb6a811a2fdf8010c2e5f2d7bb9eacc0a3642d3eafe21dd0de84a01c5"
+    },
+    {
+      "path": "envs/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "generate_data.py",
+      "size": 3435,
+      "sha256": "1f4b87e924845b586298e9afafc02454fc552421b47009c56a991dc5ea0c98ad"
+    },
+    {
+      "path": "models/SINGLEModel.py",
+      "size": 99847,
+      "sha256": "d3eaeda808833e21ec3d8985f6eef4d61fdeacc8a7183da3bfe2b5990841dcea"
+    },
+    {
+      "path": "models/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "plot/overall.png",
+      "size": 1363887,
+      "sha256": "53318ccd3ee38e18bf669507711956e6964969b71ab1ce34e57d90189b9861df"
+    },
+    {
+      "path": "pretrained/CVRP/CaR-POMO_100/checkpoint.pt",
+      "size": 6603782,
+      "sha256": "d5b807a6fd892e21b8bc117ca9f63acdca098c2139c274056e48e0c5892bae2e"
+    },
+    {
+      "path": "pretrained/CVRP/CaR-POMO_50/checkpoint.pt",
+      "size": 6603782,
+      "sha256": "9058f5acfb9e4465b2a67c93e0fce3c85548f012172de8d6f224a665c1904f9c"
+    },
+    {
+      "path": "pretrained/CVRPBLTW/CaR-kopt_100/checkpoint.pt",
+      "size": 6618118,
+      "sha256": "ef6f9b28efc7c633dd5ca9eacd3cf59ea7a10c1750f0c50526e731eb017d44be"
+    },
+    {
+      "path": "pretrained/CVRPBLTW/CaR-kopt_50/checkpoint.pt",
+      "size": 6618118,
+      "sha256": "f13a031a77cd46e2dfd5bad7343872bef5d4f9018cfcc2190b544dee45096f4d"
+    },
+    {
+      "path": "pretrained/CVRPBLTW/CaR-rr_100/checkpoint.pt",
+      "size": 6939971,
+      "sha256": "9901bd08a6a97ec94b0372e49338f0698c91f064f0532099028f90ebde0351bf"
+    },
+    {
+      "path": "pretrained/CVRPBLTW/CaR-rr_50/checkpoint.pt",
+      "size": 6939971,
+      "sha256": "7de8a22d148d951e9113d8d6007f7d9eadc171449651ab6738be790f4170a16c"
+    },
+    {
+      "path": "pretrained/SOP/Variant1/checkpoint.pt",
+      "size": 6922945,
+      "sha256": "5ef4d46da92ec40ae33dd546d305422a2e036c9f187ef6adf560252c5d3be093"
+    },
+    {
+      "path": "pretrained/SOP/Variant2/checkpoint.pt",
+      "size": 6922945,
+      "sha256": "18d6866cb3baafdb171b3f9529647084acad13fc97c8b8d8f7d7a2091c9bb124"
+    },
+    {
+      "path": "pretrained/TSPDL/CaR-PIP_50_hard/checkpoint.pt",
+      "size": 6599556,
+      "sha256": "b3fb19163c74a6214d0702909b69a229d5caa845cecbf0599fb027a926e736d9"
+    },
+    {
+      "path": "pretrained/TSPTW/CaR-PIP_100_hard/checkpoint.pt",
+      "size": 6599556,
+      "sha256": "28ba59014e9d85c03ba372c49fe75a14e810c82706f0e407e0a9217fc7eaedbf"
+    },
+    {
+      "path": "pretrained/TSPTW/CaR-PIP_50_hard/checkpoint.pt",
+      "size": 6599556,
+      "sha256": "c3fa1dfe214bd822168c252f68257220a0cb48b969aac3fe31679edffcd1bfb3"
+    },
+    {
+      "path": "pretrained/TSPTW/CaR-POMO_100_hard/checkpoint.pt",
+      "size": 6599556,
+      "sha256": "9798700bf2a092317eb504d9d3d9e86568b2849733cee0d8092d1f0ad2c611fd"
+    },
+    {
+      "path": "pretrained/TSPTW/CaR-POMO_50_hard/checkpoint.pt",
+      "size": 6599556,
+      "sha256": "a85be08b0cdc2c7eae08db838d4f295b7a3f493773293db7163659f1aa5b4a80"
+    },
+    {
+      "path": "test.py",
+      "size": 30681,
+      "sha256": "24750aa59c1382273c648ee179d2a282668112357fe9a4ed269103267101c46e"
+    },
+    {
+      "path": "train.py",
+      "size": 28575,
+      "sha256": "c94f22ae77c33085605bda5c73e4bb027f010fa04e097c572ba6fce5e8d50d62"
+    },
+    {
+      "path": "utils.py",
+      "size": 53737,
+      "sha256": "272af01601a38155e8d213f961d150a079b5d304d29a86be3276f49f42291550"
+    }
+  ],
+  "license_files": [
+    "LICENSE"
+  ],
+  "source_executed": false,
+  "status": "DOWNLOADED",
+  "pin_method": "known historical pin or public git ls-remote; REST unavailable"
+}

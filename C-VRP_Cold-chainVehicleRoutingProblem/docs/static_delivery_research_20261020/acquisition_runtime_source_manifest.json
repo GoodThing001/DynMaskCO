@@ -1,0 +1,1692 @@
+{
+  "name": "PyVRP-0.14.0",
+  "repo": "PyVRP/PyVRP",
+  "commit": "5d9776a954b810bdb3fe71d47b1e7de7cffe90d2",
+  "url": "https://codeload.github.com/PyVRP/PyVRP/zip/5d9776a954b810bdb3fe71d47b1e7de7cffe90d2",
+  "archive_sha256": "96db8270ba76228e2629df334be192c856d21dc81c2232c64701a086afffea70",
+  "archive_bytes": 896377,
+  "files": [
+    {
+      "path": ".clang-format",
+      "size": 647,
+      "sha256": "c2cc2a1bd8b645545e7e9df7d822e1922be4f5c1f26b14d110921dc5caf556ff"
+    },
+    {
+      "path": ".devcontainer/.clang-format",
+      "size": 40,
+      "sha256": "b31f421733899646b1bafbeb8ab3dda7391a50169ecac50f16ce7f6abd80409a"
+    },
+    {
+      "path": ".devcontainer/Dockerfile",
+      "size": 408,
+      "sha256": "83b2a4e1d263970a9510dc8f68771c9c2223ac1ec76fad6ea732d9a488296c60"
+    },
+    {
+      "path": ".devcontainer/devcontainer.json",
+      "size": 595,
+      "sha256": "58987f1f03f6a3c4c654a249c15bc08dd023ee136e8f4f7a92b2017962db7d9a"
+    },
+    {
+      "path": ".devcontainer/onCreate.sh",
+      "size": 114,
+      "sha256": "a2c049b98e0d66c6e46dc25f5fe54168af237a8b4551641f11d54d198aeae39b"
+    },
+    {
+      "path": ".github/CODE_OF_CONDUCT.md",
+      "size": 5953,
+      "sha256": "5dfbbead05d0f3beda11ee7438bd8203c52306c24510439601287ec89541cb8f"
+    },
+    {
+      "path": ".github/DISCUSSION_TEMPLATE/q-a.yml",
+      "size": 2550,
+      "sha256": "0aa417e3b65374b8d0f329cb68a05b3ecd49c4a7e502f3eef78602c1b5f0e0cb"
+    },
+    {
+      "path": ".github/FUNDING.yml",
+      "size": 14,
+      "sha256": "ce6b66369f48a6870f6d1c0f817ea518e5f0ee037986b2fc16102c6daa8064cb"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/BUG_REPORT.md",
+      "size": 1250,
+      "sha256": "c3e89bff16fe567a6bf479dd7e9cf5e1e2d721989d11c6ec81c18fef9d06a80a"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/FEATURE_REQUEST.md",
+      "size": 630,
+      "sha256": "ca9392add9549e608d6882df0a9a98d0f7ae5648848c241cfac3200ada25f998"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "size": 1056,
+      "sha256": "9ba6b3c9ece74853504a5397d7d8672d843bd5b5a2b4ee97783f1d3021cd545b"
+    },
+    {
+      "path": ".github/codecov.yml",
+      "size": 78,
+      "sha256": "b0a565d1fda406c5bc18682152c18ce01131078f009a9c6c6228c1745113d33b"
+    },
+    {
+      "path": ".github/workflows/CD.yml",
+      "size": 2144,
+      "sha256": "d80f153c28d492e11ed1258a19732fdfb4f6e869b003f0cf64b07d1f95497983"
+    },
+    {
+      "path": ".github/workflows/CI.yml",
+      "size": 5012,
+      "sha256": "8bd21ba1bc41adc0572e14f95700b6b649b2850bfa29b11261391a2cfe2bafd4"
+    },
+    {
+      "path": ".github/workflows/CodSpeed.yml",
+      "size": 2509,
+      "sha256": "03bf46ef4e2469722bd65f9702b53d986974326f45d0e017bf2798e51ee44341"
+    },
+    {
+      "path": ".github/workflows/DOC.yml",
+      "size": 2429,
+      "sha256": "aa416f3c72c0367e8977b85aec8d2cc02db5aea1cdf5fb47090651266934316c"
+    },
+    {
+      "path": ".gitignore",
+      "size": 2244,
+      "sha256": "51dec05d76b9a00915f41599d335299a4f86bcaf35bced00cbd3903eebf4a6d7"
+    },
+    {
+      "path": ".gitmodules",
+      "size": 88,
+      "sha256": "6169c10c6025d9b33a3122f7b1b808b41343f09a4b433351df2c85ff73cce329"
+    },
+    {
+      "path": ".pre-commit-config.yaml",
+      "size": 649,
+      "sha256": "db574a96410da1c2c558e6ccd7f3eb0e2ff68ada2de616cc683a5397b3b9c3f3"
+    },
+    {
+      "path": ".readthedocs.yaml",
+      "size": 288,
+      "sha256": "4d454c3610dd897903d6546c81db491d95fca939ec0c8d49a774dc47c7335663"
+    },
+    {
+      "path": "CITATION.cff",
+      "size": 1155,
+      "sha256": "f553af3492b497780a1a46af6976d12fce35a0bcbf5193cd7b18fffd077b91ea"
+    },
+    {
+      "path": "LICENSE.md",
+      "size": 1172,
+      "sha256": "d9484b4905b1479240a99cdbe96b4f34d9a2c17347000d961819f8b177f3365b"
+    },
+    {
+      "path": "README.md",
+      "size": 5621,
+      "sha256": "f6817494074b753dfce91764ee89b47b83832c47bbbc6f825a6e750735c0549c"
+    },
+    {
+      "path": "benchmarks/README.md",
+      "size": 170,
+      "sha256": "a21355b6aa1766aa86103e5b128eb8dd887ac9669819ca7551b06d5ce766a91e"
+    },
+    {
+      "path": "benchmarks/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "benchmarks/conftest.py",
+      "size": 799,
+      "sha256": "c8f60ab1ed82cba1b5518731a404afb7ac31bcf009daea4c0716e1f7f51fbb14"
+    },
+    {
+      "path": "benchmarks/search/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "benchmarks/search/test_LocalSearch.py",
+      "size": 1857,
+      "sha256": "c3f86876e0fcabf0c482de7a4a9079d2c423edd05d16c4ce266279e48c860af1"
+    },
+    {
+      "path": "benchmarks/test_solve.py",
+      "size": 395,
+      "sha256": "59a5b240728a8ffd2bfbcb035163b80c5f48cc503c2ec7176ececb2807664ebe"
+    },
+    {
+      "path": "buildtools/README.md",
+      "size": 147,
+      "sha256": "6168b980b0f2db843bfd5730a6f26a5f8015142e6a30bc63651757de727ed4a0"
+    },
+    {
+      "path": "buildtools/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "buildtools/build_extensions.py",
+      "size": 3531,
+      "sha256": "8cd79f06ef87980936258385de7235a48cb181bd561154b7b49fa61abba9b3dd"
+    },
+    {
+      "path": "buildtools/build_wrapper.py",
+      "size": 630,
+      "sha256": "d72266c9f7a43b7291bd591ed58b46a7f823c892b876c305c6132c11d7c392a4"
+    },
+    {
+      "path": "buildtools/extract_docstrings.py",
+      "size": 3338,
+      "sha256": "a3f347d817dbcecd647a7be73bd2de1ef52fa52336229d096dbb53f9517ca322"
+    },
+    {
+      "path": "docs/Makefile",
+      "size": 638,
+      "sha256": "e33bf74d59130029ba24168a813112dd923d7044d780ce942db6645d93f56acf"
+    },
+    {
+      "path": "docs/README.md",
+      "size": 1236,
+      "sha256": "839b6a5b68c38ab1c890e84060ca22f4b0c965a099b531a010bd27176fee65e0"
+    },
+    {
+      "path": "docs/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/source/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/source/about/about.rst",
+      "size": 2192,
+      "sha256": "f12a685b6b005023d4c6a6437fdb496d9495af48e02432b82561440cf32881ba"
+    },
+    {
+      "path": "docs/source/about/citing.rst",
+      "size": 855,
+      "sha256": "608ecdc965f394de0d64e36aeb9c847079b1e369ce0fccc953b7a8ec4ebd8bcd"
+    },
+    {
+      "path": "docs/source/about/funding.rst",
+      "size": 931,
+      "sha256": "ef313ea3735aaf8fadb6fd17a109697012921535c9f7001857b71ae56e6b7677"
+    },
+    {
+      "path": "docs/source/about/licenses.rst",
+      "size": 2811,
+      "sha256": "2a978c9bedb7b581b1c8548b38dfaca71ae0670412fb953044a1fa431fa461ed"
+    },
+    {
+      "path": "docs/source/api/plotting.rst",
+      "size": 1124,
+      "sha256": "3c71c12c10c3f51f0835e5e00f01d7dc09f0651a6c44ceb006c92712c526d86e"
+    },
+    {
+      "path": "docs/source/api/pyvrp.rst",
+      "size": 2942,
+      "sha256": "a047b15bb9baabd8d1d1de76af91586790c75495e5afd4d558f879e087d0c597"
+    },
+    {
+      "path": "docs/source/api/search.rst",
+      "size": 3998,
+      "sha256": "592363377d9e69a90aedbf4691c43140b532fec0be6c6f1d88ab14e591c44952"
+    },
+    {
+      "path": "docs/source/api/stop.rst",
+      "size": 1082,
+      "sha256": "774e5ca0204316153fb89f7f140c6056710a8282b1bae6a0a17cfcc8aab5b566"
+    },
+    {
+      "path": "docs/source/assets/images/duration-client.excalidraw",
+      "size": 14646,
+      "sha256": "513d33d1cb0c9048a181fd9f5d7d70854eadb80c1529e4dd3d14a431e709ad76"
+    },
+    {
+      "path": "docs/source/assets/images/duration-client.svg",
+      "size": 15000,
+      "sha256": "32225b244d7b256eab3cc02e16b8f8c8be5068191490dda6027d9dc0b694b56e"
+    },
+    {
+      "path": "docs/source/assets/images/duration-shipment.excalidraw",
+      "size": 51524,
+      "sha256": "fdca1ca87d7d9b5036c88971d0ae3fe2ae6c9d29f2ea94de7ee775ba59881b4a"
+    },
+    {
+      "path": "docs/source/assets/images/duration-shipment.svg",
+      "size": 29958,
+      "sha256": "7a64c53d0b8a626b973fe962a582abb27e1a704707c8e550b0f526edcaa7d48f"
+    },
+    {
+      "path": "docs/source/assets/images/duration-vehicletype.excalidraw",
+      "size": 14936,
+      "sha256": "4ea3ca68a2099487d7410924ab27071aaa762d1954345cede88ad1e9592a1537"
+    },
+    {
+      "path": "docs/source/assets/images/duration-vehicletype.svg",
+      "size": 14866,
+      "sha256": "fe8d0cbc813a57f44f972b874109184c482fc4bb4710dd639c3a7c8745f78df6"
+    },
+    {
+      "path": "docs/source/assets/images/icon.svg",
+      "size": 1155,
+      "sha256": "d824cae061536d7b5ac0b3a71e275afe176574a0b8e9ebc3db3010722a3a6a9a"
+    },
+    {
+      "path": "docs/source/assets/images/introduction-to-vrp.svg",
+      "size": 7531,
+      "sha256": "acd4cb16620405d458b4aedac5731b476c6ce5a71b6317a9eb77352630a7a3aa"
+    },
+    {
+      "path": "docs/source/assets/images/logo.svg",
+      "size": 7308,
+      "sha256": "56c93d76fa8c6d5565a3c9fa59dc3c27acecb39aa713c150e854d230fef2a428"
+    },
+    {
+      "path": "docs/source/conf.py",
+      "size": 5033,
+      "sha256": "8e34dd79d5f323a6c65243ffb9a6d3e09a62a9074aefa621f428ff88789e6de2"
+    },
+    {
+      "path": "docs/source/dev/algorithm.rst",
+      "size": 2766,
+      "sha256": "e07c2880c40fd9eddb7bea558cc350284c7a52c71343d7062563b6267955e96a"
+    },
+    {
+      "path": "docs/source/dev/benchmarking.rst",
+      "size": 4333,
+      "sha256": "5a2af5cb93db7b51311593ab87ff833559a26d761f5c8c13c734a168be5c864b"
+    },
+    {
+      "path": "docs/source/dev/contributing.rst",
+      "size": 8846,
+      "sha256": "411d8b7a28f259884e47d1f3852928126000dbea7009eadc5d7e225bb5c4b9a1"
+    },
+    {
+      "path": "docs/source/dev/glossary.rst",
+      "size": 735,
+      "sha256": "53f804167426619e8e571a95fb10732df61abc80b50f0ae2c1d068283db5db87"
+    },
+    {
+      "path": "docs/source/dev/new_vrp_variants.rst",
+      "size": 6670,
+      "sha256": "468b7a277dfa418cb1535c86dd47415a19a3b7965566b08c636e790e3defdec2"
+    },
+    {
+      "path": "docs/source/dev/releasing.rst",
+      "size": 3174,
+      "sha256": "7af97355d24906075371505da20552b6aa76ae882f3dc5292730ae54f40d34c2"
+    },
+    {
+      "path": "docs/source/dev/supported_vrplib_fields.rst",
+      "size": 6710,
+      "sha256": "09e7df9c74565eb0420589834c5aadd004d101f2ab4aa10ee89923a4351dea9d"
+    },
+    {
+      "path": "docs/source/index.rst",
+      "size": 2650,
+      "sha256": "215433452da1f981876c8d731af7cc67bc45343c8a0fd5e5a76fe7941908e01d"
+    },
+    {
+      "path": "docs/source/setup/benchmarks.rst",
+      "size": 7088,
+      "sha256": "39a57a62e39800ec4a3e67e52f8c624687e7f0bafe32dc33ca57c3580489ce7e"
+    },
+    {
+      "path": "docs/source/setup/concepts.rst",
+      "size": 2938,
+      "sha256": "ae99c4090b2141112c15c77a2e8c0f023a8f252be2899679ba795736c8efaed2"
+    },
+    {
+      "path": "docs/source/setup/faq.rst",
+      "size": 3051,
+      "sha256": "4966e5360ea3693ee9d547a909d9536556a25b9e743d4bef3bc40ae49c724b40"
+    },
+    {
+      "path": "docs/source/setup/getting_help.rst",
+      "size": 2417,
+      "sha256": "4f2e9b43c23373692a2a41c757bfa8aebaab63ab9f1848831a227e25526cc6f4"
+    },
+    {
+      "path": "docs/source/setup/installation.rst",
+      "size": 1472,
+      "sha256": "b88000e939a269366a95271b7ecaff0b5122fe5d1ec7a569055f14852da4c02c"
+    },
+    {
+      "path": "docs/source/setup/why_pyvrp.rst",
+      "size": 7363,
+      "sha256": "4da72405b8bbd270dd50f17e876c8f88b04f5c68dd9ee04cb90ef7f5b74457af"
+    },
+    {
+      "path": "docs/source/versions.json",
+      "size": 1596,
+      "sha256": "6c41d25e77746cbef29f27bd7bd232f71bfd7d9ba97c025efb190df18855b292"
+    },
+    {
+      "path": "gcovr.cfg",
+      "size": 80,
+      "sha256": "2b4c605ad199185948ae7630038d8e689faad5530d59a0decacbcfd712b7ea60"
+    },
+    {
+      "path": "meson.build",
+      "size": 6310,
+      "sha256": "0fde2e2eabd4d7d40a81007886ffe08485addae358662d1ed62ed47de3b5aec7"
+    },
+    {
+      "path": "notebooks/.clang-format",
+      "size": 40,
+      "sha256": "b31f421733899646b1bafbeb8ab3dda7391a50169ecac50f16ce7f6abd80409a"
+    },
+    {
+      "path": "notebooks/README.md",
+      "size": 253,
+      "sha256": "d290ad3382b6c64fe59c3d3a3da59be2974f75278eee3074329bda7f5b1c9e27"
+    },
+    {
+      "path": "notebooks/data/RC208.sol",
+      "size": 347,
+      "sha256": "24012ab25ab2f5f15a16205af4e4a574979dd26da1a4330b30624536b50bc294"
+    },
+    {
+      "path": "notebooks/data/RC208.vrp",
+      "size": 2720,
+      "sha256": "ec70ed065a2bce0f00ead7b1dcff8afa38673ff0efcb14b91b0d17c000eea206"
+    },
+    {
+      "path": "notebooks/duration_constraints.ipynb",
+      "size": 11329,
+      "sha256": "1328eaa7d538091c33d264bd5182171b985bac885e14794dff4549d585a67290"
+    },
+    {
+      "path": "notebooks/load.ipynb",
+      "size": 7949,
+      "sha256": "1fe4ecce3093abe50482290d9f218f1ab23022109fcb65cbeff54b2bb3a7becd"
+    },
+    {
+      "path": "notebooks/mutually_exclusive_groups.ipynb",
+      "size": 4358,
+      "sha256": "39304bfd1ecf19c3e9386b83eff8f8b2b402ffc804a825f78eaf0866baca1287"
+    },
+    {
+      "path": "notebooks/optional_clients.ipynb",
+      "size": 5530,
+      "sha256": "8f529703d502c8c170b51cf6acfbdd89bd30f97a2eedab87d06a1e13ffc14ea2"
+    },
+    {
+      "path": "notebooks/profiles.ipynb",
+      "size": 5992,
+      "sha256": "5488783b1cf059a0762da5a83c5f1b07e67531c23706bb23904c8d4f1d935ed1"
+    },
+    {
+      "path": "notebooks/pyvrp_implementation.ipynb",
+      "size": 12883,
+      "sha256": "bcfe3cb22100f031d5dde5bee68f131ee3535ac18bf7e5159aa677f30678b5bf"
+    },
+    {
+      "path": "notebooks/quick_start.ipynb",
+      "size": 13503,
+      "sha256": "faf5ac5bc72c71251826bfb44632595a6e92167e8e6e057771051cfa2a03ffb4"
+    },
+    {
+      "path": "notebooks/reloading.ipynb",
+      "size": 4345,
+      "sha256": "449dfc59793e926f45a235de21ff6d9cf2b12ad3cdec4db2fcbaf6cbadd04c3c"
+    },
+    {
+      "path": "notebooks/shipments.ipynb",
+      "size": 4604,
+      "sha256": "763c7871302def73a4802a0025ba3066ad8be4366d9a1c0eef39b952289d243c"
+    },
+    {
+      "path": "pyproject.toml",
+      "size": 4652,
+      "sha256": "3673370bde64c1581a5f63cc842a10b7b0a62d687950216fb5cc11e41a6c7978"
+    },
+    {
+      "path": "pyvrp/IteratedLocalSearch.py",
+      "size": 9037,
+      "sha256": "f7ad6008fb6b7e8df8373a2053fdc955103e7ea72dcf6d9ffed6391e81bc52bb"
+    },
+    {
+      "path": "pyvrp/Model.py",
+      "size": 20622,
+      "sha256": "c6cd5062e5bdf03de642ef178ed3d74f07bf19de223ae9c0566086baf812e608"
+    },
+    {
+      "path": "pyvrp/PenaltyManager.py",
+      "size": 9809,
+      "sha256": "2f691640bb5a785920df1077653d2bf406bc0350594913f9fe8378c127a3e6d1"
+    },
+    {
+      "path": "pyvrp/ProgressPrinter.py",
+      "size": 4549,
+      "sha256": "de201ab174e09c35a77683e8ffaa87c8c824e7edc35ed67d20212a7f9bf56e29"
+    },
+    {
+      "path": "pyvrp/Result.py",
+      "size": 2567,
+      "sha256": "8ffc725e38fb8909c3a353c9cacbbb51ead81078bcce12fc6ef4664c171512dd"
+    },
+    {
+      "path": "pyvrp/RingBuffer.py",
+      "size": 1343,
+      "sha256": "00a6f90ed687ab3582233e0ec2a4a74e587fc3e3f6bbf011a5baa17c9ced4874"
+    },
+    {
+      "path": "pyvrp/Statistics.py",
+      "size": 5182,
+      "sha256": "bf978251926ce06ffe40b08d19f5ae6efd1d5f7cd64f409af40632a355bdd6cd"
+    },
+    {
+      "path": "pyvrp/__init__.py",
+      "size": 2016,
+      "sha256": "a86be28b0e5a0e40a6e415734fc2a6f7e81007a5a799767cec86c18bb9d70591"
+    },
+    {
+      "path": "pyvrp/_pyvrp.pyi",
+      "size": 16304,
+      "sha256": "b85e6dee7a9f7d79196edc8d9a8b23fb66dc0754c2c6d8640a64ff33155928ee"
+    },
+    {
+      "path": "pyvrp/cli.py",
+      "size": 9160,
+      "sha256": "65e79c0c5fd77f612d0ccc4443eb89e53712963b09ff865b7835a177b79561e0"
+    },
+    {
+      "path": "pyvrp/constants.py",
+      "size": 355,
+      "sha256": "7d44d266fedaa80da76e763b073c5cfb4d8acef1c1becf5189a7f8eedb79251d"
+    },
+    {
+      "path": "pyvrp/cpp/Activity.cpp",
+      "size": 1407,
+      "sha256": "86d335e0cce259142ca0d0fbf3a70b33c994754e134226bad643bccb02462b2c"
+    },
+    {
+      "path": "pyvrp/cpp/Activity.h",
+      "size": 2887,
+      "sha256": "e9d1ac4a3bbc3e86e9cd57bda1e0bb7f2f29eab7e1767c340d09ffc327b4a257"
+    },
+    {
+      "path": "pyvrp/cpp/Client.cpp",
+      "size": 3908,
+      "sha256": "247049f7c3e73a8e3622d095d94ef928da583520b72eb0774abbf1180e1c3a48"
+    },
+    {
+      "path": "pyvrp/cpp/Client.h",
+      "size": 4386,
+      "sha256": "d43b8c0077fbf61e85e4956343140b7506606f4dafa734f4025c1955b3872bfa"
+    },
+    {
+      "path": "pyvrp/cpp/ClientGroup.cpp",
+      "size": 2190,
+      "sha256": "d430a7b7e5b7d8301a1f6536e93822537d65171f90c2ce399ce4510bb69e523c"
+    },
+    {
+      "path": "pyvrp/cpp/ClientGroup.h",
+      "size": 2225,
+      "sha256": "3aa507d3d5e4268ca0ea3d3ec98de070b08452d3e75054467122506e717dece3"
+    },
+    {
+      "path": "pyvrp/cpp/CostEvaluator.cpp",
+      "size": 680,
+      "sha256": "9d0b7e644ece3243f41127efb38bb72ef815756f65a4e8f7ce4dfc4df7896fc6"
+    },
+    {
+      "path": "pyvrp/cpp/CostEvaluator.h",
+      "size": 10726,
+      "sha256": "4bd33e4a4367dbb4357cfa232f0e6d2bf630cf71332bf6db55b0edc5ca2bfb00"
+    },
+    {
+      "path": "pyvrp/cpp/Depot.cpp",
+      "size": 1994,
+      "sha256": "1dc66dc7fe10ba91ed073117e43f094a6a34b72d61e8b6863b5531e66767c548"
+    },
+    {
+      "path": "pyvrp/cpp/Depot.h",
+      "size": 1820,
+      "sha256": "89fec309c03362de4fa7440aa29d4ced8b301188c48bdc24d15e12d57a66626d"
+    },
+    {
+      "path": "pyvrp/cpp/DurationSegment.cpp",
+      "size": 1880,
+      "sha256": "3c99f2390ac8d9e78389b9feb509684611cf96bbab475468fa3b836d5a677e07"
+    },
+    {
+      "path": "pyvrp/cpp/DurationSegment.h",
+      "size": 12471,
+      "sha256": "af678290b63d43170b3fdd3618e8ba439710b1d588189e7e4e8d89b355411a5d"
+    },
+    {
+      "path": "pyvrp/cpp/DynamicBitset.cpp",
+      "size": 3159,
+      "sha256": "a0e48d0b22e6943973cadc50a56de5292f08fb2c7d5e700f777d9083d3ee90aa"
+    },
+    {
+      "path": "pyvrp/cpp/DynamicBitset.h",
+      "size": 2001,
+      "sha256": "b0dba4302b5a15b8212e743bbeda3044e9bad14c01b540d99222471b8b2550dc"
+    },
+    {
+      "path": "pyvrp/cpp/LoadSegment.cpp",
+      "size": 1649,
+      "sha256": "0052ad6ba41a46774a4c49d03f99dcca2aa0e523d1101499d0f436d64c4c2afc"
+    },
+    {
+      "path": "pyvrp/cpp/LoadSegment.h",
+      "size": 4788,
+      "sha256": "3deeaf23eb064efd36e629ab76d998d92c07b24d327be586327704d0406a1316"
+    },
+    {
+      "path": "pyvrp/cpp/Location.cpp",
+      "size": 1181,
+      "sha256": "938df391c5e007b5a2bd2e589c00b46a9a1e04585c6787d267ab97b8b975741b"
+    },
+    {
+      "path": "pyvrp/cpp/Location.h",
+      "size": 1184,
+      "sha256": "9ddacd2a3aa0b737b9d348c8b00e6be5c6596b056abdeb1c302be526e59e2a2e"
+    },
+    {
+      "path": "pyvrp/cpp/Matrix.h",
+      "size": 3179,
+      "sha256": "454afc800c7d0a36446ca1a864e10b2a41736d614af2beb1e0280779a4cb4e82"
+    },
+    {
+      "path": "pyvrp/cpp/Measure.h",
+      "size": 7336,
+      "sha256": "6af4d977629b2711b6f688c6e17d93872c57dff35c900166ec38f35f9ea413da"
+    },
+    {
+      "path": "pyvrp/cpp/PiecewiseLinearFunction.h",
+      "size": 6194,
+      "sha256": "d426a429877978f8fba1ddec074f7a3d1b5f67f5e551d24a2efe09672a19621c"
+    },
+    {
+      "path": "pyvrp/cpp/ProblemData.cpp",
+      "size": 11541,
+      "sha256": "b3b6896f49f81f9721540c1ad264a47e96db56432586ac0df223d8b5119e52e0"
+    },
+    {
+      "path": "pyvrp/cpp/ProblemData.h",
+      "size": 11068,
+      "sha256": "a417340e62c849f9dcbc3ac1e5e653c8370e3289ef13bd17901b34f76f92a115"
+    },
+    {
+      "path": "pyvrp/cpp/README.md",
+      "size": 1652,
+      "sha256": "bdb23fb3ed2ecc01c7c78655c813aaa4dc5c0ca5173d76a4c4812b1bd96849ca"
+    },
+    {
+      "path": "pyvrp/cpp/RandomNumberGenerator.cpp",
+      "size": 917,
+      "sha256": "3162fbcd6014aec02f09182bd7dacd6d68bac29ed8cc7fdedd8f85af0c843ae7"
+    },
+    {
+      "path": "pyvrp/cpp/RandomNumberGenerator.h",
+      "size": 2930,
+      "sha256": "ace270469a44f1c1db8675455de392bf378d07b12290c6800c876f1713e40e6a"
+    },
+    {
+      "path": "pyvrp/cpp/Route.cpp",
+      "size": 19995,
+      "sha256": "176b5984ca4681f51969a8724cdfb5ab972c97a51e70e1eced23b3c07d63a03b"
+    },
+    {
+      "path": "pyvrp/cpp/Route.h",
+      "size": 10733,
+      "sha256": "4484f00aeeac9923ffe510c3c8272492f6f1512f5ed01deaa968184ab598efe1"
+    },
+    {
+      "path": "pyvrp/cpp/Shipment.cpp",
+      "size": 3814,
+      "sha256": "d8ff6a3d7c780e1687e28fb080e14df24d0ea2a10a5b1e47256520e53b2c81d8"
+    },
+    {
+      "path": "pyvrp/cpp/Shipment.h",
+      "size": 5246,
+      "sha256": "78ef752ecdae23f3ccc45eb941057d1174ecebbf56e6c9681b80b2b631b71124"
+    },
+    {
+      "path": "pyvrp/cpp/Solution.cpp",
+      "size": 14268,
+      "sha256": "309e022b964520cc84f3057a7911faa313c6f29d2fd148470ba0d6d288807dfd"
+    },
+    {
+      "path": "pyvrp/cpp/Solution.h",
+      "size": 9711,
+      "sha256": "c75c18cb46385117c202d8d6669228c94e9d1003e1269857f5d1addc0c8d69cd"
+    },
+    {
+      "path": "pyvrp/cpp/VehicleType.cpp",
+      "size": 9700,
+      "sha256": "c0deee6a9f7c7224b6b609bfb0ebca58511ff2e4f7bc2f9eb4ba34ecd05d6f29"
+    },
+    {
+      "path": "pyvrp/cpp/VehicleType.h",
+      "size": 9626,
+      "sha256": "4d185471b79a8fdcca717c78f084a6f3b802132f37369f204b08ce132aff9185"
+    },
+    {
+      "path": "pyvrp/cpp/bindings.cpp",
+      "size": 59181,
+      "sha256": "1f7f9d4eb40975bb181c9b1680654169c6fd2b328bfd7d6dfa8240e073e389e6"
+    },
+    {
+      "path": "pyvrp/cpp/bindings.h",
+      "size": 7309,
+      "sha256": "dcb5e02b96fbfde278730405ba4d239455690f73e69f968fc0ddb13ecedb4f66"
+    },
+    {
+      "path": "pyvrp/cpp/logging.h",
+      "size": 1732,
+      "sha256": "50fa7169ab61d8cba70a152b4f28b0f5aa23f395c54ad19d11627e9f47678452"
+    },
+    {
+      "path": "pyvrp/cpp/search/ClientSegment.h",
+      "size": 1493,
+      "sha256": "b0418ca8f87445d4fb79469d3fc5effc58557235e5a2f6c13e9053cf9a43aca4"
+    },
+    {
+      "path": "pyvrp/cpp/search/DeliverySegment.h",
+      "size": 1587,
+      "sha256": "47ab544dcab15f8840f10bc6f98c22283bc12b206135d68c49ebd6ca7fc6ec55"
+    },
+    {
+      "path": "pyvrp/cpp/search/DepotSegment.h",
+      "size": 1489,
+      "sha256": "fb321b270e806fb600bdd73f20f12098bca07b1d151b12075fa5d969196b712e"
+    },
+    {
+      "path": "pyvrp/cpp/search/InsertOptionalClient.cpp",
+      "size": 2163,
+      "sha256": "50d41f18c4fd83f7a7a4484215ad7fc28c0f42e733f8796b5090b5fa35d29306"
+    },
+    {
+      "path": "pyvrp/cpp/search/InsertOptionalClient.h",
+      "size": 888,
+      "sha256": "458c773c1eb52412edff01ad0b83b8287feb84aa8aae712217873041d1728ffb"
+    },
+    {
+      "path": "pyvrp/cpp/search/InsertOptionalShipment.cpp",
+      "size": 2490,
+      "sha256": "e34b184e3e451a55b66cc3f9f21378212231206e68c6aeea5fae5762cb8672c1"
+    },
+    {
+      "path": "pyvrp/cpp/search/InsertOptionalShipment.h",
+      "size": 1046,
+      "sha256": "d386b7dde902ce2eccdc139736668231e99cacf0732c34dff19501b0eca97250"
+    },
+    {
+      "path": "pyvrp/cpp/search/LocalSearch.cpp",
+      "size": 12964,
+      "sha256": "42bf77612d496e22569bc2eb50fe2c46e89a010652405724c3f428cb4bcc3f14"
+    },
+    {
+      "path": "pyvrp/cpp/search/LocalSearch.h",
+      "size": 4961,
+      "sha256": "d6213f92c2182e58802d2802a14e566097e76aceaa93cfc53216174647129616"
+    },
+    {
+      "path": "pyvrp/cpp/search/LocalSearchOperator.h",
+      "size": 2998,
+      "sha256": "48e26f863b4019438d6e09dcefe98d6a6ab5ffce0c9f93aff8255254a1538628"
+    },
+    {
+      "path": "pyvrp/cpp/search/PerturbationManager.cpp",
+      "size": 4851,
+      "sha256": "b7d4fbb219dafeec3bd1eb01675b7500f4d6ddea9e66b9698d9e8bcc7408c7a4"
+    },
+    {
+      "path": "pyvrp/cpp/search/PerturbationManager.h",
+      "size": 2334,
+      "sha256": "a83aa869c08740659bed4eef5280f343fafee9fdf3a25ae0f453510372c1fb45"
+    },
+    {
+      "path": "pyvrp/cpp/search/PickupSegment.h",
+      "size": 1563,
+      "sha256": "68d5c2608891cf38b0b4f1cbc036c84fc01426f2892cefb98d238c1a04661f24"
+    },
+    {
+      "path": "pyvrp/cpp/search/Relocate.h",
+      "size": 7057,
+      "sha256": "ca65649fb8c13b8466e34d575c0af2c1f0418e9c50053c20f5034854e723d261"
+    },
+    {
+      "path": "pyvrp/cpp/search/RelocateAlternative.cpp",
+      "size": 5565,
+      "sha256": "4cb65d0875c009d50dc94775c2a545c3edf992194ab6942bd1bba7d420246420"
+    },
+    {
+      "path": "pyvrp/cpp/search/RelocateAlternative.h",
+      "size": 1759,
+      "sha256": "4b007e1d88d3bd9aa3bffe10672682f7828d14fd853cc4a1ae08c8c5d493301a"
+    },
+    {
+      "path": "pyvrp/cpp/search/RelocateDelivery.cpp",
+      "size": 2063,
+      "sha256": "d5844d92ebda49e53770ad5e5ad88b28c1820a0a0c8afd83fc56ddc4de5e36d1"
+    },
+    {
+      "path": "pyvrp/cpp/search/RelocateDelivery.h",
+      "size": 933,
+      "sha256": "15ae98fe15a48363da735fe8aa7fd80a8c742d3e2f5dde6031f9d7b4989416f7"
+    },
+    {
+      "path": "pyvrp/cpp/search/RelocatePickup.cpp",
+      "size": 2071,
+      "sha256": "3a19455d77843fb8c4200f214e523b62e025603dd0800c01c1daf34d3d5df3ea"
+    },
+    {
+      "path": "pyvrp/cpp/search/RelocatePickup.h",
+      "size": 930,
+      "sha256": "adea6f3fbbfc0c8f181723a023d2a8cf9b01c7f2646d2a45689c94486d678747"
+    },
+    {
+      "path": "pyvrp/cpp/search/RelocateShipment.cpp",
+      "size": 4449,
+      "sha256": "074f8b55f059178139831e0548c65b3d4a711b57c8365887689fb7cd5e93c8e4"
+    },
+    {
+      "path": "pyvrp/cpp/search/RelocateShipment.h",
+      "size": 1219,
+      "sha256": "06104214f089d5b22883a8232a2fe7c83ab15e602d309f42fa28212d44fc75d1"
+    },
+    {
+      "path": "pyvrp/cpp/search/RelocateWithDepot.cpp",
+      "size": 7944,
+      "sha256": "c234d4afa10ae566f50e9d735467bf8992573c100f7dc8b1a1c3c4c454b635c8"
+    },
+    {
+      "path": "pyvrp/cpp/search/RelocateWithDepot.h",
+      "size": 2153,
+      "sha256": "a414aba1f421ccc5f4cd252901d00d0bcf85550e0b85644c43d6d071e2784417"
+    },
+    {
+      "path": "pyvrp/cpp/search/RemoveAdjacentDepot.cpp",
+      "size": 2089,
+      "sha256": "813726aacec6d22b4888921e06c78ba4a7103989b9422a6116d20a22006adc69"
+    },
+    {
+      "path": "pyvrp/cpp/search/RemoveAdjacentDepot.h",
+      "size": 821,
+      "sha256": "429944674d23e083b62f60c7ee9159a32bd97d1781a91f6c7af097dd1ef44fe6"
+    },
+    {
+      "path": "pyvrp/cpp/search/RemoveOptionalClient.cpp",
+      "size": 1880,
+      "sha256": "8efc1cac33d28da05f5dd510984f6d0b0fa74fc8fb1c2be00634c1f155141ad1"
+    },
+    {
+      "path": "pyvrp/cpp/search/RemoveOptionalClient.h",
+      "size": 714,
+      "sha256": "80d28b893f0477119df979c0851c3dd917f25549d4af8992148f92cecfbc148f"
+    },
+    {
+      "path": "pyvrp/cpp/search/RemoveOptionalShipment.cpp",
+      "size": 2011,
+      "sha256": "884eb10180ac71387e7aa549bf4158ec809c31f005e389e5445151b7366e4533"
+    },
+    {
+      "path": "pyvrp/cpp/search/RemoveOptionalShipment.h",
+      "size": 722,
+      "sha256": "de801786dedf9d399bb975e401697acbeadd4c36bf71e7609bca78d4e3c239c0"
+    },
+    {
+      "path": "pyvrp/cpp/search/ReplaceGroup.cpp",
+      "size": 1981,
+      "sha256": "a7dbe16fd0cab8b231026dbe23ff479bd08cd9281e27863c97429fad2b425bc0"
+    },
+    {
+      "path": "pyvrp/cpp/search/ReplaceGroup.h",
+      "size": 825,
+      "sha256": "65685bdbb8797db312032d5320aa9a05ee5dc7a8ac31473e9e96bd08c5efce08"
+    },
+    {
+      "path": "pyvrp/cpp/search/ReplaceOptionalClient.cpp",
+      "size": 1637,
+      "sha256": "543f8953b62d95ddf845400acc67d1746d08ad6ad32468a184379fd49f91437b"
+    },
+    {
+      "path": "pyvrp/cpp/search/ReplaceOptionalClient.h",
+      "size": 805,
+      "sha256": "b20d0734548047e521010d6d2a9d8c883f669ac5aa1314a717422cbb0dcce619"
+    },
+    {
+      "path": "pyvrp/cpp/search/ReplaceOptionalShipment.cpp",
+      "size": 2550,
+      "sha256": "ec9694987623b4ffdcf72d8b97d369743bf5ec1219ad87d7c4bc7dd1a7eddbc2"
+    },
+    {
+      "path": "pyvrp/cpp/search/ReplaceOptionalShipment.h",
+      "size": 813,
+      "sha256": "e4f084a9e27b6862a7bc307dbddd8133a1ca75189a31afb6324c0da8f2eb7487"
+    },
+    {
+      "path": "pyvrp/cpp/search/Route.cpp",
+      "size": 13623,
+      "sha256": "d28de8dbc39de04c4a6f617f1474f80ee370f70d83a7202c55839c08b519f15e"
+    },
+    {
+      "path": "pyvrp/cpp/search/Route.h",
+      "size": 40238,
+      "sha256": "fe80ec13de2c02ffb9a8059aa38f61cbe45c8a30f83d4406966343880a067518"
+    },
+    {
+      "path": "pyvrp/cpp/search/SearchSpace.cpp",
+      "size": 3778,
+      "sha256": "05e5f8c4e83b5b5f757d8db5432323fdda96a648097810c5dc72c832741515fe"
+    },
+    {
+      "path": "pyvrp/cpp/search/SearchSpace.h",
+      "size": 3582,
+      "sha256": "2a5cde7a8ca35024da24505bca33e2ad2b64e65aafd49f6d1d3484e04aba5276"
+    },
+    {
+      "path": "pyvrp/cpp/search/Solution.cpp",
+      "size": 13997,
+      "sha256": "de5b2009b7f74779dd9a7a84b8102d0cd2bf85a8b08fb7ade1ee1569c4c6f4ae"
+    },
+    {
+      "path": "pyvrp/cpp/search/Solution.h",
+      "size": 3625,
+      "sha256": "6e8a78f71803dcb27cbbc264f717941812d378caf0c6f54df34811b24605858f"
+    },
+    {
+      "path": "pyvrp/cpp/search/Swap.h",
+      "size": 6795,
+      "sha256": "a34118cf479e6aba528ce5259d280b968d44fac5d3218d27afa6098deffd0a35"
+    },
+    {
+      "path": "pyvrp/cpp/search/SwapTails.cpp",
+      "size": 4370,
+      "sha256": "763f11c8050efeebb308aadd02ce71d4129d3962b7c457a92a9af8907c9b1589"
+    },
+    {
+      "path": "pyvrp/cpp/search/SwapTails.h",
+      "size": 1000,
+      "sha256": "7f287b61b36a559362ebafb28dbcdbd2663faa1dd023e3f57543e6538e60511d"
+    },
+    {
+      "path": "pyvrp/cpp/search/bindings.cpp",
+      "size": 38502,
+      "sha256": "fea2e358080bf472de2bfd2c49b67228a1814645764c59422194282f0dcb5f5b"
+    },
+    {
+      "path": "pyvrp/cpp/search/neighbourhood.cpp",
+      "size": 11605,
+      "sha256": "a7514f564490be04d4662931d7bcb73cf8bb4bfb78168581a57eda3663e51641"
+    },
+    {
+      "path": "pyvrp/cpp/search/neighbourhood.h",
+      "size": 1688,
+      "sha256": "96340e36d701c5e68b22962e26bcd2d602c800e2fabdde28e05ca3af5e1fe943"
+    },
+    {
+      "path": "pyvrp/exceptions.py",
+      "size": 552,
+      "sha256": "daf758b92f6747c9e7c4f184c7e38181fee73e9c84ff5bbcad11133d474db6f1"
+    },
+    {
+      "path": "pyvrp/minimise_fleet.py",
+      "size": 3971,
+      "sha256": "e2431da616e5d17af40e799515446fca490ac27e4f67f82855465f63c5a1b8bf"
+    },
+    {
+      "path": "pyvrp/plotting/__init__.py",
+      "size": 558,
+      "sha256": "5b967ff9f4a8008745b4dda7ce97d7f98cee7bdb864773022ae52597e337ad50"
+    },
+    {
+      "path": "pyvrp/plotting/plot_coordinates.py",
+      "size": 1651,
+      "sha256": "0b93401abf9b6323c9b36d9c83b998ccd5babe3ac87a665d31b9399b5a558e55"
+    },
+    {
+      "path": "pyvrp/plotting/plot_demands.py",
+      "size": 1560,
+      "sha256": "0fa6afccdd5274a5f92c5126afaac6dec2e2f9229a58a19adccb1c8962e278d4"
+    },
+    {
+      "path": "pyvrp/plotting/plot_instance.py",
+      "size": 1097,
+      "sha256": "1f2a6d6f47ef9b6b202137399831c191b19565a2eb3d34c07a5a13f697a78deb"
+    },
+    {
+      "path": "pyvrp/plotting/plot_objectives.py",
+      "size": 1834,
+      "sha256": "29261f19fb7bf9ad4c41affcd72e331ccb2cf2563b8464116a56489ebe018984"
+    },
+    {
+      "path": "pyvrp/plotting/plot_result.py",
+      "size": 1398,
+      "sha256": "1ac3b47fa54c9758e1f505e2e81b165cf9e62f0fc42dfe30aec8af1ea93a536d"
+    },
+    {
+      "path": "pyvrp/plotting/plot_route_schedule.py",
+      "size": 5571,
+      "sha256": "01902cc8b327c546a1107b51c6088f09d67fa001556b1087619ea043165d449d"
+    },
+    {
+      "path": "pyvrp/plotting/plot_runtimes.py",
+      "size": 778,
+      "sha256": "1c78a197a7106e361f13dd1282542ba795841c8dfb7e7947d8217f79cdbc1407"
+    },
+    {
+      "path": "pyvrp/plotting/plot_solution.py",
+      "size": 4628,
+      "sha256": "895acae26d2bc23cee10f067814ab0d1df98eb93aac5d60a12ac5d0288454f83"
+    },
+    {
+      "path": "pyvrp/plotting/plot_time_windows.py",
+      "size": 926,
+      "sha256": "126011633f311338a29951571e45f1b86f2caef7d9c421599256345324d3c471"
+    },
+    {
+      "path": "pyvrp/py.typed",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "pyvrp/read.py",
+      "size": 22580,
+      "sha256": "ece8c2e7b279147a558e9c637701d65e42829326633b9b42e671b57f18f6101a"
+    },
+    {
+      "path": "pyvrp/search/LocalSearch.py",
+      "size": 3497,
+      "sha256": "e91818fe863aedcfed1cb9cd6fe064f5dc072bfc80a0f314b74399af54bd87d6"
+    },
+    {
+      "path": "pyvrp/search/SearchMethod.py",
+      "size": 993,
+      "sha256": "206482d71b8ffb9ecad94f9f26b826a9c5fee73b625544fc926cc4768292ac05"
+    },
+    {
+      "path": "pyvrp/search/__init__.py",
+      "size": 2181,
+      "sha256": "9ac30406f943b0db581df56603d752e11bfd87f210af043836d0e3fbab1825af"
+    },
+    {
+      "path": "pyvrp/search/_search.pyi",
+      "size": 9567,
+      "sha256": "65796258fd420512800b5c087603eb351f5750d01021fda6eb84ad29950fe965"
+    },
+    {
+      "path": "pyvrp/search/neighbourhood.py",
+      "size": 895,
+      "sha256": "bfa8c9354a460e0b17ad449591e9882ceb7349da79d6db0c18529c86fa802fce"
+    },
+    {
+      "path": "pyvrp/show_versions.py",
+      "size": 1082,
+      "sha256": "c965512448e897212497e04cd1431de6b5f04ac9d094aab85451fe7df4ac5fbd"
+    },
+    {
+      "path": "pyvrp/solve.py",
+      "size": 5449,
+      "sha256": "a179ebdac214422a8861a8da972fe3b6bf1a5e48ac8e29c8840c15d87a1daeb3"
+    },
+    {
+      "path": "pyvrp/stop/FirstFeasible.py",
+      "size": 527,
+      "sha256": "f414b783038a837a58a0a32e249e818ec85af2c08f0f7999e52f63d40ffea6dd"
+    },
+    {
+      "path": "pyvrp/stop/MaxIterations.py",
+      "size": 442,
+      "sha256": "f20d207a8648a8895cba80ec0f89e38356f261bb8a1e152e61b6db0287b4e460"
+    },
+    {
+      "path": "pyvrp/stop/MaxRuntime.py",
+      "size": 569,
+      "sha256": "f7c9427eb2519fcca726646c035bee8ea538bf6d3a0007f79180512edb9f0dc4"
+    },
+    {
+      "path": "pyvrp/stop/MultipleCriteria.py",
+      "size": 483,
+      "sha256": "702e631fb1939ba4db74835fbfc0d2dc7f381377334fb33ba1f6d254b136f1df"
+    },
+    {
+      "path": "pyvrp/stop/NoImprovement.py",
+      "size": 782,
+      "sha256": "8bc8e851ad27c9cdd1efd41f160b235c3152e9ee6fa9a7ac12dcfd7a3562d65c"
+    },
+    {
+      "path": "pyvrp/stop/StoppingCriterion.py",
+      "size": 559,
+      "sha256": "993fde87eddfd1a615920ce67aac57eb59319313b038b6c1790c0f33487b15f0"
+    },
+    {
+      "path": "pyvrp/stop/__init__.py",
+      "size": 360,
+      "sha256": "4310a18e8522f4fa5f2ea84b8fc3df454167bb5e2c9208e4a0c61f6234bbf73b"
+    },
+    {
+      "path": "subprojects/.gitignore",
+      "size": 14,
+      "sha256": "bc658b80976f6dda49bb60f23088110875cbeadc67fa01af451c9f97d3a1844a"
+    },
+    {
+      "path": "subprojects/pybind11.wrap",
+      "size": 608,
+      "sha256": "1b96b39eff89b6864f71573c8ea6d8cadbac9a4e9710481408ab49e7e9d46594"
+    },
+    {
+      "path": "subprojects/spdlog.wrap",
+      "size": 711,
+      "sha256": "c794ff0205b122ff260908eb434cc4594c55d00029bdac02d0781f8ce74df6a4"
+    },
+    {
+      "path": "tests/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/conftest.py",
+      "size": 5101,
+      "sha256": "e5d9b581df17db046833cdf5ad5fea7216411a0c2cd6d665f615806633289cc0"
+    },
+    {
+      "path": "tests/data/50pr439.gtsp",
+      "size": 8408,
+      "sha256": "65433efae35dc5ae6d9d90d9cac1ef83f4ee268b75c1593a6990c0a03b543d3e"
+    },
+    {
+      "path": "tests/data/C201R0.25.sol",
+      "size": 288,
+      "sha256": "bde85b28c892c94c8ad5c481b7648517501d0234a9f879d0b11e4f35b6ab4ed4"
+    },
+    {
+      "path": "tests/data/C201R0.25.vrp",
+      "size": 3022,
+      "sha256": "9eaf739d95972a099ccb70db728fbf8e316a077c8b60269ce7c1b6fbe7369e6c"
+    },
+    {
+      "path": "tests/data/CastDataSection2D.txt",
+      "size": 631,
+      "sha256": "33f4a1f1c4a841d20d4a8379ddd4c5b4c921ac5892a9d25d1303a33465fe548f"
+    },
+    {
+      "path": "tests/data/DepotNotOne.txt",
+      "size": 189,
+      "sha256": "8d895110e06ff9b55b4d74b8caa11d86275ab9059fc87f714f7a9a02d9d22eeb"
+    },
+    {
+      "path": "tests/data/DepotsNotLowerIndices.txt",
+      "size": 247,
+      "sha256": "c47e63a5dc1e3d45c7cfd5f56c5a86d1a4aaf2bc3d0e7b22fab4f3d36ca8f823"
+    },
+    {
+      "path": "tests/data/E-n22-k4.txt",
+      "size": 607,
+      "sha256": "64abec768ee250e25523efe16519de5caa321ccea98aa927fc7b626629b09899"
+    },
+    {
+      "path": "tests/data/EdgeWeightsNoExplicit.txt",
+      "size": 671,
+      "sha256": "1cc48920c86b21bda2ddeb01d522107dfdd8577bffdc99862cfc606fb83b978b"
+    },
+    {
+      "path": "tests/data/EdgeWeightsNotFullMatrix.txt",
+      "size": 668,
+      "sha256": "06df742356bc9e4db6c4519096ad3cbc369fd545cdf81c4d21579307e505b28f"
+    },
+    {
+      "path": "tests/data/MissingVehicleData.txt",
+      "size": 687,
+      "sha256": "8fdac35467eb5a92991e4a8eebf80afeaf2c5778f38d64af6ef27db6ae3488db"
+    },
+    {
+      "path": "tests/data/OkSmall.sol",
+      "size": 28,
+      "sha256": "1b45b40513b30c40fcb5a9e7e5a4db29fa31af121ea39d88d81b1b53023dcd2d"
+    },
+    {
+      "path": "tests/data/OkSmall.txt",
+      "size": 675,
+      "sha256": "d054d9abaad142cd596e985beee569c7a1d8a16001cb2fab47b721392e31ac86"
+    },
+    {
+      "path": "tests/data/OkSmallAllowedClients.txt",
+      "size": 793,
+      "sha256": "d3d80704472f246ffd0846deff7424e33feb3761725f5913b332315112aac1e9"
+    },
+    {
+      "path": "tests/data/OkSmallMaxDistance.txt",
+      "size": 509,
+      "sha256": "9b6079d090e961d95fc5dfcb59f6e7e4e7646dd469aebfa90ef8e913e01708cf"
+    },
+    {
+      "path": "tests/data/OkSmallMultipleDepots.sol",
+      "size": 36,
+      "sha256": "8dd864167fb8402cf2bda33d0bb0aa27c8fedc5a3f11f5bdc51e30e77f51adaf"
+    },
+    {
+      "path": "tests/data/OkSmallMultipleDepots.txt",
+      "size": 778,
+      "sha256": "d03d2f5c15a7cc2044f124177e5f042cdcb50f8b8917081b9f5a6df76ffcb255"
+    },
+    {
+      "path": "tests/data/OkSmallMultipleLoad.txt",
+      "size": 767,
+      "sha256": "9732b5208e9b1fb01a4ab3188b807486b3867bd705048ac68b9c06e26aadf922"
+    },
+    {
+      "path": "tests/data/OkSmallMultipleReloadDepots.sol",
+      "size": 18,
+      "sha256": "2d1c3b4203c479cef0ea5b109e71bc263140e1e493ca42cbf2211c25dee019ad"
+    },
+    {
+      "path": "tests/data/OkSmallMultipleReloadDepots.txt",
+      "size": 741,
+      "sha256": "bfcc1e9aa267e10f93d254807dfe056baa35cad07fa6670b82c0409b79f0bfc0"
+    },
+    {
+      "path": "tests/data/OkSmallMultipleTrips.txt",
+      "size": 745,
+      "sha256": "5b63324b9596de9e13749c23f14a7148adb1b4855ae624f8d1947e1ca2f59c30"
+    },
+    {
+      "path": "tests/data/OkSmallMutuallyExclusiveGroups.txt",
+      "size": 760,
+      "sha256": "17769c47cb1a1ca7d61a41b150a200c40283b2c2c31c33571ce658598fb1ba9d"
+    },
+    {
+      "path": "tests/data/OkSmallPrizes.txt",
+      "size": 754,
+      "sha256": "67f4e575c9b09387a19da3bed483c864d631f9b7cf1f75412c7542cc10cbe562"
+    },
+    {
+      "path": "tests/data/OkSmallReleaseTimes.txt",
+      "size": 744,
+      "sha256": "d50a970526a621c58f1272bc670bf02c3c70ff61357c11f376b628e12a41cf17"
+    },
+    {
+      "path": "tests/data/OkSmallUnitDistanceCost.txt",
+      "size": 732,
+      "sha256": "8a9155962242efd4faa854ebc9a325f4cf38c1039771a3e85f7382974d98a8d6"
+    },
+    {
+      "path": "tests/data/OkSmallWaitTime.txt",
+      "size": 701,
+      "sha256": "c18406afa2b6edd45734c0ef6dddd4e879b3d941db7f9e082a2bfefc87897a4b"
+    },
+    {
+      "path": "tests/data/PR01.vrp",
+      "size": 2843,
+      "sha256": "0df9062347f2a5a8cec497eaeda1e78e000297412558d682cbb3cfd1e4d78a77"
+    },
+    {
+      "path": "tests/data/PR11A.vrp",
+      "size": 17492,
+      "sha256": "1281263d625380305918ef37f72f7f6a309ad001c487333ba4ed27848334cbfa"
+    },
+    {
+      "path": "tests/data/RC208.sol",
+      "size": 347,
+      "sha256": "24012ab25ab2f5f15a16205af4e4a574979dd26da1a4330b30624536b50bc294"
+    },
+    {
+      "path": "tests/data/RC208.vrp",
+      "size": 2720,
+      "sha256": "ec70ed065a2bce0f00ead7b1dcff8afa38673ff0efcb14b91b0d17c000eea206"
+    },
+    {
+      "path": "tests/data/ReallyLargeDistance.txt",
+      "size": 688,
+      "sha256": "f29762b7826222f33ff577046025794794a92c6a710ea3254f1cd4e9071032ce"
+    },
+    {
+      "path": "tests/data/ServiceTimeSpecification.txt",
+      "size": 602,
+      "sha256": "e87fccafaf53eaf35f472285e1bee09490ee1a6141bf17ae6e4e36e0819bb5b6"
+    },
+    {
+      "path": "tests/data/SmallShipments.sol",
+      "size": 47,
+      "sha256": "49aed27d30310b41641326e087c1f8a9ff874e79ba2c159280f53b2813ee8d83"
+    },
+    {
+      "path": "tests/data/SmallShipments.txt",
+      "size": 1121,
+      "sha256": "1c55d470ba54787a1211103212ff2ebacc1efff9f1285cc53c4c75156742d101"
+    },
+    {
+      "path": "tests/data/SmallVRPSPD.vrp",
+      "size": 656,
+      "sha256": "a7b4865f34ed11e7e4045903dc1b85909e4456bb20dbd01767a306d282dde518"
+    },
+    {
+      "path": "tests/data/TimeWindowOpenLargerThanClose.txt",
+      "size": 369,
+      "sha256": "a907c596d8587291aca24df3372623096b86c5381481632a1401836dbcec86ca"
+    },
+    {
+      "path": "tests/data/UnknownEdgeWeightFmt.txt",
+      "size": 187,
+      "sha256": "4b2f9de283158d4d260bbca03867f9fd2a66053ec04d42cc03dd09376f22fda6"
+    },
+    {
+      "path": "tests/data/UnknownEdgeWeightType.txt",
+      "size": 154,
+      "sha256": "600e64f14989e935e0243a572d9e741ce0fbb2f19854df96587308ee05df5310"
+    },
+    {
+      "path": "tests/data/X-n101-50-k13.vrp",
+      "size": 2519,
+      "sha256": "826a78ea1d7111b2c5a7494792709a0fa415318c13fe83a118b8736ced60a7b3"
+    },
+    {
+      "path": "tests/data/X115-HVRP.sol",
+      "size": 570,
+      "sha256": "16a93952d2751044ca267ec54ee636692c54ea672861e082956cafe5ae57dbdb"
+    },
+    {
+      "path": "tests/data/X115-HVRP.vrp",
+      "size": 2627,
+      "sha256": "6d9c5d9a6f4ffd0bd828231ca60a789fb14af48122346dbe1fba2e12e601dc2d"
+    },
+    {
+      "path": "tests/data/empty_config.toml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/data/lrc206.vrp",
+      "size": 4518,
+      "sha256": "4ae380d66025e4f2a8e44a5a101947ec79255e02567194da7fda9bd9bf63d386"
+    },
+    {
+      "path": "tests/data/p06-2-50.vrp",
+      "size": 2005,
+      "sha256": "b60a990c21c9d799fd602d51518df545453a24dbe9670a1b2f66f04b8e6b9878"
+    },
+    {
+      "path": "tests/data/pr107.tsp",
+      "size": 1613,
+      "sha256": "aecfa63e0784845f2f26cf19d6a491fde9fb5c3eea898bfdbe382ddc1ad10227"
+    },
+    {
+      "path": "tests/data/test_config.toml",
+      "size": 395,
+      "sha256": "2713c0823156bc9199c5b838ed8bbe9deca5fdcd7a786f0b549cfa2709b8a264"
+    },
+    {
+      "path": "tests/helpers.py",
+      "size": 1815,
+      "sha256": "e9c20334505974250a5d3854918ae33ba4a5335a2631c2339cca659300dbd545"
+    },
+    {
+      "path": "tests/markers.py",
+      "size": 335,
+      "sha256": "45659430900d849269271560b4bc2dd58f8f9898466c64ee23fe1f3c4a62121a"
+    },
+    {
+      "path": "tests/plotting/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/plotting/baseline_images/test_plotting/plot_coordinates_shipments.png",
+      "size": 13314,
+      "sha256": "d900c98e717d6dad0e34b9f703bcc518d816da3c99b6da59c7659d21eabfd1c0"
+    },
+    {
+      "path": "tests/plotting/baseline_images/test_plotting/plot_instance.png",
+      "size": 42403,
+      "sha256": "aed9267abd917875ff8402f03ec189693eb63a97b52510e007386e896d3ce528"
+    },
+    {
+      "path": "tests/plotting/baseline_images/test_plotting/plot_instance_multiple_depots.png",
+      "size": 28666,
+      "sha256": "af123db49f15a921c80ebcc64c5e9390da7a5f57e2abaf2e3beee7b9890a7cf3"
+    },
+    {
+      "path": "tests/plotting/baseline_images/test_plotting/plot_result.png",
+      "size": 76118,
+      "sha256": "8ddb9323c7b88d30d421b4a29c6a8740df8ea0344f7503ce30b339ec1ce8de4b"
+    },
+    {
+      "path": "tests/plotting/baseline_images/test_plotting/plot_route_schedule.png",
+      "size": 33823,
+      "sha256": "983f59575af323335bd5d45ae3d635c00de171043bf97d99234dda0ae3af6055"
+    },
+    {
+      "path": "tests/plotting/baseline_images/test_plotting/plot_route_schedule_shipments.png",
+      "size": 37773,
+      "sha256": "3296790127c2668003928c33a634c9d86525483de89ed85a8f702f775967f79f"
+    },
+    {
+      "path": "tests/plotting/baseline_images/test_plotting/plot_solution.png",
+      "size": 24103,
+      "sha256": "22228dd40400db038f0001e027619cd309246fb546e5b028bed6e87a6d5ebb4d"
+    },
+    {
+      "path": "tests/plotting/baseline_images/test_plotting/plot_solution_multiple_depots.png",
+      "size": 14234,
+      "sha256": "8384f0036b603c89ab9f648dd1ccbd43a2d77538b490c353ca5b206862f15566"
+    },
+    {
+      "path": "tests/plotting/baseline_images/test_plotting/plot_solution_multiple_trips.png",
+      "size": 14862,
+      "sha256": "d6d43f984a798cb4006789f7ef76c41591186f5db4570f71b93e4a5565ce810f"
+    },
+    {
+      "path": "tests/plotting/baseline_images/test_plotting/plot_solution_optional_clients.png",
+      "size": 17115,
+      "sha256": "6c284620013848a2d334884cfcbcf400c388e07670619de12e1da9b66b777068"
+    },
+    {
+      "path": "tests/plotting/baseline_images/test_plotting/plot_solution_shipment_locations.png",
+      "size": 27692,
+      "sha256": "42914ae00d9d06d6a860acd592d02d1e002b137716dc08ac8cace224e88f5d1f"
+    },
+    {
+      "path": "tests/plotting/baseline_images/test_plotting/plot_solution_shipments.png",
+      "size": 23402,
+      "sha256": "8fbb5e3a238d656ad975427cf5264de69b168acff7b5aae71de8ab27dd1a6739"
+    },
+    {
+      "path": "tests/plotting/baseline_images/test_plotting/plot_solution_unplanned_shipments.png",
+      "size": 17987,
+      "sha256": "a1bf586b9838b5636339fb79a0c132011041735275853612d05d999b1aba6c1d"
+    },
+    {
+      "path": "tests/plotting/baseline_images/test_plotting/plot_solution_with_customers.png",
+      "size": 40233,
+      "sha256": "21869ea32db2aad9cccf95077fed213c1f67b1141819b318cf53ba21c0c9d9f1"
+    },
+    {
+      "path": "tests/plotting/test_plotting.py",
+      "size": 6224,
+      "sha256": "3542c0fde3b47526a6b101ff8bb6428f34ad522e3f6f2e9707e324cd89567712"
+    },
+    {
+      "path": "tests/search/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/search/test_InsertOptionalClient.py",
+      "size": 6295,
+      "sha256": "fbb0aed1d4dbf6bbe40d4dab775307f659d769be5005528e8e32d7b97ceace12"
+    },
+    {
+      "path": "tests/search/test_InsertOptionalShipment.py",
+      "size": 6518,
+      "sha256": "9b8ab81886c8fa34d3ca6dc6968c113027d3d3b5cadeebd96c0c32b8ea3c3c59"
+    },
+    {
+      "path": "tests/search/test_LocalSearch.py",
+      "size": 27012,
+      "sha256": "80de153da67e42bcffa025f696058a6b03de2bb4355cb772fa5edbe6a4d98221"
+    },
+    {
+      "path": "tests/search/test_PerturbationManager.py",
+      "size": 9437,
+      "sha256": "db27adf6770c9d5f677c74dbc58976a24cdc0fbc19765da637726aa7d25eac59"
+    },
+    {
+      "path": "tests/search/test_Relocate.py",
+      "size": 20681,
+      "sha256": "2ce7e251dd3f2ca3a344608d56bdf548f3cf68965185e12431451a68e4c4a9b6"
+    },
+    {
+      "path": "tests/search/test_RelocateAlternative.py",
+      "size": 4729,
+      "sha256": "8dc1be92966844079e08ca96a43a8ea85646e1d7096da7c9c3602a465c8e5320"
+    },
+    {
+      "path": "tests/search/test_RelocateDelivery.py",
+      "size": 5623,
+      "sha256": "be44688a228388b2e65d0c216bb6538f648fd7ffbdb05d71616525d830412ae5"
+    },
+    {
+      "path": "tests/search/test_RelocatePickup.py",
+      "size": 5796,
+      "sha256": "4862f19f1df8bbdb33578e1ec8cb49a31d77cd66d0a72aa4cb9b3743d2939cbc"
+    },
+    {
+      "path": "tests/search/test_RelocateShipment.py",
+      "size": 7338,
+      "sha256": "392dd66c574ee533f68ff34d898b07fc1a11c02caf9ca9ce64d328f40637ba54"
+    },
+    {
+      "path": "tests/search/test_RelocateWithDepot.py",
+      "size": 14815,
+      "sha256": "09ac98f99158778b3d0843b44432d47f4358212d24da3dad38e3dbc3d622ad17"
+    },
+    {
+      "path": "tests/search/test_RemoveAdjacentDepot.py",
+      "size": 4593,
+      "sha256": "09fa4a3adc3d57b65e34a776dd62fa7e18cd0f5ff5b454cc850c136a166741b7"
+    },
+    {
+      "path": "tests/search/test_RemoveOptionalClient.py",
+      "size": 8097,
+      "sha256": "3316ae164594ac2864e5f8cfb1775b2fd7ae87a507ba54dcd638c7f94503108d"
+    },
+    {
+      "path": "tests/search/test_RemoveOptionalShipment.py",
+      "size": 4296,
+      "sha256": "cca02c62166b77f423c71024e2e16257900b50b702e671963e8a25c4005623cc"
+    },
+    {
+      "path": "tests/search/test_ReplaceGroup.py",
+      "size": 2303,
+      "sha256": "66a443f0f6411796c68d732f54a1d3aca21d33cde427d1d763fbce0d47446fae"
+    },
+    {
+      "path": "tests/search/test_ReplaceOptionalClient.py",
+      "size": 3809,
+      "sha256": "4d6a2d0dbcfcd2618db7aead7a55bd8bb165e984b795b2d80394bd2758db4896"
+    },
+    {
+      "path": "tests/search/test_ReplaceOptionalShipment.py",
+      "size": 4181,
+      "sha256": "87e9d44a04f3d32b8f8dcaa40d83658745780b9790f626ffdf2d91d3c22f450e"
+    },
+    {
+      "path": "tests/search/test_Route.py",
+      "size": 44197,
+      "sha256": "43ecc6ab1eb6bb8d2688a0d0e2872268850f025099006193c000408e6d8ee6e7"
+    },
+    {
+      "path": "tests/search/test_SearchSpace.py",
+      "size": 7863,
+      "sha256": "3158108de2a4e0c3245d5d0af279ba27b3f808684460bbf0668d6c9f2f52f8c4"
+    },
+    {
+      "path": "tests/search/test_Solution.py",
+      "size": 8214,
+      "sha256": "6ba5494dccedd644903cfdcd1d30d1f827c66e66991636f427b642e6c2a8b034"
+    },
+    {
+      "path": "tests/search/test_Swap.py",
+      "size": 14316,
+      "sha256": "c37be5cdb5e9aebb6a0b021cedc0d94e310fd953072994f7dd5998694ab28f3e"
+    },
+    {
+      "path": "tests/search/test_SwapTails.py",
+      "size": 8365,
+      "sha256": "5c1eaee22e7b6440da8aac0975a535dfa5ad9dfe4f2a3eb07813b819138fadc2"
+    },
+    {
+      "path": "tests/search/test_neighbourhood.py",
+      "size": 11014,
+      "sha256": "4f89b88426474ac6a7418c178fd1528100d5b8ef7f2657e896948ae8d845ad3d"
+    },
+    {
+      "path": "tests/stop/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/stop/test_FirstFeasible.py",
+      "size": 586,
+      "sha256": "4a3a0c64f3dabb63a166a7215996b60b74477068cdc3fcfee04087487a03acba"
+    },
+    {
+      "path": "tests/stop/test_MaxIterations.py",
+      "size": 1100,
+      "sha256": "f67f8b34b767012f7f17f24e2c662d74a2191d65fecdfdee483a9702366e1d8a"
+    },
+    {
+      "path": "tests/stop/test_MaxRuntime.py",
+      "size": 1215,
+      "sha256": "aa7e6a41f2faf8adaaaedaabfc51bc869370acda19dbf8ec9a6af7197ace4358"
+    },
+    {
+      "path": "tests/stop/test_MultipleCriteria.py",
+      "size": 1393,
+      "sha256": "529b9825a0ba0630591b8a205c863bc95ebe2773ec293900210cf49da1c85861"
+    },
+    {
+      "path": "tests/stop/test_NoImprovement.py",
+      "size": 1781,
+      "sha256": "7e0023a566ad1d7af1bd7160969e0c6e2a97e17bcbcd0f8ba3b809dab70622d7"
+    },
+    {
+      "path": "tests/test_Activity.py",
+      "size": 2640,
+      "sha256": "23c80504e223a9ba81ee0616cb099f45347a2ae5ccc9b88c5fbb072e23c6899f"
+    },
+    {
+      "path": "tests/test_Client.py",
+      "size": 4955,
+      "sha256": "6e5d4fb5f364c0ad6a4cd646ee9e3dc322c2a9a9b1d9140def984bc50d409f90"
+    },
+    {
+      "path": "tests/test_ClientGroup.py",
+      "size": 1886,
+      "sha256": "ca3ede2fd2cc6ee10bd1d8351d994f57e8f0c72ecc447b4134c33f662b9346a7"
+    },
+    {
+      "path": "tests/test_CostEvaluator.py",
+      "size": 10891,
+      "sha256": "97b1a40617c5ca683fef6c78c1c34d0b8b22c1f92255f55768fd35922e760d34"
+    },
+    {
+      "path": "tests/test_Depot.py",
+      "size": 1987,
+      "sha256": "f4993225cf3ed36a9ecc3a2a883ca0f7adfc00a4a309ede8d0de0e2eb39b4af9"
+    },
+    {
+      "path": "tests/test_DurationSegment.py",
+      "size": 14412,
+      "sha256": "7a1a2a27ad54ef1890c7862d2576a116809a527d256625c8f1db24e2d255de02"
+    },
+    {
+      "path": "tests/test_DynamicBitset.py",
+      "size": 5672,
+      "sha256": "404b0112c954cf0efd5ed19a495d131d87969b4c1630107ff203e7f7b29136f1"
+    },
+    {
+      "path": "tests/test_IteratedLocalSearch.py",
+      "size": 13234,
+      "sha256": "5aede05f2cb40355c3eb35eb634d783ef5d81c464b3bf2f10c74c7a07ae44674"
+    },
+    {
+      "path": "tests/test_LoadSegment.py",
+      "size": 4928,
+      "sha256": "138df270551316d5b0973344fc9630b8a13fdbd7dd1256ed69204bab328b13d2"
+    },
+    {
+      "path": "tests/test_Location.py",
+      "size": 609,
+      "sha256": "257c1a9df499fd9436d5247029532bcda9878b7629e97fc520e1a6237dfd8748"
+    },
+    {
+      "path": "tests/test_Model.py",
+      "size": 42941,
+      "sha256": "093a0472cfc51d8094fdac817bde28c7100f37ef5928f4141df9c46c88f9b49f"
+    },
+    {
+      "path": "tests/test_PenaltyManager.py",
+      "size": 15162,
+      "sha256": "7451606bce498de49e64d0457ffed53fa868e2763bb92486173686f72bc40621"
+    },
+    {
+      "path": "tests/test_PiecewiseLinearFunction.py",
+      "size": 5463,
+      "sha256": "c6a02a91fcf12700648370957df25f5e10f76d07dd02cc0e308b02409dee3f1c"
+    },
+    {
+      "path": "tests/test_ProblemData.py",
+      "size": 27811,
+      "sha256": "a777b26e161870b823a603a0e544dfc1ed71120e8bd0a646d15c33f9b4380d78"
+    },
+    {
+      "path": "tests/test_ProgressPrinter.py",
+      "size": 4241,
+      "sha256": "9f820a074cb8b7cfa2c0f530cfe18782ffa25f01cbb587325ae79fc8fd098e8f"
+    },
+    {
+      "path": "tests/test_RandomNumberGenerator.py",
+      "size": 2046,
+      "sha256": "4fb6c86045d6845f6f1d2047cca8bc95ed0bc5fdbf67000125151bfae97a563b"
+    },
+    {
+      "path": "tests/test_Result.py",
+      "size": 4496,
+      "sha256": "aef5dc23ce2d927da382eda60be9a09900bf71573a6a90d1080e1cad932b4348"
+    },
+    {
+      "path": "tests/test_RingBuffer.py",
+      "size": 1319,
+      "sha256": "8d211819262406aa7883bb30852afa219a35333714024a8c3ffb878398ecc9eb"
+    },
+    {
+      "path": "tests/test_Route.py",
+      "size": 36212,
+      "sha256": "0c2321d316e5831c7744aed8f9f06aeb07d43d6dc4ba42fdf1548d440c3c1136"
+    },
+    {
+      "path": "tests/test_Shipment.py",
+      "size": 5163,
+      "sha256": "9a38bace17327cdbb45ee3e2b29d3c420b7829099fd5a816ce0a6badd7add813"
+    },
+    {
+      "path": "tests/test_Solution.py",
+      "size": 32308,
+      "sha256": "bd698c6007f0dac66df8d3b3b5fea65d7017bb5f558bbdb678126221e4c25733"
+    },
+    {
+      "path": "tests/test_Statistics.py",
+      "size": 4767,
+      "sha256": "3bcce13ae4910c73270d0814599a9d319d24c7dcc778e60e8eba91f82bc98836"
+    },
+    {
+      "path": "tests/test_VehicleType.py",
+      "size": 11112,
+      "sha256": "9c7c22ae0fafa7b7a65aca4a01efeb9379e4968a1bdd98eaac49cf82c0885e44"
+    },
+    {
+      "path": "tests/test_minimise_fleet.py",
+      "size": 3151,
+      "sha256": "3ea3a40f103259d1f1b2ee8dc64ac6a08ccd18ad18809dfe83107bdfc7561736"
+    },
+    {
+      "path": "tests/test_read.py",
+      "size": 26588,
+      "sha256": "c8aeb8079217bb36badbc1675a2df21110ce4bb4de062c3803f5102cea0ac7f8"
+    },
+    {
+      "path": "tests/test_solve.py",
+      "size": 5077,
+      "sha256": "a921c5832738763afff6eb3e9d0ae7cf3c24359c22d5953bd28c8f766ba36fb1"
+    },
+    {
+      "path": "tests/test_type_conversions.py",
+      "size": 1220,
+      "sha256": "2cd645304dbddcd7e2a501cb30a1b32c903c4aea4a84126bb64e457b178bd252"
+    }
+  ],
+  "license_files": [
+    "LICENSE.md",
+    "docs/source/about/licenses.rst"
+  ],
+  "source_executed": false,
+  "status": "DOWNLOADED",
+  "pin_method": "known historical pin or public git ls-remote; REST unavailable"
+}

@@ -1,0 +1,46 @@
+{
+  "schema": "static-rrp-source-v3",
+  "primary_profile": "rrp_mip_dimensional_v1",
+  "primary_time_domain": "source_day_domain",
+  "primary_authority": "Energies2020 MIP Eq1-3,11-20,25-26; CP Eq31-33 for pre-service timing; Table1 dimensional fuel correction",
+  "publication_doi": "10.3390/en13236214",
+  "author_commit": "f5c5317a5ecd8fe64df779e79bd0397904bc0f9e",
+  "source_directory": "data/public_sources_20261020/refrigerated_routing_rrp",
+  "fuel_l_per_kwh": 0.30,
+  "fuel_conversion_source": "Table 1 sigma in L/kWh; multiply electric kWh, supported by public D1 cost records; Eq.13 division is a disclosed dimensional discrepancy",
+  "pallet_capacity": 33,
+  "capacity_source": "Section 5.1 reference semi-trailer",
+  "max_tour_hours": 9,
+  "horizon_source": "Table1 reports 9h and Section5 discusses driving time; no uniform 9h total-tour inequality appears in the MIP/CP domain. Enforce only under explicitly selected operational_tour_9h.",
+  "infiltration_initial_seconds": 40,
+  "infiltration_source": "Equation 15; original pallet service times exceed 40 seconds",
+  "clock": "continuous_seconds_equations_not_integer_CP_rounding",
+  "speed": "departure_slot_level_Equations_11_12_column_4",
+  "temperature": "arrival_slot_Equations_16_17_columns_5_6_7_8",
+  "service_profiles": {
+    "rrp_mip_dimensional_v1": "PRIMARY: literal Eq20 factor2, pre-service model clock, fixed depot departure, MIP Eq14 includes all wait, Table1 L/kWh multiplication",
+    "paper": "Equations 19-20: forklift + 2 * row_time * floor((pallet_position-1)/units_per_row)",
+    "archive_compatibility": "Diagnostic: row_time already round-trip, physical arrival clock, post-service waiting including optional source depot delay; differs from literal Eq.20/30",
+    "archive_pre_service": "Diagnostic: row_time already round-trip with pre-service clock and fixed depot departure; for public incoming-arc wait serialization, differs from literal Eq.20"
+  },
+  "reference_wait_mapping": "PRIMARY: [0,*TXT_raw[:-1]] by pre-service Eq33, independently confirmed by Table7b in13/15 D2 cases. Source saved-clock identities are diagnostic only, not canonical authority. Preserve raw and conflicting paper/repository snapshots.",
+  "reference_missing_zero_policy": "An n-1 all-zero raw vector can be completed to n zeros ONLY when all complete saved arrival/departure/service/travel identities uniquely imply zero slack at every route position; record derivation instead of claiming a recovered original.",
+  "paper_repository_wait_conflicts": ["D2-n9-np32", "D2-n34-np33"],
+  "time_domains": {
+    "source_day_domain": "PRIMARY: fixed source start and return before86400 seconds, as CP p11 clock domain; report9h excess separately",
+    "operational_tour_9h": "Explicit extra total-tour<=9h operational experiment, not confused with9h driving law"
+  },
+  "default_service_profile": "rrp_mip_dimensional_v1",
+  "objectives": {
+    "with_wage": "Equation 1 and Table 7(a)",
+    "without_wage": "Table 7(b); D2 public solution costs use this variant"
+  },
+  "limitations": [
+    "No product-specific quality kinetics or safety certification in the original RRP model",
+    "No customer coordinates or customer time windows are invented",
+    "Remaining author-record discrepancies must be reported, not fitted away",
+    "Figure3/Table7 examples use factor1 service while Eq20 says factor2; main protocol prioritizes formula",
+    "MIP Eq14 and CP Eq34 differ on transmission during wait; main protocol prioritizes MIP",
+    "Author repository has no separately declared data redistribution license"
+  ]
+}

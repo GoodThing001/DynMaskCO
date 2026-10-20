@@ -1,170 +1,17 @@
-# DynMaskCO
+# 项目当前状态：静态冷链配送与多车扩展
 
-> **2026-10-08 当前入口**：项目已按[取货线、配送线、负结果线](00_项目导航.md)整理。两性能线独立协议与数据，负结果机制论文包单独追溯；实时状态见[项目当前状态](项目当前状态.md)。下文较早阶段为历史背景。
+文档版本：[全项目文档索引](docs/文档索引与版本状态.md)，区分当前v3与历史研究记录。
 
-**Causal and Feasibility-Preserving Masked Generation for Dynamic Cold-Chain Vehicle Routing**
+2026-10-20，按用户批准的公开单车RRP→多车路线实施。当前为订单预先已知、−20°C配送；每车只装分配货物，逐客卸货，空载回仓。原动态取货和负结果为历史证据。
 
-DynMaskCO extends the [MaskCO](https://github.com/ai4co/maskco) (ICLR 2026) masked-generation paradigm for neural combinatorial optimization from *static* routing to *causal, feasibility-preserving online optimization* for the **dynamic cold-chain vehicle routing problem (DCC-VRP)** — capacitated vehicle routing with time windows, temperature classes, and progressively revealed (online) orders.
+[当前说明与命令](docs/static_delivery/README.md) · [参数公式](docs/static_delivery/参数与公式.md) · [本轮执行记录](docs/static_delivery_followup_20261020/执行记录.md) · [论文审计](docs/static_delivery_followup_20261020/paper_standard_audit.md) · [历史归档](archive/transition_20261020/README.md)
 
-> This directory is an **isolated extension workspace**. All new code lives here; the original MaskCO sources under `../MASKCO_code/` are never modified.
+当前协议v3，默认`rrp_mip_dimensional_v1/source_day_domain`：论文式(20)系数2、MIP等待传热、表1的σ乘法。9h总tour为另一个显式运行域；论文内部差异与仍缺前作全文/积分表头都已标注，不能称全文所有公式完全一致。
 
-Root-level remote helper scripts are organized in [`tools_remote/`](tools_remote/README.md); diagnostic logs are in `logs/root_diagnostics/`. Run helper scripts from this extension directory, for example `bash tools_remote/tools_remote_rr3_readiness.sh`.
+本地68/68测试通过；实际小模型3步训练每步37组更新，权重/优化器重载预测完全一致；单车和多车三臂均可行。30参考在主一天域均完整可行，9h域28份；全部参考成本仍未一致。全部30原实例×两种时域的60次近邻路序Split检查可行，每域22例用1车、8例用2车。功能结果没有建立正收益或泛化。
 
-> **Current status (2026-09-03):** The paper line is fixed as a MaskCO-based method for dynamic cold-chain logistics. P0-M and the C0 implementation gate are complete: C0 contract/state/trace/snapshot/evaluator/teacher and legacy-isolation checks pass 20/20, with 7/7 pilot sensitivity checks. O0-D is next. The pilot parameters are not yet real-world calibrated and are not paper-level performance evidence. See [`项目当前状态.md`](项目当前状态.md).
+多车独立时钟、装载和托盘位置，全局恰好一次，成本逐车求和。原订单和33托盘容量不变；K为显式实验上限，Split仅优化给定排列/等待下连续分割。不是作者原生多车基准复现，也没有学习分车头。
 
-> **Layout status:** P0-M is complete. Current finite experiments use their registered frozen source trees; upstream `../MASKCO_code/` remains read-only. Historical reproduction commands below are not current I3 or delivery launchers.
+服务器run06已完成当前v3完整16+6层256维骨干的3步训练，每步237组参数更新，重载预测完全一致，单/多车小例三臂和全量扫描通过。run07只读加载该检查点，对原n34实例的三个方法均实际使用2车；逐车载量/全局覆盖/空载返仓与本地独立成本重算通过。两个run退出0，10份输出SHA核验通过；当前检查点为results/static_delivery/remote/run06/outputs/followup/train/checkpoint。旧run05仅属历史v2。
 
-> **Operational protocol:** the main benchmark is dynamic cold-chain **pickup-to-depot**, not depot-to-customer delivery. Vehicles leave the depot empty; an order enters the cargo manifest at `service_finish`; quality is tracked until `return_arrival`; each vehicle then unloads and closes. The main setting uses homogeneous multi-compartment, shared-capacity, single-trip vehicles with no reload.
-
----
-
-## Abstract
-
-We investigate how MaskCO's masked generation can be extended from static combinatorial optimization to online dynamic cold-chain routing under a causal (non-anticipatory) information model. The planned DynMaskCO-CC method has three connected components:
-
-1. **Causal Dynamic Masked Generation** — *Visibility-Gated Attention* (future orders are masked from the encoder with an attention bias of $-10^9$), *Visible-Only Normalization* (`coord_normalize_visible`, statistics computed only over revealed nodes), *Event-Driven Masking* (only affected route segments are reconstructed), *Frozen Prefix* (executed edges are immutable), and *Online Sequence Training* (progressive visibility reveal).
-2. **Cold-chain-aware fleet–route masked recourse** — event-affected mutable decisions are masked and reconstructed as permutation-aware, full-fleet actions; accepted actions must pass route/fleet/cold-chain certificates while executed and committed decisions remain frozen.
-3. **Counterfactual terminal-utility alignment** — masked action reconstruction is supervised by common-continuation rollout outcomes over distance, trace-level quality loss, and refrigeration energy instead of static route-structure imitation.
-
-The causal routing infrastructure and authoritative trace-level C0 state/objective are implemented and regression-tested. This validates the implementation contract, not the empirical effectiveness or real-world calibration of DynMaskCO-CC.
-
----
-
-## Historical Research Status (before the current dual-line study)
-
-The old Phase-3c numbers (`14.77`, `15.45`, `14.08`, and the associated feasibility claims) were produced before the strict-online P0 audit and are retained only as historical results.
-
-Under the corrected strict-online protocol on R1 EDoD=0.5:
-
-| Method | Distance Cost | Complete | Status |
-|---|---:|---:|---|
-| OR-Tools-RH | 23.04 | 100% | strong baseline |
-| JF1-H | 24.50 | 100% | current development baseline |
-| JF2 canonical | 25.91 | 100% | frozen negative result |
-| HFR-M0 g_only | 24.97 | 100% | grouping signal, Gate FAIL |
-| HFR-M0 full | 29.95 | 99.2% | F3 / service Gate FAIL |
-
-The historical `Complete` column covers customer service and depot return under the distance protocol. It does not retroactively include the v4 cargo-manifest and `delivered_to_depot` checks now enforced by C0 traces.
-
-HFR-M0 learned real structural signal (G AUROC 0.727 and improved route reconstruction loss), but that signal did not improve downstream online cost. This motivates changing the **MaskCO reconstruction target** from static structure to utility-preferred executable actions; cost-aware preference remains an internal alignment mechanism.
-
-P0-R, P0-S, P0-A, P0-U, P0-M, and C0 are complete. O0-D and O0-CC follow; M0 is only a frozen-representation probe, while M1 is the minimum complete DynMaskCO-CC method with event masking and iterative reconstruction.
-
-See [`项目当前状态.md`](项目当前状态.md), the [`documentation index`](docs/README.md), the [`implementation blueprint`](docs/当前规划/工程实现/代码实现蓝图.md), and the [`results index`](results/README.md).
-
----
-
-## Installation
-
-```bash
-# 1. Upstream MaskCO environment (run from workspace root)
-cd MASKCO_code
-sh install.sh
-cd lib && make
-cd ../..
-
-# 2. CVRPTW / cold-chain C++ extension (EDD repair + TW-aware 2-opt + quality cost)
-pip install pybind11
-cd "C-VRP_Cold-chainVehicleRoutingProblem/scripts/lib" && make && cd ../..
-```
-
-The setup paths above reflect the reorganized workspace. Extension Python entry points still require the P0-M migration described in the implementation blueprint before they are considered runnable.
-
-Python dependencies for this sub-directory are listed in [`requirements.txt`](requirements.txt).
-
-Set `XLA_PYTHON_CLIENT_MEM_FRACTION=0.9` (training) or `0.5` (inference). GPU 0 is the default.
-
----
-
-## Historical Reproduction Quick Start
-
-The legacy DynMaskCO-v1 reproduction entry point is [`scripts/run_method_freeze.sh`](scripts/run_method_freeze.sh). It reproduces historical phases and is not the current C0/O0 development entry point:
-
-```bash
-# Smoke run (~10 min, 1 seed × 2K steps)
-bash "C-VRP_Cold-chainVehicleRoutingProblem/scripts/run_method_freeze.sh" smoke
-
-# Full Phase-3c training + evaluation (5 seeds)
-bash "C-VRP_Cold-chainVehicleRoutingProblem/scripts/run_method_freeze.sh" phase3c
-
-# Evaluate an existing checkpoint only
-bash "C-VRP_Cold-chainVehicleRoutingProblem/scripts/run_method_freeze.sh" eval
-```
-
-### Step-by-step
-
-```bash
-# 3a. Generate DCC data (R1, 50 nodes, EDoD=0.5)
-python -u "C-VRP_Cold-chainVehicleRoutingProblem/scripts/data/generate_coldchain_data.py" \
-    --problem_size 50 --num_instances 1280 --type R1 --capacity 50 --edod 0.5 \
-    --output <out_train.npz>
-
-# 3b. Train (Phase 3c K=5 online-sequence)
-CUDA_VISIBLE_DEVICES=0 XLA_PYTHON_CLIENT_MEM_FRACTION=0.9 \
-python -u "C-VRP_Cold-chainVehicleRoutingProblem/scripts/training/train_dynamic_cc.py" \
-    --gpu_id 0 --num_nodes 50 --capacity 50 --model_config softcap_fn \
-    --encoder_input_dim 7 --peak_lr 1e-3 --batch_size 64 --num_steps 50000 \
-    --masking_mode spatio_temporal --online_seq_training --online_seq_steps 5 \
-    --data <train.npz> --logdir <logdir> --savedir <savedir> \
-    --optimizer_type adamw --weight_decay 1e-2
-
-# 3c. Evaluate with the resource-beam decoder
-CUDA_VISIBLE_DEVICES=0 XLA_PYTHON_CLIENT_MEM_FRACTION=0.5 \
-python -u "C-VRP_Cold-chainVehicleRoutingProblem/scripts/decoding/cvrptw.py" \
-    --capacity 50 --penalty 3. --data <test.npz> --ckpt <step50000.ckpt> \
-    --keep_rate 0.3 --two_opt_steps 4 --batch_size 8 --runs 8 --cycles 40 \
-    --sampling_steps 2 --seed 42 --threads_over_batches 1 \
-    --enable_resource_decoder --beam_width 16 --enable_tw_aware_2opt_py
-```
-
----
-
-## Repository Structure
-
-```
-C-VRP_Cold-chainVehicleRoutingProblem/
-├── scripts/
-│   ├── models/       # TSPModel → CVRPModel → CVRPTWModel → ColdChainModel → DynamicColdChainModel
-│   ├── data/         # Solomon CVRPTW + cold-chain/DCC generators and loaders
-│   ├── training/     # train_cvrptw / train_coldchain / train_dynamic_cc + auto_train
-│   ├── decoding/     # cvrptw.py (main decoder), resource_beam/mask, maskco_dynamic, thermal_state
-│   ├── lib/          # C++ extension (EDD repair, TW-aware & quality-aware 2-opt)
-│   ├── simulation/   # event-driven rolling-horizon simulator
-│   ├── baselines/    # OR-Tools (clairvoyant + rolling-horizon), Solomon audit, EURO adapter
-│   ├── analysis/     # constraint ablation, edge influence, mechanism/toy analysis
-│   └── tests/        # no-future-leakage / cardinality / target-label leakage / data QC
-├── docs/
-│   ├── 当前规划/     # authoritative method, implementation, evaluation and progress docs
-│   ├── 实验记录/     # evidence tracking
-│   └── 论文参考/     # reference papers
-├── data/             # datasets (regenerable; git-ignored)
-├── ckpts/            # checkpoints (regenerable; git-ignored)
-├── logs/             # training/eval logs (git-ignored)
-└── archive/          # superseded code / scripts / historical docs
-```
-
-A detailed file index is in [`scripts/README.md`](scripts/README.md). Historical phases and superseded experiments are preserved under [`archive/`](archive/).
-
----
-
-## Reproduction Notes
-
-- **Two objective names are kept separate** — `distance_cost` is always pure travel distance; C0 introduces a separate `coldchain_cost` built from frozen distance/quality/energy scales and weights. Hard infeasibility is never mixed into either scalar (see [`评估口径.md`](docs/当前规划/实验与评估/评估口径.md)).
-- **Authoritative checkpoints** (5-seed frozen + typed/typed-edge) live on the training server and are regenerable via `run_method_freeze.sh`; see [`docs/服务器说明.md`](docs/服务器说明.md).
-- **Causality discipline**: use `coord_normalize_visible` (visible-node statistics), never the parent `coord_normalize` (which leaks future nodes).
-
-## Citation
-
-```bibtex
-@misc{dynmaskco,
-  title  = {{DynMaskCO}: Causal and Feasibility-Preserving Masked Generation for
-            Dynamic Cold-Chain Vehicle Routing},
-  author = {},
-  year   = {2026},
-  note   = {ICLR 2027 submission (in preparation)}
-}
-```
-
-## License
-
-To be determined. (The parent MaskCO repository retains its own license.)
+当前活动区为`scripts/static_delivery/`、`configs/static_delivery/`、`data/public_sources_20261020/`和`results/static_delivery/`。原61文件与两归档包SHA复核一致，19保护记录、用户原4项Git状态保持，上游只读。番茄/鱼品质和多温舱pilot未启用；旧取货/NO-GO及证据缺口不改写。最终核验见`results/static_delivery/followup_20261020/verification_final.json`。

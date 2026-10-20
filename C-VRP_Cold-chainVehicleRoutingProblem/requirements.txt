@@ -1,14 +1,8 @@
-# DynMaskCO — C-VRP_Cold-chainVehicleRoutingProblem Python dependencies
-#
-# The parent MaskCO environment (JAX / Flax / Triton / PyTorch / NumPy) is installed
-# via `sh install.sh` in the repository root. The versions below are the sub-directory
-# specific additions for the cold-chain / dynamic extension and its baselines.
-
-# --- Core numerical (pinned to the frozen evaluation environment) ---
-numpy==1.26.4
-
-# --- C++ extension build ---
-pybind11>=2.11
-
-# --- Baselines (OR-Tools clairvoyant + rolling-horizon) ---
-ortools>=9.8
+# Verified CPU runtime: Linux server run04, Python 3.10.19.
+# Existing GPU environments were not changed. Do not replace CUDA plugin setup blindly.
+numpy==2.2.6
+jax==0.6.2
+jaxlib==0.6.2
+flax==0.10.4
+optax==0.2.4
+# Development tests: pytest; local SSH administration additionally uses paramiko.

@@ -1,0 +1,1824 @@
+{
+  "case": "D1-n4-np33",
+  "identity": {
+    "author_commit": "f5c5317a5ecd8fe64df779e79bd0397904bc0f9e",
+    "python": "3.10.19",
+    "protocol_sha256": "0ae961113fbb430bc81797216f696c7a447e427188686fcc77d4756508ca0372",
+    "native_sources": {
+      "rrp_learning.py": "d6cc381bae8fd07d656d6ad2b20dc4bd002b24c57f3d118a12d4374238e7c56f",
+      "rrp_search.py": "e3fda92380c18fd4a5caef6fea38f6f702e608b83fc47fa281610943e342338d",
+      "rrp_model.py": "442904aef153334cc0b83c3d07e54457d0690f780640b731cfbf0abc403f564a",
+      "rrp_evaluator.py": "01844881b00856ca95732235950ab6e208dbada0b4f3c9fd2a5874ca23c309d4",
+      "rrp_fleet_search.py": "8b8583c2657704bb9c289abd5bc58cf2d9ae2cb8d08afccaba89753ffdd64c05",
+      "rrp_reconstruct.py": "bdc059b1a148e63205c4bfe1385518a5580decd88645e2879ed9ec73025c9821",
+      "rrp_data.py": "ba45ae24fc07e7532ec7bdedd6d48b2b3ec27306e1c25fee7d9114b81c8f071e",
+      "rrp_features.py": "9caa5c1fdbfe6773f6e0cd506bdbf582721a139d6ef75a3fa7cc10c11840c28c",
+      "rrp_fleet.py": "d367694d6f3ccb537373644df58fa09dec0087dab9f0565c1849b7b21fc92b32",
+      "run_rrp.py": "6379a2fd1459bff2275bc51840ada8dbfc25ae671a2e81f8ad8d8904c38eea21"
+    }
+  },
+  "objective": "with_wage",
+  "profile": "rrp_mip_dimensional_v1",
+  "time_domain": "source_day_domain",
+  "model": {
+    "parameter_sha256": "26d42ee86ffb656bfb11fd48aab5b5d42d0c3b8e346ae7d4595755086585a4eb",
+    "config": {
+      "profile": "maskco_256",
+      "seed": 888
+    },
+    "metadata": {
+      "identity": {
+        "author_commit": "f5c5317a5ecd8fe64df779e79bd0397904bc0f9e",
+        "python": "3.10.19",
+        "protocol_sha256": "0ae961113fbb430bc81797216f696c7a447e427188686fcc77d4756508ca0372",
+        "native_sources": {
+          "rrp_learning.py": "d6cc381bae8fd07d656d6ad2b20dc4bd002b24c57f3d118a12d4374238e7c56f",
+          "rrp_search.py": "e3fda92380c18fd4a5caef6fea38f6f702e608b83fc47fa281610943e342338d",
+          "rrp_model.py": "442904aef153334cc0b83c3d07e54457d0690f780640b731cfbf0abc403f564a",
+          "rrp_evaluator.py": "01844881b00856ca95732235950ab6e208dbada0b4f3c9fd2a5874ca23c309d4",
+          "rrp_fleet_search.py": "8b8583c2657704bb9c289abd5bc58cf2d9ae2cb8d08afccaba89753ffdd64c05",
+          "rrp_reconstruct.py": "bdc059b1a148e63205c4bfe1385518a5580decd88645e2879ed9ec73025c9821",
+          "rrp_data.py": "ba45ae24fc07e7532ec7bdedd6d48b2b3ec27306e1c25fee7d9114b81c8f071e",
+          "rrp_features.py": "9caa5c1fdbfe6773f6e0cd506bdbf582721a139d6ef75a3fa7cc10c11840c28c",
+          "rrp_fleet.py": "d367694d6f3ccb537373644df58fa09dec0087dab9f0565c1849b7b21fc92b32",
+          "run_rrp.py": "6379a2fd1459bff2275bc51840ada8dbfc25ae671a2e81f8ad8d8904c38eea21"
+        }
+      },
+      "training_cases": [
+        "D1-n4-np33"
+      ],
+      "source_sha256": {
+        "D1-n4-np33": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1"
+      },
+      "objective": "with_wage",
+      "profile": "rrp_mip_dimensional_v1",
+      "time_domain": "source_day_domain",
+      "split": null,
+      "scope": "functional_smoke_only",
+      "optimizer": "AdamW adaptation; not original MaskCO Muon",
+      "loss": "masked_successor_CE_plus_log1p_wait_MSE_equal_weight_design_choice"
+    }
+  },
+  "models": {
+    "maskco": {
+      "parameter_sha256": "26d42ee86ffb656bfb11fd48aab5b5d42d0c3b8e346ae7d4595755086585a4eb",
+      "config": {
+        "profile": "maskco_256",
+        "seed": 888
+      },
+      "metadata": {
+        "identity": {
+          "author_commit": "f5c5317a5ecd8fe64df779e79bd0397904bc0f9e",
+          "python": "3.10.19",
+          "protocol_sha256": "0ae961113fbb430bc81797216f696c7a447e427188686fcc77d4756508ca0372",
+          "native_sources": {
+            "rrp_learning.py": "d6cc381bae8fd07d656d6ad2b20dc4bd002b24c57f3d118a12d4374238e7c56f",
+            "rrp_search.py": "e3fda92380c18fd4a5caef6fea38f6f702e608b83fc47fa281610943e342338d",
+            "rrp_model.py": "442904aef153334cc0b83c3d07e54457d0690f780640b731cfbf0abc403f564a",
+            "rrp_evaluator.py": "01844881b00856ca95732235950ab6e208dbada0b4f3c9fd2a5874ca23c309d4",
+            "rrp_fleet_search.py": "8b8583c2657704bb9c289abd5bc58cf2d9ae2cb8d08afccaba89753ffdd64c05",
+            "rrp_reconstruct.py": "bdc059b1a148e63205c4bfe1385518a5580decd88645e2879ed9ec73025c9821",
+            "rrp_data.py": "ba45ae24fc07e7532ec7bdedd6d48b2b3ec27306e1c25fee7d9114b81c8f071e",
+            "rrp_features.py": "9caa5c1fdbfe6773f6e0cd506bdbf582721a139d6ef75a3fa7cc10c11840c28c",
+            "rrp_fleet.py": "d367694d6f3ccb537373644df58fa09dec0087dab9f0565c1849b7b21fc92b32",
+            "run_rrp.py": "6379a2fd1459bff2275bc51840ada8dbfc25ae671a2e81f8ad8d8904c38eea21"
+          }
+        },
+        "training_cases": [
+          "D1-n4-np33"
+        ],
+        "source_sha256": {
+          "D1-n4-np33": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1"
+        },
+        "objective": "with_wage",
+        "profile": "rrp_mip_dimensional_v1",
+        "time_domain": "source_day_domain",
+        "split": null,
+        "scope": "functional_smoke_only",
+        "optimizer": "AdamW adaptation; not original MaskCO Muon",
+        "loss": "masked_successor_CE_plus_log1p_wait_MSE_equal_weight_design_choice"
+      }
+    },
+    "maskco_initial": {
+      "config": {
+        "profile": "maskco_256",
+        "seed": 888
+      },
+      "parameter_sha256": "89c5bc9de522fd86eb6466668a88a2806439da89697e6d9cb865bf8cbafe40ad",
+      "scope": "untrained_initialization_control"
+    }
+  },
+  "same_initial_route": [
+    0,
+    3,
+    1,
+    2
+  ],
+  "same_initial_waits_s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "preparation_s": 4.196228326996788,
+  "total_wall_s": 5.781429106136784,
+  "methods": [
+    {
+      "method": "local_search",
+      "route": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "waits_s": [
+        0.0,
+        0.0,
+        130.0,
+        0.0
+      ],
+      "report": {
+        "instance": "D1-n4-np33",
+        "source_sha256": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1",
+        "profile": "rrp_mip_dimensional_v1",
+        "objective": "with_wage",
+        "clock": "continuous_seconds_equations_not_integer_CP_rounding",
+        "time_domain": "source_day_domain",
+        "feasible": true,
+        "complete": true,
+        "errors": [],
+        "legs": [
+          {
+            "from": 0,
+            "to": 3,
+            "arrival_s": 25200.0,
+            "physical_arrival_s": 25200.0,
+            "service_s": 0.0,
+            "wait_s": 0.0,
+            "departure_s": 25200.0,
+            "travel_s": 3690.0,
+            "next_physical_arrival_s": 28890.0,
+            "speed_kmph": 40.0,
+            "distance_km": 41.0,
+            "load_kg": 19800.0,
+            "traction_l_tour": 24.969286999999998,
+            "next_arrival_s": 28890.0,
+            "transmission_kwh_year": 1549.201764270884,
+            "infiltration_kwh_year": 0.0,
+            "temperature_hour": 7
+          },
+          {
+            "from": 3,
+            "to": 1,
+            "arrival_s": 28890.0,
+            "physical_arrival_s": 28890.0,
+            "service_s": 810.0,
+            "wait_s": 0.0,
+            "departure_s": 29700.0,
+            "travel_s": 1520.0,
+            "next_physical_arrival_s": 31220.0,
+            "speed_kmph": 45.0,
+            "distance_km": 19.0,
+            "load_kg": 13200.0,
+            "traction_l_tour": 9.72519961111111,
+            "next_arrival_s": 31350.0,
+            "transmission_kwh_year": 1142.0639444304372,
+            "infiltration_kwh_year": 1177.301882583243,
+            "temperature_hour": 8
+          },
+          {
+            "from": 1,
+            "to": 2,
+            "arrival_s": 31350.0,
+            "physical_arrival_s": 31220.0,
+            "service_s": 1050.0,
+            "wait_s": 130.0,
+            "departure_s": 32400.0,
+            "travel_s": 2592.0,
+            "next_physical_arrival_s": 34992.0,
+            "speed_kmph": 50.0,
+            "distance_km": 36.0,
+            "load_kg": 6600.0,
+            "traction_l_tour": 15.111251999999999,
+            "next_arrival_s": 34992.0,
+            "transmission_kwh_year": 1690.811742120184,
+            "infiltration_kwh_year": 1449.7556292963097,
+            "temperature_hour": 8
+          },
+          {
+            "from": 2,
+            "to": 0,
+            "arrival_s": 34992.0,
+            "physical_arrival_s": 34992.0,
+            "service_s": 1290.0,
+            "wait_s": 0.0,
+            "departure_s": 36282.0,
+            "travel_s": 3600.0,
+            "next_physical_arrival_s": 39882.0,
+            "speed_kmph": 50.0,
+            "distance_km": 50.0,
+            "load_kg": 0.0,
+            "traction_l_tour": 16.057649999999995,
+            "next_arrival_s": 39882.0,
+            "transmission_kwh_year": 2430.1233115289247,
+            "infiltration_kwh_year": 1839.3416888870545,
+            "temperature_hour": 9
+          }
+        ],
+        "route": [
+          0,
+          3,
+          1,
+          2
+        ],
+        "waits_s": [
+          0.0,
+          0.0,
+          130.0,
+          0.0
+        ],
+        "initial_load_kg": 19800.0,
+        "terminal_load_kg": 0.0,
+        "costs": {
+          "traction_eur_year": 30336.676794277773,
+          "transmission_eur_year": 2861.1243201871807,
+          "infiltration_eur_year": 1875.8876643219749,
+          "driver_eur_year": 10626.8316,
+          "total_eur_year": 45700.52037878693
+        },
+        "duration_s": 14682.0,
+        "qualification": "MIP_equation_priority_with_disclosed_dimensional_correction_not_all_author_numbers",
+        "duration_limit_s": 61200.0,
+        "driving_s": 11402.0,
+        "service_total_s": 3150.0,
+        "waiting_total_s": 130.0,
+        "exceeds_operational_9h": false,
+        "distance_km": 146.0,
+        "return_arrival_s": 39882.0,
+        "traction_l_tour": 65.8633886111111,
+        "transmission_kwh_year": 6812.2007623504305,
+        "infiltration_kwh_year": 4466.3992007666075
+      },
+      "iterations": [
+        {
+          "iteration": 0,
+          "attempts": 130,
+          "accepted": true,
+          "best_cost_eur_year": 45700.52037878693
+        },
+        {
+          "iteration": 1,
+          "attempts": 333,
+          "accepted": false,
+          "best_cost_eur_year": 45700.52037878693
+        },
+        {
+          "iteration": 2,
+          "attempts": 333,
+          "accepted": false,
+          "best_cost_eur_year": 45700.52037878693
+        }
+      ],
+      "wall_s": 0.28676335816271603,
+      "failure_log": [
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 0,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            48132.0,
+            0.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 0,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            48256.36363636364,
+            0.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 0,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            48360.0,
+            0.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 0,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            48522.857142857145,
+            0.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 0,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            49500.0,
+            0.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 0,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            50310.0,
+            0.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 0,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51390.0,
+            0.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 0,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51580.0,
+            0.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 0,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51732.0,
+            0.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 0,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51856.36363636364,
+            0.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 0,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51960.0,
+            0.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 0,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            52122.857142857145,
+            0.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 0,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            53100.0,
+            0.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 0,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            53910.0,
+            0.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            47980.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            48132.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            48256.36363636364,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            48360.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            48522.857142857145,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            49500.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            50310.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51390.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51580.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51732.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51856.36363636364,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51960.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            52122.857142857145,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            53100.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            53910.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            47938.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            47980.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            48173.63636363636,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            48370.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            48678.57142857143,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            50530.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            51580.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 1,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            130.0,
+            47808.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            47980.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            48132.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            48256.36363636364,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            48360.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            48522.857142857145,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            49500.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            50310.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51390.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51580.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51732.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51856.36363636364,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            51960.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            52122.857142857145,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            53100.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            53910.0,
+            130.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            47938.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            47980.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            48173.63636363636,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            48370.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            48678.57142857143,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            50530.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            51580.0,
+            0.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        },
+        {
+          "stage": "hour_boundary_wait",
+          "iteration": 2,
+          "route": [
+            0,
+            3,
+            1,
+            2
+          ],
+          "waits_s": [
+            0.0,
+            0.0,
+            130.0,
+            47808.0
+          ],
+          "errors": [
+            "clock_outside_day"
+          ]
+        }
+      ],
+      "requested_search_seconds": 15,
+      "actual_evaluations": 797,
+      "actual_model_forwards": 0,
+      "keeping_rate": 0.2,
+      "seed": 888,
+      "initialization": "caller_supplied_no_reference_lookup",
+      "budget_scope": "search_including_candidate_preparation_model_and_independent_acceptance",
+      "author_LAHC_reproduced": false,
+      "scientific_gain_established": false,
+      "model_identity": null
+    },
+    {
+      "method": "maskco_initial",
+      "route": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "waits_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "report": {
+        "instance": "D1-n4-np33",
+        "source_sha256": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1",
+        "profile": "rrp_mip_dimensional_v1",
+        "objective": "with_wage",
+        "clock": "continuous_seconds_equations_not_integer_CP_rounding",
+        "time_domain": "source_day_domain",
+        "feasible": true,
+        "complete": true,
+        "errors": [],
+        "legs": [
+          {
+            "from": 0,
+            "to": 3,
+            "arrival_s": 25200.0,
+            "physical_arrival_s": 25200.0,
+            "service_s": 0.0,
+            "wait_s": 0.0,
+            "departure_s": 25200.0,
+            "travel_s": 3690.0,
+            "next_physical_arrival_s": 28890.0,
+            "speed_kmph": 40.0,
+            "distance_km": 41.0,
+            "load_kg": 19800.0,
+            "traction_l_tour": 24.969286999999998,
+            "next_arrival_s": 28890.0,
+            "transmission_kwh_year": 1549.201764270884,
+            "infiltration_kwh_year": 0.0,
+            "temperature_hour": 7
+          },
+          {
+            "from": 3,
+            "to": 1,
+            "arrival_s": 28890.0,
+            "physical_arrival_s": 28890.0,
+            "service_s": 810.0,
+            "wait_s": 0.0,
+            "departure_s": 29700.0,
+            "travel_s": 1520.0,
+            "next_physical_arrival_s": 31220.0,
+            "speed_kmph": 45.0,
+            "distance_km": 19.0,
+            "load_kg": 13200.0,
+            "traction_l_tour": 9.72519961111111,
+            "next_arrival_s": 31220.0,
+            "transmission_kwh_year": 1081.7109717572844,
+            "infiltration_kwh_year": 1177.301882583243,
+            "temperature_hour": 8
+          },
+          {
+            "from": 1,
+            "to": 2,
+            "arrival_s": 31220.0,
+            "physical_arrival_s": 31220.0,
+            "service_s": 1050.0,
+            "wait_s": 0.0,
+            "departure_s": 32270.0,
+            "travel_s": 2880.0,
+            "next_physical_arrival_s": 35150.0,
+            "speed_kmph": 45.0,
+            "distance_km": 36.0,
+            "load_kg": 6600.0,
+            "traction_l_tour": 14.876949999999997,
+            "next_arrival_s": 35150.0,
+            "transmission_kwh_year": 1824.516789273016,
+            "infiltration_kwh_year": 1449.7556292963097,
+            "temperature_hour": 8
+          },
+          {
+            "from": 2,
+            "to": 0,
+            "arrival_s": 35150.0,
+            "physical_arrival_s": 35150.0,
+            "service_s": 1290.0,
+            "wait_s": 0.0,
+            "departure_s": 36440.0,
+            "travel_s": 3600.0,
+            "next_physical_arrival_s": 40040.0,
+            "speed_kmph": 50.0,
+            "distance_km": 50.0,
+            "load_kg": 0.0,
+            "traction_l_tour": 16.057649999999995,
+            "next_arrival_s": 40040.0,
+            "transmission_kwh_year": 2430.1233115289247,
+            "infiltration_kwh_year": 1839.3416888870545,
+            "temperature_hour": 9
+          }
+        ],
+        "route": [
+          0,
+          3,
+          1,
+          2
+        ],
+        "waits_s": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "initial_load_kg": 19800.0,
+        "terminal_load_kg": 0.0,
+        "costs": {
+          "traction_eur_year": 30228.75729307777,
+          "transmission_eur_year": 2891.9321914686457,
+          "infiltration_eur_year": 1875.8876643219749,
+          "driver_eur_year": 10741.192,
+          "total_eur_year": 45737.76914886839
+        },
+        "duration_s": 14840.0,
+        "qualification": "MIP_equation_priority_with_disclosed_dimensional_correction_not_all_author_numbers",
+        "duration_limit_s": 61200.0,
+        "driving_s": 11690.0,
+        "service_total_s": 3150.0,
+        "waiting_total_s": 0.0,
+        "exceeds_operational_9h": false,
+        "distance_km": 146.0,
+        "return_arrival_s": 40040.0,
+        "traction_l_tour": 65.6290866111111,
+        "transmission_kwh_year": 6885.552836830109,
+        "infiltration_kwh_year": 4466.3992007666075
+      },
+      "iterations": [
+        {
+          "iteration": 0,
+          "attempts": 1,
+          "accepted": false,
+          "best_cost_eur_year": 45737.76914886839
+        },
+        {
+          "iteration": 1,
+          "attempts": 1,
+          "accepted": false,
+          "best_cost_eur_year": 45737.76914886839
+        },
+        {
+          "iteration": 2,
+          "attempts": 1,
+          "accepted": false,
+          "best_cost_eur_year": 45737.76914886839
+        }
+      ],
+      "wall_s": 0.6524183237925172,
+      "failure_log": [],
+      "requested_search_seconds": 15,
+      "actual_evaluations": 4,
+      "actual_model_forwards": 3,
+      "keeping_rate": 0.2,
+      "seed": 888,
+      "initialization": "caller_supplied_no_reference_lookup",
+      "budget_scope": "search_including_candidate_preparation_model_and_independent_acceptance",
+      "author_LAHC_reproduced": false,
+      "scientific_gain_established": false,
+      "model_identity": {
+        "config": {
+          "profile": "maskco_256",
+          "seed": 888
+        },
+        "parameter_sha256": "89c5bc9de522fd86eb6466668a88a2806439da89697e6d9cb865bf8cbafe40ad",
+        "scope": "untrained_initialization_control"
+      }
+    },
+    {
+      "method": "maskco",
+      "route": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "waits_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "report": {
+        "instance": "D1-n4-np33",
+        "source_sha256": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1",
+        "profile": "rrp_mip_dimensional_v1",
+        "objective": "with_wage",
+        "clock": "continuous_seconds_equations_not_integer_CP_rounding",
+        "time_domain": "source_day_domain",
+        "feasible": true,
+        "complete": true,
+        "errors": [],
+        "legs": [
+          {
+            "from": 0,
+            "to": 3,
+            "arrival_s": 25200.0,
+            "physical_arrival_s": 25200.0,
+            "service_s": 0.0,
+            "wait_s": 0.0,
+            "departure_s": 25200.0,
+            "travel_s": 3690.0,
+            "next_physical_arrival_s": 28890.0,
+            "speed_kmph": 40.0,
+            "distance_km": 41.0,
+            "load_kg": 19800.0,
+            "traction_l_tour": 24.969286999999998,
+            "next_arrival_s": 28890.0,
+            "transmission_kwh_year": 1549.201764270884,
+            "infiltration_kwh_year": 0.0,
+            "temperature_hour": 7
+          },
+          {
+            "from": 3,
+            "to": 1,
+            "arrival_s": 28890.0,
+            "physical_arrival_s": 28890.0,
+            "service_s": 810.0,
+            "wait_s": 0.0,
+            "departure_s": 29700.0,
+            "travel_s": 1520.0,
+            "next_physical_arrival_s": 31220.0,
+            "speed_kmph": 45.0,
+            "distance_km": 19.0,
+            "load_kg": 13200.0,
+            "traction_l_tour": 9.72519961111111,
+            "next_arrival_s": 31220.0,
+            "transmission_kwh_year": 1081.7109717572844,
+            "infiltration_kwh_year": 1177.301882583243,
+            "temperature_hour": 8
+          },
+          {
+            "from": 1,
+            "to": 2,
+            "arrival_s": 31220.0,
+            "physical_arrival_s": 31220.0,
+            "service_s": 1050.0,
+            "wait_s": 0.0,
+            "departure_s": 32270.0,
+            "travel_s": 2880.0,
+            "next_physical_arrival_s": 35150.0,
+            "speed_kmph": 45.0,
+            "distance_km": 36.0,
+            "load_kg": 6600.0,
+            "traction_l_tour": 14.876949999999997,
+            "next_arrival_s": 35150.0,
+            "transmission_kwh_year": 1824.516789273016,
+            "infiltration_kwh_year": 1449.7556292963097,
+            "temperature_hour": 8
+          },
+          {
+            "from": 2,
+            "to": 0,
+            "arrival_s": 35150.0,
+            "physical_arrival_s": 35150.0,
+            "service_s": 1290.0,
+            "wait_s": 0.0,
+            "departure_s": 36440.0,
+            "travel_s": 3600.0,
+            "next_physical_arrival_s": 40040.0,
+            "speed_kmph": 50.0,
+            "distance_km": 50.0,
+            "load_kg": 0.0,
+            "traction_l_tour": 16.057649999999995,
+            "next_arrival_s": 40040.0,
+            "transmission_kwh_year": 2430.1233115289247,
+            "infiltration_kwh_year": 1839.3416888870545,
+            "temperature_hour": 9
+          }
+        ],
+        "route": [
+          0,
+          3,
+          1,
+          2
+        ],
+        "waits_s": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "initial_load_kg": 19800.0,
+        "terminal_load_kg": 0.0,
+        "costs": {
+          "traction_eur_year": 30228.75729307777,
+          "transmission_eur_year": 2891.9321914686457,
+          "infiltration_eur_year": 1875.8876643219749,
+          "driver_eur_year": 10741.192,
+          "total_eur_year": 45737.76914886839
+        },
+        "duration_s": 14840.0,
+        "qualification": "MIP_equation_priority_with_disclosed_dimensional_correction_not_all_author_numbers",
+        "duration_limit_s": 61200.0,
+        "driving_s": 11690.0,
+        "service_total_s": 3150.0,
+        "waiting_total_s": 0.0,
+        "exceeds_operational_9h": false,
+        "distance_km": 146.0,
+        "return_arrival_s": 40040.0,
+        "traction_l_tour": 65.6290866111111,
+        "transmission_kwh_year": 6885.552836830109,
+        "infiltration_kwh_year": 4466.3992007666075
+      },
+      "iterations": [
+        {
+          "iteration": 0,
+          "attempts": 1,
+          "accepted": false,
+          "best_cost_eur_year": 45737.76914886839
+        },
+        {
+          "iteration": 1,
+          "attempts": 1,
+          "accepted": false,
+          "best_cost_eur_year": 45737.76914886839
+        },
+        {
+          "iteration": 2,
+          "attempts": 1,
+          "accepted": false,
+          "best_cost_eur_year": 45737.76914886839
+        }
+      ],
+      "wall_s": 0.6439264959190041,
+      "failure_log": [],
+      "requested_search_seconds": 15,
+      "actual_evaluations": 4,
+      "actual_model_forwards": 3,
+      "keeping_rate": 0.2,
+      "seed": 888,
+      "initialization": "caller_supplied_no_reference_lookup",
+      "budget_scope": "search_including_candidate_preparation_model_and_independent_acceptance",
+      "author_LAHC_reproduced": false,
+      "scientific_gain_established": false,
+      "model_identity": {
+        "parameter_sha256": "26d42ee86ffb656bfb11fd48aab5b5d42d0c3b8e346ae7d4595755086585a4eb",
+        "config": {
+          "profile": "maskco_256",
+          "seed": 888
+        },
+        "metadata": {
+          "identity": {
+            "author_commit": "f5c5317a5ecd8fe64df779e79bd0397904bc0f9e",
+            "python": "3.10.19",
+            "protocol_sha256": "0ae961113fbb430bc81797216f696c7a447e427188686fcc77d4756508ca0372",
+            "native_sources": {
+              "rrp_learning.py": "d6cc381bae8fd07d656d6ad2b20dc4bd002b24c57f3d118a12d4374238e7c56f",
+              "rrp_search.py": "e3fda92380c18fd4a5caef6fea38f6f702e608b83fc47fa281610943e342338d",
+              "rrp_model.py": "442904aef153334cc0b83c3d07e54457d0690f780640b731cfbf0abc403f564a",
+              "rrp_evaluator.py": "01844881b00856ca95732235950ab6e208dbada0b4f3c9fd2a5874ca23c309d4",
+              "rrp_fleet_search.py": "8b8583c2657704bb9c289abd5bc58cf2d9ae2cb8d08afccaba89753ffdd64c05",
+              "rrp_reconstruct.py": "bdc059b1a148e63205c4bfe1385518a5580decd88645e2879ed9ec73025c9821",
+              "rrp_data.py": "ba45ae24fc07e7532ec7bdedd6d48b2b3ec27306e1c25fee7d9114b81c8f071e",
+              "rrp_features.py": "9caa5c1fdbfe6773f6e0cd506bdbf582721a139d6ef75a3fa7cc10c11840c28c",
+              "rrp_fleet.py": "d367694d6f3ccb537373644df58fa09dec0087dab9f0565c1849b7b21fc92b32",
+              "run_rrp.py": "6379a2fd1459bff2275bc51840ada8dbfc25ae671a2e81f8ad8d8904c38eea21"
+            }
+          },
+          "training_cases": [
+            "D1-n4-np33"
+          ],
+          "source_sha256": {
+            "D1-n4-np33": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1"
+          },
+          "objective": "with_wage",
+          "profile": "rrp_mip_dimensional_v1",
+          "time_domain": "source_day_domain",
+          "split": null,
+          "scope": "functional_smoke_only",
+          "optimizer": "AdamW adaptation; not original MaskCO Muon",
+          "loss": "masked_successor_CE_plus_log1p_wait_MSE_equal_weight_design_choice"
+        }
+      }
+    }
+  ],
+  "scope": "functional_common_objective_comparison",
+  "reference_solution_used_for_initialization": false,
+  "evaluation_protocol": "same start/seed/seconds/iterations; forwards and JIT count in search time",
+  "algorithm_reproduction": "independent evaluator and adapted MaskCO, not author LAHC/MIP/CP"
+}

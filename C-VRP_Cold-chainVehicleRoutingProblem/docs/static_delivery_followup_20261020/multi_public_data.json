@@ -1,0 +1,402 @@
+{
+  "created_at_utc": "2026-10-20T08:57:56.257547+00:00",
+  "candidate_count": 5,
+  "candidates": [
+    {
+      "id": "original_rrp_split_extension",
+      "title": "Ceschia et al. 2020 RRP, unchanged published orders with an explicit multi-vehicle method extension",
+      "doi": "10.3390/en13236214",
+      "source": "https://bitbucket.org/sceschia/the-refrigerated-routing-problem/",
+      "source_commit": "f5c5317a5ecd8fe64df779e79bd0397904bc0f9e",
+      "native_multi_vehicle": false,
+      "data_status": "existing 30 original JSON instances and 30 original reference TXT files; no generated orders",
+      "demand_unit": "pallet",
+      "capacity_pallets": 33,
+      "decision": "recommended_first_extension",
+      "caveat": "Every original total demand is at most one truck capacity; maximum fleet size is an experiment setting and capacity does not force multiple routes. No fixed charge is sourced or added."
+    },
+    {
+      "id": "chen_2023",
+      "title": "Green vehicle routing using mixed fleets for cold chain distribution",
+      "doi": "10.1016/j.eswa.2023.120979",
+      "source": "https://pure.tue.nl/ws/portalfiles/portal/309283747/1-s2.0-S0957417423014811-main.pdf",
+      "native_multi_vehicle": true,
+      "data_status": "article accessible, original empirical customer data not shareable by authors",
+      "demand_unit": "nonnegative quantity; per-customer original records unavailable",
+      "vehicle_capacity": {
+        "EV": 1.22,
+        "GDV": 1.29,
+        "unit": "tons",
+        "locator": "Table 4, PDF page 9 / printed page 8"
+      },
+      "source_locator": "Section 5.1 PDF page 8; Data availability PDF page 15 / printed page 14",
+      "decision": "not_an_open_order_dataset",
+      "caveat": "Explicit statement that authors do not have permission to share data. Do not recreate the Shanghai customer instance."
+    },
+    {
+      "id": "thammasat_opensolver",
+      "title": "Optimization of vehicle routing with time windows for cold chain logistics using OpenSolver",
+      "source": "https://ethesisarchive.library.tu.ac.th/thesis/2024/TU_2024_6722040620_20924_30485.pdf",
+      "native_multi_vehicle": true,
+      "data_status": "PDF accessible through web extraction; local original download failed TLS; no full original matrix or workbook obtained",
+      "demand_unit": "pallet; table 3.3",
+      "capacity_unit": "pallet; section 3.3.2",
+      "capacity_numeric_value": null,
+      "source_locator": "Section 3.2.1 PDF page 18 / printed page 7; Tables 3.2-3.4 PDF pages 19-20; Appendix A PDF pages 44-45",
+      "decision": "incomplete_candidate_do_not_enable",
+      "caveat": "Original is explicitly an academic synthetic dataset. Place names and plotted locations do not justify inventing coordinates. Appendix describes generating distance/time matrices with OSRM; no generator run and no new matrix built."
+    },
+    {
+      "id": "escobar_2022",
+      "title": "A granular tabu search for the refrigerated vehicle routing problem with homogeneous fleet",
+      "doi": "10.5267/j.ijiec.2021.6.001",
+      "source": "https://www.growingscience.com/ijiec/Vol13/IJIEC_2021_16.pdf",
+      "native_multi_vehicle": true,
+      "data_status": "publisher PDF obtained; adapted classical CVRP instances, not original commercial cold-chain orders",
+      "demand_unit": "physical mass/pallet mapping not established",
+      "capacity_example": {
+        "instance": "M-n101-k10",
+        "Q": 200,
+        "K": 10,
+        "unit": "benchmark native capacity units; no physical unit in table 3"
+      },
+      "source_locator": "Section 4.2 printed page 145; Tables 3 and 4 printed page 146 / PDF page 12; equation 9 printed page 141",
+      "decision": "method_precedent_only_until_unit_and_adaptation_gaps_close",
+      "caveat": "Table 4 diesel calorific field prints W/kg, while equation 9 defines its fuel conversion as J/gal. Truck engine prints 146.7 cc. Preserve these observations; do not silently correct units or transfer numbers to RRP."
+    },
+    {
+      "id": "vrprep_set_m",
+      "title": "Christofides et al. 1979 Set M in VRP-REP",
+      "source": "https://www.vrp-rep.org/datasets/item/2014-0003.html",
+      "raw_file": "https://www.vrp-rep.org/datasets/download/christofides-et-al-1979-set-m.zip",
+      "native_multi_vehicle": true,
+      "native_cold_chain": false,
+      "data_status": "original public repository archive obtained with five XML instances and readme",
+      "demand_unit": "native quantity units; physical identity unspecified",
+      "capacity_native": 200,
+      "source_locator": "XML fleet/vehicle_profile/capacity and requests/request/quantity; archive readme",
+      "decision": "eligible_for_original_CVRP_routing_checks_only",
+      "caveat": "No 600 kg/pallet conversion, no demand scaling to 33 pallets, and no coordinate-to-km assumption. Repository readme explicitly cautions about rounding ambiguity."
+    }
+  ],
+  "methods": [
+    {
+      "title": "Prins 2004 giant-tour Split",
+      "doi": "10.1016/S0305-0548(03)00158-8",
+      "source": "https://www.sciencedirect.com/science/article/pii/S0305054803001588",
+      "review_status": "publisher abstract and scope; no local full text",
+      "support": "Partition a fixed customer permutation into routes; optimality is subject to that sequence."
+    },
+    {
+      "title": "Vidal 2016 Split technical note",
+      "doi": "10.1016/j.cor.2015.11.012",
+      "source": "https://arxiv.org/abs/1508.02759",
+      "paper_file": "vidal_split_1508.02759.pdf",
+      "code": "https://github.com/vidalt/Split-Library",
+      "support": "CVRP linear Split and O(nm) limited-fleet extension require the proved cost structure; generic Bellman limited-fleet labels remain applicable to separately evaluated feasible segment costs.",
+      "rrp_boundary": "Time-varying climate, traction load and continuous waiting do not inherit the CVRP linear-time property automatically. Exact decoding applies only to the fixed order and supplied segment costs, not all permutations or continuous schedules."
+    }
+  ],
+  "downloads": [
+    {
+      "file": "chen_2023_mixed_cold_chain.pdf",
+      "url": "https://pure.tue.nl/ws/portalfiles/portal/309283747/1-s2.0-S0957417423014811-main.pdf",
+      "retrieved_at_utc": "2026-10-20T08:54:19.371960+00:00",
+      "status": 200,
+      "final_url": "https://pure.tue.nl/ws/portalfiles/portal/309283747/1-s2.0-S0957417423014811-main.pdf",
+      "content_type": "application/pdf",
+      "bytes": 1194896,
+      "sha256": "d3cb9ee5721f7e0847a49b1e061b4bf92e792cb863be3b1515ed89838c13c440",
+      "downloaded": true
+    },
+    {
+      "file": "thammasat_2024_opensolver.pdf",
+      "url": "https://ethesisarchive.library.tu.ac.th/thesis/2024/TU_2024_6722040620_20924_30485.pdf",
+      "retrieved_at_utc": "2026-10-20T08:54:19.371960+00:00",
+      "downloaded": false,
+      "error_type": "SSLError"
+    },
+    {
+      "file": "vidal_split_1508.02759.pdf",
+      "url": "https://arxiv.org/pdf/1508.02759",
+      "retrieved_at_utc": "2026-10-20T08:54:19.372955+00:00",
+      "status": 200,
+      "final_url": "https://arxiv.org/pdf/1508.02759",
+      "content_type": "application/pdf",
+      "bytes": 876990,
+      "sha256": "27b4e55275f7176ff97c1c5c8ccce1b6b5511f1633b1865ebb7b05512eaa9d8a",
+      "downloaded": true
+    },
+    {
+      "file": "vrprep_christofides_1979_set_m.zip",
+      "url": "https://www.vrp-rep.org/datasets/download/christofides-et-al-1979-set-m.zip",
+      "retrieved_at_utc": "2026-10-20T08:54:19.372955+00:00",
+      "status": 200,
+      "final_url": "https://www.vrp-rep.org/datasets/download/christofides-et-al-1979-set-m.zip",
+      "content_type": "application/zip",
+      "bytes": 13323,
+      "sha256": "704425c72fe80bd50278f88891a114918aebcf6aa9018ff430eccf81e4da42e6",
+      "downloaded": true
+    },
+    {
+      "file": "escobar_crossref.json",
+      "url": "https://api.crossref.org/works/10.5267/j.ijiec.2021.6.001",
+      "retrieved_at_utc": "2026-10-20T08:54:19.372955+00:00",
+      "status": 200,
+      "final_url": "https://api.crossref.org/works/10.5267/j.ijiec.2021.6.001",
+      "content_type": "application/json",
+      "bytes": 3501,
+      "sha256": "76228be783f1d30a971deaedf3258490cd0665739b702824ee801973e0a49e0f",
+      "downloaded": true
+    },
+    {
+      "file": "escobar_2022_rcvrp.pdf",
+      "url": "https://www.growingscience.com/ijiec/Vol13/IJIEC_2021_16.pdf",
+      "retrieved_at_utc": "2026-10-20T08:55:04.553739+00:00",
+      "status": 200,
+      "final_url": "https://www.growingscience.com/ijiec/Vol13/IJIEC_2021_16.pdf",
+      "content_type": "application/pdf",
+      "bytes": 756744,
+      "sha256": "ea5185a174abd38f3a49accf6e9daa955bd4184bda57d00e15f2a5efa919990b",
+      "downloaded": true
+    }
+  ],
+  "zip_member_provenance": [
+    {
+      "member": "readme.txt",
+      "bytes": 813,
+      "sha256": "838762acf3474045e450151c52a0cc21200f1cf7c44fed32419787e9918708a2"
+    },
+    {
+      "member": "M-n101-k10.xml",
+      "bytes": 21541,
+      "sha256": "42983c96c323d5c27bc09d716e25018db834d52370c3774544484e1c728fcf62",
+      "nodes": 101,
+      "customers": 100,
+      "capacity_native": 200.0,
+      "quantity_units": "not declared as physical units in the XML",
+      "coordinate_units": "not declared as km in the XML",
+      "decimals": "0"
+    },
+    {
+      "member": "M-n121-k07.xml",
+      "bytes": 25715,
+      "sha256": "6f21a0f63a9d60f1f97eac2097474379d11440ca84aa8fed6a5710ea7d7705ef",
+      "nodes": 121,
+      "customers": 120,
+      "capacity_native": 200.0,
+      "quantity_units": "not declared as physical units in the XML",
+      "coordinate_units": "not declared as km in the XML",
+      "decimals": "0"
+    },
+    {
+      "member": "M-n151-k12.xml",
+      "bytes": 32083,
+      "sha256": "3900dfcb0ff860e7991741fc8b2d22c9aea5ee2984cd5515de458369bbd5141f",
+      "nodes": 151,
+      "customers": 150,
+      "capacity_native": 200.0,
+      "quantity_units": "not declared as physical units in the XML",
+      "coordinate_units": "not declared as km in the XML",
+      "decimals": "0"
+    },
+    {
+      "member": "M-n200-k16.xml",
+      "bytes": 42466,
+      "sha256": "ab14a0a1eaa6f747d21896a719125747e150d44f01121949f51e8931600299dc",
+      "nodes": 200,
+      "customers": 199,
+      "capacity_native": 200.0,
+      "quantity_units": "not declared as physical units in the XML",
+      "coordinate_units": "not declared as km in the XML",
+      "decimals": "0"
+    },
+    {
+      "member": "M-n200-k17.xml",
+      "bytes": 42466,
+      "sha256": "b32f9501ba42c8125a86c96d1663ea869bb3c1c9bb99ac7601040ff1499cea54",
+      "nodes": 200,
+      "customers": 199,
+      "capacity_native": 200.0,
+      "quantity_units": "not declared as physical units in the XML",
+      "coordinate_units": "not declared as km in the XML",
+      "decimals": "0"
+    }
+  ],
+  "rrp_instance_demand_audit": [
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n10-np27.json",
+      "sha256": "4c2b5f421f8a5d59bee08bc632bc32bd99bd991726cd0a8a59da624770c3d5b1",
+      "sum_demands_pallets": 27
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n11-np30.json",
+      "sha256": "e860f992cf405fc818b983bab18eddc6f2d999e6cbcdb3a5c3d627140c2277b4",
+      "sum_demands_pallets": 30
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n12-np33.json",
+      "sha256": "4eff1ceabd26441858eddcd7aa7baef45ca268eaff18fc1b7637598a5602c6b1",
+      "sum_demands_pallets": 33
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n13-np24.json",
+      "sha256": "673f11df75fb336a3b0716be8c876308933d2fbd6ebb85815254fd2a05957c0a",
+      "sum_demands_pallets": 24
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n14-np26.json",
+      "sha256": "0eb076af05215e53db7c8ee0912a0b6bcbb433121e05f1592aeafdae6728afb4",
+      "sum_demands_pallets": 26
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n15-np28.json",
+      "sha256": "980b132d52fe6ae9774c901db35da053bf6b16dd9f1be262e5682cde309e41b3",
+      "sum_demands_pallets": 28
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n16-np30.json",
+      "sha256": "33cca67f4ea4cd10abdb4aa8eb78117a888eb1dbd5edada25eee4717fa3668fe",
+      "sum_demands_pallets": 30
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n17-np32.json",
+      "sha256": "97ee6bb265b680be15628dd32440c45e55c0b6b08642ff6fc7a597ee1ad877bd",
+      "sum_demands_pallets": 32
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n34-np33.json",
+      "sha256": "213d4a85f96ed8e164afde791240e787e29323c040b8906027eb8904edffa36a",
+      "sum_demands_pallets": 33
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n4-np33.json",
+      "sha256": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1",
+      "sum_demands_pallets": 33
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n5-np32.json",
+      "sha256": "453544a75a240d391337fef66f0dfd4cbd50ed7cd675ca25887f5a6a1990681c",
+      "sum_demands_pallets": 32
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n6-np30.json",
+      "sha256": "aa5dd53e93a9e30358bc88610c69f594918185df92d7bc85db3162c187eed017",
+      "sum_demands_pallets": 30
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n7-np30.json",
+      "sha256": "734d07d35d345eef588131a981351b658acf302654337edc339ccebf025b0c8a",
+      "sum_demands_pallets": 30
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n8-np28.json",
+      "sha256": "a8555110dc9ae53840a13de918e935031b1d9ee78e2fa1fa4ee7cad309bd5fa1",
+      "sum_demands_pallets": 28
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D1/D1-n9-np32.json",
+      "sha256": "2a3864a3faec8cfdbce0ce1001a0d5e6ff822b0e29941cd1bd58811dc4867374",
+      "sum_demands_pallets": 32
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n10-np27.json",
+      "sha256": "2cb3b865e8cfc4704334546ee3d98cd8ef67661897630d453a2d6d9c5caaf4c3",
+      "sum_demands_pallets": 27
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n11-np30.json",
+      "sha256": "c3ee5c642583175684bbe02fe819e88b5d7fe91a4cd27d1de5254651b8c6a46c",
+      "sum_demands_pallets": 30
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n12-np33.json",
+      "sha256": "690f172ca04bb936efd87c426b6b18f82373a938814083c8d224a2174617c931",
+      "sum_demands_pallets": 33
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n13-np24.json",
+      "sha256": "ed6da1daca7e56e8445c0a052d32fad214dba65d291bf23d957d579814a07b95",
+      "sum_demands_pallets": 24
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n14-np26.json",
+      "sha256": "9355bb8a30302545a30906d9b10e4077974add0f0dbd8cb76fcb09604db8e123",
+      "sum_demands_pallets": 26
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n15-np28.json",
+      "sha256": "9debaa31ff890995266104a0b8f31d9d5625313c2864f008e518109947e20436",
+      "sum_demands_pallets": 28
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n16-np30.json",
+      "sha256": "fb936d9638b6af0c30c70bd60a201e2137779ba9ca47f9b81a6cb8a231922333",
+      "sum_demands_pallets": 30
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n17-np32.json",
+      "sha256": "183086aa0e8c01a450cd8b39476d912e6c1e7977a6d327f8898ae13e4d2bf11d",
+      "sum_demands_pallets": 32
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n34-np33.json",
+      "sha256": "d8334b04b179b558113e06aaf53bbd00a645e46a23681abf98f4da884db27319",
+      "sum_demands_pallets": 33
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n4-np33.json",
+      "sha256": "7f2cfd87ca6ffdc54b1acf98791cdacb8d5ddb69ad1c49784440355bc0413865",
+      "sum_demands_pallets": 33
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n5-np32.json",
+      "sha256": "54d73eac2bb358d4f4c02ad0dfa126c171d8fc93e7015efcecec3b0900206e48",
+      "sum_demands_pallets": 32
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n6-np30.json",
+      "sha256": "655fcbb19687e994caaa3ee508f45851678169716d15616284555bc7c1e10381",
+      "sum_demands_pallets": 30
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n7-np30.json",
+      "sha256": "301f99f9f42b8fb999aa9bd9aeb97495a56f00bcd3acdc0f974e4c85eba1f933",
+      "sum_demands_pallets": 30
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n8-np28.json",
+      "sha256": "d1b5d60d326e3c20b357371efb6f5271fce67c4e4293b8f7c7f1239cbd010bdd",
+      "sum_demands_pallets": 28
+    },
+    {
+      "file": "data/public_sources_20261020/refrigerated_routing_rrp/Datasets/D2/D2-n9-np32.json",
+      "sha256": "bf918a6d54da3347f48757381fca3e82000e79c3c065758bd7c2375bab059f4f",
+      "sum_demands_pallets": 32
+    }
+  ],
+  "generated_customer_instances": false,
+  "author_generators_run": false,
+  "primary_code_modified": false,
+  "recommendation": "Use unchanged RRP orders, source 33-pallet homogeneous vehicles, original RRP physics, explicit maximum fleet size; call it a multi-vehicle extension, not an author native multi-vehicle benchmark reproduction.",
+  "remaining_gaps": [
+    "No verified complete native multi-vehicle public cold-chain dataset with original customer files, explicit demand/capacity physical mapping and full source physics was obtained among these bounded candidates.",
+    "Thai raw PDF download failed with TLS UNEXPECTED_EOF_WHILE_READING; web text was reviewed, capacity numeric value and full matrix/workbook remain unverified.",
+    "Escobar adapted raw cold-chain instance package was not obtained and printed parameter dimensions need resolution.",
+    "No missing D1-n9 reference wait is resolved by this research."
+  ],
+  "backend_note": "parallel-cli absent; used available web search/open and direct named-source downloads. No CLI installed and no credentials queried.",
+  "evidence_sha256": {
+    "build_multi_report.py": "9b2ab1b402f95a762575aa313eb97cbb5fa75f1f26e1c6126fea6aba6a46a9a1",
+    "chen_2023_mixed_cold_chain.pdf": "d3cb9ee5721f7e0847a49b1e061b4bf92e792cb863be3b1515ed89838c13c440",
+    "download_manifest.json": "909a501820bbac04c925c7fe7701dd3f9980d3fd4985823784cd0d356b20e0d3",
+    "download_public_evidence.py": "218ffc43ad144a951158ce45439a8680c332f9c7e1b3bbd088622489f2323921",
+    "escobar_2022_rcvrp.pdf": "ea5185a174abd38f3a49accf6e9daa955bd4184bda57d00e15f2a5efa919990b",
+    "escobar_crossref.json": "76228be783f1d30a971deaedf3258490cd0665739b702824ee801973e0a49e0f",
+    "escobar_table3_4.png": "459dddaaa8917af2282a455740589cd1104a69c161f92f05fa6b337fca2e11e1",
+    "vidal_split_1508.02759.pdf": "27b4e55275f7176ff97c1c5c8ccce1b6b5511f1633b1865ebb7b05512eaa9d8a",
+    "vrprep_christofides_1979_set_m.zip": "704425c72fe80bd50278f88891a114918aebcf6aa9018ff430eccf81e4da42e6",
+    "vrprep_M-n101-k10.xml": "42983c96c323d5c27bc09d716e25018db834d52370c3774544484e1c728fcf62",
+    "vrprep_readme.txt": "838762acf3474045e450151c52a0cc21200f1cf7c44fed32419787e9918708a2"
+  }
+}
