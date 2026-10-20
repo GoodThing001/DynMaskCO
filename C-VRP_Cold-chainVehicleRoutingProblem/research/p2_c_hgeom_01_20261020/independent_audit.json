@@ -1,0 +1,189 @@
+{
+  "checks": [
+    {
+      "detail": {
+        "mismatches": [],
+        "n": 2
+      },
+      "name": "contracts_unchanged",
+      "ok": true
+    },
+    {
+      "detail": {
+        "mismatches": [],
+        "n": 13
+      },
+      "name": "inputs_unchanged",
+      "ok": true
+    },
+    {
+      "detail": {
+        "mismatches": [],
+        "n": 19
+      },
+      "name": "existing_source_hashes_unchanged",
+      "ok": true
+    },
+    {
+      "detail": "The explicit human confirmation authorizes phase1 only.",
+      "name": "formal_authorization_absent",
+      "ok": true
+    },
+    {
+      "detail": {
+        "expected": 29,
+        "observed": 29
+      },
+      "name": "regression_roster",
+      "ok": true
+    },
+    {
+      "detail": "29/29 recorded component checks; does not establish all contract gates.",
+      "name": "component_regression_receipt",
+      "ok": true
+    },
+    {
+      "detail": {
+        "excess_bytes": 180224,
+        "limit_bytes": 100663296,
+        "native_peak_bytes": 100843520,
+        "reason": "Observed native peak exceeds its configured ceiling. Failure classification is not proof of prevention."
+      },
+      "name": "strict_native_memory_ceiling",
+      "ok": false
+    },
+    {
+      "detail": "Fault receipt retained; not promoted to a normal successful run.",
+      "name": "memory_failure_not_hidden",
+      "ok": true
+    },
+    {
+      "detail": {
+        "native": {
+          "active_process_limit": 2,
+          "flags": 8712,
+          "job_limit": 100663296,
+          "peak_job_commit": 25231360,
+          "supervisor_hard_ws": {
+            "flags": 6,
+            "max": 50331648,
+            "min": 81920
+          },
+          "worker_hard_ws_max": 50331648
+        },
+        "private_sum": 25165824,
+        "rss_sum": 74797056
+      },
+      "name": "rss_distinct_from_private_commit",
+      "ok": true
+    },
+    {
+      "detail": {
+        "elapsed_s": 1.797000000020489,
+        "remaining": [
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT",
+          "NOT_ATTEMPTED_PACKAGE_ABORT"
+        ],
+        "slots": 19
+      },
+      "name": "unit_timeout_failure_ledger",
+      "ok": true
+    },
+    {
+      "detail": {
+        "elapsed_s": 1.7659999998286366,
+        "remaining": [
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT",
+          "NOT_ATTEMPTED_PACKAGE_TIMEOUT"
+        ],
+        "slots": 19
+      },
+      "name": "package_timeout_failure_ledger",
+      "ok": true
+    },
+    {
+      "detail": {
+        "first": {
+          "failure_code": "PROCESS_EXCEPTION",
+          "state": "END",
+          "unit_key": "synthetic_00"
+        },
+        "slot_count": 19
+      },
+      "name": "kill_worker_durable_postmortem",
+      "ok": true
+    },
+    {
+      "detail": {
+        "first": {
+          "failure_code": "PROCESS_INTERRUPTED",
+          "state": "INTERRUPTED",
+          "unit_key": "synthetic_00"
+        },
+        "slot_count": 19
+      },
+      "name": "kill_supervisor_durable_postmortem",
+      "ok": true
+    },
+    {
+      "detail": {
+        "reason": "Native synthetic probes and the callable closure are separate; no complete supervised two-phase 19-slot pipeline is qualified.",
+        "status": "NOT_COMPLETED_AFTER_RESOURCE_STOP",
+        "supervisor_calls_closure": false
+      },
+      "name": "integrated_two_phase_runner_qualified",
+      "ok": false
+    },
+    {
+      "detail": "The final component receipt contains frozen original-definition hashes, but not a pre-run digest of every new module. No retroactive T2 qualification.",
+      "name": "new_source_bound_before_regression",
+      "ok": false
+    }
+  ],
+  "failed": [
+    "strict_native_memory_ceiling",
+    "integrated_two_phase_runner_qualified",
+    "new_source_bound_before_regression"
+  ],
+  "formal_evaluation_allowed": false,
+  "imports_implementation": false,
+  "n_checks": 15,
+  "n_ok": 12,
+  "registration_sha256": "ab9db91dbdb7cb872bcda0aaf1dac4bd0403409bdea2949e4db4be8435ddd2f0",
+  "regression_sha256": "34383c05fb1cca2ff6c323a9f5cb4d59f805127bb45c58a078a9e87332dd795c",
+  "schema": "hgeom_independent_readonly_audit_v1",
+  "source_sha256": "2600b0c40aa6e609b34d9472bd9598b33def6c2de2bc0d0590ab43f17431b2b0",
+  "status": "BLOCKED"
+}
