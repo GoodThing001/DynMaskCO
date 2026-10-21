@@ -1,0 +1,67 @@
+{
+  "os": {
+    "system": "Windows",
+    "release": "11",
+    "version": "10.0.26200",
+    "machine": "AMD64",
+    "python_version": "3.12.7"
+  },
+  "cpu": {
+    "physical_cores": 4,
+    "logical_cores": 8,
+    "max_frequency_mhz": 3187.0,
+    "architecture": "AMD64",
+    "processor": "Intel64 Family 6 Model 140 Stepping 2, GenuineIntel",
+    "current_frequency_mhz": 3187.0
+  },
+  "memory": {
+    "total_gb": 15.79,
+    "available_gb": 2.33,
+    "used_gb": 13.45,
+    "percent_used": 85.2,
+    "swap_total_gb": 18.12,
+    "swap_available_gb": 1.91
+  },
+  "disk": {
+    "total_gb": 329.07,
+    "available_gb": 115.33,
+    "used_gb": 213.74,
+    "percent_used": 64.95
+  },
+  "gpu": {
+    "nvidia_gpus": [],
+    "amd_gpus": [],
+    "apple_silicon": null,
+    "total_gpus": 0,
+    "available_backends": []
+  },
+  "recommendations": {
+    "parallel_processing": {
+      "strategy": "high_parallelism",
+      "suggested_workers": 6,
+      "libraries": [
+        "joblib",
+        "multiprocessing",
+        "dask"
+      ]
+    },
+    "memory_strategy": {
+      "strategy": "memory_constrained",
+      "libraries": [
+        "zarr",
+        "dask",
+        "h5py"
+      ],
+      "note": "Use out-of-core processing for large datasets"
+    },
+    "gpu_acceleration": {
+      "available": false,
+      "note": "No GPU detected, use CPU-based libraries"
+    },
+    "large_data_handling": {
+      "strategy": "disk_abundant",
+      "note": "Sufficient space for large intermediate files"
+    }
+  },
+  "skill_compatibility": "stdlib disk_usage used because installed psutil Windows disk ABI fails"
+}

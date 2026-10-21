@@ -1,0 +1,159 @@
+{
+  "status": "PASS_DEVELOPMENT_TRAINING",
+  "variants": {
+    "maskco_base": {
+      "parameter_count": 40256,
+      "training": [
+        {
+          "step": 1,
+          "loss": 4.611123561859131,
+          "gradient_norm": 0.4545379877090454,
+          "updated_parameter_leaves": 34,
+          "training_case": "r101",
+          "training_condition": {
+            "profile": "slow_Product3",
+            "minimum_quality": 0.85,
+            "value_multiplier": 1
+          }
+        },
+        {
+          "step": 2,
+          "loss": 4.603143215179443,
+          "gradient_norm": 0.8362503051757812,
+          "updated_parameter_leaves": 34,
+          "training_case": "r101",
+          "training_condition": {
+            "profile": "fast_Product2",
+            "minimum_quality": 0.8,
+            "value_multiplier": 1
+          }
+        }
+      ],
+      "checkpoint_prediction_identical": true,
+      "optimizer_resume_identical": true,
+      "actual_train_steps": 2,
+      "additional_resume_verification_steps": 1
+    },
+    "directed_only": {
+      "parameter_count": 42304,
+      "training": [
+        {
+          "step": 1,
+          "loss": 4.848463535308838,
+          "gradient_norm": 4.973011493682861,
+          "updated_parameter_leaves": 36,
+          "training_case": "r101",
+          "training_condition": {
+            "profile": "slow_Product3",
+            "minimum_quality": 0.85,
+            "value_multiplier": 1
+          }
+        },
+        {
+          "step": 2,
+          "loss": 4.757093906402588,
+          "gradient_norm": 4.472906112670898,
+          "updated_parameter_leaves": 36,
+          "training_case": "r101",
+          "training_condition": {
+            "profile": "fast_Product2",
+            "minimum_quality": 0.8,
+            "value_multiplier": 1
+          }
+        }
+      ],
+      "checkpoint_prediction_identical": true,
+      "optimizer_resume_identical": true,
+      "actual_train_steps": 2,
+      "additional_resume_verification_steps": 1
+    }
+  },
+  "tasks": [
+    {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "slow_Product3",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "slow_Product3",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "main_Product1",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "main_Product1",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "fast_Product2",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "fast_Product2",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    }
+  ],
+  "backend": "cpu",
+  "formal_experiment": false
+}

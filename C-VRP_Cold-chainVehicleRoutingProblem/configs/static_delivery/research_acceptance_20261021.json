@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-21",
+  "status": "USER_CONFIRMED_SCIENTIFIC_FREEZE_AND_AUTHORIZED_ALGORITHM_DEVELOPMENT",
+  "user_instruction": "正式科研冻结和封存，然后开始算法部分；静态冷链物流路径优化，基于MASKCO改进，多车，以总效益为目标，其余条件作为约束",
+  "scientific_freeze_id": "publication_model_v1_scientific_freeze_20261021",
+  "scientific_lock_sha256": "ad52f0fd475ebb22d187ce6dad3579f2f147a541fc7a82312941060d196692f9",
+  "objective_interpretation_consistent_with_prior_instructions": "maximize total delivery net benefit over all vehicles: quality-adjusted delivery value minus transportation and refrigeration costs, excluding common fixed terms",
+  "mandatory_hard_constraints": ["vehicle capacity", "customer service-start time windows", "quality at service completion", "each original customer served exactly once", "closed routes with depot return deadline", "source fleet-count bound K<=n"],
+  "current_stage": "algorithm implementation and training/validation development; formal outer-test execution remains gated",
+  "immutable_scope": "frozen model, source data, exclusions, geometry folds and analysis contract",
+  "method_scope": "objective-adapted MaskCO baseline plus ablatable quality-context and directed-denoising candidate; same-objective ALNS/VNS adapters",
+  "upstream_source_policy": "MASKCO_code and original comparison snapshots remain read-only; all additions in extension"
+}

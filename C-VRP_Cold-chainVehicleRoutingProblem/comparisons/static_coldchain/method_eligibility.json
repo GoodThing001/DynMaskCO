@@ -155,11 +155,13 @@
   {
     "method": "ALNS",
     "official_repo": "https://github.com/N-Wouda/ALNS",
-    "status": "priority_new_net_benefit_baseline",
-    "assessment": "新增通用框架；可显式用负净效益作最小化值、不可行解拒绝；适配尚未完成",
+    "status": "implemented_numerical_scenario_baseline",
+    "assessment": "固定ALNS7源码已用于负情景净效益搜索，72次运行与独立重算完成；TA到价值仍是新增假设，食品验收与同车校准未闭合",
     "new_snapshot_saved": true,
     "legacy_dynamic_adapter_reused": false,
-    "net_benefit_ready": false
+    "net_benefit_ready": false,
+    "scenario_net_benefit_ready": true,
+    "scenario_result": "results/static_delivery/net_benefit_scenario_pilot_20261020/results_metadata_corrected.json"
   },
   {
     "method": "HGS-CVRP",

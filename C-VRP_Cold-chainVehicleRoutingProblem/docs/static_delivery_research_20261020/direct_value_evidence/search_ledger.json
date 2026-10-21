@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-20",
+  "scope": "bounded primary-source follow-up on tomato grade/value, maturity temperature and refrigeration units; not a systematic review",
+  "workflow": "research-lookup skill; built-in web search fallback because Parallel CLI unavailable; local XML/PDF extraction where acquired",
+  "sources": [
+    {
+      "id": "gaukler_2023",
+      "doi": "10.1016/j.ejor.2023.03.006",
+      "url": "https://pure.eur.nl/files/155582174/1-s2.0-S037722172300200X-main.pdf",
+      "record": "https://pure.eur.nl/en/publications/the-value-of-time-and-temperature-history-information-for-the-dis/",
+      "verification": "metadata institutional record; primary-document indexed passages printed634-635; directPDF403; no local full PDF or original-page visual verification",
+      "locations": ["section4.1 printed634-635", "section4.2 and Table2 printed635"],
+      "claims": ["vine-ripened tomatoes;25lb/carton;80cartons/pallet", "historical reference1600USD/pallet; numerical high-price range1200-2000", "low/high-price fraction0.4-0.8; source quality threshold55; temperature9C"],
+      "adopted_as": "source-specific quotations only; complete source-index dynamics and purchase/cost currency not obtained",
+      "not_adopted_as": "TA-to-price calibration or actual present market price"
+    },
+    {
+      "id": "boiteau_pingali_2022",
+      "doi": "10.1093/ajcn/nqac039",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9170466/",
+      "acquired_from": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9170466/fullTextXML",
+      "verification": "local full XML parsed; sha256 in acquisition_manifest.json; original Figure3 numeric means not transcribed",
+      "locations": ["Methods Food quality assessments", "Results Figure3", "Data availability"],
+      "claims": ["composite perceived quality and expected market prices by grade", "raw data/code on request; not obtained"],
+      "not_adopted_as": "observed transaction-price curve or laboratory TA-price regression"
+    },
+    {
+      "id": "uc_davis_tomato",
+      "url": "https://postharvest.ucdavis.edu/produce-facts-sheets/tomato",
+      "verification": "official university guidance read; authors Suslow and Cantwell; commodity sheet last updatedMay1997; not a new experimental paper",
+      "locations": ["Postharvest Handling and Storage Optimum Temperature"],
+      "claims": ["maturegreen12.5-15C", "lightred10-12.5C", "firmripe7-10C for3-5days"],
+      "not_adopted_as": "new tomato dynamics or proof one-day4C is unsafe"
+    },
+    {
+      "id": "nist_lb_conversion",
+      "url": "https://www.nist.gov/system/files/documents/2023/01/30/appb-23-HB44.pdf",
+      "verification": "official NIST conversion table; exact pound-to-kilogram conversion0.45359237",
+      "adopted_as": "mass unit conversion only"
+    },
+    {
+      "id": "quality_driven_2021",
+      "doi": "10.1016/j.ijpe.2020.107849",
+      "verification": "existing local publisher PDF text; section3.3 Eq17-20 printed5",
+      "local_source": "../sources/quality_driven_2021.pdf",
+      "adopted_as": "separation of thermal heat, COP, conversion efficiency and fuel energy content",
+      "not_adopted_as": "missing same-vehicle coefficients or current energy tariff"
+    },
+    {
+      "id": "preserved_mullet_2024",
+      "doi": "10.3390/fishes9120480",
+      "verification": "existing original and Table6; Figure6c p11 previously visually reviewed; no new fish pricing calibration",
+      "adopted_as": "existing same-indicator sensory kinetics; not money"
+    },
+    {
+      "id": "preserved_CO2_2023",
+      "doi": "10.13380/j.ltpl.2023.01.009",
+      "verification": "previous official seven-page PDF web extraction; direct403, screenshot failure; no local full PDF",
+      "adopted_as": "same-condition1.75kW/COP1.66 input-power identity only"
+    }
+  ],
+  "query_families": ["Gaukler time temperature history tomato grade55 wholesale price Table2", "tomato grade expected price empirical South India Boiteau Pingali", "tomato maturity firmripe temperature UC Davis", "refrigerated routing heat COP fuel units quality-driven2021", "source-specific tomato life-cycle pricing numerical parameter origin"],
+  "examined_but_not_used_for_numeric_adoption": [
+    {"doi": "10.1051/ro/2023122", "url": "https://www.rairo-ro.org/10.1051/ro/2023122/pdf", "reason": "direct403; abstract alone does not supply complete coefficients"},
+    {"doi": "10.1016/j.trd.2018.08.010", "url": "https://publish.fid-move.qucosa.de/api/qucosa%3A73232/attachment/ATT-0/", "reason": "redirect attachment404; no local full PDF; cost_access_failure.json"},
+    {"doi": "10.18174/472673", "url": "https://edepot.wur.nl/472673", "reason": "web403; no complete new truck parameter adoption"},
+    {"doi": "10.1016/j.ejor.2021.04.057", "reason": "discovery only; no complete new primary parameter extraction"},
+    {"doi": "10.1155/2020/8839398", "reason": "discovery only; no numeric adoption; publication status not independently resolved"}
+  ],
+  "decision": "preserve historical TA-price hypothesis results; do not relabel them calibrated by substituting new grade discount; implement only explicit quote/unit guards pending complete mapping",
+  "supplementary_materials_or_raw_data_obtained": false,
+  "authors_contacted": false,
+  "new_customer_instances_generated": false,
+  "new_routing_or_training": false
+}

@@ -635,3 +635,36 @@ __jaxcache__
 !/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/quality_evidence_demo_20261020.json
 !/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/quality_evidence_demo_v2_20261020.json
 !/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/quality_evidence_demo_final_20261020.json
+
+# 2026-10-21 local directory classification: retain renamed evidence and navigation.
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/history/
+/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/history/*
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/history/quality_evidence_20261020/
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/history/quality_evidence_20261020/**
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/workspace_organization_20261021/
+/C-VRP_Cold-chainVehicleRoutingProblem/results/workspace_organization_20261021/*
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/workspace_organization_20261021/README.md
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/workspace_organization_20261021/migration_manifest.json
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/workspace_organization_20261021/safe_tool_verification.json
+
+# User-approved CC_Compare type layout; legacy tree and nested Git stay local.
+/C-VRP_Cold-chainVehicleRoutingProblem/archive/cc_compare_reorganization_20261021/*
+!/C-VRP_Cold-chainVehicleRoutingProblem/archive/cc_compare_reorganization_20261021/README.md
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/cc_compare_organization_20261021/
+/C-VRP_Cold-chainVehicleRoutingProblem/results/cc_compare_organization_20261021/*
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/cc_compare_organization_20261021/README.md
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/cc_compare_organization_20261021/verification.json
+
+# Approved 2026-10-21 release: publish current text evidence, never payloads or weights.
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/workspace_sync_20261021/
+/C-VRP_Cold-chainVehicleRoutingProblem/results/workspace_sync_20261021/*
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/workspace_sync_20261021/README.md
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/workspace_sync_20261021/verification.json
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/workspace_sync_20261021/static_profit_tests.log
+!/C-VRP_Cold-chainVehicleRoutingProblem/results/workspace_sync_20261021/static_rrp_tests.log
+/C-VRP_Cold-chainVehicleRoutingProblem/archive/server_sync_20261021/
+**/pytest_tmp_*/
+
+# Live dev11 diagnostics stay outside this static release until sealed.
+/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/algorithm_dev_20261021/remote/dev11/run.log
+/C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/algorithm_dev_20261021/remote/dev11/outputs/

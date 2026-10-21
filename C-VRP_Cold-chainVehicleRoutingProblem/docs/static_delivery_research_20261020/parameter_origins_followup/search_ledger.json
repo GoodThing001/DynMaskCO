@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-20",
+  "question": "How do related papers obtain initial quality, prices, costs and routing instances: measurement, literature scenario, benchmark adaptation or random generation?",
+  "method": "Primary publishers, university author thesis, author project PDF and author dataset README. Built-in web search used because Parallel CLI was unavailable, as documented in previous research round.",
+  "scope": "Targeted parameter-origin audit, not a systematic review or a claim about field-wide prevalence",
+  "primary_urls": [
+    "https://www.sciencedirect.com/science/article/pii/S2405896316302646",
+    "https://www.biblio.univ-evry.fr/theses/2018/2018SACLE036.pdf",
+    "https://transsonic.nl/documents/Stellingwerf_EtAl_IJPE_2021_The_Quality_Driven_Vehicle_Routing_Problem.pdf",
+    "https://doi.org/10.3390/sym17101609",
+    "https://github.com/SelinHulagu/vrptwq-solomon-instances",
+    "https://doi.org/10.3390/foods12010006",
+    "https://doi.org/10.3390/fishes9120480",
+    "https://doi.org/10.1016/j.samod.2023.100020",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9474837/"
+  ],
+  "queries_representative": [
+    "A production inventory routing planning randomly",
+    "sym17101609 D0",
+    "Inventory dynamics at the retailer 4.50 kg",
+    "10.1016/j.samod.2023.100020 Sales price",
+    "Fish availability and market channel Mugil cephalus"
+  ],
+  "access_limits": [
+    "Li2016 publisher abstract verified; exact parameter ranges in report attributed only to separately downloaded2018 thesis",
+    "2023 tomato economics publisher search extraction exposes Table2,80% assumption and appendix; direct DOI open403",
+    "2025 Symmetry page sometimes429; official PDF downloaded and inspected",
+    "2022 market survey XML obtained from EuropePMC; source prints $/kg; no automatic currency-ISO inference",
+    "2018 Chapter6 full45 instance files and seed not obtained; rule knowledge is not original-instance recovery",
+    "2024 mullet raw scores on author request; no contact sent",
+    "2023 retail supplementary3 ZIP entries observed; no contents claimed or audited"
+  ],
+  "source_identity_rule": "Historical survey, numerical assumptions and experimental kinetics retain their separate identities; no cross-species fitted price function asserted. No customer generator executed.",
+  "correction": "Mullet Figure6(c) shows an approximately9 initial score, permitting a literature-batch scenario; previous reasoning based only on unknown exact intercept was too restrictive."
+}

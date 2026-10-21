@@ -1,0 +1,8 @@
+{
+  "status": "HISTORICAL_INITIAL_FUNCTIONAL_SMOKE_KEEP_RAW_RESULTS",
+  "issue": "optimizer-resume verification advanced temporary models from step3 to step4, and run01 inference used those step4 models while saved checkpoints contain step3",
+  "scope": "saved checkpoints and resume equality remain valid; run01 inference is not an exact inference replay from its saved step3 checkpoint",
+  "correction": "the corrected runner reloads the saved checkpoint again before inference; use the next new output directory for active results",
+  "formal_experiment": false,
+  "raw_results_modified": false
+}

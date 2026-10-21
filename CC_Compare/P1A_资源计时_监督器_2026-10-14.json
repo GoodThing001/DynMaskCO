@@ -1,7 +1,0 @@
-{
-  "rc": 0,
-  "timed_out": false,
-  "elapsed_s": 2986.4940043119714,
-  "stdout_tail": "{\n  \"built\": {\n    \"budget\": 710.6548152249378,\n    \"cooling_share\": 3.7208946347769882,\n    \"n_records\": 7,\n    \"n_served\": null,\n    \"n_contexts\": 8,\n    \"gate_seed\": 20260926,\n    \"train_seed\": 20260925,\n    \"n_orders\": 200,\n    \"n_vehicles\": 15,\n    \"arm_seed\": 7002,\n    \"K\": 10,\n    \"inner_gate\": \"on\",\n    \"inst_idx\": 0,\n    \"anchor_check\": {\n      \"frozen_B\": 710.6548152249378,\n      \"witnessed_B\": 710.6548152249378,\n      \"rel_gap_B\": 0.0,\n      \"frozen_cooling_share\": 3.7208946347769882,\n      \"witnessed_cooling_share\": 3.7208946347769882,\n      \"abs_gap_cooling_share\": 0.0,\n      \"rel_tol_B\": 1e-06,\n      \"abs_tol_cooling_share\": 1e-09,\n      \"note\": \"相对容差只用于判\\\"同一规模\\\"；实测差值如实报出，未隐藏\"\n    },\n    \"dataset_source\": \"cache_hit\"\n  },\n  \"work_fn_len\": 8,\n  \"decision_points_digest\": \"5b432f2826ea66622173ecc514378bae8d11013374d4e93ad7940a392b2de3dc\"\n}\nWROTE: /tmp/rolec_timing_report.json\n{\n  \"n_completed\": 200,\n  \"n_timeouts\": 0,\n  \"n_overruns\": 200,\n  \"per_decision\": {\n    \"n\": 200,\n    \"mean\": 10.002368275873014,\n    \"min\": 10.000985580962151,\n    \"p50\": 10.002083586994559,\n    \"p95\": 10.004507676931098,\n    \"max\": 10.005924777011387\n  },\n  \"enforcement\": \"hard_sigalrm\",\n  \"qualified\": true,\n  \"unqualified_reasons\": []\n}\n",
-  "stderr_tail": ""
-}

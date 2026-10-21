@@ -1,0 +1,278 @@
+{
+  "status": "PUBLISHED_TABLE_TRANSCRIPTION_NOT_SYNTHETIC_CUSTOMER_INSTANCE_NOT_FULL_REPLICATION",
+  "source_doi": "10.1016/j.ijpe.2020.107849",
+  "source_url": "https://transsonic.nl/documents/Stellingwerf_EtAl_IJPE_2021_The_Quality_Driven_Vehicle_Routing_Problem.pdf",
+  "source_pdf_sha256": "8248f5a7ba9c75ee36fc44af7c327c6af509b0d60ee6d4420922787246f9ffc6",
+  "source_locations": {
+    "distance": "Table2 p6",
+    "demand_and_kinetics": "Table3 p6",
+    "speed": "Table14 p11",
+    "base_assumptions": "section4.1 p7"
+  },
+  "node_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "depot_id": 0,
+  "customer_ids": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "product_ids": [
+    "Product1",
+    "Product2",
+    "Product3"
+  ],
+  "product_identity": "fresh cut vegetables; table does not assign named species/quality attribute to each numbered product; do not rename as tomato or fish",
+  "distance_km": [
+    [
+      0,
+      91,
+      6,
+      134,
+      82,
+      117,
+      74,
+      192
+    ],
+    [
+      91,
+      0,
+      91,
+      75,
+      134,
+      43,
+      20,
+      155
+    ],
+    [
+      6,
+      91,
+      0,
+      134,
+      84,
+      117,
+      75,
+      194
+    ],
+    [
+      134,
+      75,
+      134,
+      0,
+      168,
+      46,
+      94,
+      90
+    ],
+    [
+      82,
+      134,
+      84,
+      168,
+      0,
+      158,
+      140,
+      180
+    ],
+    [
+      117,
+      43,
+      117,
+      46,
+      158,
+      0,
+      59,
+      117
+    ],
+    [
+      74,
+      20,
+      75,
+      94,
+      140,
+      59,
+      0,
+      174
+    ],
+    [
+      192,
+      155,
+      194,
+      90,
+      180,
+      117,
+      174,
+      0
+    ]
+  ],
+  "demand_kg_by_customer_then_product": [
+    [
+      432,
+      432,
+      216
+    ],
+    [
+      2160,
+      648,
+      648
+    ],
+    [
+      648,
+      216,
+      432
+    ],
+    [
+      792,
+      403,
+      432
+    ],
+    [
+      1080,
+      432,
+      648
+    ],
+    [
+      979,
+      86,
+      259
+    ],
+    [
+      864,
+      432,
+      432
+    ]
+  ],
+  "speed_km_per_h_directed": [
+    [
+      null,
+      45.9,
+      50.7,
+      51.4,
+      63.4,
+      65.9,
+      50.5,
+      46.7
+    ],
+    [
+      59.1,
+      null,
+      42.9,
+      48.1,
+      60.2,
+      65.3,
+      44.5,
+      46.9
+    ],
+    [
+      64.2,
+      60.3,
+      null,
+      60.2,
+      66.4,
+      63.6,
+      59.1,
+      50.5
+    ],
+    [
+      61.0,
+      64.7,
+      44.2,
+      null,
+      67.9,
+      58.9,
+      51.3,
+      52.3
+    ],
+    [
+      41.8,
+      49.7,
+      50.0,
+      50.4,
+      null,
+      65.5,
+      48.2,
+      48.1
+    ],
+    [
+      50.7,
+      52.1,
+      46.8,
+      47.8,
+      42.3,
+      null,
+      42.5,
+      50.2
+    ],
+    [
+      62.5,
+      63.1,
+      44.9,
+      65.3,
+      65.2,
+      61.1,
+      null,
+      50.7
+    ],
+    [
+      62.8,
+      56.8,
+      59.7,
+      59.8,
+      59.3,
+      59.2,
+      60.9,
+      null
+    ]
+  ],
+  "speed_diagonal": "not printed / not used; null, not fabricated zero-speed observation",
+  "source_kinetics": {
+    "source_symbol": "k0 in reference-temperature-corrected Arrhenius Eq2,8,9; NOT preexponential in an unshifted Arrhenius equation",
+    "reference_rate_per_s": [
+      3.08e-06,
+      3.84e-06,
+      1.96e-06
+    ],
+    "Ea_J_per_mol": [
+      77900,
+      76304,
+      88521
+    ],
+    "reference_temperature_K_as_paper": 275,
+    "reaction_order_as_paper": 0
+  },
+  "source_base_assumptions": {
+    "setpoint_K": 275,
+    "ambient_K": 293,
+    "unloading_s_per_kg": 0.8,
+    "cooling_s_per_kg": 0.4,
+    "available_vehicles": 3,
+    "curb_weight_kg": 10000,
+    "payload_capacity_kg": 30000
+  },
+  "not_filled": {
+    "coordinates": null,
+    "customer_time_windows": null,
+    "sales_prices": null,
+    "purchase_prices": null,
+    "empirical_quality_value_mapping": null
+  },
+  "limits": [
+    "case study, not classic multi-instance benchmark",
+    "source uses rounded Kelvin conventions; do not silently replace275K by275.15K in a claimed reproduction",
+    "kinetic parameter product/attribute identity and complete initial-quality/cost constants require follow-up; no full food model or profit claimed"
+  ],
+  "customers_generated": false,
+  "route_or_profit_computed": false
+}

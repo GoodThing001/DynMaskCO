@@ -1,0 +1,71 @@
+{
+  "freeze_id": "publication_model_v1_scientific_freeze_20261021",
+  "date": "2026-10-21",
+  "timezone": "Asia/Shanghai",
+  "status": "FROZEN_MODEL_DATA_AND_ANALYSIS_CONTRACT_BEFORE_FORMAL_METHOD_COMPARISON",
+  "registration_identity": "local protocol freeze with SHA; not externally registered or independently timestamped preregistration",
+  "base_model": "configs/static_delivery/publication_model_v1.json",
+  "base_model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+  "formal_evaluator": "comparisons/static_coldchain/adapters/publication_model_v1_strict.py",
+  "primary_scope": "algorithm performance on the fixed 47-case composite numerical benchmark; not empirical business profit or population-wide spatial superiority",
+  "hypothesis": "the proposed adaptation improves quality-adjusted delivery net benefit at the same declared inference wall-time budget compared with objective-adapted MaskCO and strong classical search",
+  "data": {
+    "manifest": "results/static_delivery/publication_protocol_v1_preflight_20261021/dataset_manifest.json",
+    "folds": "results/static_delivery/publication_protocol_v1_preflight_20261021/geometry_folds.json",
+    "eligible_cases": 47,
+    "source_cases": 56,
+    "geometry_groups": 4,
+    "cohort_changes_based_on_algorithm_results": false,
+    "new_customers_or_coordinate_perturbations": false,
+    "prior_access_disclosure": "feasibility diagnostics and earlier different-objective traditional-search pilots were examined; current method comparisons are not claimed to be a wholly unseen dataset study"
+  },
+  "conditions": {
+    "training_validation": "base model's six kinetic-threshold conditions, nominal P only; outer geometry roles must be obeyed",
+    "primary_test": {"profile": "main_Product1", "minimum_quality": 0.8, "reference_value_multiplier": 1},
+    "kinetic_threshold_sensitivity": "all six base model conditions, nominal P; five nonprimary cells reported without promotion to primary",
+    "economic_weight_sensitivity": {"profile": "main_Product1", "minimum_quality": 0.8, "reference_value_multipliers": [0.5, 1, 2], "P_U_per_kg": [0.8333333333333334, 1.6666666666666667, 3.3333333333333335], "role": "author-designed half/double stress test around a literature-derived reference, not three measured literature prices", "adaptation": "supply each current P to every solver and re-optimize; neural checkpoints remain those selected at nominal P, no test-informed retraining", "claim_limit": "tests weight sensitivity, not empirical validity or nonlinear alternatives to the price law"},
+    "distinct_test_conditions": 8,
+    "all_conditions_use_identical_47_cases": true
+  },
+  "methods": {
+    "mandatory_comparators": ["objective_adapted_MaskCO", "full_objective_ALNS", "full_objective_VNS"],
+    "proposed": "modified_MaskCO",
+    "distance_only_solvers": "initializers or explicitly labelled controls, not equal-objective strong comparators",
+    "source_replication_label": "only use if implementation, objective and parameters actually reproduce the named paper; library/custom adaptations must be labelled adaptations",
+    "ablation_rule": "declare every new module and all single-module removals in the method manifest before formal tests; keep backbone, initialization, final feasibility checks and search budget matched",
+    "same_hard_constraints_and_canonical_scheduling": true,
+    "common_initialization": "deterministic nearest-neighbour construction with current quality/capacity/windows and canonical departure; generate online within the timed solve, never train on stored test routes"
+  },
+  "budget_and_repetitions": {
+    "test_wall_seconds_per_case": 60,
+    "anytime_checkpoints_seconds": [1, 10, 60],
+    "independent_repetition_seeds": [101, 102, 103, 104, 105, 106, 107, 108, 109, 110],
+    "repeat_unit": "for each neural method, a fresh trained model in each outer fold per repetition; decoding repeats of one checkpoint do not count as training repetitions",
+    "classical_repeat_unit": "fresh randomized search per case and repetition",
+    "validation_tuning_seed": 1000,
+    "max_validation_configurations_per_method_per_fold": 12,
+    "configuration_selection": "each outer fold's validation group only; no architecture or common tuning changes based on any outer test result",
+    "compute_accounting": "same disclosed machine and 60s wall limit, classical CPU threads capped at one, neural at most one GPU; this is equal wall time, not equal FLOPs/hardware; CPU/GPU types, training time and memory reported",
+    "timing_boundary": "exclude one-time loading/JIT warmup on training-only data but report separately; include feature preparation, transfers, common initializer, repair, search and incumbent validation; synchronize GPU before time capture",
+    "failures": "retain every expected run; report crash/timeout/invalid-output statuses separately; record a valid online incumbent or labelled initial-solution fallback, never silently drop failures or mark a crash as success"
+  },
+  "outcomes": {
+    "primary": "geometry-macro mean net-benefit difference in U versus each declared comparator at 60s: average cases within each geometry, then average the four geometries",
+    "secondary": ["per-case net-benefit difference U", "equivalent monetary quality-loss plus transport and refrigeration cost", "quality loss value", "distance", "waiting time", "used routes", "minimum delivered quality", "feasible incumbent rate", "algorithm failure rate", "anytime results"],
+    "relative_metric": "report relative equivalent-loss-cost reduction with its stated positive denominator; do not use profit percentage divided by an arbitrary common revenue/procurement constant",
+    "complete_reporting": "all 47 cases, all ten repetitions, all declared test conditions and all expected failures; show per-geometry heterogeneity"
+  },
+  "inference": {
+    "spatial": "four groups are descriptive spatial blocks; no general spatial p<0.05 claim from treating 47 window variants or four folds as independent spatial datasets",
+    "minimum_two_sided_exact_sign_p_at_four_groups": 0.125,
+    "conditional_stochastic_test": "per comparator, aggregate the full four-fold fixed benchmark for each of the ten independent repetitions; exact two-sided sign test of paired repetition-level geometry-macro improvements, dropping zero differences and reporting n",
+    "multiple_comparisons": "Holm correction over the three declared comparator tests, family alpha=0.05",
+    "interpretation": "conditional robustness to algorithm/training randomness on this fixed benchmark, not a larger sample of spatial populations; do not pool the overlapping folds or decode seeds as independent geometry evidence",
+    "sensitivity_and_ablations": "report effect sizes and all declared conditions descriptively; no post-hoc selection of significant cells"
+  },
+  "execution_gate": {
+    "required_before_first_formal_test": ["implement and independently validate all comparator objectives", "lock the exact proposed modules, ablations, source commits and dependency versions", "select hyperparameters only on allowed validation groups within the declared budget", "seal per-fold method/training/checkpoint manifests and hashes"],
+    "not_yet_claimed": "method implementation, hyperparameters and trained checkpoints are not already complete or certified by this model freeze",
+    "change_control": "no overwriting the base model or split manifest; changes require a new protocol identifier and explicit rationale, retaining failed/negative runs and disclosing any test results already inspected"
+  }
+}

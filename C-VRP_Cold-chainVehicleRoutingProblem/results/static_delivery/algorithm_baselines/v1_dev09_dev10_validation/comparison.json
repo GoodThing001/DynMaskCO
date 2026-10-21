@@ -1,0 +1,756 @@
+{
+  "status": "PASS_RECOVERED_TRAINING_STUDY",
+  "scientific_freeze": {
+    "freeze_id": "publication_model_v1_scientific_freeze_20261021",
+    "sha256": "ad52f0fd475ebb22d187ce6dad3579f2f147a541fc7a82312941060d196692f9",
+    "files": 72
+  },
+  "training": {
+    "old_teachers": {
+      "maskco_base": {
+        "steps": 1440,
+        "parameter_count": 19127808
+      },
+      "directed_only": {
+        "steps": 1440,
+        "parameter_count": 19258880
+      }
+    },
+    "upgraded_teachers": {
+      "maskco_base": {
+        "steps": 1440,
+        "parameter_count": 19127808
+      },
+      "directed_only": {
+        "steps": 1440,
+        "parameter_count": 19258880
+      }
+    }
+  },
+  "teacher_routesets_reaudited": 456,
+  "validation_routesets_reaudited": 32,
+  "rows": [
+    {
+      "arm": "old_teachers",
+      "case": "c205",
+      "method": "maskco_base",
+      "evidence": "dev09/outputs/old_teachers/validation/c205/maskco_base_search.json",
+      "net_benefit_U": 275790.6363346434,
+      "equivalent_loss_cost_U": 25876.030332023278,
+      "quality_loss_value_U": 15140.059576249369,
+      "distance_km": 8974.160543244832,
+      "refrigeration_cost_U": 1761.8102125290663,
+      "used_vehicles": 40,
+      "minimum_quality": 0.8743750570479479,
+      "independently_audited": true,
+      "iterations": 387,
+      "elapsed_s": 10.003663806943223
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c205",
+      "method": "directed_only",
+      "evidence": "dev09/outputs/old_teachers/validation/c205/directed_only_search.json",
+      "net_benefit_U": 275635.0007662318,
+      "equivalent_loss_cost_U": 26031.66590043489,
+      "quality_loss_value_U": 15061.75705993186,
+      "distance_km": 9183.782756564899,
+      "refrigeration_cost_U": 1786.126083938108,
+      "used_vehicles": 40,
+      "minimum_quality": 0.8682915818515022,
+      "independently_audited": true,
+      "iterations": 330,
+      "elapsed_s": 10.005890752887353
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c205",
+      "method": "alns",
+      "evidence": "dev09/outputs/old_teachers/validation/c205/alns_search.json",
+      "net_benefit_U": 275514.1995430225,
+      "equivalent_loss_cost_U": 26152.467123644194,
+      "quality_loss_value_U": 15858.928315621522,
+      "distance_km": 8577.948998441556,
+      "refrigeration_cost_U": 1715.589809581132,
+      "used_vehicles": 37,
+      "minimum_quality": 0.8700342629856294,
+      "independently_audited": true,
+      "iterations": 299,
+      "elapsed_s": 10.021312492201105
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c205",
+      "method": "vns",
+      "evidence": "dev09/outputs/old_teachers/validation/c205/vns_search.json",
+      "net_benefit_U": 274922.20035869104,
+      "equivalent_loss_cost_U": 26744.466307975643,
+      "quality_loss_value_U": 15641.8663674249,
+      "distance_km": 9309.053569479765,
+      "refrigeration_cost_U": 1793.5463710709632,
+      "used_vehicles": 37,
+      "minimum_quality": 0.8751742489806533,
+      "independently_audited": true,
+      "iterations": 40563,
+      "elapsed_s": 10.002875397913158
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c206",
+      "method": "maskco_base",
+      "evidence": "dev09/outputs/old_teachers/validation/c206/maskco_base_search.json",
+      "net_benefit_U": 276410.1776503871,
+      "equivalent_loss_cost_U": 25256.48901627958,
+      "quality_loss_value_U": 15177.078090610195,
+      "distance_km": 8382.272444102608,
+      "refrigeration_cost_U": 1697.1384815667734,
+      "used_vehicles": 37,
+      "minimum_quality": 0.887408709981469,
+      "independently_audited": true,
+      "iterations": 332,
+      "elapsed_s": 10.0058427171316
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c206",
+      "method": "directed_only",
+      "evidence": "dev09/outputs/old_teachers/validation/c206/directed_only_search.json",
+      "net_benefit_U": 276124.8988293531,
+      "equivalent_loss_cost_U": 25541.767837313586,
+      "quality_loss_value_U": 15492.979334938642,
+      "distance_km": 8349.24382177892,
+      "refrigeration_cost_U": 1699.5446805960144,
+      "used_vehicles": 37,
+      "minimum_quality": 0.8850380524164724,
+      "independently_audited": true,
+      "iterations": 279,
+      "elapsed_s": 10.034238070016727
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c206",
+      "method": "alns",
+      "evidence": "dev09/outputs/old_teachers/validation/c206/alns_search.json",
+      "net_benefit_U": 276019.2093493864,
+      "equivalent_loss_cost_U": 25647.457317280292,
+      "quality_loss_value_U": 15971.018422037065,
+      "distance_km": 8021.554953739712,
+      "refrigeration_cost_U": 1654.8839415035,
+      "used_vehicles": 33,
+      "minimum_quality": 0.8848881966712691,
+      "independently_audited": true,
+      "iterations": 188,
+      "elapsed_s": 10.004021286033094
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c206",
+      "method": "vns",
+      "evidence": "dev09/outputs/old_teachers/validation/c206/vns_search.json",
+      "net_benefit_U": 275471.88279506424,
+      "equivalent_loss_cost_U": 26194.78387160244,
+      "quality_loss_value_U": 15644.10827355415,
+      "distance_km": 8795.859835441881,
+      "refrigeration_cost_U": 1754.815762606413,
+      "used_vehicles": 36,
+      "minimum_quality": 0.8242165878770323,
+      "independently_audited": true,
+      "iterations": 27574,
+      "elapsed_s": 10.00638486398384
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c207",
+      "method": "maskco_base",
+      "evidence": "dev09/outputs/old_teachers/validation/c207/maskco_base_search.json",
+      "net_benefit_U": 276246.1952727193,
+      "equivalent_loss_cost_U": 25420.471393947373,
+      "quality_loss_value_U": 15582.007328032418,
+      "distance_km": 8169.580811078127,
+      "refrigeration_cost_U": 1668.8832548367939,
+      "used_vehicles": 35,
+      "minimum_quality": 0.8845001463347588,
+      "independently_audited": true,
+      "iterations": 338,
+      "elapsed_s": 10.002919784979895
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c207",
+      "method": "directed_only",
+      "evidence": "dev09/outputs/old_teachers/validation/c207/directed_only_search.json",
+      "net_benefit_U": 276096.65943452186,
+      "equivalent_loss_cost_U": 25570.007232144824,
+      "quality_loss_value_U": 15676.024271829521,
+      "distance_km": 8207.655554358618,
+      "refrigeration_cost_U": 1686.327405956653,
+      "used_vehicles": 35,
+      "minimum_quality": 0.8931879538978206,
+      "independently_audited": true,
+      "iterations": 390,
+      "elapsed_s": 10.002408670028672
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c207",
+      "method": "alns",
+      "evidence": "dev09/outputs/old_teachers/validation/c207/alns_search.json",
+      "net_benefit_U": 276097.00621745206,
+      "equivalent_loss_cost_U": 25569.66044921463,
+      "quality_loss_value_U": 15686.784157964914,
+      "distance_km": 8207.843867343872,
+      "refrigeration_cost_U": 1675.0324239058243,
+      "used_vehicles": 35,
+      "minimum_quality": 0.8837066115819193,
+      "independently_audited": true,
+      "iterations": 281,
+      "elapsed_s": 10.005753763951361
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c207",
+      "method": "vns",
+      "evidence": "dev09/outputs/old_teachers/validation/c207/vns_search.json",
+      "net_benefit_U": 275461.9880066238,
+      "equivalent_loss_cost_U": 26204.678660042875,
+      "quality_loss_value_U": 15665.092029978856,
+      "distance_km": 8794.20174235936,
+      "refrigeration_cost_U": 1745.3848877046562,
+      "used_vehicles": 35,
+      "minimum_quality": 0.887517927612918,
+      "independently_audited": true,
+      "iterations": 45972,
+      "elapsed_s": 10.00338658108376
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c208",
+      "method": "maskco_base",
+      "evidence": "dev09/outputs/old_teachers/validation/c208/maskco_base_search.json",
+      "net_benefit_U": 276672.5882933689,
+      "equivalent_loss_cost_U": 24994.078373297758,
+      "quality_loss_value_U": 15347.711035178043,
+      "distance_km": 7985.336429451361,
+      "refrigeration_cost_U": 1661.030908668341,
+      "used_vehicles": 35,
+      "minimum_quality": 0.887408709981469,
+      "independently_audited": true,
+      "iterations": 441,
+      "elapsed_s": 10.014556493842974
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c208",
+      "method": "directed_only",
+      "evidence": "dev09/outputs/old_teachers/validation/c208/directed_only_search.json",
+      "net_benefit_U": 276505.1071311216,
+      "equivalent_loss_cost_U": 25161.559535545064,
+      "quality_loss_value_U": 15080.676228681648,
+      "distance_km": 8381.03440218507,
+      "refrigeration_cost_U": 1699.8489046783138,
+      "used_vehicles": 37,
+      "minimum_quality": 0.8839487258278207,
+      "independently_audited": true,
+      "iterations": 457,
+      "elapsed_s": 10.005551227834076
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c208",
+      "method": "alns",
+      "evidence": "dev09/outputs/old_teachers/validation/c208/alns_search.json",
+      "net_benefit_U": 276315.6198533308,
+      "equivalent_loss_cost_U": 25351.04681333591,
+      "quality_loss_value_U": 16109.10334693018,
+      "distance_km": 7625.7762109734485,
+      "refrigeration_cost_U": 1616.1672554322877,
+      "used_vehicles": 32,
+      "minimum_quality": 0.8752726959044332,
+      "independently_audited": true,
+      "iterations": 252,
+      "elapsed_s": 10.005837996955961
+    },
+    {
+      "arm": "old_teachers",
+      "case": "c208",
+      "method": "vns",
+      "evidence": "dev09/outputs/old_teachers/validation/c208/vns_search.json",
+      "net_benefit_U": 275953.11287404114,
+      "equivalent_loss_cost_U": 25713.55379262555,
+      "quality_loss_value_U": 16064.90835937003,
+      "distance_km": 7991.941550930824,
+      "refrigeration_cost_U": 1656.7038823246721,
+      "used_vehicles": 33,
+      "minimum_quality": 0.8647187219215603,
+      "independently_audited": true,
+      "iterations": 39076,
+      "elapsed_s": 10.002783553907648
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c205",
+      "method": "maskco_base",
+      "evidence": "dev09/outputs/upgraded_teachers/validation/c205/maskco_base_search.json",
+      "net_benefit_U": 275793.4470301866,
+      "equivalent_loss_cost_U": 25873.21963648009,
+      "quality_loss_value_U": 15345.700465992364,
+      "distance_km": 8784.175503793364,
+      "refrigeration_cost_U": 1743.3436666943835,
+      "used_vehicles": 39,
+      "minimum_quality": 0.8743750570479479,
+      "independently_audited": true,
+      "iterations": 284,
+      "elapsed_s": 10.00420549698174
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c205",
+      "method": "directed_only",
+      "evidence": "dev09/outputs/upgraded_teachers/validation/c205/directed_only_search.json",
+      "net_benefit_U": 275644.9835687198,
+      "equivalent_loss_cost_U": 26021.683097946865,
+      "quality_loss_value_U": 15282.19648583306,
+      "distance_km": 8990.782548408488,
+      "refrigeration_cost_U": 1748.7040637053049,
+      "used_vehicles": 40,
+      "minimum_quality": 0.8886659933744946,
+      "independently_audited": true,
+      "iterations": 283,
+      "elapsed_s": 10.012028777040541
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c205",
+      "method": "alns",
+      "evidence": "dev09/outputs/upgraded_teachers/validation/c205/alns_search.json",
+      "net_benefit_U": 275507.55778923625,
+      "equivalent_loss_cost_U": 26159.108877430437,
+      "quality_loss_value_U": 15826.27899816418,
+      "distance_km": 8613.759307631835,
+      "refrigeration_cost_U": 1719.070571634427,
+      "used_vehicles": 37,
+      "minimum_quality": 0.873646409958992,
+      "independently_audited": true,
+      "iterations": 251,
+      "elapsed_s": 10.005033381981775
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c205",
+      "method": "vns",
+      "evidence": "dev09/outputs/upgraded_teachers/validation/c205/vns_search.json",
+      "net_benefit_U": 274264.0504370994,
+      "equivalent_loss_cost_U": 27402.61622956727,
+      "quality_loss_value_U": 16234.966068553462,
+      "distance_km": 9349.325042143724,
+      "refrigeration_cost_U": 1818.325118870045,
+      "used_vehicles": 36,
+      "minimum_quality": 0.8550042665001395,
+      "independently_audited": true,
+      "iterations": 30843,
+      "elapsed_s": 10.0134729470592
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c206",
+      "method": "maskco_base",
+      "evidence": "dev09/outputs/upgraded_teachers/validation/c206/maskco_base_search.json",
+      "net_benefit_U": 276472.18149474467,
+      "equivalent_loss_cost_U": 25194.485171922017,
+      "quality_loss_value_U": 15220.46904552781,
+      "distance_km": 8286.56883557619,
+      "refrigeration_cost_U": 1687.4472908180055,
+      "used_vehicles": 36,
+      "minimum_quality": 0.887408709981469,
+      "independently_audited": true,
+      "iterations": 314,
+      "elapsed_s": 10.003527959110215
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c206",
+      "method": "directed_only",
+      "evidence": "dev09/outputs/upgraded_teachers/validation/c206/directed_only_search.json",
+      "net_benefit_U": 276472.9453571719,
+      "equivalent_loss_cost_U": 25193.72130949481,
+      "quality_loss_value_U": 14730.907830968903,
+      "distance_km": 8732.064052611995,
+      "refrigeration_cost_U": 1730.749425913886,
+      "used_vehicles": 39,
+      "minimum_quality": 0.887408709981469,
+      "independently_audited": true,
+      "iterations": 433,
+      "elapsed_s": 10.00424399995245
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c206",
+      "method": "alns",
+      "evidence": "dev10/outputs/recovery/upgraded_teachers/validation/c206/alns_search.json",
+      "net_benefit_U": 275978.8813111109,
+      "equivalent_loss_cost_U": 25687.785355555767,
+      "quality_loss_value_U": 16189.194954827753,
+      "distance_km": 7850.480686540228,
+      "refrigeration_cost_U": 1648.1097141877974,
+      "used_vehicles": 33,
+      "minimum_quality": 0.8848881966712691,
+      "independently_audited": true,
+      "iterations": 180,
+      "elapsed_s": 10.004991105059162
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c206",
+      "method": "vns",
+      "evidence": "dev09/outputs/upgraded_teachers/validation/c206/vns_search.json",
+      "net_benefit_U": 275597.18448319857,
+      "equivalent_loss_cost_U": 26069.48218346812,
+      "quality_loss_value_U": 15453.906940060466,
+      "distance_km": 8865.96118685751,
+      "refrigeration_cost_U": 1749.614056550109,
+      "used_vehicles": 37,
+      "minimum_quality": 0.8242165878770323,
+      "independently_audited": true,
+      "iterations": 39603,
+      "elapsed_s": 10.00227254582569
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c207",
+      "method": "maskco_base",
+      "evidence": "dev10/outputs/recovery/upgraded_teachers/validation/c207/maskco_base_search.json",
+      "net_benefit_U": 276130.45129588246,
+      "equivalent_loss_cost_U": 25536.215370784223,
+      "quality_loss_value_U": 15817.941927319678,
+      "distance_km": 8060.037772023812,
+      "refrigeration_cost_U": 1658.2356714407144,
+      "used_vehicles": 34,
+      "minimum_quality": 0.8738718086633794,
+      "independently_audited": true,
+      "iterations": 376,
+      "elapsed_s": 10.002262237016112
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c207",
+      "method": "directed_only",
+      "evidence": "dev10/outputs/recovery/upgraded_teachers/validation/c207/directed_only_search.json",
+      "net_benefit_U": 276171.0629522321,
+      "equivalent_loss_cost_U": 25495.603714434605,
+      "quality_loss_value_U": 15170.446052949734,
+      "distance_km": 8612.98761231571,
+      "refrigeration_cost_U": 1712.1700491691595,
+      "used_vehicles": 37,
+      "minimum_quality": 0.8797732679273321,
+      "independently_audited": true,
+      "iterations": 385,
+      "elapsed_s": 10.003232572926208
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c207",
+      "method": "alns",
+      "evidence": "dev10/outputs/recovery/upgraded_teachers/validation/c207/alns_search.json",
+      "net_benefit_U": 276101.5671248484,
+      "equivalent_loss_cost_U": 25565.099541818257,
+      "quality_loss_value_U": 15684.053773386413,
+      "distance_km": 8206.175508960852,
+      "refrigeration_cost_U": 1674.8702594709948,
+      "used_vehicles": 35,
+      "minimum_quality": 0.8842207052644229,
+      "independently_audited": true,
+      "iterations": 338,
+      "elapsed_s": 10.011720123002306
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c207",
+      "method": "vns",
+      "evidence": "dev10/outputs/recovery/upgraded_teachers/validation/c207/vns_search.json",
+      "net_benefit_U": 275461.9880066238,
+      "equivalent_loss_cost_U": 26204.678660042875,
+      "quality_loss_value_U": 15665.092029978856,
+      "distance_km": 8794.20174235936,
+      "refrigeration_cost_U": 1745.3848877046562,
+      "used_vehicles": 35,
+      "minimum_quality": 0.887517927612918,
+      "independently_audited": true,
+      "iterations": 46506,
+      "elapsed_s": 10.002404806902632
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c208",
+      "method": "maskco_base",
+      "evidence": "dev10/outputs/recovery/upgraded_teachers/validation/c208/maskco_base_search.json",
+      "net_benefit_U": 276621.34134874895,
+      "equivalent_loss_cost_U": 25045.32531791774,
+      "quality_loss_value_U": 15341.258395104582,
+      "distance_km": 8046.960549660472,
+      "refrigeration_cost_U": 1657.1063731526665,
+      "used_vehicles": 35,
+      "minimum_quality": 0.8850787259987458,
+      "independently_audited": true,
+      "iterations": 386,
+      "elapsed_s": 10.00827982602641
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c208",
+      "method": "directed_only",
+      "evidence": "dev10/outputs/recovery/upgraded_teachers/validation/c208/directed_only_search.json",
+      "net_benefit_U": 276630.79155067424,
+      "equivalent_loss_cost_U": 25035.875115992443,
+      "quality_loss_value_U": 15296.817234250817,
+      "distance_km": 8074.369817581627,
+      "refrigeration_cost_U": 1664.6880641599764,
+      "used_vehicles": 35,
+      "minimum_quality": 0.887408709981469,
+      "independently_audited": true,
+      "iterations": 383,
+      "elapsed_s": 10.004277665866539
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c208",
+      "method": "alns",
+      "evidence": "dev10/outputs/recovery/upgraded_teachers/validation/c208/alns_search.json",
+      "net_benefit_U": 276430.6552805831,
+      "equivalent_loss_cost_U": 25236.011386083614,
+      "quality_loss_value_U": 15944.189525363201,
+      "distance_km": 7671.235921431598,
+      "refrigeration_cost_U": 1620.5859392888199,
+      "used_vehicles": 33,
+      "minimum_quality": 0.8752726959044332,
+      "independently_audited": true,
+      "iterations": 335,
+      "elapsed_s": 10.033006290905178
+    },
+    {
+      "arm": "upgraded_teachers",
+      "case": "c208",
+      "method": "vns",
+      "evidence": "dev10/outputs/recovery/upgraded_teachers/validation/c208/vns_search.json",
+      "net_benefit_U": 275958.8876673292,
+      "equivalent_loss_cost_U": 25707.77899933746,
+      "quality_loss_value_U": 16088.833964652258,
+      "distance_km": 7964.872285008193,
+      "refrigeration_cost_U": 1654.0727496769923,
+      "used_vehicles": 33,
+      "minimum_quality": 0.8647187219215603,
+      "independently_audited": true,
+      "iterations": 43007,
+      "elapsed_s": 10.003508141962811
+    }
+  ],
+  "mean_net_benefit_U": {
+    "old_teachers": {
+      "maskco_base": 276279.8993877797,
+      "directed_only": 276090.4165403071,
+      "alns": 275986.50874079793,
+      "vns": 275452.29600860504
+    },
+    "upgraded_teachers": {
+      "maskco_base": 276254.3552923907,
+      "directed_only": 276229.9458571995,
+      "alns": 276004.6653764447,
+      "vns": 275320.52764856274
+    }
+  },
+  "mean_coverage": {
+    "old_teachers": {
+      "maskco_base": [
+        "c205",
+        "c206",
+        "c207",
+        "c208"
+      ],
+      "directed_only": [
+        "c205",
+        "c206",
+        "c207",
+        "c208"
+      ],
+      "alns": [
+        "c205",
+        "c206",
+        "c207",
+        "c208"
+      ],
+      "vns": [
+        "c205",
+        "c206",
+        "c207",
+        "c208"
+      ]
+    },
+    "upgraded_teachers": {
+      "maskco_base": [
+        "c205",
+        "c206",
+        "c207",
+        "c208"
+      ],
+      "directed_only": [
+        "c205",
+        "c206",
+        "c207",
+        "c208"
+      ],
+      "alns": [
+        "c205",
+        "c206",
+        "c207",
+        "c208"
+      ],
+      "vns": [
+        "c205",
+        "c206",
+        "c207",
+        "c208"
+      ]
+    }
+  },
+  "missing": [],
+  "original_exit_code": 124,
+  "recovery_label": "dev10",
+  "paired_complete_cases": [
+    "c205",
+    "c206",
+    "c207",
+    "c208"
+  ],
+  "new_minus_old_teacher_U": {
+    "maskco_base": -25.544095389021095,
+    "directed_only": 139.52931689241086
+  },
+  "formal_experiment": false,
+  "outer_test_cases_used": 0,
+  "limitation": "One development seed and validation geometry; no test/generalization or significance claim. Wall budgets include small closing-audit overhead.",
+  "baseline_id": "v1_dev09_dev10_validation",
+  "hardware": {
+    "dev09": {
+      "gpu_index": 0,
+      "gpu_identity": [
+        "0",
+        "NVIDIA GeForce RTX 5090",
+        "GPU-923b857e-1d9c-df7c-6ce1-1f4518cbcf84",
+        "32607",
+        "18147",
+        "2"
+      ],
+      "cores": [
+        86,
+        87,
+        90,
+        91
+      ],
+      "timeout_per_command_s": 1800,
+      "total_timeout_s": 2400
+    },
+    "dev10": {
+      "gpu_index": 1,
+      "gpu_identity": [
+        "1",
+        "NVIDIA GeForce RTX 5090",
+        "GPU-2e4908ce-34eb-30fe-81e0-225de72fe8f2",
+        "32607",
+        "24044",
+        "16"
+      ],
+      "cores": [
+        83,
+        85,
+        86,
+        89
+      ],
+      "timeout_per_command_s": 900,
+      "total_timeout_s": null
+    }
+  },
+  "timing": {
+    "old_teachers": {
+      "maskco_base": {
+        "mean_elapsed_s": 10.006745700724423,
+        "cases": [
+          "c205",
+          "c206",
+          "c207",
+          "c208"
+        ]
+      },
+      "directed_only": {
+        "mean_elapsed_s": 10.012022180191707,
+        "cases": [
+          "c205",
+          "c206",
+          "c207",
+          "c208"
+        ]
+      },
+      "alns": {
+        "mean_elapsed_s": 10.00923138478538,
+        "cases": [
+          "c205",
+          "c206",
+          "c207",
+          "c208"
+        ]
+      },
+      "vns": {
+        "mean_elapsed_s": 10.003857599222101,
+        "cases": [
+          "c205",
+          "c206",
+          "c207",
+          "c208"
+        ]
+      }
+    },
+    "upgraded_teachers": {
+      "maskco_base": {
+        "mean_elapsed_s": 10.00456887978362,
+        "cases": [
+          "c205",
+          "c206",
+          "c207",
+          "c208"
+        ]
+      },
+      "directed_only": {
+        "mean_elapsed_s": 10.005945753946435,
+        "cases": [
+          "c205",
+          "c206",
+          "c207",
+          "c208"
+        ]
+      },
+      "alns": {
+        "mean_elapsed_s": 10.013687725237105,
+        "cases": [
+          "c205",
+          "c206",
+          "c207",
+          "c208"
+        ]
+      },
+      "vns": {
+        "mean_elapsed_s": 10.005414610437583,
+        "cases": [
+          "c205",
+          "c206",
+          "c207",
+          "c208"
+        ]
+      }
+    }
+  },
+  "limits": [
+    "Nominal 10s with closing-audit overshoot; neural training-only compilation/warmup excluded.",
+    "Single seed and validation geometry; shared-server load and GPU0/GPU1 recovery differences.",
+    "ALNS/VNS do not use teacher labels; cross-arm variations reflect timed search execution.",
+    "NPZ weights/optimizer remain on server, recorded by SHA and original paths.",
+    "Development reference only; formal method/checkpoint configuration remains open."
+  ]
+}

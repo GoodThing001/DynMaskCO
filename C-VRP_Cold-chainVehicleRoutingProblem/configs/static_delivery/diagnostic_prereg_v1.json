@@ -1,0 +1,710 @@
+{
+  "registration_id": "neural_contribution_fold0_v1",
+  "registered_at_utc": "2026-10-21T08:37:48.296714+00:00",
+  "registration_kind": "Local SHA-sealed prospective diagnostic, not external preregistration",
+  "fold": 0,
+  "seed": 1000,
+  "outer_test_cases_used": 0,
+  "cases": [
+    "c205",
+    "c206",
+    "c207",
+    "c208"
+  ],
+  "variants": [
+    "maskco_base",
+    "directed_only"
+  ],
+  "checkpoint_parent": "dev09/outputs/upgraded_teachers/train",
+  "checkpoint_steps": 1440,
+  "fixed_repetitions": 8,
+  "fixed_order": [
+    {
+      "variant": "maskco_base",
+      "case": "c206",
+      "arms": [
+        [
+          "exhaustive",
+          10
+        ],
+        [
+          "untrained_top8",
+          10
+        ],
+        [
+          "trained_top8",
+          10
+        ],
+        [
+          "trained_top8",
+          20
+        ],
+        [
+          "shuffled_top8",
+          10
+        ],
+        [
+          "uniform_top8",
+          10
+        ]
+      ]
+    },
+    {
+      "variant": "directed_only",
+      "case": "c208",
+      "arms": [
+        [
+          "exhaustive",
+          10
+        ],
+        [
+          "uniform_top8",
+          10
+        ],
+        [
+          "trained_top8",
+          10
+        ],
+        [
+          "trained_top8",
+          20
+        ],
+        [
+          "shuffled_top8",
+          10
+        ],
+        [
+          "untrained_top8",
+          10
+        ]
+      ]
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c208",
+      "arms": [
+        [
+          "exhaustive",
+          10
+        ],
+        [
+          "trained_top8",
+          10
+        ],
+        [
+          "uniform_top8",
+          10
+        ],
+        [
+          "trained_top8",
+          20
+        ],
+        [
+          "untrained_top8",
+          10
+        ],
+        [
+          "shuffled_top8",
+          10
+        ]
+      ]
+    },
+    {
+      "variant": "directed_only",
+      "case": "c205",
+      "arms": [
+        [
+          "trained_top8",
+          20
+        ],
+        [
+          "untrained_top8",
+          10
+        ],
+        [
+          "exhaustive",
+          10
+        ],
+        [
+          "shuffled_top8",
+          10
+        ],
+        [
+          "uniform_top8",
+          10
+        ],
+        [
+          "trained_top8",
+          10
+        ]
+      ]
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c207",
+      "arms": [
+        [
+          "trained_top8",
+          10
+        ],
+        [
+          "exhaustive",
+          10
+        ],
+        [
+          "uniform_top8",
+          10
+        ],
+        [
+          "untrained_top8",
+          10
+        ],
+        [
+          "shuffled_top8",
+          10
+        ],
+        [
+          "trained_top8",
+          20
+        ]
+      ]
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c205",
+      "arms": [
+        [
+          "untrained_top8",
+          10
+        ],
+        [
+          "exhaustive",
+          10
+        ],
+        [
+          "shuffled_top8",
+          10
+        ],
+        [
+          "trained_top8",
+          20
+        ],
+        [
+          "trained_top8",
+          10
+        ],
+        [
+          "uniform_top8",
+          10
+        ]
+      ]
+    },
+    {
+      "variant": "directed_only",
+      "case": "c207",
+      "arms": [
+        [
+          "uniform_top8",
+          10
+        ],
+        [
+          "trained_top8",
+          10
+        ],
+        [
+          "untrained_top8",
+          10
+        ],
+        [
+          "exhaustive",
+          10
+        ],
+        [
+          "shuffled_top8",
+          10
+        ],
+        [
+          "trained_top8",
+          20
+        ]
+      ]
+    },
+    {
+      "variant": "directed_only",
+      "case": "c206",
+      "arms": [
+        [
+          "uniform_top8",
+          10
+        ],
+        [
+          "exhaustive",
+          10
+        ],
+        [
+          "untrained_top8",
+          10
+        ],
+        [
+          "trained_top8",
+          10
+        ],
+        [
+          "shuffled_top8",
+          10
+        ],
+        [
+          "trained_top8",
+          20
+        ]
+      ]
+    }
+  ],
+  "wall_order": [
+    {
+      "variant": "maskco_base",
+      "case": "c207",
+      "arm": "exhaustive",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c206",
+      "arm": "uniform_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c208",
+      "arm": "trained_top8",
+      "remove_count": 20,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c208",
+      "arm": "shuffled_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c205",
+      "arm": "uniform_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c205",
+      "arm": "uniform_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c206",
+      "arm": "trained_top8",
+      "remove_count": 20,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c208",
+      "arm": "uniform_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c206",
+      "arm": "trained_top8",
+      "remove_count": 10,
+      "seconds": 60
+    },
+    {
+      "variant": "directed_only",
+      "case": "c205",
+      "arm": "shuffled_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c207",
+      "arm": "shuffled_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c205",
+      "arm": "trained_top8",
+      "remove_count": 20,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c206",
+      "arm": "untrained_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c207",
+      "arm": "trained_top8",
+      "remove_count": 10,
+      "seconds": 60
+    },
+    {
+      "variant": "directed_only",
+      "case": "c206",
+      "arm": "exhaustive",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c206",
+      "arm": "untrained_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c206",
+      "arm": "trained_top8",
+      "remove_count": 10,
+      "seconds": 60
+    },
+    {
+      "variant": "directed_only",
+      "case": "c205",
+      "arm": "untrained_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c206",
+      "arm": "trained_top8",
+      "remove_count": 20,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c205",
+      "arm": "exhaustive",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c206",
+      "arm": "uniform_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c207",
+      "arm": "shuffled_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c205",
+      "arm": "untrained_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c207",
+      "arm": "exhaustive",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c208",
+      "arm": "untrained_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c207",
+      "arm": "trained_top8",
+      "remove_count": 20,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c205",
+      "arm": "exhaustive",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c205",
+      "arm": "shuffled_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c205",
+      "arm": "trained_top8",
+      "remove_count": 10,
+      "seconds": 60
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c206",
+      "arm": "exhaustive",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c207",
+      "arm": "uniform_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c207",
+      "arm": "trained_top8",
+      "remove_count": 20,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c207",
+      "arm": "untrained_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c208",
+      "arm": "trained_top8",
+      "remove_count": 20,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c205",
+      "arm": "trained_top8",
+      "remove_count": 20,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c208",
+      "arm": "uniform_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c208",
+      "arm": "exhaustive",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c206",
+      "arm": "shuffled_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c206",
+      "arm": "shuffled_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c207",
+      "arm": "uniform_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c208",
+      "arm": "exhaustive",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c208",
+      "arm": "shuffled_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c207",
+      "arm": "untrained_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c208",
+      "arm": "trained_top8",
+      "remove_count": 10,
+      "seconds": 60
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c208",
+      "arm": "untrained_top8",
+      "remove_count": 10,
+      "seconds": 10
+    },
+    {
+      "variant": "directed_only",
+      "case": "c205",
+      "arm": "trained_top8",
+      "remove_count": 10,
+      "seconds": 60
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c208",
+      "arm": "trained_top8",
+      "remove_count": 10,
+      "seconds": 60
+    },
+    {
+      "variant": "maskco_base",
+      "case": "c207",
+      "arm": "trained_top8",
+      "remove_count": 10,
+      "seconds": 60
+    }
+  ],
+  "arms": [
+    [
+      "trained_top8",
+      10
+    ],
+    [
+      "shuffled_top8",
+      10
+    ],
+    [
+      "untrained_top8",
+      10
+    ],
+    [
+      "uniform_top8",
+      10
+    ],
+    [
+      "exhaustive",
+      10
+    ],
+    [
+      "trained_top8",
+      20
+    ]
+  ],
+  "history_ledger": "results/static_delivery/algorithm_diagnostics_20261021/historical_validation_budget_v2.json",
+  "history_ledger_sha256": "4dbfb9f521d855ee497e2cb6487300817118398fe23c3de57c80817384bc67a4",
+  "configuration_accounting": {
+    "historical_used": {
+      "0": {
+        "maskco_base": 4,
+        "directed_only": 4,
+        "quality_only": 2,
+        "quality_directed": 2,
+        "alns": 3,
+        "vns": 3
+      },
+      "1": {
+        "maskco_base": 0,
+        "directed_only": 0,
+        "quality_only": 0,
+        "quality_directed": 0,
+        "alns": 0,
+        "vns": 0
+      },
+      "2": {
+        "maskco_base": 0,
+        "directed_only": 0,
+        "quality_only": 0,
+        "quality_directed": 0,
+        "alns": 0,
+        "vns": 0
+      },
+      "3": {
+        "maskco_base": 0,
+        "directed_only": 0,
+        "quality_only": 0,
+        "quality_directed": 0,
+        "alns": 0,
+        "vns": 0
+      }
+    },
+    "diagnostic_reserved_per_parent_method": 6,
+    "used_plus_reserved": {
+      "maskco_base": 10,
+      "directed_only": 10,
+      "quality_only": 2,
+      "quality_directed": 2,
+      "alns": 3,
+      "vns": 3
+    },
+    "remaining_after_diagnostic": {
+      "maskco_base": 2,
+      "directed_only": 2,
+      "quality_only": 10,
+      "quality_directed": 10,
+      "alns": 9,
+      "vns": 9
+    },
+    "rule": "Controls charged to parent neural method. Six settings = five ranking/shortlisting arms with removal10, plus trained removal20. Same setting measured by predeclared paired fixed-work and anytime battery counts once, not separate tuning. No new method namespaces or reset."
+  },
+  "controls": {
+    "fixed": "All arms use the same online NN state and customer masks; fresh task/cache per reconstruction. Four top8 arms evaluate at most eight capacity-eligible positions per pending customer, same regret repair and singleton option, no all-position fallback. Actual exact-position counts audited. Exhaustive arm intentionally removes filtering and is analyzed separately, not called equal-candidate-count.",
+    "shuffled": "Joint customer permutation of trained log-probability matrix, depot fixed; deterministic independent RNG. Same trained forward compute.",
+    "untrained": "Same backbone/variant and init seed1000, untrained; compiled/highest and same training-only warmup.",
+    "wall": "Common online initial solution and RNG removal prefix, but adaptive states/iteration counts diverge. Compare all arms at10s, additionally retain trained1/10/60s. NOT_REQUESTED for endpoints above other arms declared10s.",
+    "mask_match": "Trained model was masked20; compare search removal10/20 prospectively. Different removal cardinality changes neighborhood; this alone is not proof of a training-mask causal effect."
+  },
+  "primary_diagnostic_outcomes": [
+    "per-case paired mean candidate net-benefit difference at equal fixed masks/exact-position count: trained vs shuffled/untrained/uniform",
+    "per-case10s strict validated incumbent differences and completed reconstruction counts",
+    "uniform top8 vs exhaustive: filtering vs more exact evaluation, not learned ranking",
+    "base vs D paired differences, all negative cases kept"
+  ],
+  "claim_rule": "Descriptive 4 window variants in one geometry, one development seed. No p-values or population/generalization claim.",
+  "training_decision_before_training": {
+    "gate": "For base: trained beats shuffled and untrained by mean fixed-work >1U, and positive case means on >=3/4 cases for each. If gate fails, no extra training this round; prioritize diagnostic and preserve 2 unspent slots.",
+    "D_gate": "Continue D training only if it also passes its contribution gate and fixed-work D-minus-base mean is positive on >=3/4 cases; otherwise retain D as candidate without spending its slots.",
+    "planned_candidates_if_gate_passes": [
+      "existing1440 masked20 reference",
+      "continue same1440 checkpoint to2880, keep training mask20",
+      "continue same1440 checkpoint to2880, switch training mask to first10 of identical20-customer mask stream"
+    ],
+    "pairing": "Same upgraded teachers, teacher-index schedule continuation, optimizer state/lr/wd/clip and RNG20 stream. Only last1440-step mask cardinality differs between new branches. This is a mask-switch experiment, not a claim of all2880 steps masked10.",
+    "selection": "Evaluate new candidates on the same4 validation cases with strict10s real net benefit plus same8 fixed masks. Choose highest mean10s net benefit; exact tie prefer earlier checkpoint then unchanged mask20. Do not select by cross entropy. Charge both new branch/checkpoint settings per trained method, cap12.",
+    "checkpoint_declaration": "Only1440 (already saved) and2880; no intermediate validation/checkpoint search. No further configs after cap."
+  },
+  "hardware": "One5090 GPU, one CPU affinity and BLAS/OpenMP1 for diagnostic solves including classical train-only timing proof; report train-only loading/JIT separately; no shared caches."
+}

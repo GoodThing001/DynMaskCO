@@ -1,0 +1,99 @@
+{
+  "protocol_id": "static_delivery_isothermal_quality_net_benefit_v1",
+  "status": "FROZEN_NUMERICAL_RESEARCH_COMPOSITE_NOT_SINGLE_PAPER_REPLICATION",
+  "objective": "maximize_delivery_net_benefit_U_excluding_common_fixed_costs",
+  "units": {"time": "min", "mass": "kg", "distance": "km", "temperature": "K", "money": "U"},
+  "sources": {
+    "dataset": {"url": "https://github.com/SelinHulagu/vrptwq-solomon-instances", "commit": "58eadb8fe16a354b29877f402d17350ce639795d", "role": "author dataset README, not verified full journal model", "README_sha256": "8d17a6d23d24cee15796511f536018f77ce81606dc9f4b70f5e838932830a883"},
+    "quality": {"doi": "10.1016/j.ijpe.2020.107849", "locations": ["Eq2,8,9", "Table3", "section4.1", "section4.3.1"], "pdf_sha256": "8248f5a7ba9c75ee36fc44af7c327c6af509b0d60ee6d4420922787246f9ffc6"},
+    "relative_value": {"doi": "10.1016/j.resconrec.2020.104715", "locations": ["Eq3", "Table5"], "printed_value_CNY_per_t": 5000, "printed_distance_CNY_per_km": 3, "pdf_sha256": "8cfed39271a1fa93afef50f1f79684e4e89b1a6237d3209bb20a50a9d5b5f878"}
+  },
+  "dataset": {
+    "root": "data/classic_static_sources_20261020/VRPTWQ_Solomon/instances/vrptwq_instances",
+    "source_instance_count": 56,
+    "customers_per_instance": 100,
+    "source_files_modified": false,
+    "coordinate_demand_time_service_scaling_added": false,
+    "single_product_assignment": "every original demand is generic perishable cargo; no tomato or fish labels",
+    "inclusion": "exact singleton feasibility certificates with K=n; reject a full instance iff some mandatory customer cannot be served alone",
+    "split": "four complete-geometry leave-one-group-out folds; validate on next group in sorted hash order, train on other two groups; no train/test customer subsets"
+  },
+  "routing": {
+    "capacity_kg": 20000,
+    "speed_km_per_min": 1,
+    "horizon_min": 1440,
+    "service_times": "original per-node values, 90 min/customer; depot service zero",
+    "hard_customer_window": "service_start in [TW_START,TW_END]; completion may exceed TW_END",
+    "departure": "independent continuous departure within original depot window; canonical latest feasible departure for a fixed ordered route",
+    "delivery_event": "service_completion",
+    "return_required": true,
+    "return_deadline": "original depot TW_END",
+    "max_vehicles": "n_customers; mathematical nonempty-route bound, not a claim of an observed 100-truck fleet",
+    "mandatory_customers": true,
+    "split_deliveries": false,
+    "multiple_tours_per_vehicle": false
+  },
+  "quality": {
+    "model": "isothermal zero-order reference-shifted Arrhenius, specialized from IJPE kinetics",
+    "formula": "q_i=1-k_min(T)*(completion_i-departure_of_own_route)",
+    "rate_formula": "k_min(T)=60*k_ref_s*exp(-Ea/R*(1/T-1/T_ref))",
+    "initial_transport_retention": 1,
+    "clock": "relative to each route's dispatch; warehouse ageing and pre-dispatch quality are outside this transport-retention model",
+    "T_ref_K": 275,
+    "T_cabin_K": 275,
+    "T_ambient_K": 293,
+    "R_J_per_mol_K": 8.3145,
+    "profiles": {
+      "main_Product1": {"k_ref_per_s": 0.00000308, "Ea_J_per_mol": 77900, "role": "median of three published rates, chosen before solver comparisons"},
+      "slow_Product3": {"k_ref_per_s": 0.00000196, "Ea_J_per_mol": 88521},
+      "fast_Product2": {"k_ref_per_s": 0.00000384, "Ea_J_per_mol": 76304}
+    },
+    "main_profile": "main_Product1",
+    "minimum_retention": 0.8,
+    "kinetic_sensitivity": ["slow_Product3", "main_Product1", "fast_Product2"],
+    "same_model_threshold_sensitivity": [0.8, 0.85],
+    "threshold_role": "research acceptance requirement, not species-specific food safety standard",
+    "no_clipping_of_infeasible_quality": true,
+    "no_door_temperature_transient": true,
+    "physical_mass_loss": false
+  },
+  "money": {
+    "definition_U": "benchmark distance cost for 1 km; author distance coefficient 1 EUR/km is numerically 1 U/km",
+    "distance_U_per_km": 1,
+    "reference_value_U_per_kg": 1.6666666666666667,
+    "reference_value_derivation": "(5000 CNY/t /1000 kg/t)/(3 CNY/km)=5/3 km/kg; preserve this source value-to-distance-cost ratio when distance coefficient is 1 U/km",
+    "value_transfer_role": "explicit cross-study relative economic calibration; NOT EUR-CNY exchange, fresh-cut vegetable market quote, or source 20t vehicle observation",
+    "revenue_formula": "sum_i(m_i*P*q_i)",
+    "value_mapping_role": "declared linear transport-retention value approximation; source monetary loss shape specialized to chosen quality model, not an experimentally fitted price law",
+    "refrigeration": {
+      "model": "constant-temperature wall-heat-load cost proxy using author benchmark coefficients",
+      "conductivity_W_per_m_K": 0.36,
+      "surface_m2": 30,
+      "wall_m": 0.1,
+      "coefficient_U_per_W_min": 0.00005,
+      "heat_load_W": 1944,
+      "cost_U_per_vehicle_min": 0.0972,
+      "time_boundary": "departure through empty return; travel, waiting and service included",
+      "not_electric_input_power": true
+    },
+    "purchase_fixed_overhead_driver_wages": "unconfigured common constants excluded; no fabricated absolute business profit",
+    "vehicle_activation_cost_U": 0,
+    "no_variable_wage_overtime_or_activation_cost_in_main_problem": true,
+    "double_counting_rule": "subtract transport and refrigeration from quality-adjusted value; do not also subtract the same monetary quality loss"
+  },
+  "evaluation": {
+    "training_validation_conditions": "complete Cartesian product of the 3 published kinetic profiles and quality thresholds [0.8,0.85], only on the geometries assigned to each role",
+    "main_test_condition": {"profile": "main_Product1", "minimum_quality": 0.8},
+    "sensitivity_conditions": "other five profile-threshold cells; never select the best test cell as the main result",
+    "main_test_accounting": "47 cases predicted once out of fold; report geometry-group macro results as well as case-level results",
+    "inference": "four geometries are the spatial units; case variants and repeated seeds are not independent spatial replications",
+    "baseline_contract": "identical mandatory demands, flexible dispatch policy, quality/value model, hard constraints, vehicle bound and independent evaluation for every algorithm"
+  },
+  "limits": [
+    "This is a new literature-grounded composite numerical benchmark, not reproduction of any complete source model.",
+    "Ideal isothermal transport is a declared simplification; no multi-compartment or coupled door-opening physics claimed.",
+    "At constant temperature the quality constraint reduces to a maximum dispatch-to-delivery age; this is not claimed as a new problem structure.",
+    "Only four distinct source coordinate geometries exist; window variants and repeated seeds are not independent new spatial samples.",
+    "No generated customers, coordinate perturbations, arbitrary time compression, market profit or MaskCO gain is claimed."
+  ]
+}

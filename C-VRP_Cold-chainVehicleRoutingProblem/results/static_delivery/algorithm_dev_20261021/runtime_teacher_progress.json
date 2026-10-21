@@ -1,0 +1,50 @@
+{
+  "stage": "RUNTIME_AND_TEACHER_REFINEMENT",
+  "scientific_model_unchanged": true,
+  "formal_test_cases_used": 0,
+  "runtime": {
+    "run": "remote/dev08",
+    "precision": "highest",
+    "independently_audited_routesets": 180,
+    "vectorized_exact_route_matches": 60,
+    "mean_eager_classic_s": 0.6330548659025226,
+    "mean_compiled_vectorized_s": 0.06569099101276758,
+    "claim_limit": "training-only fixed workloads; sequential stages on a shared server, not a general hardware benchmark or net-benefit result"
+  },
+  "teachers": {
+    "run": "remote_3080/dev03",
+    "host_gpu_model": "RTX3080Ti",
+    "gpu_used": false,
+    "training_cases": 38,
+    "conditions": 6,
+    "independently_audited_routesets": 228,
+    "improved": 228,
+    "mean_gain_U": 5232.722216576107,
+    "claim_limit": "quality of training labels only; not evidence of student-model generalization"
+  },
+  "training": {
+    "plan": "old versus upgraded teachers; both1440 steps, same shuffled228-sample cycle schedule, same20-customer masks, seed1000, base plus directed variants; common compiled/highest/vectorized inference",
+    "run": "remote/dev09",
+    "status": "RUNNING_NOT_COMPLETE",
+    "additional_validation_configs_per_base_and_directed": 2,
+    "formal_freeze": false,
+    "total_wall_timeout_s": 2400,
+    "last_observed_steps": {
+      "maskco_base": 852
+    },
+    "configuration_budget_count_per_base_and_directed_in_fold0": 3,
+    "candidate_selection_or_formal_method_freeze": false
+  },
+  "resources": {
+    "local": "semantic and numerical checks, small models",
+    "windows3080": "completed teacher refinement on CPU with one BLAS thread and two-core affinity",
+    "linux5090": "completed synchronized neural runtime profile; training subject to current resource guard"
+  },
+  "verification": {
+    "pinned_remote_source_inputs_unchanged": 205,
+    "semantic_test_methods_passed": 16,
+    "profile_routesets_audited": 180,
+    "teacher_routesets_audited": 228,
+    "formal_tests_used": 0
+  }
+}

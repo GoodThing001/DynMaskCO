@@ -1,0 +1,32 @@
+{
+  "status": "PASS_FOR_MODEL_DATA_AND_ANALYSIS_FREEZE",
+  "date": "2026-10-21",
+  "model_numerical_parameters_changed": false,
+  "original_preflight_pins_unchanged": true,
+  "source_files_rehashed": 56,
+  "included_cases": 47,
+  "geometry_folds_disjoint": 4,
+  "source_papers_rehashed": 2,
+  "author_README_rehashed": true,
+  "independently_optimized_feasible_route_LPs": 94,
+  "maximum_LP_gap_U": 7.275957614183426e-12,
+  "quality_infeasibility_LPs": 39,
+  "original_routing_infeasibility_LPs": 9,
+  "economic_weight_fixed_route_LPs": 141,
+  "reduced_objective_identity_cases": 47,
+  "rejected_nonfinite_or_invalid_departures": 5,
+  "missing_duplicate_quality_disabled_capacity_checks_passed": true,
+  "economic_sensitivity_full_solver_comparisons_run": false,
+  "method_training_or_gain_claimed": false,
+  "implementation_gate_still_required": [
+    "implement and independently validate all comparator objectives",
+    "lock the exact proposed modules, ablations, source commits and dependency versions",
+    "select hyperparameters only on allowed validation groups within the declared budget",
+    "seal per-fold method/training/checkpoint manifests and hashes"
+  ],
+  "runtime": {
+    "python": "3.12.7",
+    "scipy": "1.13.1",
+    "numpy": "1.26.4"
+  }
+}

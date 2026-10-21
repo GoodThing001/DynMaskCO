@@ -1,0 +1,70 @@
+{
+  "metadata": {
+    "identity": {
+      "author_commit": "f5c5317a5ecd8fe64df779e79bd0397904bc0f9e",
+      "python": "3.10.19",
+      "protocol_sha256": "2db71140fc3d4a808cdc150a33fc20ef2a859a05a241dcc66139eca947a649e1",
+      "native_sources": {
+        "rrp_learning.py": "858c529aa895f3aa24c4ab36a5c132de54a9e6318c4931ef1a8e0dba50b7bb22",
+        "rrp_search.py": "40ab5c662c67a88c742a37a074f16e31eaeb87f8ff453c8ec1d4eeacb65ded66",
+        "rrp_model.py": "442904aef153334cc0b83c3d07e54457d0690f780640b731cfbf0abc403f564a",
+        "rrp_evaluator.py": "02685cf5a8ed9177ae1a64272e57b85ea32658fd6899f4a03002a22f5f5c7538",
+        "rrp_reconstruct.py": "526c94a4aa3bdb49180f65ba3c77f17f90ca734016c1f184b6864416dd1803cb",
+        "rrp_data.py": "7b9ea0aac56b4b421f271500cbeb367289b75714311bfe75401e4c484d6adbd6",
+        "rrp_features.py": "a9db6076c9f88a9db0a5e2eedf1ad2f566577f8a9f2933b7187fb5c8b6195f57",
+        "run_rrp.py": "3241c6c76169114de3ae424f7f38ad9f4a3e2247cdc90c76fca4730231d73a2e"
+      }
+    },
+    "training_cases": [
+      "D1-n4-np33"
+    ],
+    "source_sha256": {
+      "D1-n4-np33": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1"
+    },
+    "objective": "with_wage",
+    "profile": "paper",
+    "split": null,
+    "scope": "functional_smoke_only",
+    "optimizer": "AdamW adaptation; not original MaskCO Muon",
+    "loss": "masked_successor_CE_plus_log1p_wait_MSE_equal_weight_design_choice"
+  },
+  "updates": [
+    {
+      "step": 1,
+      "instance": "D1-n4-np33",
+      "retained_edges": 1,
+      "loss": 2.0018200874328613,
+      "successor_ce": 1.0982961654663086,
+      "wait_log_mse": 0.9035239815711975,
+      "gradient_norm": 71.65473175048828,
+      "updated_parameter_leaves": 237
+    },
+    {
+      "step": 2,
+      "instance": "D1-n4-np33",
+      "retained_edges": 0,
+      "loss": 1.0986169576644897,
+      "successor_ce": 1.0986124277114868,
+      "wait_log_mse": 4.502531737671234e-06,
+      "gradient_norm": 0.0002323435473954305,
+      "updated_parameter_leaves": 237
+    },
+    {
+      "step": 3,
+      "instance": "D1-n4-np33",
+      "retained_edges": 1,
+      "loss": 1.098607063293457,
+      "successor_ce": 1.0986050367355347,
+      "wait_log_mse": 2.0831248548347503e-06,
+      "gradient_norm": 0.002566523151472211,
+      "updated_parameter_leaves": 237
+    }
+  ],
+  "weight_before_sha256": "fc532cf7909945ad0dc2226da349d8d2c6c9a7b03f5a4c7ab86216ad437342c3",
+  "weight_after_sha256": "5ce7dc4f99016976e016c389dbb99b51597c9647f89a3f6dc1c7a0fe6c4b6452",
+  "checkpoint_reload_predictions_exact": true,
+  "wall_s": 66.09920787904412,
+  "jax_backend": "cpu",
+  "generalization_established": false,
+  "method_gain_established": false
+}

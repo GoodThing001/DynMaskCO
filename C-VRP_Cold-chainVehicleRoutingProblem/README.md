@@ -1,17 +1,22 @@
-# 项目当前状态：静态冷链配送与多车扩展
+# 静态多车冷链净效益MASKCO扩展
 
-文档版本：[全项目文档索引](docs/文档索引与版本状态.md)，区分当前v3与历史研究记录。
+当前研究目标是全部车辆合计的品质折算交付价值减距离和制冷费用。模型、数据与分析计划已封存；方法选择、训练与验证继续开发，正式测试资格以[项目当前状态](项目当前状态.md)为准。
 
-2026-10-20，按用户批准的公开单车RRP→多车路线实施。当前为订单预先已知、−20°C配送；每车只装分配货物，逐客卸货，空载回仓。原动态取货和负结果为历史证据。
+从[项目导航](00_项目导航.md)进入具体模块，研究记录的版本身份见[全项目文档索引](docs/文档索引与版本状态.md)。
 
-[当前说明与命令](docs/static_delivery/README.md) · [参数公式](docs/static_delivery/参数与公式.md) · [本轮执行记录](docs/static_delivery_followup_20261020/执行记录.md) · [论文审计](docs/static_delivery_followup_20261020/paper_standard_audit.md) · [历史归档](archive/transition_20261020/README.md)
+| 分类 | 目录与职责 |
+|---|---|
+| 运行代码 | [scripts](scripts/README.md)：当前static_profit、旧RRP static_delivery、测试及project_paths路径契约 |
+| 配套工具 | [tools](tools/README.md)：运行辅助、冻结工具、资料获取/分析/核验与维护 |
+| 配置 | [configs](configs/README.md)：当前冻结模型、分析计划、算法候选与历史参数 |
+| 数据 | [data](data/README.md)：作者100客户数据、原Solomon、旧RRP与发表案例 |
+| 对比方法 | [CC_Compare](../CC_Compare/README.md)：已确认7项，按data/models/scripts等职责分类 |
+| 来源与适配证据 | [comparisons/static_coldchain](comparisons/static_coldchain/README.md)：独立适配器和原始快照，保持已有路径 |
+| 研究文档 | [docs版本索引](docs/文档索引与版本状态.md)：模型、方法、论文证据和各阶段边界 |
+| 输出结果 | [results](results/README.md)：实验开发、协议预检、冻结审计、历史结果与目录整理记录 |
+| 历史保全 | [archive](archive/README.md)：取货/负结果、旧冻结包、原件备份与恢复说明 |
+| 原位保护 | research、scripts/simulation等残留：受保护历史材料，保持原位置，不作为当前运行入口 |
 
-当前协议v3，默认`rrp_mip_dimensional_v1/source_day_domain`：论文式(20)系数2、MIP等待传热、表1的σ乘法。9h总tour为另一个显式运行域；论文内部差异与仍缺前作全文/积分表头都已标注，不能称全文所有公式完全一致。
+当前命令入口为[scripts/static_profit/run.py](scripts/static_profit/run.py)，训练策略见[算法README](scripts/static_profit/README.md)。旧RRP入口[scripts/static_delivery/run_rrp.py](scripts/static_delivery/run_rrp.py)保留原v3/33托盘口径。
 
-本地68/68测试通过；实际小模型3步训练每步37组更新，权重/优化器重载预测完全一致；单车和多车三臂均可行。30参考在主一天域均完整可行，9h域28份；全部参考成本仍未一致。全部30原实例×两种时域的60次近邻路序Split检查可行，每域22例用1车、8例用2车。功能结果没有建立正收益或泛化。
-
-多车独立时钟、装载和托盘位置，全局恰好一次，成本逐车求和。原订单和33托盘容量不变；K为显式实验上限，Split仅优化给定排列/等待下连续分割。不是作者原生多车基准复现，也没有学习分车头。
-
-服务器run06已完成当前v3完整16+6层256维骨干的3步训练，每步237组参数更新，重载预测完全一致，单/多车小例三臂和全量扫描通过。run07只读加载该检查点，对原n34实例的三个方法均实际使用2车；逐车载量/全局覆盖/空载返仓与本地独立成本重算通过。两个run退出0，10份输出SHA核验通过；当前检查点为results/static_delivery/remote/run06/outputs/followup/train/checkpoint。旧run05仅属历史v2。
-
-当前活动区为`scripts/static_delivery/`、`configs/static_delivery/`、`data/public_sources_20261020/`和`results/static_delivery/`。原61文件与两归档包SHA复核一致，19保护记录、用户原4项Git状态保持，上游只读。番茄/鱼品质和多温舱pilot未启用；旧取货/NO-GO及证据缺口不改写。最终核验见`results/static_delivery/followup_20261020/verification_final.json`。
+目录整理只改变允许迁移的工具和中间文件位置，不改变模型、原数据、实验数值或历史结论。[整理清单与核验](results/workspace_organization_20261021/README.md)。

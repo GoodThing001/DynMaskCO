@@ -1,0 +1,555 @@
+{
+  "case": "D1-n4-np33",
+  "identity": {
+    "author_commit": "f5c5317a5ecd8fe64df779e79bd0397904bc0f9e",
+    "python": "3.10.19",
+    "protocol_sha256": "59a73ac15b0861f8840cafc6f69e4c606fc2d145ee4f005eabb3f7b455b5ee16",
+    "native_sources": {
+      "rrp_learning.py": "5175dfd1d01d9c2230ed5d04196b1532af7525c6368cf824210156c60ec9a373",
+      "rrp_search.py": "40ab5c662c67a88c742a37a074f16e31eaeb87f8ff453c8ec1d4eeacb65ded66",
+      "rrp_model.py": "442904aef153334cc0b83c3d07e54457d0690f780640b731cfbf0abc403f564a",
+      "rrp_evaluator.py": "bb30f46a6c6594a3805340782fcff0703c795d6f2d7325fc9ed85d518112c1da",
+      "rrp_reconstruct.py": "526c94a4aa3bdb49180f65ba3c77f17f90ca734016c1f184b6864416dd1803cb",
+      "rrp_data.py": "c1a25a5f60ce27ae3c1dd4bdafa63d9e2202820fae53100ae84ca8b3fec01b79",
+      "rrp_features.py": "f449c0ae7df521b56bc1dd0d291d15c15f969095c99ab631b7c1cf1c064a0193",
+      "run_rrp.py": "e1ce678bd155dc6dbad9459269e6db1ebb7277cd2db4dab5e4636559a64e84a9"
+    }
+  },
+  "objective": "with_wage",
+  "profile": "paper",
+  "model": {
+    "parameter_sha256": "5ce7dc4f99016976e016c389dbb99b51597c9647f89a3f6dc1c7a0fe6c4b6452",
+    "metadata": {
+      "identity": {
+        "author_commit": "f5c5317a5ecd8fe64df779e79bd0397904bc0f9e",
+        "python": "3.10.19",
+        "protocol_sha256": "59a73ac15b0861f8840cafc6f69e4c606fc2d145ee4f005eabb3f7b455b5ee16",
+        "native_sources": {
+          "rrp_learning.py": "5175dfd1d01d9c2230ed5d04196b1532af7525c6368cf824210156c60ec9a373",
+          "rrp_search.py": "40ab5c662c67a88c742a37a074f16e31eaeb87f8ff453c8ec1d4eeacb65ded66",
+          "rrp_model.py": "442904aef153334cc0b83c3d07e54457d0690f780640b731cfbf0abc403f564a",
+          "rrp_evaluator.py": "bb30f46a6c6594a3805340782fcff0703c795d6f2d7325fc9ed85d518112c1da",
+          "rrp_reconstruct.py": "526c94a4aa3bdb49180f65ba3c77f17f90ca734016c1f184b6864416dd1803cb",
+          "rrp_data.py": "c1a25a5f60ce27ae3c1dd4bdafa63d9e2202820fae53100ae84ca8b3fec01b79",
+          "rrp_features.py": "f449c0ae7df521b56bc1dd0d291d15c15f969095c99ab631b7c1cf1c064a0193",
+          "run_rrp.py": "e1ce678bd155dc6dbad9459269e6db1ebb7277cd2db4dab5e4636559a64e84a9"
+        }
+      },
+      "training_cases": [
+        "D1-n4-np33"
+      ],
+      "source_sha256": {
+        "D1-n4-np33": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1"
+      },
+      "objective": "with_wage",
+      "profile": "paper",
+      "split": null,
+      "scope": "functional_smoke_only",
+      "optimizer": "AdamW adaptation; not original MaskCO Muon",
+      "loss": "masked_successor_CE_plus_log1p_wait_MSE_equal_weight_design_choice"
+    }
+  },
+  "same_initial_route": [
+    0,
+    3,
+    1,
+    2
+  ],
+  "same_initial_waits_s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "preparation_s": 3.3809305848553777,
+  "total_wall_s": 4.580376063007861,
+  "methods": [
+    {
+      "method": "local_search",
+      "route": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "waits_s": [
+        0.0,
+        0.0,
+        130.0,
+        0.0
+      ],
+      "report": {
+        "instance": "D1-n4-np33",
+        "source_sha256": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1",
+        "profile": "paper",
+        "objective": "with_wage",
+        "clock": "continuous_seconds_equations_not_integer_CP_rounding",
+        "feasible": true,
+        "complete": true,
+        "errors": [],
+        "legs": [
+          {
+            "from": 0,
+            "to": 3,
+            "arrival_s": 25200.0,
+            "physical_arrival_s": 25200.0,
+            "service_s": 0.0,
+            "wait_s": 0.0,
+            "departure_s": 25200.0,
+            "travel_s": 3690.0,
+            "next_physical_arrival_s": 28890.0,
+            "speed_kmph": 40.0,
+            "distance_km": 41.0,
+            "load_kg": 19800.0,
+            "traction_l_tour": 24.969286999999998,
+            "next_arrival_s": 28890.0,
+            "transmission_kwh_year": 1549.201764270884,
+            "infiltration_kwh_year": 0.0,
+            "temperature_hour": 7
+          },
+          {
+            "from": 3,
+            "to": 1,
+            "arrival_s": 28890.0,
+            "physical_arrival_s": 28890.0,
+            "service_s": 810.0,
+            "wait_s": 0.0,
+            "departure_s": 29700.0,
+            "travel_s": 1520.0,
+            "next_physical_arrival_s": 31220.0,
+            "speed_kmph": 45.0,
+            "distance_km": 19.0,
+            "load_kg": 13200.0,
+            "traction_l_tour": 9.72519961111111,
+            "next_arrival_s": 31350.0,
+            "transmission_kwh_year": 1142.0639444304372,
+            "infiltration_kwh_year": 1177.301882583243,
+            "temperature_hour": 8
+          },
+          {
+            "from": 1,
+            "to": 2,
+            "arrival_s": 31350.0,
+            "physical_arrival_s": 31220.0,
+            "service_s": 1050.0,
+            "wait_s": 130.0,
+            "departure_s": 32400.0,
+            "travel_s": 2592.0,
+            "next_physical_arrival_s": 34992.0,
+            "speed_kmph": 50.0,
+            "distance_km": 36.0,
+            "load_kg": 6600.0,
+            "traction_l_tour": 15.111251999999999,
+            "next_arrival_s": 34992.0,
+            "transmission_kwh_year": 1690.811742120184,
+            "infiltration_kwh_year": 1449.7556292963097,
+            "temperature_hour": 8
+          },
+          {
+            "from": 2,
+            "to": 0,
+            "arrival_s": 34992.0,
+            "physical_arrival_s": 34992.0,
+            "service_s": 1290.0,
+            "wait_s": 0.0,
+            "departure_s": 36282.0,
+            "travel_s": 3600.0,
+            "next_physical_arrival_s": 39882.0,
+            "speed_kmph": 50.0,
+            "distance_km": 50.0,
+            "load_kg": 0.0,
+            "traction_l_tour": 16.057649999999995,
+            "next_arrival_s": 39882.0,
+            "transmission_kwh_year": 2430.1233115289247,
+            "infiltration_kwh_year": 1839.3416888870545,
+            "temperature_hour": 9
+          }
+        ],
+        "route": [
+          0,
+          3,
+          1,
+          2
+        ],
+        "waits_s": [
+          0.0,
+          0.0,
+          130.0,
+          0.0
+        ],
+        "initial_load_kg": 19800.0,
+        "terminal_load_kg": 0.0,
+        "costs": {
+          "traction_eur_year": 30336.676794277773,
+          "transmission_eur_year": 2861.1243201871807,
+          "infiltration_eur_year": 1875.8876643219749,
+          "driver_eur_year": 10626.8316,
+          "total_eur_year": 45700.52037878693
+        },
+        "duration_s": 14682.0,
+        "qualification": "independent_equation_evaluation_not_all_author_records_reproduced",
+        "distance_km": 146.0,
+        "return_arrival_s": 39882.0,
+        "traction_l_tour": 65.8633886111111,
+        "transmission_kwh_year": 6812.2007623504305,
+        "infiltration_kwh_year": 4466.3992007666075
+      },
+      "iterations": [
+        {
+          "iteration": 0,
+          "attempts": 82,
+          "accepted": true,
+          "best_cost_eur_year": 45700.52037878693
+        },
+        {
+          "iteration": 1,
+          "attempts": 216,
+          "accepted": false,
+          "best_cost_eur_year": 45700.52037878693
+        },
+        {
+          "iteration": 2,
+          "attempts": 216,
+          "accepted": false,
+          "best_cost_eur_year": 45700.52037878693
+        }
+      ],
+      "wall_s": 0.18508698302321136,
+      "requested_search_seconds": 15,
+      "actual_evaluations": 515,
+      "actual_model_forwards": 0,
+      "keeping_rate": 0.2,
+      "seed": 888,
+      "initialization": "caller_supplied_no_reference_lookup",
+      "budget_scope": "search_including_candidate_preparation_model_and_independent_acceptance",
+      "author_LAHC_reproduced": false,
+      "scientific_gain_established": false
+    },
+    {
+      "method": "maskco_initial",
+      "route": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "waits_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "report": {
+        "instance": "D1-n4-np33",
+        "source_sha256": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1",
+        "profile": "paper",
+        "objective": "with_wage",
+        "clock": "continuous_seconds_equations_not_integer_CP_rounding",
+        "feasible": true,
+        "complete": true,
+        "errors": [],
+        "legs": [
+          {
+            "from": 0,
+            "to": 3,
+            "arrival_s": 25200.0,
+            "physical_arrival_s": 25200.0,
+            "service_s": 0.0,
+            "wait_s": 0.0,
+            "departure_s": 25200.0,
+            "travel_s": 3690.0,
+            "next_physical_arrival_s": 28890.0,
+            "speed_kmph": 40.0,
+            "distance_km": 41.0,
+            "load_kg": 19800.0,
+            "traction_l_tour": 24.969286999999998,
+            "next_arrival_s": 28890.0,
+            "transmission_kwh_year": 1549.201764270884,
+            "infiltration_kwh_year": 0.0,
+            "temperature_hour": 7
+          },
+          {
+            "from": 3,
+            "to": 1,
+            "arrival_s": 28890.0,
+            "physical_arrival_s": 28890.0,
+            "service_s": 810.0,
+            "wait_s": 0.0,
+            "departure_s": 29700.0,
+            "travel_s": 1520.0,
+            "next_physical_arrival_s": 31220.0,
+            "speed_kmph": 45.0,
+            "distance_km": 19.0,
+            "load_kg": 13200.0,
+            "traction_l_tour": 9.72519961111111,
+            "next_arrival_s": 31220.0,
+            "transmission_kwh_year": 1081.7109717572844,
+            "infiltration_kwh_year": 1177.301882583243,
+            "temperature_hour": 8
+          },
+          {
+            "from": 1,
+            "to": 2,
+            "arrival_s": 31220.0,
+            "physical_arrival_s": 31220.0,
+            "service_s": 1050.0,
+            "wait_s": 0.0,
+            "departure_s": 32270.0,
+            "travel_s": 2880.0,
+            "next_physical_arrival_s": 35150.0,
+            "speed_kmph": 45.0,
+            "distance_km": 36.0,
+            "load_kg": 6600.0,
+            "traction_l_tour": 14.876949999999997,
+            "next_arrival_s": 35150.0,
+            "transmission_kwh_year": 1824.516789273016,
+            "infiltration_kwh_year": 1449.7556292963097,
+            "temperature_hour": 8
+          },
+          {
+            "from": 2,
+            "to": 0,
+            "arrival_s": 35150.0,
+            "physical_arrival_s": 35150.0,
+            "service_s": 1290.0,
+            "wait_s": 0.0,
+            "departure_s": 36440.0,
+            "travel_s": 3600.0,
+            "next_physical_arrival_s": 40040.0,
+            "speed_kmph": 50.0,
+            "distance_km": 50.0,
+            "load_kg": 0.0,
+            "traction_l_tour": 16.057649999999995,
+            "next_arrival_s": 40040.0,
+            "transmission_kwh_year": 2430.1233115289247,
+            "infiltration_kwh_year": 1839.3416888870545,
+            "temperature_hour": 9
+          }
+        ],
+        "route": [
+          0,
+          3,
+          1,
+          2
+        ],
+        "waits_s": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "initial_load_kg": 19800.0,
+        "terminal_load_kg": 0.0,
+        "costs": {
+          "traction_eur_year": 30228.75729307777,
+          "transmission_eur_year": 2891.9321914686457,
+          "infiltration_eur_year": 1875.8876643219749,
+          "driver_eur_year": 10741.192,
+          "total_eur_year": 45737.76914886839
+        },
+        "duration_s": 14840.0,
+        "qualification": "independent_equation_evaluation_not_all_author_records_reproduced",
+        "distance_km": 146.0,
+        "return_arrival_s": 40040.0,
+        "traction_l_tour": 65.6290866111111,
+        "transmission_kwh_year": 6885.552836830109,
+        "infiltration_kwh_year": 4466.3992007666075
+      },
+      "iterations": [
+        {
+          "iteration": 0,
+          "attempts": 1,
+          "accepted": false,
+          "best_cost_eur_year": 45737.76914886839
+        },
+        {
+          "iteration": 1,
+          "attempts": 1,
+          "accepted": false,
+          "best_cost_eur_year": 45737.76914886839
+        },
+        {
+          "iteration": 2,
+          "attempts": 1,
+          "accepted": false,
+          "best_cost_eur_year": 45737.76914886839
+        }
+      ],
+      "wall_s": 0.6660380521789193,
+      "requested_search_seconds": 15,
+      "actual_evaluations": 4,
+      "actual_model_forwards": 3,
+      "keeping_rate": 0.2,
+      "seed": 888,
+      "initialization": "caller_supplied_no_reference_lookup",
+      "budget_scope": "search_including_candidate_preparation_model_and_independent_acceptance",
+      "author_LAHC_reproduced": false,
+      "scientific_gain_established": false
+    },
+    {
+      "method": "maskco",
+      "route": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "waits_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "report": {
+        "instance": "D1-n4-np33",
+        "source_sha256": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1",
+        "profile": "paper",
+        "objective": "with_wage",
+        "clock": "continuous_seconds_equations_not_integer_CP_rounding",
+        "feasible": true,
+        "complete": true,
+        "errors": [],
+        "legs": [
+          {
+            "from": 0,
+            "to": 3,
+            "arrival_s": 25200.0,
+            "physical_arrival_s": 25200.0,
+            "service_s": 0.0,
+            "wait_s": 0.0,
+            "departure_s": 25200.0,
+            "travel_s": 3690.0,
+            "next_physical_arrival_s": 28890.0,
+            "speed_kmph": 40.0,
+            "distance_km": 41.0,
+            "load_kg": 19800.0,
+            "traction_l_tour": 24.969286999999998,
+            "next_arrival_s": 28890.0,
+            "transmission_kwh_year": 1549.201764270884,
+            "infiltration_kwh_year": 0.0,
+            "temperature_hour": 7
+          },
+          {
+            "from": 3,
+            "to": 1,
+            "arrival_s": 28890.0,
+            "physical_arrival_s": 28890.0,
+            "service_s": 810.0,
+            "wait_s": 0.0,
+            "departure_s": 29700.0,
+            "travel_s": 1520.0,
+            "next_physical_arrival_s": 31220.0,
+            "speed_kmph": 45.0,
+            "distance_km": 19.0,
+            "load_kg": 13200.0,
+            "traction_l_tour": 9.72519961111111,
+            "next_arrival_s": 31220.0,
+            "transmission_kwh_year": 1081.7109717572844,
+            "infiltration_kwh_year": 1177.301882583243,
+            "temperature_hour": 8
+          },
+          {
+            "from": 1,
+            "to": 2,
+            "arrival_s": 31220.0,
+            "physical_arrival_s": 31220.0,
+            "service_s": 1050.0,
+            "wait_s": 0.0,
+            "departure_s": 32270.0,
+            "travel_s": 2880.0,
+            "next_physical_arrival_s": 35150.0,
+            "speed_kmph": 45.0,
+            "distance_km": 36.0,
+            "load_kg": 6600.0,
+            "traction_l_tour": 14.876949999999997,
+            "next_arrival_s": 35150.0,
+            "transmission_kwh_year": 1824.516789273016,
+            "infiltration_kwh_year": 1449.7556292963097,
+            "temperature_hour": 8
+          },
+          {
+            "from": 2,
+            "to": 0,
+            "arrival_s": 35150.0,
+            "physical_arrival_s": 35150.0,
+            "service_s": 1290.0,
+            "wait_s": 0.0,
+            "departure_s": 36440.0,
+            "travel_s": 3600.0,
+            "next_physical_arrival_s": 40040.0,
+            "speed_kmph": 50.0,
+            "distance_km": 50.0,
+            "load_kg": 0.0,
+            "traction_l_tour": 16.057649999999995,
+            "next_arrival_s": 40040.0,
+            "transmission_kwh_year": 2430.1233115289247,
+            "infiltration_kwh_year": 1839.3416888870545,
+            "temperature_hour": 9
+          }
+        ],
+        "route": [
+          0,
+          3,
+          1,
+          2
+        ],
+        "waits_s": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "initial_load_kg": 19800.0,
+        "terminal_load_kg": 0.0,
+        "costs": {
+          "traction_eur_year": 30228.75729307777,
+          "transmission_eur_year": 2891.9321914686457,
+          "infiltration_eur_year": 1875.8876643219749,
+          "driver_eur_year": 10741.192,
+          "total_eur_year": 45737.76914886839
+        },
+        "duration_s": 14840.0,
+        "qualification": "independent_equation_evaluation_not_all_author_records_reproduced",
+        "distance_km": 146.0,
+        "return_arrival_s": 40040.0,
+        "traction_l_tour": 65.6290866111111,
+        "transmission_kwh_year": 6885.552836830109,
+        "infiltration_kwh_year": 4466.3992007666075
+      },
+      "iterations": [
+        {
+          "iteration": 0,
+          "attempts": 1,
+          "accepted": false,
+          "best_cost_eur_year": 45737.76914886839
+        },
+        {
+          "iteration": 1,
+          "attempts": 1,
+          "accepted": false,
+          "best_cost_eur_year": 45737.76914886839
+        },
+        {
+          "iteration": 2,
+          "attempts": 1,
+          "accepted": false,
+          "best_cost_eur_year": 45737.76914886839
+        }
+      ],
+      "wall_s": 0.3476458201184869,
+      "requested_search_seconds": 15,
+      "actual_evaluations": 4,
+      "actual_model_forwards": 3,
+      "keeping_rate": 0.2,
+      "seed": 888,
+      "initialization": "caller_supplied_no_reference_lookup",
+      "budget_scope": "search_including_candidate_preparation_model_and_independent_acceptance",
+      "author_LAHC_reproduced": false,
+      "scientific_gain_established": false
+    }
+  ],
+  "scope": "functional_common_objective_comparison",
+  "reference_solution_used_for_initialization": false,
+  "evaluation_protocol": "same start/seed/seconds/iterations; forwards and JIT count in search time",
+  "algorithm_reproduction": "independent evaluator and adapted MaskCO, not author LAHC/MIP/CP"
+}

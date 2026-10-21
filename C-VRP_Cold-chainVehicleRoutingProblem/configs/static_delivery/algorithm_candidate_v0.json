@@ -1,0 +1,24 @@
+{
+  "identity": "QC-DMaskCO-development-v0",
+  "status": "DEVELOPMENT_CANDIDATE_NOT_VALIDATED_OR_FORMAL_METHOD_FREEZE",
+  "research_lock_sha256": "ad52f0fd475ebb22d187ce6dad3579f2f147a541fc7a82312941060d196692f9",
+  "task": "static single-depot multi-vehicle mandatory-delivery cold-chain routing",
+  "objective": "maximize total quality-adjusted delivery value minus distance and refrigeration costs in U, excluding common fixed terms",
+  "hard_constraints": ["original payload capacity", "original service-start windows", "quality at service completion", "depot return deadline", "each original customer exactly once", "closed nonempty routes", "K<=100"],
+  "upstream_backbone": "read-only MASKCO_code.models.CVRPModel, encode then timestep-conditioned masked-adjacency decode",
+  "full_profile": {"encoder_layers": 16, "decoder_layers": 6, "dimension": 256, "heads": 8},
+  "smoke_profile": {"encoder_layers": 1, "decoder_layers": 1, "dimension": 32, "heads": 4, "purpose": "functional integration only"},
+  "shared_task_adaptations": ["window and kinetic/economic condition inputs", "strict frozen-profit oracle", "shared online feasible NN initializer", "exact-profit feasibility-checked reconstruction", "best-incumbent preservation", "independent timeline and money audit"],
+  "modules": {
+    "F_quality_context": "derived age, quality margin, marginal monetary decay rate, time-window slack and load utilization from visible partial routes; removed nodes use singleton bounds, never full-teacher clock labels",
+    "D_directed_denoising": "directed retained-edge context, customer-successor supervision and query/key directed output; a combined direction module, not an isolated head-only claim"
+  },
+  "ablations": {"maskco_base": {"F": false, "D": false}, "quality_only": {"F": true, "D": false}, "directed_only": {"F": false, "D": true}, "quality_directed": {"F": true, "D": true}},
+  "shared_neural_search": "random customer masking, neural edge shortlist, exact-net-benefit regret reconstruction, accept only improved feasible full solutions",
+  "classical_adapters": {"ALNS": "pinned official ALNS library; custom full-objective destroy/regret repair and SA acceptance, not a claimed paper replication", "VNS": "custom relocate/swap/reverse/merge neighbourhoods scored by the full frozen objective"},
+  "teacher_generation": "online VNS starting from the common initializer, only declared training cases and conditions; stored route labels and source hashes",
+  "loss_comparison_limit": "undirected-neighbour and directed-successor targets have different entropy; cross-variant raw cross-entropy is not a method-quality comparison",
+  "development_defaults_not_validation_selected": {"learning_rate": 0.0001, "weight_decay": 0.0001, "gradient_clip": 1, "removed_customers": 10, "neural_insertion_shortlist": 8},
+  "execution_scope": "train/validation only; no outer-test execution before frozen analysis plan's method/checkpoint gates",
+  "current_claim": "implementation candidate and functional checks only; no generalization, superiority or publication claim"
+}

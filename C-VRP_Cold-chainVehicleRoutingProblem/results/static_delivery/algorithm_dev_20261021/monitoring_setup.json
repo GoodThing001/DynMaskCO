@@ -1,0 +1,17 @@
+{
+  "recorded_at": "2026-10-21T07:07:46.316356+00:00",
+  "automation_id": "automation",
+  "kind": "heartbeat",
+  "interval_minutes": 5,
+  "creation_confirmed": true,
+  "job": "dev09",
+  "last_observed_exit_code": null,
+  "last_observed_arm": "old_teachers",
+  "last_observed_steps": {
+    "maskco_base": 1440,
+    "directed_only": 1355
+  },
+  "initial_reference": "../algorithm_baselines/v0_dev04_validation",
+  "next_action": "On completion pull and independently verify; preserve failures. No duplicate training or outer tests.",
+  "baseline_document": "docs/static_delivery_research_20261021/对比基线与迭代.md"
+}

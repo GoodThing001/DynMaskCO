@@ -1,0 +1,82 @@
+{
+  "status": "PUBLISHED_NUMERICAL_SETTINGS_FOR_PROTOCOL_DESIGN_NOT_ACTIVE_EXPERIMENT_CONFIG",
+  "zhu_2021": {
+    "doi": "10.3390/su13148110",
+    "location": "section5.1 p13-14, Table2 p14",
+    "product": "generic fresh agricultural products; not a calibrated named species",
+    "dataset": "R108 first50 customers; demand and capacity multiplied by10 per author",
+    "price_yuan_per_kg": 12,
+    "eta1_as_printed": 0.005,
+    "eta2_as_printed": 0.01,
+    "eta_time_unit_printed_in_table": null,
+    "speed_km_per_h": 40,
+    "fixed_vehicle_yuan": 200,
+    "fuel_price_yuan_per_L": 5.41,
+    "empty_fuel_L_per_km": 0.18,
+    "full_fuel_L_per_km": 0.41,
+    "moving_refrigeration_yuan_per_h": 5,
+    "unloading_refrigeration_yuan_per_h": 12,
+    "scope": "author numerical setting, not measured generic-food physics or current market prices"
+  },
+  "el_raoui_2021": {
+    "doi": "10.3390/electronics10162018",
+    "location": "section7.1 Table4 p14; cost Eq1-8 p6-7",
+    "product": "generic perishable food",
+    "dataset": "100-customer adaptedRC101 application; section6 usesR101,C104,RC107 subsets",
+    "price_EUR_per_abstract_unit": 20,
+    "delta1_as_printed": 0.002,
+    "delta2_as_printed": 0.003,
+    "refrigeration_closed_EUR_per_unit_as_printed": 0.03,
+    "refrigeration_open_EUR_per_unit_as_printed": 0.04,
+    "fixed_vehicle_EUR": 25,
+    "distance_cost_EUR_per_km_as_paper": 3,
+    "time_and_refrigeration_unit_issue": "Table4 says EUR/unit, not explicitly EUR/min or kWh tariff; Eq3-4 require cost per time. Any benchmark-time interpretation must be declared, not reported as measured power.",
+    "not_adopted_as_quality_threshold": "alpha0.8 in Table4 is NOT established as a food-quality rejection threshold by this review",
+    "comparison_scope_issue": "section6.2 Eq35 CPLEX/GVNS comparison omits damage costC4; cannot use its results as a full quality-value baseline"
+  },
+  "gharehyakheh_2020": {
+    "doi": "10.3390/su12166668",
+    "location": "section5.1 Table3 p15",
+    "product": "generic perishable food; shelf-life sensitivity study",
+    "dataset": "Solomon25 and100customer instances",
+    "shelf_life_h": 2880,
+    "vehicle_speed_km_per_h": 15,
+    "fixed_vehicle_dollars": 1000,
+    "distance_cost_dollars_per_km": 1.5,
+    "capacity_kg_as_printed": 200,
+    "scope": "do not identify this120-day numerical shelf life as chilled mullet or ready-to-eat salad shelf life"
+  },
+  "zhao_2020": {
+    "doi": "10.1371/journal.pone.0235950",
+    "location": "section4.1 and Table2",
+    "product": "fresh milk numerical application; Solomon data, not observed enterprise order logs",
+    "dataset": "C,R,RC;100customers,1depot; demand unit10kg;200units=2000kgcapacity",
+    "horizon_min": 1020,
+    "fixed_vehicle_yuan": 150,
+    "fuel_yuan_per_L": 6,
+    "baseline_setpoint_C": 1,
+    "baseline_refrigeration_L_per_h": 2.4,
+    "baseline_refrigeration_context": "paper section2.5 numerical/experimental-simulation statement at outside25C and inside10C; not a verified road-duty dataset or current truck measurement",
+    "scope": "paper microbial zero-growth below0C is a model assumption; not universal milk safety evidence"
+  },
+  "normalization": {
+    "identity": "divide every monetary term by the same positive monetary reference; customers, costs, loss and revenue must share source identity and unit convention",
+    "example_source": "el_raoui_2021",
+    "reference_EUR": 20,
+    "price_value_units_per_demand_unit": 1,
+    "fixed_vehicle_value_units": 1.25,
+    "distance_coefficient_value_units_per_paper_distance_unit": 0.15,
+    "closed_time_coefficient_value_units_per_paper_time_unit": 0.0015,
+    "open_time_coefficient_value_units_per_paper_time_unit": 0.002,
+    "physical_unit_mapping_filled": false,
+    "is_new_empirical_calibration": false
+  },
+  "objective_deduction": {
+    "constant_reference_value": "B=P*sum(q_i), if every original order is fixed and mandatory",
+    "net_benefit_reference_loss_accounting": "Pi=B-C_transport-C_refrigeration-C_incremental_fixed-L_value",
+    "equivalence": "maxPi is equivalent to minimizing the sum of those costs including value loss; if L_value=0 and sale revenue is constant, it reduces to ordinary cost minimization",
+    "not_double_count": "do not subtract both an identical revenue markdown and a duplicate deterioration loss",
+    "real_food_profit_mapping_ready": false
+  },
+  "new_routing_or_training": false
+}

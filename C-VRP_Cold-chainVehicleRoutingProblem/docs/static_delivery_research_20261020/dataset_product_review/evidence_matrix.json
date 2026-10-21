@@ -1,0 +1,156 @@
+{
+  "date": "2026-10-20",
+  "scope": "11 selected primary routing studies; targeted sample, NOT systematic review or a frequency census",
+  "studies": [
+    {
+      "id": "osvald2008", "authors": "Ana Osvald; Lidija Zadnik Stirn", "year": 2008,
+      "title": "A vehicle routing algorithm for the distribution of fresh vegetables and similar perishable food",
+      "doi": "10.1016/j.jfoodeng.2007.07.008",
+      "primary_url": "https://www.sciencedirect.com/science/article/abs/pii/S0260877407004141",
+      "product": "fresh vegetables; Slovenian market context; exact experimental species not established by accessible passage",
+      "data": "modified Solomon instances; market-context parameter settings",
+      "data_class": "classic_benchmark_adaptation",
+      "objective": "distribution cost including perishability loss",
+      "verified_from": "publisher abstract and primary introduction index; not complete local full text",
+      "ready_for": "precedent for Solomon plus explicit perishability settings; not a new measured vegetable parameter pack"
+    },
+    {
+      "id": "amorim2014", "authors": "Pedro Amorim; Bernardo Almada-Lobo", "year": 2014,
+      "title": "The impact of food perishability issues in the vehicle routing problem",
+      "doi": "10.1016/j.cie.2013.11.006",
+      "primary_url": "https://www.sciencedirect.com/science/article/pii/S0360835213003690",
+      "product": "generic highly perishable food; prepared meals are an explanatory example, not a released measured meal dataset",
+      "data": "adapted Solomon25-customer exact and100-customer heuristic instances",
+      "data_class": "classic_benchmark_adaptation",
+      "objective": "distribution cost and delivered freshness, separate objectives",
+      "verified_from": "publisher abstract/introduction index; author thesis acquisitionHTTP500; final full coefficient tables not locally read",
+      "ready_for": "generic perishable algorithm study precedent, not calibrated food profit"
+    },
+    {
+      "id": "song2016", "authors": "Byung Duk Song; Young Dae Ko", "year": 2016,
+      "title": "A vehicle routing problem of both refrigerated- and general-type vehicles for perishable food products delivery",
+      "doi": "10.1016/j.jfoodeng.2015.08.027",
+      "primary_url": "https://www.sciencedirect.com/science/article/abs/pii/S0260877415003805",
+      "product": "multiple generic perishable products; type-dependent freshness rates",
+      "data": "hypothetical numerical dataset as publisher conclusion states; not verified as Solomon or observed store logs",
+      "data_class": "author_hypothetical",
+      "objective": "customer satisfaction dependent on freshness",
+      "verified_from": "publisher abstract, introduction and conclusion index",
+      "ready_for": "precedent for declared hypothetical data, not permission to call random instances empirical"
+    },
+    {
+      "id": "gharehyakheh2020", "authors": "Amin Gharehyakheh; Caroline C. Krejci; Jaime Cantu; K. Jamie Rogers", "year": 2020,
+      "title": "A Multi-Objective Model for Sustainable Perishable Food Distribution Considering the Impact of Temperature on Vehicle Emissions and Product Shelf Life",
+      "doi": "10.3390/su12166668",
+      "primary_url": "https://www.mdpi.com/2071-1050/12/16/6668",
+      "local_pdf": "sources/temperature_shelf_life_2020.pdf",
+      "product": "generic perishable product with shelf-life/SSO model, not identified as measured tomato/mullet",
+      "data": "Solomon25/100; test settings in Table3 p15",
+      "data_class": "classic_benchmark_adaptation",
+      "objective": "cost, emissions and freshness",
+      "verified_from": "local publicationPDF; sections3.3,5.1 and Table3; original p15 visually checked",
+      "ready_for": "numerical shelf-life precedent, including2880h parameter; not empirical life of selected chilled food"
+    },
+    {
+      "id": "zhao2020", "authors": "Zhixue Zhao; Xiamiao Li; Xiancheng Zhou", "year": 2020,
+      "title": "Optimization of transportation routing problem for fresh food in time-varying road network: Considering both food safety reliability and temperature control",
+      "doi": "10.1371/journal.pone.0235950",
+      "primary_url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0235950",
+      "local_XML": "sources/plos_milk_2020.xml",
+      "product": "fresh milk numerical application",
+      "data": "modified C,R,RC Solomon100; author assigns10kg per demandunit and2000kgvehicle; period/horizon assumptions",
+      "data_class": "classic_benchmark_adaptation",
+      "objective": "distribution cost including modeled food-safety value loss",
+      "verified_from": "full publisherXML; section4.1,2.5 and Table2",
+      "ready_for": "milk-labelled published numerical profile; not an observed milk customer/order dataset or universal safety calibration"
+    },
+    {
+      "id": "zhu2021", "authors": "Shenjun Zhu; Hongming Fu; Yanhui Li", "year": 2021,
+      "title": "Optimization Research on Vehicle Routing for Fresh Agricultural Products Based on the Investment of Freshness-Keeping Cost in the Distribution Process",
+      "doi": "10.3390/su13148110",
+      "primary_url": "https://www.mdpi.com/2071-1050/13/14/8110",
+      "local_pdf": "sources/freshness_investment_2021.pdf",
+      "product": "generic fresh agricultural products; product-specific calibration not supplied",
+      "data": "R108 first50 customers; author multiplies demand and vehicle capacity by10 and assignskg",
+      "data_class": "classic_benchmark_adaptation",
+      "objective": "cost including freshness investment and cargo damage",
+      "verified_from": "local publicationPDF; section5.1 Table2 p14 visually checked",
+      "ready_for": "complete stated price/fuel/refrigeration numerical examples; time-unit and soft/hard-window differences require protocol decisions"
+    },
+    {
+      "id": "elraoui2021", "authors": "Hanane El Raoui; Mustapha Oudani; David A. Pelta; Ahmed El Hilali Alaoui", "year": 2021,
+      "title": "A Metaheuristic Based Approach for the Customer-Centric Perishable Food Distribution Problem",
+      "doi": "10.3390/electronics10162018",
+      "primary_url": "https://www.mdpi.com/2079-9292/10/16/2018",
+      "local_pdf": "sources/customer_centric_2021.pdf",
+      "product": "generic perishable food; exponential deterioration cost",
+      "data": "SolomonR101,C104,RC107 subsets; adaptedRC101100customer application",
+      "data_class": "classic_benchmark_adaptation",
+      "objective": "cost, freshness, service, tardiness; CPLEX subsection uses restricted cost submodel",
+      "verified_from": "local publicationPDF; Eq1-8 p6-7; section6.1-6.2 p12 and section7.1 Table4 p14 visually checked",
+      "ready_for": "source-based abstract value-loss model; unit ambiguities and restricted comparison must be retained"
+    },
+    {
+      "id": "stellingwerf2021", "authors": "Helena M. Stellingwerf; Leendert H.C. Groeneveld; Gilbert Laporte; Argyris Kanellopoulos; Jacqueline M. Bloemhof; Behzad Behdani", "year": 2021,
+      "title": "The quality-driven vehicle routing problem: Model and application to a case of cooperative logistics",
+      "doi": "10.1016/j.ijpe.2020.107849",
+      "primary_url": "https://transsonic.nl/documents/Stellingwerf_EtAl_IJPE_2021_The_Quality_Driven_Vehicle_Routing_Problem.pdf",
+      "local_pdf": "../sources/quality_driven_2021.pdf",
+      "product": "three numbered fresh-cut vegetable products, kinetics referencingTsironi2017; exact numbered-species/quality-attribute mapping not supplied",
+      "data": "seven supermarket chainDCs plusCDC; published8x8distance matrix,7x3kgdemand and directed speed matrix",
+      "data_class": "published_real_case_tables_with_model_assumptions",
+      "objective": "cost, emissions, total decay or maximum decay; quality threshold constraints available",
+      "verified_from": "full local publicationPDF; Table2-3 p6 and Table14 p11 visually checked",
+      "ready_for": "small published multi-product data case, transcribed separately; not price-calibrated profit benchmark"
+    },
+    {
+      "id": "hulagu2026", "authors": "Selin Hülagü; Claudio Ciancio; Said Dabia; Wout Dullaert", "year": 2026,
+      "title": "An Exact Algorithm for the Vehicle Routing Problem with Time Windows and Perishable Products",
+      "doi": "10.1287/trsc.2025.0262",
+      "primary_url": "https://github.com/SelinHulagu/vrptwq-solomon-instances",
+      "product": "generic perishable products; benchmark quality400, maxdecay80; not food laboratory units",
+      "data": "56 author-transformed Solomon100 files; explicitkm/kg/min; pinned commit58eadb8fe16a354b29877f402d17350ce639795d",
+      "data_class": "author_released_classic_benchmark_adaptation",
+      "objective": "quality-constrained cold-chain routing; exact objective formulas not fully verified here",
+      "verified_from": "author README and all original files already retained; institutional abstract; fullpaper unavailable",
+      "ready_for": "existing unit-explicit public benchmark; retain prior9necessary-condition conflicts under our declared domain"
+    },
+    {
+      "id": "tarantilis2002", "authors": "C.D. Tarantilis; C.T. Kiranoudis", "year": 2002,
+      "title": "Distribution of fresh meat",
+      "doi": "10.1016/S0260-8774(01)00040-1",
+      "primary_url": "https://www.sciencedirect.com/science/article/abs/pii/S0260877401000401",
+      "product": "fresh meat",
+      "data": "Greek company depots and Athens butcher shops; open multi-depot real-case problem",
+      "data_class": "enterprise_case_not_downloaded",
+      "objective": "distribution route optimization",
+      "verified_from": "publisher abstract; not local fullpaper or recovered order files",
+      "ready_for": "evidence for concrete enterprise-product cases; operational mismatch with current single-depot return-required task"
+    },
+    {
+      "id": "huang2024", "authors": "Min Huang; Minghao Liu; Hanbin Kuang", "year": 2024,
+      "title": "Vehicle routing problem for fresh products distribution considering customer satisfaction through adaptive large neighborhood search",
+      "doi": "10.1016/j.cie.2024.110022",
+      "primary_url": "https://www.sciencedirect.com/science/article/pii/S0360835224001438",
+      "product": "fresh products; specific species not established by accessible experiment passage",
+      "data": "SolomonC1018customers; C101/R10125and50customers; HemaFresh case mentioned",
+      "data_class": "classic_benchmark_adaptation_and_case",
+      "objective": "cost with time/quality satisfaction constraints",
+      "verified_from": "publisher abstract and Experiment preparation index; full parameter tables and Hema order files not acquired",
+      "ready_for": "recent ALNS precedent, not claim author code or specific product calibration acquired"
+    }
+  ],
+  "other_primary_evidence": [
+    {"id":"tsironi2017", "doi":"10.1016/j.ijfoodmicro.2016.09.032", "url":"https://pubmed.ncbi.nlm.nih.gov/27745710/", "type":"food experiment, NOT routing dataset", "verified_from":"PubMed publisher-supplied abstract", "product":"MAP mixed salad40%lollo rosso45%lollo verde15%rocket; not conferenceabstract45+45+15", "parameters":"8logcfu/gPseudomonas and20%vitaminCloss linked to end-of-life; Ea69.1and122.6kJ/molrespectively", "not_obtained":"full journal coefficient tables/rawdata; no direct substitution into numberedQDVRPproducts"},
+    {"id":"gaukler2023_followup", "doi":"10.1016/j.ejor.2023.03.006", "url":"https://pure.eur.nl/files/155582174/1-s2.0-S037722172300200X-main.pdf", "type":"mode choice, NOT multistopVRPbenchmark", "verified_from":"primary indexed p630 and earlierp634-635; directPDF403", "new_clarification":"Q0-100 represents remaining-shelf-life-related logistics index, not buyer sensoryquality; Eq2 uses good/poor grade prices; first-order Eq1 and transformed additive quality-loss Eq3-4 must not be confused", "not_obtained":"complete temperature-dependentk0(T), all same-product coefficients/supplementary material"},
+    {"id":"fish_rejection2021", "title":"Sensory quality and its economic losses for Freight Fish Consignments", "url":"https://ejabf.journals.ekb.eg/article_207405_49d6e492d9bacc74e5efe504574b5d61.pdf", "verified_from":"publisher PDF indexed p898 Table4; direct acquisitionSSLerror; no local original/page visual", "finding":"grey mullet rejected960kg at3KWD/kg counted2880KWDloss", "not_adopted_as":"Latin species/preparation identity and0-9filletsensory-to-price curve; rejected consignment is not partial markdown calibration"}
+  ],
+  "classic_source_pages": [
+    {"name":"Solomon", "url":"https://www.sintef.no/projectweb/top/vrptw/100-customers/", "scope":"classic routing, not commodity prices/kinetics; existing original56files retained"},
+    {"name":"Gehring-Homberger", "url":"https://www.sintef.no/projectweb/top/vrptw/homberger-benchmark/", "scope":"200,400,600,800,1000customers for later scale tests; no food labels or new local download claimed"}
+  ],
+  "recommendation_status":"agent synthesis from selected evidence, not a bibliometric most-common ranking or an activated protocol change",
+  "recommendation":"Solomon-family main algorithm benchmark with explicitly generic perishable numerical product; existing publicVRPTWQ preserves units/conflicts. Use publishedQDVRPfresh-cutvegetable tables as small physical case. Tomato/mullet remain separately sourced application candidates, not an asserted universal combination.",
+  "customers_generated":false,
+  "new_training_or_routes":false
+}

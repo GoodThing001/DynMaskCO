@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-21",
+  "selected_by_user": [
+    "ALNS",
+    "VNS",
+    "OR-Tools",
+    "PyVRP",
+    "RouteFinder",
+    "DeepACO",
+    "CaR"
+  ],
+  "selection_basis": "User-approved active workspace scope, not removal based on observed test performance",
+  "model_data_analysis_freeze_unchanged": true,
+  "outer_test_enabled": false,
+  "methods": [
+    {
+      "method": "ALNS",
+      "model_dir": "models/ALNS",
+      "status": "full_objective_development_adapter",
+      "formal_comparison_qualified": false,
+      "runtime_implementation": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/profit_search.py:alns_search",
+      "pretrained_quality_profit_claim": false
+    },
+    {
+      "method": "VNS",
+      "model_dir": "models/VNS",
+      "status": "full_objective_development_adapter",
+      "formal_comparison_qualified": false,
+      "runtime_implementation": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/profit_search.py:vns_search",
+      "pretrained_quality_profit_claim": false
+    },
+    {
+      "method": "OR-Tools",
+      "model_dir": "models/OR-Tools",
+      "status": "distance_routing_control_only",
+      "formal_comparison_qualified": false,
+      "runtime_implementation": null,
+      "pretrained_quality_profit_claim": false
+    },
+    {
+      "method": "PyVRP",
+      "model_dir": "models/PyVRP",
+      "status": "distance_routing_control_only",
+      "formal_comparison_qualified": false,
+      "runtime_implementation": null,
+      "pretrained_quality_profit_claim": false
+    },
+    {
+      "method": "RouteFinder",
+      "model_dir": "models/RouteFinder",
+      "status": "candidate_requires_frozen_profit_adaptation_and_training",
+      "formal_comparison_qualified": false,
+      "runtime_implementation": null,
+      "pretrained_quality_profit_claim": false
+    },
+    {
+      "method": "DeepACO",
+      "model_dir": "models/DeepACO",
+      "status": "candidate_requires_frozen_profit_adaptation_and_training",
+      "formal_comparison_qualified": false,
+      "runtime_implementation": null,
+      "pretrained_quality_profit_claim": false
+    },
+    {
+      "method": "CaR",
+      "model_dir": "models/CaR",
+      "status": "candidate_requires_frozen_profit_adaptation_and_training",
+      "formal_comparison_qualified": false,
+      "runtime_implementation": null,
+      "pretrained_quality_profit_claim": false
+    }
+  ],
+  "canonical_evaluator": "C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/adapters/publication_model_v1_strict.py"
+}

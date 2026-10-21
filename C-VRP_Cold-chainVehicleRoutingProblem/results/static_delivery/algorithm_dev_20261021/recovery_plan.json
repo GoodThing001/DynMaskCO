@@ -1,0 +1,40 @@
+{
+  "recorded_at": "2026-10-21T07:37:41.682443+00:00",
+  "parent": "dev09",
+  "parent_exit_code": 124,
+  "parent_status": "TIMED_OUT_AFTER_TRAINING_PARTIAL_VALIDATION",
+  "verified_reports": 106,
+  "teachers_reaudited": 456,
+  "validation_rows_reaudited": 32,
+  "expected_validation_rows": 32,
+  "recovery": "dev10",
+  "state": "COMPLETE_INDEPENDENTLY_VERIFIED_BASELINE_V1_SEALED",
+  "start_attempt": "Blocked by existing resource guard before launching",
+  "gpu_utilization_percent_at_probe": [
+    94,
+    93
+  ],
+  "no_training_repeated": true,
+  "no_original_outputs_overwritten": true,
+  "start_command": "python -B C-VRP_Cold-chainVehicleRoutingProblem/tools/static_profit_remote.py start --label dev10 --job validation-recovery --checkpoint-parent dev09 --backend cuda --gpu-index <idle 0 or 1>",
+  "verify_command": "python -B C-VRP_Cold-chainVehicleRoutingProblem/tools/verify_static_profit_training_study.py --label dev09 --recovery-label dev10",
+  "missing": [],
+  "automation_interval_minutes": 30,
+  "started_at_observed": "2026-10-21T07:53:27.350533+00:00",
+  "started_record": "remote/dev10/started.json",
+  "gpu_index": 1,
+  "gpu_identity": "GPU-2e4908ce-34eb-30fe-81e0-225de72fe8f2",
+  "cpu_cores": [
+    83,
+    85,
+    86,
+    89
+  ],
+  "resource_history_note": "Previous launch prevented while busy; launched after idle check. Source run used GPU0, recovery GPU1, same model of GPU.",
+  "recovery_exit_code": 0,
+  "verified_reports_combined": 136,
+  "original_missing_preserved_in": "remote/dev09/local_partial_training_study_verification.json",
+  "verified_at": "2026-10-21T08:02:15.050567+00:00",
+  "baseline": "../algorithm_baselines/v1_dev09_dev10_validation",
+  "monitoring_status": "PAUSED_AFTER_COMPLETION"
+}

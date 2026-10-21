@@ -1,0 +1,204 @@
+{
+  "date": "2026-10-21",
+  "scope": "bounded model-selection evidence, not a systematic review",
+  "CAS2025_table": {
+    "url": "https://statics.scnu.edu.cn/pics/lib/2025/1031/1761900158678161.xls",
+    "sha256": "0730277ebe52b6c3114d811dead97abeb30d0664e2a3351f302649f098ef6067",
+    "verified_rows": [
+      {
+        "sheet": "环境科学与生态学",
+        "excel_row": 19,
+        "values": [
+          18.0,
+          "RESOURCES CONSERVATION AND RECYCLING",
+          "0921-3449",
+          "1区"
+        ]
+      },
+      {
+        "sheet": "工程技术",
+        "excel_row": 62,
+        "values": [
+          61.0,
+          "INTERNATIONAL JOURNAL OF PRODUCTION ECONOMICS",
+          "0925-5273",
+          "1区"
+        ]
+      }
+    ]
+  },
+  "ranking_limit": "Current 2026 Clarivate/CAS authenticated edition/category NOT certified; no SJR substitution.",
+  "models": [
+    {
+      "id": "liu2020",
+      "doi": "10.1016/j.resconrec.2020.104715",
+      "journal": "Resources, Conservation and Recycling",
+      "year": 2020,
+      "source_url": "https://pure.coventry.ac.uk/ws/files/28060196/Binder6.pdf",
+      "source": {
+        "path": "sources/joint_distribution_RCR_2020.pdf",
+        "sha256": "8cfed39271a1fa93afef50f1f79684e4e89b1a6237d3209bb20a50a9d5b5f878",
+        "doi": "10.1016/j.resconrec.2020.104715",
+        "pages": 30
+      },
+      "locations": [
+        "Eq.3-8",
+        "Table5 (printed p16, PDF p17)"
+      ],
+      "product": "same frozen food; multi-depot joint-distribution case",
+      "travel_loss": "P*m*(1-epsilon1*exp(-theta*(arrival-departure)))",
+      "unload_loss": "P*remaining_after_unload*(1-epsilon2*exp(-theta*m/unload_rate))",
+      "printed_parameters": {
+        "price_RMB_per_t": 5000,
+        "distance_RMB_per_km": 3,
+        "fuel_RMB_per_L": 6.68,
+        "cold_travel_L_per_h": 2,
+        "cold_unload_L_per_h": 2.5,
+        "epsilon1": 1,
+        "epsilon2": 0.9,
+        "theta": 0.002,
+        "theta_printed_unit": "none",
+        "speed_km_per_h": 40,
+        "unload_t_per_h": 3.6,
+        "payload_t": 2,
+        "fixed_bundle_RMB_per_vehicle": 200
+      },
+      "clarification": "Hour interpretation requires theta in h^-1; not a unit explicitly printed by source. Fixed bundle includes wages. Epsilon2 is outside exponential.",
+      "CAS": {
+        "edition": 2025,
+        "label": "1区",
+        "evidence": {
+          "sheet": "环境科学与生态学",
+          "excel_row": 19,
+          "values": [
+            18.0,
+            "RESOURCES CONSERVATION AND RECYCLING",
+            "0921-3449",
+            "1区"
+          ]
+        }
+      },
+      "JCR": {
+        "label": "Q1",
+        "edition": null,
+        "category": null,
+        "evidence_level": "institutional_report_NOT_Clarivate_current_export",
+        "url": "https://clxy.bjut.edu.cn/info/1095/1736.htm"
+      }
+    },
+    {
+      "id": "stellingwerf2021",
+      "doi": "10.1016/j.ijpe.2020.107849",
+      "journal": "International Journal of Production Economics",
+      "year": 2021,
+      "source_path": "../static_delivery_research_20261020/sources/quality_driven_2021.pdf",
+      "source_url": "https://transsonic.nl/documents/Stellingwerf_EtAl_IJPE_2021_The_Quality_Driven_Vehicle_Routing_Problem.pdf",
+      "model": "zero-order temperature-dependent relative quality loss",
+      "units": {
+        "kinetic_time": "second",
+        "cost": "EUR",
+        "temperature": "K"
+      },
+      "quality_threshold": 0.8,
+      "location": "Section4.3.1 and Table5 (p8)",
+      "case_specific_limits": {
+        "infeasible_at_or_above": 0.85,
+        "nonbinding_below": 0.71
+      },
+      "limitation": "These feasibility limits are not universal food standards or a monetary price function.",
+      "CAS": {
+        "edition": 2025,
+        "label": "1区",
+        "evidence": {
+          "sheet": "工程技术",
+          "excel_row": 62,
+          "values": [
+            61.0,
+            "INTERNATIONAL JOURNAL OF PRODUCTION ECONOMICS",
+            "0925-5273",
+            "1区"
+          ]
+        }
+      },
+      "JCR": {
+        "label": "Q1",
+        "edition": null,
+        "category": null,
+        "evidence_level": "institutional_report_NOT_Clarivate_current_export",
+        "url": "https://som.xjtu.edu.cn/info/1126/13000.htm"
+      }
+    },
+    {
+      "id": "lin2025",
+      "doi": "10.1016/j.ejor.2024.09.041",
+      "journal": "European Journal of Operational Research",
+      "year": 2025,
+      "source_url": "https://edepot.wur.nl/675716",
+      "source": {
+        "path": "sources/precooling_EJOR_2025.pdf",
+        "sha256": "92a1632e81ff4106deb72230961b5574f021e69ef5c0ca9582783a5627805988",
+        "doi": "10.1016/j.ejor.2024.09.041",
+        "pages": 21
+      },
+      "quality": "exp(-integral(alpha(T(s)),s=harvest_time..evaluation_time)); batch quality averages over harvest interval",
+      "alpha": "0.0048*exp(0.1036*T)",
+      "product": "sweet corn example fitted from Blackburn and Scudder (2009)",
+      "units": {
+        "time": "hour",
+        "temperature": "degree_Celsius",
+        "cost": "RMB"
+      },
+      "main_thresholds": [
+        0.9,
+        0.91,
+        0.92,
+        0.93
+      ],
+      "main_location": "Section5.1.1, PDF p11",
+      "temperature_scenarios": {
+        "low": 0.95,
+        "high": 0.8,
+        "location": "Table2, PDF p15"
+      },
+      "limitation": "Precooling pickup problem, not static delivery; no calibrated monetary value curve.",
+      "CAS": {
+        "edition": null,
+        "label": "2区",
+        "evidence_level": "institutional_report"
+      },
+      "JCR": {
+        "label": "Q1",
+        "edition": null,
+        "category": null,
+        "evidence_level": "institutional_report_NOT_Clarivate_current_export",
+        "url": "https://bas.gzhu.edu.cn/info/1069/2913.htm"
+      }
+    },
+    {
+      "id": "huang2024",
+      "doi": "10.1016/j.cie.2024.110022",
+      "journal": "Computers & Industrial Engineering",
+      "year": 2024,
+      "evidence_level": "primary_publisher_index_NOT_full_parameter_tables",
+      "source_url": "https://doi.org/10.1016/j.cie.2024.110022",
+      "use": "Recent ALNS and quality/satisfaction constrained routing reference; exact parameters not asserted.",
+      "CAS": {
+        "edition": null,
+        "label": null,
+        "status": "conflicting_1_and_2_institutional_labels",
+        "urls": [
+          "https://bas.gzhu.edu.cn/info/1069/2913.htm",
+          "https://facultyce.szu.edu.cn/dingzhikun/zh_CN/kyqklw/5371/content/8692.htm"
+        ]
+      },
+      "JCR": {
+        "label": "Q1",
+        "edition": null,
+        "category": null,
+        "evidence_level": "institutional_report_NOT_Clarivate_current_export",
+        "url": "https://som.xjtu.edu.cn/info/1126/13000.htm"
+      }
+    }
+  ],
+  "execution_status": "research_protocol_only_no_new_training_no_new_routing_results"
+}

@@ -1,0 +1,22 @@
+{
+  "status": "PASS_CLASSICAL_INTEGRATION_DEV",
+  "task": {
+    "case": "r101",
+    "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+    "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+    "fold": 0,
+    "role": "train",
+    "condition": {
+      "profile": "main_Product1",
+      "minimum_quality": 0.8,
+      "value_multiplier": 1
+    },
+    "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+    "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+  },
+  "methods": [
+    "vns",
+    "alns"
+  ],
+  "formal_experiment": false
+}

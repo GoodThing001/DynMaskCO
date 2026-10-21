@@ -1,0 +1,933 @@
+{
+  "status": "HISTORICAL_VALIDATION_ACCESS_RECONSTRUCTED",
+  "recorded_at": "2026-10-21T08:29:36.752990+00:00",
+  "cap": 12,
+  "counting_rule": "Conservative checkpoint/source/inference/search-budget/thread identity. Cases and repeated executions of exactly one setting are evidence cells, not extra configurations. Functional validation is charged. Train-only profiling/failed runs without validation output are disclosed but not charged. Diagnostic controls will be charged to their parent method, never fresh method namespaces.",
+  "counts": {
+    "0": {
+      "maskco_base": 5,
+      "directed_only": 5,
+      "quality_only": 2,
+      "quality_directed": 2,
+      "alns": 4,
+      "vns": 4
+    },
+    "1": {
+      "maskco_base": 0,
+      "directed_only": 0,
+      "quality_only": 0,
+      "quality_directed": 0,
+      "alns": 0,
+      "vns": 0
+    },
+    "2": {
+      "maskco_base": 0,
+      "directed_only": 0,
+      "quality_only": 0,
+      "quality_directed": 0,
+      "alns": 0,
+      "vns": 0
+    },
+    "3": {
+      "maskco_base": 0,
+      "directed_only": 0,
+      "quality_only": 0,
+      "quality_directed": 0,
+      "alns": 0,
+      "vns": 0
+    }
+  },
+  "remaining": {
+    "0": {
+      "maskco_base": 7,
+      "directed_only": 7,
+      "quality_only": 10,
+      "quality_directed": 10,
+      "alns": 8,
+      "vns": 8
+    },
+    "1": {
+      "maskco_base": 12,
+      "directed_only": 12,
+      "quality_only": 12,
+      "quality_directed": 12,
+      "alns": 12,
+      "vns": 12
+    },
+    "2": {
+      "maskco_base": 12,
+      "directed_only": 12,
+      "quality_only": 12,
+      "quality_directed": 12,
+      "alns": 12,
+      "vns": 12
+    },
+    "3": {
+      "maskco_base": 12,
+      "directed_only": 12,
+      "quality_only": 12,
+      "quality_directed": 12,
+      "alns": 12,
+      "vns": 12
+    }
+  },
+  "configurations": [
+    {
+      "configuration_id": "00180bd8c07fc76ed91d39f3a097bcba2120bd9fd19062e66d9d2530c979e20c",
+      "settings": {
+        "method": "alns",
+        "fold": 0,
+        "seed": 1000,
+        "source": "05c4862ab2d839752dfd4880a10fae0fb14f59fc6fd7d8bf6066c64bf2f1a1cf",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 1.0,
+        "iterations": 1,
+        "threads": 1
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/paired_cli_replay01/run_identity.json",
+          "identity_sha256": "638c0d0b20aeea73ab61a10c804a4b89359ea6bdaabff37c83a17e532fefbf1a",
+          "result": "results/static_delivery/algorithm_dev_20261021/paired_cli_replay01/alns_search.json",
+          "result_sha256": "e648da6c652bc85605e6932314d1e58a50a9fd27374cc36a8b8a32acbeb934f0"
+        }
+      ]
+    },
+    {
+      "configuration_id": "e715f824f612ea5228dc153dfcaaf1086c89a16539740ec15a0eb7ea250f9fe1",
+      "settings": {
+        "method": "directed_only",
+        "fold": 0,
+        "seed": 1000,
+        "source": "05c4862ab2d839752dfd4880a10fae0fb14f59fc6fd7d8bf6066c64bf2f1a1cf",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 1.0,
+        "iterations": 1,
+        "threads": 1,
+        "checkpoint": "9c8889ff4dfc1c9d14a05594f0a6e78e5949b0bfef65d2167b971ee18d2f7bcc",
+        "steps": 1,
+        "predictor": "eager",
+        "precision": "default",
+        "repair": "classic",
+        "remove": 10,
+        "topk": 8
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/paired_cli_replay01/run_identity.json",
+          "identity_sha256": "638c0d0b20aeea73ab61a10c804a4b89359ea6bdaabff37c83a17e532fefbf1a",
+          "result": "results/static_delivery/algorithm_dev_20261021/paired_cli_replay01/directed_only_search.json",
+          "result_sha256": "88c69b784f182f84b754a8a3b6af9a75007de7795a035c0e89e062e856ae6162"
+        }
+      ]
+    },
+    {
+      "configuration_id": "563fcb7c2102225c03fa10a5667a7b8b610c990c6bbe88538e944445de457718",
+      "settings": {
+        "method": "maskco_base",
+        "fold": 0,
+        "seed": 1000,
+        "source": "05c4862ab2d839752dfd4880a10fae0fb14f59fc6fd7d8bf6066c64bf2f1a1cf",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 1.0,
+        "iterations": 1,
+        "threads": 1,
+        "checkpoint": "c7caa89c295a8d8b39198d0252c46c355afd99d79ed859d18b4b91ef5bced86f",
+        "steps": 1,
+        "predictor": "eager",
+        "precision": "default",
+        "repair": "classic",
+        "remove": 10,
+        "topk": 8
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/paired_cli_replay01/run_identity.json",
+          "identity_sha256": "638c0d0b20aeea73ab61a10c804a4b89359ea6bdaabff37c83a17e532fefbf1a",
+          "result": "results/static_delivery/algorithm_dev_20261021/paired_cli_replay01/maskco_base_search.json",
+          "result_sha256": "6ff867f8706eb9e6e3b8893fe54ebb2908e5576ac2864fa1858d8c0dbda9aa2b"
+        }
+      ]
+    },
+    {
+      "configuration_id": "5ea7f331303138d1ecdc11513af80c3854c56960851a89e9afa0ac420ac469dc",
+      "settings": {
+        "method": "quality_directed",
+        "fold": 0,
+        "seed": 1000,
+        "source": "05c4862ab2d839752dfd4880a10fae0fb14f59fc6fd7d8bf6066c64bf2f1a1cf",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 1.0,
+        "iterations": 1,
+        "threads": 1,
+        "checkpoint": "7acafbeaf698d3d2d1002e625e5d904cf29f91b83400c9ce99fbfd27cefda687",
+        "steps": 1,
+        "predictor": "eager",
+        "precision": "default",
+        "repair": "classic",
+        "remove": 10,
+        "topk": 8
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/paired_cli_replay01/run_identity.json",
+          "identity_sha256": "638c0d0b20aeea73ab61a10c804a4b89359ea6bdaabff37c83a17e532fefbf1a",
+          "result": "results/static_delivery/algorithm_dev_20261021/paired_cli_replay01/quality_directed_search.json",
+          "result_sha256": "68b0488e17ccd60b343c610283bb2ebb57d1239899e84912e3f4d6eb49961d6e"
+        }
+      ]
+    },
+    {
+      "configuration_id": "7ccbf40e71ea5b246dacea2c1a0dcc2dc74d59c08e791c6793bb3db58c82a791",
+      "settings": {
+        "method": "quality_only",
+        "fold": 0,
+        "seed": 1000,
+        "source": "05c4862ab2d839752dfd4880a10fae0fb14f59fc6fd7d8bf6066c64bf2f1a1cf",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 1.0,
+        "iterations": 1,
+        "threads": 1,
+        "checkpoint": "945f5c01d8f002abe5fb4af1ecbd1dc5a0ed6360b5585c1e5094ee64dd0526a0",
+        "steps": 1,
+        "predictor": "eager",
+        "precision": "default",
+        "repair": "classic",
+        "remove": 10,
+        "topk": 8
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/paired_cli_replay01/run_identity.json",
+          "identity_sha256": "638c0d0b20aeea73ab61a10c804a4b89359ea6bdaabff37c83a17e532fefbf1a",
+          "result": "results/static_delivery/algorithm_dev_20261021/paired_cli_replay01/quality_only_search.json",
+          "result_sha256": "e764b1a47efce0a290807c06ab7a7054397eb3fea62f9a4ff2228c5d96a19de9"
+        }
+      ]
+    },
+    {
+      "configuration_id": "a977f1be41a9119689aaaae03736ac8e00f1506844eda520d9b12b5e33cfadd4",
+      "settings": {
+        "method": "vns",
+        "fold": 0,
+        "seed": 1000,
+        "source": "05c4862ab2d839752dfd4880a10fae0fb14f59fc6fd7d8bf6066c64bf2f1a1cf",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 1.0,
+        "iterations": 1,
+        "threads": 1
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/paired_cli_replay01/run_identity.json",
+          "identity_sha256": "638c0d0b20aeea73ab61a10c804a4b89359ea6bdaabff37c83a17e532fefbf1a",
+          "result": "results/static_delivery/algorithm_dev_20261021/paired_cli_replay01/vns_search.json",
+          "result_sha256": "44f74ca519965f6cc1a53adf264f7fe59cfa67150d57cb8d8c93bd48af616d51"
+        }
+      ]
+    },
+    {
+      "configuration_id": "7cee0cf21038bc919eff4452fb93f211596cbfc8beec21929ec42b25dd2bf0a8",
+      "settings": {
+        "method": "alns",
+        "fold": 0,
+        "seed": 1000,
+        "source": "05c4862ab2d839752dfd4880a10fae0fb14f59fc6fd7d8bf6066c64bf2f1a1cf",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10.0,
+        "iterations": 100000,
+        "threads": 4
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c205/run_identity.json",
+          "identity_sha256": "f2bfdb183ce37b5e964eac6242b54f4c5df80d44c4ed6724db2da89ebb0a2dde",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c205/alns_search.json",
+          "result_sha256": "3d5721716e6eb9058124d733866fbe6097312701db8013ce6c78bc3c357a87a0"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c206/run_identity.json",
+          "identity_sha256": "42708abca6e9c1a4865132efb1e2670cf6606293b97ccf5214fc54fa94f7847c",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c206/alns_search.json",
+          "result_sha256": "a6e43f11e5212eb11f1be77d1878fbc0d2b640bdd7bde43e0f16bf6b93b1f9bd"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c207/run_identity.json",
+          "identity_sha256": "9ad72801fa7b11b6101e1819e1d5dbeecd6451059f5253dd9444137c614fe4d1",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c207/alns_search.json",
+          "result_sha256": "dac176924da576cedea4abda2c9a40221212d18c711f7f6a535717d730103e57"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c208/run_identity.json",
+          "identity_sha256": "6b22fb4d50e7afd25f1ceb74a7e32314d5ff3d24dcae31770674c4dc4ee72f2b",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c208/alns_search.json",
+          "result_sha256": "5ec71f033328cc046a6b9c3f7eaff795865ec03a1141556d2a3e0e5eecb8dd3f"
+        }
+      ]
+    },
+    {
+      "configuration_id": "843addbe06d4c7b08f6b291e97c91acd13c8738d2050fd257e99b6e25f4d3162",
+      "settings": {
+        "method": "directed_only",
+        "fold": 0,
+        "seed": 1000,
+        "source": "05c4862ab2d839752dfd4880a10fae0fb14f59fc6fd7d8bf6066c64bf2f1a1cf",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10.0,
+        "iterations": 100000,
+        "threads": 4,
+        "checkpoint": "128e3f1c2f3d4fcbecb5831b08f691cd5f2588a2a0872389753adca9cac8b26c",
+        "steps": 240,
+        "predictor": "eager",
+        "precision": "default",
+        "repair": "classic",
+        "remove": 10,
+        "topk": 8
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c205/run_identity.json",
+          "identity_sha256": "f2bfdb183ce37b5e964eac6242b54f4c5df80d44c4ed6724db2da89ebb0a2dde",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c205/directed_only_search.json",
+          "result_sha256": "b9c5146c9da4b7d694a8fc2b40a2fc6cb8757388723fb565984ce340154b8fa1"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c206/run_identity.json",
+          "identity_sha256": "42708abca6e9c1a4865132efb1e2670cf6606293b97ccf5214fc54fa94f7847c",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c206/directed_only_search.json",
+          "result_sha256": "5ea620983021cf92a8d78fce94d93d99d06b2902df27662ccc78aca8c2363b1a"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c207/run_identity.json",
+          "identity_sha256": "9ad72801fa7b11b6101e1819e1d5dbeecd6451059f5253dd9444137c614fe4d1",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c207/directed_only_search.json",
+          "result_sha256": "04f984e214abc37f74a484e608d1f3356ac172e6ec59f960ed7b2b13a7f21d96"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c208/run_identity.json",
+          "identity_sha256": "6b22fb4d50e7afd25f1ceb74a7e32314d5ff3d24dcae31770674c4dc4ee72f2b",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c208/directed_only_search.json",
+          "result_sha256": "4a407acbae641f4a83ff723d0383767513276d5ff90f750a1e05b2fb83876b68"
+        }
+      ]
+    },
+    {
+      "configuration_id": "9bf54f744470fca2965e09e6f06cb8ab160c2c59dd721ad59b9c0f43e95f6416",
+      "settings": {
+        "method": "maskco_base",
+        "fold": 0,
+        "seed": 1000,
+        "source": "05c4862ab2d839752dfd4880a10fae0fb14f59fc6fd7d8bf6066c64bf2f1a1cf",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10.0,
+        "iterations": 100000,
+        "threads": 4,
+        "checkpoint": "017bfacd162c2e0e891f1e416191a687f91a02b0f03d1cfbb7831825041f75da",
+        "steps": 240,
+        "predictor": "eager",
+        "precision": "default",
+        "repair": "classic",
+        "remove": 10,
+        "topk": 8
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c205/run_identity.json",
+          "identity_sha256": "f2bfdb183ce37b5e964eac6242b54f4c5df80d44c4ed6724db2da89ebb0a2dde",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c205/maskco_base_search.json",
+          "result_sha256": "8cf4058884d12bdd8ea89bf13b4e7a58a027c622a39a384dfb1f27e13e884711"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c206/run_identity.json",
+          "identity_sha256": "42708abca6e9c1a4865132efb1e2670cf6606293b97ccf5214fc54fa94f7847c",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c206/maskco_base_search.json",
+          "result_sha256": "692bb0d9936d1f1ea7232276239a3e3c9b25acb50220fd97ab5a7a5dfded0394"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c207/run_identity.json",
+          "identity_sha256": "9ad72801fa7b11b6101e1819e1d5dbeecd6451059f5253dd9444137c614fe4d1",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c207/maskco_base_search.json",
+          "result_sha256": "1de4a2b4e060a131609ea57ad82d7c52f4739cc6e7bdb01d35add4a97f79d830"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c208/run_identity.json",
+          "identity_sha256": "6b22fb4d50e7afd25f1ceb74a7e32314d5ff3d24dcae31770674c4dc4ee72f2b",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c208/maskco_base_search.json",
+          "result_sha256": "820f172e1b9c2476c98594976579ac77106a50f9ee38a904b2c0fd4aa0d051af"
+        }
+      ]
+    },
+    {
+      "configuration_id": "89b5236969ec55c9196904e139ab8c9c648b7ffdc058b8323a51c60d2b7a8742",
+      "settings": {
+        "method": "quality_directed",
+        "fold": 0,
+        "seed": 1000,
+        "source": "05c4862ab2d839752dfd4880a10fae0fb14f59fc6fd7d8bf6066c64bf2f1a1cf",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10.0,
+        "iterations": 100000,
+        "threads": 4,
+        "checkpoint": "a0aa15b768d1d9bcb1725a4c7413ee5e56f12321f296a51279c830ef39fa716f",
+        "steps": 240,
+        "predictor": "eager",
+        "precision": "default",
+        "repair": "classic",
+        "remove": 10,
+        "topk": 8
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c205/run_identity.json",
+          "identity_sha256": "f2bfdb183ce37b5e964eac6242b54f4c5df80d44c4ed6724db2da89ebb0a2dde",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c205/quality_directed_search.json",
+          "result_sha256": "372b8d8e4d9afe463078d0efa5c22c94387e3a2282fd472876614a74012dfaf3"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c206/run_identity.json",
+          "identity_sha256": "42708abca6e9c1a4865132efb1e2670cf6606293b97ccf5214fc54fa94f7847c",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c206/quality_directed_search.json",
+          "result_sha256": "cfd340395e23ed1f11ac9398694bea76290eb81056b3753c301953e5c15104d9"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c207/run_identity.json",
+          "identity_sha256": "9ad72801fa7b11b6101e1819e1d5dbeecd6451059f5253dd9444137c614fe4d1",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c207/quality_directed_search.json",
+          "result_sha256": "efd03706c3175ab9d8d3d2ca89a9c5f9fa2344eb5dbd4f09df5a84ea6ab1b307"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c208/run_identity.json",
+          "identity_sha256": "6b22fb4d50e7afd25f1ceb74a7e32314d5ff3d24dcae31770674c4dc4ee72f2b",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c208/quality_directed_search.json",
+          "result_sha256": "92c6a9060af3813f58e1beca194a8f047ed487417579b74b72aa9e636293e154"
+        }
+      ]
+    },
+    {
+      "configuration_id": "5a2ea15b40e8f4d941a80a163bf20076aefa7ce5738e6f484afad33814421218",
+      "settings": {
+        "method": "quality_only",
+        "fold": 0,
+        "seed": 1000,
+        "source": "05c4862ab2d839752dfd4880a10fae0fb14f59fc6fd7d8bf6066c64bf2f1a1cf",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10.0,
+        "iterations": 100000,
+        "threads": 4,
+        "checkpoint": "8ea76599a7cac878b14273b77e5a6b910af763cdbfbd216b8f305263341f9cea",
+        "steps": 240,
+        "predictor": "eager",
+        "precision": "default",
+        "repair": "classic",
+        "remove": 10,
+        "topk": 8
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c205/run_identity.json",
+          "identity_sha256": "f2bfdb183ce37b5e964eac6242b54f4c5df80d44c4ed6724db2da89ebb0a2dde",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c205/quality_only_search.json",
+          "result_sha256": "1f5cbd7e2494b9e98fb57168a47c82a3f3f5ce420c605467bde928a2b2ff1911"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c206/run_identity.json",
+          "identity_sha256": "42708abca6e9c1a4865132efb1e2670cf6606293b97ccf5214fc54fa94f7847c",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c206/quality_only_search.json",
+          "result_sha256": "8625ee8707bf26caa9eb1c44c17624a773643528e937f9605ea57e932c6359af"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c207/run_identity.json",
+          "identity_sha256": "9ad72801fa7b11b6101e1819e1d5dbeecd6451059f5253dd9444137c614fe4d1",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c207/quality_only_search.json",
+          "result_sha256": "c3314164a7bad68d3684b72026df888bc6db1dd2ada9b101c6ee747ac4345f95"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c208/run_identity.json",
+          "identity_sha256": "6b22fb4d50e7afd25f1ceb74a7e32314d5ff3d24dcae31770674c4dc4ee72f2b",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c208/quality_only_search.json",
+          "result_sha256": "f7d51fcf24fb8e412dc176f6fc27fa6e5d3057cd1f7412a4aeedab79bd2f3acf"
+        }
+      ]
+    },
+    {
+      "configuration_id": "140b7e4b8a7bd026d9b8ba9135339f4cfcee7027303c26dd6ae0120a0dd10440",
+      "settings": {
+        "method": "vns",
+        "fold": 0,
+        "seed": 1000,
+        "source": "05c4862ab2d839752dfd4880a10fae0fb14f59fc6fd7d8bf6066c64bf2f1a1cf",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10.0,
+        "iterations": 100000,
+        "threads": 4
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c205/run_identity.json",
+          "identity_sha256": "f2bfdb183ce37b5e964eac6242b54f4c5df80d44c4ed6724db2da89ebb0a2dde",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c205/vns_search.json",
+          "result_sha256": "9125283b089d2450ffbdb8b9f8dd612a9a13e9069b81271a7923ccf75fdb275a"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c206/run_identity.json",
+          "identity_sha256": "42708abca6e9c1a4865132efb1e2670cf6606293b97ccf5214fc54fa94f7847c",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c206/vns_search.json",
+          "result_sha256": "a26e54253ac978bf3a2ee1eef1bb83558266aa42f00bc445960a5e7857ceb01f"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c207/run_identity.json",
+          "identity_sha256": "9ad72801fa7b11b6101e1819e1d5dbeecd6451059f5253dd9444137c614fe4d1",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c207/vns_search.json",
+          "result_sha256": "052e35eaa767f3b13c1a4e60336aae96761b8c084373b442a74e9ed45cd76279"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c208/run_identity.json",
+          "identity_sha256": "6b22fb4d50e7afd25f1ceb74a7e32314d5ff3d24dcae31770674c4dc4ee72f2b",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/validation/c208/vns_search.json",
+          "result_sha256": "bde78b0f44e061099d7ee5dc3e44130e46077c6bf928ff5aaf933eb033279953"
+        }
+      ]
+    },
+    {
+      "configuration_id": "769a3f25f0f84a658a0f91448a6beb457640890945de1b1e503dc6559c92f80a",
+      "settings": {
+        "method": "alns",
+        "fold": 0,
+        "seed": 1000,
+        "source": "e33a30e72c1c53af1da1178f279a1791f4632d0f2911bc6dd406a2962c63563c",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10.0,
+        "iterations": 100000,
+        "threads": 4
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c205/run_identity.json",
+          "identity_sha256": "1791e430cfe4d0bde5b4d1a3bd0eb4e294799ac855765d0ab5dd4a8dad05f43b",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c205/alns_search.json",
+          "result_sha256": "76a633e1f14937c7368522fd1b11c0ff76b996d6cca5554f4f2f7847c4654bb7"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c206/run_identity.json",
+          "identity_sha256": "4bb1b8a72049d48e81e78a87e9062b831b68881bd768ab3f4564b5e65b681997",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c206/alns_search.json",
+          "result_sha256": "3bf1db1750a751847578ededdacc0e8627ba5f04e15a517b1b8b6952f69813cf"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c207/run_identity.json",
+          "identity_sha256": "f64f548009e857ed62f7602395b21276db046be093d701899e3797f60cedaf30",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c207/alns_search.json",
+          "result_sha256": "355985a8ec2d0c69214e8a8fdd703a22d8a6d60c7c89a7685cb4ed4a759e3bfb"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c208/run_identity.json",
+          "identity_sha256": "5c191ade3e3b4d24d9c8eb626478c7fb373cfb411254b688ddb759e5b7b73924",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c208/alns_search.json",
+          "result_sha256": "4fd7a6a5ed57501c0039c8832ee1c86d66badc79bd7f9aaebe607a0c8bbae303"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/validation/c205/run_identity.json",
+          "identity_sha256": "878198351f36e02bb7712f9033efdb84495e522187b370dbe7da25a3984cb163",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/validation/c205/alns_search.json",
+          "result_sha256": "525e418206e5a000802106ec25b00318a67e85fb5d0725aacd665a4c32bb4270"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c206/run_identity.json",
+          "identity_sha256": "a170e4b8752d43b718cf9e1f9101169d245d9a4c555eb5de89666aaa48aea6d0",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c206/alns_search.json",
+          "result_sha256": "323cd39003ceb1c2b1dbedf84400cb5e08042399afea3d631f26807cdc7205eb"
+        }
+      ]
+    },
+    {
+      "configuration_id": "595e216f7e8994cb1ed5170c21c3be1777546da610de0a1020a0cbe62b31374f",
+      "settings": {
+        "method": "directed_only",
+        "fold": 0,
+        "seed": 1000,
+        "source": "e33a30e72c1c53af1da1178f279a1791f4632d0f2911bc6dd406a2962c63563c",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10.0,
+        "iterations": 100000,
+        "threads": 4,
+        "checkpoint": "2cb93d1aadd573b943701e52e5ffead551d60db88c88e4f719bd70be0a6a4a15",
+        "steps": 1440,
+        "predictor": "compiled",
+        "precision": "highest",
+        "repair": "vectorized",
+        "remove": 10,
+        "topk": 8
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c205/run_identity.json",
+          "identity_sha256": "1791e430cfe4d0bde5b4d1a3bd0eb4e294799ac855765d0ab5dd4a8dad05f43b",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c205/directed_only_search.json",
+          "result_sha256": "ec90db590022affb4756aaf419187eaf5707b37755d08e2cccaa84355b4fdebf"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c206/run_identity.json",
+          "identity_sha256": "4bb1b8a72049d48e81e78a87e9062b831b68881bd768ab3f4564b5e65b681997",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c206/directed_only_search.json",
+          "result_sha256": "161a8c6b06b1be10712aa428530d3c56fd83fb13f992e5b611760350c1fcae9a"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c207/run_identity.json",
+          "identity_sha256": "f64f548009e857ed62f7602395b21276db046be093d701899e3797f60cedaf30",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c207/directed_only_search.json",
+          "result_sha256": "e4663e534b401447aa1c9a8eb810b7fc31600199f8cdf98144ba382683c92870"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c208/run_identity.json",
+          "identity_sha256": "5c191ade3e3b4d24d9c8eb626478c7fb373cfb411254b688ddb759e5b7b73924",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c208/directed_only_search.json",
+          "result_sha256": "0e746f8a0a7311b20862a9aa85f660b0e973af386b827a4a64036511de54a17b"
+        }
+      ]
+    },
+    {
+      "configuration_id": "11482c0e89b177ddab70c665db2ebcecbe696a22a9aad43a65b91439cf973fd0",
+      "settings": {
+        "method": "maskco_base",
+        "fold": 0,
+        "seed": 1000,
+        "source": "e33a30e72c1c53af1da1178f279a1791f4632d0f2911bc6dd406a2962c63563c",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10.0,
+        "iterations": 100000,
+        "threads": 4,
+        "checkpoint": "df233b9fc134ab70ecea6a4b7059e1f56c324e59c748abebdcf56c33f8b77f12",
+        "steps": 1440,
+        "predictor": "compiled",
+        "precision": "highest",
+        "repair": "vectorized",
+        "remove": 10,
+        "topk": 8
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c205/run_identity.json",
+          "identity_sha256": "1791e430cfe4d0bde5b4d1a3bd0eb4e294799ac855765d0ab5dd4a8dad05f43b",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c205/maskco_base_search.json",
+          "result_sha256": "894a99a818fef98a26d88969684cd3dcb461ad4ed26fe718b0f547dceffbe89f"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c206/run_identity.json",
+          "identity_sha256": "4bb1b8a72049d48e81e78a87e9062b831b68881bd768ab3f4564b5e65b681997",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c206/maskco_base_search.json",
+          "result_sha256": "915a673ebb79243d690ccaaa80cad7c9cb59cb2dc2bde6ae4e77e4c341958de7"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c207/run_identity.json",
+          "identity_sha256": "f64f548009e857ed62f7602395b21276db046be093d701899e3797f60cedaf30",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c207/maskco_base_search.json",
+          "result_sha256": "408193bcc9134aa64f824a1113fd9e7c8ad4e6f872fae78e6756eb863273049e"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c208/run_identity.json",
+          "identity_sha256": "5c191ade3e3b4d24d9c8eb626478c7fb373cfb411254b688ddb759e5b7b73924",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c208/maskco_base_search.json",
+          "result_sha256": "c43d769310ca47b8f68276d125f64c0e1303e1d5a3d1bb52f501ee16f07a03b6"
+        }
+      ]
+    },
+    {
+      "configuration_id": "22e92631bf058d44d4a8ced7b0b60bc3fa5fc60771e691b33bd30cc13cfc3ae3",
+      "settings": {
+        "method": "vns",
+        "fold": 0,
+        "seed": 1000,
+        "source": "e33a30e72c1c53af1da1178f279a1791f4632d0f2911bc6dd406a2962c63563c",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10.0,
+        "iterations": 100000,
+        "threads": 4
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c205/run_identity.json",
+          "identity_sha256": "1791e430cfe4d0bde5b4d1a3bd0eb4e294799ac855765d0ab5dd4a8dad05f43b",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c205/vns_search.json",
+          "result_sha256": "5969e859a69e533bf0a2ed5676e1836eb5631866d629b2cbc89b6a492046ef8e"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c206/run_identity.json",
+          "identity_sha256": "4bb1b8a72049d48e81e78a87e9062b831b68881bd768ab3f4564b5e65b681997",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c206/vns_search.json",
+          "result_sha256": "05941f56a03092efeda7bd8ceeef04c9bdef9df6d87226f4d218cced21dcc29c"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c207/run_identity.json",
+          "identity_sha256": "f64f548009e857ed62f7602395b21276db046be093d701899e3797f60cedaf30",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c207/vns_search.json",
+          "result_sha256": "9429b7461c10d63ad83487fe7b7942906df446b82613bfe88be0e0d5c765b6ac"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c208/run_identity.json",
+          "identity_sha256": "5c191ade3e3b4d24d9c8eb626478c7fb373cfb411254b688ddb759e5b7b73924",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/validation/c208/vns_search.json",
+          "result_sha256": "d1305adc8b7ede755e9b7053b7199c347ae8a0900b59d3091d657a8d96210084"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/validation/c205/run_identity.json",
+          "identity_sha256": "878198351f36e02bb7712f9033efdb84495e522187b370dbe7da25a3984cb163",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/validation/c205/vns_search.json",
+          "result_sha256": "c6649aa8aee297ee7a3da325f3ecee811d4463b58745eefb02da3ba4525eda4e"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/validation/c206/run_identity.json",
+          "identity_sha256": "6649fe76bd6cb8fd17092eda69df3239fbbe878a56276018cb2649f78c941b25",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/validation/c206/vns_search.json",
+          "result_sha256": "54788608ddb284588d5c1132e44511f0315ec0db6cbb3c6898651dfee37142bd"
+        }
+      ]
+    },
+    {
+      "configuration_id": "a130202ce51c84dee85fbdab6b29992732a6950e9d84d94a5965a500814408c3",
+      "settings": {
+        "method": "directed_only",
+        "fold": 0,
+        "seed": 1000,
+        "source": "e33a30e72c1c53af1da1178f279a1791f4632d0f2911bc6dd406a2962c63563c",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10.0,
+        "iterations": 100000,
+        "threads": 4,
+        "checkpoint": "31ff23be99423c3fa5ff01e1dfced190b59d4700ec13b3e8cf3a275cecc21a27",
+        "steps": 1440,
+        "predictor": "compiled",
+        "precision": "highest",
+        "repair": "vectorized",
+        "remove": 10,
+        "topk": 8
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/validation/c205/run_identity.json",
+          "identity_sha256": "878198351f36e02bb7712f9033efdb84495e522187b370dbe7da25a3984cb163",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/validation/c205/directed_only_search.json",
+          "result_sha256": "22453135b83c584d403eed72774126d6c4391b8fbe8d9c81ecb66c94d237a11e"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/validation/c206/run_identity.json",
+          "identity_sha256": "6649fe76bd6cb8fd17092eda69df3239fbbe878a56276018cb2649f78c941b25",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/validation/c206/directed_only_search.json",
+          "result_sha256": "f3619ccbc44b80744c8d390f3b7c9c53645cc4eb420a2692017b8767df17d656"
+        }
+      ]
+    },
+    {
+      "configuration_id": "ef3fa7fe4840547f85704ffaee7f0ea9ba25e12db60ca76660af8dfda39ee303",
+      "settings": {
+        "method": "maskco_base",
+        "fold": 0,
+        "seed": 1000,
+        "source": "e33a30e72c1c53af1da1178f279a1791f4632d0f2911bc6dd406a2962c63563c",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10.0,
+        "iterations": 100000,
+        "threads": 4,
+        "checkpoint": "5da6e3143be8f09d1a8f8c4e652dd12a8d32e5ee193b7e495bd43b1742604a00",
+        "steps": 1440,
+        "predictor": "compiled",
+        "precision": "highest",
+        "repair": "vectorized",
+        "remove": 10,
+        "topk": 8
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/validation/c205/run_identity.json",
+          "identity_sha256": "878198351f36e02bb7712f9033efdb84495e522187b370dbe7da25a3984cb163",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/validation/c205/maskco_base_search.json",
+          "result_sha256": "fefe074017dfb7866b2069b3776a1d218804b66937d2c1c0e9562fb65ee43fc6"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/validation/c206/run_identity.json",
+          "identity_sha256": "6649fe76bd6cb8fd17092eda69df3239fbbe878a56276018cb2649f78c941b25",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/validation/c206/maskco_base_search.json",
+          "result_sha256": "c280b5d7013ffd7901156b98b12b517092ba60cea2ec3a77aa8ec3b692cc2d5d"
+        }
+      ]
+    },
+    {
+      "configuration_id": "8bf5bea8be1a39eea2bfa38ff208a77a051e7dfd4f8731ee674ffee6f286bc19",
+      "settings": {
+        "method": "alns",
+        "fold": 0,
+        "seed": 1000,
+        "source": "e33a30e72c1c53af1da1178f279a1791f4632d0f2911bc6dd406a2962c63563c",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10,
+        "iterations": 100000,
+        "threads": 4
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c207/run_identity.json",
+          "identity_sha256": "3a6260f800800c2af8860073371c771d76121e8b379fc3dcbe5fd9db475234a3",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c207/alns_search.json",
+          "result_sha256": "88491b7865f4be2e0f660f97c740ac64b7f2a5322dcb48e2d943472358693f58"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c208/run_identity.json",
+          "identity_sha256": "7acb00d5c07bb09e67ad1d756ddbfe483c6ba569b972875d1bdc3e2ded82ed3c",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c208/alns_search.json",
+          "result_sha256": "c1855d945653b61efb816162d6483fbf2b15030432db3898ae25e7abd5d15573"
+        }
+      ]
+    },
+    {
+      "configuration_id": "774e8da9e4ca2caff5268014ab3f83fd4a66d5ab4970a9b1a11adc16ffef4312",
+      "settings": {
+        "method": "directed_only",
+        "fold": 0,
+        "seed": 1000,
+        "source": "e33a30e72c1c53af1da1178f279a1791f4632d0f2911bc6dd406a2962c63563c",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10,
+        "iterations": 100000,
+        "threads": 4,
+        "checkpoint": "31ff23be99423c3fa5ff01e1dfced190b59d4700ec13b3e8cf3a275cecc21a27",
+        "steps": 1440,
+        "predictor": "compiled",
+        "precision": "highest",
+        "repair": "vectorized",
+        "remove": 10,
+        "topk": 8
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c207/run_identity.json",
+          "identity_sha256": "3a6260f800800c2af8860073371c771d76121e8b379fc3dcbe5fd9db475234a3",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c207/directed_only_search.json",
+          "result_sha256": "be575353ad76b2ee905561149901ac58452236798a8c1e9d276b795df03e70cc"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c208/run_identity.json",
+          "identity_sha256": "7acb00d5c07bb09e67ad1d756ddbfe483c6ba569b972875d1bdc3e2ded82ed3c",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c208/directed_only_search.json",
+          "result_sha256": "d2912f73fbb5d08eb54e20a069d76feb7eaf6d04d72db9d7f4ce28ed47b3219f"
+        }
+      ]
+    },
+    {
+      "configuration_id": "902a9794dabfc07fe54bb4c70a6adbb41ee9211bdc0d9c4e98b4ec368d5ab4a5",
+      "settings": {
+        "method": "maskco_base",
+        "fold": 0,
+        "seed": 1000,
+        "source": "e33a30e72c1c53af1da1178f279a1791f4632d0f2911bc6dd406a2962c63563c",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10,
+        "iterations": 100000,
+        "threads": 4,
+        "checkpoint": "5da6e3143be8f09d1a8f8c4e652dd12a8d32e5ee193b7e495bd43b1742604a00",
+        "steps": 1440,
+        "predictor": "compiled",
+        "precision": "highest",
+        "repair": "vectorized",
+        "remove": 10,
+        "topk": 8
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c207/run_identity.json",
+          "identity_sha256": "3a6260f800800c2af8860073371c771d76121e8b379fc3dcbe5fd9db475234a3",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c207/maskco_base_search.json",
+          "result_sha256": "7aafb115ff5647cedd95fe4a5587d5eb50ac91be5eedab2554bd9f27dd2b1248"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c208/run_identity.json",
+          "identity_sha256": "7acb00d5c07bb09e67ad1d756ddbfe483c6ba569b972875d1bdc3e2ded82ed3c",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c208/maskco_base_search.json",
+          "result_sha256": "e97b8cf256e8ecc87381128d7b4dd869fdff1a24324367b8b2720cc6eade1de2"
+        }
+      ]
+    },
+    {
+      "configuration_id": "d554927cffbea57dda99077644aee4646a707ad3fa7347c3dae58ed8cb74c3cd",
+      "settings": {
+        "method": "vns",
+        "fold": 0,
+        "seed": 1000,
+        "source": "e33a30e72c1c53af1da1178f279a1791f4632d0f2911bc6dd406a2962c63563c",
+        "timing": "legacy_unaudited_deadline",
+        "seconds": 10,
+        "iterations": 100000,
+        "threads": 4
+      },
+      "accesses": [
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c207/run_identity.json",
+          "identity_sha256": "3a6260f800800c2af8860073371c771d76121e8b379fc3dcbe5fd9db475234a3",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c207/vns_search.json",
+          "result_sha256": "ddb31fa13a8e608ab399fecbd2bdfb4b237d24cebf51c50a7b10d8dc4370c9da"
+        },
+        {
+          "identity": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c208/run_identity.json",
+          "identity_sha256": "7acb00d5c07bb09e67ad1d756ddbfe483c6ba569b972875d1bdc3e2ded82ed3c",
+          "result": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c208/vns_search.json",
+          "result_sha256": "b1f5da5560416bcf33583389c260ac460e34d3b1ea344e2c3572c2c17dcdebb1"
+        }
+      ]
+    }
+  ],
+  "excluded_train_identities": [
+    {
+      "path": "results/static_delivery/algorithm_dev_20261021/classical_run01/run_identity.json",
+      "reason": "train role; not a validation access"
+    },
+    {
+      "path": "results/static_delivery/algorithm_dev_20261021/neural_run01/run_identity.json",
+      "reason": "train role; not a validation access"
+    },
+    {
+      "path": "results/static_delivery/algorithm_dev_20261021/neural_run02/run_identity.json",
+      "reason": "train role; not a validation access"
+    },
+    {
+      "path": "results/static_delivery/algorithm_dev_20261021/paired_cli_run01/run_identity.json",
+      "reason": "train role; not a validation access"
+    },
+    {
+      "path": "results/static_delivery/algorithm_dev_20261021/pinned_teacher_cli01/run_identity.json",
+      "reason": "train role; not a validation access"
+    },
+    {
+      "path": "results/static_delivery/algorithm_dev_20261021/remote/dev01/outputs/smoke/run_identity.json",
+      "reason": "train role; not a validation access"
+    },
+    {
+      "path": "results/static_delivery/algorithm_dev_20261021/remote/dev02/outputs/smoke/run_identity.json",
+      "reason": "train role; not a validation access"
+    },
+    {
+      "path": "results/static_delivery/algorithm_dev_20261021/remote/dev03/outputs/train/run_identity.json",
+      "reason": "train role; not a validation access"
+    },
+    {
+      "path": "results/static_delivery/algorithm_dev_20261021/remote/dev04/outputs/train/run_identity.json",
+      "reason": "train role; not a validation access"
+    },
+    {
+      "path": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/old_teachers/train/run_identity.json",
+      "reason": "train role; not a validation access"
+    },
+    {
+      "path": "results/static_delivery/algorithm_dev_20261021/remote/dev09/outputs/upgraded_teachers/train/run_identity.json",
+      "reason": "train role; not a validation access"
+    },
+    {
+      "path": "results/static_delivery/algorithm_dev_20261021/replay_run01/run_identity.json",
+      "reason": "train role; not a validation access"
+    }
+  ],
+  "known_metadata_issues": [
+    {
+      "path": "results/static_delivery/algorithm_dev_20261021/remote/dev10/outputs/recovery/upgraded_teachers/validation/c206/run_identity.json",
+      "issue": "Recovery c206 ALNS identity copied c205 arguments; actual recovery source explicitly runs c206 and independent re-score used c206. Original preserved."
+    }
+  ],
+  "boundary": "Historical frozen-model validation access in algorithm_dev_20261021; old different-objective RRP/scenario studies retain their identities and are not this tuning budget."
+}

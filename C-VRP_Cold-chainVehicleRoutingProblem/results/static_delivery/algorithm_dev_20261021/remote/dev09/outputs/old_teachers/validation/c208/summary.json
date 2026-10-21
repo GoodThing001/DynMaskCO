@@ -1,0 +1,164 @@
+{
+  "status": "PASS_ALGORITHM_INTEGRATION_NOT_PERFORMANCE_EVIDENCE",
+  "task": {
+    "case": "c208",
+    "source_sha256": "7a0559146777b39b3e158d2fc8ff153cfb5158866d271d541d69f0b8760662c3",
+    "geometry_sha256": "a11fa7645e0af49715654c1997a52653c838e9f2febafffacd4e6124a22c0f8b",
+    "fold": 0,
+    "role": "validation",
+    "condition": {
+      "profile": "main_Product1",
+      "minimum_quality": 0.8,
+      "value_multiplier": 1
+    },
+    "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+    "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+  },
+  "scientific_freeze": {
+    "freeze_id": "publication_model_v1_scientific_freeze_20261021",
+    "sha256": "ad52f0fd475ebb22d187ce6dad3579f2f147a541fc7a82312941060d196692f9",
+    "files": 72
+  },
+  "backend": "gpu",
+  "devices": [
+    "cuda:0"
+  ],
+  "variants": {
+    "maskco_base": {
+      "checkpoint": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_profit_20261021/dev09/outputs/old_teachers/train/maskco_base/checkpoint",
+      "checkpoint_steps": 1440,
+      "checkpoint_json_sha256": "45f9fe85dc674e2c88bc0aac339e4b41f72001f9e58207233675a4f87f62d0f4",
+      "verified_weights": {
+        "weights.npz": "df233b9fc134ab70ecea6a4b7059e1f56c324e59c748abebdcf56c33f8b77f12",
+        "optimizer.npz": "b4b39630a41ff93f2e73324d6e959fad955191db28b69a7daf1e7ea3a6076211"
+      },
+      "parameter_count": 19127808,
+      "inference": {
+        "predictor": "compiled",
+        "matmul_precision": "highest",
+        "repair_implementation": "vectorized",
+        "training_only_warmup_s": 10.757442981936038,
+        "warmup_max_abs_logit_error": 4.863739013671875e-05
+      }
+    },
+    "directed_only": {
+      "checkpoint": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_profit_20261021/dev09/outputs/old_teachers/train/directed_only/checkpoint",
+      "checkpoint_steps": 1440,
+      "checkpoint_json_sha256": "be930395bf2e9ce15ba824a332557b62a0cae9fa1b16c1e2821c955d6adc6c92",
+      "verified_weights": {
+        "weights.npz": "2cb93d1aadd573b943701e52e5ffead551d60db88c88e4f719bd70be0a6a4a15",
+        "optimizer.npz": "3671378110c5641c5b4f5a51757a021ae9939fc4aa1bd29c4220e1b57d490722"
+      },
+      "parameter_count": 19258880,
+      "inference": {
+        "predictor": "compiled",
+        "matmul_precision": "highest",
+        "repair_implementation": "vectorized",
+        "training_only_warmup_s": 2.749903363874182,
+        "warmup_max_abs_logit_error": 2.3365020751953125e-05
+      }
+    }
+  },
+  "searches": {
+    "maskco_base": {
+      "initial": {
+        "net_benefit_U": 264007.13442985807,
+        "equivalent_loss_cost_U": 37659.53223680862,
+        "quality_loss_value_U": 29040.07159463948,
+        "distance_km": 6989.351219605434,
+        "refrigeration_cost_U": 1630.1094225636966,
+        "used_vehicles": 21,
+        "minimum_quality": 0.8007870064570856,
+        "independently_audited": true
+      },
+      "final": {
+        "net_benefit_U": 276672.5882933689,
+        "equivalent_loss_cost_U": 24994.078373297758,
+        "quality_loss_value_U": 15347.711035178043,
+        "distance_km": 7985.336429451361,
+        "refrigeration_cost_U": 1661.030908668341,
+        "used_vehicles": 35,
+        "minimum_quality": 0.887408709981469,
+        "independently_audited": true
+      },
+      "iterations": 441,
+      "elapsed_s": 10.014556493842974
+    },
+    "directed_only": {
+      "initial": {
+        "net_benefit_U": 264007.13442985807,
+        "equivalent_loss_cost_U": 37659.53223680862,
+        "quality_loss_value_U": 29040.07159463948,
+        "distance_km": 6989.351219605434,
+        "refrigeration_cost_U": 1630.1094225636966,
+        "used_vehicles": 21,
+        "minimum_quality": 0.8007870064570856,
+        "independently_audited": true
+      },
+      "final": {
+        "net_benefit_U": 276505.1071311216,
+        "equivalent_loss_cost_U": 25161.559535545064,
+        "quality_loss_value_U": 15080.676228681648,
+        "distance_km": 8381.03440218507,
+        "refrigeration_cost_U": 1699.8489046783138,
+        "used_vehicles": 37,
+        "minimum_quality": 0.8839487258278207,
+        "independently_audited": true
+      },
+      "iterations": 457,
+      "elapsed_s": 10.005551227834076
+    },
+    "vns": {
+      "initial": {
+        "net_benefit_U": 264007.13442985807,
+        "equivalent_loss_cost_U": 37659.53223680862,
+        "quality_loss_value_U": 29040.07159463948,
+        "distance_km": 6989.351219605434,
+        "refrigeration_cost_U": 1630.1094225636966,
+        "used_vehicles": 21,
+        "minimum_quality": 0.8007870064570856,
+        "independently_audited": true
+      },
+      "final": {
+        "net_benefit_U": 275953.11287404114,
+        "equivalent_loss_cost_U": 25713.55379262555,
+        "quality_loss_value_U": 16064.90835937003,
+        "distance_km": 7991.941550930824,
+        "refrigeration_cost_U": 1656.7038823246721,
+        "used_vehicles": 33,
+        "minimum_quality": 0.8647187219215603,
+        "independently_audited": true
+      },
+      "iterations": 39076,
+      "elapsed_s": 10.002783553907648
+    },
+    "alns": {
+      "initial": {
+        "net_benefit_U": 264007.13442985807,
+        "equivalent_loss_cost_U": 37659.53223680862,
+        "quality_loss_value_U": 29040.07159463948,
+        "distance_km": 6989.351219605434,
+        "refrigeration_cost_U": 1630.1094225636966,
+        "used_vehicles": 21,
+        "minimum_quality": 0.8007870064570856,
+        "independently_audited": true
+      },
+      "final": {
+        "net_benefit_U": 276315.6198533308,
+        "equivalent_loss_cost_U": 25351.04681333591,
+        "quality_loss_value_U": 16109.10334693018,
+        "distance_km": 7625.7762109734485,
+        "refrigeration_cost_U": 1616.1672554322877,
+        "used_vehicles": 32,
+        "minimum_quality": 0.8752726959044332,
+        "independently_audited": true
+      },
+      "iterations": 252,
+      "elapsed_s": 10.005837996955961
+    }
+  },
+  "outer_test_cases_used": 0,
+  "formal_experiment": false,
+  "method_superiority_established": false,
+  "upstream_sources_unchanged": true
+}

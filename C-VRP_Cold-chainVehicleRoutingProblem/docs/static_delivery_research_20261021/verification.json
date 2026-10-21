@@ -1,0 +1,109 @@
+{
+  "status": "PASS",
+  "date": "2026-10-21",
+  "source_pdfs": [
+    {
+      "path": "sources/joint_distribution_RCR_2020.pdf",
+      "sha256": "8cfed39271a1fa93afef50f1f79684e4e89b1a6237d3209bb20a50a9d5b5f878",
+      "doi": "10.1016/j.resconrec.2020.104715",
+      "pages": 30
+    },
+    {
+      "path": "sources/precooling_EJOR_2025.pdf",
+      "sha256": "92a1632e81ff4106deb72230961b5574f021e69ef5c0ca9582783a5627805988",
+      "doi": "10.1016/j.ejor.2024.09.041",
+      "pages": 21
+    }
+  ],
+  "CAS_rows": [
+    {
+      "sheet": "环境科学与生态学",
+      "excel_row": 19,
+      "values": [
+        18.0,
+        "RESOURCES CONSERVATION AND RECYCLING",
+        "0921-3449",
+        "1区"
+      ]
+    },
+    {
+      "sheet": "工程技术",
+      "excel_row": 62,
+      "values": [
+        61.0,
+        "INTERNATIONAL JOURNAL OF PRODUCTION ECONOMICS",
+        "0925-5273",
+        "1区"
+      ]
+    }
+  ],
+  "page_checks": [
+    {
+      "path": "page_checks\\joint_distribution_RCR_2020_p10.png",
+      "sha256": "d5fa6207b85c7cd6dd4540bd467b103ec0d4e5ca06777ca5ca0702c744c571a7",
+      "visually_inspected": true
+    },
+    {
+      "path": "page_checks\\joint_distribution_RCR_2020_p17.png",
+      "sha256": "a00b34880a207c8f0db8da25943ee533652a6e39f8d3aa7dc8f83d532609d472",
+      "visually_inspected": true
+    },
+    {
+      "path": "page_checks\\joint_distribution_RCR_2020_p9.png",
+      "sha256": "109038f2f8dbccc577d392d36ddc161684145b40ec38567859b38f19ab5ab0e4",
+      "visually_inspected": true
+    },
+    {
+      "path": "page_checks\\precooling_EJOR_2025_p11.png",
+      "sha256": "6a282551aa54a855e623ab1ff0b703ed1514972b8652f8ee50bb68a444ba75da",
+      "visually_inspected": true
+    },
+    {
+      "path": "page_checks\\precooling_EJOR_2025_p15.png",
+      "sha256": "3b0f1dcbd3c8c1fdb2250c8bb261bef3c0a0293cff0d749bbf079672c39854bc",
+      "visually_inspected": true
+    },
+    {
+      "path": "page_checks\\quality_driven_2021_p8.png",
+      "sha256": "6e1c5cf4fe40cd87b7b63e6f2c59a8567e2551bda2365dfd353b4a2a55c073e7",
+      "visually_inspected": true
+    }
+  ],
+  "conversions": {
+    "price_CNY_per_kg": 5.0,
+    "distance_CNY_per_km": 3,
+    "cold_travel_CNY_per_h": 13.36,
+    "cold_unload_CNY_per_h": 16.7,
+    "cold_travel_CNY_per_min": 0.22266666666666665,
+    "cold_unload_CNY_per_min": 0.2783333333333333,
+    "unloading_kg_per_min": 60.0,
+    "theta_per_min_if_hour_interpretation": 3.3333333333333335e-05,
+    "travel_quality_at_24h": 0.9531337870775047,
+    "hours_to_80pct_travel_quality": 111.57177565710485,
+    "original_unload_loss_fraction_at_zero_duration": 0.09999999999999998
+  },
+  "conversions_identity_checked": true,
+  "preserved_files": [
+    {
+      "path": "configs/static_delivery/product_evidence_v1.json",
+      "sha256": "3dd8c10768781145fe3a084dbce2c2e80cb7e13351de89d17ef6cab646b53947"
+    },
+    {
+      "path": "results/static_delivery/net_benefit_scenario_pilot_20261020/results.json",
+      "sha256": "02f3b2ee2f67547501afed1ef3f8514cfe567992062294cd676d94830d39391b"
+    },
+    {
+      "path": "results/static_delivery/net_benefit_scenario_pilot_20261020/results_metadata_corrected.json",
+      "sha256": "d8a5669960af14eabaa20178e3f007c1210b10c06e254dfd51a24af6c129506a"
+    }
+  ],
+  "local_links": [
+    "model_evidence.json",
+    "model_evidence.json",
+    "verification.json",
+    "../static_delivery_research_20261020/dataset_product_review/README.md",
+    "../../data/published_cases_20261020/QDVRP_2021/README.md"
+  ],
+  "no_new_training": true,
+  "no_new_route_results": true
+}

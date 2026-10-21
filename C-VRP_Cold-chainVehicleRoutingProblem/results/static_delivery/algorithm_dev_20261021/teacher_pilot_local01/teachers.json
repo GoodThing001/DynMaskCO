@@ -1,0 +1,3704 @@
+[
+  {
+    "task": {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "slow_Product3",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        89,
+        93
+      ],
+      [
+        5,
+        83,
+        99,
+        6
+      ],
+      [
+        26,
+        4,
+        25
+      ],
+      [
+        85,
+        37,
+        60
+      ],
+      [
+        10,
+        32,
+        1
+      ],
+      [
+        95,
+        98,
+        61,
+        84
+      ],
+      [
+        59,
+        14,
+        15,
+        41
+      ],
+      [
+        62,
+        11,
+        90,
+        20
+      ],
+      [
+        69,
+        30,
+        9,
+        34
+      ],
+      [
+        39,
+        23,
+        67,
+        56,
+        74
+      ],
+      [
+        72,
+        75,
+        40
+      ],
+      [
+        63,
+        64,
+        49
+      ],
+      [
+        81,
+        66,
+        35,
+        70
+      ],
+      [
+        13,
+        100
+      ],
+      [
+        92,
+        42,
+        2,
+        57
+      ],
+      [
+        21,
+        73,
+        22,
+        55
+      ],
+      [
+        36,
+        47,
+        19,
+        8,
+        46,
+        17
+      ],
+      [
+        27,
+        52,
+        7
+      ],
+      [
+        87,
+        97
+      ],
+      [
+        45,
+        82,
+        18
+      ],
+      [
+        31,
+        88
+      ],
+      [
+        44,
+        38,
+        43
+      ],
+      [
+        16,
+        86,
+        91
+      ],
+      [
+        65,
+        71,
+        78
+      ],
+      [
+        76,
+        51,
+        50
+      ],
+      [
+        53
+      ],
+      [
+        28,
+        12
+      ],
+      [
+        94,
+        96
+      ],
+      [
+        68,
+        77
+      ],
+      [
+        54,
+        24,
+        80
+      ],
+      [
+        58
+      ],
+      [
+        48
+      ],
+      [
+        33,
+        29,
+        79,
+        3
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 225271.3675082635,
+      "equivalent_loss_cost_U": 17728.6324917365,
+      "quality_loss_value_U": 8292.565339541423,
+      "distance_km": 7678.081288205124,
+      "refrigeration_cost_U": 1757.9858639899626,
+      "used_vehicles": 33,
+      "minimum_quality": 0.8881458713506185,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "slow_Product3",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        89,
+        93
+      ],
+      [
+        83,
+        82,
+        18,
+        6
+      ],
+      [
+        94,
+        96,
+        60
+      ],
+      [
+        50,
+        1
+      ],
+      [
+        95,
+        98,
+        61,
+        84,
+        17
+      ],
+      [
+        54,
+        24,
+        80
+      ],
+      [
+        59,
+        14,
+        15,
+        41
+      ],
+      [
+        20,
+        32,
+        70
+      ],
+      [
+        81,
+        34,
+        35
+      ],
+      [
+        62,
+        11,
+        90,
+        10
+      ],
+      [
+        65,
+        71,
+        9
+      ],
+      [
+        33,
+        29,
+        78
+      ],
+      [
+        5,
+        44,
+        38,
+        43
+      ],
+      [
+        39,
+        23,
+        67,
+        55
+      ],
+      [
+        2,
+        75,
+        22,
+        56,
+        74
+      ],
+      [
+        63,
+        64,
+        49
+      ],
+      [
+        76,
+        79,
+        3
+      ],
+      [
+        31,
+        30,
+        51,
+        66
+      ],
+      [
+        13,
+        100
+      ],
+      [
+        26,
+        4,
+        25
+      ],
+      [
+        12,
+        40
+      ],
+      [
+        72,
+        21,
+        73,
+        57
+      ],
+      [
+        99,
+        85,
+        37
+      ],
+      [
+        16,
+        86,
+        91
+      ],
+      [
+        36,
+        19,
+        8,
+        46
+      ],
+      [
+        45,
+        47,
+        7
+      ],
+      [
+        68,
+        77
+      ],
+      [
+        58
+      ],
+      [
+        53
+      ],
+      [
+        28,
+        69
+      ],
+      [
+        87,
+        97
+      ],
+      [
+        92,
+        42
+      ],
+      [
+        27,
+        52,
+        88
+      ],
+      [
+        48
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 225309.2397696323,
+      "equivalent_loss_cost_U": 17690.760230367712,
+      "quality_loss_value_U": 8182.1583369646305,
+      "distance_km": 7725.826975419487,
+      "refrigeration_cost_U": 1782.7749179836023,
+      "used_vehicles": 34,
+      "minimum_quality": 0.9037995261036037,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "main_Product1",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        5,
+        83
+      ],
+      [
+        26,
+        4,
+        25
+      ],
+      [
+        94,
+        96,
+        60
+      ],
+      [
+        50,
+        1
+      ],
+      [
+        95,
+        98,
+        99,
+        6
+      ],
+      [
+        92,
+        42,
+        2
+      ],
+      [
+        31,
+        30,
+        51,
+        20
+      ],
+      [
+        23,
+        41,
+        56,
+        74
+      ],
+      [
+        63,
+        64,
+        90
+      ],
+      [
+        89
+      ],
+      [
+        81,
+        34,
+        35
+      ],
+      [
+        82,
+        18,
+        84,
+        17
+      ],
+      [
+        27,
+        69
+      ],
+      [
+        52
+      ],
+      [
+        13,
+        100
+      ],
+      [
+        59,
+        14,
+        15,
+        57
+      ],
+      [
+        53
+      ],
+      [
+        12,
+        40
+      ],
+      [
+        33,
+        29,
+        78
+      ],
+      [
+        72,
+        21,
+        73
+      ],
+      [
+        75,
+        22
+      ],
+      [
+        65,
+        71,
+        9
+      ],
+      [
+        54,
+        24,
+        80
+      ],
+      [
+        76,
+        79,
+        3
+      ],
+      [
+        10,
+        32,
+        70
+      ],
+      [
+        58
+      ],
+      [
+        28
+      ],
+      [
+        68,
+        77
+      ],
+      [
+        45,
+        61
+      ],
+      [
+        44,
+        38,
+        43
+      ],
+      [
+        36,
+        47,
+        7,
+        8,
+        46
+      ],
+      [
+        87,
+        97
+      ],
+      [
+        11,
+        19,
+        49
+      ],
+      [
+        62,
+        88
+      ],
+      [
+        16,
+        86,
+        91
+      ],
+      [
+        85,
+        37
+      ],
+      [
+        93
+      ],
+      [
+        48
+      ],
+      [
+        66
+      ],
+      [
+        39,
+        67,
+        55
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 221133.47043191167,
+      "equivalent_loss_cost_U": 21866.52956808833,
+      "quality_loss_value_U": 11614.583936420775,
+      "distance_km": 8403.12143089692,
+      "refrigeration_cost_U": 1848.8242007706463,
+      "used_vehicles": 40,
+      "minimum_quality": 0.8618373612576562,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "main_Product1",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        95,
+        98,
+        99,
+        6
+      ],
+      [
+        85,
+        37
+      ],
+      [
+        94,
+        96,
+        60
+      ],
+      [
+        5,
+        83,
+        61,
+        84
+      ],
+      [
+        72,
+        75,
+        41
+      ],
+      [
+        63,
+        64,
+        90
+      ],
+      [
+        89
+      ],
+      [
+        62,
+        11,
+        8,
+        46,
+        17
+      ],
+      [
+        14,
+        44,
+        38
+      ],
+      [
+        13,
+        100
+      ],
+      [
+        59,
+        42,
+        15,
+        57
+      ],
+      [
+        51,
+        9,
+        34,
+        35
+      ],
+      [
+        19,
+        49
+      ],
+      [
+        36,
+        47,
+        7
+      ],
+      [
+        31,
+        30,
+        20
+      ],
+      [
+        12,
+        40
+      ],
+      [
+        39,
+        23,
+        67,
+        55
+      ],
+      [
+        45,
+        82,
+        88
+      ],
+      [
+        52,
+        18
+      ],
+      [
+        65,
+        71,
+        78
+      ],
+      [
+        10,
+        32,
+        70
+      ],
+      [
+        66,
+        1
+      ],
+      [
+        21,
+        73,
+        22,
+        56,
+        74
+      ],
+      [
+        26,
+        4,
+        25
+      ],
+      [
+        54,
+        24,
+        80
+      ],
+      [
+        16,
+        86,
+        43,
+        91
+      ],
+      [
+        93
+      ],
+      [
+        68,
+        77
+      ],
+      [
+        33,
+        29
+      ],
+      [
+        76,
+        79,
+        50
+      ],
+      [
+        81,
+        3
+      ],
+      [
+        27,
+        69
+      ],
+      [
+        28
+      ],
+      [
+        92,
+        2
+      ],
+      [
+        87,
+        97
+      ],
+      [
+        53
+      ],
+      [
+        58
+      ],
+      [
+        48
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 221146.9088751908,
+      "equivalent_loss_cost_U": 21853.0911248092,
+      "quality_loss_value_U": 11858.806423010763,
+      "distance_km": 8201.975635433062,
+      "refrigeration_cost_U": 1792.3090663653918,
+      "used_vehicles": 38,
+      "minimum_quality": 0.8526311025814415,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "fast_Product2",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        65,
+        71,
+        78
+      ],
+      [
+        5,
+        98,
+        99,
+        6
+      ],
+      [
+        50,
+        1
+      ],
+      [
+        61,
+        84,
+        17
+      ],
+      [
+        59,
+        42,
+        15
+      ],
+      [
+        62,
+        11,
+        90,
+        20
+      ],
+      [
+        79,
+        34,
+        35
+      ],
+      [
+        22,
+        56,
+        74
+      ],
+      [
+        39,
+        23,
+        41
+      ],
+      [
+        13,
+        100
+      ],
+      [
+        14,
+        2
+      ],
+      [
+        44,
+        38,
+        43
+      ],
+      [
+        54,
+        24,
+        80
+      ],
+      [
+        16,
+        86,
+        91
+      ],
+      [
+        75,
+        73,
+        57
+      ],
+      [
+        36,
+        64
+      ],
+      [
+        47,
+        19,
+        8,
+        46
+      ],
+      [
+        49,
+        60
+      ],
+      [
+        45,
+        83
+      ],
+      [
+        51,
+        9,
+        66
+      ],
+      [
+        12,
+        76
+      ],
+      [
+        33,
+        29
+      ],
+      [
+        26,
+        4
+      ],
+      [
+        67,
+        55,
+        25
+      ],
+      [
+        68,
+        77
+      ],
+      [
+        58
+      ],
+      [
+        53
+      ],
+      [
+        72,
+        21,
+        40
+      ],
+      [
+        28
+      ],
+      [
+        81,
+        3
+      ],
+      [
+        27,
+        69
+      ],
+      [
+        89
+      ],
+      [
+        82,
+        18
+      ],
+      [
+        10,
+        32,
+        70
+      ],
+      [
+        31,
+        30
+      ],
+      [
+        63,
+        88
+      ],
+      [
+        94,
+        96
+      ],
+      [
+        85,
+        37
+      ],
+      [
+        93
+      ],
+      [
+        52,
+        7
+      ],
+      [
+        48
+      ],
+      [
+        87,
+        97
+      ],
+      [
+        92,
+        95
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 218370.8098336816,
+      "equivalent_loss_cost_U": 24629.19016631841,
+      "quality_loss_value_U": 13719.495419493676,
+      "distance_km": 9018.928638585297,
+      "refrigeration_cost_U": 1890.7661082394382,
+      "used_vehicles": 43,
+      "minimum_quality": 0.8300749345647088,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "fast_Product2",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        96,
+        60
+      ],
+      [
+        13,
+        100
+      ],
+      [
+        16,
+        86,
+        17
+      ],
+      [
+        62,
+        11
+      ],
+      [
+        61,
+        84
+      ],
+      [
+        39,
+        75,
+        41
+      ],
+      [
+        63,
+        64,
+        90
+      ],
+      [
+        40,
+        57,
+        43,
+        91
+      ],
+      [
+        5
+      ],
+      [
+        44,
+        38
+      ],
+      [
+        59,
+        14,
+        15
+      ],
+      [
+        19,
+        49
+      ],
+      [
+        10,
+        32,
+        70
+      ],
+      [
+        33,
+        29
+      ],
+      [
+        54,
+        25
+      ],
+      [
+        23,
+        67,
+        55
+      ],
+      [
+        45,
+        83
+      ],
+      [
+        82,
+        8,
+        46
+      ],
+      [
+        65,
+        71,
+        78
+      ],
+      [
+        81,
+        34,
+        35
+      ],
+      [
+        95,
+        98,
+        99,
+        6
+      ],
+      [
+        94,
+        97
+      ],
+      [
+        92,
+        42,
+        2
+      ],
+      [
+        87
+      ],
+      [
+        52,
+        18
+      ],
+      [
+        89
+      ],
+      [
+        31,
+        88
+      ],
+      [
+        53
+      ],
+      [
+        27,
+        69
+      ],
+      [
+        22,
+        56,
+        74
+      ],
+      [
+        72,
+        21,
+        73
+      ],
+      [
+        68,
+        24,
+        80
+      ],
+      [
+        79,
+        3
+      ],
+      [
+        12,
+        76
+      ],
+      [
+        77
+      ],
+      [
+        58
+      ],
+      [
+        51,
+        9,
+        20
+      ],
+      [
+        85,
+        37
+      ],
+      [
+        30
+      ],
+      [
+        50,
+        1
+      ],
+      [
+        26,
+        4
+      ],
+      [
+        36,
+        47,
+        7
+      ],
+      [
+        93
+      ],
+      [
+        48
+      ],
+      [
+        28
+      ],
+      [
+        66
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 218792.34726908468,
+      "equivalent_loss_cost_U": 24207.652730915317,
+      "quality_loss_value_U": 13069.056471817516,
+      "distance_km": 9281.545316146101,
+      "refrigeration_cost_U": 1857.050942951712,
+      "used_vehicles": 46,
+      "minimum_quality": 0.8520736019599837,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "r201",
+      "source_sha256": "6f482f0d361e8759b4582a0da5e81a7e739634131c4ae8b0a8cca302a92b0ce6",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "slow_Product3",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        94,
+        97,
+        37,
+        91
+      ],
+      [
+        26,
+        4,
+        24,
+        80
+      ],
+      [
+        54,
+        55,
+        25
+      ],
+      [
+        59,
+        98,
+        61,
+        99,
+        6
+      ],
+      [
+        81,
+        9,
+        20,
+        66,
+        70
+      ],
+      [
+        49,
+        46,
+        17,
+        60
+      ],
+      [
+        21,
+        22,
+        41,
+        56,
+        74
+      ],
+      [
+        95,
+        44,
+        38,
+        43
+      ],
+      [
+        83,
+        45,
+        82,
+        19,
+        90
+      ],
+      [
+        92,
+        14,
+        15
+      ],
+      [
+        72,
+        75,
+        73,
+        40
+      ],
+      [
+        52,
+        18,
+        8
+      ],
+      [
+        79,
+        3,
+        50
+      ],
+      [
+        16,
+        86,
+        84
+      ],
+      [
+        47,
+        36,
+        64
+      ],
+      [
+        27,
+        31,
+        88
+      ],
+      [
+        10,
+        32,
+        1
+      ],
+      [
+        63,
+        11,
+        62,
+        7
+      ],
+      [
+        5,
+        42,
+        2
+      ],
+      [
+        65,
+        71,
+        51
+      ],
+      [
+        13,
+        58
+      ],
+      [
+        33,
+        29,
+        78,
+        34,
+        35
+      ],
+      [
+        68,
+        77
+      ],
+      [
+        39,
+        23,
+        67
+      ],
+      [
+        85,
+        96
+      ],
+      [
+        12,
+        76
+      ],
+      [
+        69,
+        30
+      ],
+      [
+        100,
+        93
+      ],
+      [
+        48
+      ],
+      [
+        89
+      ],
+      [
+        28
+      ],
+      [
+        87,
+        57
+      ],
+      [
+        53
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 225786.14278812055,
+      "equivalent_loss_cost_U": 17213.857211879455,
+      "quality_loss_value_U": 8085.350387431323,
+      "distance_km": 7475.171886404644,
+      "refrigeration_cost_U": 1653.3349380434986,
+      "used_vehicles": 33,
+      "minimum_quality": 0.8970228627705352,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "r201",
+      "source_sha256": "6f482f0d361e8759b4582a0da5e81a7e739634131c4ae8b0a8cca302a92b0ce6",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "slow_Product3",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        54,
+        24,
+        80
+      ],
+      [
+        14,
+        42,
+        15
+      ],
+      [
+        10,
+        32
+      ],
+      [
+        68,
+        77
+      ],
+      [
+        81,
+        9,
+        20,
+        66,
+        70
+      ],
+      [
+        19,
+        49,
+        46,
+        17,
+        60
+      ],
+      [
+        21,
+        73,
+        22,
+        41,
+        56
+      ],
+      [
+        76,
+        79,
+        78,
+        34,
+        35
+      ],
+      [
+        5,
+        44,
+        38
+      ],
+      [
+        31,
+        62,
+        11,
+        90
+      ],
+      [
+        47,
+        36,
+        64,
+        7
+      ],
+      [
+        33,
+        65,
+        71,
+        51
+      ],
+      [
+        72,
+        23,
+        67,
+        55,
+        25
+      ],
+      [
+        39,
+        75,
+        40
+      ],
+      [
+        63,
+        30,
+        88
+      ],
+      [
+        27,
+        69
+      ],
+      [
+        3,
+        50,
+        1
+      ],
+      [
+        16,
+        86,
+        84
+      ],
+      [
+        87,
+        57,
+        43
+      ],
+      [
+        97,
+        37,
+        91,
+        100
+      ],
+      [
+        95,
+        92,
+        2
+      ],
+      [
+        59,
+        98,
+        61,
+        99
+      ],
+      [
+        85,
+        96
+      ],
+      [
+        26,
+        4,
+        74
+      ],
+      [
+        13,
+        93
+      ],
+      [
+        83,
+        45,
+        82
+      ],
+      [
+        53
+      ],
+      [
+        28,
+        29,
+        12
+      ],
+      [
+        48
+      ],
+      [
+        58
+      ],
+      [
+        94,
+        6
+      ],
+      [
+        52,
+        18,
+        8
+      ],
+      [
+        89
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 225917.91036379157,
+      "equivalent_loss_cost_U": 17082.08963620843,
+      "quality_loss_value_U": 8024.66467961389,
+      "distance_km": 7409.094097064413,
+      "refrigeration_cost_U": 1648.3308595301266,
+      "used_vehicles": 33,
+      "minimum_quality": 0.8770312403996731,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "r201",
+      "source_sha256": "6f482f0d361e8759b4582a0da5e81a7e739634131c4ae8b0a8cca302a92b0ce6",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "main_Product1",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        89
+      ],
+      [
+        94,
+        6
+      ],
+      [
+        26,
+        54,
+        80
+      ],
+      [
+        79,
+        3
+      ],
+      [
+        68,
+        24,
+        25
+      ],
+      [
+        10,
+        32,
+        70
+      ],
+      [
+        16,
+        86,
+        84
+      ],
+      [
+        81,
+        9,
+        66,
+        35
+      ],
+      [
+        19,
+        49,
+        46,
+        17
+      ],
+      [
+        75,
+        22,
+        41,
+        56,
+        55
+      ],
+      [
+        51,
+        78,
+        34
+      ],
+      [
+        33,
+        29,
+        76
+      ],
+      [
+        31,
+        62,
+        88
+      ],
+      [
+        47,
+        36,
+        64,
+        7
+      ],
+      [
+        39,
+        23,
+        67
+      ],
+      [
+        63,
+        11,
+        90
+      ],
+      [
+        65,
+        69
+      ],
+      [
+        27,
+        52
+      ],
+      [
+        50,
+        1,
+        77
+      ],
+      [
+        59,
+        92,
+        98,
+        99
+      ],
+      [
+        82,
+        18,
+        8
+      ],
+      [
+        83,
+        45,
+        61
+      ],
+      [
+        14,
+        44,
+        38
+      ],
+      [
+        5,
+        42,
+        15
+      ],
+      [
+        87,
+        57,
+        43
+      ],
+      [
+        97,
+        37,
+        91,
+        60
+      ],
+      [
+        85,
+        96
+      ],
+      [
+        100,
+        93
+      ],
+      [
+        53
+      ],
+      [
+        12,
+        40
+      ],
+      [
+        28
+      ],
+      [
+        58
+      ],
+      [
+        48
+      ],
+      [
+        72,
+        21,
+        73
+      ],
+      [
+        4,
+        74
+      ],
+      [
+        30,
+        71,
+        20
+      ],
+      [
+        95,
+        2
+      ],
+      [
+        13
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 221466.91308499698,
+      "equivalent_loss_cost_U": 21533.08691500302,
+      "quality_loss_value_U": 11573.776454111598,
+      "distance_km": 8241.415016487083,
+      "refrigeration_cost_U": 1717.895444404349,
+      "used_vehicles": 38,
+      "minimum_quality": 0.8682274962161421,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "r201",
+      "source_sha256": "6f482f0d361e8759b4582a0da5e81a7e739634131c4ae8b0a8cca302a92b0ce6",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "main_Product1",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        59,
+        98,
+        61,
+        99,
+        6
+      ],
+      [
+        68,
+        24,
+        80
+      ],
+      [
+        10,
+        32,
+        70
+      ],
+      [
+        85,
+        37
+      ],
+      [
+        4,
+        25
+      ],
+      [
+        26
+      ],
+      [
+        50,
+        1
+      ],
+      [
+        81,
+        34,
+        20
+      ],
+      [
+        16,
+        86,
+        84
+      ],
+      [
+        49,
+        46,
+        17,
+        91
+      ],
+      [
+        39,
+        75,
+        73
+      ],
+      [
+        9,
+        66,
+        35
+      ],
+      [
+        31,
+        62,
+        88
+      ],
+      [
+        23,
+        67,
+        55
+      ],
+      [
+        47,
+        36,
+        64,
+        90
+      ],
+      [
+        63,
+        11,
+        19,
+        7
+      ],
+      [
+        33,
+        65,
+        71,
+        78
+      ],
+      [
+        27,
+        69
+      ],
+      [
+        5,
+        42,
+        15
+      ],
+      [
+        52,
+        18,
+        8
+      ],
+      [
+        14,
+        44,
+        38,
+        43
+      ],
+      [
+        54,
+        77
+      ],
+      [
+        94,
+        96,
+        60
+      ],
+      [
+        53
+      ],
+      [
+        12,
+        76
+      ],
+      [
+        28,
+        29
+      ],
+      [
+        72,
+        21,
+        40
+      ],
+      [
+        58
+      ],
+      [
+        22,
+        41,
+        56,
+        74
+      ],
+      [
+        79,
+        3
+      ],
+      [
+        95,
+        92,
+        2
+      ],
+      [
+        87,
+        57,
+        97
+      ],
+      [
+        13,
+        100
+      ],
+      [
+        30,
+        51
+      ],
+      [
+        48
+      ],
+      [
+        93
+      ],
+      [
+        83,
+        45,
+        82
+      ],
+      [
+        89
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 221731.86407430712,
+      "equivalent_loss_cost_U": 21268.135925692884,
+      "quality_loss_value_U": 11369.394204928169,
+      "distance_km": 8178.668620195509,
+      "refrigeration_cost_U": 1720.0731005692296,
+      "used_vehicles": 38,
+      "minimum_quality": 0.8616380311926601,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "r201",
+      "source_sha256": "6f482f0d361e8759b4582a0da5e81a7e739634131c4ae8b0a8cca302a92b0ce6",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "fast_Product2",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        54,
+        35
+      ],
+      [
+        89
+      ],
+      [
+        94,
+        6
+      ],
+      [
+        97,
+        37,
+        91
+      ],
+      [
+        26,
+        74,
+        25
+      ],
+      [
+        68,
+        24,
+        80
+      ],
+      [
+        10,
+        32,
+        70
+      ],
+      [
+        73,
+        22,
+        56,
+        55
+      ],
+      [
+        50,
+        1
+      ],
+      [
+        81,
+        34,
+        20
+      ],
+      [
+        88,
+        49,
+        46,
+        17
+      ],
+      [
+        79,
+        3
+      ],
+      [
+        9,
+        66
+      ],
+      [
+        31,
+        62,
+        11,
+        90
+      ],
+      [
+        39,
+        29,
+        78
+      ],
+      [
+        59,
+        42,
+        15
+      ],
+      [
+        72,
+        75,
+        21
+      ],
+      [
+        47,
+        36,
+        64
+      ],
+      [
+        63,
+        19,
+        7
+      ],
+      [
+        33,
+        65,
+        71
+      ],
+      [
+        23,
+        67,
+        41
+      ],
+      [
+        27,
+        69
+      ],
+      [
+        30,
+        51
+      ],
+      [
+        13
+      ],
+      [
+        2,
+        40
+      ],
+      [
+        52,
+        82,
+        8
+      ],
+      [
+        83,
+        45,
+        61
+      ],
+      [
+        14,
+        44,
+        38
+      ],
+      [
+        77
+      ],
+      [
+        87,
+        57,
+        43
+      ],
+      [
+        16,
+        86
+      ],
+      [
+        5,
+        92
+      ],
+      [
+        96,
+        60
+      ],
+      [
+        95,
+        98,
+        99
+      ],
+      [
+        100,
+        93
+      ],
+      [
+        85,
+        84
+      ],
+      [
+        18
+      ],
+      [
+        12,
+        76
+      ],
+      [
+        53
+      ],
+      [
+        58
+      ],
+      [
+        28
+      ],
+      [
+        4
+      ],
+      [
+        48
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 218787.19808455228,
+      "equivalent_loss_cost_U": 24212.801915447722,
+      "quality_loss_value_U": 13404.648649539004,
+      "distance_km": 9045.32492142511,
+      "refrigeration_cost_U": 1762.8283444836313,
+      "used_vehicles": 43,
+      "minimum_quality": 0.8492437862926683,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "r201",
+      "source_sha256": "6f482f0d361e8759b4582a0da5e81a7e739634131c4ae8b0a8cca302a92b0ce6",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "fast_Product2",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        50,
+        1
+      ],
+      [
+        97,
+        37,
+        91
+      ],
+      [
+        59,
+        98,
+        61,
+        99
+      ],
+      [
+        10,
+        32,
+        70
+      ],
+      [
+        20,
+        66
+      ],
+      [
+        79,
+        78,
+        34,
+        35
+      ],
+      [
+        44,
+        38
+      ],
+      [
+        72,
+        39,
+        29
+      ],
+      [
+        62,
+        11,
+        19
+      ],
+      [
+        33,
+        65,
+        71,
+        51
+      ],
+      [
+        31,
+        69
+      ],
+      [
+        30
+      ],
+      [
+        95,
+        92,
+        15,
+        41
+      ],
+      [
+        52,
+        82,
+        7
+      ],
+      [
+        81,
+        9
+      ],
+      [
+        21,
+        75,
+        73
+      ],
+      [
+        14,
+        42,
+        2
+      ],
+      [
+        22,
+        56,
+        74
+      ],
+      [
+        16,
+        86,
+        84
+      ],
+      [
+        49,
+        46,
+        17
+      ],
+      [
+        100,
+        93
+      ],
+      [
+        96,
+        60
+      ],
+      [
+        18,
+        8
+      ],
+      [
+        47,
+        36,
+        64,
+        90
+      ],
+      [
+        63,
+        88
+      ],
+      [
+        89
+      ],
+      [
+        4,
+        80
+      ],
+      [
+        27
+      ],
+      [
+        94,
+        6
+      ],
+      [
+        13
+      ],
+      [
+        68,
+        77
+      ],
+      [
+        3,
+        24
+      ],
+      [
+        87,
+        57,
+        43
+      ],
+      [
+        54,
+        55,
+        25
+      ],
+      [
+        23,
+        67
+      ],
+      [
+        12,
+        76
+      ],
+      [
+        53
+      ],
+      [
+        28
+      ],
+      [
+        58
+      ],
+      [
+        40
+      ],
+      [
+        26
+      ],
+      [
+        48
+      ],
+      [
+        5,
+        45,
+        83
+      ],
+      [
+        85
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 219008.51696776168,
+      "equivalent_loss_cost_U": 23991.48303223832,
+      "quality_loss_value_U": 13480.911144302043,
+      "distance_km": 8770.121993762037,
+      "refrigeration_cost_U": 1740.4498941742488,
+      "used_vehicles": 44,
+      "minimum_quality": 0.8511850046207485,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "rc101",
+      "source_sha256": "4286456b826da8a2de263b3770e4c2ab1c56145d9cb391ade51aabc98dbbe660",
+      "geometry_sha256": "a939a385528ec731cbd83803ec5eb3943ca6122a3bb0b40e8cfdc16acba6058b",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "slow_Product3",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        60,
+        70,
+        100
+      ],
+      [
+        68,
+        55
+      ],
+      [
+        50,
+        34,
+        93
+      ],
+      [
+        81,
+        96,
+        54
+      ],
+      [
+        57,
+        86,
+        74
+      ],
+      [
+        84,
+        89,
+        48
+      ],
+      [
+        42,
+        36,
+        61
+      ],
+      [
+        98,
+        78,
+        53
+      ],
+      [
+        83,
+        64,
+        51,
+        85
+      ],
+      [
+        92,
+        95,
+        62,
+        67
+      ],
+      [
+        10,
+        17,
+        13
+      ],
+      [
+        72,
+        39,
+        44,
+        38,
+        37
+      ],
+      [
+        9,
+        97,
+        58,
+        77
+      ],
+      [
+        11,
+        12,
+        73
+      ],
+      [
+        14,
+        47,
+        15,
+        16
+      ],
+      [
+        5,
+        45,
+        7
+      ],
+      [
+        63,
+        76,
+        18,
+        49,
+        20
+      ],
+      [
+        59,
+        75,
+        87
+      ],
+      [
+        31,
+        29,
+        30,
+        32
+      ],
+      [
+        33,
+        28,
+        27,
+        26
+      ],
+      [
+        69,
+        88,
+        79,
+        46,
+        3
+      ],
+      [
+        65,
+        82,
+        52,
+        99
+      ],
+      [
+        2,
+        8,
+        6
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        56,
+        91,
+        80
+      ],
+      [
+        71,
+        94
+      ],
+      [
+        90
+      ],
+      [
+        19,
+        22,
+        24
+      ],
+      [
+        23,
+        21,
+        25
+      ],
+      [
+        41,
+        40,
+        43,
+        35
+      ],
+      [
+        66
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 265363.7270741624,
+      "equivalent_loss_cost_U": 21969.606259170978,
+      "quality_loss_value_U": 11324.846124800206,
+      "distance_km": 8861.27521430874,
+      "refrigeration_cost_U": 1783.484920061986,
+      "used_vehicles": 31,
+      "minimum_quality": 0.9157039013332924,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "rc101",
+      "source_sha256": "4286456b826da8a2de263b3770e4c2ab1c56145d9cb391ade51aabc98dbbe660",
+      "geometry_sha256": "a939a385528ec731cbd83803ec5eb3943ca6122a3bb0b40e8cfdc16acba6058b",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "slow_Product3",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        94,
+        50,
+        89
+      ],
+      [
+        96,
+        54,
+        93
+      ],
+      [
+        42,
+        36,
+        61
+      ],
+      [
+        12,
+        78,
+        79
+      ],
+      [
+        64,
+        51,
+        84
+      ],
+      [
+        72,
+        39,
+        44,
+        41
+      ],
+      [
+        86,
+        87,
+        97,
+        58,
+        77
+      ],
+      [
+        11,
+        9,
+        10,
+        13,
+        17
+      ],
+      [
+        14,
+        47,
+        15,
+        16,
+        53
+      ],
+      [
+        5,
+        45,
+        73
+      ],
+      [
+        95,
+        63,
+        76,
+        85
+      ],
+      [
+        65,
+        59,
+        75,
+        74
+      ],
+      [
+        23,
+        18,
+        49,
+        25
+      ],
+      [
+        31,
+        29,
+        30,
+        34
+      ],
+      [
+        33,
+        28,
+        27,
+        26,
+        32
+      ],
+      [
+        83,
+        19,
+        21,
+        48
+      ],
+      [
+        98,
+        52
+      ],
+      [
+        69,
+        82,
+        99
+      ],
+      [
+        88,
+        6,
+        3,
+        1
+      ],
+      [
+        92,
+        62,
+        67,
+        71
+      ],
+      [
+        2,
+        7,
+        8,
+        46
+      ],
+      [
+        57,
+        22,
+        20,
+        24
+      ],
+      [
+        38,
+        40,
+        43,
+        37,
+        35
+      ],
+      [
+        4,
+        60
+      ],
+      [
+        66,
+        56,
+        91
+      ],
+      [
+        55,
+        70,
+        100
+      ],
+      [
+        80
+      ],
+      [
+        81
+      ],
+      [
+        90
+      ],
+      [
+        68
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 265454.09246356227,
+      "equivalent_loss_cost_U": 21879.240869771107,
+      "quality_loss_value_U": 11818.24753211146,
+      "distance_km": 8340.080391296158,
+      "refrigeration_cost_U": 1720.9129463634818,
+      "used_vehicles": 30,
+      "minimum_quality": 0.9110132562900157,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "rc101",
+      "source_sha256": "4286456b826da8a2de263b3770e4c2ab1c56145d9cb391ade51aabc98dbbe660",
+      "geometry_sha256": "a939a385528ec731cbd83803ec5eb3943ca6122a3bb0b40e8cfdc16acba6058b",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "main_Product1",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        55,
+        60
+      ],
+      [
+        78,
+        79
+      ],
+      [
+        89,
+        48
+      ],
+      [
+        92,
+        95,
+        62,
+        67
+      ],
+      [
+        5,
+        45,
+        73
+      ],
+      [
+        31,
+        29,
+        30,
+        26
+      ],
+      [
+        33,
+        28,
+        27
+      ],
+      [
+        50,
+        34,
+        32,
+        93
+      ],
+      [
+        88,
+        53
+      ],
+      [
+        6,
+        4,
+        1
+      ],
+      [
+        11,
+        12,
+        9
+      ],
+      [
+        72,
+        71
+      ],
+      [
+        96,
+        54
+      ],
+      [
+        69,
+        98
+      ],
+      [
+        57,
+        97,
+        58,
+        77
+      ],
+      [
+        2,
+        7,
+        8,
+        46,
+        3
+      ],
+      [
+        10,
+        17,
+        13
+      ],
+      [
+        40,
+        43
+      ],
+      [
+        38,
+        37,
+        35
+      ],
+      [
+        42,
+        44,
+        41
+      ],
+      [
+        94
+      ],
+      [
+        63,
+        76,
+        85
+      ],
+      [
+        14,
+        47,
+        15,
+        16
+      ],
+      [
+        59,
+        75,
+        87
+      ],
+      [
+        99,
+        86,
+        74
+      ],
+      [
+        82,
+        52
+      ],
+      [
+        22,
+        25,
+        24
+      ],
+      [
+        23,
+        21,
+        18
+      ],
+      [
+        36,
+        39,
+        61
+      ],
+      [
+        19,
+        49,
+        20
+      ],
+      [
+        68,
+        70,
+        100
+      ],
+      [
+        80
+      ],
+      [
+        64,
+        51,
+        84
+      ],
+      [
+        65,
+        83
+      ],
+      [
+        56,
+        91
+      ],
+      [
+        81
+      ],
+      [
+        90
+      ],
+      [
+        66
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 259970.28539139108,
+      "equivalent_loss_cost_U": 27363.04794194229,
+      "quality_loss_value_U": 15832.637046318141,
+      "distance_km": 9701.556449445492,
+      "refrigeration_cost_U": 1828.8544461786266,
+      "used_vehicles": 38,
+      "minimum_quality": 0.8766925768596903,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "rc101",
+      "source_sha256": "4286456b826da8a2de263b3770e4c2ab1c56145d9cb391ade51aabc98dbbe660",
+      "geometry_sha256": "a939a385528ec731cbd83803ec5eb3943ca6122a3bb0b40e8cfdc16acba6058b",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "main_Product1",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        7,
+        3,
+        1,
+        100
+      ],
+      [
+        97,
+        58,
+        77
+      ],
+      [
+        51,
+        89
+      ],
+      [
+        42,
+        39,
+        44
+      ],
+      [
+        12,
+        78,
+        53
+      ],
+      [
+        83,
+        23,
+        21,
+        49
+      ],
+      [
+        34,
+        26,
+        32
+      ],
+      [
+        36,
+        38
+      ],
+      [
+        10,
+        17,
+        13
+      ],
+      [
+        5,
+        45,
+        73
+      ],
+      [
+        63,
+        76,
+        85
+      ],
+      [
+        59,
+        75
+      ],
+      [
+        31,
+        29,
+        30
+      ],
+      [
+        33,
+        28,
+        27
+      ],
+      [
+        86,
+        87,
+        74
+      ],
+      [
+        22,
+        20,
+        25,
+        24
+      ],
+      [
+        65,
+        82,
+        52
+      ],
+      [
+        2,
+        6,
+        8,
+        46
+      ],
+      [
+        64,
+        84
+      ],
+      [
+        96,
+        54
+      ],
+      [
+        56,
+        91
+      ],
+      [
+        14,
+        47,
+        15,
+        16
+      ],
+      [
+        92,
+        95,
+        62,
+        67
+      ],
+      [
+        19,
+        18,
+        48
+      ],
+      [
+        11,
+        9
+      ],
+      [
+        72,
+        71
+      ],
+      [
+        81,
+        37,
+        35
+      ],
+      [
+        99,
+        57
+      ],
+      [
+        41,
+        40,
+        43
+      ],
+      [
+        94,
+        50,
+        93
+      ],
+      [
+        4,
+        60
+      ],
+      [
+        88,
+        79
+      ],
+      [
+        61
+      ],
+      [
+        68
+      ],
+      [
+        55,
+        70
+      ],
+      [
+        66
+      ],
+      [
+        90
+      ],
+      [
+        80
+      ],
+      [
+        69,
+        98
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 259991.1701849773,
+      "equivalent_loss_cost_U": 27342.163148356078,
+      "quality_loss_value_U": 15339.371294091154,
+      "distance_km": 10123.749508317358,
+      "refrigeration_cost_U": 1879.0423459475392,
+      "used_vehicles": 39,
+      "minimum_quality": 0.8817753666964271,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "rc101",
+      "source_sha256": "4286456b826da8a2de263b3770e4c2ab1c56145d9cb391ade51aabc98dbbe660",
+      "geometry_sha256": "a939a385528ec731cbd83803ec5eb3943ca6122a3bb0b40e8cfdc16acba6058b",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "fast_Product2",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        51,
+        76
+      ],
+      [
+        50,
+        34,
+        32
+      ],
+      [
+        92,
+        95,
+        63,
+        85
+      ],
+      [
+        31,
+        29,
+        30,
+        26
+      ],
+      [
+        33,
+        28,
+        27
+      ],
+      [
+        84,
+        89
+      ],
+      [
+        72,
+        39,
+        44
+      ],
+      [
+        71,
+        67
+      ],
+      [
+        96,
+        54,
+        93
+      ],
+      [
+        19,
+        21,
+        20
+      ],
+      [
+        83,
+        64,
+        62
+      ],
+      [
+        9,
+        97,
+        58
+      ],
+      [
+        57,
+        25,
+        77
+      ],
+      [
+        11,
+        12,
+        73
+      ],
+      [
+        61,
+        81
+      ],
+      [
+        38,
+        37,
+        35
+      ],
+      [
+        41,
+        40,
+        43
+      ],
+      [
+        2,
+        6,
+        46,
+        3
+      ],
+      [
+        88,
+        78,
+        53
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        5,
+        45,
+        8
+      ],
+      [
+        42,
+        36
+      ],
+      [
+        22,
+        49,
+        24
+      ],
+      [
+        66,
+        56
+      ],
+      [
+        55,
+        60
+      ],
+      [
+        70,
+        100
+      ],
+      [
+        94
+      ],
+      [
+        80
+      ],
+      [
+        7,
+        79
+      ],
+      [
+        90
+      ],
+      [
+        69,
+        98
+      ],
+      [
+        91
+      ],
+      [
+        23,
+        18,
+        48
+      ],
+      [
+        59,
+        75,
+        87
+      ],
+      [
+        65,
+        82,
+        52
+      ],
+      [
+        68
+      ],
+      [
+        10,
+        17,
+        13
+      ],
+      [
+        14,
+        47,
+        15,
+        16
+      ],
+      [
+        99,
+        86,
+        74
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 256290.1695499684,
+      "equivalent_loss_cost_U": 31043.16378336496,
+      "quality_loss_value_U": 19075.89064125376,
+      "distance_km": 10087.685607315378,
+      "refrigeration_cost_U": 1879.5875347957824,
+      "used_vehicles": 39,
+      "minimum_quality": 0.8649026213767568,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  },
+  {
+    "task": {
+      "case": "rc101",
+      "source_sha256": "4286456b826da8a2de263b3770e4c2ab1c56145d9cb391ade51aabc98dbbe660",
+      "geometry_sha256": "a939a385528ec731cbd83803ec5eb3943ca6122a3bb0b40e8cfdc16acba6058b",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "fast_Product2",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        56,
+        91
+      ],
+      [
+        22,
+        20,
+        25
+      ],
+      [
+        66
+      ],
+      [
+        64,
+        51,
+        84
+      ],
+      [
+        23,
+        21
+      ],
+      [
+        34,
+        26,
+        32
+      ],
+      [
+        92,
+        95,
+        62,
+        67
+      ],
+      [
+        36,
+        39
+      ],
+      [
+        7,
+        6,
+        3
+      ],
+      [
+        5,
+        45
+      ],
+      [
+        19,
+        18,
+        49
+      ],
+      [
+        63,
+        76,
+        85
+      ],
+      [
+        57,
+        24,
+        48
+      ],
+      [
+        31,
+        28,
+        30
+      ],
+      [
+        33,
+        27,
+        29
+      ],
+      [
+        97,
+        58,
+        77
+      ],
+      [
+        61,
+        81
+      ],
+      [
+        96,
+        54
+      ],
+      [
+        82,
+        99
+      ],
+      [
+        12,
+        78,
+        53
+      ],
+      [
+        14,
+        47,
+        16,
+        73
+      ],
+      [
+        59,
+        75
+      ],
+      [
+        10,
+        17,
+        13
+      ],
+      [
+        11,
+        15,
+        9
+      ],
+      [
+        86,
+        87,
+        74
+      ],
+      [
+        38,
+        37,
+        35
+      ],
+      [
+        42,
+        44
+      ],
+      [
+        41,
+        40,
+        43
+      ],
+      [
+        2,
+        8,
+        46
+      ],
+      [
+        65,
+        83,
+        52
+      ],
+      [
+        69,
+        98
+      ],
+      [
+        50,
+        89
+      ],
+      [
+        94,
+        93
+      ],
+      [
+        90
+      ],
+      [
+        88,
+        79
+      ],
+      [
+        55,
+        60
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        70,
+        100
+      ],
+      [
+        72,
+        71
+      ],
+      [
+        68
+      ],
+      [
+        80
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 256526.16770738075,
+      "equivalent_loss_cost_U": 30807.16562595262,
+      "quality_loss_value_U": 18362.948507574005,
+      "distance_km": 10524.623979258073,
+      "refrigeration_cost_U": 1919.5931391205127,
+      "used_vehicles": 41,
+      "minimum_quality": 0.8655752182803413,
+      "independently_audited": true
+    },
+    "origin": "training-only ALNS refinement of pinned previous teacher, never validation/test",
+    "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b"
+  }
+]

@@ -1,0 +1,57 @@
+{
+  "status": "PASS_LOCAL_INDEPENDENT_RUNTIME_PANEL",
+  "rows_audited": 180,
+  "vectorized_repair_route_sets_exactly_equal": 60,
+  "precision": "highest",
+  "summary": {
+    "eager_classic": {
+      "mean_seconds": {
+        "features_s": 0.0028636304632527754,
+        "host_to_device_s": 0.0024985422108632824,
+        "forward_s": 0.5419251562125282,
+        "device_to_host_s": 0.0008106881141429767,
+        "logprob_s": 0.00029792223843590665,
+        "repair_s": 0.08303231192500486,
+        "final_independent_audit_s": 0.0016266147382945444
+      },
+      "total_mean_s": 0.6330548659025226,
+      "samples": 48,
+      "max_warm_error": 0.0
+    },
+    "compiled_classic": {
+      "mean_seconds": {
+        "features_s": 0.002465383513481356,
+        "host_to_device_s": 0.0031966627769482634,
+        "forward_s": 0.005213419664263104,
+        "device_to_host_s": 0.0006601640343433246,
+        "logprob_s": 0.00024171385545438776,
+        "repair_s": 0.06123074045657025,
+        "final_independent_audit_s": 0.0011894040944753215
+      },
+      "total_mean_s": 0.07419748839553601,
+      "samples": 48,
+      "max_warm_error": 3.910064697265625e-05
+    },
+    "compiled_vectorized": {
+      "mean_seconds": {
+        "features_s": 0.002127994186594151,
+        "host_to_device_s": 0.002713831733368958,
+        "forward_s": 0.0046708204366344335,
+        "device_to_host_s": 0.0005278484556280697,
+        "logprob_s": 0.0001918633449046562,
+        "repair_s": 0.05430700182235645,
+        "final_independent_audit_s": 0.0011516310332808644
+      },
+      "total_mean_s": 0.06569099101276758,
+      "samples": 48,
+      "max_warm_error": 3.910064697265625e-05
+    }
+  },
+  "scientific_freeze": {
+    "freeze_id": "publication_model_v1_scientific_freeze_20261021",
+    "sha256": "ad52f0fd475ebb22d187ce6dad3579f2f147a541fc7a82312941060d196692f9",
+    "files": 72
+  },
+  "formal_experiment": false,
+  "outer_test_cases_used": 0
+}

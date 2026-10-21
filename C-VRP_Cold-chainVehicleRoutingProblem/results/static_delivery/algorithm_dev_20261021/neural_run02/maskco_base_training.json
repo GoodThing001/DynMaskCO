@@ -1,0 +1,45 @@
+{
+  "parameter_count": 40256,
+  "training": [
+    {
+      "step": 1,
+      "loss": 4.628515243530273,
+      "gradient_norm": 1.009407877922058,
+      "updated_parameter_leaves": 34,
+      "training_case": "r101",
+      "training_condition": {
+        "profile": "main_Product1",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      }
+    },
+    {
+      "step": 2,
+      "loss": 4.614692211151123,
+      "gradient_norm": 0.7192466259002686,
+      "updated_parameter_leaves": 34,
+      "training_case": "r101",
+      "training_condition": {
+        "profile": "fast_Product2",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      }
+    },
+    {
+      "step": 3,
+      "loss": 4.621252059936523,
+      "gradient_norm": 0.7392136454582214,
+      "updated_parameter_leaves": 34,
+      "training_case": "r101",
+      "training_condition": {
+        "profile": "main_Product1",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      }
+    }
+  ],
+  "checkpoint_prediction_identical": true,
+  "optimizer_resume_identical": true,
+  "actual_train_steps": 3,
+  "additional_resume_verification_steps": 1
+}

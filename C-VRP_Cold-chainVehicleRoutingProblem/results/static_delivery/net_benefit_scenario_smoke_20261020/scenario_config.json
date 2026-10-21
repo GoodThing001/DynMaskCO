@@ -1,0 +1,106 @@
+{
+  "schema": "static-net-benefit-scenario-v1",
+  "status": "LITERATURE_INFORMED_NUMERICAL_HYPOTHESIS_NOT_CALIBRATED_BUSINESS_PROFIT",
+  "objective": "maximize_net_benefit_per_delivery_run_EUR",
+  "dataset": {
+    "root": "data/classic_static_sources_20261020/VRPTWQ_Solomon/instances/vrptwq_instances",
+    "author_commit": "58eadb8fe16a354b29877f402d17350ce639795d",
+    "url": "https://github.com/SelinHulagu/vrptwq-solomon-instances",
+    "customers_modified_or_generated": false,
+    "product_assignment": "single-product tomato interpretation of every existing kg demand; declared numerical scenario, not observed orders",
+    "source_original_quality_model_reproduced": false
+  },
+  "routing": {
+    "capacity_kg": 20000,
+    "speed_km_per_hour": 60,
+    "distance_EUR_per_km": 1,
+    "source": "pinned author VRPTWQ README Fleet table",
+    "max_vehicles": null,
+    "max_vehicles_rule": "required CLI parameter; experimental upper bound, not a source fleet size",
+    "departure_policy": "all used vehicles leave at depot TW_START; each vehicle has an independent clock",
+    "delivery_event": "service_completion",
+    "return_required": true,
+    "mandatory_customers": true,
+    "vehicle_fixed_cost": 0,
+    "fixed_wage_optimization_term": 0,
+    "cost_boundary": "incremental transport net benefit; fixed existing overhead excluded as a common constant; no claim of full accounting profit"
+  },
+  "temperature": {
+    "product_and_cabin_C": 4,
+    "source_role": "constant-temperature laboratory reference from tomato and mullet studies",
+    "product_equals_cabin_temperature": "explicit ideal-isothermal assumption, no heat-transfer lag or door transient simulation",
+    "tomato_min_TA_acceptance_threshold": null,
+    "tomato_acceptance_claim": "not established; TA is an indicator, not a validated saleability or safety test"
+  },
+  "refrigeration_cost_scenario": {
+    "conductivity_W_per_m_C": 0.36,
+    "surface_m2": 30,
+    "wall_m": 0.1,
+    "ambient_C": 20,
+    "coefficient_EUR_per_W_min": 0.00005,
+    "source": "pinned author VRPTWQ README Refrigeration table, numerical parameters",
+    "wall_heat_formula": "H_W=lambda*S/L*(T_ambient-T_cabin)",
+    "cost_formula": "C_refrigeration=H_W*c_e*sum(vehicle return-departure minutes)",
+    "thermal_heat_leak_W_derived": 1728,
+    "cost_EUR_per_vehicle_min_derived": 0.0864,
+    "role": "simplified steady wall-leak numerical cost using published benchmark coefficient; not the author complete VRPTWQ quality/energy model",
+    "electric_power_or_COP_claimed": false,
+    "measured_route_energy_claimed": false,
+    "includes_waiting_service_and_empty_return": true,
+    "excluded": ["door infiltration", "pull-down", "solar heat", "respiration heat", "load thermal inertia", "warehouse cost"],
+    "small_18m3_CO2_unit_used": false
+  },
+  "tomato": {
+    "initial_TA_g_per_kg_approx": 4,
+    "kinetics_source_doi": "10.3390/foods12010006",
+    "kinetics": "relative_TA=exp(-k_day(T)*elapsed_min/1440)",
+    "A_per_day": 104.58,
+    "Ea_J_per_mol": 18789.64,
+    "R_J_per_mol_K": 8.314,
+    "fresh_price_EUR_per_kg": 4.5,
+    "purchase_EUR_per_kg": 3.6,
+    "economic_source_doi": "10.1016/j.samod.2023.100020",
+    "purchase_role": "paper explicitly assumes80% of sale price;3.60 derived, not empirical procurement quote",
+    "physical_mass_loss_assumed": false,
+    "value_formula": "p(r)=p_fresh*(rho+(1-rho)*r), r=relative_TA",
+    "value_mapping_role": "NEW explicit modeling hypothesis borrowing a linear grade-value shape; neither cited paper experimentally calibrates TA-to-price",
+    "grade_value_precedent": "Li2018 thesis Chapter6 Table6.1, PDF p114, https://www.biblio.univ-evry.fr/theses/2018/2018SACLE036.pdf",
+    "rho_center": 0.36666666666666664,
+    "rho_center_derivation": "midpoint U[4,7] / midpoint U[10,20] =5.5/15; deterministic scenario, no random parameter sampling",
+    "rho_sensitivity": [
+      {"name": "li_endpoint_ratio_low", "rho": 0.2, "derivation": "4/20"},
+      {"name": "li_midpoint_ratio", "rho": 0.36666666666666664, "derivation": "5.5/15"},
+      {"name": "li_endpoint_ratio_high", "rho": 0.7, "derivation": "7/10"},
+      {"name": "flat_price_control", "rho": 1, "derivation": "no quality discount control; revenue constant"}
+    ],
+    "current_market_calibration": false
+  },
+  "mullet_quality_counterfactual": {
+    "role": "same-route single-product quality counterfactual; no mixed-product demands or monetary value assigned",
+    "doi": "10.3390/fishes9120480",
+    "initial_score_approx": 9,
+    "initial_role": "Figure6(c) approximate graph initial, not exact fitted intercept or current-batch measurement",
+    "minimum_sensory_score": 5,
+    "k_ref_points_per_day": 0.452,
+    "T_ref_C": 4,
+    "Ea_J_per_mol": 81400,
+    "R_J_per_mol_K": 8.314,
+    "price": null,
+    "safety_certification_claimed": false
+  },
+  "accounting": {
+    "formula": "net_benefit=sales_revenue-purchase_cost-distance_cost-refrigeration_cost",
+    "no_double_count_loss": "quality discount reduces revenue; do not also subtract the same loss as spoilage cost",
+    "units": {"mass": "kg", "time": "min", "distance": "km", "currency": "EUR", "thermal_power": "W"},
+    "currency_normalization_reference_EUR": 4.5,
+    "normalization_rule": "divide every monetary total by4.5EUR; ranking unchanged; not a currency exchange"
+  },
+  "limits": [
+    "This is a composite numerical hypothesis, not replication of any one paper and not author VRPTWQ algorithm reproduction.",
+    "Only original customer files; structurally impossible customer windows cause instance exclusion with proof, never repair.",
+    "Tomato TA-to-value is a declared unvalidated hypothesis and tomato marketability threshold remains unconfigured.",
+    "Refrigeration is a steady thermal cost proxy, not measured compressor electricity or a vehicle energy digital twin.",
+    "Mullet monetary profit is not computed; its sensory threshold is checked only for the same-route counterfactual.",
+    "No claim of MaskCO method gain, real profit prediction, formal statistical significance, or regulatory compliance."
+  ]
+}

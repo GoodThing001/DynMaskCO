@@ -1,0 +1,705 @@
+{
+  "schema": "workspace-organization-v1",
+  "date": "2026-10-21",
+  "status": "VERIFIED",
+  "scope": "Local directory classification only; no experiment, commit, push, or credential access",
+  "backup": "C-VRP_Cold-chainVehicleRoutingProblem/archive/workspace_organization_20261021/originals.zip",
+  "backup_sha256": "da49f840dd0513a2463924e6129cbe579fe233e57eb33d348a172ca23964a250",
+  "originals": [
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/00_项目导航.md",
+      "sha256": "fdeb37cf01f7ddaec4f8c6c2b00efb6ce7c22cd0e708e4554b7e3ae45dc80291",
+      "bytes": 2594
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/CLAUDE.md",
+      "sha256": "c9819dd2731ad3628587f773407e9ce16a6a7195fa90dd5b1222d1caffa48bca",
+      "bytes": 334
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/README.md",
+      "sha256": "fdeb37cf01f7ddaec4f8c6c2b00efb6ce7c22cd0e708e4554b7e3ae45dc80291",
+      "bytes": 2594
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/data/README.md",
+      "sha256": "99969a0aefdbb0869daba4854a2903b163dab9ba7b2ffc9b4c7c474c9a90b1f1",
+      "bytes": 563
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/data/published_cases_20261020/QDVRP_2021/README.md",
+      "sha256": "a938c10f66e4e100eb8a8ade3b378b1a17ee778fb047d02957f4854fcd19d7e6",
+      "bytes": 1674
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261021/README.md",
+      "sha256": "a2b51feee08fb3067c5fab1173f2e219b13d085640d39c6386c7b8e21d3d7606",
+      "bytes": 2300
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/docs/文档索引与版本状态.md",
+      "sha256": "5d4c3400db7e9e74e3f5fbf362cf08795ff7b36d70ca268b3ec5df3ab1cda6d0",
+      "bytes": 12202
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/README.md",
+      "sha256": "e45fad90c0a41112f47139f3123b773e07056f4e770635e12dcdd911260b85cc",
+      "bytes": 1612
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/quality_evidence_demo_20261020.json",
+      "sha256": "2ac9b2a04853c5106e42549c383c6f18cd820475f0c5644f3362951fde2f82b8",
+      "bytes": 11735
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/quality_evidence_demo_v2_20261020.json",
+      "sha256": "80edc5d248804d2392533f6d3949deaecda0532273f9935f1638967a6e874a92",
+      "bytes": 12102
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_dataset_product_review_20261020.py",
+      "sha256": "1573bc1de02a10c2461b9295a4cdc640f7704431970b77bd86eb150c90c5dc1d",
+      "bytes": 1813
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_direct_value_evidence_20261020.py",
+      "sha256": "675c244536666bdb0628e7539508f747d3f6d1b79314fd0af9294d245588a1ee",
+      "bytes": 1364
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_parameter_origins_20261020.py",
+      "sha256": "b177fcf08f5877203015222db2d8ccf515335e6d5ab57073c7f73158cd336aec",
+      "bytes": 1306
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_publication_model_evidence_20261021.py",
+      "sha256": "48e50ecb9a67b2362f61848e7153ca12c3421159c67c2bf6f14d095112900e04",
+      "bytes": 1243
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_static_evidence_20261020.py",
+      "sha256": "ff220c2656651cf5fb862d6a722d7731812f01fb9ba91a9b6da64c2602e52a55",
+      "bytes": 6518
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_static_evidence_fallback_20261020.py",
+      "sha256": "093ff9ad7bda63a24c4a0ef5895fbd7d3be5b2d872b2871fcae7e3831b5ac64d",
+      "bytes": 3515
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_static_supplement_20261020.py",
+      "sha256": "ac58c6a4c75ee3d83657c3eb1b53c4272f385053d131c2e6c01fb3d27bd708d7",
+      "bytes": 1175
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_static_vehicle_20261020.py",
+      "sha256": "988e7945c38e4548eb9a4b3330ced0615a38446518bd5a9d8e119ff1182dfabf",
+      "bytes": 618
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/build_dataset_product_review_20261020.py",
+      "sha256": "61ec54403801a92746a526b749d0abbf1441e1fa924d27baf66028fc7604c695",
+      "bytes": 12370
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/build_static_research_delivery_20261020.py",
+      "sha256": "6c23097d97a93b3878662f64137a22547df3e9c6271e285e9ef56c877633a936",
+      "bytes": 22456
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/summarize_net_benefit_scenario_20261020.py",
+      "sha256": "eb756f26ea12d1017dfe769d98b5e15402956d4467a60a9fa0a5a956f3dabcf9",
+      "bytes": 19417
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/verify_direct_value_evidence_20261020.py",
+      "sha256": "be635ea7a56235697f0aea96271cd93f60af0a37e04a851e9622cbe587ddc2f1",
+      "bytes": 5587
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/verify_parameter_origins_20261020.py",
+      "sha256": "3fcfb16832ccaa948542c853320c8847855bf3f0d2951c1f463aabff13014143",
+      "bytes": 5225
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/verify_publication_model_evidence_20261021.py",
+      "sha256": "17e433b8438adf3b3f88c12b53bb0d2e578e3e78c1bd1db6d6135ece1ed66886",
+      "bytes": 9748
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/verify_static_research_20261020.py",
+      "sha256": "1a2fe36783cce22a7a988ded97aa64695d38748b549c31234030079a24b778a4",
+      "bytes": 6234
+    },
+    {
+      "path": "CLAUDE.md",
+      "sha256": "40e42d20505c7c5a4dccec5b0bc2c12a1e6edf24d3c622f482116e6aca5867f9",
+      "bytes": 385
+    },
+    {
+      "path": "README.md",
+      "sha256": "4846932dc0af3f1ae3e7230dd326fe17fb66a0e976755a2d8cd03171442041af",
+      "bytes": 1764
+    },
+    {
+      "path": "工作区导航.md",
+      "sha256": "4846932dc0af3f1ae3e7230dd326fe17fb66a0e976755a2d8cd03171442041af",
+      "bytes": 1764
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "a8a297270c9a36f67feb7c290388910aa68450f7819fda2d30e9260a7b639cd3",
+      "bytes": 55750
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/.gitignore",
+      "sha256": "347e7f04cb180c2b88c72e56d96d342e28926cd3cfba7704b5b2c9a7cd672f64",
+      "bytes": 559
+    }
+  ],
+  "moves": [
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_dataset_product_review_20261020.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/acquire/acquire_dataset_product_review_20261020.py",
+      "original_sha256": "1573bc1de02a10c2461b9295a4cdc640f7704431970b77bd86eb150c90c5dc1d",
+      "moved_sha256": "1573bc1de02a10c2461b9295a4cdc640f7704431970b77bd86eb150c90c5dc1d",
+      "final_sha256": "1573bc1de02a10c2461b9295a4cdc640f7704431970b77bd86eb150c90c5dc1d",
+      "change": "Byte-identical relocation"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_direct_value_evidence_20261020.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/acquire/acquire_direct_value_evidence_20261020.py",
+      "original_sha256": "675c244536666bdb0628e7539508f747d3f6d1b79314fd0af9294d245588a1ee",
+      "moved_sha256": "675c244536666bdb0628e7539508f747d3f6d1b79314fd0af9294d245588a1ee",
+      "final_sha256": "675c244536666bdb0628e7539508f747d3f6d1b79314fd0af9294d245588a1ee",
+      "change": "Byte-identical relocation"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_parameter_origins_20261020.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/acquire/acquire_parameter_origins_20261020.py",
+      "original_sha256": "b177fcf08f5877203015222db2d8ccf515335e6d5ab57073c7f73158cd336aec",
+      "moved_sha256": "b177fcf08f5877203015222db2d8ccf515335e6d5ab57073c7f73158cd336aec",
+      "final_sha256": "b177fcf08f5877203015222db2d8ccf515335e6d5ab57073c7f73158cd336aec",
+      "change": "Byte-identical relocation"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_publication_model_evidence_20261021.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/acquire/acquire_publication_model_evidence_20261021.py",
+      "original_sha256": "48e50ecb9a67b2362f61848e7153ca12c3421159c67c2bf6f14d095112900e04",
+      "moved_sha256": "48e50ecb9a67b2362f61848e7153ca12c3421159c67c2bf6f14d095112900e04",
+      "final_sha256": "48e50ecb9a67b2362f61848e7153ca12c3421159c67c2bf6f14d095112900e04",
+      "change": "Byte-identical relocation"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_static_evidence_20261020.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/acquire/acquire_static_evidence_20261020.py",
+      "original_sha256": "ff220c2656651cf5fb862d6a722d7731812f01fb9ba91a9b6da64c2602e52a55",
+      "moved_sha256": "ff220c2656651cf5fb862d6a722d7731812f01fb9ba91a9b6da64c2602e52a55",
+      "final_sha256": "c95713878bf1bb179b767189a6a41f84d287f51e8b6502ea66edfcf7c6704735",
+      "change": "Path bootstrap and relocated acquisition references only"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_static_evidence_fallback_20261020.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/acquire/acquire_static_evidence_fallback_20261020.py",
+      "original_sha256": "093ff9ad7bda63a24c4a0ef5895fbd7d3be5b2d872b2871fcae7e3831b5ac64d",
+      "moved_sha256": "093ff9ad7bda63a24c4a0ef5895fbd7d3be5b2d872b2871fcae7e3831b5ac64d",
+      "final_sha256": "093ff9ad7bda63a24c4a0ef5895fbd7d3be5b2d872b2871fcae7e3831b5ac64d",
+      "change": "Byte-identical relocation"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_static_supplement_20261020.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/acquire/acquire_static_supplement_20261020.py",
+      "original_sha256": "ac58c6a4c75ee3d83657c3eb1b53c4272f385053d131c2e6c01fb3d27bd708d7",
+      "moved_sha256": "ac58c6a4c75ee3d83657c3eb1b53c4272f385053d131c2e6c01fb3d27bd708d7",
+      "final_sha256": "ac58c6a4c75ee3d83657c3eb1b53c4272f385053d131c2e6c01fb3d27bd708d7",
+      "change": "Byte-identical relocation"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_static_vehicle_20261020.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/acquire/acquire_static_vehicle_20261020.py",
+      "original_sha256": "988e7945c38e4548eb9a4b3330ced0615a38446518bd5a9d8e119ff1182dfabf",
+      "moved_sha256": "988e7945c38e4548eb9a4b3330ced0615a38446518bd5a9d8e119ff1182dfabf",
+      "final_sha256": "988e7945c38e4548eb9a4b3330ced0615a38446518bd5a9d8e119ff1182dfabf",
+      "change": "Byte-identical relocation"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/build_dataset_product_review_20261020.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/analyze/build_dataset_product_review_20261020.py",
+      "original_sha256": "61ec54403801a92746a526b749d0abbf1441e1fa924d27baf66028fc7604c695",
+      "moved_sha256": "61ec54403801a92746a526b749d0abbf1441e1fa924d27baf66028fc7604c695",
+      "final_sha256": "b2335ba1fceb1050042f9341371d11d41028913c42f3ea552db9e13e9446c918",
+      "change": "Path bootstrap and relocated acquisition references only"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/build_static_research_delivery_20261020.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/analyze/build_static_research_delivery_20261020.py",
+      "original_sha256": "6c23097d97a93b3878662f64137a22547df3e9c6271e285e9ef56c877633a936",
+      "moved_sha256": "6c23097d97a93b3878662f64137a22547df3e9c6271e285e9ef56c877633a936",
+      "final_sha256": "638ae34ea07c1a1c30f792fdc9a1f6fbd0726cc2ea96db9dc0bba6a3df9ce6b1",
+      "change": "Path bootstrap and relocated acquisition references only"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/summarize_net_benefit_scenario_20261020.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/analyze/summarize_net_benefit_scenario_20261020.py",
+      "original_sha256": "eb756f26ea12d1017dfe769d98b5e15402956d4467a60a9fa0a5a956f3dabcf9",
+      "moved_sha256": "eb756f26ea12d1017dfe769d98b5e15402956d4467a60a9fa0a5a956f3dabcf9",
+      "final_sha256": "7bfa60a7c2d4c8aafee59952b1c128bee0e6592b555883173d47b7ea83fa9e6b",
+      "change": "Path bootstrap and relocated acquisition references only"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/verify_direct_value_evidence_20261020.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/verify/verify_direct_value_evidence_20261020.py",
+      "original_sha256": "be635ea7a56235697f0aea96271cd93f60af0a37e04a851e9622cbe587ddc2f1",
+      "moved_sha256": "be635ea7a56235697f0aea96271cd93f60af0a37e04a851e9622cbe587ddc2f1",
+      "final_sha256": "4f015dba7d033d5b01f28cb8eb91334ebe7b3221cf283a1219ba511663eb33c2",
+      "change": "Path bootstrap and relocated acquisition references only"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/verify_parameter_origins_20261020.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/verify/verify_parameter_origins_20261020.py",
+      "original_sha256": "3fcfb16832ccaa948542c853320c8847855bf3f0d2951c1f463aabff13014143",
+      "moved_sha256": "3fcfb16832ccaa948542c853320c8847855bf3f0d2951c1f463aabff13014143",
+      "final_sha256": "2efe21951e3570f4b032349db4dac82aa2fb5ab864c5405341437804a2689938",
+      "change": "Path bootstrap and relocated acquisition references only"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/verify_publication_model_evidence_20261021.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/verify/verify_publication_model_evidence_20261021.py",
+      "original_sha256": "17e433b8438adf3b3f88c12b53bb0d2e578e3e78c1bd1db6d6135ece1ed66886",
+      "moved_sha256": "17e433b8438adf3b3f88c12b53bb0d2e578e3e78c1bd1db6d6135ece1ed66886",
+      "final_sha256": "f33f3cfb2a91636b8e1f816f85b55a49570fe484b9b636a54bcc975cd01e5098",
+      "change": "Path bootstrap and relocated acquisition references only"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/tools/verify_static_research_20261020.py",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/verify/verify_static_research_20261020.py",
+      "original_sha256": "1a2fe36783cce22a7a988ded97aa64695d38748b549c31234030079a24b778a4",
+      "moved_sha256": "1a2fe36783cce22a7a988ded97aa64695d38748b549c31234030079a24b778a4",
+      "final_sha256": "48c4967f099929ced13ed5a36deea1c17798bc28c860877fe19c01326ccb74ce",
+      "change": "Path bootstrap and relocated acquisition references only"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/quality_evidence_demo_20261020.json",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/history/quality_evidence_20261020/quality_evidence_demo_20261020.json",
+      "original_sha256": "2ac9b2a04853c5106e42549c383c6f18cd820475f0c5644f3362951fde2f82b8",
+      "moved_sha256": "2ac9b2a04853c5106e42549c383c6f18cd820475f0c5644f3362951fde2f82b8"
+    },
+    {
+      "source": "C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/quality_evidence_demo_v2_20261020.json",
+      "destination": "C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/history/quality_evidence_20261020/quality_evidence_demo_v2_20261020.json",
+      "original_sha256": "80edc5d248804d2392533f6d3949deaecda0532273f9935f1638967a6e874a92",
+      "moved_sha256": "80edc5d248804d2392533f6d3949deaecda0532273f9935f1638967a6e874a92"
+    }
+  ],
+  "untouched_algorithm_files": [
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/profile_runtime.py",
+      "sha256": "7c71f5e722e822c26b11537f68de4d667c25f56379293080e2daaad9dae9ac01"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/profit_core.py",
+      "sha256": "881eda2288a63800555e692d7962c4e76b6de4ded89e1f5eb22ec5a553bb7fce"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/profit_neural.py",
+      "sha256": "3e604ab1f10fff4bc35838778b6db247431faa1a417517ffa966e847c5b5e3a5"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/profit_search.py",
+      "sha256": "e33a30e72c1c53af1da1178f279a1791f4632d0f2911bc6dd406a2962c63563c"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/README.md",
+      "sha256": "389c5dc0bf4e9f95199db63ca5a64e7332406aa4f0e9ac8cbae22f4db2810a64"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/run.py",
+      "sha256": "85eb9faabe760c73b3c4ac7809d0fb1778bfcb7649598d55a41d6b0d0974df72"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/teacher_upgrade.py",
+      "sha256": "b39f95d3bc7fb9c53a0369b58b4cab33f25d37932bc5e52b18a91dcfe467b8bd"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/training_data.py",
+      "sha256": "5e72a63ba62af89ed86a9c51522ac9cfa1d31814f8d40446da02aa8f56d47d38"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_delivery/rrp_data.py",
+      "sha256": "ba45ae24fc07e7532ec7bdedd6d48b2b3ec27306e1c25fee7d9114b81c8f071e"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_delivery/rrp_evaluator.py",
+      "sha256": "01844881b00856ca95732235950ab6e208dbada0b4f3c9fd2a5874ca23c309d4"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_delivery/rrp_features.py",
+      "sha256": "9caa5c1fdbfe6773f6e0cd506bdbf582721a139d6ef75a3fa7cc10c11840c28c"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_delivery/rrp_fleet.py",
+      "sha256": "d367694d6f3ccb537373644df58fa09dec0087dab9f0565c1849b7b21fc92b32"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_delivery/rrp_fleet_search.py",
+      "sha256": "8b8583c2657704bb9c289abd5bc58cf2d9ae2cb8d08afccaba89753ffdd64c05"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_delivery/rrp_learning.py",
+      "sha256": "d6cc381bae8fd07d656d6ad2b20dc4bd002b24c57f3d118a12d4374238e7c56f"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_delivery/rrp_model.py",
+      "sha256": "442904aef153334cc0b83c3d07e54457d0690f780640b731cfbf0abc403f564a"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_delivery/rrp_reconstruct.py",
+      "sha256": "bdc059b1a148e63205c4bfe1385518a5580decd88645e2879ed9ec73025c9821"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_delivery/rrp_search.py",
+      "sha256": "e3fda92380c18fd4a5caef6fea38f6f702e608b83fc47fa281610943e342338d"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_delivery/run_rrp.py",
+      "sha256": "6379a2fd1459bff2275bc51840ada8dbfc25ae671a2e81f8ad8d8904c38eea21"
+    }
+  ],
+  "protected_metadata": [
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/research/p2_pos01c_smoke_20261019_v2/private",
+      "bytes": 0,
+      "mtime_ns": 1792390800305355200,
+      "attributes": 16
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/results/m0_scale/_bverify_pinned/MASKCO_code",
+      "bytes": 0,
+      "mtime_ns": 1790255327496729400,
+      "attributes": 1040
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/results/m0_scale/_bverify_pinned/shadow/data",
+      "bytes": 0,
+      "mtime_ns": 1790255327497729200,
+      "attributes": 1040
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/results/m0_scale/_bverify_pinned/shadow/MASKCO_code",
+      "bytes": 0,
+      "mtime_ns": 1790255272279324500,
+      "attributes": 1040
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/results/m0_scale/_bverify_pinned/shadow/results",
+      "bytes": 0,
+      "mtime_ns": 1790255327499777500,
+      "attributes": 1040
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/research/p2_c_hgeom_01_20261020/synthetic_artifacts/regression_r1/mapped/synthetic_mapping.bin",
+      "bytes": 134217728,
+      "mtime_ns": 1792460014733313800,
+      "attributes": 32
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/results/three_line_corrections_20261009/CREDENTIAL_AUTHORIZED_PROTECTED_ACCEPTANCE.json",
+      "bytes": 554,
+      "mtime_ns": 1791536808107815200,
+      "attributes": 32
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/__pycache__/d3_credential.cpython-312.pyc",
+      "bytes": 13890,
+      "mtime_ns": 1792068166300218000,
+      "attributes": 32
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/simulation/d3_credential.py",
+      "bytes": 12460,
+      "mtime_ns": 1791974865307190400,
+      "attributes": 32
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/d3_l1_exposed_secret_redaction.py",
+      "bytes": 8109,
+      "mtime_ns": 1792122361430001000,
+      "attributes": 32
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/d3_l1_v2_execution_credential.py",
+      "bytes": 9568,
+      "mtime_ns": 1792121042483597800,
+      "attributes": 32
+    },
+    {
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_fixture_validity_root_v1/freeze_tree_5273739d/scripts/simulation/d3_credential.py",
+      "bytes": 12460,
+      "mtime_ns": 1791992048638704600,
+      "attributes": 32
+    },
+    {
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/A1_D3_L1_EXPOSED_SECRET_CLEANUP.md",
+      "bytes": 13513,
+      "mtime_ns": 1792123245914570900,
+      "attributes": 32
+    },
+    {
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/l1_gates/L1_EXPOSED_SECRET_REDACTION.json",
+      "bytes": 1656,
+      "mtime_ns": 1792122367832379700,
+      "attributes": 32
+    },
+    {
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/l1_v2_execution_run/guard/execution_secret_12adf7457768bfb5.txt",
+      "bytes": 1826,
+      "mtime_ns": 1792122367828372100,
+      "attributes": 32
+    },
+    {
+      "path": "research/review_3080_20261010/d3_g0_evidence_root_v1/a1_d3_l1_prereg_root_v1/v122_evidence/run_v122/guard/execution_secret_b3e36be45ceb6bb4.txt",
+      "bytes": 1875,
+      "mtime_ns": 1792122367831376700,
+      "attributes": 32
+    },
+    {
+      "path": "research/review_3080_20261010/delivery/a1_d3_geo_masked_attribution_root_v1/freeze_tree_7b79ac57/scripts/simulation/d3_credential.py",
+      "bytes": 12460,
+      "mtime_ns": 1791974865307190400,
+      "attributes": 32
+    },
+    {
+      "path": "tools/__pycache__/scan_staged_secrets.cpython-312.pyc",
+      "bytes": 17054,
+      "mtime_ns": 1792162570361873300,
+      "attributes": 32
+    },
+    {
+      "path": "tools/scan_staged_secrets.py",
+      "bytes": 17479,
+      "mtime_ns": 1792162053143213800,
+      "attributes": 32
+    }
+  ],
+  "preservation_before": {
+    "scientific_freeze_files": 72,
+    "lock_sha256": "ad52f0fd475ebb22d187ce6dad3579f2f147a541fc7a82312941060d196692f9",
+    "archives": [
+      {
+        "path": "C-VRP_Cold-chainVehicleRoutingProblem/archive/transition_20261020/pickup_negative_key_evidence.zip",
+        "sha256": "bdf3ffb342dcb8e68e9a2addace30aa3c3619b7f24259592c32ee15c1a272d6f",
+        "bytes": 298822754
+      },
+      {
+        "path": "C-VRP_Cold-chainVehicleRoutingProblem/archive/transition_20261020/legacy_recovery_objects.zip",
+        "sha256": "9676b8b8a09d8314c6cd4acc7c24ef1c1b12e04798bb184dd099635d829167fc",
+        "bytes": 3781578872
+      }
+    ]
+  },
+  "git_status_before": " M AGENTS.md\n M C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/README.md\n M C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/method_eligibility.json\n M C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/方法适用性.md\n M C-VRP_Cold-chainVehicleRoutingProblem/data/classic_static_sources_20261020/README.md\n M C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/README.md\n M C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/导师汇报摘要.md\n M C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261020/论文参数与价值关系.md\n M C-VRP_Cold-chainVehicleRoutingProblem/docs/文档索引与版本状态.md\n M C-VRP_Cold-chainVehicleRoutingProblem/项目当前状态.md\n ? CC_Compare/MAPT_code\n?? C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/adapters/direct_value_evidence.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/adapters/net_benefit_audit.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/adapters/net_benefit_model.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/adapters/publication_model_v1.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/adapters/publication_model_v1_strict.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/adapters/run_net_benefit_scenario.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/adapters/test_direct_value_evidence.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/comparisons/static_coldchain/adapters/test_net_benefit_scenario.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/configs/static_delivery/algorithm_candidate_v0.json\n?? C-VRP_Cold-chainVehicleRoutingProblem/configs/static_delivery/direct_value_evidence_v2.json\n?? C-VRP_Cold-chainVehicleRoutingProblem/configs/static_delivery/net_benefit_scenario_v1.json\n?? C-VRP_Cold-chainVehicleRoutingProblem/configs/static_delivery/publication_experiment_freeze_v1.json\n?? C-VRP_Cold-chainVehicleRoutingProblem/configs/static_delivery/publication_model_v1.json\n?? C-VRP_Cold-chainVehicleRoutingProblem/configs/static_delivery/research_acceptance_20261021.json\n?? C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261021/\n?? C-VRP_Cold-chainVehicleRoutingProblem/research/\n?? C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/\n?? C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_static_profit.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_static_profit_repair.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_static_profit_runtime.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_static_profit_teachers.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/scripts/tests/test_static_profit_training.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_dataset_product_review_20261020.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_direct_value_evidence_20261020.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/acquire_publication_model_evidence_20261021.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/audit_and_seal_publication_protocol_v1.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/build_dataset_product_review_20261020.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/maintenance/\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/preflight_publication_model_v1.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/seal_static_profit_baseline.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/static_profit_remote.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/static_profit_windows.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/summarize_net_benefit_scenario_20261020.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/verify_direct_value_evidence_20261020.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/verify_parameter_origins_20261020.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/verify_publication_model_evidence_20261021.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/verify_static_profit_panel.py\n?? C-VRP_Cold-chainVehicleRoutingProblem/tools/verify_static_profit_training_study.py\n",
+  "removed_empty_directories": [
+    "C-VRP_Cold-chainVehicleRoutingProblem/ckpts"
+  ],
+  "documentation_changes": [
+    {
+      "path": "README.md",
+      "sha256": "7a0357aaddc666e3433264ac880e4bf340d88d96025b517477915fe7a1a5dc05",
+      "original_sha256": "4846932dc0af3f1ae3e7230dd326fe17fb66a0e976755a2d8cd03171442041af",
+      "kind": "updated_navigation"
+    },
+    {
+      "path": "工作区导航.md",
+      "sha256": "25a4241079a2c5f2fcf8962e98671d93db4c479624d35c4cd9181c3a5d420941",
+      "original_sha256": "4846932dc0af3f1ae3e7230dd326fe17fb66a0e976755a2d8cd03171442041af",
+      "kind": "updated_navigation"
+    },
+    {
+      "path": "CLAUDE.md",
+      "sha256": "a491079948d5652291f4bcb4650eae6f0e85e44f211d76818f0097c699d5f154",
+      "original_sha256": "40e42d20505c7c5a4dccec5b0bc2c12a1e6edf24d3c622f482116e6aca5867f9",
+      "kind": "updated_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/README.md",
+      "sha256": "132b003614f8f72264522695a69593c85db34e69cbfdaed98e2ee0ecb9ebf0c8",
+      "original_sha256": "fdeb37cf01f7ddaec4f8c6c2b00efb6ce7c22cd0e708e4554b7e3ae45dc80291",
+      "kind": "updated_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/00_项目导航.md",
+      "sha256": "a3ac1b6f07fd11cfc3a97d1f92ab7007ae774cdceb62ab2b82c57dee42366b53",
+      "original_sha256": "fdeb37cf01f7ddaec4f8c6c2b00efb6ce7c22cd0e708e4554b7e3ae45dc80291",
+      "kind": "updated_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/CLAUDE.md",
+      "sha256": "40d21007efd90971d73221f30d8ff5b90138d3d38d6015e83a78b5fe2cca1722",
+      "original_sha256": "c9819dd2731ad3628587f773407e9ce16a6a7195fa90dd5b1222d1caffa48bca",
+      "kind": "updated_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/scripts/README.md",
+      "sha256": "b67f197a640f80e7302d06eb2f4c021a3882132fee2e357ca884f75dfe131e9b",
+      "original_sha256": null,
+      "kind": "new_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/configs/README.md",
+      "sha256": "cf44a54a03fea345f3136905b243c9c813f670944ba3f2fa9c0eb2188e54c644",
+      "original_sha256": null,
+      "kind": "new_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/data/README.md",
+      "sha256": "3dcd4c6be95de804e7536b8dd4c6eeca5607a72c0e465ace8edd49a65ff513ea",
+      "original_sha256": "99969a0aefdbb0869daba4854a2903b163dab9ba7b2ffc9b4c7c474c9a90b1f1",
+      "kind": "updated_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/results/README.md",
+      "sha256": "83514d76bbd583f4af0c97d2f0641db8ad9948ca2eb12522e7a29a9b91a3b338",
+      "original_sha256": null,
+      "kind": "new_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/README.md",
+      "sha256": "cc34261f35cf03889a520f68cd3d5c5b02832af5c48b8ca1a19b8d4ec8b54d13",
+      "original_sha256": "e45fad90c0a41112f47139f3123b773e07056f4e770635e12dcdd911260b85cc",
+      "kind": "updated_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/archive/README.md",
+      "sha256": "691cefd76caacfc178d70af14f6ecfa16a7932b8b293f97e7d668b17cdf08ba7",
+      "original_sha256": null,
+      "kind": "new_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/archive/workspace_organization_20261021/README.md",
+      "sha256": "3e3703bdd740df2cc5c721f0b9717008a2dbf2aa872d877bc34ec5ad500f1a34",
+      "original_sha256": null,
+      "kind": "new_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/results/static_delivery/history/quality_evidence_20261020/README.md",
+      "sha256": "bd4260d1b31d24be6333177c83d9845f5173fb9bc9c6875ca84434230dee1af3",
+      "original_sha256": null,
+      "kind": "new_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/acquire/README.md",
+      "sha256": "bcb33b8c50e63ce10c5f1bdb3cbd57c22cc8aa307d4609866ea15ac45063c4ff",
+      "original_sha256": null,
+      "kind": "new_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/analyze/README.md",
+      "sha256": "af526485da76d3f8c4b77f512d544d57270fe81b57e6d7ac528e1a14fd8829cf",
+      "original_sha256": null,
+      "kind": "new_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/verify/README.md",
+      "sha256": "6ffbfc6f7f562afb1c101f1041cc0ea7c62327aa341afb711fbc05a12dd3ff20",
+      "original_sha256": null,
+      "kind": "new_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/README.md",
+      "sha256": "7d24608386c9162ad35447d7b2b779c11b6a18b9f5fac995aaddcb0b24cd2e65",
+      "original_sha256": null,
+      "kind": "new_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/evidence/README.md",
+      "sha256": "04aa5f557553316db2159672c7e8681f0e8532ad4d2f585d8a51de350a0b48f5",
+      "original_sha256": null,
+      "kind": "new_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/tools/maintenance/README.md",
+      "sha256": "a963ad2903e5d25707d4521def6db45b0160facb236ee79b501e5e33b4c5f066",
+      "original_sha256": null,
+      "kind": "new_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/results/workspace_organization_20261021/README.md",
+      "sha256": "ad5010e83de5a20217b3139ac4825787083ca9acf2313f6a59a5d513e1a79207",
+      "original_sha256": null,
+      "kind": "new_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/docs/文档索引与版本状态.md",
+      "sha256": "ebdf37de158eeff5f9895100d184290d666fbe555543a8fd99f423f7861fcabf",
+      "original_sha256": "5d4c3400db7e9e74e3f5fbf362cf08795ff7b36d70ca268b3ec5df3ab1cda6d0",
+      "kind": "updated_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/docs/static_delivery_research_20261021/README.md",
+      "sha256": "10579369183d54aeb13477ef7e9f4877f38b2d585276e93b522a2cfbf8c2cbf0",
+      "original_sha256": "a2b51feee08fb3067c5fab1173f2e219b13d085640d39c6386c7b8e21d3d7606",
+      "kind": "updated_navigation"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/data/published_cases_20261020/QDVRP_2021/README.md",
+      "sha256": "baa31213fa6cdbd79e216d6b1ef44de921b70259bbae89f2e851d2559590eccf",
+      "original_sha256": "a938c10f66e4e100eb8a8ade3b378b1a17ee778fb047d02957f4854fcd19d7e6",
+      "kind": "updated_navigation"
+    }
+  ],
+  "preservation_after": {
+    "scientific_freeze_files": 72,
+    "lock_sha256": "ad52f0fd475ebb22d187ce6dad3579f2f147a541fc7a82312941060d196692f9",
+    "original_rrp_files": 61,
+    "original_solomon_files": 56,
+    "author_originals_in_scientific_freeze": 56,
+    "archives": [
+      {
+        "path": "C-VRP_Cold-chainVehicleRoutingProblem/archive/transition_20261020/pickup_negative_key_evidence.zip",
+        "sha256": "bdf3ffb342dcb8e68e9a2addace30aa3c3619b7f24259592c32ee15c1a272d6f",
+        "bytes": 298822754
+      },
+      {
+        "path": "C-VRP_Cold-chainVehicleRoutingProblem/archive/transition_20261020/legacy_recovery_objects.zip",
+        "sha256": "9676b8b8a09d8314c6cd4acc7c24ef1c1b12e04798bb184dd099635d829167fc",
+        "bytes": 3781578872
+      }
+    ]
+  },
+  "verification": {
+    "moved_files": 17,
+    "backed_up_originals": 30,
+    "protected_records": 19,
+    "untouched_algorithm_files": 18,
+    "syntax_checked": 15,
+    "local_document_links_checked": 261,
+    "historical_result_bytes_unchanged": true,
+    "credentials_read": false,
+    "git_commit_or_push": false,
+    "scoped_diff_check": "PASS_with_cr_at_eol_for_Windows",
+    "recovered_acquisition_manifest_matches_preexisting_git_version": true
+  },
+  "backup_extensions": [
+    {
+      "previous_sha256": "a11b8f35dced3fa838462ce10861665281b39765c370e073d2cd56ea9d8d4b8b",
+      "reason": "Back up two ignore files before allowing relocated versioned results and navigation"
+    }
+  ],
+  "configuration_changes": [
+    {
+      "path": ".gitignore",
+      "sha256": "a89795404be22879dd6a80e8b9fb41f6896039657af79d6dccb937c19d6ed38b",
+      "purpose": "Only allow new navigation and relocated small evidence, not archives or private data"
+    },
+    {
+      "path": "C-VRP_Cold-chainVehicleRoutingProblem/.gitignore",
+      "sha256": "27a8b5816b09954d10074efd00bf9d0032c76f12da01947fcbeea5c6f63a4b8d",
+      "purpose": "Only allow new navigation and relocated small evidence, not archives or private data"
+    }
+  ],
+  "verification_receipts": {
+    "safe_tool_verification": "safe_tool_verification.json",
+    "initial_import_probe_recovery": "import_verification.json",
+    "current_cli_help_loaded": true
+  }
+}

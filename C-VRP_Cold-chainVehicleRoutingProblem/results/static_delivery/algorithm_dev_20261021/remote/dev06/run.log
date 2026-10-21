@@ -1,0 +1,32 @@
+2026-10-21 11:39:44.238276: W external/xla/xla/service/gpu/autotuning/dot_search_space.cc:200] All configs were filtered out because none of them sufficiently match the hints. Maybe the hints set does not contain a good representative set of valid configs?Working around this by using the full hints set instead.
+2026-10-21 11:39:53.591522: W external/xla/xla/service/gpu/autotuning/dot_search_space.cc:200] All configs were filtered out because none of them sufficiently match the hints. Maybe the hints set does not contain a good representative set of valid configs?Working around this by using the full hints set instead.
+2026-10-21 11:39:59.755375: W external/xla/xla/service/gpu/autotuning/dot_search_space.cc:200] All configs were filtered out because none of them sufficiently match the hints. Maybe the hints set does not contain a good representative set of valid configs?Working around this by using the full hints set instead.
+2026-10-21 11:40:10.464858: W external/xla/xla/service/gpu/autotuning/dot_search_space.cc:200] All configs were filtered out because none of them sufficiently match the hints. Maybe the hints set does not contain a good representative set of valid configs?Working around this by using the full hints set instead.
+2026-10-21 11:40:20.806102: W external/xla/xla/service/gpu/autotuning/dot_search_space.cc:200] All configs were filtered out because none of them sufficiently match the hints. Maybe the hints set does not contain a good representative set of valid configs?Working around this by using the full hints set instead.
+2026-10-21 11:40:20.806307: W external/xla/xla/service/gpu/autotuning/dot_search_space.cc:200] All configs were filtered out because none of them sufficiently match the hints. Maybe the hints set does not contain a good representative set of valid configs?Working around this by using the full hints set instead.
+2026-10-21 11:40:20.806357: W external/xla/xla/service/gpu/autotuning/dot_search_space.cc:200] All configs were filtered out because none of them sufficiently match the hints. Maybe the hints set does not contain a good representative set of valid configs?Working around this by using the full hints set instead.
+2026-10-21 11:40:20.806398: W external/xla/xla/service/gpu/autotuning/dot_search_space.cc:200] All configs were filtered out because none of them sufficiently match the hints. Maybe the hints set does not contain a good representative set of valid configs?Working around this by using the full hints set instead.
+2026-10-21 11:40:20.806436: W external/xla/xla/service/gpu/autotuning/dot_search_space.cc:200] All configs were filtered out because none of them sufficiently match the hints. Maybe the hints set does not contain a good representative set of valid configs?Working around this by using the full hints set instead.
+2026-10-21 11:40:20.806474: W external/xla/xla/service/gpu/autotuning/dot_search_space.cc:200] All configs were filtered out because none of them sufficiently match the hints. Maybe the hints set does not contain a good representative set of valid configs?Working around this by using the full hints set instead.
+2026-10-21 11:40:20.806510: W external/xla/xla/service/gpu/autotuning/dot_search_space.cc:200] All configs were filtered out because none of them sufficiently match the hints. Maybe the hints set does not contain a good representative set of valid configs?Working around this by using the full hints set instead.
+Traceback (most recent call last):
+  File "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_profit_20261021/dev06/workspace/C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/profile_runtime.py", line 141, in <module>
+    main()
+  File "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_profit_20261021/dev06/workspace/C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/profile_runtime.py", line 57, in main
+    np.testing.assert_allclose(actual,reference,rtol=3e-4,atol=3e-4)
+  File "/home/hzeng/envs/MASKCO_env/lib/python3.10/site-packages/numpy/testing/_private/utils.py", line 1715, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+  File "/home/hzeng/envs/MASKCO_env/lib/python3.10/site-packages/numpy/testing/_private/utils.py", line 921, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=0.0003, atol=0.0003
+
+Mismatched elements: 350 / 10201 (3.43%)
+Max absolute difference among violations: 0.00882626
+Max relative difference among violations: 0.0009025
+ ACTUAL: array([[-1.701412e+38,  1.608986e+01,  1.533068e+01, ...,  1.612866e+01,
+         1.608018e+01,  1.614478e+01],
+       [ 1.608986e+01, -1.701412e+38,  1.545912e+01, ...,  1.601816e+01,...
+ DESIRED: array([[-1.701412e+38,  1.609093e+01,  1.533130e+01, ...,  1.613015e+01,
+         1.608172e+01,  1.614540e+01],
+       [ 1.609093e+01, -1.701412e+38,  1.546054e+01, ...,  1.601888e+01,...

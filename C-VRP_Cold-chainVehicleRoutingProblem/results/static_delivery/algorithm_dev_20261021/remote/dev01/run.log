@@ -1,0 +1,16 @@
+{"variant": "maskco_base", "step": 1, "loss": 4.605055332183838, "gradient_norm": 0.10050105303525925, "updated_parameter_leaves": 234, "training_case": "r101", "training_condition": {"profile": "main_Product1", "minimum_quality": 0.8, "value_multiplier": 1}}
+{"variant": "maskco_base", "step": 2, "loss": 4.601849555969238, "gradient_norm": 0.11339094489812851, "updated_parameter_leaves": 234, "training_case": "r101", "training_condition": {"profile": "fast_Product2", "minimum_quality": 0.85, "value_multiplier": 1}}
+{"variant": "maskco_base", "step": 3, "loss": 4.591951370239258, "gradient_norm": 0.24689936637878418, "updated_parameter_leaves": 234, "training_case": "r101", "training_condition": {"profile": "main_Product1", "minimum_quality": 0.8, "value_multiplier": 1}}
+{"variant": "quality_directed", "step": 1, "loss": 4.615069389343262, "gradient_norm": 2.5894148349761963, "updated_parameter_leaves": 236, "training_case": "r101", "training_condition": {"profile": "main_Product1", "minimum_quality": 0.8, "value_multiplier": 1}}
+{"variant": "quality_directed", "step": 2, "loss": 4.462285995483398, "gradient_norm": 2.83941388130188, "updated_parameter_leaves": 236, "training_case": "r101", "training_condition": {"profile": "fast_Product2", "minimum_quality": 0.85, "value_multiplier": 1}}
+{"variant": "quality_directed", "step": 3, "loss": 4.300886154174805, "gradient_norm": 4.020215034484863, "updated_parameter_leaves": 236, "training_case": "r101", "training_condition": {"profile": "main_Product1", "minimum_quality": 0.8, "value_multiplier": 1}}
+{"variant": "maskco_base", "search_final": {"net_benefit_U": 216402.0679758818, "equivalent_loss_cost_U": 26597.9320241182, "quality_loss_value_U": 13337.30467248984, "distance_km": 10972.51816678504, "refrigeration_cost_U": 2288.1091848433407, "used_vehicles": 47, "minimum_quality": 0.823978, "independently_audited": true}}
+{"variant": "quality_directed", "search_final": {"net_benefit_U": 215885.25637185466, "equivalent_loss_cost_U": 27114.74362814534, "quality_loss_value_U": 14114.953784463694, "distance_km": 10701.79630744081, "refrigeration_cost_U": 2297.993536240842, "used_vehicles": 45, "minimum_quality": 0.8176060249236133, "independently_audited": true}}
+Traceback (most recent call last):
+  File "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_profit_20261021/dev01/workspace/C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/run.py", line 173, in <module>
+    main()
+  File "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_profit_20261021/dev01/workspace/C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/run.py", line 154, in main
+    searches[method] = (vns_search if method=='vns' else alns_search)(current,
+  File "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/static_profit_20261021/dev01/workspace/C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/profit_search.py", line 173, in alns_search
+    from alns import ALNS
+ModuleNotFoundError: No module named 'alns'

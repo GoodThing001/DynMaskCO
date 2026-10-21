@@ -1,0 +1,492 @@
+{
+  "status": "UNRESOLVED_SOURCE_CONVENTIONS_REMAIN",
+  "not_full_author_algorithm_reproduction": true,
+  "wait_mapping_correction_supersedes_prior_audit_counts": true,
+  "profiles": {
+    "paper": {
+      "audited": 30,
+      "feasible": 25,
+      "failures": [
+        {
+          "instance": "D1-n34-np33",
+          "errors": [
+            "tour_horizon"
+          ]
+        },
+        {
+          "instance": "D1-n9-np32",
+          "errors": [
+            "invalid_waits"
+          ]
+        },
+        {
+          "instance": "D2-n12-np33",
+          "errors": [
+            "fixed_depot_start"
+          ]
+        },
+        {
+          "instance": "D2-n13-np24",
+          "errors": [
+            "fixed_depot_start"
+          ]
+        },
+        {
+          "instance": "D2-n34-np33",
+          "errors": [
+            "tour_horizon"
+          ]
+        }
+      ]
+    },
+    "archive_compatibility": {
+      "audited": 30,
+      "feasible": 28,
+      "failures": [
+        {
+          "instance": "D1-n34-np33",
+          "errors": [
+            "tour_horizon"
+          ]
+        },
+        {
+          "instance": "D1-n9-np32",
+          "errors": [
+            "invalid_waits"
+          ]
+        }
+      ]
+    },
+    "archive_pre_service": {
+      "audited": 30,
+      "feasible": 26,
+      "failures": [
+        {
+          "instance": "D1-n34-np33",
+          "errors": [
+            "tour_horizon"
+          ]
+        },
+        {
+          "instance": "D1-n9-np32",
+          "errors": [
+            "invalid_waits"
+          ]
+        },
+        {
+          "instance": "D2-n12-np33",
+          "errors": [
+            "fixed_depot_start"
+          ]
+        },
+        {
+          "instance": "D2-n13-np24",
+          "errors": [
+            "fixed_depot_start"
+          ]
+        }
+      ]
+    }
+  },
+  "rows": [
+    {
+      "instance": "D1-n10-np27",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 6.578888860531151e-05,
+        "transmission": 0.00046579695845139213,
+        "infiltration": 0.00017598941212781938,
+        "driver": 0.0003999999989900971,
+        "total": 0.001107575255446136
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D1-n11-np30",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": -0.0004720888828160241,
+        "transmission": 0.0001677633654253441,
+        "infiltration": -0.0001846681684583018,
+        "driver": -0.0004000000008090865,
+        "total": -0.0008889936943887733
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D1-n12-np33",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": -0.00036385556450113654,
+        "transmission": -0.00018650247147888876,
+        "infiltration": 0.0004016660568595398,
+        "driver": -0.0004000000008090865,
+        "total": -0.0005486919762915932
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D1-n13-np24",
+      "reference_wait_convention": "departure_position_wait",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": -0.000324733329762239,
+        "transmission": 0.00041571437168386183,
+        "infiltration": -0.00042780313970069983,
+        "driver": 0.00020000000040454324,
+        "total": -0.00013682209828402847
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D1-n14-np26",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 0.0004816444416064769,
+        "transmission": 0.0001344216825600597,
+        "infiltration": -0.0001808683227864094,
+        "driver": 0.00020000000040454324,
+        "total": 0.0006351978008751757
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D1-n15-np28",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": -0.00041491111915092915,
+        "transmission": -0.00024221184321504552,
+        "infiltration": 4.231636194163002e-05,
+        "driver": 0.0,
+        "total": -0.0006148065949673764
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D1-n16-np30",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": -0.00019505556701915339,
+        "transmission": 0.00019035815876122797,
+        "infiltration": 2.4192631826736033e-05,
+        "driver": -0.0004000000008090865,
+        "total": -0.00038050477451179177
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D1-n17-np32",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": -0.00049326667067362,
+        "transmission": -2.9515839742089156e-05,
+        "infiltration": 0.0004428573138284264,
+        "driver": -0.0004000000008090865,
+        "total": -0.0004799251983058639
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D1-n34-np33",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": false,
+      "cost_residual_eur_year": {},
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D1-n4-np33",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": -0.04270692222780781,
+        "transmission": -0.0008197924639716803,
+        "infiltration": 0.0006484457480837591,
+        "refrigeration": -0.0001713467154331738,
+        "driver": 0.011000000000422006,
+        "total": -0.03187826894281898
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D1-n5-np32",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 0.025709088884468656,
+        "refrigeration": -0.003689542904794507,
+        "driver": 0.0010000000002037268,
+        "total": 0.03301954598282464
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D1-n6-np30",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 0.03961145554785617,
+        "refrigeration": 0.0038350910872395616,
+        "driver": 0.002200000000811997,
+        "total": 0.025646546637290157
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D1-n7-np30",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": -0.013148766673111822,
+        "refrigeration": 0.002090980767206929,
+        "driver": -0.0006000000012136297,
+        "total": 0.048342214089643676
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D1-n8-np28",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": -0.02880336667294614,
+        "refrigeration": -0.0024800491255518864,
+        "driver": 0.049399999999877764,
+        "total": -0.001883415796328336
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D1-n9-np32",
+      "reference_wait_convention": "incomplete_or_unresolved",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": false,
+      "cost_residual_eur_year": {},
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D2-n10-np27",
+      "reference_wait_convention": "departure_position_wait",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 467.2572026666603,
+        "transmission": -68.7594362441896,
+        "infiltration": 0.00040012889530771645,
+        "total": 398.4981665513624
+      },
+      "speed_mismatches": [
+        {
+          "route_position": 5,
+          "departure_difference_s": -0.285714285717404,
+          "calculated_speed_kmph": 70.0,
+          "saved_speed_kmph": 50.0
+        }
+      ]
+    },
+    {
+      "instance": "D2-n11-np30",
+      "reference_wait_convention": "departure_position_wait",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 1016.6701741333309,
+        "transmission": 117.88653146630713,
+        "infiltration": -3.307226415927289e-05,
+        "total": 1134.5566725273748
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D2-n12-np33",
+      "reference_wait_convention": "departure_position_wait",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 0.40481759999966016,
+        "transmission": 0.11916713829805303,
+        "infiltration": 0.000240021469835483,
+        "total": 0.524224759763456
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D2-n13-np24",
+      "reference_wait_convention": "departure_position_wait",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 661.5194095999977,
+        "transmission": 86.14167959692622,
+        "infiltration": -9.496147777099395e-05,
+        "total": 747.660994235448
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D2-n14-np26",
+      "reference_wait_convention": "departure_position_wait",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 831.4196701333349,
+        "transmission": 115.19601373139085,
+        "infiltration": -0.00019549676744645694,
+        "total": 946.6154883679555
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D2-n15-np28",
+      "reference_wait_convention": "departure_position_wait",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 622.248498333327,
+        "transmission": 55.977299502565074,
+        "infiltration": -2.803375321466774,
+        "total": 675.422422514428
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D2-n16-np30",
+      "reference_wait_convention": "departure_position_wait",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 1625.219962333329,
+        "transmission": 66.04867281413226,
+        "infiltration": -3.5254042166343424,
+        "total": 1687.7432309308278
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D2-n17-np32",
+      "reference_wait_convention": "departure_position_wait",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 671.9078778666662,
+        "transmission": -48.51999323802829,
+        "infiltration": -17.975229377687356,
+        "total": 605.4126552509551
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D2-n34-np33",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 0.30417406665947055,
+        "transmission": 0.09482713899251394,
+        "infiltration": 0.00043928158265771344,
+        "total": 0.3994404872209998
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D2-n4-np33",
+      "reference_wait_convention": "incoming_arc_slack",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_pre_service",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 0.027845733326103073,
+        "refrigeration": -0.0037546664771070937,
+        "total": -0.0059089331480208784
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D2-n5-np32",
+      "reference_wait_convention": "incoming_arc_slack",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_pre_service",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": -0.03649820000282489,
+        "refrigeration": -0.0021046266028861282,
+        "total": -0.038602826607530005
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D2-n6-np30",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 0.010552533327427227,
+        "refrigeration": -0.003906602048118657,
+        "total": 0.03664593127905391
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D2-n7-np30",
+      "reference_wait_convention": "incoming_arc_slack",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_pre_service",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 0.020956733333150623,
+        "refrigeration": -0.0020792055738638737,
+        "total": -0.011122472242277581
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D2-n8-np28",
+      "reference_wait_convention": "zero_wait_equivalent",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": -0.04391559999930905,
+        "refrigeration": -0.0006324924097498297,
+        "total": -0.044548092409968376
+      },
+      "speed_mismatches": []
+    },
+    {
+      "instance": "D2-n9-np32",
+      "reference_wait_convention": "departure_position_wait",
+      "diagnostic_chosen_by_serialization_not_cost": "archive_compatibility",
+      "feasible": true,
+      "cost_residual_eur_year": {
+        "traction": 847.1703611333287,
+        "transmission": -124.54768043387185,
+        "infiltration": -2.5738149361131946e-05,
+        "total": 722.6226549613057
+      },
+      "speed_mismatches": [
+        {
+          "route_position": 7,
+          "departure_difference_s": -0.142857142855064,
+          "calculated_speed_kmph": 70.0,
+          "saved_speed_kmph": 50.0
+        }
+      ]
+    }
+  ]
+}

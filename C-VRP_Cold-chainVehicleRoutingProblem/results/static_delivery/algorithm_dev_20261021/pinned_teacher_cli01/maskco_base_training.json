@@ -1,0 +1,33 @@
+{
+  "parameter_count": 40256,
+  "training": [
+    {
+      "step": 1,
+      "loss": 4.611123561859131,
+      "gradient_norm": 0.4545379877090454,
+      "updated_parameter_leaves": 34,
+      "training_case": "r101",
+      "training_condition": {
+        "profile": "slow_Product3",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      }
+    },
+    {
+      "step": 2,
+      "loss": 4.603143215179443,
+      "gradient_norm": 0.8362503051757812,
+      "updated_parameter_leaves": 34,
+      "training_case": "r101",
+      "training_condition": {
+        "profile": "fast_Product2",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      }
+    }
+  ],
+  "checkpoint_prediction_identical": true,
+  "optimizer_resume_identical": true,
+  "actual_train_steps": 2,
+  "additional_resume_verification_steps": 1
+}

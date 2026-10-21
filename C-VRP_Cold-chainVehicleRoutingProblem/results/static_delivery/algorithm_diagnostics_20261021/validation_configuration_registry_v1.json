@@ -1,0 +1,170 @@
+{
+  "stage": "DIAGNOSTIC_SIX_SETTINGS_PER_PARENT_METHOD_LAUNCHED",
+  "cap": 12,
+  "historical_ledger": "historical_validation_budget_v2.json",
+  "historical_ledger_sha256": "4dbfb9f521d855ee497e2cb6487300817118398fe23c3de57c80817384bc67a4",
+  "historical_counts": {
+    "0": {
+      "maskco_base": 4,
+      "directed_only": 4,
+      "quality_only": 2,
+      "quality_directed": 2,
+      "alns": 3,
+      "vns": 3
+    },
+    "1": {
+      "maskco_base": 0,
+      "directed_only": 0,
+      "quality_only": 0,
+      "quality_directed": 0,
+      "alns": 0,
+      "vns": 0
+    },
+    "2": {
+      "maskco_base": 0,
+      "directed_only": 0,
+      "quality_only": 0,
+      "quality_directed": 0,
+      "alns": 0,
+      "vns": 0
+    },
+    "3": {
+      "maskco_base": 0,
+      "directed_only": 0,
+      "quality_only": 0,
+      "quality_directed": 0,
+      "alns": 0,
+      "vns": 0
+    }
+  },
+  "reserved_or_spent_fold0": {
+    "maskco_base": 10,
+    "directed_only": 10,
+    "quality_only": 2,
+    "quality_directed": 2,
+    "alns": 3,
+    "vns": 3
+  },
+  "remaining_fold0": {
+    "maskco_base": 2,
+    "directed_only": 2,
+    "quality_only": 10,
+    "quality_directed": 10,
+    "alns": 9,
+    "vns": 9
+  },
+  "diagnostic_settings": [
+    {
+      "method": "maskco_base",
+      "arm": "trained_top8",
+      "remove_count": 10,
+      "registration": "neural_contribution_fold0_v1",
+      "run": "dev11"
+    },
+    {
+      "method": "maskco_base",
+      "arm": "shuffled_top8",
+      "remove_count": 10,
+      "registration": "neural_contribution_fold0_v1",
+      "run": "dev11"
+    },
+    {
+      "method": "maskco_base",
+      "arm": "untrained_top8",
+      "remove_count": 10,
+      "registration": "neural_contribution_fold0_v1",
+      "run": "dev11"
+    },
+    {
+      "method": "maskco_base",
+      "arm": "uniform_top8",
+      "remove_count": 10,
+      "registration": "neural_contribution_fold0_v1",
+      "run": "dev11"
+    },
+    {
+      "method": "maskco_base",
+      "arm": "exhaustive",
+      "remove_count": 10,
+      "registration": "neural_contribution_fold0_v1",
+      "run": "dev11"
+    },
+    {
+      "method": "maskco_base",
+      "arm": "trained_top8",
+      "remove_count": 20,
+      "registration": "neural_contribution_fold0_v1",
+      "run": "dev11"
+    },
+    {
+      "method": "directed_only",
+      "arm": "trained_top8",
+      "remove_count": 10,
+      "registration": "neural_contribution_fold0_v1",
+      "run": "dev11"
+    },
+    {
+      "method": "directed_only",
+      "arm": "shuffled_top8",
+      "remove_count": 10,
+      "registration": "neural_contribution_fold0_v1",
+      "run": "dev11"
+    },
+    {
+      "method": "directed_only",
+      "arm": "untrained_top8",
+      "remove_count": 10,
+      "registration": "neural_contribution_fold0_v1",
+      "run": "dev11"
+    },
+    {
+      "method": "directed_only",
+      "arm": "uniform_top8",
+      "remove_count": 10,
+      "registration": "neural_contribution_fold0_v1",
+      "run": "dev11"
+    },
+    {
+      "method": "directed_only",
+      "arm": "exhaustive",
+      "remove_count": 10,
+      "registration": "neural_contribution_fold0_v1",
+      "run": "dev11"
+    },
+    {
+      "method": "directed_only",
+      "arm": "trained_top8",
+      "remove_count": 20,
+      "registration": "neural_contribution_fold0_v1",
+      "run": "dev11"
+    }
+  ],
+  "rule": "Six diagnostic settings are charged to each existing parent method on launch. Do not refund failed/negative arms. Train-only profiling and train-only timing proof do not consume validation configurations. Different scenarios/checkpoints may not be hidden as repeats.",
+  "other_folds": {
+    "1": {
+      "maskco_base": 12,
+      "directed_only": 12,
+      "quality_only": 12,
+      "quality_directed": 12,
+      "alns": 12,
+      "vns": 12
+    },
+    "2": {
+      "maskco_base": 12,
+      "directed_only": 12,
+      "quality_only": 12,
+      "quality_directed": 12,
+      "alns": 12,
+      "vns": 12
+    },
+    "3": {
+      "maskco_base": 12,
+      "directed_only": 12,
+      "quality_only": 12,
+      "quality_directed": 12,
+      "alns": 12,
+      "vns": 12
+    }
+  },
+  "recorded_at": "2026-10-21T08:40:19.736018+00:00"
+}

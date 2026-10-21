@@ -1,0 +1,57 @@
+{
+  "status": "PASS_LOCAL_INDEPENDENT_GPU_SMOKE_REEVALUATION",
+  "scientific_freeze": {
+    "freeze_id": "publication_model_v1_scientific_freeze_20261021",
+    "sha256": "ad52f0fd475ebb22d187ce6dad3579f2f147a541fc7a82312941060d196692f9",
+    "files": 72
+  },
+  "rows": [
+    {
+      "method": "maskco_base",
+      "net_benefit_U": 216402.0679758818,
+      "equivalent_loss_cost_U": 26597.9320241182,
+      "quality_loss_value_U": 13337.30467248984,
+      "distance_km": 10972.51816678504,
+      "refrigeration_cost_U": 2288.1091848433407,
+      "used_vehicles": 47,
+      "minimum_quality": 0.823978,
+      "independently_audited": true
+    },
+    {
+      "method": "quality_directed",
+      "net_benefit_U": 216063.00786381908,
+      "equivalent_loss_cost_U": 26936.992136180925,
+      "quality_loss_value_U": 14194.701409045403,
+      "distance_km": 10463.691505289,
+      "refrigeration_cost_U": 2278.5992218465403,
+      "used_vehicles": 43,
+      "minimum_quality": 0.8176060249236133,
+      "independently_audited": true
+    },
+    {
+      "method": "alns",
+      "net_benefit_U": 217363.902004913,
+      "equivalent_loss_cost_U": 25636.09799508701,
+      "quality_loss_value_U": 14143.154647067087,
+      "distance_km": 9383.207927209261,
+      "refrigeration_cost_U": 2109.735420810668,
+      "used_vehicles": 37,
+      "minimum_quality": 0.8382926350393585,
+      "independently_audited": true
+    },
+    {
+      "method": "vns",
+      "net_benefit_U": 215369.68441645557,
+      "equivalent_loss_cost_U": 27630.315583544434,
+      "quality_loss_value_U": 15811.707715955694,
+      "distance_km": 9593.251867838982,
+      "refrigeration_cost_U": 2225.3559997497646,
+      "used_vehicles": 36,
+      "minimum_quality": 0.8176060249236133,
+      "independently_audited": true
+    }
+  ],
+  "outer_test_cases_used": 0,
+  "formal_experiment": false,
+  "superiority_established": false
+}

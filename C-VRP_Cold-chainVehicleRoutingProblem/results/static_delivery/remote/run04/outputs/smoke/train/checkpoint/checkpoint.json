@@ -1,0 +1,44 @@
+{
+  "model": {
+    "profile": "maskco_256",
+    "seed": 888
+  },
+  "feature_schema": "rrp-global-source-conditions-v1",
+  "steps": 3,
+  "source_protocol_sha256": "59a73ac15b0861f8840cafc6f69e4c606fc2d145ee4f005eabb3f7b455b5ee16",
+  "learning_rate": 0.001,
+  "weight_decay": 0.01,
+  "metadata": {
+    "identity": {
+      "author_commit": "f5c5317a5ecd8fe64df779e79bd0397904bc0f9e",
+      "python": "3.10.19",
+      "protocol_sha256": "59a73ac15b0861f8840cafc6f69e4c606fc2d145ee4f005eabb3f7b455b5ee16",
+      "native_sources": {
+        "rrp_learning.py": "858c529aa895f3aa24c4ab36a5c132de54a9e6318c4931ef1a8e0dba50b7bb22",
+        "rrp_search.py": "40ab5c662c67a88c742a37a074f16e31eaeb87f8ff453c8ec1d4eeacb65ded66",
+        "rrp_model.py": "442904aef153334cc0b83c3d07e54457d0690f780640b731cfbf0abc403f564a",
+        "rrp_evaluator.py": "edbf60671fc481eb18529cdf8e9770feb8eae10b6a4feaf9d41c40d51d793a60",
+        "rrp_reconstruct.py": "526c94a4aa3bdb49180f65ba3c77f17f90ca734016c1f184b6864416dd1803cb",
+        "rrp_data.py": "c1a25a5f60ce27ae3c1dd4bdafa63d9e2202820fae53100ae84ca8b3fec01b79",
+        "rrp_features.py": "f449c0ae7df521b56bc1dd0d291d15c15f969095c99ab631b7c1cf1c064a0193",
+        "run_rrp.py": "e1ce678bd155dc6dbad9459269e6db1ebb7277cd2db4dab5e4636559a64e84a9"
+      }
+    },
+    "training_cases": [
+      "D1-n4-np33"
+    ],
+    "source_sha256": {
+      "D1-n4-np33": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1"
+    },
+    "objective": "with_wage",
+    "profile": "paper",
+    "split": null,
+    "scope": "functional_smoke_only",
+    "optimizer": "AdamW adaptation; not original MaskCO Muon",
+    "loss": "masked_successor_CE_plus_log1p_wait_MSE_equal_weight_design_choice"
+  },
+  "files": {
+    "weights.npz": "69d522d18043f268de0d9f9e6eea2d53a3dcfcb496f6c46dfc46768b2c5ae8f8",
+    "optimizer.npz": "4b29151561f080313104263c4e2bc4c14eeea411e940fde81d88860cbb973bb0"
+  }
+}

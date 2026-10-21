@@ -1,0 +1,416 @@
+[
+  {
+    "task": {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "main_Product1",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        53,
+        58
+      ],
+      [
+        27,
+        69,
+        1,
+        70
+      ],
+      [
+        28,
+        40,
+        80
+      ],
+      [
+        93
+      ],
+      [
+        6,
+        96,
+        100
+      ],
+      [
+        26,
+        74,
+        25
+      ],
+      [
+        18,
+        60
+      ],
+      [
+        94,
+        97,
+        91
+      ],
+      [
+        95,
+        99,
+        85,
+        37,
+        17
+      ],
+      [
+        12,
+        76,
+        77
+      ],
+      [
+        50,
+        68
+      ],
+      [
+        88,
+        10,
+        32,
+        48
+      ],
+      [
+        59,
+        98,
+        61,
+        84,
+        46
+      ],
+      [
+        2,
+        57,
+        43
+      ],
+      [
+        21,
+        73,
+        22,
+        56,
+        4
+      ],
+      [
+        87,
+        54,
+        24
+      ],
+      [
+        92,
+        42,
+        15,
+        41,
+        55
+      ],
+      [
+        5,
+        83,
+        8,
+        20
+      ],
+      [
+        7,
+        49
+      ],
+      [
+        72,
+        75,
+        34
+      ],
+      [
+        82,
+        19,
+        90,
+        66
+      ],
+      [
+        31,
+        71,
+        78
+      ],
+      [
+        30,
+        51
+      ],
+      [
+        62,
+        11
+      ],
+      [
+        16,
+        86
+      ],
+      [
+        45,
+        47,
+        9
+      ],
+      [
+        44,
+        38
+      ],
+      [
+        14,
+        23,
+        67
+      ],
+      [
+        39
+      ],
+      [
+        63,
+        64
+      ],
+      [
+        36
+      ],
+      [
+        65
+      ],
+      [
+        89
+      ],
+      [
+        13
+      ],
+      [
+        79,
+        3,
+        35
+      ],
+      [
+        33,
+        29,
+        81
+      ],
+      [
+        52
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 216302.7400472804,
+      "equivalent_loss_cost_U": 26697.259952719614,
+      "quality_loss_value_U": 14983.495459333317,
+      "distance_km": 9537.850124511859,
+      "refrigeration_cost_U": 2175.914368874464,
+      "used_vehicles": 37,
+      "minimum_quality": 0.8176060249236133,
+      "independently_audited": true
+    },
+    "origin": "online exact-objective VNS from shared NN on training source only"
+  },
+  {
+    "task": {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "fast_Product2",
+        "minimum_quality": 0.85,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "routes": [
+      [
+        53,
+        26,
+        80
+      ],
+      [
+        27,
+        69,
+        50
+      ],
+      [
+        28,
+        12,
+        76
+      ],
+      [
+        89,
+        58
+      ],
+      [
+        6,
+        96
+      ],
+      [
+        13,
+        100
+      ],
+      [
+        40,
+        74,
+        25
+      ],
+      [
+        52,
+        18,
+        84,
+        37
+      ],
+      [
+        85,
+        97,
+        91
+      ],
+      [
+        95,
+        99,
+        94
+      ],
+      [
+        1,
+        70
+      ],
+      [
+        31,
+        88,
+        10
+      ],
+      [
+        59,
+        98,
+        61
+      ],
+      [
+        2,
+        57,
+        43
+      ],
+      [
+        21,
+        73,
+        22,
+        56,
+        4
+      ],
+      [
+        54
+      ],
+      [
+        87,
+        17
+      ],
+      [
+        92,
+        42,
+        15,
+        41
+      ],
+      [
+        77
+      ],
+      [
+        5,
+        83,
+        8
+      ],
+      [
+        81,
+        48
+      ],
+      [
+        68,
+        24
+      ],
+      [
+        72,
+        75,
+        34
+      ],
+      [
+        86,
+        60
+      ],
+      [
+        82,
+        19,
+        49
+      ],
+      [
+        33,
+        7
+      ],
+      [
+        30,
+        20,
+        32
+      ],
+      [
+        62,
+        11,
+        90,
+        66
+      ],
+      [
+        79,
+        35
+      ],
+      [
+        51,
+        9,
+        55
+      ],
+      [
+        16,
+        46
+      ],
+      [
+        45,
+        47,
+        78
+      ],
+      [
+        29
+      ],
+      [
+        44,
+        38
+      ],
+      [
+        14,
+        23,
+        67
+      ],
+      [
+        39
+      ],
+      [
+        63,
+        64
+      ],
+      [
+        71
+      ],
+      [
+        36
+      ],
+      [
+        65,
+        3
+      ],
+      [
+        93
+      ]
+    ],
+    "evaluation": {
+      "net_benefit_U": 213859.95298575796,
+      "equivalent_loss_cost_U": 29140.047014242038,
+      "quality_loss_value_U": 16713.761434169282,
+      "distance_km": 10273.890064747457,
+      "refrigeration_cost_U": 2152.3955153253078,
+      "used_vehicles": 41,
+      "minimum_quality": 0.8534275565521694,
+      "independently_audited": true
+    },
+    "origin": "online exact-objective VNS from shared NN on training source only"
+  }
+]

@@ -1,0 +1,70 @@
+{
+  "model": {
+    "variant": "maskco_base",
+    "profile": "smoke_cpu",
+    "seed": 1000
+  },
+  "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only",
+  "steps": 3,
+  "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+  "research_lock_sha256": "ad52f0fd475ebb22d187ce6dad3579f2f147a541fc7a82312941060d196692f9",
+  "learning_rate": 0.0001,
+  "weight_decay": 0.0001,
+  "metadata": {
+    "task": {
+      "case": "r101",
+      "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+      "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+      "fold": 0,
+      "role": "train",
+      "condition": {
+        "profile": "main_Product1",
+        "minimum_quality": 0.8,
+        "value_multiplier": 1
+      },
+      "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+      "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+    },
+    "training_tasks": [
+      {
+        "case": "r101",
+        "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+        "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "main_Product1",
+          "minimum_quality": 0.8,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      {
+        "case": "r101",
+        "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+        "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "fast_Product2",
+          "minimum_quality": 0.85,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      }
+    ],
+    "source_code_sha256": {
+      "profit_core.py": "881eda2288a63800555e692d7962c4e76b6de4ded89e1f5eb22ec5a553bb7fce",
+      "profit_neural.py": "d2b34f6c8cd85b804a6cf62108b06c718bb97b2df3b6786be9ea84ab277f472b",
+      "profit_search.py": "d8ebfa1f980479e876cc413a75a2db04e2fe7d4efc86267c4fc1f0e36c8247f7",
+      "run.py": "9b441a24a84b3be4daaa188070bd0117e29e2bef1ba120c940dea13a722144ac"
+    },
+    "development_only": true
+  },
+  "files": {
+    "weights.npz": "435adf2196e6a2846fe52c26b59599f9c13246578c92942a2e25cd2f8e932b7e",
+    "optimizer.npz": "be5fe51e8a27250a854b99c0f27c3f9b0fe15c26a900ebd374f3c6c4d30109c1"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "fold": 0,
+  "validation_geometry_count": 1,
+  "validation_cases": 4,
+  "development_seed": 1000,
+  "formal_experiment": false,
+  "methods": [
+    {
+      "method": "maskco_base",
+      "mean_net_U": 271930.6277889563,
+      "mean_delta_vs_base_U": 0.0,
+      "mean_loss_cost_U": 29736.03887771041,
+      "wins_vs_base": 0,
+      "mean_iterations": 27.25,
+      "elapsed_min": 10.142631481867284,
+      "elapsed_max": 10.295000742888078
+    },
+    {
+      "method": "quality_only",
+      "mean_net_U": 271844.4126462795,
+      "mean_delta_vs_base_U": -86.21514267676685,
+      "mean_loss_cost_U": 29822.254020387176,
+      "wins_vs_base": 1,
+      "mean_iterations": 25.75,
+      "elapsed_min": 10.037577670998871,
+      "elapsed_max": 10.383299133041874
+    },
+    {
+      "method": "directed_only",
+      "mean_net_U": 274728.80062475643,
+      "mean_delta_vs_base_U": 2798.172835800142,
+      "mean_loss_cost_U": 26937.866041910267,
+      "wins_vs_base": 4,
+      "mean_iterations": 25.25,
+      "elapsed_min": 10.14538312307559,
+      "elapsed_max": 10.3107770239003
+    },
+    {
+      "method": "quality_directed",
+      "mean_net_U": 271383.91961039475,
+      "mean_delta_vs_base_U": -546.7081785615592,
+      "mean_loss_cost_U": 30282.747056271968,
+      "wins_vs_base": 1,
+      "mean_iterations": 27,
+      "elapsed_min": 10.069939827080816,
+      "elapsed_max": 10.223688628990203
+    },
+    {
+      "method": "alns",
+      "mean_net_U": 276061.5588037576,
+      "mean_delta_vs_base_U": 4130.931014801332,
+      "mean_loss_cost_U": 25605.107862909077,
+      "wins_vs_base": 4,
+      "mean_iterations": 423.75,
+      "elapsed_min": 10.003475500969216,
+      "elapsed_max": 10.00779473898001
+    },
+    {
+      "method": "vns",
+      "mean_net_U": 275467.0071154601,
+      "mean_delta_vs_base_U": 3536.379326503855,
+      "mean_loss_cost_U": 26199.659551206554,
+      "wins_vs_base": 4,
+      "mean_iterations": 46298.5,
+      "elapsed_min": 10.00167388212867,
+      "elapsed_max": 10.00181644782424
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "status": "PASS",
+  "scientific_preservation": {
+    "scientific_freeze_files": 72,
+    "lock_sha256": "ad52f0fd475ebb22d187ce6dad3579f2f147a541fc7a82312941060d196692f9",
+    "original_rrp_files": 61,
+    "original_solomon_files": 56,
+    "author_originals_in_scientific_freeze": 56,
+    "archives": [
+      {
+        "path": "C-VRP_Cold-chainVehicleRoutingProblem/archive/transition_20261020/pickup_negative_key_evidence.zip",
+        "sha256": "bdf3ffb342dcb8e68e9a2addace30aa3c3619b7f24259592c32ee15c1a272d6f",
+        "bytes": 298822754
+      },
+      {
+        "path": "C-VRP_Cold-chainVehicleRoutingProblem/archive/transition_20261020/legacy_recovery_objects.zip",
+        "sha256": "9676b8b8a09d8314c6cd4acc7c24ef1c1b12e04798bb184dd099635d829167fc",
+        "bytes": 3781578872
+      }
+    ]
+  },
+  "syntax_checked": 84,
+  "links_checked": 289,
+  "broken_links": [],
+  "tests": {
+    "current_static_profit": 20,
+    "historical_rrp": 62,
+    "outer_test_cases_used": 0
+  },
+  "selected_methods": [
+    "ALNS",
+    "CaR",
+    "DeepACO",
+    "OR-Tools",
+    "PyVRP",
+    "RouteFinder",
+    "VNS"
+  ],
+  "cc_categories": [
+    "checkpoints",
+    "configs",
+    "data",
+    "docs",
+    "models",
+    "results",
+    "scripts"
+  ],
+  "later_algorithm_development_since_directory_organization": [
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/profit_neural.py",
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/profit_search.py",
+    "C-VRP_Cold-chainVehicleRoutingProblem/scripts/static_profit/README.md"
+  ],
+  "old_organization_receipts_preserved": true,
+  "server_verification": "Raw per-server SHA receipts retained locally; see final deployment receipt",
+  "github_exclusions": [
+    "credentials",
+    "private",
+    "full text papers",
+    "binary checkpoints",
+    "large recovery archives"
+  ],
+  "snapshot_captured_at_utc": "2026-10-21T08:55:13.964793+00:00",
+  "tests_executed_against_immutable_snapshot": true,
+  "servers": {
+    "5090": {
+      "status": "PASS",
+      "frozen_files_verified": 72,
+      "entrypoint": "PASS_CPU_TRAIN_R101",
+      "independent_route_audits": {
+        "alns": true,
+        "vns": true
+      },
+      "recovery_moves": 441,
+      "active_research_trees_preserved": true
+    },
+    "3080": {
+      "status": "PASS",
+      "frozen_files_verified": 72,
+      "entrypoint": "PASS_CPU_TRAIN_R101",
+      "independent_route_audits": {
+        "alns": true,
+        "vns": true
+      },
+      "recovery_moves": 485,
+      "active_research_trees_preserved": true
+    }
+  },
+  "release_scope": "Immutable source snapshot captured 2026-10-21 16:55 Asia/Shanghai; later concurrent edits and live unsealed outputs remain in place."
+}

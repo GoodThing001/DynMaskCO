@@ -1,0 +1,721 @@
+{
+  "status": "PASS_TRAIN_ONLY_TEACHER_REFINEMENT",
+  "scientific_freeze": {
+    "freeze_id": "publication_model_v1_scientific_freeze_20261021",
+    "sha256": "ad52f0fd475ebb22d187ce6dad3579f2f147a541fc7a82312941060d196692f9",
+    "files": 72
+  },
+  "parent_teacher_file_sha256": "832f12d3c698aee4df5745aea118ee9556517870bcf326b7406ac2304e6dfe5b",
+  "requested_seconds": 1.0,
+  "rows": [
+    {
+      "task": {
+        "case": "r101",
+        "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+        "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "slow_Product3",
+          "minimum_quality": 0.8,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 221407.72446179134,
+        "equivalent_loss_cost_U": 21592.27553820866,
+        "quality_loss_value_U": 9722.586831535045,
+        "distance_km": 9682.352629981327,
+        "refrigeration_cost_U": 2187.3360766923197,
+        "used_vehicles": 37,
+        "minimum_quality": 0.8839311067695721,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 225271.3675082635,
+        "equivalent_loss_cost_U": 17728.6324917365,
+        "quality_loss_value_U": 8292.565339541423,
+        "distance_km": 7678.081288205124,
+        "refrigeration_cost_U": 1757.9858639899626,
+        "used_vehicles": 33,
+        "minimum_quality": 0.8881458713506185,
+        "independently_audited": true
+      },
+      "gain_U": 3863.6430464721634,
+      "iterations": 86,
+      "elapsed_s": 1.500191899947822
+    },
+    {
+      "task": {
+        "case": "r101",
+        "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+        "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "slow_Product3",
+          "minimum_quality": 0.85,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 221601.25841174854,
+        "equivalent_loss_cost_U": 21398.74158825146,
+        "quality_loss_value_U": 9755.88552834871,
+        "distance_km": 9503.803128139385,
+        "refrigeration_cost_U": 2139.052931763395,
+        "used_vehicles": 36,
+        "minimum_quality": 0.8839311067695721,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 225309.2397696323,
+        "equivalent_loss_cost_U": 17690.760230367712,
+        "quality_loss_value_U": 8182.1583369646305,
+        "distance_km": 7725.826975419487,
+        "refrigeration_cost_U": 1782.7749179836023,
+        "used_vehicles": 34,
+        "minimum_quality": 0.9037995261036037,
+        "independently_audited": true
+      },
+      "gain_U": 3707.9813578837493,
+      "iterations": 63,
+      "elapsed_s": 1.0035683000460267
+    },
+    {
+      "task": {
+        "case": "r101",
+        "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+        "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "main_Product1",
+          "minimum_quality": 0.8,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 216302.7400472804,
+        "equivalent_loss_cost_U": 26697.259952719614,
+        "quality_loss_value_U": 14983.495459333317,
+        "distance_km": 9537.850124511859,
+        "refrigeration_cost_U": 2175.914368874464,
+        "used_vehicles": 37,
+        "minimum_quality": 0.8176060249236133,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 221133.47043191167,
+        "equivalent_loss_cost_U": 21866.52956808833,
+        "quality_loss_value_U": 11614.583936420775,
+        "distance_km": 8403.12143089692,
+        "refrigeration_cost_U": 1848.8242007706463,
+        "used_vehicles": 40,
+        "minimum_quality": 0.8618373612576562,
+        "independently_audited": true
+      },
+      "gain_U": 4830.730384631286,
+      "iterations": 91,
+      "elapsed_s": 1.0023111999034882
+    },
+    {
+      "task": {
+        "case": "r101",
+        "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+        "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "main_Product1",
+          "minimum_quality": 0.85,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 215960.99814267285,
+        "equivalent_loss_cost_U": 27039.00185732715,
+        "quality_loss_value_U": 15449.791218350496,
+        "distance_km": 9408.739322468344,
+        "refrigeration_cost_U": 2180.4713165083276,
+        "used_vehicles": 37,
+        "minimum_quality": 0.850760164915269,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 221146.9088751908,
+        "equivalent_loss_cost_U": 21853.0911248092,
+        "quality_loss_value_U": 11858.806423010763,
+        "distance_km": 8201.975635433062,
+        "refrigeration_cost_U": 1792.3090663653918,
+        "used_vehicles": 38,
+        "minimum_quality": 0.8526311025814415,
+        "independently_audited": true
+      },
+      "gain_U": 5185.91073251795,
+      "iterations": 94,
+      "elapsed_s": 1.0030061998404562
+    },
+    {
+      "task": {
+        "case": "r101",
+        "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+        "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "fast_Product2",
+          "minimum_quality": 0.8,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 212994.9734199356,
+        "equivalent_loss_cost_U": 30005.026580064412,
+        "quality_loss_value_U": 17811.325724031936,
+        "distance_km": 10017.726498368727,
+        "refrigeration_cost_U": 2175.974357663757,
+        "used_vehicles": 39,
+        "minimum_quality": 0.8022594909165117,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 218370.8098336816,
+        "equivalent_loss_cost_U": 24629.19016631841,
+        "quality_loss_value_U": 13719.495419493676,
+        "distance_km": 9018.928638585297,
+        "refrigeration_cost_U": 1890.7661082394382,
+        "used_vehicles": 43,
+        "minimum_quality": 0.8300749345647088,
+        "independently_audited": true
+      },
+      "gain_U": 5375.836413746001,
+      "iterations": 91,
+      "elapsed_s": 1.002456300193444
+    },
+    {
+      "task": {
+        "case": "r101",
+        "source_sha256": "eae8dc2cad510ad7ee5efa3c7f11f5c3fddd71fed236ba120c9d23d034869f69",
+        "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "fast_Product2",
+          "minimum_quality": 0.85,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 213696.53739561563,
+        "equivalent_loss_cost_U": 29303.462604384375,
+        "quality_loss_value_U": 17106.31499594502,
+        "distance_km": 10034.496587111176,
+        "refrigeration_cost_U": 2162.6510213281776,
+        "used_vehicles": 41,
+        "minimum_quality": 0.8534275565521694,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 218792.34726908468,
+        "equivalent_loss_cost_U": 24207.652730915317,
+        "quality_loss_value_U": 13069.056471817516,
+        "distance_km": 9281.545316146101,
+        "refrigeration_cost_U": 1857.050942951712,
+        "used_vehicles": 46,
+        "minimum_quality": 0.8520736019599837,
+        "independently_audited": true
+      },
+      "gain_U": 5095.8098734690575,
+      "iterations": 96,
+      "elapsed_s": 1.0026653001550585
+    },
+    {
+      "task": {
+        "case": "r201",
+        "source_sha256": "6f482f0d361e8759b4582a0da5e81a7e739634131c4ae8b0a8cca302a92b0ce6",
+        "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "slow_Product3",
+          "minimum_quality": 0.8,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 221313.93037912494,
+        "equivalent_loss_cost_U": 21686.06962087506,
+        "quality_loss_value_U": 11065.059127018758,
+        "distance_km": 8658.053892544955,
+        "refrigeration_cost_U": 1962.9566013113654,
+        "used_vehicles": 30,
+        "minimum_quality": 0.8664446355921501,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 225786.14278812055,
+        "equivalent_loss_cost_U": 17213.857211879455,
+        "quality_loss_value_U": 8085.350387431323,
+        "distance_km": 7475.171886404644,
+        "refrigeration_cost_U": 1653.3349380434986,
+        "used_vehicles": 33,
+        "minimum_quality": 0.8970228627705352,
+        "independently_audited": true
+      },
+      "gain_U": 4472.212408995605,
+      "iterations": 81,
+      "elapsed_s": 1.0055104000493884
+    },
+    {
+      "task": {
+        "case": "r201",
+        "source_sha256": "6f482f0d361e8759b4582a0da5e81a7e739634131c4ae8b0a8cca302a92b0ce6",
+        "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "slow_Product3",
+          "minimum_quality": 0.85,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 221449.12311536877,
+        "equivalent_loss_cost_U": 21550.87688463123,
+        "quality_loss_value_U": 11054.863956892648,
+        "distance_km": 8540.652754261238,
+        "refrigeration_cost_U": 1955.3601734773576,
+        "used_vehicles": 30,
+        "minimum_quality": 0.8664446355921501,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 225917.91036379157,
+        "equivalent_loss_cost_U": 17082.08963620843,
+        "quality_loss_value_U": 8024.66467961389,
+        "distance_km": 7409.094097064413,
+        "refrigeration_cost_U": 1648.3308595301266,
+        "used_vehicles": 33,
+        "minimum_quality": 0.8770312403996731,
+        "independently_audited": true
+      },
+      "gain_U": 4468.787248422799,
+      "iterations": 76,
+      "elapsed_s": 1.004062799969688
+    },
+    {
+      "task": {
+        "case": "r201",
+        "source_sha256": "6f482f0d361e8759b4582a0da5e81a7e739634131c4ae8b0a8cca302a92b0ce6",
+        "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "main_Product1",
+          "minimum_quality": 0.8,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 214531.1988892249,
+        "equivalent_loss_cost_U": 28468.801110775094,
+        "quality_loss_value_U": 17832.108520217636,
+        "distance_km": 8656.445932158465,
+        "refrigeration_cost_U": 1980.246658399013,
+        "used_vehicles": 29,
+        "minimum_quality": 0.8037463336964594,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 221466.91308499698,
+        "equivalent_loss_cost_U": 21533.08691500302,
+        "quality_loss_value_U": 11573.776454111598,
+        "distance_km": 8241.415016487083,
+        "refrigeration_cost_U": 1717.895444404349,
+        "used_vehicles": 38,
+        "minimum_quality": 0.8682274962161421,
+        "independently_audited": true
+      },
+      "gain_U": 6935.714195772074,
+      "iterations": 55,
+      "elapsed_s": 1.0046119999606162
+    },
+    {
+      "task": {
+        "case": "r201",
+        "source_sha256": "6f482f0d361e8759b4582a0da5e81a7e739634131c4ae8b0a8cca302a92b0ce6",
+        "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "main_Product1",
+          "minimum_quality": 0.85,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 216941.92455517044,
+        "equivalent_loss_cost_U": 26058.075444829563,
+        "quality_loss_value_U": 15102.794000437709,
+        "distance_km": 8948.776667770617,
+        "refrigeration_cost_U": 2006.5047766212492,
+        "used_vehicles": 34,
+        "minimum_quality": 0.8523673809128426,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 221731.86407430712,
+        "equivalent_loss_cost_U": 21268.135925692884,
+        "quality_loss_value_U": 11369.394204928169,
+        "distance_km": 8178.668620195509,
+        "refrigeration_cost_U": 1720.0731005692296,
+        "used_vehicles": 38,
+        "minimum_quality": 0.8616380311926601,
+        "independently_audited": true
+      },
+      "gain_U": 4789.939519136678,
+      "iterations": 41,
+      "elapsed_s": 1.0062677999958396
+    },
+    {
+      "task": {
+        "case": "r201",
+        "source_sha256": "6f482f0d361e8759b4582a0da5e81a7e739634131c4ae8b0a8cca302a92b0ce6",
+        "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "fast_Product2",
+          "minimum_quality": 0.8,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 212189.85259932425,
+        "equivalent_loss_cost_U": 30810.14740067575,
+        "quality_loss_value_U": 20039.360000058685,
+        "distance_km": 8776.094741380095,
+        "refrigeration_cost_U": 1994.6926592369712,
+        "used_vehicles": 35,
+        "minimum_quality": 0.8006377805838517,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 218787.19808455228,
+        "equivalent_loss_cost_U": 24212.801915447722,
+        "quality_loss_value_U": 13404.648649539004,
+        "distance_km": 9045.32492142511,
+        "refrigeration_cost_U": 1762.8283444836313,
+        "used_vehicles": 43,
+        "minimum_quality": 0.8492437862926683,
+        "independently_audited": true
+      },
+      "gain_U": 6597.3454852280265,
+      "iterations": 27,
+      "elapsed_s": 1.0033662000205368
+    },
+    {
+      "task": {
+        "case": "r201",
+        "source_sha256": "6f482f0d361e8759b4582a0da5e81a7e739634131c4ae8b0a8cca302a92b0ce6",
+        "geometry_sha256": "a7bbeeb04d345d13ad57759daab80b6bc067c6c7a3e5093bfcccc9c0b1fd4346",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "fast_Product2",
+          "minimum_quality": 0.85,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 214031.92634197482,
+        "equivalent_loss_cost_U": 28968.073658025183,
+        "quality_loss_value_U": 18834.818897103753,
+        "distance_km": 8329.671078471158,
+        "refrigeration_cost_U": 1803.583682450287,
+        "used_vehicles": 33,
+        "minimum_quality": 0.8541258247141951,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 219008.51696776168,
+        "equivalent_loss_cost_U": 23991.48303223832,
+        "quality_loss_value_U": 13480.911144302043,
+        "distance_km": 8770.121993762037,
+        "refrigeration_cost_U": 1740.4498941742488,
+        "used_vehicles": 44,
+        "minimum_quality": 0.8511850046207485,
+        "independently_audited": true
+      },
+      "gain_U": 4976.590625786863,
+      "iterations": 40,
+      "elapsed_s": 1.0056918000336736
+    },
+    {
+      "task": {
+        "case": "rc101",
+        "source_sha256": "4286456b826da8a2de263b3770e4c2ab1c56145d9cb391ade51aabc98dbbe660",
+        "geometry_sha256": "a939a385528ec731cbd83803ec5eb3943ca6122a3bb0b40e8cfdc16acba6058b",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "slow_Product3",
+          "minimum_quality": 0.8,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 262008.03138397407,
+        "equivalent_loss_cost_U": 25325.301949359302,
+        "quality_loss_value_U": 13417.78903052874,
+        "distance_km": 9953.54432261872,
+        "refrigeration_cost_U": 1953.9685962118185,
+        "used_vehicles": 28,
+        "minimum_quality": 0.8802663160770113,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 265363.7270741624,
+        "equivalent_loss_cost_U": 21969.606259170978,
+        "quality_loss_value_U": 11324.846124800206,
+        "distance_km": 8861.27521430874,
+        "refrigeration_cost_U": 1783.484920061986,
+        "used_vehicles": 31,
+        "minimum_quality": 0.9157039013332924,
+        "independently_audited": true
+      },
+      "gain_U": 3355.695690188324,
+      "iterations": 31,
+      "elapsed_s": 1.0072461999952793
+    },
+    {
+      "task": {
+        "case": "rc101",
+        "source_sha256": "4286456b826da8a2de263b3770e4c2ab1c56145d9cb391ade51aabc98dbbe660",
+        "geometry_sha256": "a939a385528ec731cbd83803ec5eb3943ca6122a3bb0b40e8cfdc16acba6058b",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "slow_Product3",
+          "minimum_quality": 0.85,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 261742.33368891777,
+        "equivalent_loss_cost_U": 25590.9996444156,
+        "quality_loss_value_U": 13282.472205178523,
+        "distance_km": 10331.243181450822,
+        "refrigeration_cost_U": 1977.2842577862218,
+        "used_vehicles": 30,
+        "minimum_quality": 0.8802663160770113,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 265454.09246356227,
+        "equivalent_loss_cost_U": 21879.240869771107,
+        "quality_loss_value_U": 11818.24753211146,
+        "distance_km": 8340.080391296158,
+        "refrigeration_cost_U": 1720.9129463634818,
+        "used_vehicles": 30,
+        "minimum_quality": 0.9110132562900157,
+        "independently_audited": true
+      },
+      "gain_U": 3711.7587746444915,
+      "iterations": 40,
+      "elapsed_s": 1.0086250000167638
+    },
+    {
+      "task": {
+        "case": "rc101",
+        "source_sha256": "4286456b826da8a2de263b3770e4c2ab1c56145d9cb391ade51aabc98dbbe660",
+        "geometry_sha256": "a939a385528ec731cbd83803ec5eb3943ca6122a3bb0b40e8cfdc16acba6058b",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "main_Product1",
+          "minimum_quality": 0.8,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 254068.29631056183,
+        "equivalent_loss_cost_U": 33265.03702277155,
+        "quality_loss_value_U": 20917.444287016606,
+        "distance_km": 10360.483394520837,
+        "refrigeration_cost_U": 1987.1093412340945,
+        "used_vehicles": 30,
+        "minimum_quality": 0.8118470681210178,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 259970.28539139108,
+        "equivalent_loss_cost_U": 27363.04794194229,
+        "quality_loss_value_U": 15832.637046318141,
+        "distance_km": 9701.556449445492,
+        "refrigeration_cost_U": 1828.8544461786266,
+        "used_vehicles": 38,
+        "minimum_quality": 0.8766925768596903,
+        "independently_audited": true
+      },
+      "gain_U": 5901.989080829255,
+      "iterations": 62,
+      "elapsed_s": 1.0039747001137584
+    },
+    {
+      "task": {
+        "case": "rc101",
+        "source_sha256": "4286456b826da8a2de263b3770e4c2ab1c56145d9cb391ade51aabc98dbbe660",
+        "geometry_sha256": "a939a385528ec731cbd83803ec5eb3943ca6122a3bb0b40e8cfdc16acba6058b",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "main_Product1",
+          "minimum_quality": 0.85,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 256469.36822360588,
+        "equivalent_loss_cost_U": 30863.96510972749,
+        "quality_loss_value_U": 18566.931005699887,
+        "distance_km": 10368.627095454776,
+        "refrigeration_cost_U": 1928.4070085727915,
+        "used_vehicles": 31,
+        "minimum_quality": 0.8548551787868455,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 259991.1701849773,
+        "equivalent_loss_cost_U": 27342.163148356078,
+        "quality_loss_value_U": 15339.371294091154,
+        "distance_km": 10123.749508317358,
+        "refrigeration_cost_U": 1879.0423459475392,
+        "used_vehicles": 39,
+        "minimum_quality": 0.8817753666964271,
+        "independently_audited": true
+      },
+      "gain_U": 3521.801961371413,
+      "iterations": 96,
+      "elapsed_s": 1.002048599999398
+    },
+    {
+      "task": {
+        "case": "rc101",
+        "source_sha256": "4286456b826da8a2de263b3770e4c2ab1c56145d9cb391ade51aabc98dbbe660",
+        "geometry_sha256": "a939a385528ec731cbd83803ec5eb3943ca6122a3bb0b40e8cfdc16acba6058b",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "fast_Product2",
+          "minimum_quality": 0.8,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 249963.55464974622,
+        "equivalent_loss_cost_U": 37369.77868358715,
+        "quality_loss_value_U": 25337.4011794205,
+        "distance_km": 10074.468510773797,
+        "refrigeration_cost_U": 1957.9089933928144,
+        "used_vehicles": 30,
+        "minimum_quality": 0.8030325887975226,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 256290.1695499684,
+        "equivalent_loss_cost_U": 31043.16378336496,
+        "quality_loss_value_U": 19075.89064125376,
+        "distance_km": 10087.685607315378,
+        "refrigeration_cost_U": 1879.5875347957824,
+        "used_vehicles": 39,
+        "minimum_quality": 0.8649026213767568,
+        "independently_audited": true
+      },
+      "gain_U": 6326.614900222194,
+      "iterations": 123,
+      "elapsed_s": 1.0034435000270605
+    },
+    {
+      "task": {
+        "case": "rc101",
+        "source_sha256": "4286456b826da8a2de263b3770e4c2ab1c56145d9cb391ade51aabc98dbbe660",
+        "geometry_sha256": "a939a385528ec731cbd83803ec5eb3943ca6122a3bb0b40e8cfdc16acba6058b",
+        "fold": 0,
+        "role": "train",
+        "condition": {
+          "profile": "fast_Product2",
+          "minimum_quality": 0.85,
+          "value_multiplier": 1
+        },
+        "model_sha256": "d1e918f66922b5a92cef3273486653cb484554565f2e2b7a141fc3afc1640ac6",
+        "feature_schema": "static-profit-maskco-features-v0-16channels-partial-only"
+      },
+      "before": {
+        "net_benefit_U": 251016.34756656,
+        "equivalent_loss_cost_U": 36316.985766773374,
+        "quality_loss_value_U": 24294.86759528491,
+        "distance_km": 10061.813254452216,
+        "refrigeration_cost_U": 1960.3049170362087,
+        "used_vehicles": 32,
+        "minimum_quality": 0.853501502760857,
+        "independently_audited": true
+      },
+      "after": {
+        "net_benefit_U": 256526.16770738075,
+        "equivalent_loss_cost_U": 30807.16562595262,
+        "quality_loss_value_U": 18362.948507574005,
+        "distance_km": 10524.623979258073,
+        "refrigeration_cost_U": 1919.5931391205127,
+        "used_vehicles": 41,
+        "minimum_quality": 0.8655752182803413,
+        "independently_audited": true
+      },
+      "gain_U": 5509.820140820753,
+      "iterations": 82,
+      "elapsed_s": 1.0039611000102013
+    }
+  ],
+  "training_cases": [
+    "r101",
+    "r201",
+    "rc101"
+  ],
+  "formal_experiment": false,
+  "outer_test_cases_used": 0
+}

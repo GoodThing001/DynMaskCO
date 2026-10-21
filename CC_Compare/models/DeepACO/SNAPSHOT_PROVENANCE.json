@@ -1,0 +1,762 @@
+{
+  "name": "DeepACO",
+  "repo": "henry-yeh/DeepACO",
+  "commit": "9a756a3fe6cf9627ecc166110a02fdbb61f2a0d7",
+  "url": "https://codeload.github.com/henry-yeh/DeepACO/zip/9a756a3fe6cf9627ecc166110a02fdbb61f2a0d7",
+  "archive_sha256": "3edcce6c963c4943b01b3ff6d425f2ccc7c4d915db8a309ff6f8660d31bddca7",
+  "archive_bytes": 13767985,
+  "files": [
+    {
+      "path": ".gitignore",
+      "size": 52,
+      "sha256": "c15bca96a7c737a1bdb234ef6370faedc8ef3d03405c75e33bfbce1378c97dd8"
+    },
+    {
+      "path": "LICENSE",
+      "size": 1066,
+      "sha256": "6e9394ee2d42f54bb6cb88a8695e7dca34de2788897a182ceea907844f25667c"
+    },
+    {
+      "path": "README.md",
+      "size": 3536,
+      "sha256": "1c115230e11ac3b7c510794f03706107d9daa92df018fabceb70a000185f5243"
+    },
+    {
+      "path": "bpp/README.md",
+      "size": 48,
+      "sha256": "05caa602c0105657fc186bf55a36195008384a4ffc67a17d4561127d3aecb4fc"
+    },
+    {
+      "path": "bpp/aco.py",
+      "size": 7623,
+      "sha256": "577790a5cdf350c207132ba846349511506d6d0acc1b8cb6a2ff61f419d846a2"
+    },
+    {
+      "path": "bpp/net.py",
+      "size": 3950,
+      "sha256": "1ab10a59c0e098ea7acc380521bf93bad08ebe641911e37c0893d0341f1049e9"
+    },
+    {
+      "path": "bpp/test.py",
+      "size": 1953,
+      "sha256": "792d7a60cd5389a4fba303049a19767e184de42e45481a9e02e8511c97739287"
+    },
+    {
+      "path": "bpp/train.ipynb",
+      "size": 46927,
+      "sha256": "3203f8ead16f1998ab2c683303781076a5ab036bfc4656960f7cd71bb0f97e7e"
+    },
+    {
+      "path": "bpp/utils.py",
+      "size": 1384,
+      "sha256": "f3465cf30570aff28cd2149487d80f7d10ff8b20cdde9cbd410436a579871795"
+    },
+    {
+      "path": "cvrp/README.md",
+      "size": 48,
+      "sha256": "05caa602c0105657fc186bf55a36195008384a4ffc67a17d4561127d3aecb4fc"
+    },
+    {
+      "path": "cvrp/aco.py",
+      "size": 16665,
+      "sha256": "a85be9a5fa47a2806fbf14184434ddd9de73d5b6efff0d7dd4c36b85fefce3bd"
+    },
+    {
+      "path": "cvrp/net.py",
+      "size": 3950,
+      "sha256": "1ab10a59c0e098ea7acc380521bf93bad08ebe641911e37c0893d0341f1049e9"
+    },
+    {
+      "path": "cvrp/test.py",
+      "size": 2160,
+      "sha256": "f1e9ca4ccd1f08a30525245094e33c55c39f918fbd12cbaa56583faa63fdfc3e"
+    },
+    {
+      "path": "cvrp/train.ipynb",
+      "size": 90075,
+      "sha256": "1f2221d4063f807ed7ef27663c012e0cfd08e4c816f070522cf72015ec39b391"
+    },
+    {
+      "path": "cvrp/utils.py",
+      "size": 2029,
+      "sha256": "e1e69f64e78a89e3b3b0eea0be3df6ad09f92253c4dbcd59ab468341b5268cd2"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/.gitignore",
+      "size": 450,
+      "sha256": "74d50a3ea618f78dfc41757edcce3aa9c434c312321032e0833542509a1e3f5b"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/CMakeLists.txt",
+      "size": 935,
+      "sha256": "ed2f7f3f2cf83fd36b153defaa9e6cae051b18296f36e99c1c2633cd06fcc39b"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/LICENSE",
+      "size": 1070,
+      "sha256": "f394ca7994e08f3e965d2041a36803d400b3cd3d2c2dc5c0a394fe1c28a7ef6c"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/AlgorithmParameters.cpp",
+      "size": 1966,
+      "sha256": "9390b55e6453a22e7adec2f4b7cb54719d5c576ac1afecbe526fa37830bc0af4"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/AlgorithmParameters.h",
+      "size": 1794,
+      "sha256": "81b16a6c2f37481430fb5e1e0ed3e30d51ddab55cbf134ae13d2125b3b1d2668"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/C_Interface.cpp",
+      "size": 5563,
+      "sha256": "3e2c8cc38139a5841a7d021d50ae8d61d075b6dd673f4382cfa858ea4fe0e5d5"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/C_Interface.h",
+      "size": 1273,
+      "sha256": "ae72828b5c6af8a4a151f57c935aaa23541e8d87abcc8828bbc1ce1107bd1fbd"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/CircleSector.h",
+      "size": 1740,
+      "sha256": "392300382207664b2e6a51d742a39daa7ec586b4cb0b958747caa55b9d4cba30"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/Genetic.cpp",
+      "size": 3189,
+      "sha256": "102f2dae07f2703a643de898615491ac144333e4f89ca39e3a4ee87bbfd6ecca"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/Genetic.h",
+      "size": 1809,
+      "sha256": "3987fcd5a557af507bc72ac9da991bab4b6be14451fb8782cc25f0ffc94c181d"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/Individual.cpp",
+      "size": 3708,
+      "sha256": "0533249f93635cd30bfbcc584bc15a67ae2ed161929734a97fa0807dd8616a89"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/Individual.h",
+      "size": 2932,
+      "sha256": "c26beb1a541f778174e64c4e614cd82bc39c85d9dbb6e4377c5f5f0811f97e9c"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/InstanceCVRPLIB.cpp",
+      "size": 3308,
+      "sha256": "2cce88e54efae0f6853fbf909a1c92bab7abe521d519d5d023215817f126d302"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/InstanceCVRPLIB.h",
+      "size": 722,
+      "sha256": "a986a3fe71c137e1a90db3c050642463112685083582bc646a1c09ce04843a0c"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/LocalSearch.cpp",
+      "size": 30987,
+      "sha256": "5d6545c6f277439b3954bbe1bda220beec53b1972a7a992411773c17ef1c2ef5"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/LocalSearch.h",
+      "size": 8527,
+      "sha256": "7b96c4b5db459a53d4164b4f92aabad3a334954fa87799e837477ad24a36c152"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/Params.cpp",
+      "size": 4738,
+      "sha256": "dbce73572fcd889d82a702d7613e5ffe684c25b04a881806a7d47c407d861787"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/Params.h",
+      "size": 3944,
+      "sha256": "85d1354ac4aee8ac662f72583294bd66ab9c5c41f3cbefd7d1979c06cc609038"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/Population.cpp",
+      "size": 12862,
+      "sha256": "60f0b6c683aac09d03a973404324fa9057e7a617743a4789d95487d92e167e93"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/Population.h",
+      "size": 4676,
+      "sha256": "592d55ac7c48ecbdc83ae7146b0d0e5ffd986407ccda46fd47ee1065494bdaef"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/Split.cpp",
+      "size": 8365,
+      "sha256": "09498bd42e187b3a30caca5a757dcce29e3a062a281ac7e5e2fbbaa8a1a6ba96"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/Split.h",
+      "size": 4454,
+      "sha256": "f8865d8e5e6d77bca49a284dda9d799f242a18ec3b002a921d6d5dbb2d2156da"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/commandline.h",
+      "size": 6926,
+      "sha256": "d86319ddafe9fbc2f278ba2fd76d5063f5aceffd9b89554bb5d80abf0538367c"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/Program/main.cpp",
+      "size": 1518,
+      "sha256": "a74413e9756204f824f9030df76bc97ff78ad96e66da7d7dd3e03d5245d15b5c"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/README.md",
+      "size": 10924,
+      "sha256": "691038e55b1328658efc8def95c115c4d62f7ee1b36fb819148d5bb643cb7ff5"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/build/.gitignore",
+      "size": 28,
+      "sha256": "b8d1762ede5c54e625805f480299ad8abfdca4da7948932be542b8f61637427d"
+    },
+    {
+      "path": "cvrp_nls/HGS-CVRP-main/build/libhgscvrp.so",
+      "size": 149912,
+      "sha256": "1733d8729789d23e1d91eb552cf66300f25f27c7de4286e31e9dd0fe9e16e915"
+    },
+    {
+      "path": "cvrp_nls/README.md",
+      "size": 1989,
+      "sha256": "65ddd8a02899b2fed0729bd424abc7f330b7af9d2be4abeedaf0073b48b83753"
+    },
+    {
+      "path": "cvrp_nls/aco.py",
+      "size": 18550,
+      "sha256": "43b96179dc91f4c670eca13ab7fd30e01611afdd5dd772c90c89ddec05ccd241"
+    },
+    {
+      "path": "cvrp_nls/net.py",
+      "size": 3924,
+      "sha256": "1ab0f771eabb05deb7a6ebcf39c78c1de0ee65d0188794c9f07a09ffd45cbf2c"
+    },
+    {
+      "path": "cvrp_nls/swapstar.py",
+      "size": 9919,
+      "sha256": "8b533ab0ad4c08e30a1646ac20c7546e9aa7ef57a889fa8f11728f371f2b28c2"
+    },
+    {
+      "path": "cvrp_nls/test.py",
+      "size": 3740,
+      "sha256": "f28f2c608908b9ef76b0b08e84c72634dffc551f5fce494d4fdbd8967ee9cb6c"
+    },
+    {
+      "path": "cvrp_nls/train.py",
+      "size": 6759,
+      "sha256": "3fb3017c4bc37b70e293d6efc1c7e970356469f53be018ff06ff6121f6178cd5"
+    },
+    {
+      "path": "cvrp_nls/utils.py",
+      "size": 4753,
+      "sha256": "c8c3c5df3f59af45847af52cc6fe839e0f7fd5525a810e2aa73dd8dbf3ba60ba"
+    },
+    {
+      "path": "data/rcpsp/.gitignore",
+      "size": 10,
+      "sha256": "72ccd3aae63c3226d1445fbede2985860e1458aa8af3e234ad8cb0826d93132d"
+    },
+    {
+      "path": "data/rcpsp/psplib.tar.gz",
+      "size": 1003067,
+      "sha256": "687e25b2b67b467d76dd49af34dddbc8363d7e376d17f42049a13be07f4454d6"
+    },
+    {
+      "path": "data/rcpsp/readme.txt",
+      "size": 496,
+      "sha256": "20d1b97d785b2bcd34e0d41d2e5c774315aaeea48845311be92e416f2525c790"
+    },
+    {
+      "path": "data/readme.md",
+      "size": 59,
+      "sha256": "a5764cb528c0a18e8b76ef6968f5e35735f99e2f561ecb372e1990696ddf9477"
+    },
+    {
+      "path": "data/tsp/convert.py",
+      "size": 754,
+      "sha256": "1068ef45ce800b70ec6da316d061cd08025e90e494a9c8701922008aaca4d0f9"
+    },
+    {
+      "path": "data/tsp/testDataset-100.pt",
+      "size": 1024747,
+      "sha256": "6fd5f21b81bd4e312a7393369237107e8d2e56bfe179284da33cc2547dbd5118"
+    },
+    {
+      "path": "data/tsp/testDataset-1000.pt",
+      "size": 1024747,
+      "sha256": "b0b833270258c70a48b6a1ff9ae926e6e52914f0d678553408a9d31ea2e2f93f"
+    },
+    {
+      "path": "data/tsp/testDataset-20.pt",
+      "size": 205547,
+      "sha256": "66f8b99052d0e739dd60518b434a5bdfbe87132aa8ec9750a27641f317dfba22"
+    },
+    {
+      "path": "data/tsp/testDataset-200.pt",
+      "size": 205547,
+      "sha256": "aed3436af6c0b35cf79b395a413a18ed9c1f4f455e461e0596f098a7ed453e8b"
+    },
+    {
+      "path": "data/tsp/testDataset-50.pt",
+      "size": 512747,
+      "sha256": "9e7b1c54aa42212f1bf87593df44a4ec34ae7a8d2b79d644103c1ff53a5c7393"
+    },
+    {
+      "path": "data/tsp/testDataset-500.pt",
+      "size": 512747,
+      "sha256": "36eac2e8dfaeb9ca1a727c644d4ee272c59803d1d7cc4c3572c1da4cce880597"
+    },
+    {
+      "path": "data/tsp/valDataset-100.pt",
+      "size": 80754,
+      "sha256": "e09c4bdeb60c42a113fa8e49f28a6c665942a55cf09cd59ebacdc6b3e5a86aa5"
+    },
+    {
+      "path": "data/tsp/valDataset-20.pt",
+      "size": 16754,
+      "sha256": "daaeb111062cfe94066db1a665c32b4d108a774b16da5c5d40275943812dc4c3"
+    },
+    {
+      "path": "data/tsp/valDataset-500.pt",
+      "size": 400754,
+      "sha256": "227e596af3f4f3f12bd44c14d80737218dedc9737f86ed82929d72c1076fa845"
+    },
+    {
+      "path": "diagram.png",
+      "size": 671185,
+      "sha256": "c130d075d30d8660fe5615acbdf2c38f98854fe2460b6ce5b5c3f8a070203a3e"
+    },
+    {
+      "path": "mkp/README.md",
+      "size": 43,
+      "sha256": "d56297441b9370319973fa6497d27df8a80e832cccdb94c8a8956be935016f69"
+    },
+    {
+      "path": "mkp/aco.py",
+      "size": 7386,
+      "sha256": "7da5f26b10dcae34d5f9e37f967a7acce4056e38f53fd1e68b6344d9dd5aedd9"
+    },
+    {
+      "path": "mkp/net.py",
+      "size": 3982,
+      "sha256": "b4367e785f71bba5a435ad011e8d040d9f8bdb5cc2579331c22ad4c26d7edcd9"
+    },
+    {
+      "path": "mkp/test.py",
+      "size": 2130,
+      "sha256": "6ddc41251946a2cbe98d37023c863670c4d7e61904b850df045466c6418cc43f"
+    },
+    {
+      "path": "mkp/train.py",
+      "size": 3434,
+      "sha256": "5e9caf1737ffa5f0c7199468598c463d6af30d92c4f2919061c931144b2654d0"
+    },
+    {
+      "path": "mkp/utils.py",
+      "size": 2755,
+      "sha256": "3a3ffed97969656c52fc673c896ffa9ac4e12ed416fe86c99388466b7ae19f17"
+    },
+    {
+      "path": "mkp_transformer/README.md",
+      "size": 43,
+      "sha256": "d56297441b9370319973fa6497d27df8a80e832cccdb94c8a8956be935016f69"
+    },
+    {
+      "path": "mkp_transformer/aco.py",
+      "size": 6769,
+      "sha256": "dea2f2146e4ae7648261de06fec2d329bf110baa49cf4efd1b2d6c0677267bdb"
+    },
+    {
+      "path": "mkp_transformer/net.py",
+      "size": 2725,
+      "sha256": "60752177dd5fabe9b921be854867eb9dbfbb5ef2326fe855a262ae82666a7546"
+    },
+    {
+      "path": "mkp_transformer/test.py",
+      "size": 2178,
+      "sha256": "5941d996ce8aab6590e74c21466a3ec4c738a1862bd650a16136ea5bd6501fa7"
+    },
+    {
+      "path": "mkp_transformer/train.py",
+      "size": 3144,
+      "sha256": "42db07b6ba46eebe4780fe0a8544d652635c7058bb6a8b068bb8c0817fff112d"
+    },
+    {
+      "path": "mkp_transformer/utils.py",
+      "size": 2648,
+      "sha256": "0f7b39ec589fdb0e8a77adfcff47c8b9a14b5716744b86a48c2f41d1cb11c852"
+    },
+    {
+      "path": "op/README.md",
+      "size": 43,
+      "sha256": "d56297441b9370319973fa6497d27df8a80e832cccdb94c8a8956be935016f69"
+    },
+    {
+      "path": "op/aco.py",
+      "size": 9010,
+      "sha256": "4ae75e9eb5d19bbfa56b1723b7dbbb044daa9108989fe8c75244c009971ed640"
+    },
+    {
+      "path": "op/net.py",
+      "size": 4202,
+      "sha256": "210c613d9e4dd2e35cd4f25877e4ab382fd47755a5342c2009d67672f1dba467"
+    },
+    {
+      "path": "op/test.py",
+      "size": 2464,
+      "sha256": "41deedb73fcd85dbd45fc0ab022edb6de311d16f224b9ab09f1e7b13b7f712d5"
+    },
+    {
+      "path": "op/train.ipynb",
+      "size": 80309,
+      "sha256": "7e6a8343d9f83a3152f54343a2f0777044418de8e852be819dff62eb310512ec"
+    },
+    {
+      "path": "op/utils.py",
+      "size": 3071,
+      "sha256": "ec9937033325aace7e0449f97d5c016c28193c428bfc39e372cb449acc8e945c"
+    },
+    {
+      "path": "pctsp/README.md",
+      "size": 48,
+      "sha256": "05caa602c0105657fc186bf55a36195008384a4ffc67a17d4561127d3aecb4fc"
+    },
+    {
+      "path": "pctsp/aco.py",
+      "size": 7446,
+      "sha256": "8b755b72263a6b1ca73ad08e2d34452bcc88119689d5ab8998acf59fafc1915b"
+    },
+    {
+      "path": "pctsp/net.py",
+      "size": 4202,
+      "sha256": "210c613d9e4dd2e35cd4f25877e4ab382fd47755a5342c2009d67672f1dba467"
+    },
+    {
+      "path": "pctsp/test.py",
+      "size": 1945,
+      "sha256": "ded377ec23c4a842a6df32a6722163975f46691187b3784f23902142cf8c475f"
+    },
+    {
+      "path": "pctsp/train.ipynb",
+      "size": 114016,
+      "sha256": "e7f98a636316f9537223cc3b1874a9d08e59dc0241feef31318cef66575aae1c"
+    },
+    {
+      "path": "pctsp/utils.py",
+      "size": 2084,
+      "sha256": "36091585ff33514c7694f8d399078d9ace40847a4245a6f30e2550e2023e2d5b"
+    },
+    {
+      "path": "pretrained/bpp/bpp120.pt",
+      "size": 360642,
+      "sha256": "d742399c3f7c4fe1437e9a36e1c10126ec82b199da79d06aea81a881757666c9"
+    },
+    {
+      "path": "pretrained/cvrp/cvrp100.pt",
+      "size": 362058,
+      "sha256": "0db58d72859311d9586c98384db4e857b4c1d67010af4daa3e3597e32a653cfc"
+    },
+    {
+      "path": "pretrained/cvrp/cvrp20.pt",
+      "size": 362058,
+      "sha256": "b42cf13055d5315f0322f63fca795429406d7308e05563c7d27120d4183afd54"
+    },
+    {
+      "path": "pretrained/cvrp/cvrp500.pt",
+      "size": 362058,
+      "sha256": "3c7501d3f2020992762d9b5f0789584abe49e4531974176a35f0f4458332d055"
+    },
+    {
+      "path": "pretrained/cvrp_nls/cvrp100.pt",
+      "size": 357771,
+      "sha256": "2f52380254070fd24b81f705bbd336d3a1516edbc30f52e432d09c6460aeb4f5"
+    },
+    {
+      "path": "pretrained/cvrp_nls/cvrp500.pt",
+      "size": 357771,
+      "sha256": "defe91e36ffa94c6cd2edb31f298e7fc2cb30303da1c58f81fd110dc4a9ec153"
+    },
+    {
+      "path": "pretrained/mkp/mkp300.pt",
+      "size": 372645,
+      "sha256": "c133cde3e71f099a8606ab014e19e62618f2bed322274859deaabb58d4fe0c45"
+    },
+    {
+      "path": "pretrained/mkp/mkp500.pt",
+      "size": 372647,
+      "sha256": "b109fcf5449f81ea79d56618d538bccab828907acbc93eb434fca9e95ca77cb8"
+    },
+    {
+      "path": "pretrained/mkp_transformer/mkp300.pt",
+      "size": 100783,
+      "sha256": "f64c4216c2185d0616ffe322fd7a3adcf7368f67c86adc8175115a7bd618070e"
+    },
+    {
+      "path": "pretrained/mkp_transformer/mkp500.pt",
+      "size": 100783,
+      "sha256": "3556fef9c6a918edecc7c0ede2e235f0b2c7f9dffb3bd4f5cc81a6f7885d0ce0"
+    },
+    {
+      "path": "pretrained/op/op100.pt",
+      "size": 372263,
+      "sha256": "caf85e2c5008631dc0fc813a540d1d9618e3f27323a938ebf7b385fdc66d95b6"
+    },
+    {
+      "path": "pretrained/op/op200.pt",
+      "size": 372483,
+      "sha256": "acc412e0af18b8926c456b6efa106d123feeafba141f0683349c6c08fca7a015"
+    },
+    {
+      "path": "pretrained/op/op300.pt",
+      "size": 372505,
+      "sha256": "0ef15133ecadef0431402464d38236edcaf4115d7930c41afe4bb0d674d3536a"
+    },
+    {
+      "path": "pretrained/pctsp/pctsp100.pt",
+      "size": 373141,
+      "sha256": "79f9783a0d49871f80d035fffaf05ebff3652fbcc962b6cb510c2ed29ba3b93d"
+    },
+    {
+      "path": "pretrained/pctsp/pctsp20.pt",
+      "size": 373159,
+      "sha256": "8a2542675dc17d519d23d76301ae35ac0eb078f940f51a3e30b9ca5d531ef2ac"
+    },
+    {
+      "path": "pretrained/pctsp/pctsp500.pt",
+      "size": 372635,
+      "sha256": "07ca0146a703fa9df6ac9dddb8ec84972852e7433b9f7ce1e5acc19488695028"
+    },
+    {
+      "path": "pretrained/rcpsp/rcpsp120-5.pt",
+      "size": 354891,
+      "sha256": "c272dd8dba589cc91d4f57ed275a871aa5ea002ff687a6e817dd3e22f2a2925f"
+    },
+    {
+      "path": "pretrained/rcpsp/rcpsp30-5.pt",
+      "size": 354891,
+      "sha256": "257ef247e97fbe8de1ec3179c9c2a876a82a776eaf2c9ed93b38b3357836a86c"
+    },
+    {
+      "path": "pretrained/rcpsp/rcpsp60-5.pt",
+      "size": 354891,
+      "sha256": "a7abdf95bb91b4c8c68e63c8b64a67899e1790c30f8aa770d90862fe54e0fc82"
+    },
+    {
+      "path": "pretrained/smtwtp/smtwtp100.pt",
+      "size": 372617,
+      "sha256": "b959e38db358f554cc7d57b8ee1f8d38042dc89d1c819a4bcc25104a8683d1d8"
+    },
+    {
+      "path": "pretrained/smtwtp/smtwtp50.pt",
+      "size": 372502,
+      "sha256": "d594c20da184ad337be17c3daf5155a81e7206af75a71fd15eed244ff3616714"
+    },
+    {
+      "path": "pretrained/smtwtp/smtwtp500.pt",
+      "size": 372629,
+      "sha256": "797454c8298c07d22f75923a1e6894e8d858dd0782e3e58c826f83d2f5a970d3"
+    },
+    {
+      "path": "pretrained/sop/sop100.pt",
+      "size": 372271,
+      "sha256": "00622542cc786833845f2baaa15f68c65750fe1809f1a230a83ace93fbb6f4ae"
+    },
+    {
+      "path": "pretrained/sop/sop20.pt",
+      "size": 372115,
+      "sha256": "a194b645293f7eaf0f16c35c4cea0a615268fd096482eb9189926c1fa71868ed"
+    },
+    {
+      "path": "pretrained/sop/sop50.pt",
+      "size": 372259,
+      "sha256": "2dff818bf67628bece12acf027c495da3b0355e402e9c6438601cca39519347b"
+    },
+    {
+      "path": "pretrained/tsp/tsp100.pt",
+      "size": 372505,
+      "sha256": "34120e2ab18068011fdd668af3d2edbb5b9d55eacb10285b2618efdea3b30c15"
+    },
+    {
+      "path": "pretrained/tsp/tsp20.pt",
+      "size": 372350,
+      "sha256": "fd574688474b1a5f1038c54965089d0b8fb024f2b938ccd6e33655f501688402"
+    },
+    {
+      "path": "pretrained/tsp/tsp500.pt",
+      "size": 372593,
+      "sha256": "ef77cd834b759569cda4d51cf69c498f236d0f7ac160978d958225def19243fc"
+    },
+    {
+      "path": "pretrained/tsp_nls/tsp100.pt",
+      "size": 357771,
+      "sha256": "64747fc268917a169680831c5e0ec199ee05132b8a59588f160afc2400906142"
+    },
+    {
+      "path": "pretrained/tsp_nls/tsp1000.pt",
+      "size": 357771,
+      "sha256": "17be651adbd6a3aa66916204cf4f72c84941f5687bde19bf144193dd07a45455"
+    },
+    {
+      "path": "pretrained/tsp_nls/tsp500.pt",
+      "size": 357771,
+      "sha256": "3c7f2de8ada93a016b2a17a79d50c1d50ee8233ffa33fb803c4d56e249352e3a"
+    },
+    {
+      "path": "rcpsp/aco.py",
+      "size": 10476,
+      "sha256": "982fba9adb62a691bec1048942a05da351f1bb741c41ef2d214447818ad8fe92"
+    },
+    {
+      "path": "rcpsp/net.py",
+      "size": 4971,
+      "sha256": "e1e9dcb639fbf0964009b8f8c8ef0627722239ca93fb1b5126259f0fe127cdb4"
+    },
+    {
+      "path": "rcpsp/rcpsp_inst.py",
+      "size": 10005,
+      "sha256": "3a621b5fe98ec68c7751020628548dfab7b4379591ba07aa49837d68b736985f"
+    },
+    {
+      "path": "rcpsp/test.ipynb",
+      "size": 9572,
+      "sha256": "cc0dec0b3687d2f3fea46f6e0a30636ea82d8b5bb3940688e4c999b479c152c6"
+    },
+    {
+      "path": "rcpsp/train.ipynb",
+      "size": 113202,
+      "sha256": "c3b36b7799d10ad02cb0a7d2b5104fd638cfdc6e03ff3becb990cb79cb642e93"
+    },
+    {
+      "path": "smtwtp/README.md",
+      "size": 52,
+      "sha256": "7bb95ecdfc6c45b34c602c12f94ea70b27a4d4ab5dc7c5aa8531eaea453e9e1c"
+    },
+    {
+      "path": "smtwtp/aco.py",
+      "size": 6582,
+      "sha256": "59273fa84a06020209d6fa8eb9250a5cbf84cf5ffe04da90c25992740d7ed65b"
+    },
+    {
+      "path": "smtwtp/net.py",
+      "size": 4167,
+      "sha256": "e81f9da6a9b3a9b8795b7c16bf96924e8a01ae2abc7caa8fd4087d727a82d34d"
+    },
+    {
+      "path": "smtwtp/test.ipynb",
+      "size": 10150,
+      "sha256": "9353110afe373130e0c156f5dbf03632e5ac643c29641402bc4b11b16389ef6c"
+    },
+    {
+      "path": "smtwtp/train.ipynb",
+      "size": 83335,
+      "sha256": "66c692dd6363ba87151f972b10d17f9ce4331bc680efe9724a5792e3a0c3019a"
+    },
+    {
+      "path": "smtwtp/utils.py",
+      "size": 1841,
+      "sha256": "a1033086ad917f4af34fa2041e293dc995ab072431fa0752de906d59fc0fb2a4"
+    },
+    {
+      "path": "sop/README.md",
+      "size": 52,
+      "sha256": "7bb95ecdfc6c45b34c602c12f94ea70b27a4d4ab5dc7c5aa8531eaea453e9e1c"
+    },
+    {
+      "path": "sop/aco.py",
+      "size": 7108,
+      "sha256": "b74477c1f910cd3df2ff5aa8a67f07e6547b696acf6824b58c0ef24cf670cbe5"
+    },
+    {
+      "path": "sop/net.py",
+      "size": 4193,
+      "sha256": "9b5e1fe17dbd637c9e48c0bbb02e6a05cf5c8003bf10e2c0194ea13342b944f4"
+    },
+    {
+      "path": "sop/test.ipynb",
+      "size": 5224,
+      "sha256": "4159584019502abd583849aa8082d7078a05d163a1213dddbcc913cb65a4c20c"
+    },
+    {
+      "path": "sop/train.ipynb",
+      "size": 86312,
+      "sha256": "8e391ae4149cb3b0eff40d9d4abe6de17e918c048a62ef1527a95cc0d8b32dfa"
+    },
+    {
+      "path": "sop/utils.py",
+      "size": 2504,
+      "sha256": "5e5dcce6267953869ffffd07143d1ac0a97082afbc68ff878492194039d5aa8b"
+    },
+    {
+      "path": "tsp/__init__.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tsp/aco.py",
+      "size": 7092,
+      "sha256": "b5fc8a54b00e63bdd46231f2140a4bac376da6e2dae32fe23f061fc7cf090c05"
+    },
+    {
+      "path": "tsp/net.py",
+      "size": 4001,
+      "sha256": "39300948a65e28d567b841757067221bb0c52d7bb21117382e41a9b1bcde4370"
+    },
+    {
+      "path": "tsp/test.ipynb",
+      "size": 5402,
+      "sha256": "aa6a24ae437d4b2d3b99760ae81583c3dff7ee4e66c624db0ea87efa486f79e5"
+    },
+    {
+      "path": "tsp/train.ipynb",
+      "size": 92459,
+      "sha256": "a7d588b36efe5c2791afa3637ce043b09229adb5dee42cc5b3bcb1335199f61e"
+    },
+    {
+      "path": "tsp/utils.py",
+      "size": 2124,
+      "sha256": "01062d6170fd7199e17081e9b054bf8b85edf9c0e9f8266f3e668b4891c3c726"
+    },
+    {
+      "path": "tsp_nls/README.md",
+      "size": 438,
+      "sha256": "c044e1dea7e68fc5a91b907d3871d4f02ce2b83e0b338356e72deea761217952"
+    },
+    {
+      "path": "tsp_nls/aco.py",
+      "size": 11705,
+      "sha256": "01848798ceba872d9c196be17b02e10f9602187bf65bd042cc9c9ec1f4943f6e"
+    },
+    {
+      "path": "tsp_nls/net.py",
+      "size": 3951,
+      "sha256": "813dd1a4e224ed683038f7d1d0508c3c480bb5947857f9c005509d21a26f9a6d"
+    },
+    {
+      "path": "tsp_nls/test.py",
+      "size": 2604,
+      "sha256": "c85b1f0904f0122bedad322ee3129ed8df1276c5a023280406062ca6904bf7fc"
+    },
+    {
+      "path": "tsp_nls/train.py",
+      "size": 5855,
+      "sha256": "ec560989878fa05281128da490a36c00474fe4ee28a2ace8be60cdd94e942800"
+    },
+    {
+      "path": "tsp_nls/two_opt.py",
+      "size": 1852,
+      "sha256": "8c9aac76bbb93c9968b3cdbb1a3096d2c62e4bd30092b742f8a8c58b3a5cf105"
+    },
+    {
+      "path": "tsp_nls/utils.py",
+      "size": 2891,
+      "sha256": "5ab2c515fb6f8bcaed00b315f940b69feb8827fc440f884d0ee9faff4881b58f"
+    }
+  ],
+  "license_files": [
+    "LICENSE",
+    "cvrp_nls/HGS-CVRP-main/LICENSE"
+  ],
+  "source_executed": false,
+  "status": "DOWNLOADED",
+  "pin_method": "known historical pin or public git ls-remote; REST unavailable"
+}

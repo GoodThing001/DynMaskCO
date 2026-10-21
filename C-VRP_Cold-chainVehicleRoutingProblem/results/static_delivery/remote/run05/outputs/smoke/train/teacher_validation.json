@@ -1,0 +1,127 @@
+{
+  "accepted": [
+    {
+      "instance": "D1-n4-np33",
+      "source_sha256": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1",
+      "reference_sha256": "e9542ac49a4e69ee895ed28b7787ca1a7fb73d2fbdd6adfbe09486329d3653cd",
+      "original_objective": "with_wage",
+      "evaluation": {
+        "instance": "D1-n4-np33",
+        "source_sha256": "d888ec08f68d1eab29ef8b7a53bf9435ea2fb357d464ad4a17a8ebee17ad78a1",
+        "profile": "paper",
+        "objective": "with_wage",
+        "clock": "continuous_seconds_equations_not_integer_CP_rounding",
+        "feasible": true,
+        "complete": true,
+        "errors": [],
+        "legs": [
+          {
+            "from": 0,
+            "to": 3,
+            "arrival_s": 25200.0,
+            "physical_arrival_s": 25200.0,
+            "service_s": 0.0,
+            "wait_s": 0.0,
+            "departure_s": 25200.0,
+            "travel_s": 3690.0,
+            "next_physical_arrival_s": 28890.0,
+            "speed_kmph": 40.0,
+            "distance_km": 41.0,
+            "load_kg": 19800.0,
+            "traction_l_tour": 24.969286999999998,
+            "next_arrival_s": 28890.0,
+            "transmission_kwh_year": 1549.201764270884,
+            "infiltration_kwh_year": 0.0,
+            "temperature_hour": 7
+          },
+          {
+            "from": 3,
+            "to": 1,
+            "arrival_s": 28890.0,
+            "physical_arrival_s": 28890.0,
+            "service_s": 810.0,
+            "wait_s": 0.0,
+            "departure_s": 29700.0,
+            "travel_s": 1520.0,
+            "next_physical_arrival_s": 31220.0,
+            "speed_kmph": 45.0,
+            "distance_km": 19.0,
+            "load_kg": 13200.0,
+            "traction_l_tour": 9.72519961111111,
+            "next_arrival_s": 31220.0,
+            "transmission_kwh_year": 1081.7109717572844,
+            "infiltration_kwh_year": 1177.301882583243,
+            "temperature_hour": 8
+          },
+          {
+            "from": 1,
+            "to": 2,
+            "arrival_s": 31220.0,
+            "physical_arrival_s": 31220.0,
+            "service_s": 1050.0,
+            "wait_s": 0.0,
+            "departure_s": 32270.0,
+            "travel_s": 2880.0,
+            "next_physical_arrival_s": 35150.0,
+            "speed_kmph": 45.0,
+            "distance_km": 36.0,
+            "load_kg": 6600.0,
+            "traction_l_tour": 14.876949999999997,
+            "next_arrival_s": 35150.0,
+            "transmission_kwh_year": 1824.516789273016,
+            "infiltration_kwh_year": 1449.7556292963097,
+            "temperature_hour": 8
+          },
+          {
+            "from": 2,
+            "to": 0,
+            "arrival_s": 35150.0,
+            "physical_arrival_s": 35150.0,
+            "service_s": 1290.0,
+            "wait_s": 0.0,
+            "departure_s": 36440.0,
+            "travel_s": 3600.0,
+            "next_physical_arrival_s": 40040.0,
+            "speed_kmph": 50.0,
+            "distance_km": 50.0,
+            "load_kg": 0.0,
+            "traction_l_tour": 16.057649999999995,
+            "next_arrival_s": 40040.0,
+            "transmission_kwh_year": 2430.1233115289247,
+            "infiltration_kwh_year": 1839.3416888870545,
+            "temperature_hour": 9
+          }
+        ],
+        "route": [
+          0,
+          3,
+          1,
+          2
+        ],
+        "waits_s": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "initial_load_kg": 19800.0,
+        "terminal_load_kg": 0.0,
+        "costs": {
+          "traction_eur_year": 30228.75729307777,
+          "transmission_eur_year": 2891.9321914686457,
+          "infiltration_eur_year": 1875.8876643219749,
+          "driver_eur_year": 10741.192,
+          "total_eur_year": 45737.76914886839
+        },
+        "duration_s": 14840.0,
+        "qualification": "independent_equation_evaluation_not_all_author_records_reproduced",
+        "distance_km": 146.0,
+        "return_arrival_s": 40040.0,
+        "traction_l_tour": 65.6290866111111,
+        "transmission_kwh_year": 6885.552836830109,
+        "infiltration_kwh_year": 4466.3992007666075
+      }
+    }
+  ],
+  "rejected": []
+}

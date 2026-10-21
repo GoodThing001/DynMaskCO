@@ -1,0 +1,34 @@
+{
+  "stage": "GPU_DEVELOPMENT_PANEL",
+  "protocol": "publication_model_v1_scientific_freeze_20261021",
+  "scope": "fold0 train/validation only; outer test gated",
+  "dev02": "exit0; 15 report SHAs; four route sets locally independently re-scored",
+  "dev03": "exit1 at first compiled gradient, autotune0; no completed updates; six report SHAs retained",
+  "dev04": "Completed exit0. Four full-backbone variants each240 steps. All228 teachers train-only. Checkpoint prediction/optimizer restores verified. Four validation cases x six methods=24 local independent route/money audits passed. 63 reports SHA-verified; 8 NPZ retained remote.",
+  "configuration_budget": {
+    "fold": 0,
+    "seed": 1000,
+    "max_configs_per_method": 12,
+    "current_architecture_configurations_per_method": 1,
+    "prior_functional_validation": "c205 small-backbone one-step CLI check, disclosed separately, not validation selection"
+  },
+  "next": [
+    "Profile feature preparation, GPU forward, shortlist and exact repair separately on TRAIN cases, without altering frozen scientific model.",
+    "Check teacher quality and training sufficiency; D is a promising development candidate, F+D is not a selected final method.",
+    "Continue validation-only tuning within recorded budget.",
+    "Implement strict timing/anytime records and full compute accounting, then lock per-fold method/checkpoint identities before any formal test."
+  ],
+  "rulings": [
+    "Do not change frozen scientific model, source instances, folds or feasibility thresholds to improve results.",
+    "Compilation-setting failure is retained; restarting in a new namespace is authorized, no existing experiment modified.",
+    "No formal method freeze or test execution until independent objectives, validation selection and checkpoint manifests are complete."
+  ],
+  "result": "D mean +2798.1728358 U vs base, -1332.758179 U vs ALNS. F mean -86.2151427 U; F+D mean -546.7081786 U vs base. One seed and one validation geometry; no superiority claim.",
+  "verification": {
+    "staged_source_files_currently_identical": 200,
+    "independent_validation_routesets": 24,
+    "scientific_files_unchanged": 72,
+    "semantic_tests_passed_this_turn": 10,
+    "outer_test_cases_used": 0
+  }
+}
