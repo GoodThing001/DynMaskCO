@@ -2,12 +2,14 @@
 import datetime
 import math
 import os
+import sys
 import time
 
 import numpy as np
 
 from profit_core import partial_batch
 from profit_search import BudgetExpired,repair,remove_customers
+from experiment_scope import require_operation
 
 
 class SearchClock:
@@ -68,6 +70,7 @@ class SearchClock:
 
 
 def guided_search(task,provider,variant,*,seconds,iterations,seed,remove_count=10,topk=8):
+    require_operation('search')
     clock=SearchClock(task,seconds,sync=provider.sync)
     stats={};completed=0;routes=None;attempts=[]
     try:
@@ -97,7 +100,10 @@ def guided_search(task,provider,variant,*,seconds,iterations,seed,remove_count=1
 
 
 def single_cpu_guard():
-    affinity=list(os.sched_getaffinity(0)) if hasattr(os,'sched_getaffinity') else []
+    if hasattr(os,'sched_getaffinity'):affinity=list(os.sched_getaffinity(0))
+    else:
+        import psutil
+        affinity=psutil.Process().cpu_affinity()
     if affinity and len(affinity)!=1:raise ValueError('Classical timing requires exactly one CPU in process affinity')
     if any(os.environ.get(k)!='1' for k in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS')):
         raise ValueError('Classical BLAS/OpenMP threads must be one')
@@ -106,11 +112,20 @@ def single_cpu_guard():
 
 def classical_search(task,method,*,seconds,iterations,seed):
     """Use pinned legacy operator semantics while recording an independently validated best."""
+    require_operation('search')
     affinity=single_cpu_guard()
     if method not in ('alns','vns'):raise ValueError('Unknown classical method')
     # A private wrapper intercepts COMPLETE feasible candidate evaluations. The
     # library may accept a late state internally; only this clock's events count.
     from profit_search import alns_search,vns_search
+    loading_start=time.perf_counter()
+    if method=='alns':
+        from profit_core import EXTENSION_ROOT
+        sys.path.insert(0,str(EXTENSION_ROOT/'comparisons/static_coldchain/upstream/ALNS'))
+        import alns
+        from alns.accept import SimulatedAnnealing
+        from alns.select import RouletteWheel
+    loading_s=time.perf_counter()-loading_start
     clock=SearchClock(task,seconds)
     original_initial,original_evaluate=task.initial,task.evaluate
     offering=False
@@ -140,5 +155,7 @@ def classical_search(task,method,*,seconds,iterations,seed):
         completed=result['iterations']
     except Exception as e:clock.failure=type(e).__name__+': '+str(e)
     finally:task.initial,task.evaluate=original_initial,original_evaluate
-    return clock.finish(method,completed,cpu_affinity=affinity,task=task.identity(),
+    result=clock.finish(method,completed,cpu_affinity=affinity,task=task.identity(),one_time_library_loading_s=loading_s,
         library_accounting='Only independently validated outer-clock events count; all late library states excluded. Legacy internal final audits charged to search overhead.')
+    result['end_to_end_including_library_loading_s']=loading_s+result['elapsed_s']
+    return result

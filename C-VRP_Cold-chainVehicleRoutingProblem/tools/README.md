@@ -2,6 +2,8 @@
 
 工具分为现行运行/冻结入口、研究资料工具和维护工具。资料工具已从本目录根部归入evidence；现行算法、服务器和冻结入口保留原路径。
 
+当前诊断工具：[验证预算重建](audit_validation_budget.py)、[贡献结果独立核验](verify_static_profit_diagnostics.py)、[配对续训核验与选点](verify_static_profit_continuation.py)、[开发证据v2封存](seal_algorithm_diagnostics.py)。均使用python -B；不会开放正式测试或重置配置预算。
+
 | 位置 | 用途 |
 |---|---|
 | [evidence/acquire](evidence/acquire/README.md) | 8个公开论文、数据与源码获取工具；不会自动重跑下载 |

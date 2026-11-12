@@ -6,9 +6,10 @@ from pathlib import Path
 import statistics
 import sys
 
-EXT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
+from project_paths import EXTENSION_ROOT as EXT
 sys.path.insert(0,str(EXT/'scripts/static_profit'))
-from profit_core import verify_research_freeze
+from profit_core import verify_research_freeze,fold_definition
 from verify_static_profit_diagnostics import verify_routes
 from training_data import load_teachers
 
@@ -32,7 +33,8 @@ def main():
     pair=read(train/'pairing_plan.json');assert pair['parent_step']==1440 and pair['final_step']==2880
     assert len(pair['teacher_indices'])==len(pair['masks20'])==2880
     teachers=read(train/'teachers.json')
-    load_teachers(train/'teachers.json',0,sorted({r['task']['case'] for r in teachers}))
+    assert len(teachers)==228
+    load_teachers(train/'teachers.json',0,fold_definition(0)['train'])
     rows=[];fixed_rows=[];failures=[];events=0
     for variant in variants:
         for branch in ('keep20','switch10'):
@@ -66,6 +68,16 @@ def main():
                     assert fixed['operator_counts']['exact_positions']==reference['operator_counts']['exact_positions']==440
                     fixed_rows.append(dict(variant=variant,branch=branch,case=case,repetition=rep,net_benefit_U=fixed['final']['net_benefit_U']))
     prior=read(results/'algorithm_diagnostics_20261021/diagnostic_audit.json')
+    classical=[]
+    for method in ('alns','vns'):
+        r=read(val/'classical_train'/(method+'.json'))
+        assert len(r['cpu_affinity'])==1 and r['role']=='train'
+        for event in r['history']:
+            assert event['elapsed_s']<=60
+            verify_routes('r101',event['routes'],event['score'],role='train')
+        assert abs(r['end_to_end_including_library_loading_s']-(r['one_time_library_loading_s']+r['elapsed_s']))<1e-6
+        classical.append(dict(method=method,status=r['status'],timing=r['timing'],one_time_library_loading_s=r['one_time_library_loading_s'],
+                              end_to_end_including_library_loading_s=r['end_to_end_including_library_loading_s']))
     selection={}
     for variant in variants:
         candidates={}
@@ -79,7 +91,7 @@ def main():
     report=dict(status='PASS_REGISTERED_TRAINING_AND_CHECKPOINT_SELECTION' if not failures else 'AUDITED_WITH_FAILURES',
         scientific_freeze=verify_research_freeze(),training_variants=variants,teachers_reaudited=228,
         final_routes_reaudited=len(rows),fixed_routes_reaudited=len(fixed_rows),incumbents_reaudited=events,
-        selection=selection,wall_rows=rows,fixed_rows=fixed_rows,failures=failures,outer_test_cases_used=0,
+        selection=selection,wall_rows=rows,fixed_rows=fixed_rows,failures=failures,classical_recheck=classical,outer_test_cases_used=0,
         limitation='One validation geometry/seed. Only2880 endpoint added; switch10 affects last1440 steps. Shared hardware noise remains; selected recipe is a development choice, not formal method freeze.')
     out=results/'algorithm_diagnostics_20261021/continuation_audit.json'
     out.write_text(json.dumps(report,indent=2,allow_nan=False),encoding='utf-8')

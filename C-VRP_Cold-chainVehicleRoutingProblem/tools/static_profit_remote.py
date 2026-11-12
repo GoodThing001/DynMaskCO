@@ -80,7 +80,7 @@ print(json.dumps(dict(processes=rows,gpu=g.stdout)))''' % session
     print(json.dumps(result))
 
 
-def stage(client,remote,local):
+def stage(client,remote,local,extra_files=()):
     lockpath = EXT/'results/static_delivery/publication_protocol_v1_scientific_freeze_20261021/FREEZE_LOCK.json'
     lock = json.loads(lockpath.read_text(encoding='utf-8'))
     files = [EXT/r['path'] for r in lock['files']]+[lockpath,lockpath.with_suffix('.sha256')]
@@ -100,6 +100,7 @@ def stage(client,remote,local):
                      'results/static_delivery/algorithm_dev_20261021/remote_3080/dev03/outputs/teacher_upgrade/teachers.json']:
         teacher_source=EXT/relative
         if teacher_source.exists():files.append(teacher_source)
+    files += list(extra_files)
     manifest = {p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
     payload = local/'payload.zip'
     with zipfile.ZipFile(payload,'x',zipfile.ZIP_DEFLATED) as z:

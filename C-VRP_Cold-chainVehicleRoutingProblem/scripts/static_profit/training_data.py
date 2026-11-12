@@ -2,22 +2,24 @@
 import json
 import numpy as np
 from profit_core import ProfitTask,fold_definition
+from experiment_scope import require_teacher_request,artifact_json
 
 
-def sample_schedule(count,steps,seed,order):
+def sample_schedule(count,steps,seed,order,*,shuffle_seed=None):
     if count<1 or steps<1 or order not in ('ordered','shuffled'):raise ValueError('invalid sample schedule')
     if order=='ordered':return [i%count for i in range(steps)]
-    rng=np.random.default_rng(seed+1)
+    rng=np.random.default_rng(seed+1 if shuffle_seed is None else shuffle_seed)
     sequence=[]
     while len(sequence)<steps:sequence.extend(int(i) for i in rng.permutation(count))
     return sequence[:steps]
 
 
 def load_teachers(path,fold,cases):
-    rows=json.loads(path.read_text(encoding='utf-8'))
+    cases=require_teacher_request(fold,cases)
     allowed=set(fold_definition(fold)['train'])
     selected=set(cases)
     if not selected<=allowed:raise ValueError('requested non-training teachers')
+    rows=artifact_json(path,'teachers')
     seen=set();teachers=[]
     for row in rows:
         identity=row['task']

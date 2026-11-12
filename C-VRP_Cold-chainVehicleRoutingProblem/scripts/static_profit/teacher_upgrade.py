@@ -13,13 +13,21 @@ def main():
     p.add_argument('--seconds',type=float,default=1)
     p.add_argument('--out',type=Path,required=True)
     args=p.parse_args()
+    from experiment_scope import require_operation
+    require_operation('search')
     for key in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS'):
         os.environ[key]='1'
     from profit_core import ProfitTask,digest,verify_research_freeze
     from profit_search import alns_search
     if args.seconds<=0:raise ValueError('positive teacher budget required')
-    source=json.loads(args.teachers.read_text(encoding='utf-8'))
+    from experiment_scope import artifact_json,require_case,current_scope
     selected=None if args.cases=='all' else set(args.cases.split(','))
+    if selected is not None:
+        for case in selected:
+            matching=[r for r in current_scope().allowed if r[1]=='train' and r[2]==case.lower()]
+            if len(matching)!=1:raise ValueError('explicit single-fold teacher scope required')
+            require_case(case,matching[0][0],'train')
+    source=artifact_json(args.teachers,'teachers')
     args.out.mkdir(parents=True,exist_ok=False)
     rows=[];teachers=[];seen=set()
     for row in source:

@@ -17,6 +17,7 @@ sys.path.insert(0, str(EXTENSION_ROOT/'comparisons/static_coldchain/adapters'))
 sys.path.insert(0, str(EXTENSION_ROOT/'tools'))
 from publication_model_v1_strict import CONFIG, PublicationModel, load_config, load_original
 from preflight_publication_model_v1 import independent_audit, nearest_neighbour_witness
+from experiment_scope import require_case,require_operation
 
 FREEZE = EXTENSION_ROOT/'results/static_delivery/publication_protocol_v1_scientific_freeze_20261021/FREEZE_LOCK.json'
 FOLDS = EXTENSION_ROOT/'results/static_delivery/publication_protocol_v1_preflight_20261021/geometry_folds.json'
@@ -54,6 +55,7 @@ def fold_definition(fold):
 
 class ProfitTask:
     def __init__(self, case, *, fold, role, profile='main_Product1', minimum_quality=0.8, value_multiplier=1):
+        require_case(case,fold,role)  # Task allowlist BEFORE fold/config/instance I/O.
         if role not in ('train', 'validation'):
             raise ValueError('Formal outer-test execution disabled until method-manifest gate is met')
         split = fold_definition(fold)
@@ -96,6 +98,8 @@ class ProfitTask:
                     independently_audited=audit)
 
     def initial(self):
+        require_case(self.ins['name'],self.fold,self.role)
+        require_operation('initialize')
         scores = nearest_neighbour_witness(self.model, True)
         routes = tuple(r.route for r in scores)
         self.evaluate(routes, audit=True)

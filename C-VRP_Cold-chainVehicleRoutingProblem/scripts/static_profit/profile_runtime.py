@@ -20,6 +20,9 @@ def main():
     p.add_argument('--matmul-precision',choices=['default','highest'],default='default')
     p.add_argument('--repair-implementation',choices=['classic','vectorized'],default='classic')
     args=p.parse_args()
+    from experiment_scope import require_operation,require_case
+    require_operation('infer');require_operation('search')
+    for case in args.cases.split(','):require_case(case,0,'train')
     os.environ['JAX_PLATFORMS']=args.backend
     os.environ['XLA_PYTHON_CLIENT_PREALLOCATE']='false'
     from profit_core import ProfitTask,partial_batch,verify_research_freeze,digest
@@ -51,7 +54,8 @@ def main():
             forward=CompiledPredictor(model)
         def infer(inputs):
             return model(*inputs) if forward is None else forward.device_forward(*inputs)
-        warm=ProfitTask('r101',fold=0,role='train')
+        from experiment_scope import warmup_case
+        warm=ProfitTask(warmup_case(0,args.cases.split(',')),fold=0,role='train')
         batch,_=partial_batch(warm,warm.initial(),tuple(range(1,11)),variant)
         start=time.perf_counter()
         reference=predict(model,batch)

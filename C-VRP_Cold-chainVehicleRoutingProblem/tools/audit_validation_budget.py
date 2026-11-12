@@ -5,8 +5,10 @@ import datetime
 import hashlib
 import json
 from pathlib import Path
+import sys
 
-EXT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
+from project_paths import EXTENSION_ROOT as EXT
 RUNS=EXT/'results/static_delivery/algorithm_dev_20261021'
 OUT=EXT/'results/static_delivery/algorithm_diagnostics_20261021'
 

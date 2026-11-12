@@ -21,6 +21,8 @@ def main():
     p.add_argument('--train-root',type=Path)
     p.add_argument('--out',type=Path,required=True)
     args=p.parse_args()
+    from experiment_scope import require_operation
+    require_operation('train' if args.phase=='train' else 'search')
     os.environ['JAX_PLATFORMS']='cuda';os.environ['XLA_PYTHON_CLIENT_PREALLOCATE']='false'
     threads=4 if args.phase=='train' else 1
     if args.phase=='validate' and hasattr(os,'sched_setaffinity'):
@@ -30,7 +32,7 @@ def main():
     from profit_neural import load_checkpoint,save_checkpoint,parameter_digest,predict,CompiledPredictor,parameter_count
     from training_data import load_teachers,sample_schedule
     from diagnostics import Provider
-    from timed_search import guided_search,single_cpu_guard
+    from timed_search import guided_search,single_cpu_guard,classical_search
     from profit_search import repair,remove_customers
     import numpy as np
     import jax
@@ -57,8 +59,8 @@ def main():
         assert args.parent.name=='dev09'
         parent=args.parent/'outputs/upgraded_teachers/train'
         parent_manifest=read(args.parent/'output_manifest.json')
-        assert sha(parent/'teachers.json')==parent_manifest[(parent/'teachers.json').relative_to(args.parent).as_posix()]
         teachers=load_teachers(parent/'teachers.json',0,fold_definition(0)['train'])
+        assert sha(parent/'teachers.json')==parent_manifest[(parent/'teachers.json').relative_to(args.parent).as_posix()]
         oldplan=read(parent/'training_plan.json')
         schedule=sample_schedule(len(teachers),2880,1000,'shuffled')
         assert oldplan['teacher_indices']==schedule[:1440]
@@ -107,6 +109,10 @@ def main():
     affinity=single_cpu_guard()
     assert args.train_root and read(args.train_root/'summary.json')['status']=='PASS_REGISTERED_CONTINUATION_TRAINING'
     jax.config.update('jax_default_matmul_precision','highest')
+    classic=args.out/'classical_train';classic.mkdir()
+    for method in ('alns','vns'):
+        result=classical_search(ProfitTask('r101',fold=0,role='train'),method,seconds=60,iterations=1000000,seed=1000)
+        dump(classic/(method+'.json'),result)
     masks=read(args.diagnostic_parent/'outputs/diagnostics/mask_schedule.json')
     for variant in variants:
         for branch in ('keep20','switch10'):
@@ -114,7 +120,8 @@ def main():
             trainer,record=load_checkpoint(checkpoint)
             assert trainer.steps==2880
             model=CompiledPredictor(trainer.model)
-            warm=ProfitTask('r101',fold=0,role='train');batch,_=partial_batch(warm,warm.initial(),tuple(range(1,11)),variant)
+            from experiment_scope import warmup_case
+            warm=ProfitTask(warmup_case(0,fold_definition(0)['train']),fold=0,role='train');batch,_=partial_batch(warm,warm.initial(),tuple(range(1,11)),variant)
             start=time.perf_counter();values=predict(model,batch);eager=predict(trainer.model,batch)
             np.testing.assert_allclose(values,eager,rtol=3e-4,atol=3e-4)
             folder=args.out/variant/branch;folder.mkdir(parents=True)

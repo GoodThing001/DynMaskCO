@@ -3,3 +3,5 @@
 [ASSETS.json](ASSETS.json)记录原路径、新路径、大小与SHA。保留RouteFinder已有4份、DeepACO的2份CVRP100和CaR的3份100客户CVRP/CVRPBLTW权重，共9份。
 
 这些是作者原任务预训练权重，不是当前冷链净效益训练检查点，不能直接当作同目标方法结果。现行MASKCO开发权重继续保存在原运行目录/服务器；不移入此处混淆身份。二进制保持本地，不自动发布。
+
+新增AttentionModel/POMO随作者ZIP附带的权重保存在upstream_extra_20261021，原路径、新路径、大小与SHA见相应models目录下的SNAPSHOT_PROVENANCE.json。外部链接的CaDA等检查点未下载；需要时由执行端按作者来源另行获取并固定SHA，不能把原任务预训练冒充本项目同目标训练。

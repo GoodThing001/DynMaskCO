@@ -6,7 +6,8 @@ from pathlib import Path
 import statistics
 import sys
 
-EXT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
+from project_paths import EXTENSION_ROOT as EXT
 sys.path.insert(0,str(EXT/'scripts/static_profit'))
 from profit_core import ProfitTask,verify_research_freeze
 

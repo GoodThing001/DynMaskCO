@@ -8,6 +8,7 @@ import time
 import numpy as np
 
 from profit_core import EXTENSION_ROOT, partial_batch
+from experiment_scope import require_operation
 
 
 class BudgetExpired(Exception):
@@ -101,6 +102,7 @@ class InsertionIndex:
 
 
 def repair(task, partial, removed, *, heatmap=None, topk=8, regret=True, deadline=math.inf,implementation='classic',stats=None,fallback=True):
+    require_operation('search')
     if implementation not in ('classic','vectorized'):raise ValueError('unknown repair implementation')
     routes, pending = list(partial), sorted(removed)
     while pending:
@@ -135,6 +137,7 @@ def _result(task, routes, initial, history, start, iterations, method):
 
 
 def neural_search(task, model, variant, *, seconds, iterations, seed, remove_count=10, topk=8,repair_implementation='classic'):
+    require_operation('search')
     from profit_neural import predict
     start = time.perf_counter()
     deadline = start+seconds
@@ -163,6 +166,7 @@ def neural_search(task, model, variant, *, seconds, iterations, seed, remove_cou
 
 
 def vns_search(task, *, seconds, iterations, seed):
+    require_operation('search')
     start = time.perf_counter()
     initial = routes = task.initial()
     value = task.evaluate(routes)['net_benefit_U']
@@ -213,6 +217,7 @@ def vns_search(task, *, seconds, iterations, seed):
 
 
 def alns_search(task, *, seconds, iterations, seed, remove_count=10, initial_routes=None):
+    require_operation('search')
     if initial_routes is not None and task.role!='train':
         raise ValueError('stored-incumbent refinement is training-teacher only')
     # Import the pinned read-only official library, not its distance examples.

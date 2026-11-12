@@ -28,9 +28,12 @@ def main():
     p.add_argument('--predictor',choices=['eager','compiled'],default='eager')
     p.add_argument('--matmul-precision',choices=['default','highest'],default='default')
     p.add_argument('--repair-implementation',choices=['classic','vectorized'],default='classic')
+    p.add_argument('--timing-policy',choices=['legacy','strict'],default='legacy',
+        help='Strict uses validated-incumbent deadlines and the registered top8/no-fallback search; legacy preserves historical semantics')
     p.add_argument('--threads',type=int,default=1)
     p.add_argument('--steps',type=int,default=3)
     p.add_argument('--seed',type=int,default=1000)
+    p.add_argument('--shuffle-seed',type=int,help='Explicit sample-order stream; defaults to root seed + 1')
     p.add_argument('--seconds',type=float,default=5)
     p.add_argument('--iterations',type=int,default=3)
     p.add_argument('--teacher-seconds',type=float,default=0.3)
@@ -39,6 +42,11 @@ def main():
     p.add_argument('--checkpoint-root',type=Path,help='saved base/proposed checkpoint directories for replay')
     p.add_argument('--out',type=Path,required=True)
     args = p.parse_args()
+    sys.path.insert(0,str(Path(__file__).resolve().parent))
+    from experiment_scope import require_operation,require_case
+    require_operation('train' if args.command in ('train','smoke') else 'search')
+    for scoped_case in (args.cases.split(',') if args.cases else [args.case]):
+        require_case(scoped_case.strip(),args.fold,args.role)
     if args.steps < 1 or args.threads < 1 or args.seconds <= 0 or args.iterations < 1:
         p.error('positive steps, threads, seconds and iterations required')
     if args.command in ('train','smoke') and args.role != 'train':
@@ -66,6 +74,14 @@ def main():
     sys.path.insert(0,str(Path(__file__).resolve().parent))
     from profit_core import EXTENSION_ROOT, ProfitTask, verify_research_freeze, partial_batch, digest, VARIANTS
     from profit_search import vns_search, alns_search, neural_search
+    if args.timing_policy=='strict':
+        from timed_search import single_cpu_guard
+        if args.threads!=1:p.error('strict comparison requires --threads 1 and one CPU affinity')
+        single_cpu_guard()
+        if args.command in ('replay','smoke') and (args.predictor!='compiled' or args.matmul_precision!='highest'):
+            p.error('strict neural inference requires compiled/highest, as registered')
+        if args.command in ('replay','smoke') and args.repair_implementation!='vectorized':
+            p.error('strict neural reconstruction requires --repair-implementation vectorized')
     import numpy as np
     freeze = verify_research_freeze()
     args.out.mkdir(parents=True,exist_ok=False)
@@ -88,12 +104,17 @@ def main():
         results = {}
         for method in ('vns','alns'):
             current = ProfitTask(args.case,fold=args.fold,role=args.role)
-            results[method] = (vns_search if method=='vns' else alns_search)(current,
-                seconds=args.seconds,iterations=args.iterations,seed=args.seed)
+            if args.timing_policy=='strict':
+                from timed_search import classical_search
+                results[method]=classical_search(current,method,seconds=args.seconds,iterations=args.iterations,seed=args.seed)
+            else:
+                results[method] = (vns_search if method=='vns' else alns_search)(current,
+                    seconds=args.seconds,iterations=args.iterations,seed=args.seed)
             dump(out/(method+'.json'),results[method])
             print(json.dumps(dict(method=method,final=results[method]['final'])),flush=True)
-        dump(out/'summary.json',dict(status='PASS_CLASSICAL_INTEGRATION_DEV',task=task.identity(),
-            methods=list(results),formal_experiment=False))
+        failures={k:v.get('status') for k,v in results.items() if v.get('status') in ('FAILED','INITIALIZATION_TIMEOUT')}
+        dump(out/'summary.json',dict(status='CLASSICAL_RUN_WITH_FAILURES' if failures else 'PASS_CLASSICAL_INTEGRATION_DEV',task=task.identity(),
+            methods=list(results),failures=failures,timing_policy=args.timing_policy,formal_experiment=False))
         return
 
     from profit_neural import ProfitMaskCO, Trainer, predict, parameter_digest, parameter_count, save_checkpoint, load_checkpoint
@@ -136,9 +157,10 @@ def main():
     rng = np.random.default_rng(args.seed)
     masks = [tuple(int(i) for i in rng.choice(np.arange(1,101),size=20,replace=False)) for _ in range(args.steps)]
     from training_data import sample_schedule
-    schedule=sample_schedule(len(teachers),args.steps,args.seed,args.sample_order)
+    shuffle_seed=args.seed+1 if args.shuffle_seed is None else args.shuffle_seed
+    schedule=sample_schedule(len(teachers),args.steps,args.seed,args.sample_order,shuffle_seed=shuffle_seed)
     dump(out/'training_plan.json',dict(sample_order=args.sample_order,teacher_indices=schedule,
-        mask_customers=20,seed=args.seed,sample_order_seed=args.seed+1,
+        mask_customers=20,seed=args.seed,sample_order_seed=shuffle_seed,
         parent_teacher_file_sha256=digest(args.teacher_file) if args.teacher_file is not None else None))
     for variant in variants:
         model = ProfitMaskCO(variant,args.profile,args.seed)
@@ -197,7 +219,8 @@ def run_searches(args,out,task,trained,records,freeze,jax):
     searches = {}
     for variant,model in trained.items():
         inference=CompiledPredictor(model) if args.predictor=='compiled' else model
-        warm = ProfitTask(fold_definition(args.fold)['train'][0],fold=args.fold,role='train')
+        from experiment_scope import warmup_case
+        warm = ProfitTask(warmup_case(args.fold,fold_definition(args.fold)['train']),fold=args.fold,role='train')
         batch,_ = partial_batch(warm,warm.initial(),tuple(range(1,21)),variant)
         warm_start=time.perf_counter()
         warm_logits=predict(inference,batch)  # Training-only warmup, outside solve timing.
@@ -210,23 +233,37 @@ def run_searches(args,out,task,trained,records,freeze,jax):
             repair_implementation=args.repair_implementation,training_only_warmup_s=time.perf_counter()-warm_start,
             warmup_max_abs_logit_error=max_error)
         current = ProfitTask(args.case,fold=args.fold,role=args.role)
-        searches[variant] = neural_search(current,inference,variant,seconds=args.seconds,
-            iterations=args.iterations,seed=args.seed,repair_implementation=args.repair_implementation)
+        if args.timing_policy=='strict':
+            from diagnostics import Provider
+            from timed_search import guided_search
+            searches[variant]=guided_search(current,Provider('trained_top8',inference,inference),variant,
+                seconds=args.seconds,iterations=args.iterations,seed=args.seed)
+        else:
+            searches[variant] = neural_search(current,inference,variant,seconds=args.seconds,
+                iterations=args.iterations,seed=args.seed,repair_implementation=args.repair_implementation)
         dump(out/(variant+'_search.json'),searches[variant])
         print(json.dumps(dict(variant=variant,search_final=searches[variant]['final'])),flush=True)
     for method in ('vns','alns'):
         current = ProfitTask(args.case,fold=args.fold,role=args.role)
-        searches[method] = (vns_search if method=='vns' else alns_search)(current,
-            seconds=args.seconds,iterations=args.iterations,seed=args.seed)
+        if args.timing_policy=='strict':
+            from timed_search import classical_search
+            searches[method]=classical_search(current,method,seconds=args.seconds,iterations=args.iterations,seed=args.seed)
+        else:
+            searches[method] = (vns_search if method=='vns' else alns_search)(current,
+                seconds=args.seconds,iterations=args.iterations,seed=args.seed)
         dump(out/(method+'_search.json'),searches[method])
-    initial_values = [s['initial']['net_benefit_U'] for s in searches.values()]
-    if max(initial_values)-min(initial_values)>1e-7:
+    initial_values = [s['initial']['net_benefit_U'] for s in searches.values() if s.get('initial')]
+    if initial_values and max(initial_values)-min(initial_values)>1e-7:
         raise ValueError('methods did not use the same common initial solution')
     summary = dict(status='PASS_ALGORITHM_INTEGRATION_NOT_PERFORMANCE_EVIDENCE',
         task=task.identity(),scientific_freeze=verify_research_freeze(),backend=jax.default_backend(),
         devices=[str(d) for d in jax.devices()],variants=records,
         searches={k:{x:s[x] for x in ('initial','final','iterations','elapsed_s')} for k,s in searches.items()},
         outer_test_cases_used=0,formal_experiment=False,method_superiority_established=False)
+    summary['timing_policy']=args.timing_policy
+    summary['method_status']={k:s.get('status','LEGACY_NO_STRICT_STATUS') for k,s in searches.items()}
+    if any(s in ('FAILED','INITIALIZATION_TIMEOUT') for s in summary['method_status'].values()):
+        summary['status']='SEARCHES_RECORDED_WITH_FAILURES'
     if any(digest(upstream_root/name)!=value for name,value in upstream_pins.items()):
         raise ValueError('read-only upstream source changed')
     summary['upstream_sources_unchanged'] = True

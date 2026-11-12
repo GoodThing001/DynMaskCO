@@ -13,6 +13,7 @@ from flax import nnx
 
 from profit_core import CONFIG, FREEZE, SCHEMA, VARIANTS, digest
 from models.CVRPModel import CVRPModel
+from experiment_scope import checkpoint_metadata,require_operation
 
 PROFILES = {
     'maskco_256': dict(num_layers=(16,6),dimension=256,heads=8),
@@ -100,6 +101,7 @@ class Trainer:
         self._step = update
 
     def step(self,batch):
+        require_operation('train')
         old = [np.asarray(a).copy() for a in jax.tree_util.tree_leaves(self.state)]
         self.state,self.opt_state,loss,gradient = self._step(self.state,self.opt_state,
             {k:jnp.asarray(v) for k,v in batch.items()})
@@ -131,6 +133,7 @@ class CompiledPredictor:
 
 
 def predict(model,batch):
+    require_operation('infer')
     device_result=model(*(jnp.asarray(batch[k]) for k in ('features','adjacency','timestep')))
     device_result.block_until_ready()
     result = np.asarray(device_result)[0]
@@ -171,7 +174,7 @@ def save_checkpoint(path,trainer,metadata):
 
 def load_checkpoint(path):
     path = Path(path)
-    record = json.loads((path/'checkpoint.json').read_text(encoding='utf-8'))
+    record = checkpoint_metadata(path)
     if record['feature_schema'] != SCHEMA or record['model_sha256'] != digest(CONFIG) or record['research_lock_sha256'] != digest(FREEZE):
         raise ValueError('checkpoint scientific identity mismatch')
     if any(digest(path/name) != value for name,value in record['files'].items()):

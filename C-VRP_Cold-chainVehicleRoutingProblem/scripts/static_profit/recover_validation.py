@@ -24,6 +24,8 @@ def main():
     p.add_argument('--parent',type=Path,required=True)
     p.add_argument('--out',type=Path,required=True)
     args=p.parse_args()
+    from experiment_scope import ScopeViolation
+    raise ScopeViolation('Historical dev09 recovery is retired; inspect its sealed dev09+dev10 evidence, do not relaunch saved unguarded sources')
     parent=args.parent.resolve()
     if parent.name!='dev09' or (parent/'run.exit').read_text().strip()!='124':
         raise ValueError('This recovery is specific to the preserved dev09 timeout')

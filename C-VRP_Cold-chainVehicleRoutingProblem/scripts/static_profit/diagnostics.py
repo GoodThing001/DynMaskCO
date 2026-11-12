@@ -48,6 +48,8 @@ def main():
     p.add_argument('--parent',type=Path,required=True)
     p.add_argument('--out',type=Path,required=True)
     args=p.parse_args()
+    from experiment_scope import require_operation
+    require_operation('search')
     os.environ['JAX_PLATFORMS']='cuda'
     os.environ['XLA_PYTHON_CLIENT_PREALLOCATE']='false'
     for k in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS'):os.environ[k]='1'
