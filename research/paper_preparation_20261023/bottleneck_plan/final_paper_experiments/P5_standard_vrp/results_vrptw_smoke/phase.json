@@ -1,0 +1,74 @@
+{
+  "name": "p5b_smoke",
+  "seconds": 60,
+  "training_only": false,
+  "methods": [
+    "ORDER_SPLIT",
+    "ORDER_SPLIT_D",
+    "MASK",
+    "SLOT",
+    "DIST",
+    "DIST_SLOT",
+    "ALNS",
+    "VNS"
+  ],
+  "interpreters": {
+    "ORDER_SPLIT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "ORDER_SPLIT_D": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "MASK": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "SLOT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "DIST": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "DIST_SLOT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "ALNS": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "VNS": "/home/hzeng/envs/MASKCO_env/bin/python"
+  },
+  "blocks": [
+    {
+      "case": "C101",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "C101",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C101",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    }
+  ],
+  "max_cores": 3,
+  "schedule_note": "P5-B 冒烟：Solomon 1 例 × 3 种子 × 8 法（字典序 K,D）；外部方法另行批次"
+}

@@ -1,0 +1,2549 @@
+{
+  "name": "p5b_full",
+  "seconds": 60,
+  "training_only": false,
+  "methods": [
+    "ORDER_SPLIT",
+    "ORDER_SPLIT_D",
+    "MASK",
+    "SLOT",
+    "DIST",
+    "DIST_SLOT",
+    "ALNS",
+    "VNS"
+  ],
+  "interpreters": {
+    "ORDER_SPLIT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "ORDER_SPLIT_D": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "MASK": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "SLOT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "DIST": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "DIST_SLOT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "ALNS": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "VNS": "/home/hzeng/envs/MASKCO_env/bin/python"
+  },
+  "blocks": [
+    {
+      "case": "C101",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "C101",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C101",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C102",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C102",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C102",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C103",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C103",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C103",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "C104",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C104",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "C104",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "C105",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "C105",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "C105",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "C106",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "C106",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "C106",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "C107",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "C107",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "C107",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "C108",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "C108",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "C108",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C109",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "C109",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C109",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C201",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C201",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C201",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C202",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C202",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C202",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "C203",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C203",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "C203",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "C204",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "C204",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "C204",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "C205",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "C205",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "C205",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "C206",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "C206",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "C206",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "C207",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "C207",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "C207",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C208",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "C208",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C208",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R101",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R101",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R101",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R102",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R102",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R102",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "R103",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R103",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "R103",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "R104",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "R104",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "R104",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "R105",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "R105",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "R105",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "R106",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "R106",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "R106",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "R107",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "R107",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "R107",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R108",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "R108",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R108",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R109",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R109",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R109",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R110",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R110",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R110",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "R111",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R111",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "R111",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "R112",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "R112",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "R112",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "R201",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "R201",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "R201",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "R202",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "R202",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "R202",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "R203",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "R203",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "R203",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R204",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "R204",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R204",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R205",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R205",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R205",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R206",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R206",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R206",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "R207",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R207",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "R207",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "R208",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "R208",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "R208",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "R209",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "R209",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "R209",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "R210",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "R210",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "R210",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "R211",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "R211",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "R211",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC101",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "RC101",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC101",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC102",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC102",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC102",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC103",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC103",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC103",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "RC104",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC104",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "RC104",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "RC105",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "RC105",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "RC105",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "RC106",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "RC106",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "RC106",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "RC107",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "RC107",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "RC107",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "RC108",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "RC108",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "RC108",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC201",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "RC201",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC201",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC202",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC202",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC202",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC203",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC203",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC203",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "RC204",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC204",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "RC204",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "RC205",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "RC205",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "RC205",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "RC206",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "RC206",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "RC206",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "RC207",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "RC207",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "RC207",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "RC208",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "RC208",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "RC208",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    }
+  ],
+  "max_cores": 12,
+  "schedule_note": "P5-B 正式：Solomon 56 例 × 3 种子 × 8 法（字典序 K,D）；外部方法另行批次"
+}

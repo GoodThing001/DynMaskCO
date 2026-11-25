@@ -1,0 +1,1919 @@
+{
+  "name": "p5_external_author",
+  "seconds": 60,
+  "training_only": false,
+  "methods": [
+    "AttentionModel",
+    "CaDA",
+    "CaR",
+    "DeepACO",
+    "MVMoE",
+    "POMO",
+    "RRNCO",
+    "RouteFinder"
+  ],
+  "interpreters": {
+    "AttentionModel": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "CaDA": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "CaR": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "DeepACO": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "MVMoE": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "POMO": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "RRNCO": "/home/hzeng/envs/cc_compare/bin/python",
+    "RouteFinder": "/home/hzeng/envs/MASKCO_env/bin/python"
+  },
+  "blocks": [
+    {
+      "case": "X-n101-k25",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "AttentionModel",
+        "POMO",
+        "DeepACO",
+        "CaR",
+        "MVMoE",
+        "CaDA",
+        "RouteFinder"
+      ]
+    },
+    {
+      "case": "X-n101-k25",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "AttentionModel",
+        "POMO",
+        "DeepACO",
+        "CaR",
+        "MVMoE",
+        "CaDA",
+        "RouteFinder"
+      ]
+    },
+    {
+      "case": "X-n101-k25",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "AttentionModel",
+        "POMO",
+        "DeepACO",
+        "CaR",
+        "MVMoE",
+        "CaDA",
+        "RouteFinder"
+      ]
+    },
+    {
+      "case": "C101",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C101",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C101",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C102",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C102",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C102",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C103",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C103",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C103",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C104",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C104",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C104",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C105",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C105",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C105",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C106",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C106",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C106",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C107",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C107",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C107",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C108",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C108",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C108",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C109",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C109",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C109",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C201",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C201",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C201",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C202",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C202",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C202",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C203",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C203",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C203",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C204",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C204",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C204",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C205",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C205",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C205",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C206",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C206",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C206",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C207",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C207",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C207",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C208",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C208",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "C208",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R101",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R101",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R101",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R102",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R102",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R102",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R103",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R103",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R103",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R104",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R104",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R104",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R105",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R105",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R105",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R106",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R106",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R106",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R107",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R107",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R107",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R108",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R108",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R108",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R109",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R109",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R109",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R110",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R110",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R110",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R111",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R111",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R111",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R112",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R112",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R112",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R201",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R201",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R201",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R202",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R202",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R202",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R203",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R203",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R203",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R204",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R204",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R204",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R205",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R205",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R205",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R206",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R206",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R206",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R207",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R207",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R207",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R208",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R208",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R208",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R209",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R209",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R209",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R210",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R210",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R210",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R211",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R211",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "R211",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC101",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC101",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC101",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC102",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC102",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC102",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC103",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC103",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC103",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC104",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC104",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC104",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC105",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC105",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC105",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC106",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC106",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC106",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC107",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC107",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC107",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC108",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC108",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC108",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC201",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC201",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC201",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC202",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC202",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC202",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC203",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC203",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC203",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC204",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC204",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC204",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC205",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC205",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC205",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC206",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC206",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC206",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC207",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC207",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC207",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC208",
+      "seed": 69001,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC208",
+      "seed": 69002,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    },
+    {
+      "case": "RC208",
+      "seed": 69003,
+      "objective": "vrptw",
+      "methods": [
+        "MVMoE",
+        "CaDA",
+        "RouteFinder",
+        "RRNCO"
+      ]
+    }
+  ],
+  "max_cores": 8,
+  "schedule_note": "P5 外部方法批次·作者模型：CVRP n=100 8 法 + VRPTW 56 例 4 法 × 3 种子 = 696 格；RRNCO 用 cc_compare 环境（rl4co），其余 MASKCO_env"
+}

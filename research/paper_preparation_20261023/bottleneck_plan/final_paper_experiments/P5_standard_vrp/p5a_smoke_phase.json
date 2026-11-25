@@ -1,0 +1,103 @@
+{
+  "name": "p5a_smoke",
+  "seconds": 60,
+  "training_only": false,
+  "methods": [
+    "ORDER_SPLIT",
+    "ORDER_SPLIT_D",
+    "MASK",
+    "SLOT",
+    "DIST",
+    "DIST_SLOT"
+  ],
+  "interpreters": {
+    "ORDER_SPLIT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "ORDER_SPLIT_D": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "MASK": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "SLOT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "DIST": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "DIST_SLOT": "/home/hzeng/envs/MASKCO_env/bin/python"
+  },
+  "blocks": [
+    {
+      "case": "X-n101-k25",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "DIST_SLOT",
+        "ORDER_SPLIT_D",
+        "SLOT",
+        "MASK",
+        "ORDER_SPLIT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "X-n101-k25",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "MASK",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "X-n101-k25",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "DIST",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "X-n106-k14",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "MASK",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "DIST",
+        "SLOT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "X-n106-k14",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "SLOT",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "DIST",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "X-n106-k14",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT",
+        "DIST",
+        "SLOT",
+        "MASK",
+        "ORDER_SPLIT_D",
+        "DIST_SLOT"
+      ]
+    }
+  ],
+  "max_cores": 12,
+  "schedule_note": "P5-A 冒烟：n=100（X-n101-k25）与窗口（X-n106-k14）双路径验证"
+}

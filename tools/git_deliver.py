@@ -145,22 +145,29 @@ MANIFEST = {
         },
         {
             "name": "p4_solomon_coldchain",
-            "note": "P4 Solomon 冷链统一18法：预登记、调度器、轨迹工作器与矩阵（端点另批交付）",
+            "note": "P4 Solomon 冷链统一18法：预登记、调度器、轨迹工作器、矩阵与 486 端点收据",
             "root": "research/paper_preparation_20261023/bottleneck_plan/final_paper_experiments/P4_solomon_coldchain",
-            "include": ("*.md", "*.py", "*.json"),
+            "include": ("*.md", "*.py", "*.json", "endpoints/*.json",
+                        "results/endpoints/*.json", "results_smoke/endpoints/*.json"),
         },
         {
             "name": "p5_standard_vrp",
-            "note": "P5 标准任务：预登记协议、标准评价器与正确性测试（与冷链求解器隔离）",
+            "note": "P5 标准任务：预登记协议、标准评价器/搜索/经典基线/作者模型适配、阶段注册与端点收据",
             "root": "research/paper_preparation_20261023/bottleneck_plan/final_paper_experiments/P5_standard_vrp",
-            "include": ("*.md", "standard_vrp/core/*.py", "standard_vrp/tests/*.py"),
+            "include": ("*.md", "*.py", "*.json",
+                        "standard_vrp/core/*.py", "standard_vrp/solver/*.py",
+                        "standard_vrp/tests/*.py",
+                        "methods/*.py", "methods/*.md",
+                        "results_*/status.json", "results_*/phase.json",
+                        "results_*/endpoints/*.json"),
         },
     ],
 }
 
 
 def git(*args: str) -> str:
-    out = subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True)
+    out = subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True,
+                         encoding="utf-8", errors="replace")
     if out.returncode != 0:
         raise RuntimeError(f"git {' '.join(args)} failed: {out.stderr.strip()}")
     return out.stdout
@@ -243,9 +250,11 @@ def check(found: dict[str, list[Path]]) -> int:
     for start in range(0, len(paths), CHUNK):
         chunk = paths[start:start + CHUNK]
         out = subprocess.run(["git", "ls-files", "--error-unmatch", "--", *chunk],
-                             cwd=ROOT, capture_output=True, text=True)
+                             cwd=ROOT, capture_output=True, text=True,
+                             encoding="utf-8", errors="replace")
         if out.returncode != 0:
-            missing.extend(line for line in out.stderr.splitlines() if line.strip())
+            text = (out.stderr or "") + (out.stdout or "")
+            missing.extend(line for line in text.splitlines() if line.strip())
     if missing:
         print(f"DRIFT: {len(missing)} manifest paths are not tracked")
         for line in missing[:40]:

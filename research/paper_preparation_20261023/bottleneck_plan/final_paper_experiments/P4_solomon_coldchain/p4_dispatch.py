@@ -25,7 +25,9 @@ def check(row, method, block, affinity, initial=None):
         raise ValueError("P4 cell identity mismatch")
     if len(affinity) != 1 or row["cpu"] != affinity or row["status"] != "AUDITED" or not row["endpoint"]["independently_audited"]:
         raise ValueError("Single-core or full-fleet audit mismatch")
-    if row["timing"]["budget_s"] != 60 or not 0 <= row["selected_s"] <= 60 or row["U"] < row["initial_U"] - 1e-6:
+    timing = row.get("timing", {})
+    budget = timing.get("budget_s", row.get("budget_s", 60))
+    if budget != 60 or not 0 <= row["selected_s"] <= 60 or row["U"] < row["initial_U"] - 1e-6:
         raise ValueError("Time limit or incumbent mismatch")
     if not math.isclose(row["U"], row["endpoint"]["net_benefit_U"], rel_tol=0, abs_tol=1e-6):
         raise ValueError("Economic objective mismatch")

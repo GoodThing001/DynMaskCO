@@ -1,0 +1,98 @@
+{
+  "name": "p5_resume_stage03e",
+  "seconds": 60,
+  "training_only": false,
+  "methods": [
+    "ORDER_SPLIT",
+    "ORDER_SPLIT_D",
+    "MASK",
+    "SLOT",
+    "DIST",
+    "DIST_SLOT",
+    "ALNS",
+    "VNS"
+  ],
+  "interpreters": {
+    "ORDER_SPLIT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "ORDER_SPLIT_D": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "MASK": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "SLOT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "DIST": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "DIST_SLOT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "ALNS": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "VNS": "/home/hzeng/envs/MASKCO_env/bin/python"
+  },
+  "blocks": [
+    {
+      "case": "X-n502-k39",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "X-n513-k21",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "MASK"
+      ]
+    },
+    {
+      "case": "X-n524-k153",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "SLOT"
+      ]
+    },
+    {
+      "case": "X-n536-k96",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "X-n548-k50",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "X-n561-k42",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "X-n573-k30",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "X-n586-k159",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    }
+  ],
+  "max_cores": 2,
+  "schedule_note": "续跑 8 块"
+}

@@ -24,8 +24,8 @@ class CVRPInstance:
         self.max_vehicles = max_vehicles
         n = dimension
         self.dist = [[0.0] * (n + 1) for _ in range(n + 1)]
-        for i in range(1, n + 1):
-            for j in range(1, n + 1):
+        for i in range(0, n + 1):
+            for j in range(0, n + 1):
                 if i != j:
                     dx = coords[i][0] - coords[j][0]
                     dy = coords[i][1] - coords[j][1]
@@ -41,14 +41,9 @@ class CVRPInstance:
     @staticmethod
     def parse_vrp(text: str):
         lines = [l.split(":") for l in text.splitlines()]
-        fields = {}
-        for parts in lines:
-            if len(parts) == 2:
-                fields[parts[0].strip().upper()] = parts[1].strip()
         name = re.search(r"NAME\s*:\s*(\S+)", text, re.I)
         dim = re.search(r"DIMENSION\s*:\s*(\d+)", text, re.I)
         cap = re.search(r"CAPACITY\s*:\s*(\d+)", text, re.I)
-        edge = re.search(r"EDGE_WEIGHT_TYPE\s*:\s*(\S+)", text, re.I)
         if not (name and dim and cap):
             raise ValueError("incomplete CVRPLIB header")
         section = None
@@ -72,10 +67,30 @@ class CVRPInstance:
                 parts = line.split()
                 if len(parts) >= 1 and parts[0].isdigit():
                     depot_rows.append(int(parts[0]))
-        coords = {i: (x, y) for i, x, y in coord_rows}
-        demands = {i: d for i, d in demand_rows}
-        return CVRPInstance(name.group(1), int(dim.group(1)), float(cap.group(1)),
-                            coords, demands, max_vehicles=None)
+        # CVRPLIB 约定：节点 1 = 仓库、客户 2..n；内部统一为仓库 0、客户 1..(n-1)。
+        depot_id = depot_rows[0] if depot_rows else 1
+        raw_coords = {i: (x, y) for i, x, y in coord_rows}
+        raw_demands = {i: d for i, d in demand_rows}
+        if depot_id not in raw_coords:
+            raise ValueError("depot node missing")
+        n_customers = int(dim.group(1)) - 1
+        coords = {0: raw_coords[depot_id]}
+        demands = {0: raw_demands.get(depot_id, 0.0)}
+        new_id = 1
+        for i in sorted(raw_coords):
+            if i == depot_id:
+                continue
+            if new_id > n_customers:
+                break
+            coords[new_id] = raw_coords[i]
+            demands[new_id] = raw_demands.get(i, 0.0)
+            new_id += 1
+        # 车队口径（注册勘误，见 FINAL_REPORT_P4_P5.md §2）：CVRP X 的距离目标不把 k 作为
+        # 硬约束（k 为官方 BKS 车队数；主流 ML-CVRP 评测允许更多车辆并报告 K），
+        # VRPTW Solomon 的官方车队上限 25 仍作为硬约束。
+        fleet = None
+        return CVRPInstance(name.group(1), n_customers, float(cap.group(1)),
+                            coords, demands, max_vehicles=fleet)
 
 
 class VRPTWInstance:
@@ -92,34 +107,43 @@ class VRPTWInstance:
         self.max_vehicles = max_vehicles
         n = dimension
         self.dist = [[0.0] * (n + 1) for _ in range(n + 1)]
-        for i in range(1, n + 1):
-            for j in range(1, n + 1):
+        for i in range(0, n + 1):
+            for j in range(0, n + 1):
                 if i != j:
                     self.dist[i][j] = math.hypot(coords[i][0] - coords[j][0],
                                                  coords[i][1] - coords[j][1])
+
+    def edge_distance(self, a, b, rounded=False):
+        return math.hypot(self.coords[a][0] - self.coords[b][0],
+                          self.coords[a][1] - self.coords[b][1])
 
     @staticmethod
     def parse_solomon(path: Path):
         text = path.read_text(encoding="utf-8", errors="replace")
         lines = [l for l in text.splitlines() if l.strip()]
-        # 头部：NAME / 客户数 / 车辆数与容量 / 仓库窗口在 CUST_NO 0 行
-        name = re.search(r"^([A-Za-z0-9.]+)$", lines[0].strip())
-        n = int(lines[1].split()[-1])
-        header = lines[3].split() if len(lines) > 3 else []
-        capacity = float(lines[4].split()[1]) if len(lines) > 4 else 0.0
-        max_vehicles = int(lines[4].split()[0]) if len(lines) > 4 and lines[4].split()[0].isdigit() else None
+        # 头部：名称 / VEHICLE / NUMBER CAPACITY / 25 200 / CUSTOMER / 表头 / 数据行
+        name = re.search(r"^([A-Za-z0-9.\-]+)$", lines[0].strip())
+        cap_line = lines[3].split() if len(lines) > 3 else []
+        capacity = float(cap_line[1]) if len(cap_line) >= 2 else 0.0
+        max_vehicles = int(cap_line[0]) if cap_line and cap_line[0].isdigit() else None
         coords, demands, windows, service = {}, {}, {}, {}
-        data_lines = [l.split() for l in lines if re.match(r"^\s*\d+\s", l)]
-        for p in data_lines:
-            i = int(p[0])
+        for raw in text.splitlines():
+            p = raw.split()
             if len(p) < 7:
+                continue
+            try:
+                i = int(p[0])
+            except ValueError:
+                continue
+            if i > 1000:
                 continue
             coords[i] = (float(p[1]), float(p[2]))
             demands[i] = float(p[3])
             windows[i] = (float(p[4]), float(p[5]))
             service[i] = float(p[6])
+        n = max((i for i in coords if i != 0), default=0)
         depot_window = windows.get(0, (0.0, 1e18))
-        return VRPTWInstance(name.group(1) if name else path.stem, n, capacity,
+        return VRPTWInstance(name.group(1) if name else Path(path).stem, n, capacity,
                              coords, demands, windows, service, depot_window, max_vehicles)
 
 

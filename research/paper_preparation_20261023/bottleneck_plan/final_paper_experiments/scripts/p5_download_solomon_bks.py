@@ -34,7 +34,7 @@ for i in range(380, 436):
         raw = fetch(f"https://galgos.inf.puc-rio.br/cvrplib/en/download/instance/{i}")
         text = raw.decode("utf-8", "replace")
         m = re.search(r"NAME\s*:?\s*(\S+)", text)
-        name = m.group(1) if m else None
+        name = m.group(1) if m else (text.splitlines()[0].strip() if text.splitlines() else None)
         if name is None:
             problems.append(["instance", i, "no-name", len(raw)])
             continue

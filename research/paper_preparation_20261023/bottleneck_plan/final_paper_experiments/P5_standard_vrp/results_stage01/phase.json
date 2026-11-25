@@ -1,0 +1,1019 @@
+{
+  "name": "p5a_stage01",
+  "seconds": 60,
+  "training_only": false,
+  "methods": [
+    "ORDER_SPLIT",
+    "ORDER_SPLIT_D",
+    "MASK",
+    "SLOT",
+    "DIST",
+    "DIST_SLOT",
+    "ALNS",
+    "VNS"
+  ],
+  "interpreters": {
+    "ORDER_SPLIT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "ORDER_SPLIT_D": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "MASK": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "SLOT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "DIST": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "DIST_SLOT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "ALNS": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "VNS": "/home/hzeng/envs/MASKCO_env/bin/python"
+  },
+  "blocks": [
+    {
+      "case": "X-n101-k25",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "X-n106-k14",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "X-n110-k13",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "X-n115-k10",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "X-n120-k6",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "X-n125-k30",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "X-n129-k18",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "X-n134-k13",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "X-n139-k10",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "X-n143-k7",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "X-n148-k46",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "X-n153-k22",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "X-n157-k13",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "X-n162-k11",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "X-n167-k10",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "X-n172-k51",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "X-n176-k26",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "X-n181-k23",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "X-n186-k15",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "X-n190-k8",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "X-n195-k51",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "X-n200-k36",
+      "seed": 68001,
+      "objective": "cvrp",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "X-n101-k25",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "X-n106-k14",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "X-n110-k13",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "X-n115-k10",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "X-n120-k6",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "X-n125-k30",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "X-n129-k18",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "X-n134-k13",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "X-n139-k10",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "X-n143-k7",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "X-n148-k46",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "X-n153-k22",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "X-n157-k13",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "X-n162-k11",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "X-n167-k10",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "X-n172-k51",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "X-n176-k26",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "X-n181-k23",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "X-n186-k15",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "X-n190-k8",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "X-n195-k51",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "X-n200-k36",
+      "seed": 68002,
+      "objective": "cvrp",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "X-n101-k25",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "X-n106-k14",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "X-n110-k13",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "X-n115-k10",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "X-n120-k6",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "X-n125-k30",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "X-n129-k18",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "X-n134-k13",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "X-n139-k10",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "X-n143-k7",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "X-n148-k46",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "X-n153-k22",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "X-n157-k13",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "X-n162-k11",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "X-n167-k10",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS"
+      ]
+    },
+    {
+      "case": "X-n172-k51",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "X-n176-k26",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "X-n181-k23",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "X-n186-k15",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "X-n190-k8",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "DIST_SLOT",
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "X-n195-k51",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "ALNS",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "X-n200-k36",
+      "seed": 68003,
+      "objective": "cvrp",
+      "methods": [
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS"
+      ]
+    }
+  ],
+  "max_cores": 12,
+  "schedule_note": "P5-A 内部8法批次 stage01：22 例（客户 100–199）× 3 种子 × 8 方法；外部方法另行批次"
+}
