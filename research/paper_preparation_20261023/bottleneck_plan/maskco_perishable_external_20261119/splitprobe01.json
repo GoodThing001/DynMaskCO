@@ -1,0 +1,45 @@
+{
+  "purpose": "development masked bundle order and partition diagnosis",
+  "worker": "split_probe.py",
+  "files": [
+    "runner.py",
+    "pool_search.py",
+    "masked_repair.cpp",
+    "split_order.cpp",
+    "block_split.py",
+    "split_probe.py",
+    "old_states.json"
+  ],
+  "file_sources": {
+    "runner.py": "development_runner.py",
+    "pool_search.py": "../maskco_heatmap_calibration_20261119/lock/pool_search.py",
+    "masked_repair.cpp": "../maskco_heatmap_calibration_20261119/lock/masked_repair.cpp"
+  },
+  "blocks": [
+    {
+      "case": "c205"
+    },
+    {
+      "case": "c208"
+    },
+    {
+      "case": "gh_c1_2_1_p100"
+    },
+    {
+      "case": "gh_r1_2_1_p100"
+    },
+    {
+      "case": "gh_rc2_2_1_p100"
+    },
+    {
+      "case": "xtw_n204_p100"
+    },
+    {
+      "case": "xtw_n223_p100"
+    },
+    {
+      "case": "xtw_n247_p100"
+    }
+  ],
+  "block_timeout_s": 300
+}

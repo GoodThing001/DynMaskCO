@@ -1,0 +1,41 @@
+{
+  "purpose": "training-only component ablation acceptance",
+  "worker": "ablation_search.py",
+  "files": [
+    "runner.py",
+    "encoded_mask.py",
+    "disagreement.py",
+    "masked_repair.cpp",
+    "calibration.py",
+    "calibrated.json",
+    "ablation_search.py"
+  ],
+  "file_sources": {
+    "masked_repair.cpp": "development_lock/disscreen01/masked_repair.cpp",
+    "calibration.py": "development_lock/disscreen01/calibration.py",
+    "calibrated.json": "development_lock/disscreen01/calibrated.json",
+    "runner.py": "development_runner.py",
+    "cached_search.py": "development_lock/disscreen01/cached_search.py",
+    "encoded_mask.py": "development_lock/disscreen01/encoded_mask.py",
+    "disagreement.py": "development_lock/disscreen01/disagreement.py"
+  },
+  "seconds": 8,
+  "blocks": [
+    {
+      "case": "r101",
+      "role": "train",
+      "seed": 1000,
+      "arms": [
+        "HYBRID",
+        "HYBRID_D",
+        "MASK_ONLY",
+        "MASK_ONLY_D",
+        "CROSS_ONLY",
+        "CROSS_ONLY_D",
+        "DISAGREE",
+        "DISAGREE_D"
+      ]
+    }
+  ],
+  "block_timeout_s": 350
+}

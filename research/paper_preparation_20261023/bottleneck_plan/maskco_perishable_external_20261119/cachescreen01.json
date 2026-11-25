@@ -1,0 +1,166 @@
+{
+  "worker": "cached_search.py",
+  "files": [
+    "runner.py",
+    "cached_search.py",
+    "masked_repair.cpp",
+    "calibration.py",
+    "calibrated.json",
+    "encoded_mask.py"
+  ],
+  "file_sources": {
+    "masked_repair.cpp": "../maskco_heatmap_calibration_20261119/lock/masked_repair.cpp",
+    "calibrated.json": "../maskco_heatmap_calibration_20261119/lock/calibrated.json",
+    "calibration.py": "../maskco_heatmap_calibration_20261119/lock/calibration.py",
+    "runner.py": "development_runner.py"
+  },
+  "purpose": "development screening",
+  "seconds": 60,
+  "blocks": [
+    {
+      "case": "c205",
+      "seed": 1000,
+      "arms": [
+        "CYCLE_FULL",
+        "CACHEHYBRID",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "CYCLE_FULL"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID",
+        "CACHEHYBRID_D",
+        "CYCLE_FULL"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1001,
+      "arms": [
+        "CYCLE_FULL",
+        "CACHEHYBRID",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "CYCLE_FULL",
+        "CACHEHYBRID_D",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID",
+        "CACHEHYBRID_D",
+        "CYCLE_FULL"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "CYCLE_FULL"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID",
+        "CACHEHYBRID_D",
+        "CYCLE_FULL"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID",
+        "CACHEHYBRID_D",
+        "CYCLE_FULL"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1000,
+      "arms": [
+        "CYCLE_FULL",
+        "CACHEHYBRID",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "CYCLE_FULL"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "CYCLE_FULL"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "CYCLE_FULL"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "CYCLE_FULL",
+        "CACHEHYBRID_D",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1000,
+      "arms": [
+        "CYCLE_FULL",
+        "CACHEHYBRID_D",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID",
+        "CYCLE_FULL",
+        "CACHEHYBRID_D"
+      ]
+    }
+  ],
+  "block_timeout_s": 450
+}

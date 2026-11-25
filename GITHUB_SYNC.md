@@ -44,3 +44,15 @@ Git不保存空目录，因此“结构一致”指版本化工程目录和文�
 
 
 本轮采用不可变内容快照完成测试、服务器部署和Git暂存。同期独立dev11诊断继续运行，其实时日志和未封存输出留原位；只发布固定启动/资源/源码身份。快照之后的并行开发修改保留在工作区，不能通过覆盖或重置消除。
+
+## 2026-11-21 交付式同步（手册、报告与实现）
+
+`research/` 仍整体忽略（约 4.7 GB 逐单元输出、渲染图、归档与权重，不适合入 Git），但**手册、报告与锁版实现必须可见**。本轮把这件事做成可审计的显式白名单，而不是整体 `git add`：
+
+- 新增 [tools/git_deliver.py](tools/git_deliver.py)：清单驱动，默认 dry run；`--apply` 执行 `git add -f`，`--check` 校验清单是否都已被跟踪。工具不提交、不推送。
+- 守卫规则：`EXCLUDE` 永远优先于 `INCLUDE`（逐单元输出、`out/`、渲染图、日志、归档 ZIP、权重、字节码无法被误加）；单文件超 8 MB、总量超 60 MB、或路径命中凭据特征时直接失败而非静默跳过。
+- 本轮发布清单：`model_documentation_20261121` 与 `model_documentation_20261120`（手册 md/pdf/docx、build 源 md、figures）、`presentation_20261121`、`unified_external_20261120`（RESULTS、endpoints、paired、界与脚本）、`maskco_perishable_external_20261119/reserved_validation`（锁版 ORDER_SPLIT 实现、Split 求解器、`locked_method.json`）、以及 11-19 至 11-21 各阶段的 RESULTS/端点/配对表。
+- 新增 [REPOSITORY_MAP.md](REPOSITORY_MAP.md)：说明当前结论读哪个文件、顶层与 C-VRP 结构、发布/本地边界与推荐阅读顺序。
+
+作者源码、第三方许可、检查点二进制、论文全文、凭据与归档 ZIP 的排除口径不变，不因本次同步扩大。
+

@@ -1,0 +1,806 @@
+{
+  "purpose": "full development",
+  "worker": "cached_search.py",
+  "files": [
+    "runner.py",
+    "cached_search.py",
+    "encoded_mask.py",
+    "disagreement.py",
+    "masked_repair.cpp",
+    "calibration.py",
+    "calibrated.json"
+  ],
+  "file_sources": {
+    "runner.py": "development_lock/disscreen01/runner.py",
+    "cached_search.py": "development_lock/disscreen01/cached_search.py",
+    "encoded_mask.py": "development_lock/disscreen01/encoded_mask.py",
+    "disagreement.py": "development_lock/disscreen01/disagreement.py",
+    "masked_repair.cpp": "development_lock/disscreen01/masked_repair.cpp",
+    "calibration.py": "development_lock/disscreen01/calibration.py",
+    "calibrated.json": "development_lock/disscreen01/calibrated.json"
+  },
+  "seconds": 60,
+  "blocks": [
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE",
+        "DISAGREE_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE",
+        "DISAGREE_D",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "DISAGREE",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "DISAGREE_D",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE_D",
+        "DIST",
+        "DIST_SLOT",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE_D",
+        "DIST_SLOT",
+        "DIST",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "DISAGREE",
+        "DISAGREE_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DISAGREE",
+        "DIST",
+        "DISAGREE_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE",
+        "DIST",
+        "DISAGREE_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE_D",
+        "DIST_SLOT",
+        "DISAGREE",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "DISAGREE_D",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "DISAGREE_D",
+        "DIST",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "DISAGREE",
+        "DIST_SLOT",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "DISAGREE",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE",
+        "DISAGREE_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1002,
+      "arms": [
+        "DISAGREE",
+        "DIST_SLOT",
+        "DISAGREE_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "DISAGREE",
+        "DIST_SLOT",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1002,
+      "arms": [
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "DISAGREE_D",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DISAGREE",
+        "DIST",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE_D",
+        "DIST",
+        "DIST_SLOT",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DISAGREE_D",
+        "DIST_SLOT",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1002,
+      "arms": [
+        "DISAGREE_D",
+        "DIST_SLOT",
+        "DISAGREE",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "DISAGREE",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE_D",
+        "DIST_SLOT",
+        "DIST",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE_D",
+        "DIST_SLOT",
+        "DISAGREE",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE",
+        "DIST",
+        "DIST_SLOT",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE_D",
+        "DIST",
+        "DISAGREE",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "DISAGREE",
+        "DIST",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DISAGREE_D",
+        "DIST",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1002,
+      "arms": [
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1002,
+      "arms": [
+        "DISAGREE",
+        "DISAGREE_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE_D",
+        "DIST",
+        "DIST_SLOT",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "DISAGREE",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "DISAGREE",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE_D",
+        "DIST_SLOT",
+        "DIST",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DISAGREE",
+        "DIST_SLOT",
+        "DIST",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DISAGREE_D",
+        "DIST",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE",
+        "DIST_SLOT",
+        "DIST",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DISAGREE",
+        "DIST_SLOT",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE",
+        "DIST_SLOT",
+        "DIST",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DISAGREE",
+        "DISAGREE_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE_D",
+        "DIST",
+        "DISAGREE",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "DISAGREE_D",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DISAGREE",
+        "DISAGREE_D",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE_D",
+        "DIST",
+        "DIST_SLOT",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE",
+        "DIST",
+        "DIST_SLOT",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1002,
+      "arms": [
+        "DISAGREE",
+        "DIST_SLOT",
+        "DIST",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1002,
+      "arms": [
+        "DISAGREE_D",
+        "DIST",
+        "DIST_SLOT",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE_D",
+        "DIST",
+        "DISAGREE",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE",
+        "DIST_SLOT",
+        "DISAGREE_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DISAGREE_D",
+        "DIST",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DISAGREE",
+        "DIST_SLOT",
+        "DIST",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE",
+        "DIST_SLOT",
+        "DIST",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "DISAGREE_D",
+        "DIST_SLOT",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE_D",
+        "DIST_SLOT",
+        "DISAGREE",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST_SLOT",
+        "DISAGREE",
+        "DIST",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DISAGREE",
+        "DISAGREE_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE",
+        "DIST",
+        "DISAGREE_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "DISAGREE_D",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "DISAGREE_D",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "DISAGREE",
+        "DISAGREE_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE",
+        "DIST",
+        "DISAGREE_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE_D",
+        "DISAGREE",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    }
+  ],
+  "block_timeout_s": 500
+}

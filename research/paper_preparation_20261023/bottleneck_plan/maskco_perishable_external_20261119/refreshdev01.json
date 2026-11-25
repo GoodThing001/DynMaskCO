@@ -1,0 +1,801 @@
+{
+  "worker": "refresh_search.py",
+  "purpose": "full development",
+  "files": [
+    "runner.py",
+    "refresh_search.py",
+    "masked_repair.cpp",
+    "calibration.py",
+    "calibrated.json"
+  ],
+  "file_sources": {
+    "masked_repair.cpp": "../maskco_heatmap_calibration_20261119/lock/masked_repair.cpp",
+    "calibration.py": "../maskco_heatmap_calibration_20261119/lock/calibration.py",
+    "calibrated.json": "../maskco_heatmap_calibration_20261119/lock/calibrated.json",
+    "runner.py": "development_runner.py"
+  },
+  "seconds": 60,
+  "blocks": [
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH",
+        "REFRESH_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 3003,
+      "arms": [
+        "DIST",
+        "REFRESH_D",
+        "REFRESH",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH",
+        "REFRESH_D",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 3005,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "REFRESH",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 3005,
+      "arms": [
+        "DIST_SLOT",
+        "REFRESH_D",
+        "REFRESH",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 3005,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "REFRESH_D",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 3005,
+      "arms": [
+        "REFRESH_D",
+        "REFRESH",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH_D",
+        "DIST",
+        "DIST_SLOT",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 3003,
+      "arms": [
+        "REFRESH_D",
+        "DIST_SLOT",
+        "DIST",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 3005,
+      "arms": [
+        "REFRESH_D",
+        "REFRESH",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 3003,
+      "arms": [
+        "DIST_SLOT",
+        "REFRESH",
+        "REFRESH_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 3005,
+      "arms": [
+        "REFRESH",
+        "DIST",
+        "REFRESH_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 3003,
+      "arms": [
+        "REFRESH",
+        "DIST",
+        "REFRESH_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 3003,
+      "arms": [
+        "REFRESH_D",
+        "DIST_SLOT",
+        "REFRESH",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 3004,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "REFRESH_D",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 3003,
+      "arms": [
+        "DIST_SLOT",
+        "REFRESH_D",
+        "DIST",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 3003,
+      "arms": [
+        "DIST",
+        "REFRESH",
+        "DIST_SLOT",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 3004,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "REFRESH",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH_D",
+        "REFRESH",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 3004,
+      "arms": [
+        "REFRESH",
+        "REFRESH_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 3005,
+      "arms": [
+        "REFRESH",
+        "DIST_SLOT",
+        "REFRESH_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 3003,
+      "arms": [
+        "DIST",
+        "REFRESH",
+        "DIST_SLOT",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 3005,
+      "arms": [
+        "REFRESH_D",
+        "REFRESH",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 3005,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "REFRESH_D",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 3005,
+      "arms": [
+        "DIST_SLOT",
+        "REFRESH",
+        "DIST",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH_D",
+        "REFRESH",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH_D",
+        "DIST",
+        "DIST_SLOT",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 3003,
+      "arms": [
+        "REFRESH_D",
+        "REFRESH",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 3004,
+      "arms": [
+        "DIST",
+        "REFRESH_D",
+        "DIST_SLOT",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 3005,
+      "arms": [
+        "REFRESH_D",
+        "DIST_SLOT",
+        "REFRESH",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 3005,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "REFRESH",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH_D",
+        "REFRESH",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH_D",
+        "DIST_SLOT",
+        "DIST",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 3003,
+      "arms": [
+        "REFRESH_D",
+        "DIST_SLOT",
+        "REFRESH",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH",
+        "DIST",
+        "DIST_SLOT",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH_D",
+        "DIST",
+        "REFRESH",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 3003,
+      "arms": [
+        "DIST_SLOT",
+        "REFRESH",
+        "DIST",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 3005,
+      "arms": [
+        "DIST_SLOT",
+        "REFRESH_D",
+        "DIST",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 3005,
+      "arms": [
+        "REFRESH_D",
+        "REFRESH",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 3005,
+      "arms": [
+        "REFRESH",
+        "REFRESH_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH_D",
+        "REFRESH",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 3005,
+      "arms": [
+        "DIST_SLOT",
+        "REFRESH_D",
+        "REFRESH",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH_D",
+        "DIST",
+        "DIST_SLOT",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 3003,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "REFRESH",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 3003,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "REFRESH",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 3003,
+      "arms": [
+        "REFRESH_D",
+        "DIST_SLOT",
+        "DIST",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 3005,
+      "arms": [
+        "REFRESH",
+        "DIST_SLOT",
+        "DIST",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 3004,
+      "arms": [
+        "REFRESH_D",
+        "REFRESH",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 3005,
+      "arms": [
+        "DIST_SLOT",
+        "REFRESH_D",
+        "DIST",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 3003,
+      "arms": [
+        "REFRESH",
+        "DIST_SLOT",
+        "DIST",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 3004,
+      "arms": [
+        "DIST",
+        "REFRESH",
+        "DIST_SLOT",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 3003,
+      "arms": [
+        "REFRESH",
+        "DIST_SLOT",
+        "DIST",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 3005,
+      "arms": [
+        "DIST_SLOT",
+        "REFRESH",
+        "REFRESH_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 3003,
+      "arms": [
+        "REFRESH_D",
+        "DIST",
+        "REFRESH",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 3004,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "REFRESH_D",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 3005,
+      "arms": [
+        "REFRESH",
+        "REFRESH_D",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 3003,
+      "arms": [
+        "REFRESH_D",
+        "DIST",
+        "DIST_SLOT",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 3004,
+      "arms": [
+        "REFRESH",
+        "DIST",
+        "DIST_SLOT",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 3005,
+      "arms": [
+        "REFRESH",
+        "DIST_SLOT",
+        "DIST",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 3005,
+      "arms": [
+        "REFRESH_D",
+        "DIST",
+        "DIST_SLOT",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 3003,
+      "arms": [
+        "REFRESH_D",
+        "DIST",
+        "REFRESH",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 3003,
+      "arms": [
+        "REFRESH",
+        "DIST_SLOT",
+        "REFRESH_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 3005,
+      "arms": [
+        "DIST_SLOT",
+        "REFRESH_D",
+        "DIST",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH_D",
+        "REFRESH",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 3005,
+      "arms": [
+        "REFRESH",
+        "DIST_SLOT",
+        "DIST",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 3003,
+      "arms": [
+        "REFRESH",
+        "DIST_SLOT",
+        "DIST",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 3003,
+      "arms": [
+        "REFRESH_D",
+        "REFRESH",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH_D",
+        "REFRESH",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 3003,
+      "arms": [
+        "DIST",
+        "REFRESH_D",
+        "DIST_SLOT",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 3003,
+      "arms": [
+        "REFRESH_D",
+        "DIST_SLOT",
+        "REFRESH",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 3004,
+      "arms": [
+        "DIST_SLOT",
+        "REFRESH",
+        "DIST",
+        "REFRESH_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 3005,
+      "arms": [
+        "DIST_SLOT",
+        "REFRESH",
+        "REFRESH_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 3003,
+      "arms": [
+        "REFRESH",
+        "DIST",
+        "REFRESH_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 3004,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "REFRESH_D",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 3005,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "REFRESH_D",
+        "REFRESH"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 3003,
+      "arms": [
+        "DIST",
+        "REFRESH",
+        "REFRESH_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 3004,
+      "arms": [
+        "REFRESH",
+        "DIST",
+        "REFRESH_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 3004,
+      "arms": [
+        "REFRESH_D",
+        "REFRESH",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    }
+  ],
+  "block_timeout_s": 500
+}

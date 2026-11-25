@@ -1,0 +1,806 @@
+{
+  "purpose": "full development",
+  "worker": "static_search.py",
+  "files": [
+    "encoded_mask.py",
+    "static_encoder.py",
+    "masked_repair.cpp",
+    "runner.py",
+    "calibration.py",
+    "static_search.py",
+    "calibrated.json"
+  ],
+  "file_sources": {
+    "encoded_mask.py": "development_lock/staticscreen01/encoded_mask.py",
+    "static_encoder.py": "development_lock/staticscreen01/static_encoder.py",
+    "masked_repair.cpp": "development_lock/staticscreen01/masked_repair.cpp",
+    "runner.py": "development_lock/staticscreen01/runner.py",
+    "calibration.py": "development_lock/staticscreen01/calibration.py",
+    "static_search.py": "development_lock/staticscreen01/static_search.py",
+    "calibrated.json": "development_lock/staticscreen01/calibrated.json"
+  },
+  "seconds": 60,
+  "blocks": [
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC",
+        "STATIC_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "STATIC_D",
+        "STATIC",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC",
+        "STATIC_D",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "STATIC",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "STATIC_D",
+        "STATIC",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "STATIC_D",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "STATIC_D",
+        "STATIC",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC_D",
+        "DIST",
+        "DIST_SLOT",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1000,
+      "arms": [
+        "STATIC_D",
+        "DIST_SLOT",
+        "DIST",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "STATIC_D",
+        "STATIC",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "STATIC",
+        "STATIC_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "STATIC",
+        "DIST",
+        "STATIC_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "STATIC",
+        "DIST",
+        "STATIC_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1000,
+      "arms": [
+        "STATIC_D",
+        "DIST_SLOT",
+        "STATIC",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "STATIC_D",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "STATIC_D",
+        "DIST",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "STATIC",
+        "DIST_SLOT",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "STATIC",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC_D",
+        "STATIC",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1001,
+      "arms": [
+        "STATIC",
+        "STATIC_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1002,
+      "arms": [
+        "STATIC",
+        "DIST_SLOT",
+        "STATIC_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "STATIC",
+        "DIST_SLOT",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1002,
+      "arms": [
+        "STATIC_D",
+        "STATIC",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "STATIC_D",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "STATIC",
+        "DIST",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC_D",
+        "STATIC",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC_D",
+        "DIST",
+        "DIST_SLOT",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1000,
+      "arms": [
+        "STATIC_D",
+        "STATIC",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "STATIC_D",
+        "DIST_SLOT",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1002,
+      "arms": [
+        "STATIC_D",
+        "DIST_SLOT",
+        "STATIC",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "STATIC",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC_D",
+        "STATIC",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC_D",
+        "DIST_SLOT",
+        "DIST",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1000,
+      "arms": [
+        "STATIC_D",
+        "DIST_SLOT",
+        "STATIC",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC",
+        "DIST",
+        "DIST_SLOT",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC_D",
+        "DIST",
+        "STATIC",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "STATIC",
+        "DIST",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "STATIC_D",
+        "DIST",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1002,
+      "arms": [
+        "STATIC_D",
+        "STATIC",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1002,
+      "arms": [
+        "STATIC",
+        "STATIC_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC_D",
+        "STATIC",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "STATIC_D",
+        "STATIC",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC_D",
+        "DIST",
+        "DIST_SLOT",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "STATIC",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "STATIC",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "STATIC_D",
+        "DIST_SLOT",
+        "DIST",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "STATIC",
+        "DIST_SLOT",
+        "DIST",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1001,
+      "arms": [
+        "STATIC_D",
+        "STATIC",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "STATIC_D",
+        "DIST",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1000,
+      "arms": [
+        "STATIC",
+        "DIST_SLOT",
+        "DIST",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "STATIC",
+        "DIST_SLOT",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "STATIC",
+        "DIST_SLOT",
+        "DIST",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "STATIC",
+        "STATIC_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "STATIC_D",
+        "DIST",
+        "STATIC",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "STATIC_D",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "STATIC",
+        "STATIC_D",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1000,
+      "arms": [
+        "STATIC_D",
+        "DIST",
+        "DIST_SLOT",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1001,
+      "arms": [
+        "STATIC",
+        "DIST",
+        "DIST_SLOT",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1002,
+      "arms": [
+        "STATIC",
+        "DIST_SLOT",
+        "DIST",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1002,
+      "arms": [
+        "STATIC_D",
+        "DIST",
+        "DIST_SLOT",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1000,
+      "arms": [
+        "STATIC_D",
+        "DIST",
+        "STATIC",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "STATIC",
+        "DIST_SLOT",
+        "STATIC_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "STATIC_D",
+        "DIST",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC_D",
+        "STATIC",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "STATIC",
+        "DIST_SLOT",
+        "DIST",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1000,
+      "arms": [
+        "STATIC",
+        "DIST_SLOT",
+        "DIST",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1000,
+      "arms": [
+        "STATIC_D",
+        "STATIC",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC_D",
+        "STATIC",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "STATIC_D",
+        "DIST_SLOT",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1000,
+      "arms": [
+        "STATIC_D",
+        "DIST_SLOT",
+        "STATIC",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST_SLOT",
+        "STATIC",
+        "DIST",
+        "STATIC_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "STATIC",
+        "STATIC_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "STATIC",
+        "DIST",
+        "STATIC_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "STATIC_D",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "STATIC_D",
+        "STATIC"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "STATIC",
+        "STATIC_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1001,
+      "arms": [
+        "STATIC",
+        "DIST",
+        "STATIC_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1001,
+      "arms": [
+        "STATIC_D",
+        "STATIC",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    }
+  ],
+  "block_timeout_s": 500
+}

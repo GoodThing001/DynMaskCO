@@ -1,0 +1,33 @@
+{
+  "purpose": "training-only solver acceptance",
+  "worker": "block_search.py",
+  "files": [
+    "runner.py",
+    "block_search.py",
+    "block_split.py",
+    "split_order.cpp",
+    "masked_repair.cpp",
+    "calibration.py",
+    "calibrated.json"
+  ],
+  "file_sources": {
+    "masked_repair.cpp": "../maskco_heatmap_calibration_20261119/lock/masked_repair.cpp",
+    "calibration.py": "../maskco_heatmap_calibration_20261119/lock/calibration.py",
+    "calibrated.json": "../maskco_heatmap_calibration_20261119/lock/calibrated.json",
+    "runner.py": "development_runner.py"
+  },
+  "seconds": 12,
+  "blocks": [
+    {
+      "case": "r101",
+      "role": "train",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "HYBRID"
+      ]
+    }
+  ],
+  "block_timeout_s": 275
+}

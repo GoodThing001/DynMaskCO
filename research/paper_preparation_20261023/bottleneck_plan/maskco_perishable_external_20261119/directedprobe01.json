@@ -1,0 +1,68 @@
+{
+  "purpose": "training-only paired direction-sensitive masked readout",
+  "worker": "directional_head_probe.py",
+  "files": [
+    "pool_search.py",
+    "masked_repair.cpp",
+    "runner.py",
+    "economic_edges.py",
+    "directional_head.py",
+    "directional_head_probe.py"
+  ],
+  "file_sources": {
+    "runner.py": "development_runner.py",
+    "pool_search.py": "../maskco_heatmap_calibration_20261119/lock/pool_search.py",
+    "masked_repair.cpp": "../maskco_heatmap_calibration_20261119/lock/masked_repair.cpp"
+  },
+  "blocks": [
+    {
+      "case": "r101",
+      "role": "train"
+    },
+    {
+      "case": "r104",
+      "role": "train"
+    },
+    {
+      "case": "r108",
+      "role": "train"
+    },
+    {
+      "case": "r112",
+      "role": "train"
+    },
+    {
+      "case": "r202",
+      "role": "train"
+    },
+    {
+      "case": "r207",
+      "role": "train"
+    },
+    {
+      "case": "rc101",
+      "role": "train"
+    },
+    {
+      "case": "rc104",
+      "role": "train"
+    },
+    {
+      "case": "rc108",
+      "role": "train"
+    },
+    {
+      "case": "rc201",
+      "role": "train"
+    },
+    {
+      "case": "rc204",
+      "role": "train"
+    },
+    {
+      "case": "rc208",
+      "role": "train"
+    }
+  ],
+  "block_timeout_s": 480
+}

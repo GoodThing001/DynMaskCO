@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "type": "archived-receipt dispatcher and frozen source qualification",
+  "verified_cases": 30,
+  "archived_dispatch_checks": {
+    "ORDER_SPLIT": 2,
+    "ORDER_SPLIT_D": 2,
+    "DIST": 2,
+    "DIST_SLOT": 2,
+    "ALNS": 2,
+    "VNS": 2,
+    "NDS-Econ": 2,
+    "CaR": 2,
+    "DeepACO": 2,
+    "POMO": 2,
+    "AttentionModel": 2,
+    "RouteFinder": 2,
+    "CaDA": 2,
+    "MVMoE": 2,
+    "RRNCO": 2,
+    "PyVRP": 2
+  },
+  "numeric_launches": 0,
+  "compared_shared_sources": [
+    "external_common.py",
+    "pool_search.py",
+    "block_split.py",
+    "masked_repair.cpp",
+    "split_order.cpp",
+    "calibrated.json",
+    "calibration.py"
+  ],
+  "per_position_appearances": [
+    5,
+    6
+  ],
+  "phase": "benchmark01",
+  "cases": 30,
+  "blocks": 90,
+  "endpoints": 1440,
+  "allocated_search_core_s": 86400
+}

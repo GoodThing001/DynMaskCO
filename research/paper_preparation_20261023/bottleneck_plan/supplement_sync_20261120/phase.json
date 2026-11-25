@@ -1,0 +1,949 @@
+{
+  "name": "sync01",
+  "purpose": "paired replication of the frozen cold-chain methods",
+  "seconds": 60,
+  "training_only": false,
+  "methods": [
+    "ORDER_SPLIT",
+    "ORDER_SPLIT_D",
+    "ALNS",
+    "PyVRP"
+  ],
+  "seeds": [
+    33001,
+    33002,
+    33003
+  ],
+  "blocks": [
+    {
+      "case": "xtw_n384_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "xtw_n359_p100",
+      "seed": 33002,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "dk_complement_c",
+      "seed": 33003,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_c1_8_2_p100",
+      "seed": 33002,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "gh_r2_8_1_p100",
+      "seed": 33002,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "gh_r2_8_2_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_rc1_8_1_p100",
+      "seed": 33003,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n351_p100",
+      "seed": 33002,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n429_p100",
+      "seed": 33003,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "xtw_n401_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n384_p100",
+      "seed": 33002,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n480_p100",
+      "seed": 33003,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "dk_complement_c",
+      "seed": 33002,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "dk_complement_e",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n439_p100",
+      "seed": 33002,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_r1_8_2_p100",
+      "seed": 33003,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "gh_rc2_8_2_p100",
+      "seed": 33003,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "xtw_n439_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_rc1_8_1_p100",
+      "seed": 33002,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_r1_8_1_p100",
+      "seed": 33002,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "dk_complement_d",
+      "seed": 33002,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "dk_complement_b",
+      "seed": 33002,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n376_p100",
+      "seed": 33001,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "dk_complement_b",
+      "seed": 33003,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "gh_c1_8_2_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "xtw_n393_p100",
+      "seed": 33002,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_rc2_8_2_p100",
+      "seed": 33001,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_c2_8_1_p100",
+      "seed": 33001,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "dk_complement_d",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "xtw_n429_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "dk_complement_a",
+      "seed": 33002,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n393_p100",
+      "seed": 33003,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n367_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "gh_rc2_8_1_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_c2_8_2_p100",
+      "seed": 33002,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n429_p100",
+      "seed": 33002,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n376_p100",
+      "seed": 33002,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "gh_rc1_8_2_p100",
+      "seed": 33002,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_r1_8_1_p100",
+      "seed": 33003,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_r1_8_2_p100",
+      "seed": 33001,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n376_p100",
+      "seed": 33003,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "xtw_n411_p100",
+      "seed": 33002,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_r2_8_1_p100",
+      "seed": 33001,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n420_p100",
+      "seed": 33003,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "dk_complement_a",
+      "seed": 33003,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "xtw_n367_p100",
+      "seed": 33002,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_c2_8_2_p100",
+      "seed": 33003,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_rc2_8_1_p100",
+      "seed": 33002,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "dk_complement_b",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "gh_r1_8_2_p100",
+      "seed": 33002,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n420_p100",
+      "seed": 33002,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n480_p100",
+      "seed": 33001,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "gh_c2_8_1_p100",
+      "seed": 33002,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "gh_c1_8_1_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n459_p100",
+      "seed": 33002,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_r2_8_1_p100",
+      "seed": 33003,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n459_p100",
+      "seed": 33003,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "dk_complement_a",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n420_p100",
+      "seed": 33001,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_c2_8_1_p100",
+      "seed": 33003,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n384_p100",
+      "seed": 33003,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "gh_c2_8_2_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n411_p100",
+      "seed": 33001,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n480_p100",
+      "seed": 33002,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n351_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "gh_rc1_8_2_p100",
+      "seed": 33003,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "dk_complement_e",
+      "seed": 33003,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "dk_complement_c",
+      "seed": 33001,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n401_p100",
+      "seed": 33003,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "dk_complement_d",
+      "seed": 33003,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_r2_8_2_p100",
+      "seed": 33003,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n401_p100",
+      "seed": 33002,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "gh_c1_8_2_p100",
+      "seed": 33003,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "gh_rc1_8_2_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_rc2_8_1_p100",
+      "seed": 33003,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n367_p100",
+      "seed": 33003,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n459_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "gh_rc1_8_1_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_c1_8_1_p100",
+      "seed": 33002,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n439_p100",
+      "seed": 33003,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n359_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "dk_complement_e",
+      "seed": 33002,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n351_p100",
+      "seed": 33003,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_c1_8_1_p100",
+      "seed": 33003,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "gh_r1_8_1_p100",
+      "seed": 33001,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "gh_r2_8_2_p100",
+      "seed": 33002,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_rc2_8_2_p100",
+      "seed": 33002,
+      "methods": [
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n393_p100",
+      "seed": 33001,
+      "methods": [
+        "PyVRP",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n411_p100",
+      "seed": 33003,
+      "methods": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP"
+      ]
+    },
+    {
+      "case": "xtw_n359_p100",
+      "seed": 33003,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "PyVRP",
+        "ORDER_SPLIT"
+      ]
+    }
+  ],
+  "total_cells": 360,
+  "position_counts": {
+    "ORDER_SPLIT": [
+      23,
+      22,
+      22,
+      23
+    ],
+    "ORDER_SPLIT_D": [
+      23,
+      23,
+      22,
+      22
+    ],
+    "ALNS": [
+      22,
+      23,
+      23,
+      22
+    ],
+    "PyVRP": [
+      22,
+      22,
+      23,
+      23
+    ]
+  },
+  "online_core_seconds": 21600,
+  "worker": "sync_worker.py",
+  "checkpoint": "repeat02 f0_r0 maskco_base 1440"
+}

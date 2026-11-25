@@ -1,0 +1,179 @@
+{
+  "name": "origin01",
+  "seconds": 60,
+  "max_cores": 8,
+  "methods": [
+    "MASK",
+    "SLOT",
+    "ORDER_SPLIT_D",
+    "ORDER_SPLIT"
+  ],
+  "interpreters": {
+    "MASK": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "SLOT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "ORDER_SPLIT_D": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "ORDER_SPLIT": "/home/hzeng/envs/MASKCO_env/bin/python"
+  },
+  "blocks": [
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1000,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1000,
+      "methods": [
+        "ORDER_SPLIT",
+        "MASK",
+        "SLOT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1001,
+      "methods": [
+        "MASK",
+        "SLOT",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1001,
+      "methods": [
+        "SLOT",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1000,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1001,
+      "methods": [
+        "ORDER_SPLIT",
+        "MASK",
+        "SLOT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1000,
+      "methods": [
+        "MASK",
+        "SLOT",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1000,
+      "methods": [
+        "SLOT",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1000,
+      "methods": [
+        "ORDER_SPLIT",
+        "MASK",
+        "SLOT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1001,
+      "methods": [
+        "MASK",
+        "SLOT",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1000,
+      "methods": [
+        "SLOT",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1001,
+      "methods": [
+        "ORDER_SPLIT",
+        "MASK",
+        "SLOT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1000,
+      "methods": [
+        "MASK",
+        "SLOT",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1001,
+      "methods": [
+        "SLOT",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "MASK"
+      ]
+    }
+  ]
+}

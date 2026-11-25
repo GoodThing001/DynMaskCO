@@ -1,0 +1,250 @@
+{
+  "purpose": "development screening",
+  "worker": "ablation_search.py",
+  "files": [
+    "runner.py",
+    "encoded_mask.py",
+    "disagreement.py",
+    "masked_repair.cpp",
+    "calibration.py",
+    "calibrated.json",
+    "ablation_search.py"
+  ],
+  "file_sources": {
+    "masked_repair.cpp": "development_lock/disscreen01/masked_repair.cpp",
+    "calibration.py": "development_lock/disscreen01/calibration.py",
+    "calibrated.json": "development_lock/disscreen01/calibrated.json",
+    "runner.py": "development_runner.py",
+    "cached_search.py": "development_lock/disscreen01/cached_search.py",
+    "encoded_mask.py": "development_lock/disscreen01/encoded_mask.py",
+    "disagreement.py": "development_lock/disscreen01/disagreement.py"
+  },
+  "seconds": 60,
+  "blocks": [
+    {
+      "case": "c208",
+      "seed": 1001,
+      "arms": [
+        "CROSS_ONLY",
+        "HYBRID_D",
+        "MASK_ONLY",
+        "HYBRID",
+        "DISAGREE",
+        "DISAGREE_D",
+        "CROSS_ONLY_D",
+        "MASK_ONLY_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1001,
+      "arms": [
+        "CROSS_ONLY",
+        "DISAGREE",
+        "HYBRID",
+        "MASK_ONLY",
+        "MASK_ONLY_D",
+        "HYBRID_D",
+        "CROSS_ONLY_D",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "HYBRID",
+        "DISAGREE_D",
+        "CROSS_ONLY_D",
+        "CROSS_ONLY",
+        "MASK_ONLY_D",
+        "DISAGREE",
+        "HYBRID_D",
+        "MASK_ONLY"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "CROSS_ONLY",
+        "HYBRID_D",
+        "DISAGREE",
+        "MASK_ONLY",
+        "DISAGREE_D",
+        "CROSS_ONLY_D",
+        "HYBRID",
+        "MASK_ONLY_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE",
+        "MASK_ONLY",
+        "MASK_ONLY_D",
+        "HYBRID_D",
+        "CROSS_ONLY",
+        "HYBRID",
+        "CROSS_ONLY_D",
+        "DISAGREE_D"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE",
+        "DISAGREE_D",
+        "MASK_ONLY",
+        "MASK_ONLY_D",
+        "HYBRID_D",
+        "HYBRID",
+        "CROSS_ONLY_D",
+        "CROSS_ONLY"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1000,
+      "arms": [
+        "HYBRID_D",
+        "MASK_ONLY",
+        "DISAGREE",
+        "DISAGREE_D",
+        "CROSS_ONLY_D",
+        "HYBRID",
+        "MASK_ONLY_D",
+        "CROSS_ONLY"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE",
+        "MASK_ONLY",
+        "CROSS_ONLY_D",
+        "DISAGREE_D",
+        "HYBRID_D",
+        "MASK_ONLY_D",
+        "CROSS_ONLY",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1001,
+      "arms": [
+        "DISAGREE_D",
+        "MASK_ONLY",
+        "HYBRID_D",
+        "MASK_ONLY_D",
+        "HYBRID",
+        "CROSS_ONLY_D",
+        "CROSS_ONLY",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1001,
+      "arms": [
+        "MASK_ONLY_D",
+        "MASK_ONLY",
+        "DISAGREE",
+        "CROSS_ONLY_D",
+        "HYBRID",
+        "HYBRID_D",
+        "DISAGREE_D",
+        "CROSS_ONLY"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1000,
+      "arms": [
+        "HYBRID_D",
+        "CROSS_ONLY",
+        "DISAGREE",
+        "DISAGREE_D",
+        "HYBRID",
+        "MASK_ONLY",
+        "CROSS_ONLY_D",
+        "MASK_ONLY_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "CROSS_ONLY_D",
+        "MASK_ONLY_D",
+        "HYBRID",
+        "HYBRID_D",
+        "DISAGREE_D",
+        "CROSS_ONLY",
+        "MASK_ONLY",
+        "DISAGREE"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1000,
+      "arms": [
+        "HYBRID_D",
+        "CROSS_ONLY_D",
+        "MASK_ONLY_D",
+        "CROSS_ONLY",
+        "DISAGREE_D",
+        "DISAGREE",
+        "HYBRID",
+        "MASK_ONLY"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE",
+        "DISAGREE_D",
+        "MASK_ONLY_D",
+        "MASK_ONLY",
+        "HYBRID",
+        "CROSS_ONLY_D",
+        "HYBRID_D",
+        "CROSS_ONLY"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "HYBRID_D",
+        "DISAGREE_D",
+        "MASK_ONLY",
+        "DISAGREE",
+        "MASK_ONLY_D",
+        "CROSS_ONLY_D",
+        "CROSS_ONLY",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1000,
+      "arms": [
+        "DISAGREE",
+        "MASK_ONLY_D",
+        "MASK_ONLY",
+        "HYBRID_D",
+        "DISAGREE_D",
+        "HYBRID",
+        "CROSS_ONLY_D",
+        "CROSS_ONLY"
+      ]
+    }
+  ],
+  "block_timeout_s": 780
+}

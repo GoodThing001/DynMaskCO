@@ -1,0 +1,806 @@
+{
+  "purpose": "full development",
+  "worker": "block_search.py",
+  "files": [
+    "runner.py",
+    "block_search.py",
+    "block_split.py",
+    "split_order.cpp",
+    "masked_repair.cpp",
+    "calibration.py",
+    "calibrated.json"
+  ],
+  "file_sources": {
+    "runner.py": "development_lock/orderscreen01/runner.py",
+    "block_search.py": "development_lock/orderscreen01/block_search.py",
+    "block_split.py": "development_lock/orderscreen01/block_split.py",
+    "split_order.cpp": "development_lock/orderscreen01/split_order.cpp",
+    "masked_repair.cpp": "development_lock/orderscreen01/masked_repair.cpp",
+    "calibration.py": "development_lock/orderscreen01/calibration.py",
+    "calibrated.json": "development_lock/orderscreen01/calibrated.json"
+  },
+  "seconds": 60,
+  "blocks": [
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST_SLOT",
+        "DIST",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST",
+        "ORDER_SPLIT_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST",
+        "ORDER_SPLIT_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT_D",
+        "DIST",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1002,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "ORDER_SPLIT_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1002,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "DIST",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "ORDER_SPLIT_D",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1002,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST_SLOT",
+        "DIST",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST",
+        "ORDER_SPLIT",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "DIST",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT_D",
+        "DIST",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1002,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1002,
+      "arms": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST_SLOT",
+        "DIST",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "DIST",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT_D",
+        "DIST",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "DIST",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "DIST",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST",
+        "ORDER_SPLIT",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1002,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "DIST",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1002,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST",
+        "ORDER_SPLIT",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "ORDER_SPLIT_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT_D",
+        "DIST",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "DIST",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "DIST",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "ORDER_SPLIT_D",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "DIST",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST",
+        "ORDER_SPLIT_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST",
+        "ORDER_SPLIT_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    }
+  ],
+  "block_timeout_s": 500
+}

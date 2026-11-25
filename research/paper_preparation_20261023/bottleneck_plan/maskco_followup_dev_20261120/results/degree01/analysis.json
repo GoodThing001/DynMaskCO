@@ -1,0 +1,234 @@
+{
+  "status": "COMPLETE",
+  "decision": "STOP_RESIDUAL_DEGREE",
+  "passed": false,
+  "sources": {
+    "PDPCDPG-D100": {
+      "gain_U": {
+        "heat": 30.99198712991201,
+        "heat_balanced": 33.386780216818444,
+        "distance": 40.6224053217622,
+        "distance_balanced": 30.34976631522295,
+        "shuffled_balanced": 17.705865848209942,
+        "oracle": 52.70110684921965
+      },
+      "contrasts": {
+        "heat": {
+          "mean": 2.3947930869064296,
+          "by_geometry": {
+            "f72f1b5f0d901627d00f8de882d3f64785129466e1cc2911ef4a8cca6b69197b": -1.284703508426901,
+            "40e4cfc93a23d4d687706fac4a61d8b24d108560e9796bdb25c819bea57a62bd": 0.0,
+            "79301795b8f9c0e558d79a81d99563dbafd21008136a1573c3b9688338a3e2de": -15.91774780122796,
+            "09242277d0094c919d0433972856fa58087c41be3609cefcb26a33e102b0585a": 22.57984270201996,
+            "d5a51293437ad30786c7ba909b37d7ff7423b2b7bcdb7526c72f58bf3ef959f9": 6.596574042167049
+          },
+          "wins": 2,
+          "geometries": 5,
+          "by_seed": [
+            -14.924533679301385,
+            19.714119853114244
+          ]
+        },
+        "distance": {
+          "mean": -7.235625104943756,
+          "by_geometry": {
+            "f72f1b5f0d901627d00f8de882d3f64785129466e1cc2911ef4a8cca6b69197b": -33.13383748923661,
+            "40e4cfc93a23d4d687706fac4a61d8b24d108560e9796bdb25c819bea57a62bd": 0.0,
+            "79301795b8f9c0e558d79a81d99563dbafd21008136a1573c3b9688338a3e2de": -15.91774780122796,
+            "09242277d0094c919d0433972856fa58087c41be3609cefcb26a33e102b0585a": 6.276885723578744,
+            "d5a51293437ad30786c7ba909b37d7ff7423b2b7bcdb7526c72f58bf3ef959f9": 6.596574042167049
+          },
+          "wins": 2,
+          "geometries": 5,
+          "by_seed": [
+            -27.66418727162527,
+            13.192937061737757
+          ]
+        },
+        "distance_balanced": {
+          "mean": 3.037013901595492,
+          "by_geometry": {
+            "f72f1b5f0d901627d00f8de882d3f64785129466e1cc2911ef4a8cca6b69197b": 0.0,
+            "40e4cfc93a23d4d687706fac4a61d8b24d108560e9796bdb25c819bea57a62bd": 0.0,
+            "79301795b8f9c0e558d79a81d99563dbafd21008136a1573c3b9688338a3e2de": -15.91774780122796,
+            "09242277d0094c919d0433972856fa58087c41be3609cefcb26a33e102b0585a": 0.0,
+            "d5a51293437ad30786c7ba909b37d7ff7423b2b7bcdb7526c72f58bf3ef959f9": 31.10281730920542
+          },
+          "wins": 1,
+          "geometries": 5,
+          "by_seed": [
+            -14.410652275930625,
+            20.48468007912161
+          ]
+        },
+        "shuffled_balanced": {
+          "mean": 15.680914368608502,
+          "by_geometry": {
+            "f72f1b5f0d901627d00f8de882d3f64785129466e1cc2911ef4a8cca6b69197b": -10.692983921209816,
+            "40e4cfc93a23d4d687706fac4a61d8b24d108560e9796bdb25c819bea57a62bd": 22.719945839286083,
+            "79301795b8f9c0e558d79a81d99563dbafd21008136a1573c3b9688338a3e2de": 15.588042467366904,
+            "09242277d0094c919d0433972856fa58087c41be3609cefcb26a33e102b0585a": 22.57984270201996,
+            "d5a51293437ad30786c7ba909b37d7ff7423b2b7bcdb7526c72f58bf3ef959f9": 28.209724755579373
+          },
+          "wins": 4,
+          "geometries": 5,
+          "by_seed": [
+            1.2259449473698623,
+            30.13588378984714
+          ]
+        }
+      },
+      "changed": 0.41750000000000004
+    },
+    "XTW-p100": {
+      "gain_U": {
+        "heat": 93.26564232733108,
+        "heat_balanced": 92.81979416426475,
+        "distance": 92.28807963648858,
+        "distance_balanced": 93.26564232733108,
+        "shuffled_balanced": 49.79055080936329,
+        "oracle": 101.2651457421398
+      },
+      "contrasts": {
+        "heat": {
+          "mean": -0.44584816306633,
+          "by_geometry": {
+            "6d844f0503154afc5c0530e8c2a7bddb005c9f7c71d0751bd5a305a4999741c8": 0.0,
+            "8518a6a898232dbbd0d6af6f9f8b3cd86eb3526bd9c44f3ff7e6c03f9df9b6bd": -1.33754448919899,
+            "a02750d7352485ce0f3e20a5830a93acb86bebfd3241f0d76d520c971af6d496": 0.0
+          },
+          "wins": 0,
+          "geometries": 3,
+          "by_seed": [
+            0.0,
+            -0.89169632613266
+          ]
+        },
+        "distance": {
+          "mean": 0.5317145277761787,
+          "by_geometry": {
+            "6d844f0503154afc5c0530e8c2a7bddb005c9f7c71d0751bd5a305a4999741c8": 2.932688072527526,
+            "8518a6a898232dbbd0d6af6f9f8b3cd86eb3526bd9c44f3ff7e6c03f9df9b6bd": -1.33754448919899,
+            "a02750d7352485ce0f3e20a5830a93acb86bebfd3241f0d76d520c971af6d496": 0.0
+          },
+          "wins": 1,
+          "geometries": 3,
+          "by_seed": [
+            1.9551253816850174,
+            -0.89169632613266
+          ]
+        },
+        "distance_balanced": {
+          "mean": -0.44584816306633,
+          "by_geometry": {
+            "6d844f0503154afc5c0530e8c2a7bddb005c9f7c71d0751bd5a305a4999741c8": 0.0,
+            "8518a6a898232dbbd0d6af6f9f8b3cd86eb3526bd9c44f3ff7e6c03f9df9b6bd": -1.33754448919899,
+            "a02750d7352485ce0f3e20a5830a93acb86bebfd3241f0d76d520c971af6d496": 0.0
+          },
+          "wins": 0,
+          "geometries": 3,
+          "by_seed": [
+            0.0,
+            -0.89169632613266
+          ]
+        },
+        "shuffled_balanced": {
+          "mean": 43.02924335490146,
+          "by_geometry": {
+            "6d844f0503154afc5c0530e8c2a7bddb005c9f7c71d0751bd5a305a4999741c8": 12.515521185552643,
+            "8518a6a898232dbbd0d6af6f9f8b3cd86eb3526bd9c44f3ff7e6c03f9df9b6bd": 1.0195017375153839,
+            "a02750d7352485ce0f3e20a5830a93acb86bebfd3241f0d76d520c971af6d496": 115.55270714163635
+          },
+          "wins": 3,
+          "geometries": 3,
+          "by_seed": [
+            46.275631435669005,
+            39.78285527413391
+          ]
+        }
+      },
+      "changed": 0.2986111111111111
+    },
+    "GH-p100": {
+      "gain_U": {
+        "heat": 53.644206945570964,
+        "heat_balanced": 53.644206945570964,
+        "distance": 54.52806662444103,
+        "distance_balanced": 51.854991802300596,
+        "shuffled_balanced": 42.65239770564949,
+        "oracle": 102.88112437721672
+      },
+      "contrasts": {
+        "heat": {
+          "mean": 0.0,
+          "by_geometry": {
+            "f53d8443f9990bb4d9b33212f3326c6d03cfc894c5a19231b3a148ca4726a1a3": 0.0,
+            "e71e6fc01a3b7b2f90a110f5ac74e39c920b9a1ad10d1e20f2cbfb9cf9be78c8": 0.0,
+            "12fb156a97cfa04d60fa5982302251a51ea67aa27b8b3e5d02924d794c2d51d5": 0.0
+          },
+          "wins": 0,
+          "geometries": 3,
+          "by_seed": [
+            0.0,
+            0.0
+          ]
+        },
+        "distance": {
+          "mean": -0.883859678870067,
+          "by_geometry": {
+            "f53d8443f9990bb4d9b33212f3326c6d03cfc894c5a19231b3a148ca4726a1a3": -9.584328304830706,
+            "e71e6fc01a3b7b2f90a110f5ac74e39c920b9a1ad10d1e20f2cbfb9cf9be78c8": 6.932749268220505,
+            "12fb156a97cfa04d60fa5982302251a51ea67aa27b8b3e5d02924d794c2d51d5": 0.0
+          },
+          "wins": 1,
+          "geometries": 3,
+          "by_seed": [
+            1.4270567438701012,
+            -3.1947761016102354
+          ]
+        },
+        "distance_balanced": {
+          "mean": 1.7892151432703638,
+          "by_geometry": {
+            "f53d8443f9990bb4d9b33212f3326c6d03cfc894c5a19231b3a148ca4726a1a3": -4.792164152415353,
+            "e71e6fc01a3b7b2f90a110f5ac74e39c920b9a1ad10d1e20f2cbfb9cf9be78c8": 10.159809582226444,
+            "12fb156a97cfa04d60fa5982302251a51ea67aa27b8b3e5d02924d794c2d51d5": 0.0
+          },
+          "wins": 1,
+          "geometries": 3,
+          "by_seed": [
+            6.773206388150963,
+            -3.1947761016102354
+          ]
+        },
+        "shuffled_balanced": {
+          "mean": 10.991809239921471,
+          "by_geometry": {
+            "f53d8443f9990bb4d9b33212f3326c6d03cfc894c5a19231b3a148ca4726a1a3": -0.024262910752440803,
+            "e71e6fc01a3b7b2f90a110f5ac74e39c920b9a1ad10d1e20f2cbfb9cf9be78c8": 0.0,
+            "12fb156a97cfa04d60fa5982302251a51ea67aa27b8b3e5d02924d794c2d51d5": 32.99969063051685
+          },
+          "wins": 1,
+          "geometries": 3,
+          "by_seed": [
+            13.578892364050262,
+            8.404726115792679
+          ]
+        }
+      },
+      "changed": 0.37916666666666665
+    }
+  },
+  "cost": {
+    "contexts": 44,
+    "method_endpoints": 220,
+    "oracle_endpoints": 44,
+    "audit_calls": 308,
+    "eligible_moves": 48978,
+    "feasible_moves": 4221,
+    "unique_route_prices_within_case": 46248,
+    "wall_s": 1.8915566999930888,
+    "cpu_s": 1.875,
+    "max_margin_error": 9.993678773412284e-09
+  }
+}

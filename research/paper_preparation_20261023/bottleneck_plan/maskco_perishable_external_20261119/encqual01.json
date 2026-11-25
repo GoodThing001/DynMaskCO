@@ -1,0 +1,24 @@
+{
+  "worker": "check_encoded.py",
+  "purpose": "training-only matched CPU and output equivalence",
+  "block_timeout_s": 240,
+  "files": [
+    "runner.py",
+    "pool_search.py",
+    "masked_repair.cpp",
+    "encoded_mask.py",
+    "check_encoded.py"
+  ],
+  "file_sources": {
+    "runner.py": "../maskco_heatmap_calibration_20261119/runner.py",
+    "pool_search.py": "../maskco_heatmap_calibration_20261119/lock/pool_search.py",
+    "masked_repair.cpp": "../maskco_heatmap_calibration_20261119/lock/masked_repair.cpp"
+  },
+  "blocks": [
+    {
+      "case": "r101",
+      "role": "train",
+      "seed": 1000
+    }
+  ]
+}

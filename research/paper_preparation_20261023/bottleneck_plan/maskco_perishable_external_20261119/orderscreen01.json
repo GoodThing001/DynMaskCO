@@ -1,0 +1,167 @@
+{
+  "purpose": "development screening",
+  "worker": "block_search.py",
+  "files": [
+    "runner.py",
+    "block_search.py",
+    "block_split.py",
+    "split_order.cpp",
+    "masked_repair.cpp",
+    "calibration.py",
+    "calibrated.json"
+  ],
+  "file_sources": {
+    "masked_repair.cpp": "../maskco_heatmap_calibration_20261119/lock/masked_repair.cpp",
+    "calibration.py": "../maskco_heatmap_calibration_20261119/lock/calibration.py",
+    "calibrated.json": "../maskco_heatmap_calibration_20261119/lock/calibrated.json",
+    "runner.py": "development_runner.py"
+  },
+  "seconds": 60,
+  "blocks": [
+    {
+      "case": "c205",
+      "seed": 1000,
+      "arms": [
+        "HYBRID",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1001,
+      "arms": [
+        "HYBRID",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "HYBRID",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1000,
+      "arms": [
+        "HYBRID",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1000,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "HYBRID",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1000,
+      "arms": [
+        "HYBRID",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "ORDER_SPLIT",
+        "HYBRID",
+        "ORDER_SPLIT_D"
+      ]
+    }
+  ],
+  "block_timeout_s": 450
+}

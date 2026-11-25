@@ -1,0 +1,38 @@
+{
+  "worker": "placebo_worker.py",
+  "purpose": "training-only solver acceptance",
+  "seconds": 8,
+  "files": [
+    "block_split.py",
+    "calibrated.json",
+    "calibration.py",
+    "masked_repair.cpp",
+    "pool_search.py",
+    "split_order.cpp",
+    "runner.py",
+    "heat_placebo.py",
+    "placebo_worker.py"
+  ],
+  "file_sources": {
+    "block_split.py": "reserved_validation/solver/block_split.py",
+    "calibrated.json": "reserved_validation/solver/calibrated.json",
+    "calibration.py": "reserved_validation/solver/calibration.py",
+    "masked_repair.cpp": "reserved_validation/solver/masked_repair.cpp",
+    "pool_search.py": "reserved_validation/solver/pool_search.py",
+    "split_order.cpp": "reserved_validation/solver/split_order.cpp",
+    "runner.py": "development_runner.py"
+  },
+  "blocks": [
+    {
+      "case": "r101",
+      "role": "train",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED",
+        "SHUFFLED",
+        "ALIGNED_D"
+      ]
+    }
+  ],
+  "block_timeout_s": 300
+}

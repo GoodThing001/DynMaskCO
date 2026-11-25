@@ -1,0 +1,808 @@
+{
+  "purpose": "full development",
+  "worker": "work_search.py",
+  "files": [
+    "calibrated.json",
+    "calibration.py",
+    "disagreement.py",
+    "encoded_mask.py",
+    "masked_repair.cpp",
+    "pool_common.py",
+    "runner.py",
+    "work_search.py",
+    "work_caps.json"
+  ],
+  "file_sources": {
+    "calibrated.json": "work_reference/calibrated.json",
+    "calibration.py": "work_reference/calibration.py",
+    "disagreement.py": "work_reference/disagreement.py",
+    "encoded_mask.py": "work_reference/encoded_mask.py",
+    "masked_repair.cpp": "work_reference/masked_repair.cpp",
+    "pool_common.py": "work_reference/pool_common.py",
+    "runner.py": "development_runner.py"
+  },
+  "seconds": 60,
+  "blocks": [
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK",
+        "WORKMASK_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK",
+        "WORKMASK_D",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "WORKMASK",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "WORKMASK_D",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "DIST",
+        "DIST_SLOT",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK_D",
+        "DIST_SLOT",
+        "DIST",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "WORKMASK",
+        "WORKMASK_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "WORKMASK",
+        "DIST",
+        "WORKMASK_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK",
+        "DIST",
+        "WORKMASK_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK_D",
+        "DIST_SLOT",
+        "WORKMASK",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "WORKMASK_D",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "WORKMASK_D",
+        "DIST",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "WORKMASK",
+        "DIST_SLOT",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "WORKMASK",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK",
+        "WORKMASK_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1002,
+      "arms": [
+        "WORKMASK",
+        "DIST_SLOT",
+        "WORKMASK_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "WORKMASK",
+        "DIST_SLOT",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1002,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "WORKMASK_D",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "WORKMASK",
+        "DIST",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "DIST",
+        "DIST_SLOT",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "WORKMASK_D",
+        "DIST_SLOT",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1002,
+      "arms": [
+        "WORKMASK_D",
+        "DIST_SLOT",
+        "WORKMASK",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "WORKMASK",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "DIST_SLOT",
+        "DIST",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK_D",
+        "DIST_SLOT",
+        "WORKMASK",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK",
+        "DIST",
+        "DIST_SLOT",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "DIST",
+        "WORKMASK",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "WORKMASK",
+        "DIST",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "WORKMASK_D",
+        "DIST",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1002,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1002,
+      "arms": [
+        "WORKMASK",
+        "WORKMASK_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "DIST",
+        "DIST_SLOT",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "WORKMASK",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "WORKMASK",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK_D",
+        "DIST_SLOT",
+        "DIST",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "WORKMASK",
+        "DIST_SLOT",
+        "DIST",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "WORKMASK_D",
+        "DIST",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK",
+        "DIST_SLOT",
+        "DIST",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "WORKMASK",
+        "DIST_SLOT",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK",
+        "DIST_SLOT",
+        "DIST",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "WORKMASK",
+        "WORKMASK_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK_D",
+        "DIST",
+        "WORKMASK",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "WORKMASK_D",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "WORKMASK",
+        "WORKMASK_D",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK_D",
+        "DIST",
+        "DIST_SLOT",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK",
+        "DIST",
+        "DIST_SLOT",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1002,
+      "arms": [
+        "WORKMASK",
+        "DIST_SLOT",
+        "DIST",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1002,
+      "arms": [
+        "WORKMASK_D",
+        "DIST",
+        "DIST_SLOT",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK_D",
+        "DIST",
+        "WORKMASK",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK",
+        "DIST_SLOT",
+        "WORKMASK_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "WORKMASK_D",
+        "DIST",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "WORKMASK",
+        "DIST_SLOT",
+        "DIST",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK",
+        "DIST_SLOT",
+        "DIST",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "WORKMASK_D",
+        "DIST_SLOT",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK_D",
+        "DIST_SLOT",
+        "WORKMASK",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST_SLOT",
+        "WORKMASK",
+        "DIST",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "WORKMASK",
+        "WORKMASK_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK",
+        "DIST",
+        "WORKMASK_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "WORKMASK_D",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "WORKMASK_D",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "WORKMASK",
+        "WORKMASK_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK",
+        "DIST",
+        "WORKMASK_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    }
+  ],
+  "block_timeout_s": 510
+}

@@ -1,0 +1,311 @@
+{
+  "purpose": "paired development screening",
+  "worker": "fleet_timed_worker.py",
+  "training_only": false,
+  "seconds": 60,
+  "block_timeout_s": 1000,
+  "files": [
+    "block_split.py",
+    "calibrated.json",
+    "calibration.py",
+    "masked_repair.cpp",
+    "split_order.cpp",
+    "pool_search.py",
+    "runner.py",
+    "external_common.py",
+    "locked_method.json",
+    "heldout_sources.json",
+    "heldout_admission.json",
+    "fleet_timed_worker.py",
+    "fleet_timed_pool.py",
+    "fleet_pricing.py",
+    "inputs/dk_data100_a.json",
+    "inputs/dk_data100_b.json",
+    "inputs/dk_data100_c.json",
+    "inputs/dk_data100_d.json",
+    "inputs/dk_data100_e.json",
+    "inputs/gh_c1_6_1_p100.json",
+    "inputs/gh_r1_6_1_p100.json",
+    "inputs/gh_rc1_6_1_p100.json",
+    "inputs/xtw_n298_p100.json",
+    "inputs/xtw_n308_p100.json",
+    "inputs/xtw_n322_p100.json"
+  ],
+  "file_sources": {
+    "block_split.py": "reserved_validation/solver/block_split.py",
+    "calibrated.json": "reserved_validation/solver/calibrated.json",
+    "calibration.py": "reserved_validation/solver/calibration.py",
+    "masked_repair.cpp": "reserved_validation/solver/masked_repair.cpp",
+    "split_order.cpp": "reserved_validation/solver/split_order.cpp",
+    "pool_search.py": "reserved_validation/solver/pool_search.py",
+    "runner.py": "development_runner.py",
+    "external_common.py": "independent.py",
+    "locked_method.json": "reserved_validation/locked_method.json"
+  },
+  "blocks": [
+    {
+      "case": "dk_data100_d",
+      "seed": 56832,
+      "arms": [
+        "FLEET_PRICE",
+        "DIST_SLOT",
+        "FLEET_PRICE_D",
+        "DIST",
+        "ORDER_SPLIT",
+        "PREFIX_DISTANCE"
+      ]
+    },
+    {
+      "case": "xtw_n322_p100",
+      "seed": 56831,
+      "arms": [
+        "DIST",
+        "FLEET_PRICE",
+        "PREFIX_DISTANCE",
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "FLEET_PRICE_D"
+      ]
+    },
+    {
+      "case": "gh_rc1_6_1_p100",
+      "seed": 56831,
+      "arms": [
+        "FLEET_PRICE",
+        "DIST",
+        "PREFIX_DISTANCE",
+        "ORDER_SPLIT",
+        "FLEET_PRICE_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_6_1_p100",
+      "seed": 56832,
+      "arms": [
+        "DIST",
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "FLEET_PRICE_D",
+        "FLEET_PRICE",
+        "PREFIX_DISTANCE"
+      ]
+    },
+    {
+      "case": "xtw_n308_p100",
+      "seed": 56832,
+      "arms": [
+        "ORDER_SPLIT",
+        "DIST_SLOT",
+        "FLEET_PRICE",
+        "FLEET_PRICE_D",
+        "DIST",
+        "PREFIX_DISTANCE"
+      ]
+    },
+    {
+      "case": "dk_data100_d",
+      "seed": 56831,
+      "arms": [
+        "FLEET_PRICE",
+        "PREFIX_DISTANCE",
+        "ORDER_SPLIT",
+        "DIST",
+        "DIST_SLOT",
+        "FLEET_PRICE_D"
+      ]
+    },
+    {
+      "case": "dk_data100_e",
+      "seed": 56831,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "DIST",
+        "PREFIX_DISTANCE",
+        "FLEET_PRICE",
+        "FLEET_PRICE_D"
+      ]
+    },
+    {
+      "case": "gh_r1_6_1_p100",
+      "seed": 56831,
+      "arms": [
+        "ORDER_SPLIT",
+        "PREFIX_DISTANCE",
+        "DIST",
+        "FLEET_PRICE_D",
+        "DIST_SLOT",
+        "FLEET_PRICE"
+      ]
+    },
+    {
+      "case": "dk_data100_e",
+      "seed": 56832,
+      "arms": [
+        "DIST",
+        "FLEET_PRICE_D",
+        "FLEET_PRICE",
+        "PREFIX_DISTANCE",
+        "ORDER_SPLIT",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "dk_data100_b",
+      "seed": 56832,
+      "arms": [
+        "FLEET_PRICE_D",
+        "DIST",
+        "PREFIX_DISTANCE",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "FLEET_PRICE"
+      ]
+    },
+    {
+      "case": "gh_c1_6_1_p100",
+      "seed": 56831,
+      "arms": [
+        "PREFIX_DISTANCE",
+        "DIST_SLOT",
+        "FLEET_PRICE_D",
+        "ORDER_SPLIT",
+        "DIST",
+        "FLEET_PRICE"
+      ]
+    },
+    {
+      "case": "gh_r1_6_1_p100",
+      "seed": 56832,
+      "arms": [
+        "DIST",
+        "FLEET_PRICE",
+        "ORDER_SPLIT",
+        "FLEET_PRICE_D",
+        "DIST_SLOT",
+        "PREFIX_DISTANCE"
+      ]
+    },
+    {
+      "case": "xtw_n298_p100",
+      "seed": 56832,
+      "arms": [
+        "ORDER_SPLIT",
+        "FLEET_PRICE",
+        "FLEET_PRICE_D",
+        "DIST_SLOT",
+        "PREFIX_DISTANCE",
+        "DIST"
+      ]
+    },
+    {
+      "case": "dk_data100_c",
+      "seed": 56831,
+      "arms": [
+        "PREFIX_DISTANCE",
+        "FLEET_PRICE_D",
+        "FLEET_PRICE",
+        "DIST",
+        "ORDER_SPLIT",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n308_p100",
+      "seed": 56831,
+      "arms": [
+        "FLEET_PRICE_D",
+        "PREFIX_DISTANCE",
+        "ORDER_SPLIT",
+        "DIST",
+        "FLEET_PRICE",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_6_1_p100",
+      "seed": 56832,
+      "arms": [
+        "FLEET_PRICE_D",
+        "PREFIX_DISTANCE",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "DIST",
+        "FLEET_PRICE"
+      ]
+    },
+    {
+      "case": "xtw_n298_p100",
+      "seed": 56831,
+      "arms": [
+        "DIST_SLOT",
+        "PREFIX_DISTANCE",
+        "FLEET_PRICE_D",
+        "FLEET_PRICE",
+        "ORDER_SPLIT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "dk_data100_a",
+      "seed": 56832,
+      "arms": [
+        "FLEET_PRICE",
+        "PREFIX_DISTANCE",
+        "DIST",
+        "FLEET_PRICE_D",
+        "ORDER_SPLIT",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "dk_data100_b",
+      "seed": 56831,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "DIST",
+        "FLEET_PRICE_D",
+        "PREFIX_DISTANCE",
+        "FLEET_PRICE"
+      ]
+    },
+    {
+      "case": "dk_data100_c",
+      "seed": 56832,
+      "arms": [
+        "DIST",
+        "PREFIX_DISTANCE",
+        "DIST_SLOT",
+        "FLEET_PRICE_D",
+        "FLEET_PRICE",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "dk_data100_a",
+      "seed": 56831,
+      "arms": [
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "DIST",
+        "FLEET_PRICE",
+        "FLEET_PRICE_D",
+        "PREFIX_DISTANCE"
+      ]
+    },
+    {
+      "case": "xtw_n322_p100",
+      "seed": 56832,
+      "arms": [
+        "DIST",
+        "FLEET_PRICE",
+        "PREFIX_DISTANCE",
+        "FLEET_PRICE_D",
+        "ORDER_SPLIT",
+        "DIST_SLOT"
+      ]
+    }
+  ]
+}

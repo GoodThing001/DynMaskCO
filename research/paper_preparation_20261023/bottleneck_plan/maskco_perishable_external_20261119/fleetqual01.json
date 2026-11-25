@@ -1,0 +1,85 @@
+{
+  "purpose": "software acceptance on one previously used development case",
+  "worker": "fleet_timed_worker.py",
+  "training_only": false,
+  "seconds": 16,
+  "block_timeout_s": 1000,
+  "files": [
+    "block_split.py",
+    "calibrated.json",
+    "calibration.py",
+    "masked_repair.cpp",
+    "split_order.cpp",
+    "pool_search.py",
+    "runner.py",
+    "external_common.py",
+    "locked_method.json",
+    "heldout_sources.json",
+    "heldout_admission.json",
+    "fleet_timed_worker.py",
+    "fleet_timed_pool.py",
+    "fleet_pricing.py",
+    "inputs/dk_data100_a.json"
+  ],
+  "file_sources": {
+    "block_split.py": "reserved_validation/solver/block_split.py",
+    "calibrated.json": "reserved_validation/solver/calibrated.json",
+    "calibration.py": "reserved_validation/solver/calibration.py",
+    "masked_repair.cpp": "reserved_validation/solver/masked_repair.cpp",
+    "split_order.cpp": "reserved_validation/solver/split_order.cpp",
+    "pool_search.py": "reserved_validation/solver/pool_search.py",
+    "runner.py": "development_runner.py",
+    "external_common.py": "independent.py",
+    "locked_method.json": "reserved_validation/locked_method.json"
+  },
+  "blocks": [
+    {
+      "case": "dk_data100_a",
+      "seed": 56801,
+      "arms": [
+        "FLEET_PRICE"
+      ],
+      "seconds": 16
+    },
+    {
+      "case": "dk_data100_a",
+      "seed": 56801,
+      "arms": [
+        "FLEET_PRICE_D"
+      ],
+      "seconds": 16
+    },
+    {
+      "case": "dk_data100_a",
+      "seed": 56801,
+      "arms": [
+        "PREFIX_DISTANCE"
+      ],
+      "seconds": 16
+    },
+    {
+      "case": "dk_data100_a",
+      "seed": 56801,
+      "arms": [
+        "ORDER_SPLIT"
+      ],
+      "seconds": 16
+    },
+    {
+      "case": "dk_data100_a",
+      "seed": 56801,
+      "arms": [
+        "DIST"
+      ],
+      "seconds": 60
+    },
+    {
+      "case": "dk_data100_a",
+      "seed": 56801,
+      "arms": [
+        "DIST_SLOT"
+      ],
+      "seconds": 60
+    }
+  ]
+}

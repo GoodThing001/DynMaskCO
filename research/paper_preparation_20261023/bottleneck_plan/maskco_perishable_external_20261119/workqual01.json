@@ -1,0 +1,39 @@
+{
+  "purpose": "training-only fixed-work repeated-prefix acceptance",
+  "worker": "work_search.py",
+  "files": [
+    "calibrated.json",
+    "calibration.py",
+    "disagreement.py",
+    "encoded_mask.py",
+    "masked_repair.cpp",
+    "pool_common.py",
+    "runner.py",
+    "work_search.py",
+    "work_caps.json"
+  ],
+  "file_sources": {
+    "calibrated.json": "work_reference/calibrated.json",
+    "calibration.py": "work_reference/calibration.py",
+    "disagreement.py": "work_reference/disagreement.py",
+    "encoded_mask.py": "work_reference/encoded_mask.py",
+    "masked_repair.cpp": "work_reference/masked_repair.cpp",
+    "pool_common.py": "work_reference/pool_common.py",
+    "runner.py": "development_runner.py"
+  },
+  "seconds": 14,
+  "blocks": [
+    {
+      "case": "r101",
+      "role": "train",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK",
+        "WORKMASK_D",
+        "MASK_ONLY",
+        "MASK_ONLY_D"
+      ]
+    }
+  ],
+  "block_timeout_s": 355
+}

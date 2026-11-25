@@ -1,0 +1,36 @@
+{
+  "purpose": "training-only paired repeatability diagnosis",
+  "worker": "trial_clock_probe.py",
+  "files": [
+    "pool_search.py",
+    "masked_repair.cpp",
+    "runner.py",
+    "calibration.py",
+    "trial_clock_probe.py"
+  ],
+  "file_sources": {
+    "runner.py": "development_runner.py",
+    "pool_search.py": "../maskco_heatmap_calibration_20261119/lock/pool_search.py",
+    "masked_repair.cpp": "../maskco_heatmap_calibration_20261119/lock/masked_repair.cpp",
+    "calibration.py": "../maskco_heatmap_calibration_20261119/lock/calibration.py"
+  },
+  "blocks": [
+    {
+      "case": "r101",
+      "role": "train"
+    },
+    {
+      "case": "r108",
+      "role": "train"
+    },
+    {
+      "case": "rc101",
+      "role": "train"
+    },
+    {
+      "case": "rc108",
+      "role": "train"
+    }
+  ],
+  "block_timeout_s": 360
+}

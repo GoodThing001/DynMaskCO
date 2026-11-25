@@ -1,0 +1,802 @@
+{
+  "worker": "cached_search.py",
+  "files": [
+    "runner.py",
+    "cached_search.py",
+    "masked_repair.cpp",
+    "calibration.py",
+    "calibrated.json",
+    "encoded_mask.py"
+  ],
+  "file_sources": {
+    "masked_repair.cpp": "../maskco_heatmap_calibration_20261119/lock/masked_repair.cpp",
+    "calibrated.json": "../maskco_heatmap_calibration_20261119/lock/calibrated.json",
+    "calibration.py": "../maskco_heatmap_calibration_20261119/lock/calibration.py",
+    "runner.py": "development_runner.py"
+  },
+  "purpose": "full development",
+  "seconds": 60,
+  "blocks": [
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID",
+        "CACHEHYBRID_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID",
+        "CACHEHYBRID_D",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "CACHEHYBRID",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "CACHEHYBRID_D",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST",
+        "DIST_SLOT",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST_SLOT",
+        "DIST",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "CACHEHYBRID",
+        "CACHEHYBRID_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "CACHEHYBRID",
+        "DIST",
+        "CACHEHYBRID_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID",
+        "DIST",
+        "CACHEHYBRID_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST_SLOT",
+        "CACHEHYBRID",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "CACHEHYBRID_D",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "CACHEHYBRID_D",
+        "DIST",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "CACHEHYBRID",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID",
+        "CACHEHYBRID_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1002,
+      "arms": [
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "CACHEHYBRID_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1002,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "CACHEHYBRID_D",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "CACHEHYBRID",
+        "DIST",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST",
+        "DIST_SLOT",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "CACHEHYBRID_D",
+        "DIST_SLOT",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1002,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST_SLOT",
+        "CACHEHYBRID",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "CACHEHYBRID",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST_SLOT",
+        "DIST",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST_SLOT",
+        "CACHEHYBRID",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID",
+        "DIST",
+        "DIST_SLOT",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST",
+        "CACHEHYBRID",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "CACHEHYBRID",
+        "DIST",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "CACHEHYBRID_D",
+        "DIST",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 1002,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 1002,
+      "arms": [
+        "CACHEHYBRID",
+        "CACHEHYBRID_D",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST",
+        "DIST_SLOT",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "CACHEHYBRID",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "CACHEHYBRID",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST_SLOT",
+        "DIST",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1002,
+      "arms": [
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "DIST",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "CACHEHYBRID_D",
+        "DIST",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "DIST",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "DIST",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "CACHEHYBRID",
+        "CACHEHYBRID_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST",
+        "CACHEHYBRID",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "CACHEHYBRID_D",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "CACHEHYBRID",
+        "CACHEHYBRID_D",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST",
+        "DIST_SLOT",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID",
+        "DIST",
+        "DIST_SLOT",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1002,
+      "arms": [
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "DIST",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1002,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST",
+        "DIST_SLOT",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST",
+        "CACHEHYBRID",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "CACHEHYBRID_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "CACHEHYBRID_D",
+        "DIST",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "DIST",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "DIST",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "CACHEHYBRID_D",
+        "DIST_SLOT",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID_D",
+        "DIST_SLOT",
+        "CACHEHYBRID",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST_SLOT",
+        "CACHEHYBRID",
+        "DIST",
+        "CACHEHYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST_SLOT",
+        "CACHEHYBRID",
+        "CACHEHYBRID_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "CACHEHYBRID",
+        "DIST",
+        "CACHEHYBRID_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 1001,
+      "arms": [
+        "DIST_SLOT",
+        "DIST",
+        "CACHEHYBRID_D",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 1002,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "CACHEHYBRID_D",
+        "CACHEHYBRID"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1000,
+      "arms": [
+        "DIST",
+        "CACHEHYBRID",
+        "CACHEHYBRID_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID",
+        "DIST",
+        "CACHEHYBRID_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 1001,
+      "arms": [
+        "CACHEHYBRID_D",
+        "CACHEHYBRID",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    }
+  ],
+  "block_timeout_s": 500
+}

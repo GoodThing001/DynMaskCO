@@ -1,0 +1,732 @@
+{
+  "worker": "placebo_worker.py",
+  "purpose": "full development",
+  "seconds": 60,
+  "files": [
+    "block_split.py",
+    "calibrated.json",
+    "calibration.py",
+    "masked_repair.cpp",
+    "pool_search.py",
+    "split_order.cpp",
+    "runner.py",
+    "heat_placebo.py",
+    "placebo_worker.py"
+  ],
+  "file_sources": {
+    "block_split.py": "development_lock/placeboqual01/block_split.py",
+    "calibrated.json": "development_lock/placeboqual01/calibrated.json",
+    "calibration.py": "development_lock/placeboqual01/calibration.py",
+    "masked_repair.cpp": "development_lock/placeboqual01/masked_repair.cpp",
+    "pool_search.py": "development_lock/placeboqual01/pool_search.py",
+    "split_order.cpp": "development_lock/placeboqual01/split_order.cpp",
+    "runner.py": "development_lock/placeboqual01/runner.py",
+    "heat_placebo.py": "development_lock/placeboqual01/heat_placebo.py",
+    "placebo_worker.py": "development_lock/placeboqual01/placebo_worker.py"
+  },
+  "blocks": [
+    {
+      "case": "xtw_n228_p100",
+      "seed": 4103,
+      "arms": [
+        "ALIGNED",
+        "SHUFFLED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 4102,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED_D",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 4103,
+      "arms": [
+        "ALIGNED",
+        "ALIGNED_D",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED",
+        "SHUFFLED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 4103,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED_D",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED_D",
+        "ALIGNED",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED_D",
+        "ALIGNED",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 4102,
+      "arms": [
+        "ALIGNED_D",
+        "ALIGNED",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 4103,
+      "arms": [
+        "ALIGNED",
+        "ALIGNED_D",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 4103,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 4103,
+      "arms": [
+        "ALIGNED",
+        "SHUFFLED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 4102,
+      "arms": [
+        "ALIGNED",
+        "ALIGNED_D",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED",
+        "SHUFFLED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 4102,
+      "arms": [
+        "ALIGNED_D",
+        "SHUFFLED",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED",
+        "ALIGNED_D",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED_D",
+        "ALIGNED",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED",
+        "SHUFFLED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 4102,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED_D",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 4101,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED_D",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 4102,
+      "arms": [
+        "ALIGNED",
+        "ALIGNED_D",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED",
+        "SHUFFLED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n214_p100",
+      "seed": 4102,
+      "arms": [
+        "ALIGNED",
+        "SHUFFLED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED_D",
+        "SHUFFLED",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 4103,
+      "arms": [
+        "ALIGNED_D",
+        "SHUFFLED",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 4101,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED_D",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 4103,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED_D",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED",
+        "ALIGNED_D",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 4102,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED_D",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 4102,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 4102,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 4103,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED_D",
+        "ALIGNED",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 4103,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 4102,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 4101,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 4102,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n233_p100",
+      "seed": 4103,
+      "arms": [
+        "ALIGNED_D",
+        "SHUFFLED",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 4102,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED_D",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 4102,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 4103,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 4103,
+      "arms": [
+        "ALIGNED",
+        "ALIGNED_D",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 4103,
+      "arms": [
+        "ALIGNED_D",
+        "SHUFFLED",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 4101,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 4102,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 4103,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "gh_r1_2_2_p100",
+      "seed": 4103,
+      "arms": [
+        "ALIGNED",
+        "SHUFFLED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED_D",
+        "ALIGNED",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_2_p100",
+      "seed": 4102,
+      "arms": [
+        "ALIGNED",
+        "SHUFFLED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_2_p100",
+      "seed": 4102,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 4101,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED_D",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 4101,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED_D",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED",
+        "ALIGNED_D",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "xtw_n242_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED_D",
+        "SHUFFLED",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "gh_c2_2_2_p100",
+      "seed": 4103,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED_D",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 4102,
+      "arms": [
+        "ALIGNED_D",
+        "SHUFFLED",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 4102,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED_D",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "gh_c2_2_1_p100",
+      "seed": 4102,
+      "arms": [
+        "ALIGNED_D",
+        "SHUFFLED",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "gh_r2_2_2_p100",
+      "seed": 4103,
+      "arms": [
+        "ALIGNED_D",
+        "SHUFFLED",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_1_p100",
+      "seed": 4102,
+      "arms": [
+        "ALIGNED_D",
+        "ALIGNED",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 4102,
+      "arms": [
+        "ALIGNED",
+        "SHUFFLED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n209_p100",
+      "seed": 4103,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED_D",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "gh_r2_2_1_p100",
+      "seed": 4102,
+      "arms": [
+        "ALIGNED_D",
+        "SHUFFLED",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "xtw_n219_p100",
+      "seed": 4103,
+      "arms": [
+        "ALIGNED_D",
+        "SHUFFLED",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 4103,
+      "arms": [
+        "ALIGNED_D",
+        "ALIGNED",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED_D",
+        "ALIGNED",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 4103,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED",
+        "SHUFFLED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n228_p100",
+      "seed": 4102,
+      "arms": [
+        "ALIGNED",
+        "ALIGNED_D",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 4101,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 4103,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_2_p100",
+      "seed": 4102,
+      "arms": [
+        "ALIGNED_D",
+        "ALIGNED",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 4103,
+      "arms": [
+        "ALIGNED",
+        "SHUFFLED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "xtw_n237_p100",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED",
+        "ALIGNED_D",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "c207",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED_D",
+        "SHUFFLED",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 4101,
+      "arms": [
+        "ALIGNED_D",
+        "SHUFFLED",
+        "ALIGNED"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 4103,
+      "arms": [
+        "SHUFFLED",
+        "ALIGNED",
+        "ALIGNED_D"
+      ]
+    },
+    {
+      "case": "c206",
+      "seed": 4103,
+      "arms": [
+        "ALIGNED",
+        "ALIGNED_D",
+        "SHUFFLED"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 4102,
+      "arms": [
+        "ALIGNED",
+        "SHUFFLED",
+        "ALIGNED_D"
+      ]
+    }
+  ],
+  "block_timeout_s": 480
+}

@@ -1,0 +1,188 @@
+{
+  "purpose": "development screening",
+  "worker": "work_search.py",
+  "files": [
+    "calibrated.json",
+    "calibration.py",
+    "disagreement.py",
+    "encoded_mask.py",
+    "masked_repair.cpp",
+    "pool_common.py",
+    "runner.py",
+    "work_search.py",
+    "work_caps.json"
+  ],
+  "file_sources": {
+    "calibrated.json": "work_reference/calibrated.json",
+    "calibration.py": "work_reference/calibration.py",
+    "disagreement.py": "work_reference/disagreement.py",
+    "encoded_mask.py": "work_reference/encoded_mask.py",
+    "masked_repair.cpp": "work_reference/masked_repair.cpp",
+    "pool_common.py": "work_reference/pool_common.py",
+    "runner.py": "development_runner.py"
+  },
+  "seconds": 60,
+  "blocks": [
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK",
+        "MASK_ONLY",
+        "WORKMASK_D",
+        "MASK_ONLY_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "MASK_ONLY_D",
+        "MASK_ONLY"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK",
+        "MASK_ONLY",
+        "MASK_ONLY_D",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "xtw_n223_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK",
+        "WORKMASK_D",
+        "MASK_ONLY",
+        "MASK_ONLY_D"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "MASK_ONLY_D",
+        "WORKMASK_D",
+        "MASK_ONLY",
+        "WORKMASK"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "MASK_ONLY_D",
+        "WORKMASK_D",
+        "WORKMASK",
+        "MASK_ONLY"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1001,
+      "arms": [
+        "MASK_ONLY",
+        "WORKMASK",
+        "WORKMASK_D",
+        "MASK_ONLY_D"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "MASK_ONLY",
+        "MASK_ONLY_D"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK",
+        "WORKMASK_D",
+        "MASK_ONLY_D",
+        "MASK_ONLY"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1001,
+      "arms": [
+        "WORKMASK",
+        "WORKMASK_D",
+        "MASK_ONLY",
+        "MASK_ONLY_D"
+      ]
+    },
+    {
+      "case": "c208",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "MASK_ONLY",
+        "MASK_ONLY_D"
+      ]
+    },
+    {
+      "case": "gh_c1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK_D",
+        "WORKMASK",
+        "MASK_ONLY_D",
+        "MASK_ONLY"
+      ]
+    },
+    {
+      "case": "xtw_n247_p100",
+      "seed": 1001,
+      "arms": [
+        "MASK_ONLY",
+        "MASK_ONLY_D",
+        "WORKMASK",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "xtw_n204_p100",
+      "seed": 1001,
+      "arms": [
+        "MASK_ONLY_D",
+        "MASK_ONLY",
+        "WORKMASK",
+        "WORKMASK_D"
+      ]
+    },
+    {
+      "case": "c205",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK_D",
+        "MASK_ONLY_D",
+        "WORKMASK",
+        "MASK_ONLY"
+      ]
+    },
+    {
+      "case": "gh_r1_2_1_p100",
+      "seed": 1000,
+      "arms": [
+        "WORKMASK_D",
+        "MASK_ONLY_D",
+        "MASK_ONLY",
+        "WORKMASK"
+      ]
+    }
+  ],
+  "block_timeout_s": 490
+}

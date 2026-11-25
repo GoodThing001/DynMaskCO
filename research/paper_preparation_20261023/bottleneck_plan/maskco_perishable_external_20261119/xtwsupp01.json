@@ -1,0 +1,216 @@
+{
+  "worker": "independent.py",
+  "training_only": false,
+  "purpose": "locked independent comparison",
+  "seconds": 60,
+  "block_timeout_s": 1500,
+  "files": [
+    "block_split.py",
+    "calibrated.json",
+    "calibration.py",
+    "masked_repair.cpp",
+    "pool_search.py",
+    "split_order.cpp",
+    "external_common.py",
+    "independent.py",
+    "previous_pool.py",
+    "locked_method.json",
+    "runner.py",
+    "heldout_sources.json",
+    "heldout_admission.json",
+    "inputs/xtw_n439_p100.json",
+    "inputs/xtw_n459_p100.json",
+    "inputs/xtw_n480_p100.json"
+  ],
+  "file_sources": {
+    "block_split.py": "xtw_low_overlap/solver/block_split.py",
+    "calibrated.json": "xtw_low_overlap/solver/calibrated.json",
+    "calibration.py": "xtw_low_overlap/solver/calibration.py",
+    "masked_repair.cpp": "xtw_low_overlap/solver/masked_repair.cpp",
+    "pool_search.py": "xtw_low_overlap/solver/pool_search.py",
+    "split_order.cpp": "xtw_low_overlap/solver/split_order.cpp",
+    "external_common.py": "xtw_low_overlap/solver/external_common.py",
+    "independent.py": "xtw_low_overlap/solver/independent.py",
+    "previous_pool.py": "xtw_low_overlap/solver/previous_pool.py",
+    "locked_method.json": "xtw_low_overlap/solver/locked_method.json",
+    "runner.py": "development_runner.py",
+    "heldout_sources.json": "xtw_low_overlap/heldout_sources.json",
+    "heldout_admission.json": "xtw_low_overlap/heldout_admission.json",
+    "inputs/xtw_n439_p100.json": "xtw_low_overlap/inputs/xtw_n439_p100.json",
+    "inputs/xtw_n459_p100.json": "xtw_low_overlap/inputs/xtw_n459_p100.json",
+    "inputs/xtw_n480_p100.json": "xtw_low_overlap/inputs/xtw_n480_p100.json"
+  },
+  "blocks": [
+    {
+      "case": "xtw_n459_p100",
+      "seed": 33002,
+      "arms": [
+        "POMO",
+        "CaR",
+        "NDS-Econ",
+        "HYBRID",
+        "DIST",
+        "AttentionModel",
+        "VNS",
+        "ORDER_SPLIT",
+        "HYBRID_D",
+        "ALNS",
+        "DeepACO",
+        "ORDER_SPLIT_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n480_p100",
+      "seed": 33003,
+      "arms": [
+        "HYBRID",
+        "AttentionModel",
+        "DIST_SLOT",
+        "DIST",
+        "NDS-Econ",
+        "POMO",
+        "HYBRID_D",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "CaR",
+        "ALNS",
+        "VNS",
+        "DeepACO"
+      ]
+    },
+    {
+      "case": "xtw_n480_p100",
+      "seed": 33002,
+      "arms": [
+        "VNS",
+        "DIST",
+        "ORDER_SPLIT_D",
+        "HYBRID",
+        "NDS-Econ",
+        "POMO",
+        "CaR",
+        "HYBRID_D",
+        "DIST_SLOT",
+        "DeepACO",
+        "ORDER_SPLIT",
+        "AttentionModel",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n459_p100",
+      "seed": 33001,
+      "arms": [
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "HYBRID_D",
+        "NDS-Econ",
+        "DeepACO",
+        "AttentionModel",
+        "VNS",
+        "POMO",
+        "CaR",
+        "HYBRID",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n480_p100",
+      "seed": 33001,
+      "arms": [
+        "ALNS",
+        "NDS-Econ",
+        "CaR",
+        "HYBRID",
+        "AttentionModel",
+        "DeepACO",
+        "HYBRID_D",
+        "DIST_SLOT",
+        "POMO",
+        "VNS",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n459_p100",
+      "seed": 33003,
+      "arms": [
+        "HYBRID_D",
+        "DIST",
+        "VNS",
+        "AttentionModel",
+        "ORDER_SPLIT_D",
+        "DIST_SLOT",
+        "ALNS",
+        "DeepACO",
+        "ORDER_SPLIT",
+        "NDS-Econ",
+        "CaR",
+        "HYBRID",
+        "POMO"
+      ]
+    },
+    {
+      "case": "xtw_n439_p100",
+      "seed": 33002,
+      "arms": [
+        "CaR",
+        "HYBRID",
+        "DIST",
+        "DeepACO",
+        "ORDER_SPLIT",
+        "POMO",
+        "VNS",
+        "NDS-Econ",
+        "ORDER_SPLIT_D",
+        "HYBRID_D",
+        "DIST_SLOT",
+        "AttentionModel",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n439_p100",
+      "seed": 33003,
+      "arms": [
+        "HYBRID_D",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT_D",
+        "ALNS",
+        "AttentionModel",
+        "VNS",
+        "DeepACO",
+        "CaR",
+        "POMO",
+        "ORDER_SPLIT",
+        "NDS-Econ",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n439_p100",
+      "seed": 33001,
+      "arms": [
+        "CaR",
+        "POMO",
+        "DeepACO",
+        "NDS-Econ",
+        "ORDER_SPLIT_D",
+        "DIST_SLOT",
+        "VNS",
+        "HYBRID",
+        "HYBRID_D",
+        "ORDER_SPLIT",
+        "AttentionModel",
+        "DIST",
+        "ALNS"
+      ]
+    }
+  ]
+}

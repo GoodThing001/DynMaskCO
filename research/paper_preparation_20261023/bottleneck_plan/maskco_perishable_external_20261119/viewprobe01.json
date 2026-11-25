@@ -1,0 +1,140 @@
+{
+  "purpose": "development input-axis reconstruction",
+  "worker": "view_frame_probe.py",
+  "file_sources": {
+    "block_split.py": "reserved_validation/solver/block_split.py",
+    "calibrated.json": "reserved_validation/solver/calibrated.json",
+    "calibration.py": "reserved_validation/solver/calibration.py",
+    "masked_repair.cpp": "reserved_validation/solver/masked_repair.cpp",
+    "pool_search.py": "reserved_validation/solver/pool_search.py",
+    "split_order.cpp": "reserved_validation/solver/split_order.cpp",
+    "runner.py": "development_runner.py",
+    "external_common.py": "independent.py"
+  },
+  "files": [
+    "block_split.py",
+    "calibrated.json",
+    "calibration.py",
+    "masked_repair.cpp",
+    "pool_search.py",
+    "split_order.cpp",
+    "paired_operator_probe.py",
+    "archived_states.json",
+    "heldout_sources.json",
+    "runner.py",
+    "external_common.py",
+    "inputs/dk_data100_a.json",
+    "inputs/dk_data100_b.json",
+    "inputs/dk_data100_c.json",
+    "inputs/dk_data100_d.json",
+    "inputs/dk_data100_e.json",
+    "inputs/xtw_n298_p100.json",
+    "inputs/xtw_n303_p100.json",
+    "inputs/xtw_n308_p100.json",
+    "inputs/xtw_n313_p100.json",
+    "inputs/xtw_n317_p100.json",
+    "inputs/xtw_n322_p100.json",
+    "inputs/xtw_n327_p100.json",
+    "inputs/xtw_n331_p100.json",
+    "inputs/xtw_n336_p100.json",
+    "inputs/xtw_n344_p100.json",
+    "inputs/gh_c1_6_1_p100.json",
+    "inputs/gh_c1_6_2_p100.json",
+    "inputs/gh_c2_6_1_p100.json",
+    "inputs/gh_c2_6_2_p100.json",
+    "inputs/gh_r1_6_1_p100.json",
+    "inputs/gh_r1_6_2_p100.json",
+    "inputs/gh_r2_6_1_p100.json",
+    "inputs/gh_r2_6_2_p100.json",
+    "inputs/gh_rc1_6_1_p100.json",
+    "inputs/gh_rc1_6_2_p100.json",
+    "inputs/gh_rc2_6_1_p100.json",
+    "inputs/gh_rc2_6_2_p100.json",
+    "view_frame_probe.py"
+  ],
+  "groups_per_state": 2,
+  "block_timeout_s": 480,
+  "blocks": [
+    {
+      "case": "dk_data100_a"
+    },
+    {
+      "case": "dk_data100_b"
+    },
+    {
+      "case": "dk_data100_c"
+    },
+    {
+      "case": "dk_data100_d"
+    },
+    {
+      "case": "dk_data100_e"
+    },
+    {
+      "case": "gh_c1_6_1_p100"
+    },
+    {
+      "case": "gh_c1_6_2_p100"
+    },
+    {
+      "case": "gh_c2_6_1_p100"
+    },
+    {
+      "case": "gh_c2_6_2_p100"
+    },
+    {
+      "case": "gh_r1_6_1_p100"
+    },
+    {
+      "case": "gh_r1_6_2_p100"
+    },
+    {
+      "case": "gh_r2_6_1_p100"
+    },
+    {
+      "case": "gh_r2_6_2_p100"
+    },
+    {
+      "case": "gh_rc1_6_1_p100"
+    },
+    {
+      "case": "gh_rc1_6_2_p100"
+    },
+    {
+      "case": "gh_rc2_6_1_p100"
+    },
+    {
+      "case": "gh_rc2_6_2_p100"
+    },
+    {
+      "case": "xtw_n298_p100"
+    },
+    {
+      "case": "xtw_n303_p100"
+    },
+    {
+      "case": "xtw_n308_p100"
+    },
+    {
+      "case": "xtw_n313_p100"
+    },
+    {
+      "case": "xtw_n317_p100"
+    },
+    {
+      "case": "xtw_n322_p100"
+    },
+    {
+      "case": "xtw_n327_p100"
+    },
+    {
+      "case": "xtw_n331_p100"
+    },
+    {
+      "case": "xtw_n336_p100"
+    },
+    {
+      "case": "xtw_n344_p100"
+    }
+  ]
+}

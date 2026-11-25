@@ -1,0 +1,1431 @@
+{
+  "training_only": false,
+  "worker": "independent.py",
+  "block_timeout_s": 1500,
+  "seconds": 60,
+  "purpose": "locked independent comparison",
+  "blocks": [
+    {
+      "case": "xtw_n317_p100",
+      "seed": 32002,
+      "arms": [
+        "HYBRID",
+        "DIST_SLOT",
+        "VNS",
+        "AttentionModel",
+        "POMO",
+        "DeepACO",
+        "DIST",
+        "ALNS",
+        "NDS-Econ",
+        "CaR",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "gh_rc1_6_1_p100",
+      "seed": 32001,
+      "arms": [
+        "CaR",
+        "ALNS",
+        "DIST",
+        "VNS",
+        "POMO",
+        "NDS-Econ",
+        "HYBRID",
+        "DeepACO",
+        "AttentionModel",
+        "DIST_SLOT",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "dk_data100_c",
+      "seed": 32001,
+      "arms": [
+        "AttentionModel",
+        "ALNS",
+        "NDS-Econ",
+        "DIST",
+        "VNS",
+        "CaR",
+        "HYBRID_D",
+        "DeepACO",
+        "POMO",
+        "HYBRID",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "dk_data100_b",
+      "seed": 32002,
+      "arms": [
+        "CaR",
+        "NDS-Econ",
+        "VNS",
+        "DIST",
+        "AttentionModel",
+        "HYBRID",
+        "POMO",
+        "ALNS",
+        "DeepACO",
+        "HYBRID_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "dk_data100_d",
+      "seed": 32002,
+      "arms": [
+        "POMO",
+        "CaR",
+        "DIST",
+        "NDS-Econ",
+        "HYBRID_D",
+        "VNS",
+        "AttentionModel",
+        "HYBRID",
+        "DIST_SLOT",
+        "DeepACO",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n331_p100",
+      "seed": 32002,
+      "arms": [
+        "HYBRID_D",
+        "DIST_SLOT",
+        "ALNS",
+        "DeepACO",
+        "CaR",
+        "VNS",
+        "AttentionModel",
+        "POMO",
+        "NDS-Econ",
+        "HYBRID",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_6_2_p100",
+      "seed": 32002,
+      "arms": [
+        "VNS",
+        "DeepACO",
+        "DIST",
+        "POMO",
+        "DIST_SLOT",
+        "NDS-Econ",
+        "HYBRID",
+        "CaR",
+        "HYBRID_D",
+        "AttentionModel",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "dk_data100_e",
+      "seed": 32001,
+      "arms": [
+        "NDS-Econ",
+        "ALNS",
+        "DIST_SLOT",
+        "CaR",
+        "AttentionModel",
+        "DIST",
+        "HYBRID_D",
+        "VNS",
+        "DeepACO",
+        "POMO",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "gh_r1_6_2_p100",
+      "seed": 32003,
+      "arms": [
+        "HYBRID",
+        "CaR",
+        "NDS-Econ",
+        "POMO",
+        "ALNS",
+        "AttentionModel",
+        "DeepACO",
+        "DIST",
+        "HYBRID_D",
+        "VNS",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_6_1_p100",
+      "seed": 32001,
+      "arms": [
+        "CaR",
+        "HYBRID_D",
+        "DIST",
+        "NDS-Econ",
+        "HYBRID",
+        "VNS",
+        "ALNS",
+        "AttentionModel",
+        "DeepACO",
+        "DIST_SLOT",
+        "POMO"
+      ]
+    },
+    {
+      "case": "xtw_n313_p100",
+      "seed": 32002,
+      "arms": [
+        "DeepACO",
+        "HYBRID",
+        "DIST_SLOT",
+        "DIST",
+        "POMO",
+        "HYBRID_D",
+        "AttentionModel",
+        "NDS-Econ",
+        "CaR",
+        "VNS",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n331_p100",
+      "seed": 32001,
+      "arms": [
+        "HYBRID_D",
+        "CaR",
+        "NDS-Econ",
+        "HYBRID",
+        "DIST",
+        "ALNS",
+        "DIST_SLOT",
+        "DeepACO",
+        "VNS",
+        "POMO",
+        "AttentionModel"
+      ]
+    },
+    {
+      "case": "dk_data100_e",
+      "seed": 32003,
+      "arms": [
+        "HYBRID",
+        "VNS",
+        "DIST",
+        "CaR",
+        "HYBRID_D",
+        "POMO",
+        "AttentionModel",
+        "DeepACO",
+        "ALNS",
+        "NDS-Econ",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_r2_6_2_p100",
+      "seed": 32003,
+      "arms": [
+        "NDS-Econ",
+        "DIST_SLOT",
+        "VNS",
+        "CaR",
+        "DeepACO",
+        "ALNS",
+        "POMO",
+        "AttentionModel",
+        "HYBRID",
+        "DIST",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n327_p100",
+      "seed": 32002,
+      "arms": [
+        "HYBRID_D",
+        "POMO",
+        "NDS-Econ",
+        "DIST",
+        "ALNS",
+        "AttentionModel",
+        "VNS",
+        "HYBRID",
+        "CaR",
+        "DIST_SLOT",
+        "DeepACO"
+      ]
+    },
+    {
+      "case": "gh_c2_6_2_p100",
+      "seed": 32001,
+      "arms": [
+        "NDS-Econ",
+        "DeepACO",
+        "AttentionModel",
+        "ALNS",
+        "DIST_SLOT",
+        "POMO",
+        "DIST",
+        "HYBRID_D",
+        "HYBRID",
+        "VNS",
+        "CaR"
+      ]
+    },
+    {
+      "case": "gh_c1_6_2_p100",
+      "seed": 32002,
+      "arms": [
+        "VNS",
+        "ALNS",
+        "CaR",
+        "NDS-Econ",
+        "HYBRID",
+        "POMO",
+        "AttentionModel",
+        "DIST_SLOT",
+        "DeepACO",
+        "HYBRID_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n322_p100",
+      "seed": 32001,
+      "arms": [
+        "HYBRID_D",
+        "NDS-Econ",
+        "POMO",
+        "DIST",
+        "VNS",
+        "DIST_SLOT",
+        "DeepACO",
+        "HYBRID",
+        "AttentionModel",
+        "CaR",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "gh_c1_6_2_p100",
+      "seed": 32001,
+      "arms": [
+        "HYBRID",
+        "DIST_SLOT",
+        "VNS",
+        "NDS-Econ",
+        "AttentionModel",
+        "HYBRID_D",
+        "DIST",
+        "CaR",
+        "ALNS",
+        "DeepACO",
+        "POMO"
+      ]
+    },
+    {
+      "case": "gh_rc2_6_2_p100",
+      "seed": 32001,
+      "arms": [
+        "DIST_SLOT",
+        "VNS",
+        "NDS-Econ",
+        "CaR",
+        "DIST",
+        "AttentionModel",
+        "POMO",
+        "HYBRID",
+        "ALNS",
+        "DeepACO",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n336_p100",
+      "seed": 32001,
+      "arms": [
+        "NDS-Econ",
+        "DeepACO",
+        "POMO",
+        "CaR",
+        "VNS",
+        "DIST_SLOT",
+        "HYBRID",
+        "ALNS",
+        "AttentionModel",
+        "DIST",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "dk_data100_c",
+      "seed": 32003,
+      "arms": [
+        "VNS",
+        "DIST",
+        "HYBRID_D",
+        "HYBRID",
+        "NDS-Econ",
+        "POMO",
+        "CaR",
+        "ALNS",
+        "AttentionModel",
+        "DIST_SLOT",
+        "DeepACO"
+      ]
+    },
+    {
+      "case": "gh_rc1_6_2_p100",
+      "seed": 32003,
+      "arms": [
+        "ALNS",
+        "HYBRID_D",
+        "DIST_SLOT",
+        "NDS-Econ",
+        "DIST",
+        "HYBRID",
+        "AttentionModel",
+        "VNS",
+        "DeepACO",
+        "POMO",
+        "CaR"
+      ]
+    },
+    {
+      "case": "gh_c2_6_1_p100",
+      "seed": 32003,
+      "arms": [
+        "DeepACO",
+        "AttentionModel",
+        "VNS",
+        "CaR",
+        "HYBRID_D",
+        "ALNS",
+        "POMO",
+        "HYBRID",
+        "NDS-Econ",
+        "DIST",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_6_2_p100",
+      "seed": 32003,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "DeepACO",
+        "VNS",
+        "CaR",
+        "HYBRID_D",
+        "HYBRID",
+        "POMO",
+        "ALNS",
+        "NDS-Econ",
+        "AttentionModel"
+      ]
+    },
+    {
+      "case": "gh_r2_6_1_p100",
+      "seed": 32002,
+      "arms": [
+        "AttentionModel",
+        "NDS-Econ",
+        "DIST",
+        "HYBRID_D",
+        "VNS",
+        "CaR",
+        "DeepACO",
+        "ALNS",
+        "POMO",
+        "DIST_SLOT",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n308_p100",
+      "seed": 32002,
+      "arms": [
+        "HYBRID",
+        "NDS-Econ",
+        "DeepACO",
+        "CaR",
+        "HYBRID_D",
+        "VNS",
+        "AttentionModel",
+        "DIST_SLOT",
+        "DIST",
+        "POMO",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n322_p100",
+      "seed": 32003,
+      "arms": [
+        "DeepACO",
+        "POMO",
+        "VNS",
+        "ALNS",
+        "DIST",
+        "NDS-Econ",
+        "DIST_SLOT",
+        "HYBRID",
+        "HYBRID_D",
+        "AttentionModel",
+        "CaR"
+      ]
+    },
+    {
+      "case": "xtw_n317_p100",
+      "seed": 32001,
+      "arms": [
+        "HYBRID",
+        "DeepACO",
+        "POMO",
+        "CaR",
+        "AttentionModel",
+        "DIST",
+        "DIST_SLOT",
+        "VNS",
+        "NDS-Econ",
+        "ALNS",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n308_p100",
+      "seed": 32003,
+      "arms": [
+        "DIST_SLOT",
+        "HYBRID",
+        "VNS",
+        "NDS-Econ",
+        "ALNS",
+        "DeepACO",
+        "CaR",
+        "AttentionModel",
+        "HYBRID_D",
+        "DIST",
+        "POMO"
+      ]
+    },
+    {
+      "case": "xtw_n336_p100",
+      "seed": 32002,
+      "arms": [
+        "DIST_SLOT",
+        "HYBRID_D",
+        "VNS",
+        "DeepACO",
+        "ALNS",
+        "DIST",
+        "HYBRID",
+        "AttentionModel",
+        "NDS-Econ",
+        "CaR",
+        "POMO"
+      ]
+    },
+    {
+      "case": "dk_data100_b",
+      "seed": 32003,
+      "arms": [
+        "DIST_SLOT",
+        "HYBRID_D",
+        "DIST",
+        "ALNS",
+        "AttentionModel",
+        "DeepACO",
+        "VNS",
+        "NDS-Econ",
+        "CaR",
+        "POMO",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "gh_c1_6_1_p100",
+      "seed": 32003,
+      "arms": [
+        "DIST",
+        "DIST_SLOT",
+        "DeepACO",
+        "POMO",
+        "ALNS",
+        "NDS-Econ",
+        "HYBRID",
+        "AttentionModel",
+        "HYBRID_D",
+        "CaR",
+        "VNS"
+      ]
+    },
+    {
+      "case": "xtw_n317_p100",
+      "seed": 32003,
+      "arms": [
+        "POMO",
+        "NDS-Econ",
+        "ALNS",
+        "CaR",
+        "DeepACO",
+        "DIST",
+        "DIST_SLOT",
+        "HYBRID_D",
+        "VNS",
+        "HYBRID",
+        "AttentionModel"
+      ]
+    },
+    {
+      "case": "gh_rc2_6_1_p100",
+      "seed": 32003,
+      "arms": [
+        "POMO",
+        "AttentionModel",
+        "VNS",
+        "NDS-Econ",
+        "DeepACO",
+        "ALNS",
+        "HYBRID_D",
+        "HYBRID",
+        "DIST",
+        "CaR",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_6_2_p100",
+      "seed": 32003,
+      "arms": [
+        "DeepACO",
+        "POMO",
+        "NDS-Econ",
+        "CaR",
+        "DIST",
+        "DIST_SLOT",
+        "ALNS",
+        "HYBRID_D",
+        "VNS",
+        "AttentionModel",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n298_p100",
+      "seed": 32003,
+      "arms": [
+        "CaR",
+        "AttentionModel",
+        "HYBRID_D",
+        "DIST",
+        "ALNS",
+        "VNS",
+        "DIST_SLOT",
+        "POMO",
+        "DeepACO",
+        "NDS-Econ",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "dk_data100_d",
+      "seed": 32003,
+      "arms": [
+        "ALNS",
+        "DIST",
+        "DIST_SLOT",
+        "POMO",
+        "CaR",
+        "VNS",
+        "HYBRID_D",
+        "AttentionModel",
+        "HYBRID",
+        "DeepACO",
+        "NDS-Econ"
+      ]
+    },
+    {
+      "case": "gh_r1_6_1_p100",
+      "seed": 32003,
+      "arms": [
+        "ALNS",
+        "DeepACO",
+        "AttentionModel",
+        "HYBRID",
+        "DIST_SLOT",
+        "CaR",
+        "HYBRID_D",
+        "NDS-Econ",
+        "DIST",
+        "POMO",
+        "VNS"
+      ]
+    },
+    {
+      "case": "dk_data100_a",
+      "seed": 32003,
+      "arms": [
+        "ALNS",
+        "DIST",
+        "POMO",
+        "HYBRID_D",
+        "DeepACO",
+        "VNS",
+        "DIST_SLOT",
+        "CaR",
+        "HYBRID",
+        "AttentionModel",
+        "NDS-Econ"
+      ]
+    },
+    {
+      "case": "gh_r1_6_1_p100",
+      "seed": 32002,
+      "arms": [
+        "CaR",
+        "HYBRID_D",
+        "DIST",
+        "NDS-Econ",
+        "AttentionModel",
+        "POMO",
+        "ALNS",
+        "DIST_SLOT",
+        "VNS",
+        "DeepACO",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "gh_c2_6_1_p100",
+      "seed": 32001,
+      "arms": [
+        "DeepACO",
+        "POMO",
+        "AttentionModel",
+        "HYBRID",
+        "DIST_SLOT",
+        "NDS-Econ",
+        "ALNS",
+        "HYBRID_D",
+        "CaR",
+        "VNS",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_r2_6_2_p100",
+      "seed": 32001,
+      "arms": [
+        "CaR",
+        "DIST",
+        "DIST_SLOT",
+        "HYBRID_D",
+        "AttentionModel",
+        "NDS-Econ",
+        "ALNS",
+        "DeepACO",
+        "HYBRID",
+        "VNS",
+        "POMO"
+      ]
+    },
+    {
+      "case": "dk_data100_a",
+      "seed": 32002,
+      "arms": [
+        "HYBRID_D",
+        "VNS",
+        "DIST",
+        "NDS-Econ",
+        "CaR",
+        "DeepACO",
+        "AttentionModel",
+        "POMO",
+        "DIST_SLOT",
+        "ALNS",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n298_p100",
+      "seed": 32001,
+      "arms": [
+        "HYBRID_D",
+        "CaR",
+        "VNS",
+        "ALNS",
+        "DIST",
+        "HYBRID",
+        "DIST_SLOT",
+        "AttentionModel",
+        "POMO",
+        "DeepACO",
+        "NDS-Econ"
+      ]
+    },
+    {
+      "case": "xtw_n303_p100",
+      "seed": 32001,
+      "arms": [
+        "ALNS",
+        "DIST",
+        "NDS-Econ",
+        "AttentionModel",
+        "DIST_SLOT",
+        "POMO",
+        "DeepACO",
+        "HYBRID",
+        "VNS",
+        "CaR",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "gh_rc2_6_1_p100",
+      "seed": 32002,
+      "arms": [
+        "HYBRID",
+        "DeepACO",
+        "DIST_SLOT",
+        "POMO",
+        "CaR",
+        "HYBRID_D",
+        "ALNS",
+        "DIST",
+        "NDS-Econ",
+        "AttentionModel",
+        "VNS"
+      ]
+    },
+    {
+      "case": "gh_r1_6_2_p100",
+      "seed": 32001,
+      "arms": [
+        "POMO",
+        "VNS",
+        "HYBRID",
+        "NDS-Econ",
+        "DeepACO",
+        "ALNS",
+        "CaR",
+        "DIST_SLOT",
+        "AttentionModel",
+        "HYBRID_D",
+        "DIST"
+      ]
+    },
+    {
+      "case": "dk_data100_d",
+      "seed": 32001,
+      "arms": [
+        "HYBRID_D",
+        "DIST",
+        "DIST_SLOT",
+        "AttentionModel",
+        "NDS-Econ",
+        "POMO",
+        "HYBRID",
+        "CaR",
+        "ALNS",
+        "VNS",
+        "DeepACO"
+      ]
+    },
+    {
+      "case": "gh_rc2_6_2_p100",
+      "seed": 32002,
+      "arms": [
+        "DIST",
+        "POMO",
+        "CaR",
+        "HYBRID",
+        "ALNS",
+        "DeepACO",
+        "VNS",
+        "HYBRID_D",
+        "NDS-Econ",
+        "AttentionModel",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n308_p100",
+      "seed": 32001,
+      "arms": [
+        "NDS-Econ",
+        "DIST",
+        "HYBRID_D",
+        "POMO",
+        "DIST_SLOT",
+        "VNS",
+        "CaR",
+        "AttentionModel",
+        "HYBRID",
+        "DeepACO",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "gh_rc1_6_1_p100",
+      "seed": 32003,
+      "arms": [
+        "HYBRID_D",
+        "POMO",
+        "ALNS",
+        "DIST_SLOT",
+        "CaR",
+        "VNS",
+        "NDS-Econ",
+        "DeepACO",
+        "DIST",
+        "HYBRID",
+        "AttentionModel"
+      ]
+    },
+    {
+      "case": "gh_c1_6_1_p100",
+      "seed": 32002,
+      "arms": [
+        "HYBRID_D",
+        "DIST_SLOT",
+        "POMO",
+        "ALNS",
+        "NDS-Econ",
+        "DeepACO",
+        "CaR",
+        "HYBRID",
+        "VNS",
+        "DIST",
+        "AttentionModel"
+      ]
+    },
+    {
+      "case": "dk_data100_c",
+      "seed": 32002,
+      "arms": [
+        "POMO",
+        "HYBRID",
+        "DeepACO",
+        "NDS-Econ",
+        "DIST",
+        "VNS",
+        "AttentionModel",
+        "CaR",
+        "DIST_SLOT",
+        "HYBRID_D",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "gh_r1_6_1_p100",
+      "seed": 32001,
+      "arms": [
+        "VNS",
+        "AttentionModel",
+        "HYBRID",
+        "HYBRID_D",
+        "CaR",
+        "NDS-Econ",
+        "ALNS",
+        "DeepACO",
+        "DIST_SLOT",
+        "DIST",
+        "POMO"
+      ]
+    },
+    {
+      "case": "xtw_n298_p100",
+      "seed": 32002,
+      "arms": [
+        "VNS",
+        "DeepACO",
+        "CaR",
+        "DIST",
+        "DIST_SLOT",
+        "NDS-Econ",
+        "AttentionModel",
+        "ALNS",
+        "HYBRID_D",
+        "HYBRID",
+        "POMO"
+      ]
+    },
+    {
+      "case": "xtw_n331_p100",
+      "seed": 32003,
+      "arms": [
+        "DIST_SLOT",
+        "NDS-Econ",
+        "VNS",
+        "DeepACO",
+        "CaR",
+        "HYBRID",
+        "DIST",
+        "HYBRID_D",
+        "POMO",
+        "ALNS",
+        "AttentionModel"
+      ]
+    },
+    {
+      "case": "xtw_n313_p100",
+      "seed": 32003,
+      "arms": [
+        "CaR",
+        "AttentionModel",
+        "DIST_SLOT",
+        "VNS",
+        "DIST",
+        "HYBRID_D",
+        "ALNS",
+        "POMO",
+        "HYBRID",
+        "DeepACO",
+        "NDS-Econ"
+      ]
+    },
+    {
+      "case": "dk_data100_a",
+      "seed": 32001,
+      "arms": [
+        "DeepACO",
+        "POMO",
+        "CaR",
+        "NDS-Econ",
+        "DIST_SLOT",
+        "HYBRID_D",
+        "VNS",
+        "AttentionModel",
+        "HYBRID",
+        "DIST",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "xtw_n327_p100",
+      "seed": 32001,
+      "arms": [
+        "DIST_SLOT",
+        "HYBRID_D",
+        "POMO",
+        "NDS-Econ",
+        "CaR",
+        "ALNS",
+        "DeepACO",
+        "VNS",
+        "DIST",
+        "AttentionModel",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n344_p100",
+      "seed": 32003,
+      "arms": [
+        "DeepACO",
+        "HYBRID_D",
+        "AttentionModel",
+        "CaR",
+        "POMO",
+        "NDS-Econ",
+        "DIST",
+        "DIST_SLOT",
+        "VNS",
+        "ALNS",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n313_p100",
+      "seed": 32001,
+      "arms": [
+        "CaR",
+        "POMO",
+        "ALNS",
+        "DIST",
+        "HYBRID_D",
+        "DIST_SLOT",
+        "VNS",
+        "AttentionModel",
+        "HYBRID",
+        "NDS-Econ",
+        "DeepACO"
+      ]
+    },
+    {
+      "case": "gh_r1_6_2_p100",
+      "seed": 32002,
+      "arms": [
+        "POMO",
+        "HYBRID",
+        "VNS",
+        "DIST_SLOT",
+        "DeepACO",
+        "ALNS",
+        "DIST",
+        "AttentionModel",
+        "NDS-Econ",
+        "HYBRID_D",
+        "CaR"
+      ]
+    },
+    {
+      "case": "gh_r2_6_1_p100",
+      "seed": 32003,
+      "arms": [
+        "HYBRID",
+        "DeepACO",
+        "ALNS",
+        "NDS-Econ",
+        "HYBRID_D",
+        "DIST",
+        "DIST_SLOT",
+        "CaR",
+        "VNS",
+        "AttentionModel",
+        "POMO"
+      ]
+    },
+    {
+      "case": "xtw_n303_p100",
+      "seed": 32003,
+      "arms": [
+        "ALNS",
+        "AttentionModel",
+        "POMO",
+        "CaR",
+        "DIST_SLOT",
+        "DeepACO",
+        "NDS-Econ",
+        "HYBRID_D",
+        "HYBRID",
+        "VNS",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n336_p100",
+      "seed": 32003,
+      "arms": [
+        "AttentionModel",
+        "NDS-Econ",
+        "POMO",
+        "HYBRID",
+        "CaR",
+        "HYBRID_D",
+        "DIST",
+        "VNS",
+        "ALNS",
+        "DIST_SLOT",
+        "DeepACO"
+      ]
+    },
+    {
+      "case": "xtw_n327_p100",
+      "seed": 32003,
+      "arms": [
+        "DeepACO",
+        "HYBRID",
+        "NDS-Econ",
+        "AttentionModel",
+        "CaR",
+        "DIST_SLOT",
+        "VNS",
+        "HYBRID_D",
+        "ALNS",
+        "POMO",
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_rc1_6_1_p100",
+      "seed": 32002,
+      "arms": [
+        "DIST_SLOT",
+        "AttentionModel",
+        "DIST",
+        "HYBRID",
+        "VNS",
+        "HYBRID_D",
+        "POMO",
+        "DeepACO",
+        "ALNS",
+        "CaR",
+        "NDS-Econ"
+      ]
+    },
+    {
+      "case": "dk_data100_e",
+      "seed": 32002,
+      "arms": [
+        "POMO",
+        "HYBRID",
+        "DIST",
+        "ALNS",
+        "AttentionModel",
+        "VNS",
+        "NDS-Econ",
+        "DeepACO",
+        "CaR",
+        "HYBRID_D",
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n344_p100",
+      "seed": 32002,
+      "arms": [
+        "NDS-Econ",
+        "ALNS",
+        "VNS",
+        "POMO",
+        "AttentionModel",
+        "HYBRID_D",
+        "DIST",
+        "CaR",
+        "DeepACO",
+        "DIST_SLOT",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "gh_rc2_6_1_p100",
+      "seed": 32001,
+      "arms": [
+        "DeepACO",
+        "ALNS",
+        "VNS",
+        "POMO",
+        "HYBRID",
+        "HYBRID_D",
+        "CaR",
+        "DIST_SLOT",
+        "NDS-Econ",
+        "DIST",
+        "AttentionModel"
+      ]
+    },
+    {
+      "case": "gh_c1_6_2_p100",
+      "seed": 32003,
+      "arms": [
+        "POMO",
+        "HYBRID_D",
+        "DeepACO",
+        "CaR",
+        "VNS",
+        "NDS-Econ",
+        "ALNS",
+        "DIST_SLOT",
+        "AttentionModel",
+        "DIST",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n344_p100",
+      "seed": 32001,
+      "arms": [
+        "DeepACO",
+        "CaR",
+        "VNS",
+        "ALNS",
+        "NDS-Econ",
+        "POMO",
+        "DIST_SLOT",
+        "HYBRID",
+        "DIST",
+        "HYBRID_D",
+        "AttentionModel"
+      ]
+    },
+    {
+      "case": "dk_data100_b",
+      "seed": 32001,
+      "arms": [
+        "HYBRID",
+        "VNS",
+        "HYBRID_D",
+        "ALNS",
+        "NDS-Econ",
+        "AttentionModel",
+        "DeepACO",
+        "CaR",
+        "POMO",
+        "DIST_SLOT",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n303_p100",
+      "seed": 32002,
+      "arms": [
+        "HYBRID_D",
+        "AttentionModel",
+        "VNS",
+        "NDS-Econ",
+        "POMO",
+        "HYBRID",
+        "DIST_SLOT",
+        "ALNS",
+        "DIST",
+        "CaR",
+        "DeepACO"
+      ]
+    },
+    {
+      "case": "gh_r2_6_1_p100",
+      "seed": 32001,
+      "arms": [
+        "AttentionModel",
+        "VNS",
+        "DIST_SLOT",
+        "HYBRID_D",
+        "DeepACO",
+        "CaR",
+        "NDS-Econ",
+        "DIST",
+        "POMO",
+        "ALNS",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "gh_rc1_6_2_p100",
+      "seed": 32001,
+      "arms": [
+        "HYBRID_D",
+        "VNS",
+        "NDS-Econ",
+        "DeepACO",
+        "DIST_SLOT",
+        "HYBRID",
+        "CaR",
+        "POMO",
+        "AttentionModel",
+        "ALNS",
+        "DIST"
+      ]
+    },
+    {
+      "case": "xtw_n322_p100",
+      "seed": 32002,
+      "arms": [
+        "VNS",
+        "HYBRID",
+        "DeepACO",
+        "POMO",
+        "HYBRID_D",
+        "DIST",
+        "DIST_SLOT",
+        "NDS-Econ",
+        "AttentionModel",
+        "CaR",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "gh_c2_6_1_p100",
+      "seed": 32002,
+      "arms": [
+        "DeepACO",
+        "DIST",
+        "ALNS",
+        "POMO",
+        "DIST_SLOT",
+        "AttentionModel",
+        "HYBRID_D",
+        "VNS",
+        "CaR",
+        "NDS-Econ",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "gh_c2_6_2_p100",
+      "seed": 32002,
+      "arms": [
+        "CaR",
+        "HYBRID_D",
+        "DIST_SLOT",
+        "VNS",
+        "POMO",
+        "NDS-Econ",
+        "AttentionModel",
+        "DeepACO",
+        "HYBRID",
+        "DIST",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "gh_r2_6_2_p100",
+      "seed": 32002,
+      "arms": [
+        "HYBRID_D",
+        "VNS",
+        "AttentionModel",
+        "POMO",
+        "HYBRID",
+        "DIST_SLOT",
+        "ALNS",
+        "DIST",
+        "CaR",
+        "DeepACO",
+        "NDS-Econ"
+      ]
+    }
+  ],
+  "files": [
+    "independent.py",
+    "runner.py",
+    "heldout_sources.json",
+    "heldout_admission.json",
+    "locked_method.json",
+    "pool_search.py",
+    "masked_repair.cpp",
+    "calibrated.json",
+    "calibration.py",
+    "inputs/dk_data100_a.json",
+    "inputs/dk_data100_b.json",
+    "inputs/dk_data100_c.json",
+    "inputs/dk_data100_d.json",
+    "inputs/dk_data100_e.json",
+    "inputs/xtw_n298_p100.json",
+    "inputs/xtw_n303_p100.json",
+    "inputs/xtw_n308_p100.json",
+    "inputs/xtw_n313_p100.json",
+    "inputs/xtw_n317_p100.json",
+    "inputs/xtw_n322_p100.json",
+    "inputs/xtw_n327_p100.json",
+    "inputs/xtw_n331_p100.json",
+    "inputs/xtw_n336_p100.json",
+    "inputs/xtw_n344_p100.json",
+    "inputs/gh_c1_6_1_p100.json",
+    "inputs/gh_c1_6_2_p100.json",
+    "inputs/gh_c2_6_1_p100.json",
+    "inputs/gh_c2_6_2_p100.json",
+    "inputs/gh_r1_6_1_p100.json",
+    "inputs/gh_r1_6_2_p100.json",
+    "inputs/gh_r2_6_1_p100.json",
+    "inputs/gh_r2_6_2_p100.json",
+    "inputs/gh_rc1_6_1_p100.json",
+    "inputs/gh_rc1_6_2_p100.json",
+    "inputs/gh_rc2_6_1_p100.json",
+    "inputs/gh_rc2_6_2_p100.json"
+  ],
+  "file_sources": {
+    "pool_search.py": "../maskco_heatmap_calibration_20261119/lock/pool_search.py",
+    "masked_repair.cpp": "../maskco_heatmap_calibration_20261119/lock/masked_repair.cpp",
+    "calibrated.json": "../maskco_heatmap_calibration_20261119/lock/calibrated.json",
+    "calibration.py": "../maskco_heatmap_calibration_20261119/lock/calibration.py",
+    "runner.py": "../maskco_heatmap_calibration_20261119/runner.py"
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "worker": "independent.py",
+  "training_only": false,
+  "purpose": "previously tested case, solver acceptance",
+  "seconds": 4,
+  "block_timeout_s": 300,
+  "files": [
+    "block_split.py",
+    "calibrated.json",
+    "calibration.py",
+    "masked_repair.cpp",
+    "pool_search.py",
+    "split_order.cpp",
+    "runner.py",
+    "external_common.py",
+    "independent.py",
+    "previous_pool.py",
+    "locked_method.json",
+    "heldout_sources.json",
+    "heldout_admission.json",
+    "validation_inputs/gh_c1_4_1_p100.json"
+  ],
+  "file_sources": {
+    "block_split.py": "reserved_validation/solver/block_split.py",
+    "calibrated.json": "reserved_validation/solver/calibrated.json",
+    "calibration.py": "reserved_validation/solver/calibration.py",
+    "masked_repair.cpp": "reserved_validation/solver/masked_repair.cpp",
+    "pool_search.py": "reserved_validation/solver/pool_search.py",
+    "split_order.cpp": "reserved_validation/solver/split_order.cpp",
+    "runner.py": "../maskco_heatmap_calibration_20261119/runner.py",
+    "external_common.py": "independent.py",
+    "independent.py": "reserved_entry.py",
+    "locked_method.json": "reserved_validation/locked_method.json",
+    "heldout_sources.json": "qualification/heldout_sources.json",
+    "heldout_admission.json": "qualification/heldout_admission.json",
+    "previous_pool.py": "../maskco_heatmap_calibration_20261119/lock/pool_search.py",
+    "inputs/dk_complement_a.json": "reserved_validation/inputs/dk_complement_a.json",
+    "inputs/dk_complement_b.json": "reserved_validation/inputs/dk_complement_b.json",
+    "inputs/dk_complement_c.json": "reserved_validation/inputs/dk_complement_c.json",
+    "inputs/dk_complement_d.json": "reserved_validation/inputs/dk_complement_d.json",
+    "inputs/dk_complement_e.json": "reserved_validation/inputs/dk_complement_e.json",
+    "inputs/xtw_n351_p100.json": "reserved_validation/inputs/xtw_n351_p100.json",
+    "inputs/xtw_n359_p100.json": "reserved_validation/inputs/xtw_n359_p100.json",
+    "inputs/xtw_n367_p100.json": "reserved_validation/inputs/xtw_n367_p100.json",
+    "inputs/xtw_n376_p100.json": "reserved_validation/inputs/xtw_n376_p100.json",
+    "inputs/xtw_n384_p100.json": "reserved_validation/inputs/xtw_n384_p100.json",
+    "inputs/xtw_n393_p100.json": "reserved_validation/inputs/xtw_n393_p100.json",
+    "inputs/xtw_n401_p100.json": "reserved_validation/inputs/xtw_n401_p100.json",
+    "inputs/xtw_n411_p100.json": "reserved_validation/inputs/xtw_n411_p100.json",
+    "inputs/xtw_n420_p100.json": "reserved_validation/inputs/xtw_n420_p100.json",
+    "inputs/xtw_n429_p100.json": "reserved_validation/inputs/xtw_n429_p100.json",
+    "inputs/gh_c1_8_1_p100.json": "reserved_validation/inputs/gh_c1_8_1_p100.json",
+    "inputs/gh_c1_8_2_p100.json": "reserved_validation/inputs/gh_c1_8_2_p100.json",
+    "inputs/gh_c2_8_1_p100.json": "reserved_validation/inputs/gh_c2_8_1_p100.json",
+    "inputs/gh_c2_8_2_p100.json": "reserved_validation/inputs/gh_c2_8_2_p100.json",
+    "inputs/gh_r1_8_1_p100.json": "reserved_validation/inputs/gh_r1_8_1_p100.json",
+    "inputs/gh_r1_8_2_p100.json": "reserved_validation/inputs/gh_r1_8_2_p100.json",
+    "inputs/gh_r2_8_1_p100.json": "reserved_validation/inputs/gh_r2_8_1_p100.json",
+    "inputs/gh_r2_8_2_p100.json": "reserved_validation/inputs/gh_r2_8_2_p100.json",
+    "inputs/gh_rc1_8_1_p100.json": "reserved_validation/inputs/gh_rc1_8_1_p100.json",
+    "inputs/gh_rc1_8_2_p100.json": "reserved_validation/inputs/gh_rc1_8_2_p100.json",
+    "inputs/gh_rc2_8_1_p100.json": "reserved_validation/inputs/gh_rc2_8_1_p100.json",
+    "inputs/gh_rc2_8_2_p100.json": "reserved_validation/inputs/gh_rc2_8_2_p100.json",
+    "validation_inputs/gh_c1_4_1_p100.json": "../maskco_heatmap_calibration_20261119/validation_inputs/gh_c1_4_1_p100.json"
+  },
+  "blocks": [
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "ALNS"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "VNS"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "NDS-Econ"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "CaR"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "DeepACO"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "POMO"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "AttentionModel"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "HYBRID_D"
+      ]
+    }
+  ],
+  "archived_case_acceptance": true
+}

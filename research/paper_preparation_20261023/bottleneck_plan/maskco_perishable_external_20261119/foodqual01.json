@@ -1,0 +1,109 @@
+{
+  "training_only": false,
+  "worker": "independent.py",
+  "block_timeout_s": 240,
+  "seconds": 4,
+  "purpose": "previously tested external case, software acceptance",
+  "blocks": [
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "DIST"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "DIST_SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "ALNS"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "VNS"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "NDS-Econ"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "CaR"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "DeepACO"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "POMO"
+      ]
+    },
+    {
+      "case": "gh_c1_4_1_p100",
+      "seed": 998,
+      "arms": [
+        "AttentionModel"
+      ]
+    }
+  ],
+  "files": [
+    "independent.py",
+    "runner.py",
+    "heldout_sources.json",
+    "heldout_admission.json",
+    "locked_method.json",
+    "pool_search.py",
+    "masked_repair.cpp",
+    "calibrated.json",
+    "calibration.py",
+    "validation_inputs/gh_c1_4_1_p100.json"
+  ],
+  "file_sources": {
+    "pool_search.py": "../maskco_heatmap_calibration_20261119/lock/pool_search.py",
+    "masked_repair.cpp": "../maskco_heatmap_calibration_20261119/lock/masked_repair.cpp",
+    "calibrated.json": "../maskco_heatmap_calibration_20261119/lock/calibrated.json",
+    "calibration.py": "../maskco_heatmap_calibration_20261119/lock/calibration.py",
+    "runner.py": "../maskco_heatmap_calibration_20261119/runner.py",
+    "heldout_sources.json": "qualification/heldout_sources.json",
+    "heldout_admission.json": "qualification/heldout_admission.json",
+    "validation_inputs/gh_c1_4_1_p100.json": "../maskco_heatmap_calibration_20261119/validation_inputs/gh_c1_4_1_p100.json"
+  },
+  "archived_case_acceptance": true
+}
