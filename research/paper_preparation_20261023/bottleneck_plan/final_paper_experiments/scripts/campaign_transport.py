@@ -37,6 +37,17 @@ SPECS = {
                        ("_maskco_perishable_external_20261119/carryprobe01/block_split.py", "remote"),
                        ("_maskco_perishable_external_20261119/carryprobe01/calibration.py", "remote"),
                        ("_maskco_perishable_external_20261119/carryprobe01/calibrated.json", "remote")]),
+    "p4": dict(pkg="P4_solomon_coldchain", remote="_maskco_final_paper_p4", session="maskco_final_paper_p4",
+               phase_src="p4_phase.json", stage_src="p4_stage.py", stage_arc="stage_p4.py",
+               worker_src="p4_trajectory_worker.py", worker_arc="unified_worker.py",
+               dispatch_src="p4_dispatch.py", dispatch_arc="future_dispatch.py",
+               registry_src=None, registry_arc=None,
+               frozen=[("_maskco_cross_dataset_20261119/compare.py", "project"),
+                       ("_maskco_distance_slot_20261119/worker.py", "project"),
+                       ("_maskco_distance_slot_20261119/operators.py", "project"),
+                       ("_maskco_perishable_external_20261119/carryprobe01/external_common.py", "remote"),
+                       ("_maskco_perishable_external_20261119/carryprobe01/pool_search.py", "remote"),
+                       ("_maskco_perishable_external_20261119/carryprobe01/block_split.py", "remote")]),
 }
 
 
@@ -70,7 +81,7 @@ def frozen_identity(client, sftp, spec):
 def build_tarball(spec, name, smoke):
     pkg = LOCAL_ROOT / spec["pkg"]
     phase = read(pkg / spec["phase_src"])
-    for f in (spec["worker_src"], spec["stage_src"], "unified_runner.py"):
+    for f in (spec["worker_src"], spec["stage_src"], "unified_runner.py", spec.get("dispatch_src", "unified_runner.py")):
         ast.parse((pkg / f).read_text(encoding="utf-8"))
     members = []
     if smoke:
@@ -81,12 +92,15 @@ def build_tarball(spec, name, smoke):
         members.append((tmp, "phase.json"))
     else:
         members.append((pkg / spec["phase_src"], "phase.json"))
-    members += [(pkg / spec["worker_src"], "unified_worker.py"),
+    members += [(pkg / spec["worker_src"], spec.get("worker_arc", "unified_worker.py")),
                 (pkg / spec["stage_src"], spec["stage_arc"]),
-                (pkg / "unified_runner.py", "unified_runner.py"),
-                (pkg / spec.get("registry_src", spec["registry_arc"]), spec["registry_arc"])]
+                (pkg / "unified_runner.py", "unified_runner.py")]
+    if spec.get("registry_src") or spec.get("registry_arc"):
+        members.append((pkg / spec.get("registry_src", spec["registry_arc"]), spec["registry_arc"]))
     if spec.get("worker_dual"):
         members.append((pkg / spec["worker_src"], "future_dispatch.py"))
+    if spec.get("dispatch_src"):
+        members.append((pkg / spec["dispatch_src"], spec["dispatch_arc"]))
     out_name = "smoke01.tar.gz" if smoke else name + ".tar.gz"
     with tarfile.open(pkg / out_name, "w:gz") as z:
         for src, arc in members:

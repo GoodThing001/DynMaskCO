@@ -143,6 +143,18 @@ MANIFEST = {
                         "audit/*.json", "audit/*.py", "audit/*.md",
                         "audit/batch_registries/*.json"),
         },
+        {
+            "name": "p4_solomon_coldchain",
+            "note": "P4 Solomon 冷链统一18法：预登记、调度器、轨迹工作器与矩阵（端点另批交付）",
+            "root": "research/paper_preparation_20261023/bottleneck_plan/final_paper_experiments/P4_solomon_coldchain",
+            "include": ("*.md", "*.py", "*.json"),
+        },
+        {
+            "name": "p5_standard_vrp",
+            "note": "P5 标准任务：预登记协议、标准评价器与正确性测试（与冷链求解器隔离）",
+            "root": "research/paper_preparation_20261023/bottleneck_plan/final_paper_experiments/P5_standard_vrp",
+            "include": ("*.md", "standard_vrp/core/*.py", "standard_vrp/tests/*.py"),
+        },
     ],
 }
 
