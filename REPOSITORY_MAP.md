@@ -24,6 +24,14 @@
 与 **12** 个外部方法加 **3** 项内部参照按同一协议比较；三个完整批次共 **2,976** 个终点，
 **81,251** 条路线通过独立复算；主比较使用单物理核、共同可行初解、模型就绪后 60 秒预算。
 
+**已知呈现限制**：手册与汇报稿的 Markdown 里，图片引用写的是本机绝对路径
+（`D:/PyCharm_/MASKCO-Main/research/...`），因此在 GitHub 页面上不会内联渲染。
+图片本体已随手册发布：手工章节用图在
+[model_documentation_20261120/build/figures](research/paper_preparation_20261023/bottleneck_plan/model_documentation_20261120/build/figures)，
+21 日新增消融图在
+[model_documentation_20261121/figures](research/paper_preparation_20261023/bottleneck_plan/model_documentation_20261121/figures)；
+需要带图阅读时请下载 `output/*.pdf`（已发布）。
+
 ## 2. 顶层目录
 
 | 路径 | 内容 | GitHub |
