@@ -1,0 +1,739 @@
+{
+  "seconds": 60,
+  "training_only": false,
+  "name": "p2_retail_trajectory",
+  "methods": [
+    "ORDER_SPLIT",
+    "ORDER_SPLIT_D",
+    "ALNS"
+  ],
+  "max_cores": 24,
+  "interpreters": {
+    "ORDER_SPLIT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "ORDER_SPLIT_D": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "ALNS": "/home/hzeng/project/MASKCO-Main/C-VRP_Cold-chainVehicleRoutingProblem/research/comparison_v2_20261021/run02/envs/AttentionModel/bin/python"
+  },
+  "blocks": [
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65001,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65010,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65006,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65001,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65010,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65010,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65003,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65008,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65009,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65003,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65004,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65009,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65008,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65002,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65004,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65007,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65005,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65003,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65007,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65009,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65005,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65009,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65002,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65005,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65003,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65006,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65008,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65001,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65007,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65004,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65005,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65007,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65006,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65005,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65010,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65004,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65004,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65002,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65004,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65006,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65009,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65008,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65008,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65006,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65009,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65005,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65006,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65007,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65009,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65003,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65007,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65003,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65007,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65008,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65010,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65004,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65001,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65010,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65006,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65002,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65008,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65005,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65006,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65007,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65002,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65001,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65010,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65005,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65003,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65008,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65009,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65002,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65002,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65010,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65003,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65001,
+      "methods": [
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT",
+        "ALNS"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65002,
+      "methods": [
+        "ORDER_SPLIT",
+        "ALNS",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65004,
+      "methods": [
+        "ALNS",
+        "ORDER_SPLIT_D",
+        "ORDER_SPLIT"
+      ]
+    }
+  ],
+  "schedule_note": "P2 八城十种子：固定种子集 65001-65010；方法次序由固定种子 20261125 打乱"
+}

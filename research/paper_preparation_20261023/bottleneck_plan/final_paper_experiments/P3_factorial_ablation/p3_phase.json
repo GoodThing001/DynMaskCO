@@ -1,0 +1,641 @@
+{
+  "name": "p3_factorial",
+  "seconds": 60,
+  "training_only": false,
+  "methods": [
+    "HYBRID",
+    "HYBRID_D"
+  ],
+  "interpreters": {
+    "HYBRID": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "HYBRID_D": "/home/hzeng/envs/MASKCO_env/bin/python"
+  },
+  "blocks": [
+    {
+      "case": "vrppdl_be_fr_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "vrppdl_be_fr_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "vrppdl_be_fr_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_be_mo_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "vrppdl_be_mo_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_be_mo_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "vrppdl_be_th_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_be_th_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_be_th_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "vrppdl_be_tu_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_be_tu_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_be_tu_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_be_we_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_be_we_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_be_we_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_fr_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_fr_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_fr_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_mo_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_mo_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_mo_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_th_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_th_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_th_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_tu_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_tu_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_tu_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_we_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_we_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_we_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n716_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n716_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n716_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n749_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n749_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n749_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n766_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n766_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n766_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n801_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n801_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n801_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n819_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n819_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n819_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n876_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n876_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n876_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n936_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n936_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n936_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "xtw_n979_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n979_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "xtw_n979_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65001,
+      "methods": [
+        "HYBRID_D",
+        "HYBRID"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65002,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65003,
+      "methods": [
+        "HYBRID",
+        "HYBRID_D"
+      ]
+    }
+  ],
+  "max_cores": 24,
+  "schedule_note": "每区组两方法同物理核、同初解；方法次序由固定种子 20261124 打乱"
+}

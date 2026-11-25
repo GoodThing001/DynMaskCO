@@ -1,0 +1,1505 @@
+{
+  "name": "p1_mask_slot",
+  "seconds": 60,
+  "training_only": false,
+  "methods": [
+    "MASK",
+    "SLOT"
+  ],
+  "interpreters": {
+    "MASK": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "SLOT": "/home/hzeng/envs/MASKCO_env/bin/python"
+  },
+  "blocks": [
+    {
+      "case": "dk_complement_a",
+      "seed": 33001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "dk_complement_a",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "dk_complement_a",
+      "seed": 33003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "dk_complement_b",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "dk_complement_b",
+      "seed": 33002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "dk_complement_b",
+      "seed": 33003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "dk_complement_c",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "dk_complement_c",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "dk_complement_c",
+      "seed": 33003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "dk_complement_d",
+      "seed": 33001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "dk_complement_d",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "dk_complement_d",
+      "seed": 33003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "dk_complement_e",
+      "seed": 33001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "dk_complement_e",
+      "seed": 33002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "dk_complement_e",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_8_1_p100",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_c1_8_1_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_8_1_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_8_2_p100",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_c1_8_2_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_8_2_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_8_1_p100",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_c2_8_1_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_8_1_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_8_2_p100",
+      "seed": 33001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_8_2_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_8_2_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_r1_8_1_p100",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_r1_8_1_p100",
+      "seed": 33002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_r1_8_1_p100",
+      "seed": 33003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_r1_8_2_p100",
+      "seed": 33001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_r1_8_2_p100",
+      "seed": 33002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_r1_8_2_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_r2_8_1_p100",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_r2_8_1_p100",
+      "seed": 33002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_r2_8_1_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_r2_8_2_p100",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_r2_8_2_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_r2_8_2_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_8_1_p100",
+      "seed": 33001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_8_1_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_8_1_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_8_2_p100",
+      "seed": 33001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_8_2_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_8_2_p100",
+      "seed": 33003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_rc2_8_1_p100",
+      "seed": 33001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_8_1_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_8_1_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_8_2_p100",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_rc2_8_2_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_8_2_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n351_p100",
+      "seed": 33001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n351_p100",
+      "seed": 33002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n351_p100",
+      "seed": 33003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n359_p100",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n359_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n359_p100",
+      "seed": 33003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n367_p100",
+      "seed": 33001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n367_p100",
+      "seed": 33002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n367_p100",
+      "seed": 33003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n376_p100",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n376_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n376_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n384_p100",
+      "seed": 33001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n384_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n384_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n393_p100",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n393_p100",
+      "seed": 33002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n393_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n401_p100",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n401_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n401_p100",
+      "seed": 33003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n411_p100",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n411_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n411_p100",
+      "seed": 33003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n420_p100",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n420_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n420_p100",
+      "seed": 33003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n429_p100",
+      "seed": 33001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n429_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n429_p100",
+      "seed": 33003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n439_p100",
+      "seed": 33001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n439_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n439_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n459_p100",
+      "seed": 33001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n459_p100",
+      "seed": 33002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n459_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n480_p100",
+      "seed": 33001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n480_p100",
+      "seed": 33002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n480_p100",
+      "seed": 33003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_2_3_c101_200",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_2_3_c101_200",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_c1_2_3_c101_200",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_3_c101_200",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_c2_2_3_c101_200",
+      "seed": 65002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_c2_2_3_c101_200",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_r1_2_3_c101_200",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_r1_2_3_c101_200",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_r1_2_3_c101_200",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_r2_2_3_c101_200",
+      "seed": 65001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_r2_2_3_c101_200",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_r2_2_3_c101_200",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_3_c101_200",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_3_c101_200",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc1_2_3_c101_200",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_3_c101_200",
+      "seed": 65001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_3_c101_200",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "gh_rc2_2_3_c101_200",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_be_fr_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "vrppdl_be_fr_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_be_fr_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_be_mo_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_be_mo_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "vrppdl_be_mo_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_be_th_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_be_th_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "vrppdl_be_th_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "vrppdl_be_tu_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_be_tu_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "vrppdl_be_tu_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "vrppdl_be_we_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "vrppdl_be_we_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_be_we_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_fr_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_fr_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_fr_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_mo_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_mo_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_mo_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_th_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_th_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_th_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_tu_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_tu_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_tu_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_we_1_f_p100",
+      "seed": 65001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_we_1_f_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "vrppdl_nl_we_1_f_p100",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n716_p100",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n716_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n716_p100",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n749_p100",
+      "seed": 65001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n749_p100",
+      "seed": 65002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n749_p100",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n766_p100",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n766_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n766_p100",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n801_p100",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n801_p100",
+      "seed": 65002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n801_p100",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n819_p100",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n819_p100",
+      "seed": 65002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n819_p100",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n876_p100",
+      "seed": 65001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n876_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n876_p100",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n936_p100",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "xtw_n936_p100",
+      "seed": 65002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n936_p100",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n979_p100",
+      "seed": 65001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n979_p100",
+      "seed": 65002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "xtw_n979_p100",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "rw_br100_p100",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "rw_ca240_p100",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65002,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "rw_cp150_p100",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "rw_me340_p100",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65001,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "rw_ru120_p100",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "rw_sf300_p100",
+      "seed": 65003,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "rw_sg200_p100",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65001,
+      "methods": [
+        "SLOT",
+        "MASK"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65002,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    },
+    {
+      "case": "rw_zg170_p100",
+      "seed": 65003,
+      "methods": [
+        "MASK",
+        "SLOT"
+      ]
+    }
+  ],
+  "max_cores": 24,
+  "schedule_note": "每区组两方法同物理核、同初解；方法次序由固定种子 20261123 打乱"
+}
