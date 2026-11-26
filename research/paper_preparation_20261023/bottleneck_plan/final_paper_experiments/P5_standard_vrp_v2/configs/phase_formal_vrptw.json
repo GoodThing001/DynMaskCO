@@ -1,0 +1,2377 @@
+{
+  "name": "p5v2_formal_vrptw",
+  "seconds": 60,
+  "training_only": false,
+  "methods": [
+    "ORDER_SPLIT",
+    "ORDER_SPLIT_D",
+    "MASK",
+    "SLOT",
+    "DIST",
+    "DIST_SLOT"
+  ],
+  "blocks": [
+    {
+      "case": "R211",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R211.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R211",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R211.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R211",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R211.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C101",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C101.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C101",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C101.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C101",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C101.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R210",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R210.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R210",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R210.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R210",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R210.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R101",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R101.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R101",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R101.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R101",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R101.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R209",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R209.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R209",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R209.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R209",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R209.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC101",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC101.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC101",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC101.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC101",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC101.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC208",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC208.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC208",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC208.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC208",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC208.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C102",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C102.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C102",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C102.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C102",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C102.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R208",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R208.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R208",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R208.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R208",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R208.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R102",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R102.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R102",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R102.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R102",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R102.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C208",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C208.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C208",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C208.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C208",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C208.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC102",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC102.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC102",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC102.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC102",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC102.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC207",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC207.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC207",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC207.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC207",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC207.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C103",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C103.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C103",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C103.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C103",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C103.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R207",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R207.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R207",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R207.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R207",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R207.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R103",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R103.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R103",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R103.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R103",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R103.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C207",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C207.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C207",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C207.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C207",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C207.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC103",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC103.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC103",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC103.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC103",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC103.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC206",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC206.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC206",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC206.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC206",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC206.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C104",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C104.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C104",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C104.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C104",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C104.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R206",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R206.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R206",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R206.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R206",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R206.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R104",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R104.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R104",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R104.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R104",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R104.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C206",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C206.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C206",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C206.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C206",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C206.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC104",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC104.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC104",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC104.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC104",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC104.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC205",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC205.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC205",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC205.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC205",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC205.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C105",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C105.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C105",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C105.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C105",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C105.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R205",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R205.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R205",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R205.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R205",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R205.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R105",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R105.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R105",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R105.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R105",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R105.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C205",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C205.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C205",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C205.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C205",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C205.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC105",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC105.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC105",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC105.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC105",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC105.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC204",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC204.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC204",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC204.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC204",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC204.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C106",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C106.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C106",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C106.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C106",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C106.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R204",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R204.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R204",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R204.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R204",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R204.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R106",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R106.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R106",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R106.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R106",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R106.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C204",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C204.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C204",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C204.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C204",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C204.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC106",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC106.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC106",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC106.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC106",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC106.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC203",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC203.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC203",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC203.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC203",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC203.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C107",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C107.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C107",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C107.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C107",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C107.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R203",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R203.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R203",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R203.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R203",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R203.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R107",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R107.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R107",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R107.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R107",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R107.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C203",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C203.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C203",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C203.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C203",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C203.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC107",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC107.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC107",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC107.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC107",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC107.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC202",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC202.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC202",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC202.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC202",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC202.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C108",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C108.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C108",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C108.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C108",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C108.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R202",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R202.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R202",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R202.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R202",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R202.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R108",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R108.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R108",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R108.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R108",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R108.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C202",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C202.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C202",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C202.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C202",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C202.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC108",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC108.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC108",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC108.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC108",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC108.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "RC201",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC201.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "RC201",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC201.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "RC201",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/RC201.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C109",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C109.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C109",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C109.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C109",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C109.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R201",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R201.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R201",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R201.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R201",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R201.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R109",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R109.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R109",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R109.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R109",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R109.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "C201",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C201.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "C201",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C201.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "C201",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/C201.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R110",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R110.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R110",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R110.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R110",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R110.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R112",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R112.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R112",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R112.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R112",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R112.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    },
+    {
+      "case": "R111",
+      "seed": 69001,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R111.vrp",
+      "methods": [
+        "ORDER_SPLIT_D",
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT"
+      ]
+    },
+    {
+      "case": "R111",
+      "seed": 69002,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R111.vrp",
+      "methods": [
+        "MASK",
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D"
+      ]
+    },
+    {
+      "case": "R111",
+      "seed": 69003,
+      "objective": "vrptw",
+      "path": "/home/hzeng/project/MASKCO-Main/_maskco_final_paper_p5/solomon/instances/R111.vrp",
+      "methods": [
+        "SLOT",
+        "DIST",
+        "DIST_SLOT",
+        "ORDER_SPLIT",
+        "ORDER_SPLIT_D",
+        "MASK"
+      ]
+    }
+  ],
+  "max_cores": 12,
+  "interpreters": {
+    "ORDER_SPLIT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "ORDER_SPLIT_D": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "MASK": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "SLOT": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "DIST": "/home/hzeng/envs/MASKCO_env/bin/python",
+    "DIST_SLOT": "/home/hzeng/envs/MASKCO_env/bin/python"
+  },
+  "schedule_note": "正式复验：56 例 × 3 种子 × 6 组合"
+}

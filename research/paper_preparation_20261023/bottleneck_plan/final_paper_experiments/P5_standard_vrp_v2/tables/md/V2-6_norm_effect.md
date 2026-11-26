@@ -1,0 +1,4 @@
+| objective | n | norm_better | split_better | sign_test | mean_delta_pct | median_delta_pct | mean_Kdiff | K_better | K_tie | K_worse |
+|---|---|---|---|---|---|---|---|---|---|---|
+| cvrp | 300 | 139 | 161 | {'wins': 139, 'losses': 161, 'z': -1.27, 'p': 0.204024} | 0.0561 | 0.0328 |  |  |  |  |
+| vrptw | 146 | 74 | 72 | {'wins': 74, 'losses': 72, 'z': 0.166, 'p': 0.868534} |  |  | 0.071 | 22 | 112 | 34 |

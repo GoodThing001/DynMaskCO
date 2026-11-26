@@ -1,0 +1,3012 @@
+{
+  "endpoints": 84,
+  "cells": 24,
+  "completed_versions": {
+    "STD_OLD": 18,
+    "STD_BUGFIX": 24,
+    "STD_FIX": 18,
+    "STD_NORM": 12,
+    "STD_DIST": 12
+  },
+  "per_version": {
+    "STD_OLD": {
+      "endpoints": 18,
+      "mean_distance": 108852.44444444444,
+      "median_distance": 82417.0,
+      "mean_gain_vs_initial_pct": -4.789580246297577,
+      "median_gain_vs_initial_pct": -3.833030461680006,
+      "mean_vehicles": 91.27777777777777,
+      "mean_epochs": 75.5,
+      "mean_online_s": 59.26324215303693,
+      "max_online_s": 59.4094745926559,
+      "total_fallbacks": 0
+    },
+    "STD_BUGFIX": {
+      "endpoints": 24,
+      "mean_distance": 135885.41666666666,
+      "median_distance": 105528.5,
+      "mean_gain_vs_initial_pct": -5.347902704081848,
+      "median_gain_vs_initial_pct": -2.5764612089750702,
+      "mean_vehicles": 115.5,
+      "mean_epochs": 37.166666666666664,
+      "mean_online_s": 59.24041201962003,
+      "max_online_s": 59.437373880296946,
+      "total_fallbacks": 0
+    },
+    "STD_FIX": {
+      "endpoints": 18,
+      "mean_distance": 106970.94444444444,
+      "median_distance": 81120.5,
+      "mean_gain_vs_initial_pct": -7.266315078617808,
+      "median_gain_vs_initial_pct": -6.939332433917121,
+      "mean_vehicles": 90.44444444444444,
+      "mean_epochs": 42.388888888888886,
+      "mean_online_s": 59.27007598843839,
+      "max_online_s": 59.44673965964466,
+      "total_fallbacks": 0
+    },
+    "STD_NORM": {
+      "endpoints": 12,
+      "mean_distance": 55402.666666666664,
+      "median_distance": 41534.0,
+      "mean_gain_vs_initial_pct": -7.930656631089023,
+      "median_gain_vs_initial_pct": -7.920821819055629,
+      "mean_vehicles": 45.666666666666664,
+      "mean_epochs": 37.25,
+      "mean_online_s": 59.25902576985148,
+      "max_online_s": 59.436960010789335,
+      "total_fallbacks": 0
+    },
+    "STD_DIST": {
+      "endpoints": 12,
+      "mean_distance": 55236.25,
+      "median_distance": 41119.0,
+      "mean_gain_vs_initial_pct": -8.065203988576751,
+      "median_gain_vs_initial_pct": -7.598719900782562,
+      "mean_vehicles": 45.333333333333336,
+      "mean_epochs": 37.333333333333336,
+      "mean_online_s": 59.203547987155616,
+      "max_online_s": 59.20813683234155,
+      "total_fallbacks": 0
+    }
+  },
+  "pairs": {
+    "STD_OLD->STD_BUGFIX": {
+      "n": 18,
+      "mean_delta_pct": -1.869295823473414,
+      "median_delta_pct": 0.08851537977505822,
+      "b_better": 9
+    },
+    "STD_BUGFIX->STD_FIX": {
+      "n": 18,
+      "mean_delta_pct": -0.5779962749011771,
+      "median_delta_pct": -1.3475731406343012,
+      "b_better": 10
+    },
+    "STD_FIX->STD_NORM": {
+      "n": 12,
+      "mean_delta_pct": 0.9418585614391417,
+      "median_delta_pct": 0.7654643731729099,
+      "b_better": 4
+    },
+    "STD_FIX->STD_DIST": {
+      "n": 12,
+      "mean_delta_pct": 0.8082340378669457,
+      "median_delta_pct": 0.4972632802344603,
+      "b_better": 5
+    },
+    "STD_NORM->STD_DIST": {
+      "n": 12,
+      "mean_delta_pct": -0.12457562105350471,
+      "median_delta_pct": -0.34885638848911193,
+      "b_better": 7
+    },
+    "STD_OLD->STD_FIX": {
+      "n": 12,
+      "mean_delta_pct": -3.1808279735274847,
+      "median_delta_pct": -2.8213595228150448,
+      "b_better": 11
+    },
+    "STD_OLD->STD_DIST": {
+      "n": 12,
+      "mean_delta_pct": -2.4212981057000156,
+      "median_delta_pct": -2.8527955356912766,
+      "b_better": 10
+    }
+  },
+  "predictor": {
+    "STD_OLD": {
+      "attempts": 0,
+      "success": 0,
+      "failed": 0,
+      "forwards": 0,
+      "success_rate": null,
+      "error_samples": []
+    },
+    "STD_BUGFIX": {
+      "attempts": 892,
+      "success": 892,
+      "failed": 0,
+      "forwards": 0,
+      "success_rate": 1.0,
+      "error_samples": []
+    },
+    "STD_FIX": {
+      "attempts": 763,
+      "success": 763,
+      "failed": 0,
+      "forwards": 0,
+      "success_rate": 1.0,
+      "error_samples": []
+    },
+    "STD_NORM": {
+      "attempts": 447,
+      "success": 447,
+      "failed": 0,
+      "forwards": 0,
+      "success_rate": 1.0,
+      "error_samples": []
+    },
+    "STD_DIST": {
+      "attempts": 0,
+      "success": 0,
+      "failed": 0,
+      "forwards": 0,
+      "success_rate": null,
+      "error_samples": []
+    }
+  },
+  "mechanisms": {
+    "STD_OLD": {
+      "ranking_counts": {},
+      "mask_mode_counts": {},
+      "regret_epochs": 0
+    },
+    "STD_BUGFIX": {
+      "ranking_counts": {
+        "0": 880,
+        "1": 0,
+        "2": 0
+      },
+      "mask_mode_counts": {
+        "0": 892,
+        "1": 0
+      },
+      "regret_epochs": 169
+    },
+    "STD_FIX": {
+      "ranking_counts": {
+        "0": 210,
+        "1": 0,
+        "2": 0
+      },
+      "mask_mode_counts": {
+        "0": 483,
+        "1": 280
+      },
+      "regret_epochs": 0
+    },
+    "STD_NORM": {
+      "ranking_counts": {
+        "0": 210,
+        "1": 0,
+        "2": 0
+      },
+      "mask_mode_counts": {
+        "0": 302,
+        "1": 145
+      },
+      "regret_epochs": 0
+    },
+    "STD_DIST": {
+      "ranking_counts": {
+        "0": 294,
+        "1": 0,
+        "2": 0
+      },
+      "mask_mode_counts": {
+        "0": 328,
+        "1": 120
+      },
+      "regret_epochs": 0
+    }
+  },
+  "cell_table": [
+    {
+      "case": "XDEV-n100-s71001-r0",
+      "seed": 71001,
+      "objective": "cvrp",
+      "n": 3,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 35452.0,
+          "vehicles": 27,
+          "online_s": 59.436495563946664,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 754,
+          "improvements": 33,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 1,
+          "regret_epochs": 20,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            38,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 38,
+            "success": 38,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.5841,
+            "errors": []
+          },
+          "initial_distance": 39094.0,
+          "initial_vehicles": 30,
+          "gain_vs_initial_pct": -9.316007571494348
+        },
+        "STD_DIST": {
+          "distance": 36993.0,
+          "vehicles": 27,
+          "online_s": 59.20179922040552,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 4903,
+          "improvements": 20,
+          "split_blocks": 13,
+          "split_orders": 1362,
+          "split_offers": 9,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            28,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 0,
+            "success": 0,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 0.0,
+            "errors": []
+          },
+          "initial_distance": 39094.0,
+          "initial_vehicles": 30,
+          "gain_vs_initial_pct": -5.374226223972988
+        },
+        "STD_FIX": {
+          "distance": 35733.0,
+          "vehicles": 27,
+          "online_s": 59.435538158752024,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 3432,
+          "improvements": 32,
+          "split_blocks": 13,
+          "split_orders": 1243,
+          "split_offers": 8,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            27,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            11
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 38,
+            "success": 38,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.4345,
+            "errors": []
+          },
+          "initial_distance": 39094.0,
+          "initial_vehicles": 30,
+          "gain_vs_initial_pct": -8.597227195989154
+        },
+        "STD_NORM": {
+          "distance": 37190.0,
+          "vehicles": 28,
+          "online_s": 59.436960010789335,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 3356,
+          "improvements": 31,
+          "split_blocks": 13,
+          "split_orders": 1437,
+          "split_offers": 9,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            31,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            15,
+            23
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 38,
+            "success": 38,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.4528,
+            "errors": []
+          },
+          "initial_distance": 39094.0,
+          "initial_vehicles": 30,
+          "gain_vs_initial_pct": -4.87031257993554
+        },
+        "STD_OLD": {
+          "distance": 38312.0,
+          "vehicles": 27,
+          "online_s": 59.32449239399284,
+          "status": "AUDITED",
+          "epochs": 113,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 39094.0,
+          "initial_vehicles": 30,
+          "gain_vs_initial_pct": -2.0003069524735255
+        }
+      }
+    },
+    {
+      "case": "XDEV-n100-s71001-r0",
+      "seed": 71002,
+      "objective": "cvrp",
+      "n": 3,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 35053.0,
+          "vehicles": 27,
+          "online_s": 59.201396740972996,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 974,
+          "improvements": 45,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 0,
+          "regret_epochs": 16,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.093,
+            "errors": []
+          },
+          "initial_distance": 39094.0,
+          "initial_vehicles": 30,
+          "gain_vs_initial_pct": -10.336624545966133
+        },
+        "STD_DIST": {
+          "distance": 36472.0,
+          "vehicles": 27,
+          "online_s": 59.20126058254391,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 4821,
+          "improvements": 31,
+          "split_blocks": 13,
+          "split_orders": 1217,
+          "split_offers": 7,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            36,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 0,
+            "success": 0,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 0.0,
+            "errors": []
+          },
+          "initial_distance": 39094.0,
+          "initial_vehicles": 30,
+          "gain_vs_initial_pct": -6.706911546528879
+        },
+        "STD_FIX": {
+          "distance": 35963.0,
+          "vehicles": 27,
+          "online_s": 59.20107708312571,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 3288,
+          "improvements": 29,
+          "split_blocks": 13,
+          "split_orders": 1348,
+          "split_offers": 5,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            27,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.4672,
+            "errors": []
+          },
+          "initial_distance": 39094.0,
+          "initial_vehicles": 30,
+          "gain_vs_initial_pct": -8.008901621732235
+        },
+        "STD_NORM": {
+          "distance": 35862.0,
+          "vehicles": 27,
+          "online_s": 59.20194533187896,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 3365,
+          "improvements": 31,
+          "split_blocks": 13,
+          "split_orders": 1415,
+          "split_offers": 5,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            26,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.3421,
+            "errors": []
+          },
+          "initial_distance": 39094.0,
+          "initial_vehicles": 30,
+          "gain_vs_initial_pct": -8.267253286949405
+        },
+        "STD_OLD": {
+          "distance": 37548.0,
+          "vehicles": 27,
+          "online_s": 59.4094745926559,
+          "status": "AUDITED",
+          "epochs": 108,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 39094.0,
+          "initial_vehicles": 30,
+          "gain_vs_initial_pct": -3.9545710339182483
+        }
+      }
+    },
+    {
+      "case": "XDEV-n100-s71001-r1",
+      "seed": 71001,
+      "objective": "cvrp",
+      "n": 3,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 29054.0,
+          "vehicles": 27,
+          "online_s": 59.222742550075054,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 804,
+          "improvements": 35,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 1,
+          "regret_epochs": 21,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            38,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 38,
+            "success": 38,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.5366,
+            "errors": []
+          },
+          "initial_distance": 34408.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -15.560334805859103
+        },
+        "STD_DIST": {
+          "distance": 30411.0,
+          "vehicles": 27,
+          "online_s": 59.20123247615993,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 4841,
+          "improvements": 31,
+          "split_blocks": 13,
+          "split_orders": 1226,
+          "split_offers": 7,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            36,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 0,
+            "success": 0,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 0.0,
+            "errors": []
+          },
+          "initial_distance": 34408.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -11.616484538479423
+        },
+        "STD_FIX": {
+          "distance": 29563.0,
+          "vehicles": 27,
+          "online_s": 59.42437416873872,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 3238,
+          "improvements": 32,
+          "split_blocks": 13,
+          "split_orders": 1583,
+          "split_offers": 7,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            26,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            28,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 38,
+            "success": 38,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.4765,
+            "errors": []
+          },
+          "initial_distance": 34408.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -14.08102766798419
+        },
+        "STD_NORM": {
+          "distance": 30160.0,
+          "vehicles": 27,
+          "online_s": 59.422353364527225,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 3411,
+          "improvements": 35,
+          "split_blocks": 13,
+          "split_orders": 1361,
+          "split_offers": 7,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            25,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            28,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 38,
+            "success": 38,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.5852,
+            "errors": []
+          },
+          "initial_distance": 34408.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -12.345966054405952
+        },
+        "STD_OLD": {
+          "distance": 30737.0,
+          "vehicles": 27,
+          "online_s": 59.21708473097533,
+          "status": "AUDITED",
+          "epochs": 111,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 34408.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -10.669030458033015
+        }
+      }
+    },
+    {
+      "case": "XDEV-n100-s71001-r1",
+      "seed": 71002,
+      "objective": "cvrp",
+      "n": 2,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 29401.0,
+          "vehicles": 27,
+          "online_s": 59.437373880296946,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 900,
+          "improvements": 61,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 0,
+          "regret_epochs": 21,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            38,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 38,
+            "success": 38,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.6225,
+            "errors": []
+          },
+          "initial_distance": 34408.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -14.551848407347128
+        },
+        "STD_DIST": {
+          "distance": 30169.0,
+          "vehicles": 27,
+          "online_s": 59.202084029093385,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 4716,
+          "improvements": 30,
+          "split_blocks": 13,
+          "split_orders": 1236,
+          "split_offers": 8,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            36,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 0,
+            "success": 0,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 0.0,
+            "errors": []
+          },
+          "initial_distance": 34408.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -12.319809346663567
+        },
+        "STD_FIX": {
+          "distance": 30120.0,
+          "vehicles": 28,
+          "online_s": 59.20176157448441,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 3107,
+          "improvements": 32,
+          "split_blocks": 13,
+          "split_orders": 1332,
+          "split_offers": 7,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            20,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.5982,
+            "errors": []
+          },
+          "initial_distance": 34408.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -12.462218088816554
+        },
+        "STD_NORM": {
+          "distance": 30137.0,
+          "vehicles": 27,
+          "online_s": 59.414460910484195,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 3160,
+          "improvements": 35,
+          "split_blocks": 13,
+          "split_orders": 1238,
+          "split_offers": 12,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            21,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            28,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 38,
+            "success": 38,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.6636,
+            "errors": []
+          },
+          "initial_distance": 34408.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -12.412810974192048
+        },
+        "STD_OLD": {
+          "distance": 31231.0,
+          "vehicles": 27,
+          "online_s": 59.20151091739535,
+          "status": "AUDITED",
+          "epochs": 106,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 34408.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -9.23331783306208
+        }
+      }
+    },
+    {
+      "case": "XDEV-n100-s71002-r0",
+      "seed": 71001,
+      "objective": "cvrp",
+      "n": 5,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 43591.0,
+          "vehicles": 26,
+          "online_s": 59.202721073292196,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 590,
+          "improvements": 53,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 0,
+          "regret_epochs": 31,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.3011,
+            "errors": []
+          },
+          "initial_distance": 49938.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -12.709760102527135
+        },
+        "STD_DIST": {
+          "distance": 45245.0,
+          "vehicles": 27,
+          "online_s": 59.20233755372465,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 4704,
+          "improvements": 36,
+          "split_blocks": 13,
+          "split_orders": 1230,
+          "split_offers": 6,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            28,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 0,
+            "success": 0,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 0.0,
+            "errors": []
+          },
+          "initial_distance": 49938.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -9.39765308983139
+        },
+        "STD_FIX": {
+          "distance": 45393.0,
+          "vehicles": 27,
+          "online_s": 59.44673965964466,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 3278,
+          "improvements": 13,
+          "split_blocks": 13,
+          "split_orders": 1255,
+          "split_offers": 8,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            34,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            12,
+            26
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 38,
+            "success": 38,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.4203,
+            "errors": []
+          },
+          "initial_distance": 49938.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -9.10128559413673
+        },
+        "STD_NORM": {
+          "distance": 45878.0,
+          "vehicles": 27,
+          "online_s": 59.20269172731787,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 3334,
+          "improvements": 23,
+          "split_blocks": 13,
+          "split_orders": 1433,
+          "split_offers": 5,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            25,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.4442,
+            "errors": []
+          },
+          "initial_distance": 49938.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -8.130081300813009
+        },
+        "STD_OLD": {
+          "distance": 46394.0,
+          "vehicles": 27,
+          "online_s": 59.28543529473245,
+          "status": "AUDITED",
+          "epochs": 112,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 49938.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -7.096800032039729
+        }
+      }
+    },
+    {
+      "case": "XDEV-n100-s71002-r0",
+      "seed": 71002,
+      "objective": "cvrp",
+      "n": 4,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 44615.0,
+          "vehicles": 27,
+          "online_s": 59.20157465711236,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1002,
+          "improvements": 50,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 0,
+          "regret_epochs": 20,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.0942,
+            "errors": []
+          },
+          "initial_distance": 49938.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -10.65921742961272
+        },
+        "STD_DIST": {
+          "distance": 45698.0,
+          "vehicles": 27,
+          "online_s": 59.202725754119456,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 4736,
+          "improvements": 46,
+          "split_blocks": 13,
+          "split_orders": 1249,
+          "split_offers": 9,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 0,
+            "success": 0,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 0.0,
+            "errors": []
+          },
+          "initial_distance": 49938.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -8.490528255036246
+        },
+        "STD_FIX": {
+          "distance": 45321.0,
+          "vehicles": 28,
+          "online_s": 59.20152621436864,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 2968,
+          "improvements": 38,
+          "split_blocks": 13,
+          "split_orders": 1201,
+          "split_offers": 9,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            25,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.2492,
+            "errors": []
+          },
+          "initial_distance": 49938.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -9.245464375826025
+        },
+        "STD_NORM": {
+          "distance": 46087.0,
+          "vehicles": 27,
+          "online_s": 59.201347237452865,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 3172,
+          "improvements": 33,
+          "split_blocks": 13,
+          "split_orders": 1473,
+          "split_offers": 9,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            26,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.2772,
+            "errors": []
+          },
+          "initial_distance": 49938.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -7.71156233729825
+        },
+        "STD_OLD": {
+          "distance": 46699.0,
+          "vehicles": 28,
+          "online_s": 59.29867714829743,
+          "status": "AUDITED",
+          "epochs": 110,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 49938.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -6.486042692939245
+        }
+      }
+    },
+    {
+      "case": "XDEV-n100-s71002-r1",
+      "seed": 71001,
+      "objective": "cvrp",
+      "n": 2,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 31547.0,
+          "vehicles": 26,
+          "online_s": 59.43330278992653,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 941,
+          "improvements": 52,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 0,
+          "regret_epochs": 22,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            38,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 38,
+            "success": 38,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.545,
+            "errors": []
+          },
+          "initial_distance": 36239.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -12.94737713513066
+        },
+        "STD_DIST": {
+          "distance": 32586.0,
+          "vehicles": 27,
+          "online_s": 59.201849564909935,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 4571,
+          "improvements": 34,
+          "split_blocks": 13,
+          "split_orders": 1239,
+          "split_offers": 7,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            36,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            28,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 0,
+            "success": 0,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 0.0,
+            "errors": []
+          },
+          "initial_distance": 36239.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -10.080300229035018
+        },
+        "STD_FIX": {
+          "distance": 32642.0,
+          "vehicles": 27,
+          "online_s": 59.43574593402445,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 3228,
+          "improvements": 27,
+          "split_blocks": 13,
+          "split_orders": 1268,
+          "split_offers": 8,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            24,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            28,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 38,
+            "success": 38,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.526,
+            "errors": []
+          },
+          "initial_distance": 36239.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -9.925770578658351
+        },
+        "STD_NORM": {
+          "distance": 32121.0,
+          "vehicles": 27,
+          "online_s": 59.20277854427695,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 3078,
+          "improvements": 34,
+          "split_blocks": 13,
+          "split_orders": 1460,
+          "split_offers": 10,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            22,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.5177,
+            "errors": []
+          },
+          "initial_distance": 36239.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -11.363448218769834
+        },
+        "STD_OLD": {
+          "distance": 33545.0,
+          "vehicles": 27,
+          "online_s": 59.34474796708673,
+          "status": "AUDITED",
+          "epochs": 112,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 36239.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -7.433979966334612
+        }
+      }
+    },
+    {
+      "case": "XDEV-n100-s71002-r1",
+      "seed": 71002,
+      "objective": "cvrp",
+      "n": 2,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 31774.0,
+          "vehicles": 27,
+          "online_s": 59.20244056265801,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 974,
+          "improvements": 49,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 2,
+          "regret_epochs": 18,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.1451,
+            "errors": []
+          },
+          "initial_distance": 36239.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -12.320980159496674
+        },
+        "STD_DIST": {
+          "distance": 32683.0,
+          "vehicles": 27,
+          "online_s": 59.20206442195922,
+          "status": "AUDITED",
+          "epochs": 38,
+          "iterations": 4744,
+          "improvements": 26,
+          "split_blocks": 13,
+          "split_orders": 1212,
+          "split_offers": 8,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            28,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 0,
+            "success": 0,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 0.0,
+            "errors": []
+          },
+          "initial_distance": 36239.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -9.812632798918292
+        },
+        "STD_FIX": {
+          "distance": 32112.0,
+          "vehicles": 28,
+          "online_s": 59.20135452412069,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 3155,
+          "improvements": 19,
+          "split_blocks": 13,
+          "split_orders": 1365,
+          "split_offers": 12,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            22,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.2941,
+            "errors": []
+          },
+          "initial_distance": 36239.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -11.388283341151798
+        },
+        "STD_NORM": {
+          "distance": 32738.0,
+          "vehicles": 27,
+          "online_s": 59.20191527996212,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 3188,
+          "improvements": 27,
+          "split_blocks": 13,
+          "split_orders": 1302,
+          "split_offers": 9,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            27,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.3386,
+            "errors": []
+          },
+          "initial_distance": 36239.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -9.660862606584066
+        },
+        "STD_OLD": {
+          "distance": 34972.0,
+          "vehicles": 27,
+          "online_s": 59.39404355920851,
+          "status": "AUDITED",
+          "epochs": 110,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 36239.0,
+          "initial_vehicles": 31,
+          "gain_vs_initial_pct": -3.496233339772069
+        }
+      }
+    },
+    {
+      "case": "XDEV-n300-s71001-r0",
+      "seed": 71001,
+      "objective": "cvrp",
+      "n": 3,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 109866.0,
+          "vehicles": 86,
+          "online_s": 59.20880180411041,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 0,
+          "improvements": 0,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 1,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.9241,
+            "errors": []
+          },
+          "initial_distance": 113071.0,
+          "initial_vehicles": 94,
+          "gain_vs_initial_pct": -2.834502215422168
+        },
+        "STD_DIST": {
+          "distance": 106050.0,
+          "vehicles": 80,
+          "online_s": 59.20656357612461,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1790,
+          "improvements": 53,
+          "split_blocks": 13,
+          "split_orders": 1139,
+          "split_offers": 7,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            1,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 0,
+            "success": 0,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 0.0,
+            "errors": []
+          },
+          "initial_distance": 113071.0,
+          "initial_vehicles": 94,
+          "gain_vs_initial_pct": -6.209372871912338
+        },
+        "STD_FIX": {
+          "distance": 106434.0,
+          "vehicles": 82,
+          "online_s": 59.2047285689041,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1241,
+          "improvements": 45,
+          "split_blocks": 13,
+          "split_orders": 1052,
+          "split_offers": 8,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            0,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.7903,
+            "errors": []
+          },
+          "initial_distance": 113071.0,
+          "initial_vehicles": 94,
+          "gain_vs_initial_pct": -5.869763246102007
+        },
+        "STD_NORM": {
+          "distance": 104968.0,
+          "vehicles": 82,
+          "online_s": 59.203142003156245,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1231,
+          "improvements": 51,
+          "split_blocks": 13,
+          "split_orders": 1095,
+          "split_offers": 8,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            1,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.9166,
+            "errors": []
+          },
+          "initial_distance": 113071.0,
+          "initial_vehicles": 94,
+          "gain_vs_initial_pct": -7.166293744638325
+        },
+        "STD_OLD": {
+          "distance": 105220.0,
+          "vehicles": 84,
+          "online_s": 59.20334992185235,
+          "status": "AUDITED",
+          "epochs": 61,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 113071.0,
+          "initial_vehicles": 94,
+          "gain_vs_initial_pct": -6.943424927700295
+        }
+      }
+    },
+    {
+      "case": "XDEV-n300-s71001-r0",
+      "seed": 71002,
+      "objective": "cvrp",
+      "n": 2,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 109788.0,
+          "vehicles": 85,
+          "online_s": 59.203707228414714,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 0,
+          "improvements": 0,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 0,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.7257,
+            "errors": []
+          },
+          "initial_distance": 113071.0,
+          "initial_vehicles": 94,
+          "gain_vs_initial_pct": -2.903485420664892
+        },
+        "STD_DIST": {
+          "distance": 106533.0,
+          "vehicles": 83,
+          "online_s": 59.2074459400028,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1749,
+          "improvements": 59,
+          "split_blocks": 13,
+          "split_orders": 956,
+          "split_offers": 6,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            1,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 0,
+            "success": 0,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 0.0,
+            "errors": []
+          },
+          "initial_distance": 113071.0,
+          "initial_vehicles": 94,
+          "gain_vs_initial_pct": -5.782207639447781
+        },
+        "STD_FIX": {
+          "distance": 103687.0,
+          "vehicles": 82,
+          "online_s": 59.20751300919801,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1263,
+          "improvements": 61,
+          "split_blocks": 13,
+          "split_orders": 1008,
+          "split_offers": 8,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            1,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            24,
+            13
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.6955,
+            "errors": []
+          },
+          "initial_distance": 113071.0,
+          "initial_vehicles": 94,
+          "gain_vs_initial_pct": -8.299210230739977
+        },
+        "STD_NORM": {
+          "distance": 107211.0,
+          "vehicles": 83,
+          "online_s": 59.20643966924399,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1230,
+          "improvements": 43,
+          "split_blocks": 13,
+          "split_orders": 993,
+          "split_offers": 6,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            3,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            22,
+            15
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.589,
+            "errors": []
+          },
+          "initial_distance": 113071.0,
+          "initial_vehicles": 94,
+          "gain_vs_initial_pct": -5.182584393876414
+        },
+        "STD_OLD": {
+          "distance": 105667.0,
+          "vehicles": 84,
+          "online_s": 59.20780763402581,
+          "status": "AUDITED",
+          "epochs": 59,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 113071.0,
+          "initial_vehicles": 94,
+          "gain_vs_initial_pct": -6.548098097655456
+        }
+      }
+    },
+    {
+      "case": "XDEV-n300-s71001-r1",
+      "seed": 71001,
+      "objective": "cvrp",
+      "n": 2,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 83407.0,
+          "vehicles": 86,
+          "online_s": 59.20507171750069,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 0,
+          "improvements": 0,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 1,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.7329,
+            "errors": []
+          },
+          "initial_distance": 84650.0,
+          "initial_vehicles": 88,
+          "gain_vs_initial_pct": -1.4683992911990549
+        },
+        "STD_DIST": {
+          "distance": 79552.0,
+          "vehicles": 83,
+          "online_s": 59.205075894482434,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1845,
+          "improvements": 52,
+          "split_blocks": 13,
+          "split_orders": 885,
+          "split_offers": 5,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            0,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 0,
+            "success": 0,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 0.0,
+            "errors": []
+          },
+          "initial_distance": 84650.0,
+          "initial_vehicles": 88,
+          "gain_vs_initial_pct": -6.022445363260484
+        },
+        "STD_FIX": {
+          "distance": 80868.0,
+          "vehicles": 83,
+          "online_s": 59.20855000149459,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1276,
+          "improvements": 49,
+          "split_blocks": 13,
+          "split_orders": 989,
+          "split_offers": 7,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            2,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.5689,
+            "errors": []
+          },
+          "initial_distance": 84650.0,
+          "initial_vehicles": 88,
+          "gain_vs_initial_pct": -4.467808623744832
+        },
+        "STD_NORM": {
+          "distance": 81242.0,
+          "vehicles": 83,
+          "online_s": 59.211349851451814,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1249,
+          "improvements": 36,
+          "split_blocks": 13,
+          "split_orders": 1044,
+          "split_offers": 7,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            2,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.7975,
+            "errors": []
+          },
+          "initial_distance": 84650.0,
+          "initial_vehicles": 88,
+          "gain_vs_initial_pct": -4.025989367985824
+        },
+        "STD_OLD": {
+          "distance": 81883.0,
+          "vehicles": 84,
+          "online_s": 59.203527215868235,
+          "status": "AUDITED",
+          "epochs": 63,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 84650.0,
+          "initial_vehicles": 88,
+          "gain_vs_initial_pct": -3.2687536916715887
+        }
+      }
+    },
+    {
+      "case": "XDEV-n300-s71001-r1",
+      "seed": 71002,
+      "objective": "cvrp",
+      "n": 2,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 82574.0,
+          "vehicles": 88,
+          "online_s": 59.20620808843523,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 0,
+          "improvements": 0,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 0,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.5774,
+            "errors": []
+          },
+          "initial_distance": 84650.0,
+          "initial_vehicles": 88,
+          "gain_vs_initial_pct": -2.4524512699350267
+        },
+        "STD_DIST": {
+          "distance": 80443.0,
+          "vehicles": 82,
+          "online_s": 59.20813683234155,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1860,
+          "improvements": 56,
+          "split_blocks": 13,
+          "split_orders": 977,
+          "split_offers": 7,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            0,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 0,
+            "success": 0,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 0.0,
+            "errors": []
+          },
+          "initial_distance": 84650.0,
+          "initial_vehicles": 88,
+          "gain_vs_initial_pct": -4.969875959834613
+        },
+        "STD_FIX": {
+          "distance": 81373.0,
+          "vehicles": 82,
+          "online_s": 59.2068484434858,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1265,
+          "improvements": 43,
+          "split_blocks": 13,
+          "split_orders": 972,
+          "split_offers": 10,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            0,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.8073,
+            "errors": []
+          },
+          "initial_distance": 84650.0,
+          "initial_vehicles": 88,
+          "gain_vs_initial_pct": -3.8712344949793267
+        },
+        "STD_NORM": {
+          "distance": 81238.0,
+          "vehicles": 83,
+          "online_s": 59.202925307676196,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1291,
+          "improvements": 45,
+          "split_blocks": 13,
+          "split_orders": 986,
+          "split_offers": 9,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            1,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            20,
+            17
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.6951,
+            "errors": []
+          },
+          "initial_distance": 84650.0,
+          "initial_vehicles": 88,
+          "gain_vs_initial_pct": -4.030714707619611
+        },
+        "STD_OLD": {
+          "distance": 82951.0,
+          "vehicles": 83,
+          "online_s": 59.20380624383688,
+          "status": "AUDITED",
+          "epochs": 63,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 84650.0,
+          "initial_vehicles": 88,
+          "gain_vs_initial_pct": -2.0070880094506793
+        }
+      }
+    },
+    {
+      "case": "XDEV-n300-s71002-r0",
+      "seed": 71001,
+      "objective": "cvrp",
+      "n": 2,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 130237.0,
+          "vehicles": 85,
+          "online_s": 59.20430148206651,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 0,
+          "improvements": 0,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 3,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.8582,
+            "errors": []
+          },
+          "initial_distance": 132238.0,
+          "initial_vehicles": 90,
+          "gain_vs_initial_pct": -1.5131807801085921
+        },
+        "STD_OLD": {
+          "distance": 127330.0,
+          "vehicles": 87,
+          "online_s": 59.20223582722247,
+          "status": "AUDITED",
+          "epochs": 59,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 132238.0,
+          "initial_vehicles": 90,
+          "gain_vs_initial_pct": -3.711489889441764
+        }
+      }
+    },
+    {
+      "case": "XDEV-n300-s71002-r0",
+      "seed": 71002,
+      "objective": "cvrp",
+      "n": 3,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 130565.0,
+          "vehicles": 89,
+          "online_s": 59.202811564318836,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 0,
+          "improvements": 0,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 2,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.4015,
+            "errors": []
+          },
+          "initial_distance": 132238.0,
+          "initial_vehicles": 90,
+          "gain_vs_initial_pct": -1.2651431509853446
+        },
+        "STD_FIX": {
+          "distance": 126462.0,
+          "vehicles": 82,
+          "online_s": 59.20553750451654,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1344,
+          "improvements": 47,
+          "split_blocks": 13,
+          "split_orders": 929,
+          "split_offers": 8,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            0,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.6671,
+            "errors": []
+          },
+          "initial_distance": 132238.0,
+          "initial_vehicles": 90,
+          "gain_vs_initial_pct": -4.367882151877675
+        }
+      }
+    },
+    {
+      "case": "XDEV-n300-s71002-r1",
+      "seed": 71001,
+      "objective": "cvrp",
+      "n": 2,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 100868.0,
+          "vehicles": 85,
+          "online_s": 59.20564245246351,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 0,
+          "improvements": 0,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 0,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.7985,
+            "errors": []
+          },
+          "initial_distance": 102393.0,
+          "initial_vehicles": 89,
+          "gain_vs_initial_pct": -1.48935962419306
+        },
+        "STD_OLD": {
+          "distance": 100235.0,
+          "vehicles": 85,
+          "online_s": 59.202174726873636,
+          "status": "AUDITED",
+          "epochs": 62,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 102393.0,
+          "initial_vehicles": 89,
+          "gain_vs_initial_pct": -2.107565946890901
+        }
+      }
+    },
+    {
+      "case": "XDEV-n300-s71002-r1",
+      "seed": 71002,
+      "objective": "cvrp",
+      "n": 3,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 101269.0,
+          "vehicles": 87,
+          "online_s": 59.203110623173416,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 0,
+          "improvements": 0,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 0,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            37,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.362,
+            "errors": []
+          },
+          "initial_distance": 102393.0,
+          "initial_vehicles": 89,
+          "gain_vs_initial_pct": -1.0977312902249177
+        },
+        "STD_FIX": {
+          "distance": 97468.0,
+          "vehicles": 84,
+          "online_s": 59.20504583418369,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1201,
+          "improvements": 55,
+          "split_blocks": 13,
+          "split_orders": 1033,
+          "split_offers": 8,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            2,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            10
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 8.7547,
+            "errors": []
+          },
+          "initial_distance": 102393.0,
+          "initial_vehicles": 89,
+          "gain_vs_initial_pct": -4.809899114197259
+        }
+      }
+    },
+    {
+      "case": "XDEV-n800-s71001-r0",
+      "seed": 71001,
+      "objective": "cvrp",
+      "n": 3,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 267336.0,
+          "vehicles": 234,
+          "online_s": 59.238655630499125,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 0,
+          "improvements": 0,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 1,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            36,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 9.3364,
+            "errors": []
+          },
+          "initial_distance": 271330.0,
+          "initial_vehicles": 239,
+          "gain_vs_initial_pct": -1.472008255629676
+        },
+        "STD_OLD": {
+          "distance": 264229.0,
+          "vehicles": 228,
+          "online_s": 59.20494428742677,
+          "status": "AUDITED",
+          "epochs": 28,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 271330.0,
+          "initial_vehicles": 239,
+          "gain_vs_initial_pct": -2.6171083182840085
+        }
+      }
+    },
+    {
+      "case": "XDEV-n800-s71001-r0",
+      "seed": 71002,
+      "objective": "cvrp",
+      "n": 2,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 268329.0,
+          "vehicles": 235,
+          "online_s": 59.224720501340926,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1,
+          "improvements": 1,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 0,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            36,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 9.2845,
+            "errors": []
+          },
+          "initial_distance": 271330.0,
+          "initial_vehicles": 239,
+          "gain_vs_initial_pct": -1.106033243651642
+        },
+        "STD_FIX": {
+          "distance": 259580.0,
+          "vehicles": 222,
+          "online_s": 59.33031237125397,
+          "status": "AUDITED",
+          "epochs": 57,
+          "iterations": 283,
+          "improvements": 79,
+          "split_blocks": 19,
+          "split_orders": 906,
+          "split_offers": 10,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            0,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            27,
+            30
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 57,
+            "success": 57,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 14.3053,
+            "errors": []
+          },
+          "initial_distance": 271330.0,
+          "initial_vehicles": 239,
+          "gain_vs_initial_pct": -4.330520030958612
+        }
+      }
+    },
+    {
+      "case": "XDEV-n800-s71001-r1",
+      "seed": 71001,
+      "objective": "cvrp",
+      "n": 3,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 209920.0,
+          "vehicles": 232,
+          "online_s": 59.21826209872961,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1,
+          "improvements": 1,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 0,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            36,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 9.0467,
+            "errors": []
+          },
+          "initial_distance": 214370.0,
+          "initial_vehicles": 242,
+          "gain_vs_initial_pct": -2.0758501656015302
+        },
+        "STD_OLD": {
+          "distance": 205721.0,
+          "vehicles": 229,
+          "online_s": 59.36620290298015,
+          "status": "AUDITED",
+          "epochs": 28,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 214370.0,
+          "initial_vehicles": 242,
+          "gain_vs_initial_pct": -4.034613052199468
+        }
+      }
+    },
+    {
+      "case": "XDEV-n800-s71001-r1",
+      "seed": 71002,
+      "objective": "cvrp",
+      "n": 1,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 208581.0,
+          "vehicles": 234,
+          "online_s": 59.214015416800976,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 2,
+          "improvements": 1,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 2,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            36,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 9.1096,
+            "errors": []
+          },
+          "initial_distance": 214370.0,
+          "initial_vehicles": 242,
+          "gain_vs_initial_pct": -2.7004711480151142
+        },
+        "STD_FIX": {
+          "distance": 204464.0,
+          "vehicles": 226,
+          "online_s": 59.291465227492154,
+          "status": "AUDITED",
+          "epochs": 61,
+          "iterations": 253,
+          "improvements": 90,
+          "split_blocks": 21,
+          "split_orders": 1001,
+          "split_offers": 16,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            0,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            35,
+            26
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 61,
+            "success": 61,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 15.3679,
+            "errors": []
+          },
+          "initial_distance": 214370.0,
+          "initial_vehicles": 242,
+          "gain_vs_initial_pct": -4.62098241358399
+        }
+      }
+    },
+    {
+      "case": "XDEV-n800-s71002-r0",
+      "seed": 71001,
+      "objective": "cvrp",
+      "n": 2,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 338690.0,
+          "vehicles": 237,
+          "online_s": 59.225324634462595,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 0,
+          "improvements": 0,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 1,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            36,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 9.4242,
+            "errors": []
+          },
+          "initial_distance": 344604.0,
+          "initial_vehicles": 244,
+          "gain_vs_initial_pct": -1.7161727664217479
+        },
+        "STD_OLD": {
+          "distance": 335687.0,
+          "vehicles": 233,
+          "online_s": 59.204209259711206,
+          "status": "AUDITED",
+          "epochs": 25,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 344604.0,
+          "initial_vehicles": 244,
+          "gain_vs_initial_pct": -2.5876078049006974
+        }
+      }
+    },
+    {
+      "case": "XDEV-n800-s71002-r0",
+      "seed": 71002,
+      "objective": "cvrp",
+      "n": 3,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 334571.0,
+          "vehicles": 234,
+          "online_s": 59.22281139250845,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 0,
+          "improvements": 0,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 2,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            36,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 9.2223,
+            "errors": []
+          },
+          "initial_distance": 344604.0,
+          "initial_vehicles": 244,
+          "gain_vs_initial_pct": -2.911457789230537
+        },
+        "STD_FIX": {
+          "distance": 330420.0,
+          "vehicles": 237,
+          "online_s": 59.225663491524756,
+          "status": "AUDITED",
+          "epochs": 69,
+          "iterations": 158,
+          "improvements": 73,
+          "split_blocks": 23,
+          "split_orders": 1086,
+          "split_offers": 17,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            0,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            29,
+            40
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 69,
+            "success": 69,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 17.1232,
+            "errors": []
+          },
+          "initial_distance": 344604.0,
+          "initial_vehicles": 244,
+          "gain_vs_initial_pct": -4.116028833095379
+        }
+      }
+    },
+    {
+      "case": "XDEV-n800-s71002-r1",
+      "seed": 71001,
+      "objective": "cvrp",
+      "n": 3,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 252625.0,
+          "vehicles": 230,
+          "online_s": 59.21836955565959,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1,
+          "improvements": 1,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 1,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            36,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 9.5873,
+            "errors": []
+          },
+          "initial_distance": 256148.0,
+          "initial_vehicles": 236,
+          "gain_vs_initial_pct": -1.3753767353248902
+        },
+        "STD_OLD": {
+          "distance": 250983.0,
+          "vehicles": 229,
+          "online_s": 59.26463413052261,
+          "status": "AUDITED",
+          "epochs": 29,
+          "iterations": null,
+          "improvements": null,
+          "split_blocks": null,
+          "split_orders": null,
+          "split_offers": null,
+          "regret_epochs": null,
+          "ranking_counts": null,
+          "mask_mode_counts": null,
+          "fallbacks": null,
+          "predictor": null,
+          "initial_distance": 256148.0,
+          "initial_vehicles": 236,
+          "gain_vs_initial_pct": -2.0164123865890033
+        }
+      }
+    },
+    {
+      "case": "XDEV-n800-s71002-r1",
+      "seed": 71002,
+      "objective": "cvrp",
+      "n": 4,
+      "versions": {
+        "STD_BUGFIX": {
+          "distance": 252137.0,
+          "vehicles": 231,
+          "online_s": 59.23002646211535,
+          "status": "AUDITED",
+          "epochs": 37,
+          "iterations": 1,
+          "improvements": 0,
+          "split_blocks": 13,
+          "split_orders": 13,
+          "split_offers": 0,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            36,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            37,
+            0
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 37,
+            "success": 37,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 9.097,
+            "errors": []
+          },
+          "initial_distance": 256148.0,
+          "initial_vehicles": 236,
+          "gain_vs_initial_pct": -1.5658915939222637
+        },
+        "STD_FIX": {
+          "distance": 247874.0,
+          "vehicles": 229,
+          "online_s": 59.22758602257818,
+          "status": "AUDITED",
+          "epochs": 54,
+          "iterations": 296,
+          "improvements": 70,
+          "split_blocks": 18,
+          "split_orders": 779,
+          "split_offers": 9,
+          "regret_epochs": 0,
+          "ranking_counts": [
+            0,
+            0,
+            0
+          ],
+          "mask_mode_counts": [
+            30,
+            24
+          ],
+          "fallbacks": 0,
+          "predictor": {
+            "attempts": 54,
+            "success": 54,
+            "failed": 0,
+            "fallbacks": 0,
+            "forward_s": 13.6178,
+            "errors": []
+          },
+          "initial_distance": 256148.0,
+          "initial_vehicles": 236,
+          "gain_vs_initial_pct": -3.2301638115464497
+        }
+      }
+    }
+  ]
+}

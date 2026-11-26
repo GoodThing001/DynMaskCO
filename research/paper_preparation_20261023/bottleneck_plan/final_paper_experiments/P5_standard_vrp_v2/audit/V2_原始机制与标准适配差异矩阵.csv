@@ -1,0 +1,26 @@
+﻿机制,锁版ORDER_SPLIT,P5-V1,差异判定,P5-V2目标,复现证据
+掩码池,40客户随机采样（每epoch重采）,40客户随机采样,等价,保留,源码对照
+自适应双模式,related/random 双模式+奖励自适应,无,机制缺失,恢复,源码对照
+冲突池,热图排名冲突客户12+替代1+组前8,无,机制缺失,恢复,源码对照
+每周期一次预测,heatmap每epoch一次并复用,每epoch一次,等价,保留,源码对照
+跨车路线块,bundle 2-4条相近路线≤24客且并入掩码,随机2条≤24客不并入掩码,机制缺失,恢复,源码对照
+跨车访问顺序,随机排列+25%反转+1-4次热图引导扰动,单一最近邻链,机制缺失,恢复,源码对照
+Split动态规划,C++固定序列精确分车,Python固定序列DP,等价（性能差异）,保留+独立验证,单元测试
+六配置试选,3排序×2算子每配置≤0.04s后优选持续,6组全跑无时间片无优选,机制简化,恢复,源码对照
+距离条件校准,residual_edges+alpha校准热图,calib与heatmap同一热图,缺陷,恢复,reproduction D4
+客户排序生效,以ranking驱动重插顺序,remaining=list(removed)忽略ranking,缺陷,修复,reproduction D1
+动态Regret-2,每次插入后重算全部pending后悔值,插入前一次性排序,缺陷,修复,reproduction D3
+VRPTW算子,greedy/regret按operator执行,greedy与regret共用贪心,缺陷,修复,reproduction D2
+最短可行插位保护,全部可行插位中绕行最小者补入,只追加几何最小位置未验可行,缺陷,修复,reproduction D5
+新建车辆候选,始终作为候选参与比较,无既有可行插位时才新开,缺陷,修复,源码对照
+工作解接受,SA容忍（best-6*tolerance）,严格改善,机制缺失,恢复（无量纲化）,源码对照
+周期重置,每4epoch回best,无,机制缺失,恢复,源码对照
+组破坏规模,贪心6-17/regret 10,每轮40全量重插,机制简化,恢复,源码对照
+候选评价,贪心6距离+6热图;regret top8+保护,全位置精确扫描,语义差异,恢复top-k语义,源码对照
+计算内核,C++ masked_repair+split_order,Python全扫描,性能差异,适配C++内核,效率统计
+16通道输入,训练语义（需求/20000等）,中性编码+需求/20000,待核查,第四阶段核查,诊断统计
+试选选项集合,三选项[-d,heat,heat_cal],两选项[heat,heat_cal]（V2 首轮）,偏离（D6a）,恢复为三选项,ranking_counts 三选项均被采用[0,2,1]
+试选计分对象,repair_batch 返回值（保留部分重构）,超时整次丢弃（V2 首轮）,偏离（D6b）,恢复为保留部分重构,试选 outcomes 非空且被采用
+SA 温度,2.5*max(.10,1-elapsed/s),额外乘 |best|/n（V2 首轮）,偏离（D6c）,恢复锁版公式,MECHANISM_PARITY §3.1
+内核内接受与record更新,repair_batch 内部（record 先更新）,池搜索层近似（V2 首轮）,偏离（D6c）,恢复为内核内,test_repair_batch_related_and_acceptance
+related 掩码构造,偶数次迭代按亲和度平方随机抽样,缺失（V2 首轮）,偏离（D6b）,恢复为 repair_batch 内实现,test 与冒烟 mask_mode_counts

@@ -1,0 +1,10 @@
+| objective | ablation | on | off | n | on_better | off_better | mean_delta | median_delta | sign_test |
+|---|---|---|---|---|---|---|---|---|---|
+| cvrp | split_on | ORDER_SPLIT | MASK | 300 | 196 | 104 | -0.4058 | -0.2405 | {'wins': 196, 'losses': 104, 'z': 5.312, 'p': 0.0} |
+| cvrp | split_on_dist | ORDER_SPLIT_D | DIST | 300 | 195 | 104 | -0.3715 | -0.2189 | {'wins': 195, 'losses': 104, 'z': 5.263, 'p': 0.0} |
+| cvrp | slot_on | SLOT | MASK | 300 | 150 | 149 | 0.0477 | -0.0024 | {'wins': 150, 'losses': 149, 'z': 0.058, 'p': 0.953883} |
+| cvrp | slot_on_dist | DIST_SLOT | DIST | 300 | 148 | 152 | -0.0365 | 0.0042 | {'wins': 148, 'losses': 152, 'z': -0.231, 'p': 0.817361} |
+| vrptw | split_on | ORDER_SPLIT | MASK | 168 | 87 | 67 | 0.2606 | -0.13 | {'wins': 87, 'losses': 67, 'z': 1.612, 'p': 0.107039} |
+| vrptw | split_on_dist | ORDER_SPLIT_D | DIST | 168 | 91 | 57 | 0.0272 | -0.181 | {'wins': 91, 'losses': 57, 'z': 2.795, 'p': 0.005193} |
+| vrptw | slot_on | SLOT | MASK | 168 | 64 | 89 | 0.3123 | 0.2571 | {'wins': 64, 'losses': 89, 'z': -2.021, 'p': 0.043266} |
+| vrptw | slot_on_dist | DIST_SLOT | DIST | 168 | 65 | 83 | 0.3629 | 0.0 | {'wins': 65, 'losses': 83, 'z': -1.48, 'p': 0.138982} |

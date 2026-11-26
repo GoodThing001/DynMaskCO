@@ -1,0 +1,45 @@
+P5-V2 标准 CVRP/VRPTW 源码纠错、机制恢复、公平性审计与受控复验
+
+范围：只修 P5 标准任务；P0–P4 冷链实验、锁版 ORDER_SPLIT 求解器、f0_r0 检查点、
+P5-V1 源/结果/日志/统计/图全部未改（冻结源 89/89 SHA 一致）。
+
+一、审计（SOURCE_AUDIT.md / audit/）
+- 复现 V1 标准任务实现缺陷：D1 客户排序失效、D2 VRPTW 算子失效、D3 静态 Regret-2、
+  D4 校准热图未接入、D5 插位保护未校验可行性；特征偏离 F1–F5。
+- 参考口径独立复算：CVRP 100/100 官方 Cost 与逐边整数舍入一致；Solomon 双精度 48/56 可行，
+  8 例仅在官方 1 位截断口径下可行（最大超窗 0.4002 分钟，修正 V1 文本的 "≤0.1"）；
+  21/100 例官方 BKS 解车辆数多于实例名 k（k 为装箱下界），据此登记车队口径。
+
+二、修复与机制恢复（standard_vrp/ / MECHANISM_PARITY.md）
+- 内核重写为锁版 masked_repair.cpp 逐行移植（choose_slot 三选项排序 + 最短可行插位保护、
+  reconstruct 剥离不可行即回退、repair_batch 含 related 亲和平方随机组掩码与 SA 接受）。
+- 池搜索恢复 HYBRID 结构：40 客池、bundle 并入、冲突池、自适应双模式、每 epoch 一次前向、
+  顺序扰动 + 固定序列 Split、三选项×两算子六配置试选、0.10s 内层片、每 4 epoch 重置。
+- 修复过程中另行发现并修正 V2 自身缺陷：D6a–c（试选缺距离选项/丢弃部分重构/SA 偏离）、
+  D7（共同初解漏客致不可行）、D8（校准热图因硬编码 Windows 路径+静默回退从未生效）。
+- 31 项测试通过（含 Split 与暴力枚举对照、budget 遵守、related/SA、历史快照）。
+
+三、受控实验（configs/ / development_results/ / formal_results/ / diagnostics/）
+- 开发面板 240 端点（5 版本×24 实例×2 种子）：零失败、独立复算零差异。
+  机制恢复 −4.14%（相对仅修缺陷，43/48）、完整机制相对冻结 V1 −3.82%。
+- 固定候选诊断 48 单元：原始热图立即代价 +4.80%、校准后 +2.93%、标准化 +3.72%（相对距离）。
+- 正式复验 3276 端点：CVRP 1800（6 组合）+ VRPTW 1008 + STD_NORM 468；全部独立复算通过。
+  CVRP Gap 6.3%/9.3%/10.3%（100–199/200–499/500–1000，最优组合 ORDER_SPLIT_D）；
+  神经引导相对距离为负贡献（CVRP +1.09%、VRPTW +0.98%，p<0.01）；
+  STD_NORM 与 STD_FIX 不可区分（p=0.20/0.87）；跨车 Split 在 CVRP 稳定有效（−0.41%）。
+- 外部基线补齐 PyVRP VRPTW 168 端点（同 K 子集距离差 +0.67，几乎贴住 BKS）；
+  NDS 因目标口径不可证一致登记 UNSUPPORTED（audit/EXTERNAL_BASELINE_MATRIX.md）。
+
+四、交付物
+- FINAL_REPORT_V2.md、README.md、EXPERIMENT_PROTOCOL_V2.md（先行登记）、BUGFIX_REPORT.md。
+- 表 V2-1…V2-10 + 诊断 + 外部（CSV/MD/LaTeX/Excel，tables/），图 F01–F12（figures/）。
+- 端点 JSON 3276（formal_results/*/endpoints/）、审计 JSON（含逐端点复算值）、
+  manifests/frozen_identity.json（89 文件）、manifests/package_receipt.json（22/22 一致）。
+- 作废面板 dev01_prefix_D6、dev01_pre_D8 作为缺陷证据保留，不参与汇总。
+
+五、边界与诚实性
+- 未重训、未微调、未按正式结果调参；正式面板此前已被观察过一次，故属纠正性复验。
+- 已知限制：Python 内核吞吐比锁版 C++ 低约两个数量级（60s 内 epochs≈35、iterations≈700–1100），
+  绝对成绩低估锁版机制潜力；版本间相对结论在该预算下内部一致。
+- 负结果全部保留（混合大小/不可行/崩溃格）；32 个 FLEET_PRICE 实例仍未开启。
+- 项目状态与文档索引已前置本轮记录；tools/git_deliver.py 新增 p5_standard_vrp_v2 交付组。

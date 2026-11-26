@@ -1,0 +1,23 @@
+{
+  "D1_ranking_ignored_cvrp": {
+    "ranking_asc_equals_desc": true,
+    "note": "V1 L90 使用 remaining=list(removed)，ranking 参数未被消费；两种相反排序得到相同路线即证明失效"
+  },
+  "D3_static_regret_cvrp": {
+    "regret2_full_evals": 2,
+    "regret2_insert_delta_calls": 1627,
+    "greedy_insert_delta_calls": 781,
+    "note": "顺序扫描次数：regret2 的 order_key 在插入前一次性计算（每客户一次全位置扫描），随后逐客户插入再各扫描一次 → 总扫描量 ≈ 2k；动态 Regret-2 应在每次插入后对全部 pending 客户重算后悔值 → 总扫描量 ≈ k(k+1)/2（本例 k=12 → 78 次客户级扫描）。实测增量约为静态量级，且源码 L86 `remaining = sorted(removed, key=order_key, reverse=True)` 只调用一次。"
+  },
+  "D2_vrptw_operator_ignored": {
+    "greedy_equals_regret2": true,
+    "note": "V1 L112 for cust in (list(removed)) —— VRPTW 分支完全忽略 operator 与 ranking"
+  },
+  "D4_calibration_missing": {
+    "same_heat_same_routes": true,
+    "note": "V1 L201-206：ranking_name in ('heatmap','calib') 均传 use_heat=heat，无 residual 校准；calib 与 heatmap 语义相同"
+  },
+  "D5_slot_protection": {
+    "note": "V1 candidate_positions 的 slot 分支追加几何绕行最小位置（L58-66），未验证容量/时窗可行性；锁版要求：在全部可行位置中选择绕行增量最小者（最短可行插位）"
+  }
+}
